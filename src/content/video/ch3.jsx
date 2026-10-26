@@ -9,29 +9,31 @@ const LEFT = [140, 180, 220];
 const RIGHT = [-40, 0, 40];
 const pos = (deg, r = 56) => [CX + r * Math.cos((-deg * Math.PI) / 180), CY + r * Math.sin((-deg * Math.PI) / 180)];
 
-const torqueProduction = video('How the armature makes torque', {
+const torqueProduction = video('Armature le torque kasari banaucha', {
   viewBox: '0 0 360 224',
   beats: [
-    { say: 'Here is the armature between a north pole on the left and a south pole on the right. The field crosses it from left to right.' },
-    { say: 'The commutator makes sure every conductor under the N pole carries current into the screen, shown as crosses, and every conductor under S carries current out, shown as dots.' },
-    { say: 'Fleming’s left-hand rule: field to the right and current into the screen gives a force downward. So every conductor on the left is pushed down.' },
-    { say: 'On the right the current comes out, so the force is upward.' },
-    { say: 'Down on the left and up on the right: all the forces turn the armature the same way, counter-clockwise. Their turning effects add up to the armature torque.' },
+    { say: 'Yo hera armature, left ma north pole ra right ma south pole ko bichma. Field chai yeslai left bata right tira cross garcha.', voice: 'यो हेर आर्मेचर, लेफ्टमा नर्थ पोल र राइटमा साउथ पोलको बीचमा। फिल्ड चाहिँ यसलाई लेफ्टबाट राइटतिर क्रस गर्छ।' },
+    { say: 'Commutator le ensure garcha ki N pole muni ko har conductor ma current screen bhitra jancha, cross le dekhaeko, ra S muni ko har conductor ma current bahira aaucha, dot le dekhaeko.', voice: 'कम्युटेटरले इन्स्योर गर्छ कि एन पोलमुनिको हर कन्डक्टरमा करेन्ट स्क्रिन भित्र जान्छ, क्रसले देखाएको, र एस मुनिको हर कन्डक्टरमा करेन्ट बाहिर आउँछ, डटले देखाएको।' },
+    { say: 'Fleming ko left-hand rule: field right tira ra current screen bhitra bhaye force tala tira huncha. So left ko har conductor tala push huncha.', voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुल: फिल्ड राइटतिर र करेन्ट स्क्रिन भित्र भए फोर्स तलतिर हुन्छ। सो लेफ्टको हर कन्डक्टर तल पुस हुन्छ।' },
+    { say: 'Right tira current bahira aaucha, tesaile force mathi tira huncha.', voice: 'राइटतिर करेन्ट बाहिर आउँछ, त्यसैले फोर्स माथितिर हुन्छ।' },
+    { say: 'Left ma tala, right ma mathi: sabai force le armature lai eutai tira ghumaucha, counter-clockwise. Yinko turning effect jodda armature torque bancha.', voice: 'लेफ्टमा तल, राइटमा माथि: सबै फोर्सले आर्मेचरलाई एउटै तिर घुमाउँछ, काउन्टर क्लकवाइज। यिनको टर्निङ इफेक्ट जोड्दा आर्मेचर टर्क बन्छ।' },
     {
-      say: 'This is a real IOE question.',
+      say: 'Yo real IOE question ho, bro.',
+      voice: 'यो रियल आइओई क्वेस्चन हो, ब्रो।',
       ask: {
         tag: 'IOE 2079 Jestha',
-        q: 'How is unidirectional torque produced in a DC machine when the armature is supplied from a DC source?',
+        q: 'Armature lai DC source bata supply garda DC machine ma unidirectional torque kasari produce huncha?',
+        voice: 'आर्मेचरलाई डीसी सोर्सबाट सप्लाई गर्दा डीसी मेसिनमा युनिडाइरेक्सनल टर्क कसरी प्रोड्युस हुन्छ?',
         options: [
-          'The commutator reverses each coil’s current as it passes from one pole to the next, so conductors under a given pole always carry current the same way',
-          'The DC supply reverses its polarity every half turn',
-          'The brushes rotate with the armature',
+          'Coil euta pole bata arko pole ma jada commutator le tesko current reverse garcha, tesaile euta pole muni ko conductor ma current sadhai eutai direction ma bagcha',
+          'DC supply le har half turn ma aafno polarity reverse garcha',
+          'Brush haru armature sangai ghumchan',
         ],
         answer: 0,
-        why: 'The supply and poles are fixed. The commutator switches each coil as it crosses the neutral zone, so all the forces keep turning the armature one way.',
+        why: 'Supply ra pole fixed chan. Har coil le neutral zone cross garda commutator le switch garcha, tesaile sabai force le armature lai eutai tira ghumairakhcha.',
       },
     },
-    { say: 'As a conductor moves from under N to under S, the commutator reverses its current, so its force flips too, and it keeps pushing in the same direction of rotation.' },
+    { say: 'Conductor N muni bata S muni jada commutator le tesko current reverse garcha, tesaile force pani flip huncha, ra tyo rotation ko eutai direction ma push garirahancha.', voice: 'कन्डक्टर एन मुनिबाट एस मुनि जाँदा कम्युटेटरले यसको करेन्ट रिभर्स गर्छ, त्यसैले फोर्स पनि फ्लिप हुन्छ, र त्यो रोटेसनको एउटै डाइरेक्सनमा पुस गरिरहन्छ।' },
   ],
   draw: (s) => (
     <>
@@ -73,105 +75,111 @@ const torqueProduction = video('How the armature makes torque', {
       </g>
     </>
   ),
-  board: [{ at: 4, kind: 'note', node: <>All conductors under N: ⊗ and pushed down. All under S: ⊙ and pushed up. → <b>unidirectional torque</b></> }],
+  board: [{ at: 4, kind: 'note', node: <>N muni ko sabai conductor: ⊗ ra tala push. S muni ko sabai: ⊙ ra mathi push. → <b>unidirectional torque</b></> }],
 });
 
-const torqueDerivation = video('Derivation: the torque equation', {
+const torqueDerivation = video('Derivation: torque equation', {
   tall: true,
   beats: [
-    { say: 'Now the torque equation. Armature radius r, active length l, P poles, phi per pole, Z conductors, A parallel paths, and armature current Ia.' },
-    { say: 'The armature current splits equally between the A paths, so each conductor carries Ia over A.' },
-    { say: 'The total flux, P phi, spreads over the armature surface, an area of two pi r l. So the average flux density is P phi over two pi r l.' },
-    { say: 'Force on one conductor is B I l. Put in B and the conductor current, and the l cancels: P phi Ia over two pi r A.' },
+    { say: 'Aba torque equation. Armature radius r, active length l, P pole, per pole phi, Z conductor, A parallel path, ra armature current I a.', voice: 'अब टर्क इक्वेसन। आर्मेचर रेडियस आर, एक्टिभ लेन्थ एल, पी पोल, पर पोल फाइ, जेड कन्डक्टर, ए प्यारालल पाथ, र आर्मेचर करेन्ट आई ए।' },
+    { say: 'Armature current A ota path ma barabar split huncha, tesaile har conductor ma I a over A bagcha.', voice: 'आर्मेचर करेन्ट ए ओटा पाथमा बराबर स्प्लिट हुन्छ, त्यसैले हर कन्डक्टरमा आई ए ओभर ए बग्छ।' },
+    { say: 'Total flux, P phi, armature ko surface bhari phailincha, jasko area two pi r l ho. So average flux density P phi over two pi r l huncha.', voice: 'टोटल फ्लक्स, पी फाइ, आर्मेचरको सर्फेस भरि फैलिन्छ, जसको एरिया टु पाइ आर एल हो। सो एभरेज फ्लक्स डेन्सिटी पी फाइ ओभर टु पाइ आर एल हुन्छ।' },
+    { say: 'Euta conductor ma force B I l. B ra conductor current halda l cancel huncha: P phi I a over two pi r A.', voice: 'एउटा कन्डक्टरमा फोर्स बी आई एल। बी र कन्डक्टर करेन्ट हाल्दा एल क्यान्सिल हुन्छ: पी फाइ आई ए ओभर टु पाइ आर ए।' },
     {
-      say: 'Force becomes torque through a lever arm.',
+      say: 'Force lever arm bata torque bancha.',
+      voice: 'फोर्स लिभर आर्मबाट टर्क बन्छ।',
       ask: {
-        tag: 'Mid-derivation',
-        q: 'The torque from one conductor is its force multiplied by…',
-        options: ['r, the armature radius', 'l, the active length', '2πr, the circumference', 'A, the number of paths'],
+        tag: 'Derivation ko bich ma',
+        q: 'Euta conductor ko torque bhaneko tesko force times…',
+        voice: 'एउटा कन्डक्टरको टर्क भनेको यसको फोर्स टाइम्स…',
+        options: ['r, armature radius', 'l, active length', '2πr, circumference', 'A, path ko number'],
         answer: 0,
-        why: 'The force acts tangentially at the armature surface, a distance r from the shaft.',
+        why: 'Force armature ko surface ma tangentially lagcha, shaft bata r distance ma.',
       },
     },
-    { say: 'Torque from one conductor is F times r. The r cancels too, leaving P phi Ia over two pi A.' },
-    { say: 'The commutator makes all Z conductors push the same way, so multiply by Z: Ta equals P phi Z Ia over two pi A.' },
-    { say: 'One over two pi is 0.159. So Ta equals 0.159 phi Z Ia times P over A, in newton metres.' },
-    { say: 'For a given machine, P, Z and A are fixed. So the armature torque is proportional to flux times armature current.' },
+    { say: 'Euta conductor ko torque F times r. r pani cancel huncha, baki rahancha P phi I a over two pi A.', voice: 'एउटा कन्डक्टरको टर्क एफ टाइम्स आर। आर पनि क्यान्सिल हुन्छ, बाँकी रहन्छ पी फाइ आई ए ओभर टु पाइ ए।' },
+    { say: 'Commutator le sabai Z conductor lai eutai tira push garaucha, tesaile Z le multiply gara: T a equals P phi Z I a over two pi A.', voice: 'कम्युटेटरले सबै जेड कन्डक्टरलाई एउटै तिर पुस गराउँछ, त्यसैले जेडले मल्टिप्लाई गर: टी ए इक्वल्स पी फाइ जेड आई ए ओभर टु पाइ ए।' },
+    { say: 'One over two pi bhaneko 0.159. So T a equals 0.159 phi Z I a times P over A, newton metre ma.', voice: 'वान ओभर टु पाइ भनेको जिरो पोइन्ट वान फाइभ नाइन। सो टी ए इक्वल्स जिरो पोइन्ट वान फाइभ नाइन फाइ जेड आई ए टाइम्स पी ओभर ए, न्युटन मिटरमा।' },
+    { say: 'Euta given machine ma P, Z ra A fixed huncha. So armature torque flux times armature current sanga proportional huncha. Simple cha.', voice: 'एउटा गिभन मेसिनमा पी, जेड र ए फिक्स्ड हुन्छ। सो आर्मेचर टर्क फ्लक्स टाइम्स आर्मेचर करेन्टसँग प्रोपोर्सनल हुन्छ। सिम्पल छ।' },
   ],
   board: [
     { at: 0, kind: 'h', node: <>Torque equation</> },
-    { at: 0, kind: 'note', node: <>r radius · l length · P poles · φ Wb/pole · Z conductors · A paths · I<sub>a</sub></> },
-    { at: 1, kind: 'step', node: <>Current per conductor: I<sub>c</sub> = <span className="y">I<sub>a</sub> / A</span></> },
+    { at: 0, kind: 'note', node: <>r radius · l length · P pole · φ Wb/pole · Z conductor · A path · I<sub>a</sub></> },
+    { at: 1, kind: 'step', node: <>Euta conductor ko current: I<sub>c</sub> = <span className="y">I<sub>a</sub> / A</span></> },
     { at: 2, kind: 'step', node: <>Flux density: B = Pφ / (2πrl)</> },
-    { at: 3, kind: 'step', node: <>Force per conductor: F = B·I<sub>c</sub>·l = (Pφ/2πrl)(I<sub>a</sub>/A)·l = <span className="y">PφI<sub>a</sub> / (2πrA)</span></> },
-    { at: 5, kind: 'step', node: <>Torque per conductor: τ = F·r = <span className="y">PφI<sub>a</sub> / (2πA)</span></> },
-    { at: 6, kind: 'step', node: <>All Z conductors: T<sub>a</sub> = PφZI<sub>a</sub> / (2πA)</> },
+    { at: 3, kind: 'step', node: <>Euta conductor ma force: F = B·I<sub>c</sub>·l = (Pφ/2πrl)(I<sub>a</sub>/A)·l = <span className="y">PφI<sub>a</sub> / (2πrA)</span></> },
+    { at: 5, kind: 'step', node: <>Euta conductor ko torque: τ = F·r = <span className="y">PφI<sub>a</sub> / (2πA)</span></> },
+    { at: 6, kind: 'step', node: <>Sabai Z conductor: T<sub>a</sub> = PφZI<sub>a</sub> / (2πA)</> },
     { at: 7, kind: 'eq', node: <>T<sub>a</sub> = 0.159 · φ · Z · I<sub>a</sub> · (P/A) N·m</> },
-    { at: 8, kind: 'step', node: <>Given machine: <span className="g">T<sub>a</sub> ∝ φ I<sub>a</sub></span></> },
+    { at: 8, kind: 'step', node: <>Given machine ma: <span className="g">T<sub>a</sub> ∝ φ I<sub>a</sub></span></> },
   ],
 });
 
-const torqueFactors = video('What decides the torque?', {
+const torqueFactors = video('Torque kasle decide garcha?', {
   beats: [
-    { say: 'IOE 2079 Jestha also asks: what factors affect the torque produced? Read them straight off the equation.' },
-    { say: 'Flux per pole, phi. More field current gives more flux, until the iron saturates.' },
-    { say: 'Armature current, Ia. This is set by the load: a heavier load draws more current.' },
-    { say: 'And the design constants: the number of conductors Z, poles P, and parallel paths A. These are fixed once the machine is built.' },
+    { say: 'IOE 2079 Jestha le yo pani sodhcha: produce bhaeko torque lai kun factor le affect garcha? Equation bata sidhai padha.', voice: 'आइओई टु थाउजेन्ड सेभेन्टी नाइन जेठले यो पनि सोध्छ: प्रोड्युस भएको टर्कलाई कुन फ्याक्टरले अफेक्ट गर्छ? इक्वेसनबाट सिधै पढ।' },
+    { say: 'Flux per pole, phi. Field current badhe flux badhcha, iron saturate nahunjel.', voice: 'फ्लक्स पर पोल, फाइ। फिल्ड करेन्ट बढे फ्लक्स बढ्छ, आइरन स्याचुरेट नहुन्जेल।' },
+    { say: 'Armature current, I a. Yo load le set garcha: heavy load le dherai current tancha.', voice: 'आर्मेचर करेन्ट, आई ए। यो लोडले सेट गर्छ: हेभी लोडले धेरै करेन्ट तान्छ।' },
+    { say: 'Ani design constant haru: conductor ko number Z, pole P, ra parallel path A. Machine banisakepachi yi fixed hunchan.', voice: 'अनि डिजाइन कन्स्टेन्ट हरु: कन्डक्टरको नम्बर जेड, पोल पी, र प्यारालल पाथ ए। मेसिन बनिसकेपछि यी फिक्स्ड हुन्छन्।' },
     {
-      say: 'Let us use it.',
+      say: 'La use garau.',
+      voice: 'ल युज गरौं।',
       ask: {
         tag: 'Quick check',
-        q: 'A 4-pole, lap-wound motor has Z = 480 conductors and φ = 20 mWb. Its armature current is 50 A. What is the armature torque?',
+        q: '4-pole, lap-wound motor ma Z = 480 conductor ra φ = 20 mWb cha. Armature current 50 A cha. Armature torque kati huncha?',
+        voice: 'फोर पोल, ल्याप वाउन्ड मोटरमा जेड इक्वल्स फोर एटी कन्डक्टर र फाइ इक्वल्स ट्वेन्टी मिलिवेबर छ। आर्मेचर करेन्ट फिफ्टी एम्पियर छ। आर्मेचर टर्क कति हुन्छ?',
         options: ['≈ 76.3 N·m', '≈ 38.2 N·m', '≈ 152.6 N·m', '≈ 480 N·m'],
         answer: 0,
-        why: 'Lap: A = P, so P/A = 1. Ta = 0.159 × 0.02 × 480 × 50 ≈ 76.3 N·m. (152.6 N·m wrongly uses the wave value P/A = 2.)',
+        why: 'Lap ma A = P, so P/A = 1. Ta = 0.159 × 0.02 × 480 × 50 ≈ 76.3 N·m. (152.6 N·m le galti le wave ko value P/A = 2 use garcha.)',
       },
     },
-    { say: 'Notice the trap: in lap winding P over A is one, but in wave winding it is P over two. The same machine wound wave would give twice the torque per ampere.' },
+    { say: 'Trap hera: lap winding ma P over A one huncha, tara wave winding ma P over two. Eutai machine wave ma wound bhaye per ampere dui guna torque dincha.', voice: 'ट्र्याप हेर: ल्याप वाइन्डिङमा पी ओभर ए वान हुन्छ, तर वेभ वाइन्डिङमा पी ओभर टु। एउटै मेसिन वेभमा वाउन्ड भए पर एम्पियर दुई गुना टर्क दिन्छ।' },
     {
-      say: 'One more.',
+      say: 'Arko ekchoti.',
+      voice: 'अर्को एकचोटि।',
       ask: {
         tag: 'Quick check',
-        q: 'You double the armature current and halve the flux. The torque…',
-        options: ['stays the same', 'doubles', 'halves', 'becomes four times bigger'],
+        q: 'Armature current double garyo ra flux half garyo. Torque…',
+        voice: 'आर्मेचर करेन्ट डबल गर्यो र फ्लक्स हाफ गर्यो। टर्क…',
+        options: ['same rahancha', 'double huncha', 'half huncha', 'char guna thulo huncha'],
         answer: 0,
-        why: 'Ta ∝ φIa: (½φ)(2Ia) = φIa, so the torque is unchanged.',
+        why: 'Ta ∝ φIa: (½φ)(2Ia) = φIa, tesaile torque change hudaina.',
       },
     },
   ],
   board: [
     { at: 0, kind: 'eq', node: <>T<sub>a</sub> = 0.159 · φ · Z · I<sub>a</sub> · (P/A)</> },
     { at: 1, kind: 'step', node: <><span className="y">φ</span>: flux per pole (field current, saturation)</> },
-    { at: 2, kind: 'step', node: <><span className="y">I<sub>a</sub></span>: armature current (set by the load)</> },
-    { at: 3, kind: 'step', node: <><span className="y">Z, P, A</span>: design constants (fixed)</> },
+    { at: 2, kind: 'step', node: <><span className="y">I<sub>a</sub></span>: armature current (load le set garcha)</> },
+    { at: 3, kind: 'step', node: <><span className="y">Z, P, A</span>: design constant (fixed)</> },
     { at: 5, kind: 'note', node: <>Lap: P/A = 1 · Wave: P/A = P/2</> },
   ],
 });
 
 export const ch3 = {
-  title: 'Working principle & torque equation',
-  syllabus: 'Unit 4 · Working principle and torque equation',
+  title: 'Working principle ra torque equation',
+  syllabus: 'Unit 4 · Working principle ra torque equation',
   steps: [
     torqueProduction,
     torqueDerivation,
     torqueFactors,
     model({
-      q: 'Explain the working principle of a DC motor and derive the equation of torque developed by the armature.',
+      q: 'DC motor ko working principle explain gara ra armature le develop garne torque ko equation derive gara.',
       papers: ['2073 Chaitra', '2069 Bhadra', '2082 Baishakh (ECM)'],
       marks: 'ECM 2082 Baishakh [4 + 2]',
       points: [
-        <><b>Principle:</b> when a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force F = BIl, whose direction is given by Fleming’s left-hand rule.</>,
-        <><b>Working:</b> the field winding produces flux; the armature is fed through the brushes and commutator. Conductors under N carry current one way and those under S the other way, so all the forces act in the same rotational sense and produce a torque.</>,
-        <><b>Role of the commutator:</b> it reverses the current in each coil as it passes the neutral zone, keeping the torque unidirectional.</>,
-        <><b>Derivation:</b> I<sub>c</sub> = I<sub>a</sub>/A; B = Pφ/(2πrl); F = BI<sub>c</sub>l = PφI<sub>a</sub>/(2πrA); torque per conductor = F·r = PφI<sub>a</sub>/(2πA).</>,
-        <><b>Result:</b> T<sub>a</sub> = PφZI<sub>a</sub>/(2πA) = 0.159 φZI<sub>a</sub>(P/A) N·m, so T<sub>a</sub> ∝ φI<sub>a</sub>.</>,
-        <><b>Consequence:</b> shunt motor (φ constant) T<sub>a</sub> ∝ I<sub>a</sub>; series motor (φ ∝ I<sub>a</sub>) T<sub>a</sub> ∝ I<sub>a</sub>² before saturation.</>,
+        <><b>Principle:</b> Exam ma exactly yo lekha: “When a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force F = BIl”, ani yesko direction Fleming ko left-hand rule le dincha.</>,
+        <><b>Working:</b> field winding le flux banaucha; armature lai brush ra commutator bata feed garincha. N muni ka conductor ma current euta tira ra S muni ka ma arko tira bagcha, tesaile sabai force eutai rotational sense ma lagchan ra torque produce garchan.</>,
+        <><b>Commutator ko role:</b> har coil le neutral zone pass garda tesko current reverse garcha, ani torque lai unidirectional rakhcha.</>,
+        <><b>Derivation:</b> I<sub>c</sub> = I<sub>a</sub>/A; B = Pφ/(2πrl); F = BI<sub>c</sub>l = PφI<sub>a</sub>/(2πrA); euta conductor ko torque = F·r = PφI<sub>a</sub>/(2πA).</>,
+        <><b>Result:</b> T<sub>a</sub> = PφZI<sub>a</sub>/(2πA) = 0.159 φZI<sub>a</sub>(P/A) N·m, tesaile T<sub>a</sub> ∝ φI<sub>a</sub>.</>,
+        <><b>Consequence:</b> shunt motor (φ constant) ma T<sub>a</sub> ∝ I<sub>a</sub>; series motor (φ ∝ I<sub>a</sub>) ma saturation aghi T<sub>a</sub> ∝ I<sub>a</sub>².</>,
       ],
-      tip: 'Draw the armature between N and S with ⊗ and ⊙ conductors and force arrows. ECM 2082 Baishakh adds “role of back EMF” for 2 marks (see the Back EMF chapter).',
+      tip: 'N ra S ko bichma armature draw gara, ⊗ ra ⊙ conductor ra force arrow sanga. ECM 2082 Baishakh ma “role of back EMF” 2 marks ko lagi thapincha (Back EMF chapter hera). Exam ma English mai lekha.',
     }),
-    hook('Torque needs Flux AND current: Ta ∝ φ Ia', [
-      'Ta = 0.159 φ Z Ia (P/A), since 1/2π = 0.159',
-      'Commutator → every conductor under one pole pushes the same way',
+    hook('Torque lai Flux RA current dubai chahincha: Ta ∝ φ Ia', [
+      'Ta = 0.159 φ Z Ia (P/A), kina bhane 1/2π = 0.159',
+      'Commutator → euta pole muni ko har conductor eutai tira push garcha',
       'Lap: P/A = 1 · Wave: P/A = P/2',
     ]),
   ],

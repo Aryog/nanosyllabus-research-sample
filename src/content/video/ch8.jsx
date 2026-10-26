@@ -10,24 +10,44 @@ const KNOBS = [
   { k: 'V', name: 'armature V', x: 270, beat: 6, color: C.green },
 ];
 
-const threeKnobs = video('Three handles on speed', {
+const threeKnobs = video('Speed ka tinta handle', {
   viewBox: '0 0 360 200',
   beats: [
-    { say: 'Every speed-control method comes from one equation. Speed is proportional to V minus Ia Ra, divided by phi.' },
-    { say: 'So there are three handles: the flux phi, the resistance in the armature circuit, and the voltage applied to the armature.' },
-    { say: 'Base speed is the speed at rated voltage, with full field and no extra armature resistance.' },
     {
-      say: 'Think about the field.',
+      say: 'Sabai speed-control method euta equation bata aaucha. Speed chai V minus Ia Ra lai phi le bhag gareko sanga proportional huncha.',
+      voice: 'सबै स्पिड कन्ट्रोल मेथड एउटा इक्वेसनबाट आउँछ। स्पिड चाहिँ भी माइनस आई ए आर ए लाई फाइले भाग गरेकोसँग प्रोपोर्सनल हुन्छ।',
+    },
+    {
+      say: 'Tesaile handle tinta chan: flux phi, armature circuit ko resistance, ra armature ma diyeko voltage.',
+      voice: 'त्यसैले ह्यान्डल तीनवटा छन्: फ्लक्स फाइ, आर्मेचर सर्किटको रेजिस्टेन्स, र आर्मेचरमा दिएको भोल्टेज।',
+    },
+    {
+      say: 'Base speed bhaneko rated voltage ma, full field ra armature ma extra resistance nabhako bela ko speed ho.',
+      voice: 'बेस स्पिड भनेको रेटेड भोल्टेजमा, फुल फिल्ड र आर्मेचरमा एक्स्ट्रा रेजिस्टेन्स नभएको बेलाको स्पिड हो।',
+    },
+    {
+      say: 'Aba field ko barema socha.',
+      voice: 'अब फिल्डको बारेमा सोच।',
       ask: {
-        q: 'At base speed the field is already at full strength. So field control can only…',
-        options: ['weaken φ, which raises the speed above base', 'strengthen φ further', 'bring the motor to zero speed'],
+        q: 'Base speed ma field already full strength ma cha. Tesaile field control le matra…',
+        voice: 'बेस स्पिडमा फिल्ड अलरेडी फुल स्ट्रेन्थमा छ। त्यसैले फिल्ड कन्ट्रोलले मात्र…',
+        options: ['φ weaken garna sakcha, jasle speed base bhanda mathi lancha', 'φ jhan strengthen garna sakcha', 'motor lai zero speed samma lyauna sakcha'],
         answer: 0,
-        why: 'N ∝ 1/φ. The only direction left for φ is down, so field control works above base speed.',
+        why: 'N ∝ 1/φ. φ ko lagi baaki direction bhaneko tala matra ho, tesaile field control base speed bhanda mathi kaam garcha.',
       },
     },
-    { say: 'Weaken the flux and the speed rises above base. That is field control.' },
-    { say: 'Add resistance in the armature circuit and the speed falls below base. That is armature control.' },
-    { say: 'Lower the armature voltage and the speed falls smoothly, right down to zero. That is voltage control.' },
+    {
+      say: 'Flux weaken gara, speed base bhanda mathi jancha. Yo nai field control ho.',
+      voice: 'फ्लक्स विकन गर, स्पिड बेसभन्दा माथि जान्छ। यो नै फिल्ड कन्ट्रोल हो।',
+    },
+    {
+      say: 'Armature circuit ma resistance thapa, speed base bhanda tala jharcha. Yo armature control ho.',
+      voice: 'आर्मेचर सर्किटमा रेजिस्टेन्स थप, स्पिड बेसभन्दा तल झर्छ। यो आर्मेचर कन्ट्रोल हो।',
+    },
+    {
+      say: 'Armature voltage ghatau, speed smoothly ekdam zero samma jharcha. Yo voltage control ho.',
+      voice: 'आर्मेचर भोल्टेज घटाऊ, स्पिड स्मुथ्ली एकदम जिरोसम्म झर्छ। यो भोल्टेज कन्ट्रोल हो।',
+    },
   ],
   draw: (s) => {
     const m = MARKER[s.beat];
@@ -49,7 +69,7 @@ const threeKnobs = video('Three handles on speed', {
           <line x1={40} y1={160} x2={180} y2={160} stroke={C.orange} strokeWidth={8} strokeLinecap="round" opacity={s.at(5) ? 0.5 : 0} style={{ transition: 'opacity 0.6s' }} />
           <text x={40} y={186} textAnchor="middle" fontSize={11} fill={C.dim}>0</text>
           <text x={180} y={186} textAnchor="middle" fontSize={11} fontWeight={700} fill={C.chalk}>base</text>
-          <text x={320} y={186} textAnchor="middle" fontSize={11} fill={C.dim}>above base</text>
+          <text x={320} y={186} textAnchor="middle" fontSize={11} fill={C.dim}>base bhanda mathi</text>
           {m != null && (
             <g style={{ transform: `translateX(${m - 180}px)`, transition: 'transform 1s ease' }}>
               <polygon points="180,148 172,136 188,136" fill={C.yellow} />
@@ -63,34 +83,53 @@ const threeKnobs = video('Three handles on speed', {
 
 const fieldControl = video('Field (flux) control', {
   beats: [
-    { say: 'Field control: a rheostat in series with the shunt field winding.' },
-    { say: 'Increase the rheostat, and the field current falls, the flux falls, and the speed rises above base speed.' },
     {
-      say: 'Why is this method so economical?',
+      say: 'Field control: shunt field winding sanga series ma euta rheostat.',
+      voice: 'फिल्ड कन्ट्रोल: शन्ट फिल्ड वाइन्डिङसँग सिरिजमा एउटा रियोस्ट्याट।',
+    },
+    {
+      say: 'Rheostat badhau, field current ghatcha, flux ghatcha, ani speed base speed bhanda mathi jancha.',
+      voice: 'रियोस्ट्याट बढाऊ, फिल्ड करेन्ट घट्छ, फ्लक्स घट्छ, अनि स्पिड बेस स्पिडभन्दा माथि जान्छ।',
+    },
+    {
+      say: 'Yo method kina yati economical cha?',
+      voice: 'यो मेथड किन यति इकोनोमिकल छ?',
       ask: {
-        q: 'Why is field control efficient compared with armature control?',
-        options: ['The field current is small, so little power is lost in the rheostat', 'It needs no rheostat at all', 'It lowers the armature current to zero'],
+        q: 'Armature control sanga compare garda field control kina efficient cha?',
+        voice: 'आर्मेचर कन्ट्रोलसँग कम्पेयर गर्दा फिल्ड कन्ट्रोल किन इफिसियन्ट छ?',
+        options: ['Field current sano huncha, tesaile rheostat ma thorai power matra loss huncha', 'Yaslai rheostat nai chahidaina', 'Yasle armature current zero banaucha'],
         answer: 0,
-        why: 'Ish is only a few percent of the line current, so Ish²R in the field rheostat is tiny.',
+        why: 'Ish line current ko kehi percent matra ho, tesaile field rheostat ma Ish²R ekdam sano huncha.',
       },
     },
-    { say: 'It is cheap, efficient and smooth, with many speed steps.' },
-    { say: 'But it only gives speeds above base, and it is limited by poor commutation and the mechanical strength of the armature at high speed.' },
-    { say: 'With a constant-torque load, weakening the flux forces the armature current up, because phi times I a must stay the same.' },
+    {
+      say: 'Yo sasto, efficient ra smooth cha, dherai speed steps sanga.',
+      voice: 'यो सस्तो, इफिसियन्ट र स्मुथ छ, धेरै स्पिड स्टेप्ससँग।',
+    },
+    {
+      say: 'Tara yasle base bhanda mathi ko speed matra dincha, ani high speed ma poor commutation ra armature ko mechanical strength le limit garcha.',
+      voice: 'तर यसले बेसभन्दा माथिको स्पिड मात्र दिन्छ, अनि हाई स्पिडमा पुअर कम्युटेसन र आर्मेचरको मेकानिकल स्ट्रेन्थले लिमिट गर्छ।',
+    },
+    {
+      say: 'Constant-torque load ma, flux weaken garda armature current badhnai parcha, kina bhane phi times I a same rahanu parcha.',
+      voice: 'कन्स्ट्यान्ट टर्क लोडमा, फ्लक्स विकन गर्दा आर्मेचर करेन्ट बढ्नै पर्छ, किनभने फाइ टाइम्स आई ए सेम रहनु पर्छ।',
+    },
   ],
   board: [
     { at: 0, kind: 'h', node: <>Field (flux) control</> },
-    { at: 1, kind: 'step', node: <>Rheostat ↑ → Ish ↓ → φ ↓ → <span className="y">N ↑ (above base speed)</span></> },
-    { at: 3, kind: 'step', node: <><span className="g">✓</span> cheap, efficient (small Ish), smooth control</> },
-    { at: 4, kind: 'step', node: <><span className="r">✗</span> only above base · limited by commutation & armature strength</> },
+    { at: 1, kind: 'step', node: <>Rheostat ↑ → Ish ↓ → φ ↓ → <span className="y">N ↑ (base speed bhanda mathi)</span></> },
+    { at: 3, kind: 'step', node: <><span className="g">✓</span> sasto, efficient (Ish sano), smooth control</> },
+    { at: 4, kind: 'step', node: <><span className="r">✗</span> base bhanda mathi matra · commutation ra armature strength le limit</> },
     { at: 5, kind: 'eq', node: <>Constant torque: φ₁·Ia₁ = φ₂·Ia₂</> },
   ],
 });
 
 const solveField = solve({
-  title: 'Solving IOE 2075 Baishakh: field weakening',
+  title: 'IOE 2075 Baishakh solve: field weakening',
   paper: '2075 Baishakh',
-  read: 'A 250 volt DC shunt motor takes an armature current of 20 amperes at 1500 rpm. Armature resistance is 0.25 ohm and field resistance 250 ohms. A 250 ohm resistance is added in series with the field, with the load torque constant. Find the new speed.',
+  paperVoice: 'टु थाउजेन्ड सेभेन्टी फाइभ बैशाख',
+  read: '250 volt ko DC shunt motor le 1500 rpm ma 20 ampere armature current lincha. Armature resistance 0.25 ohm ra field resistance 250 ohm cha. Load torque constant rakhera field sanga series ma 250 ohm resistance thapincha. Naya speed nikala.',
+  readVoice: 'टु फिफ्टी भोल्टको डीसी शन्ट मोटरले फिफ्टीन हन्ड्रेड आर पी एममा ट्वेन्टी एम्पियर आर्मेचर करेन्ट लिन्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट टु फाइभ ओह्म र फिल्ड रेजिस्टेन्स टु फिफ्टी ओह्म छ। लोड टर्क कन्स्ट्यान्ट राखेर फिल्डसँग सिरिजमा टु फिफ्टी ओह्म रेजिस्टेन्स थपिन्छ। नयाँ स्पिड निकाल।',
   question: (
     <>
       A <D>250 V</D> DC shunt motor (<D>Ra = 0.25 Ω</D>, <D>Rsh = 250 Ω</D>) takes an armature current of <D>20 A</D> at <D>1500 rpm</D>. A{' '}
@@ -98,64 +137,99 @@ const solveField = solve({
     </>
   ),
   given: [
-    { node: <>V = 250 V</>, say: 'Supply 250 volts' },
-    { node: <>Ra = 0.25 Ω, Rsh = 250 Ω</>, say: 'armature resistance 0.25 ohm, field 250 ohms' },
-    { node: <>Ia₁ = 20 A, N₁ = 1500 rpm</>, say: '20 amperes at 1500 rpm' },
-    { node: <>Field circuit: 250 + 250 = 500 Ω; torque constant</>, say: 'and the field circuit becomes 500 ohms at constant torque' },
+    { node: <>V = 250 V</>, say: 'Supply 250 volt', voice: 'सप्लाई टु फिफ्टी भोल्ट' },
+    { node: <>Ra = 0.25 Ω, Rsh = 250 Ω</>, say: 'armature resistance 0.25 ohm, field 250 ohm', voice: 'आर्मेचर रेजिस्टेन्स जिरो पोइन्ट टु फाइभ ओह्म, फिल्ड टु फिफ्टी ओह्म' },
+    { node: <>Ia₁ = 20 A, N₁ = 1500 rpm</>, say: '1500 rpm ma 20 ampere', voice: 'फिफ्टीन हन्ड्रेड आर पी एममा ट्वेन्टी एम्पियर' },
+    { node: <>Field circuit: 250 + 250 = 500 Ω; torque constant</>, say: 'ani constant torque ma field circuit 500 ohm huncha', voice: 'अनि कन्स्ट्यान्ट टर्कमा फिल्ड सर्किट फाइभ हन्ड्रेड ओह्म हुन्छ' },
   ],
-  find: { node: <>New speed N₂</>, say: 'They want the new speed.' },
+  find: { node: <>Naya speed N₂</>, say: 'Naya speed chahiyo.', voice: 'नयाँ स्पिड चाहियो।' },
   idea: {
-    node: <>N₂/N₁ = (Eb₂/Eb₁)(φ₁/φ₂) and constant torque ⟹ φ₁Ia₁ = φ₂Ia₂</>,
-    say: 'Key idea: the speed ratio is the back EMF ratio times the flux ratio, and constant torque means phi times I a stays the same.',
+    node: <>N₂/N₁ = (Eb₂/Eb₁)(φ₁/φ₂) ra constant torque ⟹ φ₁Ia₁ = φ₂Ia₂</>,
+    say: 'Key idea: speed ratio bhaneko back EMF ratio times flux ratio ho, ani constant torque bhaneko phi times I a same rahancha.',
+    voice: 'की आइडिया: स्पिड रेसियो भनेको ब्याक ई एम एफ रेसियो टाइम्स फ्लक्स रेसियो हो, अनि कन्स्ट्यान्ट टर्क भनेको फाइ टाइम्स आई ए सेम रहन्छ।',
   },
   steps: [
-    { node: <>Ish₁ = 250/250 = 1 A → Ish₂ = 250/500 = 0.5 A ⟹ φ₂ = φ₁/2</>, say: 'Field current falls from one ampere to half an ampere, so the flux halves.' },
+    {
+      node: <>Ish₁ = 250/250 = 1 A → Ish₂ = 250/500 = 0.5 A ⟹ φ₂ = φ₁/2</>,
+      say: 'Field current 1 ampere bata half ampere ma jharcha, tesaile flux half huncha.',
+      voice: 'फिल्ड करेन्ट वान एम्पियरबाट हाफ एम्पियरमा झर्छ, त्यसैले फ्लक्स हाफ हुन्छ।',
+    },
     {
       node: <>φ₁Ia₁ = φ₂Ia₂ ⟹ Ia₂ = 20 × 2 = 40 A</>,
-      say: 'Now the armature current.',
+      say: 'Aba armature current.',
+      voice: 'अब आर्मेचर करेन्ट।',
       ask: {
         tag: 'IOE 2075 Baishakh',
-        q: 'Load torque is constant and Ta ∝ φ·Ia. If φ halves, the armature current must…',
-        options: ['double to 40 A', 'halve to 10 A', 'stay at 20 A'],
+        q: 'Load torque constant cha ra Ta ∝ φ·Ia. φ half bhayo bhane armature current le…',
+        voice: 'लोड टर्क कन्स्ट्यान्ट छ र टी ए प्रोपोर्सनल टु फाइ आई ए। फाइ हाफ भयो भने आर्मेचर करेन्टले…',
+        options: ['double bhayera 40 A pugnu parcha', 'half bhayera 10 A hunu parcha', '20 A mai rahanu parcha'],
         answer: 0,
-        why: 'φ₁·Ia₁ = φ₂·Ia₂, so Ia₂ = 20 × (φ₁/φ₂) = 40 A.',
+        why: 'φ₁·Ia₁ = φ₂·Ia₂, tesaile Ia₂ = 20 × (φ₁/φ₂) = 40 A.',
       },
     },
-    { node: <>Eb₁ = 250 − 20 × 0.25 = 245 V · Eb₂ = 250 − 40 × 0.25 = 240 V</>, say: 'Back EMF before is 245 volts, after is 240 volts.' },
+    {
+      node: <>Eb₁ = 250 − 20 × 0.25 = 245 V · Eb₂ = 250 − 40 × 0.25 = 240 V</>,
+      say: 'Back EMF pahile 245 volt, pachi 240 volt.',
+      voice: 'ब्याक ई एम एफ पहिले टु हन्ड्रेड फोर्टी फाइभ भोल्ट, पछि टु हन्ड्रेड फोर्टी भोल्ट।',
+    },
   ],
-  answer: { node: <>N₂ = 1500 × (240/245) × 2 ≈ 2939 rpm</>, say: 'So N two is 1500 times 240 over 245, times 2: about 2939 rpm. Field weakening took the speed well above base.' },
-  trap: { node: <>Trap: keeping Ia = 20 A (forgetting constant torque) gives 1500 × 2 × 245/245 = 3000 rpm.</>, say: 'The common trap is keeping the current at 20 amperes, which gives 3000 rpm.' },
+  answer: {
+    node: <>N₂ = 1500 × (240/245) × 2 ≈ 2939 rpm</>,
+    say: 'Tesaile N two = 1500 times 240 over 245, times 2: lagbhag 2939 rpm. Field weakening le speed lai base bhanda dherai mathi puryayo.',
+    voice: 'त्यसैले एन टु बराबर फिफ्टीन हन्ड्रेड टाइम्स टु फोर्टी ओभर टु फोर्टी फाइभ, टाइम्स टु: लगभग टु थाउजेन्ड नाइन हन्ड्रेड थर्टी नाइन आर पी एम। फिल्ड विकनिङले स्पिडलाई बेसभन्दा धेरै माथि पुर्यायो।',
+  },
+  trap: {
+    node: <>Trap: Ia = 20 A nai rakhyo bhane (constant torque birsiyo bhane) 1500 × 2 × 245/245 = 3000 rpm aaucha.</>,
+    say: 'Common trap bhaneko current 20 ampere mai rakhnu ho, jasle 3000 rpm dincha.',
+    voice: 'कमन ट्र्याप भनेको करेन्ट ट्वेन्टी एम्पियरमै राख्नु हो, जसले थ्री थाउजेन्ड आर पी एम दिन्छ।',
+  },
 });
 
 const armatureControl = video('Armature (rheostatic) control', {
   beats: [
-    { say: 'Armature control: a resistance in series with the armature.' },
-    { say: 'The extra resistance makes a bigger voltage drop, so the back EMF falls and the speed falls below base speed.' },
     {
-      say: 'What does that cost?',
+      say: 'Armature control: armature sanga series ma euta resistance.',
+      voice: 'आर्मेचर कन्ट्रोल: आर्मेचरसँग सिरिजमा एउटा रेजिस्टेन्स।',
+    },
+    {
+      say: 'Extra resistance le thulo voltage drop dincha, tesaile back EMF ghatcha ra speed base speed bhanda tala jharcha.',
+      voice: 'एक्स्ट्रा रेजिस्टेन्सले ठूलो भोल्टेज ड्रप दिन्छ, त्यसैले ब्याक ई एम एफ घट्छ र स्पिड बेस स्पिडभन्दा तल झर्छ।',
+    },
+    {
+      say: 'Yesko cost k ho ta?',
+      voice: 'यसको कस्ट के हो त?',
       ask: {
-        q: 'What is the main drawback of armature resistance control?',
-        options: ['Ia²R power is wasted in the resistance, and speed changes a lot with load', 'It can only raise the speed', 'It weakens the field'],
+        q: 'Armature resistance control ko main drawback k ho?',
+        voice: 'आर्मेचर रेजिस्टेन्स कन्ट्रोलको मेन ड्रब्याक के हो?',
+        options: ['Resistance ma Ia²R power waste huncha, ani load anusar speed dherai change huncha', 'Yasle speed badhauna matra sakcha', 'Yasle field weaken garcha'],
         answer: 0,
-        why: 'The full armature current flows through R, so a lot of power is burnt, and the drop Ia·R changes with load.',
+        why: 'Pura armature current R bata bagcha, tesaile dherai power jalcha, ani Ia·R drop load anusar change huncha.',
       },
     },
-    { say: 'It is wasteful, because the full armature current heats the resistance, and the speed changes a lot as the load changes.' },
-    { say: 'Voltage control, the Ward-Leonard system, uses a motor-generator set to feed a variable armature voltage. Smooth speed from zero to base, in both directions, but costly.' },
+    {
+      say: 'Yo wasteful cha, kina bhane pura armature current le resistance lai tataucha, ani load change huda speed dherai change huncha.',
+      voice: 'यो वेस्टफुल छ, किनभने पूरा आर्मेचर करेन्टले रेजिस्टेन्सलाई तताउँछ, अनि लोड चेन्ज हुँदा स्पिड धेरै चेन्ज हुन्छ।',
+    },
+    {
+      say: 'Voltage control, arthat Ward-Leonard system, le variable armature voltage dina motor-generator set use garcha. Zero dekhi base samma smooth speed, dubai direction ma, tara mahango.',
+      voice: 'भोल्टेज कन्ट्रोल, अर्थात् वार्ड लियोनार्ड सिस्टमले, भेरिएबल आर्मेचर भोल्टेज दिन मोटर जेनेरेटर सेट युज गर्छ। जिरोदेखि बेससम्म स्मुथ स्पिड, दुवै डाइरेक्सनमा, तर महँगो।',
+    },
   ],
   board: [
     { at: 0, kind: 'h', node: <>Armature (rheostatic) control</> },
-    { at: 1, kind: 'step', node: <>Extra R → Ia(Ra + R) ↑ → Eb ↓ → <span className="y">N ↓ (below base only)</span></> },
+    { at: 1, kind: 'step', node: <>Extra R → Ia(Ra + R) ↑ → Eb ↓ → <span className="y">N ↓ (base bhanda tala matra)</span></> },
     { at: 3, kind: 'step', node: <><span className="r">✗</span> Ia²R waste · <span className="r">✗</span> poor speed regulation</> },
     { at: 4, kind: 'h', node: <>Voltage (Ward-Leonard) control</> },
-    { at: 4, kind: 'step', node: <>Variable armature V from an M-G set → 0 to base speed, both directions · excellent but costly</> },
+    { at: 4, kind: 'step', node: <>M-G set bata variable armature V → 0 dekhi base speed, dubai direction · ekdam ramro tara mahango</> },
   ],
 });
 
 const solveArmature = solve({
-  title: 'Solving IOE 2072 Ashwin: armature resistance',
+  title: 'IOE 2072 Ashwin solve: armature resistance',
   paper: '2072 Ashwin',
-  read: 'A 200 volt DC shunt motor drives a constant-torque load. It draws 50 amperes at 1000 rpm. Armature resistance 0.1 ohm, field resistance 100 ohms. What resistance in the armature circuit reduces the speed to 800 rpm?',
+  paperVoice: 'टु थाउजेन्ड सेभेन्टी टु आश्विन',
+  read: '200 volt ko DC shunt motor le constant-torque load chalaucha. Yasle 1000 rpm ma 50 ampere lincha. Armature resistance 0.1 ohm, field resistance 100 ohm. Armature circuit ma kati resistance rakhda speed 800 rpm ma jharcha?',
+  readVoice: 'टु हन्ड्रेड भोल्टको डीसी शन्ट मोटरले कन्स्ट्यान्ट टर्क लोड चलाउँछ। यसले वान थाउजेन्ड आर पी एममा फिफ्टी एम्पियर लिन्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट वान ओह्म, फिल्ड रेजिस्टेन्स वान हन्ड्रेड ओह्म। आर्मेचर सर्किटमा कति रेजिस्टेन्स राख्दा स्पिड एट हन्ड्रेड आर पी एममा झर्छ?',
   question: (
     <>
       A <D>200 V</D> DC shunt motor drives a <D>constant-torque</D> load. It draws <D>50 A</D> at <D>1000 rpm</D>. <D>Ra = 0.1 Ω</D>, <D>Rsh = 100 Ω</D>.
@@ -163,53 +237,92 @@ const solveArmature = solve({
     </>
   ),
   given: [
-    { node: <>V = 200 V, IL = 50 A</>, say: '200 volts, 50 amperes from the line' },
-    { node: <>Ra = 0.1 Ω, Rsh = 100 Ω</>, say: 'armature 0.1 ohm, field 100 ohms' },
-    { node: <>N₁ = 1000 rpm → N₂ = 800 rpm, torque constant</>, say: 'speed from 1000 down to 800 rpm, at constant torque' },
+    { node: <>V = 200 V, IL = 50 A</>, say: '200 volt, line bata 50 ampere', voice: 'टु हन्ड्रेड भोल्ट, लाइनबाट फिफ्टी एम्पियर' },
+    { node: <>Ra = 0.1 Ω, Rsh = 100 Ω</>, say: 'armature 0.1 ohm, field 100 ohm', voice: 'आर्मेचर जिरो पोइन्ट वान ओह्म, फिल्ड वान हन्ड्रेड ओह्म' },
+    { node: <>N₁ = 1000 rpm → N₂ = 800 rpm, torque constant</>, say: 'constant torque ma speed 1000 bata 800 rpm samma jharcha', voice: 'कन्स्ट्यान्ट टर्कमा स्पिड वान थाउजेन्डबाट एट हन्ड्रेड आर पी एमसम्म झर्छ' },
   ],
-  find: { node: <>Extra armature resistance R</>, say: 'They want the extra armature resistance.' },
+  find: { node: <>Extra armature resistance R</>, say: 'Extra armature resistance chahiyo.', voice: 'एक्स्ट्रा आर्मेचर रेजिस्टेन्स चाहियो।' },
   idea: {
-    node: <>φ constant & torque constant ⟹ Ia constant, and N ∝ Eb</>,
-    say: 'Key idea: shunt motor, so flux is fixed. Constant torque then fixes the armature current, and speed is proportional to back EMF.',
+    node: <>φ constant ra torque constant ⟹ Ia constant, ani N ∝ Eb</>,
+    say: 'Key idea: shunt motor ho, tesaile flux fixed. Constant torque le armature current pani fix garcha, ani speed back EMF sanga proportional huncha.',
+    voice: 'की आइडिया: शन्ट मोटर हो, त्यसैले फ्लक्स फिक्स्ड। कन्स्ट्यान्ट टर्कले आर्मेचर करेन्ट पनि फिक्स गर्छ, अनि स्पिड ब्याक ई एम एफसँग प्रोपोर्सनल हुन्छ।',
   },
   steps: [
-    { node: <>Ish = 200/100 = 2 A ⟹ Ia = 50 − 2 = 48 A</>, say: 'Subtract the field current: 2 amperes. I a is 48 amperes at both speeds.' },
-    { node: <>Eb₁ = 200 − 48 × 0.1 = 195.2 V ⟹ Eb₂ = 0.8 × 195.2 = 156.16 V</>, say: 'Back EMF at 1000 rpm is 195.2 volts, so at 800 rpm it is 156.16 volts.' },
+    {
+      node: <>Ish = 200/100 = 2 A ⟹ Ia = 50 − 2 = 48 A</>,
+      say: 'Field current ghatau: 2 ampere. Dubai speed ma I a 48 ampere.',
+      voice: 'फिल्ड करेन्ट घटाऊ: टु एम्पियर। दुवै स्पिडमा आई ए फोर्टी एट एम्पियर।',
+    },
+    {
+      node: <>Eb₁ = 200 − 48 × 0.1 = 195.2 V ⟹ Eb₂ = 0.8 × 195.2 = 156.16 V</>,
+      say: 'Back EMF 1000 rpm ma 195.2 volt, tesaile 800 rpm ma 156.16 volt.',
+      voice: 'ब्याक ई एम एफ वान थाउजेन्ड आर पी एममा वान हन्ड्रेड नाइन्टी फाइभ पोइन्ट टु भोल्ट, त्यसैले एट हन्ड्रेड आर पी एममा वान हन्ड्रेड फिफ्टी सिक्स पोइन्ट वान सिक्स भोल्ट।',
+    },
     {
       node: <>200 − 156.16 = 48 × (0.1 + R) ⟹ 0.1 + R = 0.913 Ω</>,
-      say: 'Now the voltage equation with the extra resistance.',
+      say: 'Aba extra resistance sahit ko voltage equation.',
+      voice: 'अब एक्स्ट्रा रेजिस्टेन्स सहितको भोल्टेज इक्वेसन।',
       ask: {
         tag: 'IOE 2072 Ashwin',
-        q: '200 − 156.16 = 48 × (0.1 + R). What is the added resistance R?',
+        q: '200 − 156.16 = 48 × (0.1 + R). Thapeko resistance R kati ho?',
+        voice: 'टु हन्ड्रेड माइनस वान हन्ड्रेड फिफ्टी सिक्स पोइन्ट वान सिक्स बराबर फोर्टी एट टाइम्स जिरो पोइन्ट वान प्लस आर। थपेको रेजिस्टेन्स आर कति हो?',
         options: ['≈ 0.81 Ω', '≈ 0.91 Ω', '≈ 1.33 Ω', '≈ 0.1 Ω'],
         answer: 0,
-        why: '43.84/48 = 0.913 Ω in total. Subtract Ra = 0.1 Ω: R ≈ 0.81 Ω.',
+        why: '43.84/48 = 0.913 Ω total. Ra = 0.1 Ω ghatau: R ≈ 0.81 Ω.',
       },
     },
   ],
-  answer: { node: <>R ≈ 0.81 Ω</>, say: 'So the extra resistance is about 0.81 ohm. IOE 2068 Bhadra twists it with a pump whose torque grows with speed squared: then I a falls to 30.72 amperes and R is about 1.33 ohms.' },
-  trap: { node: <>Trap: forgetting to subtract Ra gives 0.91 Ω; using IL = 50 A instead of Ia = 48 A also shifts the answer.</>, say: 'Common traps: forgetting to subtract R a, or using the line current instead of I a.' },
+  answer: {
+    node: <>R ≈ 0.81 Ω</>,
+    say: 'Tesaile extra resistance lagbhag 0.81 ohm. IOE 2068 Bhadra ma twist cha, pump ko torque speed squared sanga badhcha: testo bela I a 30.72 ampere ma jharcha ra R lagbhag 1.33 ohm huncha.',
+    voice: 'त्यसैले एक्स्ट्रा रेजिस्टेन्स लगभग जिरो पोइन्ट एट वान ओह्म। आइओई टु थाउजेन्ड सिक्स्टी एट भदौमा ट्विस्ट छ, पम्पको टर्क स्पिड स्क्वायर्डसँग बढ्छ: त्यस्तो बेला आई ए थर्टी पोइन्ट सेभेन टु एम्पियरमा झर्छ र आर लगभग वान पोइन्ट थ्री थ्री ओह्म हुन्छ।',
+  },
+  trap: {
+    node: <>Trap: Ra ghatauna birsiyo bhane 0.91 Ω aaucha; Ia = 48 A ko satta IL = 50 A use garyo bhane pani answer sarcha.</>,
+    say: 'Common traps: R a ghatauna birsanu, ya I a ko satta line current use garnu.',
+    voice: 'कमन ट्र्याप्स: आर ए घटाउन बिर्सनु, या आई एको सट्टा लाइन करेन्ट युज गर्नु।',
+  },
 });
 
-const seriesControl = video('Speed control of a series motor', {
+const seriesControl = video('Series motor ko speed control', {
   viewBox: '0 0 360 120',
   beats: [
-    { say: 'Series motors use the same two ideas.' },
-    { say: 'Field control: a diverter resistance across the series field, or a tapped field, weakens the flux and raises the speed.' },
-    { say: 'Armature control: a resistance in series with the motor lowers the speed.' },
-    { say: 'IOE 2075 Baisakh, 8 marks: a 200 volt series motor runs at 800 rpm on 15 amperes, with Ra 0.6 and Rse 0.4 ohm. Find its speed with 5 ohms added, same current.' },
-    { say: 'The current is the same, so the series flux is the same. The speed ratio is just the back EMF ratio.' },
     {
-      say: 'Work it out.',
+      say: 'Series motor ma pani yei duita idea nai use huncha.',
+      voice: 'सिरिज मोटरमा पनि यही दुईटा आइडिया नै युज हुन्छ।',
+    },
+    {
+      say: 'Field control: series field ko across ma diverter resistance, ya tapped field, le flux weaken garcha ra speed badhaucha.',
+      voice: 'फिल्ड कन्ट्रोल: सिरिज फिल्डको एक्रसमा डाइभर्टर रेजिस्टेन्स, या ट्याप्ड फिल्डले, फ्लक्स विकन गर्छ र स्पिड बढाउँछ।',
+    },
+    {
+      say: 'Armature control: motor sanga series ma rakheko resistance le speed ghataucha.',
+      voice: 'आर्मेचर कन्ट्रोल: मोटरसँग सिरिजमा राखेको रेजिस्टेन्सले स्पिड घटाउँछ।',
+    },
+    {
+      say: 'IOE 2075 Baisakh, 8 marks: 200 volt ko series motor 15 ampere ma 800 rpm ma chalcha, Ra 0.6 ra Rse 0.4 ohm. Same current ma 5 ohm thapda speed kati huncha, nikala.',
+      voice: 'आइओई टु थाउजेन्ड सेभेन्टी फाइभ बैशाख, एट मार्क्स: टु हन्ड्रेड भोल्टको सिरिज मोटर फिफ्टीन एम्पियरमा एट हन्ड्रेड आर पी एममा चल्छ, आर ए जिरो पोइन्ट सिक्स र आर एस ई जिरो पोइन्ट फोर ओह्म। सेम करेन्टमा फाइभ ओह्म थप्दा स्पिड कति हुन्छ, निकाल।',
+    },
+    {
+      say: 'Current same cha, tesaile series flux pani same. Speed ratio bhaneko back EMF ratio matra ho.',
+      voice: 'करेन्ट सेम छ, त्यसैले सिरिज फ्लक्स पनि सेम। स्पिड रेसियो भनेको ब्याक ई एम एफ रेसियो मात्र हो।',
+    },
+    {
+      say: 'La solve gara.',
+      voice: 'ल सल्भ गर।',
       ask: {
-        tag: 'IOE 2075 Baisakh',
-        q: 'Eb₁ = 200 − 15 × 1 = 185 V and Eb₂ = 200 − 15 × 6 = 110 V. What is the new speed?',
+        tag: 'IOE 2075 Baishakh',
+        q: 'Eb₁ = 200 − 15 × 1 = 185 V ra Eb₂ = 200 − 15 × 6 = 110 V. Naya speed kati?',
+        voice: 'ई बी वान बराबर टु हन्ड्रेड माइनस फिफ्टीन टाइम्स वान, वान हन्ड्रेड एटी फाइभ भोल्ट, र ई बी टु बराबर टु हन्ड्रेड माइनस फिफ्टीन टाइम्स सिक्स, वान हन्ड्रेड टेन भोल्ट। नयाँ स्पिड कति?',
         options: ['≈ 476 rpm', '≈ 1345 rpm', '≈ 667 rpm', '800 rpm'],
         answer: 0,
-        why: 'N₂ = 800 × 110/185 ≈ 476 rpm. 1345 rpm comes from flipping the ratio.',
+        why: 'N₂ = 800 × 110/185 ≈ 476 rpm. Ratio ulto garyo bhane 1345 rpm aaucha.',
       },
     },
-    { say: 'So the new speed is 800 times 110 over 185, about 476 rpm.' },
+    {
+      say: 'Tesaile naya speed 800 times 110 over 185, lagbhag 476 rpm.',
+      voice: 'त्यसैले नयाँ स्पिड एट हन्ड्रेड टाइम्स वान हन्ड्रेड टेन ओभर वान हन्ड्रेड एटी फाइभ, लगभग फोर हन्ड्रेड सेभेन्टी सिक्स आर पी एम।',
+    },
   ],
   draw: (s) => (
     <>
@@ -229,7 +342,7 @@ const seriesControl = video('Speed control of a series motor', {
         <Arrow x1={282} y1={50} x2={330} y2={50} color={C.yellow} />
         <text x={306} y={40} textAnchor="middle" fontSize={12} fill={C.yellow}>N ↓</text>
       </g>
-      <text x={180} y={108} textAnchor="middle" fontSize={12} fill={C.dim} className={s.on(3)}>200 V · 800 rpm at 15 A · Ra = 0.6 Ω · Rse = 0.4 Ω · add 5 Ω, same current</text>
+      <text x={180} y={108} textAnchor="middle" fontSize={12} fill={C.dim} className={s.on(3)}>200 V · 15 A ma 800 rpm · Ra = 0.6 Ω · Rse = 0.4 Ω · 5 Ω thapa, same current</text>
     </>
   ),
   board: [
@@ -239,8 +352,8 @@ const seriesControl = video('Speed control of a series motor', {
 });
 
 export const ch8 = {
-  title: 'Speed control: field & armature',
-  syllabus: 'Unit 4 · Speed control of DC motors: field control, armature control',
+  title: 'Speed control: field ra armature',
+  syllabus: 'Unit 4 · DC motor ko speed control: field control, armature control',
   steps: [
     threeKnobs,
     fieldControl,
@@ -249,22 +362,22 @@ export const ch8 = {
     solveArmature,
     seriesControl,
     model({
-      q: 'Describe different methods of controlling the speed of a DC shunt motor.',
+      q: 'DC shunt motor ko speed control garne bibhinna method haru describe gara.',
       papers: ['2071 Bhadra', '2069 Bhadra', '2065 Chaitra'],
       marks: '[8]',
       points: [
-        <><b>Basis:</b> Eb = PφZN/60A ⟹ N ∝ Eb/φ = (V − IaRa)/φ. Speed can be changed through φ, the armature circuit resistance, or the armature voltage.</>,
-        <><b>Field (flux) control:</b> a rheostat in series with the shunt field. Increasing it lowers Ish and φ, so N rises above base speed. Efficient and cheap (field current is small), fine control; limited by commutation and mechanical strength at high speed. Draw the circuit and the N–Ia curves for decreasing φ.</>,
-        <><b>Armature (rheostatic) control:</b> a variable resistance in series with the armature. The drop Ia(Ra + R) lowers Eb and N below base speed. Simple, but wastes Ia²R power and gives poor speed regulation. Draw the circuit and the N–Ia lines for increasing R.</>,
-        <><b>Voltage control (Ward-Leonard):</b> the armature is fed from a separately excited generator driven by another motor; varying the generator field varies V, giving smooth control from zero to base speed in both directions. Excellent but costly.</>,
-        <><b>Compare:</b> field control above base (constant power), armature/voltage control below base (constant torque).</>,
+        <><b>Aadhar:</b> Eb = PφZN/60A ⟹ N ∝ Eb/φ = (V − IaRa)/φ. Speed lai φ, armature circuit resistance, ya armature voltage bata change garna sakincha.</>,
+        <><b>Field (flux) control:</b> shunt field sanga series ma rheostat. Yo badhauda Ish ra φ ghatcha, tesaile N base speed bhanda mathi jancha. Efficient ra sasto (field current sano huncha), fine control; high speed ma commutation ra mechanical strength le limit garcha. Circuit ra φ ghatdai jada ko N–Ia curves draw gara.</>,
+        <><b>Armature (rheostatic) control:</b> armature sanga series ma variable resistance. Ia(Ra + R) drop le Eb ra N lai base speed bhanda tala jharcha. Simple cha, tara Ia²R power waste garcha ra speed regulation poor huncha. Circuit ra R badhdai jada ko N–Ia lines draw gara.</>,
+        <><b>Voltage control (Ward-Leonard):</b> armature lai arko motor le chalaune separately excited generator bata feed garincha; generator field change garda V change huncha, ani zero dekhi base speed samma dubai direction ma smooth control milcha. Ekdam ramro tara mahango.</>,
+        <><b>Tulana:</b> field control base bhanda mathi (constant power), armature/voltage control base bhanda tala (constant torque).</>,
       ],
-      tip: 'Write N ∝ (V − IaRa)/φ first: every method then reads as “change one term in this equation”.',
+      tip: 'Pahila N ∝ (V − IaRa)/φ lekha: ani har method “yo equation ko euta term change gara” jasto padhincha.',
     }),
-    hook('Field → Faster (above base) · Armature → slower (below base)', [
-      'N ∝ (V − IaRa)/φ: three handles φ, R, V.',
-      'Constant torque: shunt keeps Ia fixed (φ fixed); weaken φ and Ia must rise so φ₁Ia₁ = φ₂Ia₂.',
-      'Series motor: diverter or tapped field for field control; series R for armature control.',
+    hook('Field → Faster (base bhanda mathi) · Armature → slower (base bhanda tala)', [
+      'N ∝ (V − IaRa)/φ: tinta handle φ, R, V.',
+      'Constant torque: shunt ma Ia fixed (φ fixed); φ weaken garyo bhane Ia badhnu parcha, φ₁Ia₁ = φ₂Ia₂.',
+      'Series motor: field control ko lagi diverter ya tapped field; armature control ko lagi series R.',
     ]),
   ],
 };

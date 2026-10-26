@@ -10,13 +10,34 @@
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import path from 'node:path';
 import { loadEnv } from 'vite';
-import { beatText, spoken, voiceKey } from '../src/video/voice.js';
+import { beatText, isNepali, spoken, voiceKey } from '../src/video/voice.js';
 
 export function sceneTts() {
   let server;
   let env;
   let outDir;
   const inflight = new Map();
+
+  // ElevenLabs allows only a couple of requests at once on this plan. Queue the
+  // rest; the line that is playing right now jumps ahead of look-ahead lines.
+  const LIMIT = 2;
+  let running = 0;
+  const waiting = [];
+  const pump = () => {
+    while (running < LIMIT && waiting.length) {
+      const job = waiting.shift();
+      running++;
+      job.run().then(job.resolve, job.reject).finally(() => {
+        running--;
+        pump();
+      });
+    }
+  };
+  const enqueue = (run, urgent) =>
+    new Promise((resolve, reject) => {
+      waiting[urgent ? 'unshift' : 'push']({ run, resolve, reject });
+      pump();
+    });
 
   async function courseLines() {
     const { journey } = await server.ssrLoadModule('/src/content/journey.jsx');
@@ -28,7 +49,9 @@ export function sceneTts() {
     return lines;
   }
 
-  async function record(key, text) {
+  async function record(key, text, tries = 3) {
+    // Devanagari lines use eleven_v3 in Nepali, as the Sparky narration does.
+    const nepali = isNepali(text);
     const voiceId = env.ELEVENLABS_SCENE_VOICE_ID || 'cgSgspJ2msm6clMCkdW9';
     const modelId = env.ELEVENLABS_SCENE_MODEL_ID || 'eleven_multilingual_v2';
     const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, {
@@ -36,11 +59,15 @@ export function sceneTts() {
       headers: { 'xi-api-key': env.ELEVENLABS_API_KEY, 'Content-Type': 'application/json', Accept: 'audio/mpeg' },
       body: JSON.stringify({
         text,
-        model_id: modelId,
-        language_code: 'en',
+        model_id: nepali ? 'eleven_v3' : modelId,
+        language_code: nepali ? 'ne' : 'en',
         voice_settings: { stability: 0.5, similarity_boost: 0.8, use_speaker_boost: true },
       }),
     });
+    if (res.status === 429 && tries > 1) {
+      await new Promise((r) => setTimeout(r, 1500));
+      return record(key, text, tries - 1);
+    }
     if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${(await res.text()).slice(0, 200)}`);
     const mp3 = Buffer.from(await res.arrayBuffer());
     await mkdir(outDir, { recursive: true });
@@ -50,7 +77,7 @@ export function sceneTts() {
     try {
       manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
     } catch {}
-    manifest[key] = modelId.slice(7, 12) + voiceId.slice(0, 4);
+    manifest[key] = (nepali ? 'v3ne' : modelId.slice(7, 12)) + voiceId.slice(0, 4);
     await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
     console.log(`[tts] recorded ${key} (${text.length} chars): ${text.slice(0, 60)}`);
     return mp3;
@@ -66,7 +93,8 @@ export function sceneTts() {
     configureServer(s) {
       server = s;
       s.middlewares.use('/api/tts', async (req, res) => {
-        const key = /^\/([0-9a-f]{8})\.mp3$/.exec(req.url ?? '')?.[1];
+        const [, key, query] = /^\/([0-9a-f]{8})\.mp3(\?.*)?$/.exec(req.url ?? '') ?? [];
+        const urgent = !query?.includes('ahead');
         const send = (code, body, type = 'text/plain') => {
           res.statusCode = code;
           res.setHeader('Content-Type', type);
@@ -79,7 +107,7 @@ export function sceneTts() {
           if (!env.ELEVENLABS_API_KEY) return send(503, 'no ELEVENLABS_API_KEY in .env');
           const text = (await courseLines()).get(key);
           if (!text) return send(404, 'not a course line');
-          if (!inflight.has(key)) inflight.set(key, record(key, text).finally(() => inflight.delete(key)));
+          if (!inflight.has(key)) inflight.set(key, enqueue(() => record(key, text), urgent).finally(() => inflight.delete(key)));
           send(200, await inflight.get(key), 'audio/mpeg');
         } catch (err) {
           console.error(`[tts] ${key}: ${err.message}`);

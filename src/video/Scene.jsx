@@ -13,7 +13,8 @@ import { beatText, spoken, voiceKey } from './voice.js';
                                      // s.hl(k) → ' hl' on beat k (signal / glow)
                                      // s.beat → current beat index
     board={[{ at: 2, kind: 'eq', node: <>…</> }]}   // text lines that build up
-    beats={[{ say: 'caption', ms?: 4000, ask?: { q, options, answer, why } }]}
+    beats={[{ say: 'caption', voice?: 'देवनागरी', ms?: 4000, ask?: { q, voice?, options, answer, why } }]}
+                                     // say/q are shown; voice (Devanagari) is spoken when given
     onEnded={() => …}                // called once after the last beat
   />
 
@@ -50,7 +51,7 @@ function prepare(texts) {
       const key = voiceKey(text);
       if (clips[key] || asked.has(key)) continue;
       asked.add(key);
-      fetch(`${BASE}api/tts/${key}.mp3`)
+      fetch(`${BASE}api/tts/${key}.mp3?ahead`)
         .then((r) => {
           if (r.ok) clips[key] ??= 'new';
           else asked.delete(key);
@@ -235,7 +236,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
         {ask && (
           <div className="scene-ask">
             <div className="scene-ask-card">
-              <span className="scene-ask-tag">{ask.tag ?? 'Pause and think'}</span>
+              <span className="scene-ask-tag">{ask.tag ?? 'Ekchin socha 🤔'}</span>
               <p className="scene-ask-q">{ask.q}</p>
               <div className="scene-ask-options">
                 {ask.options.map((o, i) => (
@@ -250,10 +251,10 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
               </div>
               {pick && (
                 <div className="scene-ask-why">
-                  <b>{pick.i === ask.answer ? 'Yes!' : 'Not quite.'}</b> {ask.why}
+                  <b>{pick.i === ask.answer ? 'Ekdam sahi! 🔥' : 'Hmm, yo haina.'}</b> {ask.why}
                   {!pick.done && (
                     <button className="scene-resume" onClick={resume}>
-                      Continue video ▶
+                      Video continue ▶
                     </button>
                   )}
                 </div>
@@ -289,7 +290,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
             setVoice((v) => !v);
             setRun((r) => r + 1);
           }}
-          title={voice ? 'Voice on' : 'Voice off'}
+          title={voice ? 'Awaj on' : 'Awaj off'}
         >
           {voice ? '🔊' : '🔈'}
         </button>
@@ -302,7 +303,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
 export function Hook({ big, lines }) {
   return (
     <div className="hook">
-      <span className="hook-tag">Memory hook</span>
+      <span className="hook-tag">Yaad rakhne trick</span>
       <div className="hook-big">{big}</div>
       {lines && <ul>{lines.map((l, i) => <li key={i}>{l}</li>)}</ul>}
     </div>
@@ -318,7 +319,7 @@ export function ModelAnswer({ q, papers, marks, points, tip }) {
   return (
     <div className="model">
       <div className="model-head">
-        <span className="model-tag">IOE asked · {papers.length} paper{papers.length > 1 ? 's' : ''}</span>
+        <span className="model-tag">IOE ma sodhiyeko · {papers.length} paper</span>
         {marks && <span className="model-marks">{marks}</span>}
       </div>
       <p className="model-q">“{q}”</p>
@@ -330,7 +331,7 @@ export function ModelAnswer({ q, papers, marks, points, tip }) {
           ))}
         </ol>
       ) : (
-        <button className="chip primary" onClick={() => setOpen(true)}>Show model answer</button>
+        <button className="chip primary" onClick={() => setOpen(true)}>Model answer hera</button>
       )}
       {open && tip && <p className="model-tip">✍️ {tip}</p>}
     </div>

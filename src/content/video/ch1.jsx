@@ -4,23 +4,25 @@ import { Arrow, C, Conductor, Pole, hook, video } from './kit.jsx';
 
 const fieldLines = [62, 88, 132, 158];
 
-const whyItMoves = video('Why does a wire move in a magnetic field?', {
+const whyItMoves = video('Magnetic field ma wire kina chalcha?', {
   viewBox: '0 0 360 220',
   beats: [
-    { say: 'Two magnet poles face each other. The field runs straight across the gap, from N to S.' },
-    { say: 'Now a wire carrying current out of the screen, drawn as a dot. The current makes its own circular field around the wire.' },
+    { say: 'Duita magnet ko pole aamne-saamne chan. Field chai gap bhari sidha N bata S tira jancha.', voice: 'दुईटा म्याग्नेटको पोल आमने–सामने छन्। फिल्ड चाहिँ ग्याप भरि सिधा एन बाट एस तिर जान्छ।' },
+    { say: 'Aba euta wire, jasma current screen bata bahira aaudai cha, dot le dekhaeko. Tyo current le wire ko waripari aafnai circular field banaucha.', voice: 'अब एउटा वायर, जसमा करेन्ट स्क्रिनबाट बाहिर आउँदै छ, डटले देखाएको। त्यो करेन्टले वायरको वरिपरि आफ्नै सर्कुलर फिल्ड बनाउँछ।' },
     {
-      say: 'Look at both fields together.',
+      say: 'Aba duitai field sangai hera.',
+      voice: 'अब दुवै फिल्ड सँगै हेर।',
       ask: {
-        q: 'Below the wire the circles point right, the same way as the main field. Above, they point left. Where is the total field stronger?',
-        options: ['Below the wire', 'Above the wire', 'The same everywhere'],
+        q: 'Wire ko tala circles right tira point garcha, main field kai direction ma. Mathi chai left tira. Total field kata baliyo huncha?',
+        voice: 'वायरको तल सर्कल्स राइट तिर पोइन्ट गर्छ, मेन फिल्डकै डाइरेक्सनमा। माथि चाहिँ लेफ्ट तिर। टोटल फिल्ड कता बलियो हुन्छ?',
+        options: ['Wire ko tala', 'Wire ko mathi', 'Jata pani same'],
         answer: 0,
-        why: 'Below, the two fields add. Above, they point opposite ways and partly cancel.',
+        why: 'Tala duita field jodincha. Mathi chai ulto direction ma bhayera partly cancel huncha.',
       },
     },
-    { say: 'So the field is crowded below the wire and thin above it. Field lines behave like stretched rubber bands, and they push the wire toward the weak side.' },
-    { say: 'The wire is pushed up. This is the motor principle: a current-carrying conductor placed in a magnetic field experiences a force.' },
-    { say: 'The size of that force is F equals B I l: flux density, times current, times the length of wire inside the field.' },
+    { say: 'Tesaile wire ko tala field ekdam crowded, mathi patalo. Field lines tanieko rubber band jastai behave garchan, ra wire lai weak side tira push garchan.', voice: 'तेसैले वायरको तल फिल्ड एकदम क्राउडेड, माथि पातलो। फिल्ड लाइन्स तानिएको रबर ब्यान्ड जस्तै बिहेभ गर्छन्, र वायरलाई वीक साइड तिर पुस गर्छन्।' },
+    { say: 'Wire mathi push huncha. Yahi ho motor principle: "a current-carrying conductor placed in a magnetic field experiences a force."', voice: 'वायर माथि पुस हुन्छ। यही हो मोटर प्रिन्सिपल: अ करेन्ट क्यारिङ कन्डक्टर प्लेस्ड इन अ म्याग्नेटिक फिल्ड एक्सपिरियन्सेस अ फोर्स।' },
+    { say: 'Tyo force kati thulo bhanda F equals B I l: flux density, times current, times field bhitra ko wire ko length.', voice: 'त्यो फोर्स कति ठूलो भन्दा एफ इक्वल्स बी आई एल: फ्लक्स डेन्सिटी, टाइम्स करेन्ट, टाइम्स फिल्ड भित्रको वायरको लेन्थ।' },
   ],
   draw: (s) => (
     <>
@@ -43,8 +45,8 @@ const whyItMoves = video('Why does a wire move in a magnetic field?', {
         <Conductor x={180} y={110} r={13} dir="out" />
       </g>
       <g className={s.on(3)}>
-        <text x={240} y={50} fontSize={13} fill={C.dim}>weak</text>
-        <text x={240} y={186} fontSize={13} fill={C.yellow} fontWeight={700}>strong</text>
+        <text x={240} y={50} fontSize={13} fill={C.dim}>kamjor</text>
+        <text x={240} y={186} fontSize={13} fill={C.yellow} fontWeight={700}>baliyo</text>
       </g>
       <g className={s.on(4) + s.hl(4)}>
         <Arrow x1={180} y1={92} x2={180} y2={34} color={C.green} w={4} head={12} />
@@ -53,70 +55,76 @@ const whyItMoves = video('Why does a wire move in a magnetic field?', {
     </>
   ),
   board: [
-    { at: 4, kind: 'note', node: <>IOE wording: “When a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force.”</> },
+    { at: 4, kind: 'note', node: <>IOE wording (exam ma yestai lekha): “When a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force.”</> },
     { at: 5, kind: 'eq', node: <>F = B · I · l</> },
   ],
 });
 
-const howBig = video('How big is the push?', {
+const howBig = video('Push kati thulo huncha?', {
   beats: [
-    { say: 'How big is the push? Three things set it.' },
-    { say: 'Flux density B in tesla, current I in amperes, and active length l in metres. The force comes out in newtons.' },
-    { say: 'If the wire is tilted at an angle theta to the field, only the perpendicular part of the field pushes. So F equals B I l sine theta.' },
-    { say: 'At ninety degrees the force is biggest. Along the field, at zero degrees, there is no force at all.' },
-    { say: 'That is why armature conductors are always laid at right angles to the flux.' },
+    { say: 'Push kati thulo huncha? Scene yo ho, teen ta kura le decide garcha.', voice: 'पुस कति ठूलो हुन्छ? सिन यो हो, तीन ओटा कुराले डिसाइड गर्छ।' },
+    { say: 'Flux density B tesla ma, current I ampere ma, ra active length l metre ma. Force chai newton ma aaucha.', voice: 'फ्लक्स डेन्सिटी बी टेस्लामा, करेन्ट आई एम्पियरमा, र एक्टिभ लेन्थ एल मिटरमा। फोर्स चाहिँ न्युटनमा आउँछ।' },
+    { say: 'Wire field sanga theta angle ma tilt cha bhane, field ko perpendicular part le matra push garcha. Tesaile F equals B I l sine theta.', voice: 'वायर फिल्डसँग थिटा एङ्गलमा टिल्ट छ भने, फिल्डको पर्पेन्डिकुलर पार्टले मात्र पुस गर्छ। तेसैले एफ इक्वल्स बी आई एल साइन थिटा।' },
+    { say: 'Ninety degree ma force sabai bhanda dherai huncha. Field kai direction ma, zero degree ma, force ekdam zero.', voice: 'नाइन्टी डिग्रीमा फोर्स सबैभन्दा धेरै हुन्छ। फिल्डकै डाइरेक्सनमा, जिरो डिग्रीमा, फोर्स एकदम जिरो।' },
+    { say: 'Tesaile ta armature conductors sadhai flux sanga right angle ma rakhincha.', voice: 'तेसैले त आर्मेचर कन्डक्टर्स सधैं फ्लक्ससँग राइट एङ्गलमा राखिन्छ।' },
     {
-      say: 'Your turn.',
+      say: 'La aba timro palo.',
+      voice: 'ल अब तिम्रो पालो।',
       ask: {
         tag: 'Quick check',
-        q: 'A 0.25 m wire carries 10 A at right angles to a 0.6 T field. What is the force?',
+        q: '0.25 m ko wire ma 10 A current cha, 0.6 T field sanga right angle ma. Force kati?',
+        voice: 'जिरो पोइन्ट टु फाइभ मिटरको वायरमा टेन एम्पियर करेन्ट छ, जिरो पोइन्ट सिक्स टेस्ला फिल्डसँग राइट एङ्गलमा। फोर्स कति?',
         options: ['1.5 N', '15 N', '0.15 N', '2.4 N'],
         answer: 0,
         why: 'F = 0.6 × 10 × 0.25 = 1.5 N.',
       },
     },
-    { say: 'Tilt that same wire to thirty degrees, and the force halves, because sine thirty is one half: 0.75 newtons.' },
+    { say: 'Tyahi wire lai thirty degree ma tilt gara, force aadha huncha, kina bhane sine thirty is one half: 0.75 newton.', voice: 'त्यही वायरलाई थर्टी डिग्रीमा टिल्ट गर, फोर्स आधा हुन्छ, किनभने साइन थर्टी इज वान हाफ: जिरो पोइन्ट सेभेन्टी फाइभ न्युटन।' },
   ],
   board: [
     { at: 0, kind: 'h', node: <>F = B I l sin θ</> },
-    { at: 1, kind: 'step', node: <><span className="bl">B</span> flux density (T) · <span className="y">I</span> current (A) · <span className="g">l</span> length in the field (m) · F in N</> },
+    { at: 1, kind: 'step', node: <><span className="bl">B</span> flux density (T) · <span className="y">I</span> current (A) · <span className="g">l</span> field bhitra ko length (m) · F chai N ma</> },
     { at: 2, kind: 'eq', node: <>F = B I l sin θ</> },
     { at: 3, kind: 'step', node: <>θ = 90° → maximum, F = BIl &nbsp;·&nbsp; θ = 0° → F = 0</> },
-    { at: 4, kind: 'note', node: <>Design rule: conductors sit at 90° to the flux.</> },
+    { at: 4, kind: 'note', node: <>Design rule: conductors flux sanga 90° ma baschan.</> },
     { at: 6, kind: 'step', node: <>At 30°: F = 1.5 × sin 30° = <span className="y">0.75 N</span></> },
   ],
 });
 
-const fleming = video('Which way? Fleming’s left-hand rule', {
+const fleming = video('Kun tira? Fleming ko left-hand rule', {
   viewBox: '0 0 360 220',
   beats: [
-    { say: 'Hold up your left hand. Stretch the thumb, first finger and second finger so they are all at right angles.' },
-    { say: 'First finger points along the Field, from N to S.' },
-    { say: 'Second finger points along the Current.' },
-    { say: 'Then the thumb shows the Motion, the direction of the force.' },
+    { say: 'Aafno left hand uthau. Thumb, first finger ra second finger tana, sabai ek arka sanga right angle ma.', voice: 'आफ्नो लेफ्ट ह्यान्ड उठाऊ। थम्ब, फर्स्ट फिङ्गर र सेकेन्ड फिङ्गर तान, सबै एक अर्कासँग राइट एङ्गलमा।' },
+    { say: 'First finger le Field ko direction dekhaucha, N bata S tira.', voice: 'फर्स्ट फिङ्गरले फिल्डको डाइरेक्सन देखाउँछ, एन बाट एस तिर।' },
+    { say: 'Second finger le Current ko direction dekhaucha.', voice: 'सेकेन्ड फिङ्गरले करेन्टको डाइरेक्सन देखाउँछ।' },
+    { say: 'Ani thumb le Motion dekhaucha, matlab force ko direction. Simple cha.', voice: 'अनि थम्बले मोसन देखाउँछ, मतलब फोर्सको डाइरेक्सन। सिम्पल छ।' },
     {
-      say: 'Check it against the wire we just saw.',
+      say: 'Bharkhar herya wire sanga check garau.',
+      voice: 'भर्खर हेर्या वायरसँग चेक गरौं।',
       ask: {
         tag: 'Quick check',
-        q: 'Field to the right, current coming toward you. Which way is the force?',
-        options: ['Up', 'Down', 'Left', 'Into the screen'],
+        q: 'Field right tira, current timi tira aaudai cha. Force kun tira?',
+        voice: 'फिल्ड राइट तिर, करेन्ट तिमी तिर आउँदै छ। फोर्स कुन तिर?',
+        options: ['Mathi', 'Tala', 'Left', 'Screen bhitra'],
         answer: 0,
-        why: 'First finger right, second finger toward you, and the thumb points up. That matches the wire being pushed up.',
+        why: 'First finger right, second finger timi tira, ani thumb mathi point garcha. Wire mathi push bhako sanga match bhayo.',
       },
     },
-    { say: 'Reverse either the field or the current and the force reverses. Reverse both, and the force goes back to where it was.' },
+    { say: 'Field wa current, euta matra reverse gara, force reverse huncha. Duitai reverse gara bhane force pahila kai direction ma farkincha.', voice: 'फिल्ड वा करेन्ट, एउटा मात्र रिभर्स गर, फोर्स रिभर्स हुन्छ। दुवै रिभर्स गर भने फोर्स पहिलाकै डाइरेक्सनमा फर्किन्छ।' },
     {
-      say: 'This exact idea is asked in IOE papers.',
+      say: 'Yahi idea IOE paper ma exactly sodhincha, bro.',
+      voice: 'यही आइडिया आइओई पेपरमा एक्ज्याक्ट्ली सोधिन्छ, ब्रो।',
       ask: {
         tag: 'IOE 2073 Chaitra · 2069 Bhadra',
-        q: '“Explain the working principle of a DC motor.” Which statement is that principle?',
+        q: '“Explain the working principle of a DC motor.” Tyo principle kun statement ho?',
+        voice: 'एक्सप्लेन द वर्किङ प्रिन्सिपल अफ अ डीसी मोटर। त्यो प्रिन्सिपल कुन स्टेटमेन्ट हो?',
         options: [
-          'A current-carrying conductor in a magnetic field experiences a mechanical force',
-          'A conductor moving in a magnetic field has an EMF induced in it',
-          'A changing current in one coil induces an EMF in the next',
+          'Magnetic field ma rakheko current-carrying conductor le mechanical force experience garcha',
+          'Magnetic field ma chaleko conductor ma EMF induce huncha',
+          'Euta coil ko changing current le arko coil ma EMF induce garcha',
         ],
         answer: 0,
-        why: 'That is the motor principle. The second is the generator principle, and the third is how a transformer works.',
+        why: 'Tyo motor principle ho. Dosro generator principle ho, ra tesro chai transformer kasari kaam garcha bhanne.',
       },
     },
   ],
@@ -142,16 +150,16 @@ const fleming = video('Which way? Fleming’s left-hand rule', {
 });
 
 export const ch1 = {
-  title: 'Force on a conductor',
-  syllabus: 'Unit 1 · Force on a current-carrying conductor',
+  title: 'Conductor ma force',
+  syllabus: 'Unit 1 · Current-carrying conductor ma force',
   steps: [
     whyItMoves,
     howBig,
     fleming,
     hook('Left hand, F-B-I', [
       'thuMb = Motion (Force) · First finger = Field (B) · seCond finger = Current (I)',
-      'Motors use the LEFT hand. Generators use the RIGHT hand.',
-      'F = BIl sin θ: biggest at 90°, zero along the field.',
+      'Motor ma LEFT hand. Generator ma RIGHT hand.',
+      'F = BIl sin θ: 90° ma sabai bhanda thulo, field kai direction ma zero.',
     ]),
   ],
 };

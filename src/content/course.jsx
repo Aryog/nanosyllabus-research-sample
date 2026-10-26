@@ -17,6 +17,6 @@ import { journey } from './journey.jsx';
 export const course = {
   id: 'dc-motors',
   title: 'DC Motors',
-  tagline: 'The complete DC motor chapter of Electrical Machines, built up from a compass needle and checked with IOE-style problems.',
+  tagline: 'Electrical Machines ko pura DC motor chapter, compass needle dekhi suru garera IOE style problem samma.',
   lessons: [journey],
 };

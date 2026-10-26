@@ -15,8 +15,12 @@ const SPOKEN = [
 ];
 export const spoken = (t) => SPOKEN.reduce((acc, [re, to]) => acc.replace(re, to), t).replace(/\s+/g, ' ').trim();
 
-// What a beat says aloud: the caption, plus the question when it pauses on one.
-export const beatText = (b) => (b.ask ? `${b.say ?? ''} ${b.ask.q}` : b.say ?? '').trim();
+// What a beat says aloud: its Devanagari `voice` (or the caption), plus the
+// question when it pauses on one.
+export const beatText = (b) => `${b.voice ?? b.say ?? ''} ${b.ask ? b.ask.voice ?? b.ask.q : ''}`.trim();
+
+// Nepali lines (Devanagari) are read by the Nepali model; anything else by the English one.
+export const isNepali = (t) => /[\u0900-\u097F]/.test(t);
 
 // FNV-1a, 32-bit, as 8 hex chars.
 export function voiceKey(text) {

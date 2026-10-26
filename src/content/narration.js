@@ -147,7 +147,7 @@ const lines = {
   'l9-q-series': ['Series motor ma kina hudaina?', 'सिरिज मोटरमा किन हुँदैन?'],
   'l9-q-ioe': ['Sabai loss jodnuhos.', 'सबै लस जोड्नुहोस्।'],
   'l9-q-ioe2': ['Field loss nabirsanuhos.', 'फिल्ड लस नबिर्सनुहोस्।'],
-  'l4-done': ['Tapai le DC motor sikisaknubhayo.', 'तपाईंले डीसी मोटर सिकिसक्नुभयो।'],
+  'l4-done': ['Bro, DC motor ta sakiyo! Dami.', 'ब्रो, डीसी मोटर त सकियो! दामी।'],
 
   // Feedback — calm, not cheerleading
   'fb-correct-1': ['Sahi.', 'सही।'],
@@ -161,7 +161,7 @@ const lines = {
   'lesson-done': ['Lesson sakiyo.', 'लेसन सकियो।'],
 
   // Journey: Past Questions block
-  'past-questions': ['Aba IOE ka purana prashna haru.', 'अब आइओईका पुराना प्रश्नहरू।'],
+  'past-questions': ['La aba real IOE past questions. Chill, sangai solve garchau.', 'ल अब रियल आइओई पास्ट क्वेस्चन्स। चिल, सँगै सल्भ गर्छौं।'],
   'pq-2073-bhadra': ['Duitai Eb tulana garnuhos.', 'दुवै इबी तुलना गर्नुहोस्।'],
   'pq-2081-ashwin': ['Pahila field current ghataunuhos.', 'पहिला फिल्ड करेन्ट घटाउनुहोस्।'],
   'pq-2065-chaitra': ['Series motor ma torque current ko square ho.', 'सिरिज मोटरमा टर्क करेन्टको स्क्वायर हो।'],

@@ -67,7 +67,7 @@ export default function App() {
 
   const pct = finished && !started ? 100 : Math.round((progress.pos / steps.length) * 100);
   const now = started ? sectionOf(progress.pos) : finished ? -1 : 0;
-  const label = started ? 'Continue' : finished ? 'Start again' : 'Start';
+  const label = started ? 'Continue garau' : finished ? 'Feri suru garau' : 'Suru garau';
   return (
     <div className="home">
       <header className="home-top">
@@ -99,8 +99,8 @@ export default function App() {
           </div>
           <button className="btn btn-green wide" onClick={() => setActive(0)}>{label}</button>
           <div className="course-meta">
-            <span>{journey.chapters.length} chapters · {pastCount} past questions</span>
-            <span>{videos} short videos</span>
+            <span>{journey.chapters.length} chapter · {pastCount} past question</span>
+            <span>{videos} wota sano video</span>
           </div>
         </section>
 
@@ -111,8 +111,8 @@ export default function App() {
             </button>
             <div className="node-tip">{label}</div>
             <div className="node-label">
-              <b>One journey, start to finish</b>
-              <span className="muted">Short videos that pause to ask you questions, IOE model answers and memory hooks, in syllabus order. Then real past questions.</span>
+              <b>Euta journey, suru dekhi antya samma</b>
+              <span className="muted">Sano sano video jun bich ma rokera question sodhcha, IOE model answer ra yaad rakhne trick, syllabus kai order ma. Ani last ma real past questions.</span>
             </div>
           </div>
           <ol className="outline">
@@ -125,7 +125,7 @@ export default function App() {
             ))}
           </ol>
           <div className="path-mascot">
-            <div className="bubble tone-info">{started ? 'Welcome back! Pick up where you left off.' : 'Hi! I’m Sparky. Press Start and I’ll walk you through it.'}</div>
+            <div className="bubble tone-info">{started ? 'Welcome back bro! Jaha chhodeko thiyau, tei bata continue garau.' : 'Hi! Ma Sparky. Start thicha, baki ma sangai guide garchu.'}</div>
             <Mascot pose={finished && !started ? 'dab' : 'talk'} size={96} />
           </div>
         </section>

@@ -10,8 +10,10 @@ import { Hook, ModelAnswer, Scene } from '../../video/Scene.jsx';
     plain question steps ({ body, input, hint, why })         the few between-video checks
 
   Keep ~90% of screens as video. Put questions INSIDE videos as `ask` beats
-  wherever possible (they pause the video). Captions (`say`) are read aloud, so
-  write them as plain spoken sentences, one idea per beat, under ~30 words.
+  wherever possible (they pause the video). The course is in Gen-Z Nepali: `say`
+  is the romanized caption shown on screen and `voice` is the same line in
+  Devanagari, which is what gets recorded (ask beats: `q` + `voice`). One idea
+  per beat, under ~35 words. Technical terms, numbers and formulas stay English.
 */
 
 export const M = ({ children }) => <span className="math">{children}</span>;
@@ -35,14 +37,14 @@ export const C = {
 
 export const video = (title, props) => ({
   video: true,
-  tag: 'Watch',
+  tag: 'Hera',
   tagKind: 'watch',
   body: title ? <h2>{title}</h2> : null,
   Figure: Scene,
   figureProps: props,
 });
 
-export const hook = (big, lines) => ({ tag: 'Memory hook', tagKind: 'hook', pose: 'dab', body: <Hook big={big} lines={lines} /> });
+export const hook = (big, lines) => ({ tag: 'Yaad rakhne trick', tagKind: 'hook', pose: 'dab', body: <Hook big={big} lines={lines} /> });
 
 export const model = (props) => ({ ioe: true, body: <ModelAnswer {...props} /> });
 
@@ -166,10 +168,12 @@ export function Axes({ x = 40, y = 190, w = 290, h = 160, xLabel, yLabel }) {
     title, paper: '2073 Bhadra', marks: '8 marks',
     read: 'A 240 V DC shunt motor …',            // spoken while the question is read
     question: <>A <D>240 V</D> DC shunt motor …</>, // <D> marks the data to pick out
-    given: [{ node: <>V = 240 V</>, say: 'Supply 240 volts' }, …],
-    find: { node: <>New speed N₂</>, say: 'They want the new speed.' },
-    idea: { node: <>φ constant ⟹ N ∝ Eb</>, say: 'Shunt motor, so the flux is fixed…' },
-    steps: [{ node: <>Ish = 240/120 = 2 A</>, say: '…', ask?: { q, options, answer, why } }, …],
+    paperVoice: 'टु थाउजेन्ड सेभेन्टी थ्री भदौ',   // optional, how the voice says the paper
+    readVoice: 'टु फोर्टी भोल्टको डीसी शन्ट मोटर …', // Devanagari of `read`, spoken
+    given: [{ node: <>V = 240 V</>, say: 'Supply 240 volt', voice: 'सप्लाई टु फोर्टी भोल्ट' }, …],
+    find: { node: <>New speed N₂</>, say: 'Naya speed chahiyo.', voice: 'नयाँ स्पिड चाहियो।' },
+    idea: { node: <>φ constant ⟹ N ∝ Eb</>, say: 'Shunt motor, flux fixed…', voice: '…' },
+    steps: [{ node: <>Ish = 240/120 = 2 A</>, say: '…', voice: '…', ask?: { q, voice, options, answer, why } }, …],
     answer: { node: <>N₂ = 1500 rpm</>, say: '…' },
     trap: { node: <>…</>, say: '…' },                  // optional: the common mistake
   })
@@ -178,25 +182,29 @@ export function Axes({ x = 40, y = 190, w = 290, h = 160, xLabel, yLabel }) {
 */
 export const D = ({ children }) => <mark className="wb-data">{children}</mark>;
 
-export function solve({ title, paper, marks, read, question, given, find, idea, steps, answer, trap }) {
+export function solve({ title, paper, paperVoice, marks, read, readVoice, question, given, find, idea, steps, answer, trap }) {
+  const line = (x) => ({ say: x.say, voice: x.voice });
   const beats = [
-    { say: `This one is from IOE ${paper}. Let's read it slowly. ${read}` },
-    { say: `Now pick out the data. ${given.map((g) => g.say).join('. ')}.` },
-    { say: find.say },
-    { say: idea.say },
-    ...steps.map((st) => ({ say: st.say, ask: st.ask })),
-    { say: answer.say },
-    ...(trap ? [{ say: trap.say }] : []),
+    { say: `IOE ${paper} ko question. Bistarai padhau. ${read}`, voice: `आइओई ${paperVoice ?? paper} को क्वेस्चन। बिस्तारै पढौं। ${readVoice ?? read}` },
+    {
+      say: `Aba data tipau. ${given.map((g) => g.say).join('. ')}.`,
+      voice: `अब डाटा टिपौं। ${given.map((g) => g.voice ?? g.say).join('। ')}।`,
+    },
+    line(find),
+    line(idea),
+    ...steps.map((st) => ({ ...line(st), ask: st.ask })),
+    line(answer),
+    ...(trap ? [line(trap)] : []),
   ];
   const first = 4;
   const board = [
     { at: 0, kind: 'q', node: <><span className="tag">IOE {paper}{marks ? ` · ${marks}` : ''}</span>{question}</> },
     ...given.map((g) => ({ at: 1, kind: 'given', node: g.node })),
-    { at: 2, kind: 'find', node: <>Find: {find.node}</> },
+    { at: 2, kind: 'find', node: <>Nikalnu parne: {find.node}</> },
     { at: 3, kind: 'idea', node: <>💡 {idea.node}</> },
     ...steps.map((st, i) => ({ at: first + i, kind: 'step', node: st.node })),
     { at: first + steps.length, kind: 'answer', node: answer.node },
     ...(trap ? [{ at: first + steps.length + 1, kind: 'trap', node: trap.node }] : []),
   ];
-  return { ...video(title ?? `Solving IOE ${paper}`, { beats, board, tall: true }), ioe: true, tag: 'Solve with me', tagKind: 'watch' };
+  return { ...video(title ?? `IOE ${paper} solve garau`, { beats, board, tall: true }), ioe: true, tag: 'Sangai solve garau', tagKind: 'watch' };
 }

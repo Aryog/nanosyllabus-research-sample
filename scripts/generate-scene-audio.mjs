@@ -12,7 +12,7 @@ import { readFile, writeFile, mkdir, access, readdir, unlink, rm } from 'node:fs
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { build } from 'esbuild';
-import { beatText, spoken, voiceKey } from '../src/video/voice.js';
+import { beatText, isNepali, spoken, voiceKey } from '../src/video/voice.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = path.join(root, 'public', 'audio', 'scene');
@@ -89,13 +89,15 @@ if (!apiKey) {
 }
 
 async function synth(key, text) {
+  // Devanagari lines use eleven_v3 in Nepali, as the Sparky narration does.
+  const nepali = isNepali(text);
   const res = await realFetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, {
     method: 'POST',
     headers: { 'xi-api-key': apiKey, 'Content-Type': 'application/json', Accept: 'audio/mpeg' },
     body: JSON.stringify({
       text,
-      model_id: modelId,
-      language_code: 'en',
+      model_id: nepali ? 'eleven_v3' : modelId,
+      language_code: nepali ? 'ne' : 'en',
       voice_settings: { stability: 0.5, similarity_boost: 0.8, use_speaker_boost: true },
     }),
   });
@@ -114,7 +116,7 @@ await Promise.all(
       const [key, text] = job;
       try {
         await synth(key, text);
-        manifest[key] = modelId.slice(7, 12) + voiceId.slice(0, 4);
+        manifest[key] = (nepali ? 'v3ne' : modelId.slice(7, 12)) + voiceId.slice(0, 4);
         made++;
         console.log(`✓ ${key} ${text.slice(0, 60)}`);
         if (made % 20 === 0) await save();

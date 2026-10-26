@@ -399,7 +399,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
                 <div className="q-tags">
                   {step.chapter && <span className="q-tag q-tag-chapter">{step.chapter}</span>}
                   {inPractice && <span className="q-tag q-tag-practice">Practice</span>}
-                  {step.ioe && <span className="q-tag q-tag-ioe">IOE asked</span>}
+                  {step.ioe && <span className="q-tag q-tag-ioe">IOE ma sodhiyeko</span>}
                   {step.tag && <span className={`q-tag q-tag-${step.tagKind ?? 'tryit'}`}>{step.tag}</span>}
                   {step.retry && <span className="q-tag q-tag-review">↻ Review</span>}
                   {step.checkin && <span className="q-tag q-tag-checkin">Quick check</span>}
@@ -492,7 +492,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
               </>
             ) : (
               <button className={`btn ${isTask || videoEnded ? 'btn-green' : 'btn-light'} ${videoEnded ? 'btn-next-auto' : ''}`} onClick={next}>
-                {step.video && !videoEnded ? 'Skip video' : 'Continue'}
+                {step.video && !videoEnded ? 'Skip video' : 'Aghi badhau'}
               </button>
             )}
           </div>
