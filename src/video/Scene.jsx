@@ -40,6 +40,19 @@ const clipsReady = fetch(`${BASE}audio/scene/manifest.json`)
   .then((m) => (clips = m))
   .catch(() => {});
 
+// Sparky's recorded Nepali reactions (public/audio/fb-*.mp3), said when an
+// in-video question is answered.
+const REACT = { right: ['fb-correct-1', 'fb-correct-2', 'fb-correct-3'], wrong: ['fb-wrong-1', 'fb-wrong-2'] };
+let sparky = null;
+function react(right) {
+  sparky ??= fetch(`${BASE}audio/manifest.json`).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
+  sparky.then((m) => {
+    const ids = REACT[right ? 'right' : 'wrong'].filter((id) => m[id]);
+    const id = ids[Math.floor(Math.random() * ids.length)];
+    if (id) new Audio(`${BASE}audio/${id}.mp3?v=${m[id]}`).play().catch(() => {});
+  });
+}
+
 // Keep the next AHEAD lines recorded before they are needed, and no more, so
 // the voice never waits on ElevenLabs. Dev only: the server records and caches.
 const AHEAD = 3;
@@ -79,6 +92,20 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
   const [picked, setPicked] = useState({});
   const [ended, setEnded] = useState(false);
   const endedRef = useRef(false);
+  const boardRef = useRef(null);
+
+  // Keep the line being written in view when the board is taller than the screen.
+  // Only the board scrolls, never the page.
+  useEffect(() => {
+    const box = boardRef.current;
+    const el = box?.querySelector('.board-line.hl');
+    if (!el) return;
+    const t = setTimeout(() => {
+      const below = el.offsetTop + el.offsetHeight - (box.scrollTop + box.clientHeight);
+      if (below > 0) box.scrollTo({ top: box.scrollTop + below + 8, behavior: 'smooth' });
+    }, 650);
+    return () => clearTimeout(t);
+  }, [beat]);
   const cur = beats[beat];
   const ask = cur.ask;
   const waiting = ask && !picked[beat]?.done;
@@ -203,6 +230,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
   const choose = (i) => {
     if (picked[beat]) return;
     setPicked((p) => ({ ...p, [beat]: { i, done: false } }));
+    if (voice) react(i === ask.answer);
   };
   const resume = () => {
     setPicked((p) => ({ ...p, [beat]: { ...p[beat], done: true } }));
@@ -220,14 +248,14 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
 
   return (
     <div className={`scene beat-${beat} ${tall ? 'tall' : ''}`}>
-      <div className="scene-screen">
+      <div className={`scene-screen ${ask ? 'asking' : ''}`}>
         {draw && (
           <svg viewBox={viewBox} className="scene-svg" role="img">
             {draw(s)}
           </svg>
         )}
         {board && (
-          <div className={`board ${draw ? '' : 'board-only'}`}>
+          <div className={`board ${draw ? '' : 'board-only'}`} ref={boardRef}>
             {board.map((b, i) => (
               <div key={i} className={`board-line kind-${b.kind ?? 'text'} ${beat >= b.at && (b.until == null || beat <= b.until) ? 'on' : ''} ${beat === b.at ? 'hl' : ''}`}>
                 <span className="ink">{b.node}</span>
@@ -255,11 +283,6 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
               {pick && (
                 <div className="scene-ask-why">
                   <b>{pick.i === ask.answer ? 'Ekdam sahi! 🔥' : 'Hmm, yo haina.'}</b> {ask.why}
-                  {!pick.done && (
-                    <button className="scene-resume" onClick={resume}>
-                      Video continue ▶
-                    </button>
-                  )}
                 </div>
               )}
             </div>
@@ -271,22 +294,29 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
       </div>
 
       <div className="scene-bar">
-        <button className="scene-btn" onClick={toggle} aria-label={ended ? 'Replay' : playing ? 'Pause' : 'Play'}>
+        <button className="scene-btn" onClick={pick && !pick.done ? resume : toggle} aria-label={ended ? 'Replay' : playing ? 'Pause' : 'Play'}>
           {ended ? '↻' : playing && !waiting ? '❚❚' : '▶'}
         </button>
-        <div className="scene-track">
-          {beats.map((b, k) => (
-            <button key={k} className={`seg ${k < beat || ended ? 'done' : k === beat ? 'now' : ''} ${b.ask ? 'ask' : ''}`} onClick={() => jump(k)} aria-label={`Go to part ${k + 1}`}>
-              {k === beat && !ended && (
-                <span
-                  key={run}
-                  className="seg-fill"
-                  style={{ animationDuration: `${b.ms ?? readMs(beatText(b))}ms`, animationPlayState: playing && !waiting ? 'running' : 'paused' }}
-                />
-              )}
-            </button>
-          ))}
-        </div>
+        {/* After answering, Continue sits in the bar so it is always on screen. */}
+        {pick && !pick.done ? (
+          <button className="scene-resume" onClick={resume}>
+            Video continue ▶
+          </button>
+        ) : (
+          <div className="scene-track">
+            {beats.map((b, k) => (
+              <button key={k} className={`seg ${k < beat || ended ? 'done' : k === beat ? 'now' : ''} ${b.ask ? 'ask' : ''}`} onClick={() => jump(k)} aria-label={`Go to part ${k + 1}`}>
+                {k === beat && !ended && (
+                  <span
+                    key={run}
+                    className="seg-fill"
+                    style={{ animationDuration: `${b.ms ?? readMs(beatText(b))}ms`, animationPlayState: playing && !waiting ? 'running' : 'paused' }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        )}
         <button
           className={`scene-btn ${voice ? 'on' : ''}`}
           onClick={() => {

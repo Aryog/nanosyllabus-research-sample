@@ -576,3 +576,46 @@ button:disabled { cursor: default; }
   .rail { flex-direction: row; left: auto; right: 10px; top: 8px; gap: 4px; }
   .scroll { padding: 40px 14px 20px; }
 }
+/* Big screens: the video fills more of the page, like a real player. */
+@media (min-width: 1200px) and (min-height: 760px) {
+  .content.wide { max-width: min(1120px, 92vw); }
+  .board-line { font-size: 23px; }
+  .board-line.kind-h { font-size: 38px; }
+  .board-line.kind-eq { font-size: 33px; }
+  .board-line.kind-q { font-size: 20px; }
+  .scene-screen { padding: 16px 26px 0; }
+  .scene-caption { margin: auto -26px 0; padding: 14px 26px; font-size: 19px; min-height: 60px; }
+  .scene-bar { padding: 10px 16px 12px; }
+  .scene-ask-card { max-width: 700px; }
+  .scene-ask-q { font-size: 27px; }
+  .scene-opt { font-size: 17.5px; padding: 12px 16px; }
+  .scene-ask-why { font-size: 16.5px; }
+  .content.wide h2 { font-size: 30px; }
+}
+/* While a question is up, the card takes the screen and grows to fit, so the
+   explanation and "Video continue" are never cut off. */
+.scene-screen.asking > :not(.scene-ask) { display: none; }
+.scene-screen.asking .scene-ask { position: relative; inset: auto; flex: 1; padding: 18px 8px 22px; }
+/* Desktop: the whole video fits the window, so the page never scrolls. The
+   drawing shrinks to the space left; a long board keeps its newest line in view. */
+@media (min-width: 901px) {
+  .content.wide { --scene-h: clamp(260px, calc(100dvh - 445px), 640px); }
+  .content.wide .scene-screen, .content.wide .scene.tall .scene-screen { height: var(--scene-h); min-height: 0; }
+  .content.wide .scene-svg { flex: 1 1 0; min-height: 90px; max-height: none; height: auto; }
+  .content.wide .board { position: relative; flex: 0 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: none; }
+  .content.wide .board-only { flex: 1 1 auto; justify-content: flex-start; }
+  .content.wide .board::-webkit-scrollbar { display: none; }
+  .content.wide .scene-caption { flex: none; }
+  .content.wide .scene-screen.asking .scene-ask { overflow-y: auto; display: flex; align-items: center; justify-content: center; }
+  .content.wide .scene-screen.asking .scene-ask-card { margin: auto 0; }
+}
+.scene-bar .scene-resume { flex: 1; margin: 0; padding: 8px 18px; font-size: 15px; animation: capin 0.3s ease; }
+/* Short windows: a more compact question card. */
+@media (max-height: 820px) and (min-width: 901px) {
+  .scene-ask-q { font-size: 20px; margin: 4px 0 8px; }
+  .scene-opt { font-size: 15px; padding: 8px 14px; }
+  .scene-ask-options { gap: 6px; }
+  .scene-opt.dim { display: none; }
+  .scene-ask-why { margin-top: 8px; font-size: 14px; }
+  .scene-screen.asking .scene-ask { padding: 10px 8px; }
+}
