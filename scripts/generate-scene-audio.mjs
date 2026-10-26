@@ -74,7 +74,11 @@ try {
 } catch {}
 const exists = (p) => access(p).then(() => true, () => false);
 const todo = [];
-for (const [key, text] of lines) if (!manifest[key] || !(await exists(path.join(outDir, `${key}.mp3`)))) todo.push([key, text]);
+const onDisk = new Set();
+for (const [key, text] of lines) {
+  if (await exists(path.join(outDir, `${key}.mp3`))) onDisk.add(key);
+  else todo.push([key, text]);
+}
 const todoChars = todo.reduce((n, [, t]) => n + t.length, 0);
 console.log(`${lines.size} lines (${chars} chars); ${todo.length} to record (${todoChars} chars).`);
 if (dry) process.exit(0);
@@ -88,10 +92,10 @@ if (!apiKey) {
   process.exit(1);
 }
 
-async function synth(key, text) {
+async function synth(key, text, tries = 4) {
   // Devanagari lines use eleven_v3 in Nepali, as the Sparky narration does.
   const nepali = isNepali(text);
-  const res = await realFetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, {
+  const res = await realFetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_64`, {
     method: 'POST',
     headers: { 'xi-api-key': apiKey, 'Content-Type': 'application/json', Accept: 'audio/mpeg' },
     body: JSON.stringify({
@@ -101,22 +105,30 @@ async function synth(key, text) {
       voice_settings: { stability: 0.5, similarity_boost: 0.8, use_speaker_boost: true },
     }),
   });
+  if (res.status === 429 && tries > 1) {
+    await new Promise((r) => setTimeout(r, 2000));
+    return synth(key, text, tries - 1);
+  }
   if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
   await writeFile(path.join(outDir, `${key}.mp3`), Buffer.from(await res.arrayBuffer()));
 }
 
+const tagFor = (text) => (isNepali(text) ? 'v3ne' : modelId.slice(7, 12)) + voiceId.slice(0, 4);
+// Clips already on disk (e.g. from an interrupted run) just need registering.
+for (const key of onDisk) manifest[key] ??= tagFor(lines.get(key));
+
 let made = 0;
 let failed = 0;
 const save = () => writeFile(manifestPath, JSON.stringify(manifest, null, 2));
-// A few requests at a time.
+// Two requests at a time: the plan's concurrency limit.
 const queue = [...todo];
 await Promise.all(
-  Array.from({ length: 3 }, async () => {
+  Array.from({ length: 2 }, async () => {
     for (let job; (job = queue.shift()); ) {
       const [key, text] = job;
       try {
         await synth(key, text);
-        manifest[key] = (nepali ? 'v3ne' : modelId.slice(7, 12)) + voiceId.slice(0, 4);
+        manifest[key] = tagFor(text);
         made++;
         console.log(`✓ ${key} ${text.slice(0, 60)}`);
         if (made % 20 === 0) await save();

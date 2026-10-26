@@ -2,5 +2,3 @@ node_modules
 dist
 .env
 vault/
-# Scene voice clips recorded on demand; kept local
-public/audio/scene/

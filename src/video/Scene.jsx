@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { beatText, spoken, voiceKey } from './voice.js';
+import { beatText, isNepali, spoken, voiceKey } from './voice.js';
 
 /*
   Scene: a short, self-playing "video" built from beats, like a whiteboard
@@ -61,8 +61,11 @@ function prepare(texts) {
   });
 }
 
-function pickVoice() {
+// Fallback browser voice: Devanagari lines need a Nepali (or Hindi) voice;
+// an English voice can't read them.
+function pickVoice(text) {
   const vs = window.speechSynthesis.getVoices();
+  if (isNepali(text)) return vs.find((v) => v.lang?.startsWith('ne')) ?? vs.find((v) => v.lang?.startsWith('hi'));
   return vs.find((v) => v.lang === 'en-IN') ?? vs.find((v) => /en[-_]GB/i.test(v.lang)) ?? vs.find((v) => v.lang?.startsWith('en'));
 }
 
@@ -115,7 +118,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
     };
 
     const speakBrowser = () => {
-      const v = 'speechSynthesis' in window ? pickVoice() : null;
+      const v = 'speechSynthesis' in window ? pickVoice(text) : null;
       if (!v) return silent();
       let started = false;
       window.speechSynthesis.cancel();
