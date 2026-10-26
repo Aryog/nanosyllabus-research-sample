@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Mascot from './Mascot.jsx';
+import { beatText } from '../video/voice.js';
 import { INPUTS } from './inputs.jsx';
 import { CORRECT_LINES, WRONG_LINES } from '../content/narration.js';
 
@@ -297,15 +298,27 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
   const Figure = step.Figure;
   const InputComp = isQuestion && step.input.type !== 'figure' ? inputDef.Component : null;
 
+  // First few spoken lines of the videos after this screen, so the scene can
+  // have their voice ready before the learner gets there.
+  const upcomingLines = useMemo(() => {
+    const out = [];
+    for (const e of sequence.slice(pos + 1)) {
+      const beats = e.i != null && !e.retry ? lesson.steps[e.i]?.figureProps?.beats : null;
+      if (beats) out.push(...beats.map(beatText).filter(Boolean));
+      if (out.length >= 3) break;
+    }
+    return out;
+  }, [sequence, pos, lesson]);
+
   const figureProps = useMemo(
     () => ({
       ...(step.figureProps ?? {}),
       ...(isTask ? { onSolved: onTaskSolved, solved } : {}),
       ...(isQuestion && step.input.type === 'figure' ? { value, setValue: changeValue, status } : {}),
-      ...(step.video ? { onEnded: () => setVideoEnded(true) } : {}),
+      ...(step.video ? { onEnded: () => setVideoEnded(true), upcoming: upcomingLines } : {}),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [step, solved, value, status],
+    [step, solved, value, status, upcomingLines],
   );
 
   const glow = status === 'correct' || done ? 'glow-correct' : status === 'wrong' ? 'glow-wrong' : '';

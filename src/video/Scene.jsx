@@ -39,6 +39,27 @@ const clipsReady = fetch(`${BASE}audio/scene/manifest.json`)
   .then((m) => (clips = m))
   .catch(() => {});
 
+// Keep the next AHEAD lines recorded before they are needed, and no more, so
+// the voice never waits on ElevenLabs. Dev only: the server records and caches.
+const AHEAD = 3;
+const asked = new Set();
+function prepare(texts) {
+  if (!import.meta.env.DEV) return;
+  clipsReady.then(() => {
+    for (const text of texts.slice(0, AHEAD)) {
+      const key = voiceKey(text);
+      if (clips[key] || asked.has(key)) continue;
+      asked.add(key);
+      fetch(`${BASE}api/tts/${key}.mp3`)
+        .then((r) => {
+          if (r.ok) clips[key] ??= 'new';
+          else asked.delete(key);
+        })
+        .catch(() => asked.delete(key));
+    }
+  });
+}
+
 function pickVoice() {
   const vs = window.speechSynthesis.getVoices();
   return vs.find((v) => v.lang === 'en-IN') ?? vs.find((v) => /en[-_]GB/i.test(v.lang)) ?? vs.find((v) => v.lang?.startsWith('en'));
@@ -46,7 +67,7 @@ function pickVoice() {
 
 const readMs = (t = '') => Math.max(2600, 1200 + t.length * 58);
 
-export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, tall }) {
+export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, tall, upcoming = [] }) {
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [voice, setVoice] = useState(() => !isMuted() && 'speechSynthesis' in window);
@@ -80,6 +101,8 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
       if (live && timeUp && spokeDone && !waiting) advance();
     };
     const text = beatText(cur);
+    // Lines after this one: rest of this video, then the next videos.
+    prepare([...beats.slice(beat + 1).map(beatText), ...upcoming].filter(Boolean));
     const minMs = cur.ms ?? readMs(text);
     // Voice failed or is missing: fall back to reading time, never rush the beat.
     const silent = () => {
@@ -127,14 +150,24 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
       clipsReady.then(() => {
         if (!live) return;
         const key = voiceKey(text);
-        if (!clips[key]) return speakBrowser();
-        audio = new Audio(`${BASE}audio/scene/${key}.mp3?v=${clips[key]}`);
+        // In dev, a line that isn't recorded yet is recorded on the spot (and cached).
+        const src = clips[key] ? `${BASE}audio/scene/${key}.mp3?v=${clips[key]}` : import.meta.env.DEV ? `${BASE}api/tts/${key}.mp3` : null;
+        if (!src) return speakBrowser();
+        audio = new Audio(src);
+        audio.onplay = () => (clips[key] ??= 'new');
         audio.onended = () => {
           spokeDone = true;
           later(maybe, 500);
         };
-        audio.onerror = () => live && silent();
-        audio.play().catch(() => live && silent());
+        // Recording failed or autoplay was blocked: fall back once.
+        let fell = false;
+        const fallback = (fn) => () => {
+          if (!live || fell) return;
+          fell = true;
+          fn();
+        };
+        audio.onerror = fallback(speakBrowser);
+        audio.play().catch(fallback(silent));
         later(() => {
           timeUp = true;
           maybe();
