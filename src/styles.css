@@ -571,3 +571,8 @@ button:disabled { cursor: default; }
 .board-line.kind-trap .ink::before { content: '⚠ '; }
 .board-line .y { color: var(--c-orange); } .board-line .r { color: var(--c-red); } .board-line .bl { color: var(--c-blue); } .board-line .g { color: var(--c-green); }
 .board-line b { color: var(--chalk); }
+/* Phones: side icons move to the top-right corner so videos get the full width. */
+@media (max-width: 600px) {
+  .rail { flex-direction: row; left: auto; right: 10px; top: 8px; gap: 4px; }
+  .scroll { padding: 40px 14px 20px; }
+}

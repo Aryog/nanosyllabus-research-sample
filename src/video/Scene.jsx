@@ -1,4 +1,5 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { beatText, spoken, voiceKey } from './voice.js';
 
 /*
   Scene: a short, self-playing "video" built from beats, like a whiteboard
@@ -29,15 +30,14 @@ const isMuted = () => {
   }
 };
 
-// Make symbols speakable for the browser voice.
-const SPOKEN = [
-  [/⊙/g, ' dot '], [/⊗/g, ' cross '], [/φ/g, ' phi '], [/Φ/g, ' phi '], [/Ω/g, ' ohm '], [/∝/g, ' is proportional to '],
-  [/→/g, ' to '], [/⟹/g, ', so '], [/↑/g, ' up '], [/↓/g, ' down '], [/²/g, ' squared '], [/√/g, ' root '], [/π/g, ' pi '],
-  [/η/g, ' eta '], [/τ/g, ' tau '], [/×/g, ' times '], [/÷/g, ' divided by '], [/−/g, ' minus '], [/≈/g, ' about '],
-  [/\bEb\b/g, 'E b'], [/\bIa\b/g, 'I a'], [/\bRa\b/g, 'R a'], [/\bTa\b/g, 'T a'], [/\bIsh\b/g, 'I shunt'], [/\bRsh\b/g, 'R shunt'],
-  [/\bIL\b/g, 'I L'], [/\bWc\b/g, 'W c'], [/\bPm\b/g, 'P m'], [/\brpm\b/g, 'R P M'], [/\bIOE\b/g, 'I O E'], [/\bNVC\b/g, 'N V C'], [/\bOLR\b/g, 'O L R'],
-];
-const spoken = (t) => SPOKEN.reduce((acc, [re, to]) => acc.replace(re, to), t);
+const BASE = import.meta.env.BASE_URL;
+
+// Recorded clips, keyed by voiceKey(text). Loaded once for all scenes.
+let clips = {};
+const clipsReady = fetch(`${BASE}audio/scene/manifest.json`)
+  .then((r) => (r.ok ? r.json() : {}))
+  .then((m) => (clips = m))
+  .catch(() => {});
 
 function pickVoice() {
   const vs = window.speechSynthesis.getVoices();
@@ -54,7 +54,6 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
   const [picked, setPicked] = useState({});
   const [ended, setEnded] = useState(false);
   const endedRef = useRef(false);
-  const rough = `wb-${useId().replace(/:/g, '')}`;
   const cur = beats[beat];
   const ask = cur.ask;
   const waiting = ask && !picked[beat]?.done;
@@ -71,37 +70,81 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
 
   useEffect(() => {
     if (!playing) return;
+    let live = true;
     let timeUp = false;
     let spokeDone = !voice;
+    let audio = null;
+    const timers = [];
+    const later = (fn, ms) => timers.push(setTimeout(fn, ms));
     const maybe = () => {
-      if (timeUp && spokeDone && !waiting) advance();
+      if (live && timeUp && spokeDone && !waiting) advance();
     };
-    const text = ask ? `${cur.say ?? ''} ${ask.q}` : cur.say ?? '';
-    if (voice && text && 'speechSynthesis' in window) {
+    const text = beatText(cur);
+    const minMs = cur.ms ?? readMs(text);
+    // Voice failed or is missing: fall back to reading time, never rush the beat.
+    const silent = () => {
+      spokeDone = true;
+      later(() => {
+        timeUp = true;
+        maybe();
+      }, minMs);
+    };
+
+    const speakBrowser = () => {
+      const v = 'speechSynthesis' in window ? pickVoice() : null;
+      if (!v) return silent();
+      let started = false;
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(spoken(text));
-      const v = pickVoice();
-      if (v) u.voice = v;
-      u.lang = v?.lang ?? 'en-IN';
+      u.voice = v;
+      u.lang = v.lang;
       u.rate = 1.03;
+      u.onstart = () => (started = true);
       u.onend = u.onerror = () => {
+        if (!live) return;
+        if (!started) return silent();
         spokeDone = true;
-        setTimeout(maybe, 450);
+        later(maybe, 450);
       };
       window.speechSynthesis.speak(u);
+      // Some browsers never fire onend; don't let the video hang on them.
+      later(() => {
+        spokeDone = true;
+        maybe();
+      }, minMs * 2.2);
+      later(() => {
+        timeUp = true;
+        maybe();
+      }, 1400);
+    };
+
+    if (!voice || !text) {
+      later(() => {
+        timeUp = true;
+        maybe();
+      }, minMs);
+    } else {
+      clipsReady.then(() => {
+        if (!live) return;
+        const key = voiceKey(text);
+        if (!clips[key]) return speakBrowser();
+        audio = new Audio(`${BASE}audio/scene/${key}.mp3?v=${clips[key]}`);
+        audio.onended = () => {
+          spokeDone = true;
+          later(maybe, 500);
+        };
+        audio.onerror = () => live && silent();
+        audio.play().catch(() => live && silent());
+        later(() => {
+          timeUp = true;
+          maybe();
+        }, 1400);
+      });
     }
-    // Some browsers never fire onend; don't let the video hang on them.
-    const guard = voice ? setTimeout(() => {
-      spokeDone = true;
-      maybe();
-    }, readMs(text) * 2.2) : null;
-    const t = setTimeout(() => {
-      timeUp = true;
-      maybe();
-    }, voice ? 1400 : cur.ms ?? readMs(text));
     return () => {
-      clearTimeout(t);
-      clearTimeout(guard);
+      live = false;
+      timers.forEach(clearTimeout);
+      if (audio) audio.pause();
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -143,14 +186,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
       <div className="scene-screen">
         {draw && (
           <svg viewBox={viewBox} className="scene-svg" role="img">
-            {/* A slight wobble so strokes look hand-drawn with a marker. */}
-            <defs>
-              <filter id={rough}>
-                <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3" />
-                <feDisplacementMap in="SourceGraphic" scale="1.6" />
-              </filter>
-            </defs>
-            <g filter={`url(#${rough})`}>{draw(s)}</g>
+            {draw(s)}
           </svg>
         )}
         {board && (
@@ -208,7 +244,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
                 <span
                   key={run}
                   className="seg-fill"
-                  style={{ animationDuration: `${voice ? readMs(b.say) * 1.1 : b.ms ?? readMs(b.say)}ms`, animationPlayState: playing && !waiting ? 'running' : 'paused' }}
+                  style={{ animationDuration: `${b.ms ?? readMs(beatText(b))}ms`, animationPlayState: playing && !waiting ? 'running' : 'paused' }}
                 />
               )}
             </button>
