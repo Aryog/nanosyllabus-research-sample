@@ -87,15 +87,15 @@ export function StarterSim({ onSolved }) {
         {studs.slice(1, 6).map((k) => {
           const [x1, y1] = at(132, studAngle(k));
           const [x2, y2] = at(132, studAngle(k + 1));
-          return <path key={k} d={zig(x1, y1, x2, y2)} fill="none" stroke="#d08a3c" strokeWidth="2" />;
+          return <path key={k} d={zig(x1, y1, x2, y2)} fill="none" stroke="#c06a1f" strokeWidth="2" />;
         })}
         {studs.map((k) => {
           const [x, y] = at(ARM, studAngle(k));
           const [x2, y2] = at(132, studAngle(k));
           return (
             <g key={k}>
-              {k > 0 && <line x1={x} y1={y} x2={x2} y2={y2} stroke="#777" strokeWidth="2" />}
-              <circle cx={x} cy={y} r="8" fill={k === s.handle ? C.green : '#3a3a3a'} stroke="#888" strokeWidth="1.5" />
+              {k > 0 && <line x1={x} y1={y} x2={x2} y2={y2} stroke="#5c5c5c" strokeWidth="2" />}
+              <circle cx={x} cy={y} r="8" fill={k === s.handle ? C.green : '#fff'} stroke="#5c5c5c" strokeWidth="1.5" />
               <text x={at(96, studAngle(k))[0]} y={at(96, studAngle(k))[1] + 4} textAnchor="middle" fontSize="10" fill={C.muted}>
                 {k === 0 ? 'OFF' : k === 6 ? 'RUN' : k}
               </text>
@@ -103,42 +103,42 @@ export function StarterSim({ onSolved }) {
           );
         })}
         {/* brass arc feeding the field */}
-        <path d={`M${at(150, studAngle(1)).join(' ')} A150 150 0 0 1 ${at(150, studAngle(6)).join(' ')}`} fill="none" stroke="#e0b84a" strokeWidth="4" opacity="0.6" />
+        <path d={`M${at(150, studAngle(1)).join(' ')} A150 150 0 0 1 ${at(150, studAngle(6)).join(' ')}`} fill="none" stroke="#c27c00" strokeWidth="4" opacity="0.6" />
         {/* NVC */}
         <g transform={`translate(${at(ARM, studAngle(6) + 16).join(' ')})`}>
-          <rect x="-16" y="-12" width="32" height="24" rx="4" fill={s.handle === 6 ? '#3c3f6b' : '#2a2a2a'} stroke="#7b8cff" strokeWidth="2" />
-          <text y="4" textAnchor="middle" fontSize="10" fontWeight="800" fill="#c7ceff">NVC</text>
+          <rect x="-16" y="-12" width="32" height="24" rx="4" fill={s.handle === 6 ? '#dbe4ff' : '#f3f3f1'} stroke="#3b5bdb" strokeWidth="2" />
+          <text y="4" textAnchor="middle" fontSize="10" fontWeight="800" fill="#2a3f9e">NVC</text>
         </g>
         {/* handle */}
-        <line x1={PIV.x} y1={PIV.y} x2={hx} y2={hy} stroke="#ddd" strokeWidth="8" strokeLinecap="round" />
-        <circle cx={PIV.x} cy={PIV.y} r="10" fill="#999" />
-        <path d={`M${PIV.x} ${PIV.y + 10} q 10 20 -6 30`} stroke="#777" fill="none" strokeWidth="2" strokeDasharray="3 3" />
+        <line x1={PIV.x} y1={PIV.y} x2={hx} y2={hy} stroke="#5c5c5c" strokeWidth="8" strokeLinecap="round" />
+        <circle cx={PIV.x} cy={PIV.y} r="10" fill="#777" />
+        <path d={`M${PIV.x} ${PIV.y + 10} q 10 20 -6 30`} stroke="#5c5c5c" fill="none" strokeWidth="2" strokeDasharray="3 3" />
         <text x={PIV.x + 14} y={PIV.y + 34} fontSize="10" fill={C.muted}>spring</text>
         {/* supply, OLR */}
         <text x="20" y="282" fontSize="13" fontWeight="800" fill={C.north}>L+</text>
-        <path d={`M44 278 H120 M150 278 H190 V${PIV.y + 10}`} stroke="#777" strokeWidth="2" fill="none" />
-        <rect x="120" y="268" width="30" height="20" rx="4" fill="#2a2a2a" stroke={s.peak > TRIP * 0.8 ? C.force : '#888'} strokeWidth="2" />
+        <path d={`M44 278 H120 M150 278 H190 V${PIV.y + 10}`} stroke="#5c5c5c" strokeWidth="2" fill="none" />
+        <rect x="120" y="268" width="30" height="20" rx="4" fill="#f3f3f1" stroke={s.peak > TRIP * 0.8 ? C.force : '#888'} strokeWidth="2" />
         <text x="135" y="282" textAnchor="middle" fontSize="10" fontWeight="800" fill={C.ink}>OLR</text>
         {/* armature + field */}
-        <path d={`M${at(ARM, studAngle(6)).join(' ')} L400 60 H440 V120`} stroke="#777" strokeWidth="2" fill="none" />
+        <path d={`M${at(ARM, studAngle(6)).join(' ')} L400 60 H440 V120`} stroke="#5c5c5c" strokeWidth="2" fill="none" />
         <text x="404" y="52" fontSize="12" fontWeight="800" fill={C.ink}>A</text>
-        <circle cx="440" cy="150" r="28" fill="#222" stroke="#ccc" strokeWidth="2.5" />
+        <circle cx="440" cy="150" r="28" fill="#fff" stroke="#4a4a4a" strokeWidth="2.5" />
         <g transform={`rotate(${(s.N * 0.6) % 360} 440 150)`}>
           <line x1="420" y1="150" x2="460" y2="150" stroke={C.teal} strokeWidth="3" />
         </g>
         <text x="404" y="154" textAnchor="end" fontSize="11" fill={C.muted}>armature</text>
-        <path d="M440 178 V278 H530" stroke="#777" strokeWidth="2" fill="none" />
-        <path d={`M${at(150, studAngle(1)).join(' ')} L310 30 H530 V110`} stroke="#e0b84a" strokeWidth="2" fill="none" opacity="0.7" />
-        <text x="314" y="24" fontSize="12" fontWeight="800" fill="#e0b84a">F (via NVC)</text>
-        <path d="M530 110 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 V278" stroke="#d08a3c" strokeWidth="2.5" fill="none" />
-        <text x="522" y="206" textAnchor="end" fontSize="11" fill="#d08a3c">shunt field</text>
+        <path d="M440 178 V278 H530" stroke="#5c5c5c" strokeWidth="2" fill="none" />
+        <path d={`M${at(150, studAngle(1)).join(' ')} L310 30 H530 V110`} stroke="#c27c00" strokeWidth="2" fill="none" opacity="0.7" />
+        <text x="314" y="24" fontSize="12" fontWeight="800" fill="#c27c00">F (via NVC)</text>
+        <path d="M530 110 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 V278" stroke="#c06a1f" strokeWidth="2.5" fill="none" />
+        <text x="522" y="206" textAnchor="end" fontSize="11" fill="#c06a1f">shunt field</text>
         <text x="540" y="296" textAnchor="end" fontSize="13" fontWeight="800" fill={C.south}>L−</text>
         {/* current meter */}
         <g transform="translate(300 230)">
           <text fontSize="12" fill={C.ink} fontWeight="700">Armature current</text>
-          <rect y="8" width="140" height="12" rx="6" fill="#262626" />
-          <rect y="8" width={iFrac * 140} height="12" rx="6" fill={s.Ia > TRIP ? '#ff6b6b' : C.current} />
-          <rect x={(TRIP / 60) * 140} y="4" width="2" height="20" fill="#ff6b6b" />
+          <rect y="8" width="140" height="12" rx="6" fill="#ebebe8" />
+          <rect y="8" width={iFrac * 140} height="12" rx="6" fill={s.Ia > TRIP ? '#e03131' : C.current} />
+          <rect x={(TRIP / 60) * 140} y="4" width="2" height="20" fill="#e03131" />
           <text x="0" y="38" fontSize="12" fill={C.current} fontWeight="800">{s.Ia.toFixed(1)} A</text>
           <text x="140" y="38" textAnchor="end" fontSize="11" fill={C.muted}>{Math.round(s.N)} rpm</text>
         </g>
@@ -189,7 +189,7 @@ export function SpeedControl({ onSolved }) {
     setMethod(m);
     const next = new Set(seen).add(m);
     setSeen(next);
-    if (next.size === 3) onSolved?.();
+    if (next.size >= 2) onSolved?.(); // comparing two methods is the point
   };
 
   const W = 300;
@@ -208,9 +208,9 @@ export function SpeedControl({ onSolved }) {
           value={method}
           onChange={choose}
           options={[
-            { value: 'flux', label: `${seen.has('flux') ? '✓ ' : ''}Flux (field) control` },
-            { value: 'res', label: `${seen.has('res') ? '✓ ' : ''}Armature resistance` },
-            { value: 'volt', label: `${seen.has('volt') ? '✓ ' : ''}Armature voltage` },
+            { value: 'flux', label: 'Flux (field) control' },
+            { value: 'res', label: 'Armature resistance' },
+            { value: 'volt', label: 'Armature voltage' },
           ]}
         />
       </div>
@@ -228,7 +228,7 @@ export function SpeedControl({ onSolved }) {
           <circle cx={X(T)} cy={Y(Math.min(N, 2400))} r="6" fill="#fff" stroke={C.teal} strokeWidth="3" />
           <text x={X(T) + 6} y={10 + H - 4} fontSize="10" fill={C.force}>load torque</text>
           <text x={40 + W} y={10 + H + 16} textAnchor="end" fontSize="11" fill={C.muted}>Torque (N·m) →</text>
-          <text x={40 + W} y={Y(base) - 6} textAnchor="end" fontSize="10" fill="#888">base</text>
+          <text x={40 + W} y={Y(base) - 6} textAnchor="end" fontSize="10" fill="#71716c">base</text>
         </svg>
         <div className="lab-readouts">
           {method === 'flux' && <Slider label="Field flux (field rheostat)" value={flux} min={50} max={100} step={5} onChange={setFlux} unit="%" />}
@@ -273,9 +273,9 @@ export function PowerFlow({ onSolved, showEfficiency = true }) {
     }
   };
   const segs = [
-    { k: 'Shunt field Cu loss', v: p.field, c: '#b99bff' },
+    { k: 'Shunt field Cu loss', v: p.field, c: '#7048e8' },
     { k: 'Armature Cu loss Ia²Ra', v: p.cu, c: C.force },
-    { k: 'Iron + mechanical', v: ROT, c: '#888' },
+    { k: 'Iron + mechanical', v: ROT, c: '#9a9ea6' },
     { k: 'Output (shaft)', v: Math.max(0, p.out), c: C.green },
   ];
   const curve = [];
@@ -368,8 +368,8 @@ export function MarkGraph({ value, setValue, status, fn, xMax, yMax, xTicks, yTi
       <polyline points={pts.join(' ')} fill="none" stroke={ok ? C.green : C.teal} strokeWidth="2.5" />
       <text x={GX + GW} y={GY + GH + 40} textAnchor="end" fontSize="13" fontWeight="700" fill={C.ink}>{xLabel}</text>
       <g onPointerDown={(e) => { e.target.setPointerCapture?.(e.pointerId); setDrag(true); if (!value) setValue({ x }); }} style={{ cursor: ok ? 'default' : 'grab' }}>
-        <circle cx={X(x)} cy={Y(y)} r="22" fill={ok ? 'rgba(47,209,107,.18)' : 'rgba(255,255,255,.12)'} />
-        <circle cx={X(x)} cy={Y(y)} r="7" fill={ok ? C.green : status === 'wrong' ? '#e0a816' : '#7b8cff'} />
+        <circle cx={X(x)} cy={Y(y)} r="22" fill={ok ? 'rgba(31,157,85,.16)' : 'rgba(59,91,219,.10)'} />
+        <circle cx={X(x)} cy={Y(y)} r="7" fill={ok ? C.green : status === 'wrong' ? '#e09a00' : '#3b5bdb'} />
       </g>
       {(value || ok) && (
         <text x={X(x)} y={Y(y) - 26} textAnchor="middle" fontSize="13" fontWeight="800" fill={ok ? C.green : C.ink}>

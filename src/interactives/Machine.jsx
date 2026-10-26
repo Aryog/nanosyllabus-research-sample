@@ -72,7 +72,8 @@ export function ConstructionExplorer({ onSolved }) {
     setSel(id);
     const next = new Set(seen).add(id);
     setSeen(next);
-    if (next.size === Object.keys(PARTS).length) onSolved?.();
+    // One look is enough to unlock; the rest of the parts stay open for exploring.
+    onSolved?.();
   };
   const dim = (id) => (sel && sel !== id ? 0.35 : 1);
   const ring = (id) => (sel === id ? { stroke: C.green, strokeWidth: 3 } : {});
@@ -95,8 +96,8 @@ export function ConstructionExplorer({ onSolved }) {
                 <path d={arcPath(124, 116, 32)} fill="#8a8f98" {...ring('pole')} />
               </g>
               <g {...part('field')}>
-                <rect x="-36" y="-166" width="15" height="34" rx="3" fill="#d08a3c" {...ring('field')} />
-                <rect x="21" y="-166" width="15" height="34" rx="3" fill="#d08a3c" {...ring('field')} />
+                <rect x="-36" y="-166" width="15" height="34" rx="3" fill="#c06a1f" {...ring('field')} />
+                <rect x="21" y="-166" width="15" height="34" rx="3" fill="#c06a1f" {...ring('field')} />
               </g>
               <text x="0" y="-140" textAnchor="middle" fontSize="15" fontWeight="800" fill={i % 2 ? C.south : C.north} pointerEvents="none" transform={`rotate(${-rot} 0 -140)`}>
                 {i % 2 ? 'S' : 'N'}
@@ -104,7 +105,7 @@ export function ConstructionExplorer({ onSolved }) {
             </g>
           ))}
           <g {...part('gap')}>
-            <circle r="112" fill="none" stroke={sel === 'gap' ? C.green : '#2c2c2c'} strokeWidth="7" />
+            <circle r="112" fill="none" stroke={sel === 'gap' ? C.green : '#fff'} strokeWidth="7" />
           </g>
           <g {...part('core')}>
             <circle r="108" fill="#4a4e55" {...ring('core')} />
@@ -153,12 +154,10 @@ export function ConstructionExplorer({ onSolved }) {
         <div className="part-list">
           {Object.entries(PARTS).map(([id, p]) => (
             <button key={id} className={`part-chip ${sel === id ? 'on' : ''} ${seen.has(id) ? 'seen' : ''}`} onClick={() => pick(id)}>
-              {seen.has(id) ? '✓ ' : ''}
               {p.name.split(' (')[0]}
             </button>
           ))}
         </div>
-        <span className="hint">{seen.size}/{Object.keys(PARTS).length} parts explored</span>
       </div>
     </div>
   );
@@ -186,8 +185,8 @@ export function LapWave() {
           const y = 15 + (h - A * laneH) / 2 + i * laneH + laneH / 2;
           return (
             <g key={i}>
-              <path d={`M36 ${y} H484`} stroke="#d08a3c" strokeWidth={Math.max(2, laneH / 6)} strokeDasharray="10 6" className="flow-ccw" />
-              <text x="260" y={y - 4} textAnchor="middle" fontSize="11" fill={C.ink}>
+              <path d={`M36 ${y} H484`} stroke="#c06a1f" strokeWidth={Math.max(2, laneH / 6)} strokeDasharray="10 6" className="flow-ccw" />
+              <text x="260" y={y - 4} textAnchor="middle" fontSize="11" fill={C.ink} stroke="#fff" strokeWidth="4" paintOrder="stroke">
                 path {i + 1}: {Z / A} conductors · {(Ia / A).toFixed(0)} A
               </text>
             </g>

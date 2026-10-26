@@ -20,7 +20,7 @@ function Dial({ value, max, label = 'rpm', marks = [], color = C.teal, x = 0, y 
   const [nx, ny] = pt(value, r - 12);
   return (
     <g>
-      <path d={`M${x - r} ${y} A${r} ${r} 0 0 1 ${x + r} ${y}`} fill="none" stroke="#2c2c2c" strokeWidth="10" strokeLinecap="round" />
+      <path d={`M${x - r} ${y} A${r} ${r} 0 0 1 ${x + r} ${y}`} fill="none" stroke="#ebebe8" strokeWidth="10" strokeLinecap="round" />
       <path d={`M${x - r} ${y} A${r} ${r} 0 0 1 ${pt(value, r).join(' ')}`} fill="none" stroke={color} strokeWidth="10" strokeLinecap="round" />
       {marks.map((m) => {
         const [a, b] = pt(m.v, r - 8);
@@ -33,8 +33,8 @@ function Dial({ value, max, label = 'rpm', marks = [], color = C.teal, x = 0, y 
           </g>
         );
       })}
-      <line x1={x} y1={y} x2={nx} y2={ny} stroke="#fff" strokeWidth="3" strokeLinecap="round" />
-      <circle cx={x} cy={y} r="5" fill="#fff" />
+      <line x1={x} y1={y} x2={nx} y2={ny} stroke="#1a1a1a" strokeWidth="3" strokeLinecap="round" />
+      <circle cx={x} cy={y} r="5" fill="#1a1a1a" />
       <text x={x} y={y + 22} textAnchor="middle" fontSize="18" fontWeight="800" fill={C.ink}>{Math.round(value)}</text>
       <text x={x} y={y + 36} textAnchor="middle" fontSize="10" fill={C.muted}>{label}</text>
     </g>
@@ -101,8 +101,8 @@ export function AirGap({ onSolved }) {
     <div className="fig-stack">
       <svg viewBox="0 0 520 300" className="fig-svg">
         {/* yoke */}
-        <circle cx={cx} cy={cy} r="128" fill="none" stroke="#555" strokeWidth="20" />
-        <text x={cx + 150} y={cy - 104} fontSize="12" fontWeight="700" fill="#aaa">yoke</text>
+        <circle cx={cx} cy={cy} r="128" fill="none" stroke="#9a9ea6" strokeWidth="20" />
+        <text x={cx + 150} y={cy - 104} fontSize="12" fontWeight="700" fill="#6b6b6b">yoke</text>
         {/* poles */}
         <rect x={cx - 26} y={cy - 120} width="52" height={shoeTop - 12 - (cy - 120)} fill={C.north} opacity="0.85" />
         <rect x={cx - 52} y={shoeTop - 12} width="104" height="12" rx="3" fill={C.north} />
@@ -115,8 +115,8 @@ export function AirGap({ onSolved }) {
         <rect x={cx - 52} y={cy + ra} width="104" height={shoeBot - cy - ra} fill={C.force} opacity={0.12 + g * 0.06} />
         <text x={cx - 60} y={(shoeTop + cy - ra) / 2 + 4} textAnchor="end" fontSize="11" fontWeight="700" fill={C.force}>air gap</text>
         {/* armature */}
-        <circle cx={cx} cy={cy} r={ra} fill="#2b2b2b" stroke="#888" strokeWidth="2" />
-        <text x={cx} y={cy + 4} textAnchor="middle" fontSize="11" fill="#aaa">armature core</text>
+        <circle cx={cx} cy={cy} r={ra} fill="#e9e9e6" stroke="#9a9a9a" strokeWidth="2" />
+        <text x={cx} y={cy + 4} textAnchor="middle" fontSize="11" fill="#6b6b6b">armature core</text>
         {/* flux loops: N → gap → armature → gap → S → yoke → N */}
         {[-7, 7].map((dx) => (
           <path
@@ -135,11 +135,11 @@ export function AirGap({ onSolved }) {
         <div className="readout-col">
           <span>Reluctance of the path</span>
           <div className="vsplit-bar">
-            <div style={{ width: `${(rIron / (rIron + rGap)) * 100}%`, background: '#888' }} />
+            <div style={{ width: `${(rIron / (rIron + rGap)) * 100}%`, background: '#9a9ea6' }} />
             <div style={{ width: `${(rGap / (rIron + rGap)) * 100}%`, background: C.force }} />
           </div>
           <span className="tiny">
-            <i className="dot" style={{ background: '#888' }} /> all the iron &nbsp; <i className="dot" style={{ background: C.force }} /> the thin air gaps
+            <i className="dot" style={{ background: '#9a9ea6' }} /> all the iron &nbsp; <i className="dot" style={{ background: C.force }} /> the thin air gaps
           </span>
         </div>
         <div className="lab-readouts">
@@ -240,7 +240,7 @@ export function PowerSplit() {
       <div className="flow-bar">
         <div style={{ flex: pm, background: C.green }} />
         <div style={{ flex: Math.max(cu, 1), background: C.force }} />
-        <div style={{ flex: max - pin, background: '#222' }} />
+        <div style={{ flex: max - pin, background: '#ebebe8' }} />
       </div>
       <div className="flow-legend">
         <span><i style={{ background: C.green }} />mechanical Pm = Eb·Ia</span>
@@ -316,7 +316,8 @@ export function RegulationLab({ onSolved }) {
     if (!end) return;
     const next = { ...seen, [t]: new Set(seen[t]).add(end) };
     setSeen(next);
-    if (!done.current && next.shunt.size === 2 && next.series.size === 2) {
+    // Reading N₀ and N_fl for one motor is the meaningful action; comparing the other is optional.
+    if (!done.current && (next.shunt.size === 2 || next.series.size === 2)) {
       done.current = true;
       onSolved?.();
     }
@@ -342,7 +343,7 @@ export function RegulationLab({ onSolved }) {
   return (
     <div className="fig-stack">
       <div className="controls center">
-        <Toggle value={type} onChange={choose} options={[{ value: 'shunt', label: `${seen.shunt.size === 2 ? '✓ ' : ''}Shunt motor` }, { value: 'series', label: `${seen.series.size === 2 ? '✓ ' : ''}Series motor` }]} />
+        <Toggle value={type} onChange={choose} options={[{ value: 'shunt', label: 'Shunt motor' }, { value: 'series', label: 'Series motor' }]} />
       </div>
       <svg viewBox="0 0 480 170" className="fig-svg">
         <line x1="40" y1={14 + H} x2={40 + W} y2={14 + H} stroke="#666" />
@@ -362,7 +363,7 @@ export function RegulationLab({ onSolved }) {
         )}
       </svg>
       <div className="controls wide">
-        <Slider label="Load (drag to both ends)" value={load} min={0} max={1} step={0.05} onChange={move} unit="" fmt={(v) => (v === 0 ? 'no load' : v === 1 ? 'full load' : `${Math.round(v * 100)}%`)} />
+        <Slider label="Load" value={load} min={0} max={1} step={0.05} onChange={move} unit="" fmt={(v) => (v === 0 ? 'no load' : v === 1 ? 'full load' : `${Math.round(v * 100)}%`)} />
       </div>
       <div className="formula">
         % reg = (N₀ − N_fl) / N_fl × 100 ={' '}
@@ -371,7 +372,7 @@ export function RegulationLab({ onSolved }) {
             ({Math.round(N0)} − {Math.round(Nfl)}) / {Math.round(Nfl)} × 100 = <b className="ok">{(((N0 - Nfl) / Nfl) * 100).toFixed(1)}%</b>
           </>
         ) : (
-          <span className="muted">read N₀ and N_fl first</span>
+          <span className="muted">slide from no load to full load to read N₀ and N_fl</span>
         )}
       </div>
     </div>
@@ -410,16 +411,16 @@ export function StartResistor({ onSolved }) {
   return (
     <div className="fig-stack">
       <svg viewBox="0 0 420 170" className="fig-svg">
-        <path d="M60 40 H150 M270 40 H360 V70 M360 130 V150 H60 V40" fill="none" stroke="#777" strokeWidth="2.5" />
+        <path d="M60 40 H150 M270 40 H360 V70 M360 130 V150 H60 V40" fill="none" stroke="#5c5c5c" strokeWidth="2.5" />
         <path d="M60 40 H150 M270 40 H360 V70 M360 130 V150 H60 V40" fill="none" stroke={C.current} strokeWidth="2" strokeDasharray="4 12" className="flow-cw" opacity={0.3 + frac * 0.7} style={{ animationDuration: `${0.25 + (1 - frac) * 1.5}s` }} />
-        <path d={d} fill="none" stroke="#d08a3c" strokeWidth="3" />
-        <text x="210" y="20" textAnchor="middle" fontSize="12" fontWeight="700" fill="#d08a3c">starting resistance R</text>
-        <circle cx="360" cy="100" r="26" fill="#222" stroke="#ccc" strokeWidth="2.5" />
-        <text x="360" y="106" textAnchor="middle" fontSize="16" fontWeight="800" fill="#fff">M</text>
+        <path d={d} fill="none" stroke="#c06a1f" strokeWidth="3" />
+        <text x="210" y="20" textAnchor="middle" fontSize="12" fontWeight="700" fill="#c06a1f">starting resistance R</text>
+        <circle cx="360" cy="100" r="26" fill="#fff" stroke="#4a4a4a" strokeWidth="2.5" />
+        <text x="360" y="106" textAnchor="middle" fontSize="16" fontWeight="800" fill="#1a1a1a">M</text>
         <text x="394" y="104" fontSize="11" fill={C.muted}>Ra</text>
         <text x="44" y="100" textAnchor="end" fontSize="13" fontWeight="800" fill={C.ink}>220 V</text>
-        <line x1="44" y1="92" x2="76" y2="92" stroke="#ddd" strokeWidth="3" />
-        <line x1="52" y1="104" x2="68" y2="104" stroke="#ddd" strokeWidth="5" />
+        <line x1="44" y1="92" x2="76" y2="92" stroke="#333" strokeWidth="3" />
+        <line x1="52" y1="104" x2="68" y2="104" stroke="#333" strokeWidth="5" />
       </svg>
       <div className="lab">
         <div className="readout-col">
@@ -482,46 +483,46 @@ export function ThreeVsFour({ onSolved }) {
         <text x="24" y="14" fontSize="12" fontWeight="800" fill={C.north}>L+</text>
         <text x="24" y="166" fontSize="12" fontWeight="800" fill={C.south}>L−</text>
         {/* armature */}
-        <path d="M440 20 V68 M440 122 V170" stroke="#777" strokeWidth="2.5" />
-        <circle cx="440" cy="95" r="26" fill="#222" stroke="#ccc" strokeWidth="2.5" />
+        <path d="M440 20 V68 M440 122 V170" stroke="#5c5c5c" strokeWidth="2.5" />
+        <circle cx="440" cy="95" r="26" fill="#fff" stroke="#4a4a4a" strokeWidth="2.5" />
         <g style={spin}>
           <line x1="420" y1="95" x2="460" y2="95" stroke={C.teal} strokeWidth="3" />
         </g>
         {/* field branch: rheostat + coil */}
-        <path d="M340 20 V36 M340 80 V92 M340 150 V170" stroke="#777" strokeWidth="2.5" />
-        <path d="M340 36 l8 4 l-16 6 l16 6 l-16 6 l16 6 l-16 6 l8 4 V80" fill="none" stroke="#d08a3c" strokeWidth="2.5" />
+        <path d="M340 20 V36 M340 80 V92 M340 150 V170" stroke="#5c5c5c" strokeWidth="2.5" />
+        <path d="M340 36 l8 4 l-16 6 l16 6 l-16 6 l16 6 l-16 6 l8 4 V80" fill="none" stroke="#c06a1f" strokeWidth="2.5" />
         <line x1={324} y1={72} x2={360} y2={44} stroke={C.ink} strokeWidth="1.5" />
-        <path d={`M340 92 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 10`} fill="none" stroke="#d08a3c" strokeWidth="3" opacity={0.4 + (f / 100) * 0.6} />
-        <text x="356" y="62" fontSize="10" fill="#d08a3c">rheostat</text>
-        <text x="352" y="124" fontSize="10" fill="#d08a3c">field {f}%</text>
+        <path d={`M340 92 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 10`} fill="none" stroke="#c06a1f" strokeWidth="3" opacity={0.4 + (f / 100) * 0.6} />
+        <text x="356" y="62" fontSize="10" fill="#c06a1f">rheostat</text>
+        <text x="352" y="124" fontSize="10" fill="#c06a1f">field {f}%</text>
         {/* NVC wiring */}
         {kind === 3 ? (
           <g>
-            <path d="M210 72 H300 V100 H332" fill="none" stroke="#7b8cff" strokeWidth="2" />
+            <path d="M210 72 H300 V100 H332" fill="none" stroke="#3b5bdb" strokeWidth="2" />
             <path d="M210 72 H300 V100 H332" fill="none" stroke={C.current} strokeWidth="2" strokeDasharray="4 10" className="flow-ccw" style={flow(true)} />
-            <text x="214" y="52" fontSize="10.5" fill="#9aa4ff">in series with the field</text>
+            <text x="214" y="52" fontSize="10.5" fill="#4263eb">in series with the field</text>
           </g>
         ) : (
           <g>
-            <path d="M180 20 V58 M180 86 V108 M180 146 V170" fill="none" stroke="#7b8cff" strokeWidth="2" />
-            <path d="M180 108 l6 3 l-12 5 l12 5 l-12 5 l12 5 l-12 5 l12 5 l-6 3 V146" fill="none" stroke="#9aa4ff" strokeWidth="2" />
+            <path d="M180 20 V58 M180 86 V108 M180 146 V170" fill="none" stroke="#3b5bdb" strokeWidth="2" />
+            <path d="M180 108 l6 3 l-12 5 l12 5 l-12 5 l12 5 l-12 5 l12 5 l-6 3 V146" fill="none" stroke="#4263eb" strokeWidth="2" />
             <path d="M180 20 V58" fill="none" stroke={C.current} strokeWidth="2" strokeDasharray="4 10" className="flow-cw" />
-            <text x="192" y="132" fontSize="10.5" fill="#9aa4ff">across the supply</text>
+            <text x="192" y="132" fontSize="10.5" fill="#4263eb">across the supply</text>
           </g>
         )}
-        <rect x="150" y="58" width="60" height="28" rx="5" fill={!released ? '#3c3f6b' : '#2a2a2a'} stroke="#7b8cff" strokeWidth="2" />
-        <text x="180" y="77" textAnchor="middle" fontSize="12" fontWeight="800" fill="#c7ceff">NVC</text>
+        <rect x="150" y="58" width="60" height="28" rx="5" fill={!released ? '#dbe4ff' : '#f3f3f1'} stroke="#3b5bdb" strokeWidth="2" />
+        <text x="180" y="77" textAnchor="middle" fontSize="12" fontWeight="800" fill="#2a3f9e">NVC</text>
         {/* handle */}
         <text x="16" y="138" fontSize="11" fontWeight="700" fill={C.muted}>OFF</text>
-        <line x1="86" y1="150" x2={hx} y2={hy} stroke="#ddd" strokeWidth="7" strokeLinecap="round" className="arm" />
-        <circle cx="86" cy="150" r="8" fill="#999" />
+        <line x1="86" y1="150" x2={hx} y2={hy} stroke="#5c5c5c" strokeWidth="7" strokeLinecap="round" className="arm" />
+        <circle cx="86" cy="150" r="8" fill="#777" />
         <text x="96" y="164" fontSize="10" fill={C.muted}>handle</text>
       </svg>
       <div className="lab">
         <div className="readout-col">
           <span>NVC pull <b className={nvc < HOLD ? 'warn' : ''}>{nvc}%</b> <em>holds at ≥ {HOLD}%</em></span>
           <div className="gauge-bar hold-bar">
-            <div style={{ width: `${nvc}%`, background: nvc < HOLD ? C.north : '#7b8cff' }} />
+            <div style={{ width: `${nvc}%`, background: nvc < HOLD ? C.north : '#3b5bdb' }} />
             <i style={{ left: `${HOLD}%` }} />
           </div>
         </div>
@@ -577,15 +578,14 @@ export function SpeedTargets({ onSolved }) {
     if (Math.abs(n - t.goal) <= 10 && !hit.includes(k)) {
       const h = [...hit, k];
       setHit(h);
-      if (h.length === TARGETS.length) onSolved?.();
+      onSolved?.(); // one target hit unlocks; the other methods stay open
     }
   };
   return (
     <div className="fig-stack">
       <div className="target-steps">
         {TARGETS.map((x, i) => (
-          <button key={x.m} className={`part-chip ${hit.includes(i) ? 'seen' : ''} ${i === k ? 'on' : ''}`} onClick={() => setK(i)}>
-            {hit.includes(i) ? '✓ ' : `${i + 1}. `}
+          <button key={x.m} className={`part-chip ${i === k ? 'on' : ''}`} onClick={() => setK(i)}>
             {x.m === 'flux' ? 'Flux' : x.m === 'res' ? 'Resistance' : 'Voltage'}
           </button>
         ))}

@@ -26,7 +26,7 @@ function LoopScene({ alpha, sign = 1, showLever = true, commutator = false }) {
       <text x="56" y="172" fontSize="30" fontWeight="800" fill="#fff">N</text>
       <text x="486" y="172" fontSize="30" fontWeight="800" fill="#fff">S</text>
       {[70, 120, 165, 210, 260].map((y) => (
-        <line key={y} x1="130" y1={y} x2="430" y2={y} stroke={C.teal} strokeWidth="1.3" opacity="0.35" />
+        <line key={y} x1="130" y1={y} x2="430" y2={y} stroke={C.teal} strokeWidth="1.3" opacity="0.55" />
       ))}
       <path d="M-6 -5 L6 0 L-6 5 Z" fill={C.teal} opacity="0.6" transform="translate(150 70)" />
       <path d="M-6 -5 L6 0 L-6 5 Z" fill={C.teal} opacity="0.6" transform="translate(150 260)" />
@@ -39,8 +39,8 @@ function LoopScene({ alpha, sign = 1, showLever = true, commutator = false }) {
         </g>
       )}
       {/* loop */}
-      <line x1={ax} y1={ay} x2={bx} y2={by} stroke="#bbb" strokeWidth="6" strokeLinecap="round" />
-      <circle cx={CX} cy={CY} r="7" fill="#777" stroke="#ccc" strokeWidth="2" />
+      <line x1={ax} y1={ay} x2={bx} y2={by} stroke="#4a4a4a" strokeWidth="6" strokeLinecap="round" />
+      <circle cx={CX} cy={CY} r="7" fill="#9a9a9a" stroke="#4a4a4a" strokeWidth="2" />
       <WireEnd x={ax} y={ay} r={17} dir={curA} />
       <WireEnd x={bx} y={by} r={17} dir={-curA} />
       <Arrow x1={ax} y1={ay - fA * 20} x2={ax} y2={ay - fA * (20 + len)} color={C.force} width={4.5} />
@@ -48,7 +48,7 @@ function LoopScene({ alpha, sign = 1, showLever = true, commutator = false }) {
       {commutator && <Commutator alpha={alpha} sign={sign} />}
       {/* torque meter */}
       <g transform="translate(160 312)">
-        <rect x="0" y="-8" width="240" height="16" rx="8" fill="#262626" />
+        <rect x="0" y="-8" width="240" height="16" rx="8" fill="#ebebe8" />
         <rect x="120" y="-8" width="1.5" height="16" fill="#666" />
         <rect
           x={torque >= 0 ? 120 : 120 + torque * 120}
@@ -79,8 +79,8 @@ function Commutator({ alpha, sign }) {
   };
   return (
     <g>
-      <rect x={ox - 60} y={oy - 30} width="120" height="56" rx="10" fill="#1b1b1b" stroke="#333" />
-      <line x1={ox} y1={oy + r} x2={CX} y2={CY - 8} stroke="#333" strokeDasharray="2 4" />
+      <rect x={ox - 60} y={oy - 30} width="120" height="56" rx="10" fill="#f7f7f5" stroke="#d6d6d2" />
+      <line x1={ox} y1={oy + r} x2={CX} y2={CY - 8} stroke="#b4b4b0" strokeDasharray="2 4" />
       <path d={arc(alpha - Math.PI / 2 + gap, alpha + Math.PI / 2 - gap)} stroke="#e0a43a" strokeWidth="7" fill="none" />
       <path d={arc(alpha + Math.PI / 2 + gap, alpha + (3 * Math.PI) / 2 - gap)} stroke="#b07a2a" strokeWidth="7" fill="none" />
       <rect x={ox + r + 2} y={oy - 4} width="10" height="8" fill={sign > 0 ? C.north : C.south} />

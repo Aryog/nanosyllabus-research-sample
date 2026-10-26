@@ -66,7 +66,7 @@ export function ForceOnWire({
         {showForce && F > 0.001 && (
           <Arrow x1={280} y1={wy + (fDir > 0 ? -24 : 24)} x2={280} y2={wy + (fDir > 0 ? -24 : 24) - fDir * (18 + Math.min(F, 3) * 30)} color={C.force} width={5} head={12} />
         )}
-        {mode === 'question' && <text x="280" y={wy - 40} textAnchor="middle" fontSize="22" fontWeight="800" fill="#7b8cff">?</text>}
+        {mode === 'question' && <text x="280" y={wy - 40} textAnchor="middle" fontSize="22" fontWeight="800" fill="#3b5bdb">?</text>}
         {showForce && (
           <text x="320" y={wy - 30} fontSize="14" fontWeight="800" fill={C.force}>F</text>
         )}
@@ -109,7 +109,7 @@ export function FlemingAxes() {
         <Arrow x1={0} y1={0} x2={0} y2={-90} color={C.force} width={5} />
         <Arrow x1={0} y1={0} x2={110} y2={0} color={C.teal} width={5} />
         <Arrow x1={0} y1={0} x2={-62} y2={52} color={C.current} width={5} />
-        <circle r="6" fill="#ddd" />
+        <circle r="6" fill="#5c5c5c" />
         <text x="12" y="-80" fill={C.force} fontWeight="800" fontSize="14">thuMb → Motion (F)</text>
         <text x="60" y="22" fill={C.teal} fontWeight="800" fontSize="14">First finger → Field (B)</text>
         <text x="-140" y="72" fill={C.current} fontWeight="800" fontSize="14">seCond finger → Current (I)</text>
@@ -173,8 +173,8 @@ export function TorqueGraph({ value, setValue, status, answer = 90, prompt = 'ze
         onPointerDown={(e) => { e.target.setPointerCapture?.(e.pointerId); setDrag(true); if (!placed) setValue({ a }); }}
         style={{ cursor: ok ? 'default' : drag ? 'grabbing' : 'grab' }}
       >
-        <circle cx={toX(shownA)} cy={toY(Math.cos((shownA * Math.PI) / 180))} r="22" fill={ok ? 'rgba(47,209,107,.18)' : 'rgba(255,255,255,.12)'} />
-        <circle cx={toX(shownA)} cy={toY(Math.cos((shownA * Math.PI) / 180))} r="7" fill={ok ? C.green : status === 'wrong' ? '#e0a816' : '#7b8cff'} />
+        <circle cx={toX(shownA)} cy={toY(Math.cos((shownA * Math.PI) / 180))} r="22" fill={ok ? 'rgba(31,157,85,.16)' : 'rgba(59,91,219,.10)'} />
+        <circle cx={toX(shownA)} cy={toY(Math.cos((shownA * Math.PI) / 180))} r="7" fill={ok ? C.green : status === 'wrong' ? '#e09a00' : '#3b5bdb'} />
       </g>
       {(placed || ok) && (
         <text x={toX(shownA)} y={toY(Math.cos((shownA * Math.PI) / 180)) - 26} textAnchor="middle" fontSize="13" fontWeight="800" fill={ok ? C.green : C.ink}>

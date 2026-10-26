@@ -20,13 +20,13 @@ export function MotorTeaser() {
     <div className="fig-stack">
       <svg viewBox="0 0 460 260" className="fig-svg">
         {/* battery + wires */}
-        <rect x="40" y="170" width="70" height="36" rx="6" fill="#2a2a2a" stroke="#555" strokeWidth="2" />
+        <rect x="40" y="170" width="70" height="36" rx="6" fill="#f3f3f1" stroke="#5c5c5c" strokeWidth="2" />
         <rect x="110" y="180" width="6" height="16" rx="2" fill="#555" />
         <text x="75" y="193" textAnchor="middle" fontSize="13" fill={C.ink} fontWeight="700">9 V</text>
         <path d="M116 188 H170 V150 H196" stroke={on ? C.current : '#555'} strokeWidth="3" fill="none" />
         <path d="M40 188 H24 V230 H230 V178" stroke={on ? C.current : '#555'} strokeWidth="3" fill="none" />
         {/* motor can */}
-        <rect x="196" y="120" width="70" height="60" rx="10" fill="#3a3a3a" stroke="#666" strokeWidth="2" />
+        <rect x="196" y="120" width="70" height="60" rx="10" fill="#e9e9e6" stroke="#5c5c5c" strokeWidth="2" />
         <rect x="266" y="144" width="40" height="10" fill="#888" />
         <text x="231" y="155" textAnchor="middle" fontSize="12" fill={C.muted} fontWeight="700">DC</text>
         {/* fan */}
@@ -34,7 +34,7 @@ export function MotorTeaser() {
           {[0, 120, 240].map((a) => (
             <path key={a} transform={`rotate(${a})`} d="M0 0 C 18 -10, 60 -14, 78 -4 C 60 8, 20 8, 0 0 Z" fill={C.teal} opacity="0.85" />
           ))}
-          <circle r="10" fill="#ddd" />
+          <circle r="10" fill="#5c5c5c" />
         </g>
         <text x="330" y="248" textAnchor="middle" fontSize="13" fill={C.muted}>{rpm} rpm</text>
       </svg>
@@ -186,8 +186,7 @@ export function FieldExplorer({ onSolved, solved, showLines: initialLines = fals
         {onSolved &&
           TARGETS.map((t, i) => (
             <g key={i}>
-              <circle cx={t.x} cy={t.y} r="24" fill={visited.includes(i) ? 'rgba(47,209,107,.12)' : 'rgba(108,140,255,.15)'} stroke={visited.includes(i) ? C.green : '#7b8cff'} strokeDasharray="4 4" strokeWidth="2" className={visited.includes(i) ? '' : 'pulse'} />
-              {visited.includes(i) && <text x={t.x + 18} y={t.y - 18} fill={C.green} fontSize="16" fontWeight="800">✓</text>}
+              <circle cx={t.x} cy={t.y} r="24" fill={visited.includes(i) ? 'rgba(31,157,85,.10)' : 'rgba(59,91,219,.08)'} stroke={visited.includes(i) ? C.green : '#3b5bdb'} strokeDasharray="4 4" strokeWidth="1.5" />
             </g>
           ))}
         <g onPointerDown={(e) => { e.target.setPointerCapture?.(e.pointerId); setDrag(true); }} style={{ cursor: drag ? 'grabbing' : 'grab' }}>
@@ -196,7 +195,7 @@ export function FieldExplorer({ onSolved, solved, showLines: initialLines = fals
         </g>
       </svg>
       <div className="controls center">
-        <span className="hint">{onSolved && !solved ? `Drag the compass · ${visited.length}/3 spots` : 'The red tip points along the field.'}</span>
+        <span className="hint">{onSolved && !solved ? 'Drag the compass and watch the needle.' : 'The red tip points along the field.'}</span>
         <button className="chip" onClick={() => setLines((l) => !l)}>{lines ? 'Hide' : 'Show'} field lines</button>
       </div>
     </div>
@@ -208,8 +207,8 @@ export function MagnetQuestion() {
     <svg viewBox="0 30 560 180" className="fig-svg" style={{ maxWidth: 460, margin: '0 auto' }}>
       <g transform="translate(0 -20)">
         <BarMagnet />
-        <circle cx="280" cy="80" r="22" fill="rgba(108,140,255,.15)" stroke="#7b8cff" strokeWidth="2" strokeDasharray="4 4" />
-        <text x="280" y="88" textAnchor="middle" fontSize="22" fontWeight="800" fill="#7b8cff">?</text>
+        <circle cx="280" cy="80" r="22" fill="rgba(59,91,219,.08)" stroke="#3b5bdb" strokeWidth="2" strokeDasharray="4 4" />
+        <text x="280" y="88" textAnchor="middle" fontSize="22" fontWeight="800" fill="#3b5bdb">?</text>
       </g>
     </svg>
   );
@@ -259,15 +258,15 @@ export function OerstedWire({ onSolved, mode = 'explore', fixedDir = -1 }) {
             <circle key={r} cx={cx} cy={cy} r={r} fill="none" stroke={C.teal} strokeWidth="1.6" strokeDasharray="6 10" className={cur === 1 ? 'flow-ccw' : 'flow-cw'} opacity="0.7" />
           ))}
         {mode === 'question' &&
-          rings.map((r) => <circle key={r} cx={cx} cy={cy} r={r} fill="none" stroke={C.teal} strokeWidth="1.6" strokeDasharray="3 7" opacity="0.45" />)}
+          rings.map((r) => <circle key={r} cx={cx} cy={cy} r={r} fill="none" stroke={C.teal} strokeWidth="1.6" strokeDasharray="3 7" opacity="0.6" />)}
         {compasses.map((c, i) => (
           <Compass key={i} x={c.x} y={c.y} angle={c.angle} r={14} />
         ))}
         <WireEnd x={cx} y={cy} r={22} dir={cur} />
         {mode === 'question' && (
           <g transform={`translate(${cx} ${cy - 94})`}>
-            <circle r="17" fill="#1a1a1a" stroke="#7b8cff" strokeWidth="2" strokeDasharray="4 3" />
-            <text y="7" textAnchor="middle" fontSize="20" fontWeight="800" fill="#7b8cff">?</text>
+            <circle r="17" fill="#fff" stroke="#3b5bdb" strokeWidth="2" strokeDasharray="4 3" />
+            <text y="7" textAnchor="middle" fontSize="20" fontWeight="800" fill="#3b5bdb">?</text>
           </g>
         )}
         {mode !== 'question' && (
@@ -316,7 +315,7 @@ export function DotCross({ onSolved }) {
         <line x1="258" y1="40" x2="258" y2="200" stroke={C.grid} strokeWidth="2" />
         {/* eye */}
         <g transform={`translate(232 ${y})`}>
-          <path d="M -14 0 Q 0 -13 14 0 Q 0 13 -14 0 Z" fill="#eee" />
+          <path d="M -14 0 Q 0 -13 14 0 Q 0 13 -14 0 Z" fill="#fff" stroke="#5c5c5c" strokeWidth="1.5" />
           <circle r="5" fill="#222" />
         </g>
         <line x1="40" y1={y} x2="214" y2={y} stroke={C.muted} strokeDasharray="2 6" />
@@ -379,12 +378,12 @@ export function GripRule({ onSolved }) {
         <text x={cx} y="20" textAnchor="middle" fontSize="12" fill={C.muted}>Looking down the wire</text>
         <line x1="228" y1="34" x2="228" y2="250" stroke={C.grid} strokeWidth="2" />
         <g transform={`translate(${wx} 46)`}>
-          <path d="M -12 0 Q 0 -11 12 0 Q 0 11 -12 0 Z" fill="#eee" />
+          <path d="M -12 0 Q 0 -11 12 0 Q 0 11 -12 0 Z" fill="#fff" stroke="#5c5c5c" strokeWidth="1.5" />
           <circle r="4" fill="#222" />
         </g>
         <line x1={wx} y1="66" x2={wx} y2="250" stroke="#b08850" strokeWidth="8" strokeLinecap="round" />
         {/* the fist: four curled fingers wrapped round the wire */}
-        <rect x={wx - 34} y="148" width="68" height="62" rx="20" fill="#e8b98c" opacity="0.92" />
+        <rect x={wx - 34} y="148" width="68" height="62" rx="20" fill="#e8b98c" stroke="#c28a5a" opacity="0.92" />
         {[160, 174, 188].map((yy) => (
           <path key={yy} d={`M ${wx - 30} ${yy + 6} Q ${wx} ${yy + 14} ${wx + 30} ${yy + 6}`} fill="none" stroke="#a87a52" strokeWidth="2" />
         ))}
@@ -405,7 +404,7 @@ export function GripRule({ onSolved }) {
         {g && compasses.map((c, i) => <Compass key={i} x={c.x} y={c.y} angle={c.angle} r={12} />)}
         <WireEnd x={cx} y={cy} r={22} dir={dir} />
         {!g && (
-          <text x={cx} y={cy - 70} textAnchor="middle" fontSize="20" fontWeight="800" fill="#7b8cff">↻ or ↺ ?</text>
+          <text x={cx} y={cy - 70} textAnchor="middle" fontSize="20" fontWeight="800" fill="#3b5bdb">↻ or ↺ ?</text>
         )}
         {g && (
           <text x={cx} y="258" textAnchor="middle" fontSize="15" fontWeight="700" fill={C.teal}>

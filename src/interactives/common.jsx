@@ -1,16 +1,22 @@
 import { useEffect, useRef } from 'react';
 
 export const C = {
-  teal: '#5fd3b8',
-  green: '#2fd16b',
-  north: '#ff6b6b',
-  south: '#6c8cff',
-  force: '#ffb347',
-  current: '#ffd43b',
-  ink: '#e9e9e9',
-  muted: '#8a8a8a',
-  grid: '#2a2a2a',
-  panel: '#1d1d1d',
+  // Light theme: every colour must read on a white card.
+  teal: '#0f9d84',
+  green: '#1f9d55',
+  north: '#e03131',
+  south: '#3b5bdb',
+  force: '#e8590c',
+  current: '#d98e04',
+  ink: '#1a1a1a',
+  muted: '#71716c',
+  grid: '#e6e6e3',
+  panel: '#f3f3f1',
+  // neutrals for drawings (wires, metal, plates)
+  wire: '#5c5c5c',
+  metal: '#9a9ea6',
+  copper: '#c06a1f',
+  fill: '#ffffff',
 };
 
 // Calls cb(dt seconds) every animation frame while `active`.
@@ -61,7 +67,7 @@ export function Arrow({ x1, y1, x2, y2, color, width = 4, head = 10, opacity = 1
 export function WireEnd({ x, y, r = 18, dir, color = C.current }) {
   return (
     <g>
-      <circle cx={x} cy={y} r={r} fill="#2b2b2b" stroke={dir ? color : C.muted} strokeWidth="3" />
+      <circle cx={x} cy={y} r={r} fill="#fff" stroke={dir ? color : C.muted} strokeWidth="3" />
       {dir === 1 && <circle cx={x} cy={y} r={r * 0.28} fill={color} />}
       {dir === -1 && (
         <g stroke={color} strokeWidth="3" strokeLinecap="round">
@@ -102,12 +108,12 @@ export function Toggle({ options, value, onChange }) {
 export function Compass({ x, y, angle, r = 18, glow }) {
   return (
     <g transform={`translate(${x} ${y})`}>
-      <circle r={r + 3} fill="#1a1a1a" stroke={glow ? C.green : '#555'} strokeWidth="2" />
+      <circle r={r + 3} fill="#fff" stroke={glow ? C.green : '#9a9a9a'} strokeWidth="2" />
       <g className="needle" style={{ transform: `rotate(${angle}deg)` }}>
         <path d={`M0 -4 L${r - 2} 0 L0 4 Z`} fill={C.north} />
-        <path d={`M0 -4 L${-(r - 2)} 0 L0 4 Z`} fill="#d9d9d9" />
+        <path d={`M0 -4 L${-(r - 2)} 0 L0 4 Z`} fill="#b4b4b0" />
       </g>
-      <circle r="2.5" fill="#111" />
+      <circle r="2.5" fill="#1a1a1a" />
     </g>
   );
 }

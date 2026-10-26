@@ -1,6 +1,4 @@
-import { force, magnets, spin } from './lessons/basics.jsx';
-import { backemf, construction, torque } from './lessons/machine.jsx';
-import { control, losses, starting, types } from './lessons/control.jsx';
+import { journey } from './journey.jsx';
 
 /*
   Step shapes
@@ -11,13 +9,14 @@ import { control, losses, starting, types } from './lessons/control.jsx';
   - { body, Figure, input: { type: 'figure', complete, correct, reveal } }  figure is the input
   `narration` = id in narration.js (caption + voice); `hint` shows on Get help; `why` on Why?.
 
-  Each lesson teaches first (explore → explain → worked example), then a Skill
-  check with IOE-style theory and numerical questions.
+  The course is a single journey (journey.jsx): ten chapters of explain → quick
+  check → IOE question → light interactive, then a Past Questions block. The
+  lessons/ files are the screen bank it borrows from.
 */
 
 export const course = {
   id: 'dc-motors',
   title: 'DC Motors',
   tagline: 'The complete DC motor chapter of Electrical Machines, built up from a compass needle and checked with IOE-style problems.',
-  lessons: [magnets, force, spin, construction, backemf, torque, types, starting, control, losses],
+  lessons: [journey],
 };

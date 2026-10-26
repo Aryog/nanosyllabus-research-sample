@@ -38,7 +38,8 @@ export function FlipCards({ cards, onSolved }) {
   const flip = (i) => {
     const next = new Set(open).add(i);
     setOpen(next);
-    if (next.size === cards.length) onSolved?.();
+    // Opening one card is enough to move on; the others stay available.
+    onSolved?.();
   };
   return (
     <div className="flip-grid">

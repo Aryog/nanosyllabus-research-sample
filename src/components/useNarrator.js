@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { narration } from '../content/narration.js';
+import { narration, speech } from '../content/narration.js';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -38,8 +38,8 @@ export function useNarrator() {
   const play = useCallback(
     (id) => {
       const text = narration[id];
-      if (!text) return;
       stop();
+      if (!text) return;
       if (muted) return;
       if (manifest[id]) {
         const a = new Audio(`${BASE}audio/${id}.mp3?v=${manifest[id]}`);
@@ -48,9 +48,14 @@ export function useNarrator() {
         a.onended = a.onerror = () => setSpeaking(false);
         a.play().catch(() => setSpeaking(false));
       } else if ('speechSynthesis' in window) {
-        const u = new SpeechSynthesisUtterance(text);
-        u.rate = 1.05;
-        u.pitch = 1.35;
+        // Fallback voice reads the Devanagari line; Hindi voices handle it if no Nepali one exists.
+        const u = new SpeechSynthesisUtterance(speech[id] ?? text);
+        const voices = window.speechSynthesis.getVoices();
+        const v = voices.find((x) => x.lang?.startsWith('ne')) ?? voices.find((x) => x.lang?.startsWith('hi'));
+        if (v) u.voice = v;
+        u.lang = v?.lang ?? 'ne-NP';
+        u.rate = 1;
+        u.pitch = 1.2;
         u.onstart = () => setSpeaking(true);
         u.onend = u.onerror = () => setSpeaking(false);
         window.speechSynthesis.speak(u);

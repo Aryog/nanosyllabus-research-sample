@@ -38,11 +38,11 @@ function Rotor({ angle, N, B }) {
       <text x="28" y="118" fontSize="22" fontWeight="800" fill="#fff">N</text>
       <text x="214" y="118" fontSize="22" fontWeight="800" fill="#fff">S</text>
       <g transform={`translate(130 110) rotate(${(-angle * 180) / Math.PI})`}>
-        <circle r="56" fill="#262626" stroke="#444" strokeWidth="2" />
+        <circle r="56" fill="#f3f3f1" stroke="#9a9a9a" strokeWidth="2" />
         {Array.from({ length: Math.min(12, Math.round(N / 16) + 2) }).map((_, i, arr) => (
-          <rect key={i} x={-48} y={-3 - (arr.length * 4) / 2 + i * 4} width="96" height="2.6" rx="1" fill="#d08a3c" opacity="0.9" />
+          <rect key={i} x={-48} y={-3 - (arr.length * 4) / 2 + i * 4} width="96" height="2.6" rx="1" fill="#c06a1f" opacity="0.9" />
         ))}
-        <circle r="8" fill="#888" />
+        <circle r="8" fill="#5c5c5c" />
         <rect x="-3" y="-56" width="6" height="12" fill={C.teal} />
       </g>
     </svg>

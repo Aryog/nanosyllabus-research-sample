@@ -3,7 +3,7 @@ import { C, Slider, Toggle } from './common.jsx';
 
 /* ───────── Circuit symbols ───────── */
 
-function Coil({ x1, y1, x2, y2, label, color = '#d08a3c' }) {
+function Coil({ x1, y1, x2, y2, label, color = '#c06a1f' }) {
   const vertical = x1 === x2;
   const len = vertical ? y2 - y1 : x2 - x1;
   const n = 5;
@@ -25,10 +25,10 @@ function Coil({ x1, y1, x2, y2, label, color = '#d08a3c' }) {
 function Armature({ x, y }) {
   return (
     <g>
-      <circle cx={x} cy={y} r="24" fill="#222" stroke="#ccc" strokeWidth="2.5" />
+      <circle cx={x} cy={y} r="24" fill="#fff" stroke="#4a4a4a" strokeWidth="2.5" />
       <rect x={x - 7} y={y - 30} width="14" height="7" fill="#777" />
       <rect x={x - 7} y={y + 23} width="14" height="7" fill="#777" />
-      <text x={x} y={y + 6} textAnchor="middle" fontSize="16" fontWeight="800" fill="#fff">M</text>
+      <text x={x} y={y + 6} textAnchor="middle" fontSize="16" fontWeight="800" fill="#1a1a1a">M</text>
       <text x={x + 32} y={y + 4} fontSize="12" fill={C.muted}>Ra</text>
     </g>
   );
@@ -38,10 +38,10 @@ function Battery({ x, y1, y2, label = 'V' }) {
   const m = (y1 + y2) / 2;
   return (
     <g>
-      <line x1={x} y1={y1} x2={x} y2={m - 8} stroke="#999" strokeWidth="2.5" />
-      <line x1={x - 16} y1={m - 8} x2={x + 16} y2={m - 8} stroke="#ddd" strokeWidth="3" />
-      <line x1={x - 9} y1={m + 4} x2={x + 9} y2={m + 4} stroke="#ddd" strokeWidth="5" />
-      <line x1={x} y1={m + 4} x2={x} y2={y2} stroke="#999" strokeWidth="2.5" />
+      <line x1={x} y1={y1} x2={x} y2={m - 8} stroke="#5c5c5c" strokeWidth="2.5" />
+      <line x1={x - 16} y1={m - 8} x2={x + 16} y2={m - 8} stroke="#333" strokeWidth="3" />
+      <line x1={x - 9} y1={m + 4} x2={x + 9} y2={m + 4} stroke="#333" strokeWidth="5" />
+      <line x1={x} y1={m + 4} x2={x} y2={y2} stroke="#5c5c5c" strokeWidth="2.5" />
       <text x={x - 24} y={m} textAnchor="end" fontSize="14" fontWeight="800" fill={C.ink}>{label}</text>
       <text x={x + 20} y={m - 12} fontSize="12" fill={C.north}>+</text>
     </g>
@@ -50,7 +50,7 @@ function Battery({ x, y1, y2, label = 'V' }) {
 
 const Wire = ({ d }) => (
   <g>
-    <path d={d} fill="none" stroke="#777" strokeWidth="2.5" />
+    <path d={d} fill="none" stroke="#5c5c5c" strokeWidth="2.5" />
     <path d={d} fill="none" stroke={C.current} strokeWidth="2" strokeDasharray="4 12" className="flow-cw" opacity="0.9" />
   </g>
 );
@@ -153,13 +153,13 @@ export function MotorTypes({ onSolved, only }) {
     setT(k);
     const next = new Set(seen).add(k);
     setSeen(next);
-    if (next.size === keys.length) onSolved?.();
+    if (next.size >= Math.min(2, keys.length)) onSolved?.(); // comparing two is the point
   };
   const type = TYPES[t];
   return (
     <div className="fig-stack">
       <div className="controls center">
-        <Toggle value={t} onChange={choose} options={keys.map((k) => ({ value: k, label: `${seen.has(k) ? '✓ ' : ''}${TYPES[k].label}` }))} />
+        <Toggle value={t} onChange={choose} options={keys.map((k) => ({ value: k, label: TYPES[k].label }))} />
       </div>
       <svg viewBox="0 0 520 250" className="fig-svg" key={t}>
         {type.draw()}
@@ -218,14 +218,14 @@ export function Characteristics({ onSolved, start = 'shunt', only }) {
     setType(k);
     const next = new Set(seen).add(k);
     setSeen(next);
-    if (next.size === 3) onSolved?.();
+    if (next.size >= 2) onSolved?.(); // comparing two is the point
   };
-  const color = type === 'shunt' ? C.teal : type === 'series' ? C.force : '#b99bff';
+  const color = type === 'shunt' ? C.teal : type === 'series' ? C.force : '#7048e8';
   return (
     <div className="fig-stack">
       {!only && (
         <div className="controls center">
-          <Toggle value={type} onChange={choose} options={Object.entries(MODELS).map(([k, v]) => ({ value: k, label: `${seen.has(k) ? '✓ ' : ''}${v.label}` }))} />
+          <Toggle value={type} onChange={choose} options={Object.entries(MODELS).map(([k, v]) => ({ value: k, label: v.label }))} />
         </div>
       )}
       <div className="graph-row">

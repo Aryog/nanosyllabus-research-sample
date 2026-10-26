@@ -4,13 +4,14 @@
 //   npm run audio
 //
 // Key is read from .env as ELEVENLABS_API_KEY=sk_... (a bare sk_... line also works).
-// Optional: ELEVENLABS_VOICE_ID, ELEVENLABS_MODEL_ID.
+// Optional: ELEVENLABS_VOICE_ID, ELEVENLABS_MODEL_ID, ELEVENLABS_LANGUAGE.
+// Lines are Nepali: the Devanagari `speech` text is sent, eleven_v3 with language_code "ne".
 
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { narration } from '../src/content/narration.js';
+import { narration, speech } from '../src/content/narration.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = path.join(root, 'public', 'audio');
@@ -36,9 +37,10 @@ async function loadEnv() {
 
 const env = await loadEnv();
 const apiKey = env.ELEVENLABS_API_KEY;
-// "Jessica" — a bright, playful premade voice that suits a mascot.
+// "Jessica" — a bright premade voice; checked with speech-to-text that its Nepali transcribes cleanly.
 const voiceId = env.ELEVENLABS_VOICE_ID || 'cgSgspJ2msm6clMCkdW9';
-const modelId = env.ELEVENLABS_MODEL_ID || 'eleven_multilingual_v2';
+const modelId = env.ELEVENLABS_MODEL_ID || 'eleven_v3';
+const language = env.ELEVENLABS_LANGUAGE || 'ne';
 
 if (!apiKey) {
   console.error('No ELEVENLABS_API_KEY found in .env');
@@ -53,7 +55,7 @@ try {
 
 const exists = (p) => access(p).then(() => true, () => false);
 const hashOf = (text) =>
-  createHash('sha1').update(`${voiceId}|${modelId}|${text}`).digest('hex').slice(0, 10);
+  createHash('sha1').update(`${voiceId}|${modelId}|${language}|${text}`).digest('hex').slice(0, 10);
 
 async function synth(id, text) {
   const res = await fetch(
@@ -64,7 +66,8 @@ async function synth(id, text) {
       body: JSON.stringify({
         text,
         model_id: modelId,
-        voice_settings: { stability: 0.45, similarity_boost: 0.8, style: 0.35, use_speaker_boost: true },
+        language_code: language,
+        voice_settings: { stability: 0.5, similarity_boost: 0.8, use_speaker_boost: true },
       }),
     },
   );
@@ -72,7 +75,7 @@ async function synth(id, text) {
   await writeFile(path.join(outDir, `${id}.mp3`), Buffer.from(await res.arrayBuffer()));
 }
 
-const entries = Object.entries(narration);
+const entries = Object.keys(narration).map((id) => [id, speech[id] ?? narration[id]]);
 let made = 0;
 let failed = 0;
 for (const [id, text] of entries) {

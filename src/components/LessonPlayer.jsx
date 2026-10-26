@@ -20,6 +20,12 @@ const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
   - `practice: true` steps are left out of the lesson and offered after the
     lesson-complete screen as an optional practice set (surplus IOE past
     questions). A practice step with `retryOf` also serves as that question's retry.
+  - `ioe: true` tags an IOE past-paper question, `tag` adds any other label,
+    and `chapter` labels the screen with its chapter.
+  - `video: true` marks a self-playing Scene: the screen goes wide, and when the
+    video ends the lesson moves on by itself after a short countdown.
+  - `onProgress(k)` reports the index k of the current main screen, so a long
+    lesson can resume where the learner left off (passed back as `startStep`).
   XP: first try 15 / later 5 (Skill check and practice), retry 10 / 5, check-in 10, task 10.
 */
 const REVIEW_STEP = { interstitial: { title: 'Let’s try that again', badge: 'review' }, narration: 'review' };
@@ -65,7 +71,7 @@ export function XpCounter({ xp, bump }) {
   );
 }
 
-export default function LessonPlayer({ course, lessonIndex, startStep = 0, narrator, xp, addXp, onExit, onComplete }) {
+export default function LessonPlayer({ course, lessonIndex, startStep = 0, narrator, xp, addXp, onExit, onComplete, onProgress }) {
   const lesson = course.lessons[lessonIndex];
   const [pos, setPos] = useState(startStep);
   const [missed, setMissed] = useState([]);
@@ -85,6 +91,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
   const [stats, setStats] = useState({ correct: 0, total: 0 });
   const [reviewStats, setReviewStats] = useState({ correct: 0, total: 0 });
   const [done, setDone] = useState(false);
+  const [videoEnded, setVideoEnded] = useState(false);
   const scrollRef = useRef(null);
 
   // Playable sequence: lesson steps (minus `retryOf` alternates), with the review
@@ -135,6 +142,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
     setSolved(false);
     setWhyOpen(false);
     setHelpOpen(false);
+    setVideoEnded(false);
     setBubbleTone('info');
     setPose(step.pose ?? 'talk');
     narrator.say(step.narration);
@@ -143,10 +151,23 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
   }, [pos, lessonIndex, done, mode]);
 
   useEffect(() => {
+    if (done || inPractice || entry.review || entry.retry) return;
+    onProgress?.(base.indexOf(entry));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pos, done, mode]);
+
+  useEffect(() => {
     if (!inter) return;
     const t = setTimeout(() => setPos((i) => i + 1), 2200);
     return () => clearTimeout(t);
   }, [inter, pos]);
+
+  useEffect(() => {
+    if (!videoEnded) return;
+    const t = setTimeout(() => next(), 4000);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [videoEnded]);
 
   const gainXp = (n) => {
     addXp(n);
@@ -156,7 +177,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
 
   const markRight = (line) => {
     setBubbleTone('correct');
-    setPose('dab');
+    setPose('jab');
     narrator.say(line);
   };
 
@@ -253,7 +274,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
       setPos((i) => i + 1);
     } else {
       setDone(true);
-      setPose('dab');
+      setPose('jab');
       setBubbleTone('correct');
       narrator.say('lesson-done');
       if (!inPractice) onComplete(lesson.id);
@@ -281,6 +302,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
       ...(step.figureProps ?? {}),
       ...(isTask ? { onSolved: onTaskSolved, solved } : {}),
       ...(isQuestion && step.input.type === 'figure' ? { value, setValue: changeValue, status } : {}),
+      ...(step.video ? { onEnded: () => setVideoEnded(true) } : {}),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [step, solved, value, status],
@@ -294,9 +316,10 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
         <header className="topbar hidden" />
         <main className="card interstitial" onClick={() => setPos((i) => i + 1)}>
           <div className="inter-art">
-            <div className={`badge badge-${inter.badge}`}>{inter.badge === 'check' ? '✓' : inter.badge === 'review' ? '↻' : inter.badge === 'practice' ? '✎' : '⚡'}</div>
-            <Mascot pose="dab" size={130} />
+            <div className={`badge badge-${inter.badge}`}>{inter.icon ?? (inter.badge === 'check' ? '✓' : inter.badge === 'review' ? '↻' : inter.badge === 'practice' ? '✎' : '⚡')}</div>
+            <Mascot pose="jab" size={130} />
           </div>
+          {inter.kicker && <span className="eyebrow">{inter.kicker}</span>}
           <h2>{inter.title}</h2>
         </main>
       </div>
@@ -340,8 +363,8 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
         <div className="scroll" ref={scrollRef}>
           {done ? (
             <div className="complete">
-              <Mascot pose="dab" size={180} />
-              <h1>{inPractice ? 'Practice complete!' : 'Lesson complete!'}</h1>
+              <Mascot pose="jab" size={180} />
+              <h1>{inPractice ? 'Practice complete!' : lesson.doneTitle ?? 'Lesson complete!'}</h1>
               <p className="muted">{lesson.title}</p>
               <div className="complete-stats">
                 <div><b>{xp}</b><span>Total XP</span></div>
@@ -358,10 +381,13 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
               )}
             </div>
           ) : (
-            <div className="content" key={`${lessonIndex}-${pos}`}>
-              {(step.retry || step.checkin || step.flashback || inPractice) && (
+            <div className={`content ${step.video ? 'wide' : ''}`} key={`${lessonIndex}-${pos}`}>
+              {(step.chapter || step.retry || step.checkin || step.flashback || step.ioe || step.tag || inPractice) && (
                 <div className="q-tags">
+                  {step.chapter && <span className="q-tag q-tag-chapter">{step.chapter}</span>}
                   {inPractice && <span className="q-tag q-tag-practice">Practice</span>}
+                  {step.ioe && <span className="q-tag q-tag-ioe">IOE asked</span>}
+                  {step.tag && <span className={`q-tag q-tag-${step.tagKind ?? 'tryit'}`}>{step.tag}</span>}
                   {step.retry && <span className="q-tag q-tag-review">↻ Review</span>}
                   {step.checkin && <span className="q-tag q-tag-checkin">Quick check</span>}
                   {step.flashback && <span className="q-tag q-tag-flash">Flashback</span>}
@@ -452,7 +478,9 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
                 <button className="btn btn-light" disabled>{step.taskLabel ?? 'Continue'}</button>
               </>
             ) : (
-              <button className={`btn ${isTask ? 'btn-green' : 'btn-light'}`} onClick={next}>Continue</button>
+              <button className={`btn ${isTask || videoEnded ? 'btn-green' : 'btn-light'} ${videoEnded ? 'btn-next-auto' : ''}`} onClick={next}>
+                {step.video && !videoEnded ? 'Skip video' : 'Continue'}
+              </button>
             )}
           </div>
           <div className="bottom-spacer" />
