@@ -159,7 +159,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
 
   useEffect(() => {
     if (!inter) return;
-    const t = setTimeout(() => setPos((i) => i + 1), 2200);
+    const t = setTimeout(() => setPos((i) => i + 1), 1500);
     return () => clearTimeout(t);
   }, [inter, pos]);
 
@@ -293,6 +293,21 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
   const basePassed = passed.filter((e) => !e.review && !e.retry).length;
   const reviewsPassed = passed.filter((e) => e.retry).length;
   const progress = done ? 1 : inPractice ? pos / sequence.length : basePassed / base.length;
+  // Inside a micro-topic the bar splits into its three segments (terms,
+  // derivation, big picture), each filling as its screens are passed.
+  const segBars = useMemo(() => {
+    if (inPractice || done || !step.segment || entry?.i == null) return null;
+    const groups = {};
+    lesson.steps.forEach((st, k) => {
+      if (st.chapter === step.chapter && st.segment && !st.practice && !st.retryOf) (groups[st.segment] ??= []).push(k);
+    });
+    return Object.keys(groups)
+      .sort()
+      .map((seg) => {
+        const ks = groups[seg];
+        return { seg, now: seg === step.segment, frac: ks.filter((k) => k < entry.i).length / ks.length };
+      });
+  }, [lesson, step, entry, inPractice, done]);
   const resolved = status === 'correct' || status === 'revealed';
   const complete = isQuestion && inputDef.complete(value, step.input);
   const Figure = step.Figure;
@@ -346,9 +361,17 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
           <Icon name="close" />
         </button>
         <div className="progress-group">
-          <div className="progress">
-            <div className="progress-fill" style={{ width: `${Math.max(progress * 100, 2)}%` }} />
-          </div>
+          {segBars ? (
+            segBars.map((b) => (
+              <div key={b.seg} className={`progress progress-seg ${b.now ? 'now' : ''}`} title={b.seg}>
+                <div className="progress-fill" style={{ width: `${b.now ? Math.max(b.frac * 100, 4) : b.frac * 100}%` }} />
+              </div>
+            ))
+          ) : (
+            <div className="progress">
+              <div className="progress-fill" style={{ width: `${Math.max(progress * 100, 2)}%` }} />
+            </div>
+          )}
           {!inPractice && missed.map((i, k) => (
             <span
               key={`r${i}`}
@@ -395,9 +418,10 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
             </div>
           ) : (
             <div className={`content ${step.video ? 'wide' : ''}`} key={`${lessonIndex}-${pos}`}>
-              {(step.chapter || step.retry || step.checkin || step.flashback || step.ioe || step.tag || inPractice) && (
+              {(step.chapter || step.segment || step.retry || step.checkin || step.flashback || step.ioe || step.tag || inPractice) && (
                 <div className="q-tags">
                   {step.chapter && <span className="q-tag q-tag-chapter">{step.chapter}</span>}
+                  {step.segment && <span className="q-tag q-tag-segment">{step.segment}</span>}
                   {inPractice && <span className="q-tag q-tag-practice">Practice</span>}
                   {step.ioe && <span className="q-tag q-tag-ioe">IOE ma sodhiyeko</span>}
                   {step.tag && <span className={`q-tag q-tag-${step.tagKind ?? 'tryit'}`}>{step.tag}</span>}

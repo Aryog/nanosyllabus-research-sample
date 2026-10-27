@@ -1,4 +1,4 @@
-import { Axes, C, D, hook, model, solve, video } from './kit.jsx';
+import { Axes, C, D, model, solve, video } from './kit.jsx';
 
 /* Chapter 6 · Performance characteristics (Syllabus Unit 4: Performance characteristics of DC motors). */
 
@@ -27,7 +27,7 @@ const seriesT = (u) => (u < 0.45 ? 2.2 * u * u : 2.2 * 0.45 * 0.45 + 2 * 2.2 * 0
 const seriesN = (u) => 0.13 / Math.max(u, 0.05);
 const compoundN = (u) => 0.85 - 0.45 * u;
 
-const shunt = video('Shunt motor ko characteristics', {
+export const shunt = video('Derivation: shunt motor ko characteristics', {
   viewBox: '0 0 360 220',
   beats: [
     {
@@ -43,15 +43,15 @@ const shunt = video('Shunt motor ko characteristics', {
       voice: 'शाफ्ट टर्क चाहिँ अलि कम हुन्छ, किनभने टर्कको अलि पार्ट आइरन र फ्रिक्सन लसेसमा खाइन्छ।',
     },
     {
-      say: 'Straight line check garau.',
-      voice: 'स्ट्रेट लाइन चेक गरौं।',
+      say: 'Bharkhar ko kura.',
+      voice: 'भर्खरको कुरा।',
       ask: {
-        tag: 'Quick check',
-        q: 'Shunt motor ma armature current double bhayo. Armature torque…',
-        voice: 'शन्ट मोटरमा आर्मेचर करेन्ट डबल भयो। आर्मेचर टर्क…',
-        options: ['double huncha', 'char guna huncha', 'same rahancha'],
-        answer: 0,
-        why: 'φ constant cha, so Ta ∝ Ia: current double, torque pani double.',
+        tag: 'Dhyan check 👀',
+        q: 'Shaft torque armature torque bhanda kina ali kam huncha?',
+        voice: 'स्याफ्ट टर्क आर्मेचर टर्कभन्दा किन अलि कम हुन्छ?',
+        options: ['Field weak huncha', 'Iron ra friction losses le ali khaancha', 'Supply voltage ghatcha'],
+        answer: 1,
+        why: 'Torque ko ali part iron ra friction losses ma jancha, tesaile Tsh < Ta.',
       },
     },
     {
@@ -67,15 +67,15 @@ const shunt = video('Shunt motor ko characteristics', {
       voice: 'यो ड्रपलाई स्पिड रेगुलेसनले नाप्छ: नो लोड स्पिड माइनस फुल लोड स्पिड, डिभाइड बाई फुल लोड स्पिड, टाइम्स वान हन्ड्रेड।',
     },
     {
-      say: 'La ekchoti try gara.',
-      voice: 'ल एकचोटि ट्राई गर।',
+      say: 'Dhyan diyau?',
+      voice: 'ध्यान दियौ?',
       ask: {
-        tag: 'Quick check',
-        q: 'Euta shunt motor no load ma 1000 rpm ra full load ma 960 rpm ma chalcha. Yesko speed regulation…',
-        voice: 'एउटा शन्ट मोटर नो लोडमा वान थाउजेन्ड आर पी एम र फुल लोडमा नाइन हन्ड्रेड सिक्स्टी आर पी एममा चल्छ। यसको स्पिड रेगुलेसन…',
-        options: ['≈ 4.17%', '4%', '40%'],
-        answer: 0,
-        why: '(1000 − 960)/960 × 100 ≈ 4.17%. No-load speed le divide garyo bhane 4% aaucha, tyo nai common mistake ho.',
+        tag: 'Dhyan check 👀',
+        q: 'Speed regulation ma divide kasle garincha?',
+        voice: 'स्पिड रेगुलेसनमा डिभाइड कसले गरिन्छ?',
+        options: ['No-load speed', 'Full-load speed'],
+        answer: 1,
+        why: '(N₀ − N_FL) / N_FL × 100%: full-load speed le divide.',
       },
     },
   ],
@@ -112,7 +112,7 @@ const shunt = video('Shunt motor ko characteristics', {
   ],
 });
 
-const series = video('Series motor ko characteristics', {
+export const series = video('Derivation: series motor ko characteristics', {
   viewBox: '0 0 360 220',
   beats: [
     {
@@ -128,15 +128,15 @@ const series = video('Series motor ko characteristics', {
       voice: 'स्याचुरेसन पछि फाइ बढ्न छोड्छ, सो टर्क फेरि आई ए सँग प्रोपोर्सनल हुन्छ, अनि कर्भ सिधा हुँदै जान्छ।',
     },
     {
-      say: 'Square law check garau.',
-      voice: 'स्क्वायर ल चेक गरौं।',
+      say: 'Bharkhar bhaneko yaad cha?',
+      voice: 'भर्खर भनेको याद छ?',
       ask: {
-        tag: 'Quick check',
-        q: 'Saturation bhanda tala, series motor ko current double bhayo. Yesko torque kati huncha…',
-        voice: 'स्याचुरेसन भन्दा तल, सिरिज मोटरको करेन्ट डबल भयो। यसको टर्क कति हुन्छ…',
-        options: ['char guna', 'dui guna', 'aadha'],
-        answer: 0,
-        why: 'Ta ∝ φ·Ia ∝ Ia·Ia = Ia². Ia double garda torque 2² = 4 guna huncha.',
+        tag: 'Dhyan check 👀',
+        q: 'Saturation pachi series motor ko torque curve kasto huncha?',
+        voice: 'स्याचुरेसनपछि सिरिज मोटरको टर्क कर्भ कस्तो हुन्छ?',
+        options: ['Parabola nai rahancha', 'Sidha hudai jancha (Ta ∝ Ia)'],
+        answer: 1,
+        why: 'Saturation pachi φ badhna chodcha, tesaile Ta ∝ Ia ani curve sidha.',
       },
     },
     {
@@ -151,16 +151,12 @@ const series = video('Series motor ko characteristics', {
       say: 'Yo classic IOE question ho bro.',
       voice: 'यो क्लासिक आइओई क्वेस्चन हो ब्रो।',
       ask: {
-        tag: 'IOE 2067 Mangsir · 2065 Chaitra · 2068 Bhadra',
-        q: 'DC series motor lai kina kahile pani no load ma start (wa run) garnu hudaina?',
-        voice: 'डीसी सिरिज मोटरलाई किन कहिले पनि नो लोडमा स्टार्ट वा रन गर्नु हुँदैन?',
-        options: [
-          'Ia ra φ ekdam sano hunchan, so N ∝ 1/φ khatarnak value samma badhcha',
-          'No load ma yesle torque nai dinna',
-          'Yesko series field jalcha',
-        ],
-        answer: 0,
-        why: 'No load ma Ia dherai sano, so φ pani dherai sano ani speed bhagcha. Centrifugal force le armature phutauna sakcha. (2068 Bhadra ko “should always be started at no load” FALSE ho.)',
+        tag: 'Dhyan check 👀',
+        q: 'Load hatauda series motor ko speed k huncha bhanyo?',
+        voice: 'लोड हटाउँदा सिरिज मोटरको स्पिड के हुन्छ भन्यो?',
+        options: ['Ghatcha', 'Same rahancha', 'Ekdam badhcha, khatarnak'],
+        answer: 2,
+        why: 'Ia ra φ sano hudai jancha, N ∝ 1/φ, tesaile speed khatarnak high.',
       },
     },
     {
@@ -198,7 +194,7 @@ const series = video('Series motor ko characteristics', {
   ],
 });
 
-const compound = video('Compound motor ra kun motor kaha use huncha', {
+export const compound = video('Compound motor ra kun motor kaha use huncha', {
   viewBox: '0 0 360 220',
   beats: [
     {
@@ -226,19 +222,15 @@ const compound = video('Compound motor ra kun motor kaha use huncha', {
       voice: 'क्युमुलेटिभ कम्पाउन्ड मोटरले फ्लाइह्विलसँग अचानक आउने हेभी लोड ह्यान्डल गर्छ: सियर्स, पन्चिङ प्रेस, रोलिङ मिल र एलिभेटर।',
     },
     {
-      say: 'La yo chai IOE version.',
-      voice: 'ल यो चाहिँ आइओई भर्सन।',
+      say: 'Applications yaad gara.',
+      voice: 'एप्लिकेसन याद गर।',
       ask: {
-        tag: 'IOE 2067 Mangsir',
-        q: 'Yi sab ko lagi suitable motor: electric traction, vacuum cleaner, paper making, shearing ra punching?',
-        voice: 'यी सबको लागि सुटेबल मोटर: इलेक्ट्रिक ट्र्याक्सन, भ्याकुम क्लिनर, पेपर मेकिङ, सियरिङ र पन्चिङ?',
-        options: [
-          'Series · series (universal) · shunt · cumulative compound',
-          'Shunt · series · series · shunt',
-          'Series · shunt · cumulative compound · shunt',
-        ],
-        answer: 0,
-        why: 'Traction lai dherai starting torque chahincha (series); vacuum cleaner ma sano series/universal motor huncha; paper making lai steady speed chahincha (shunt); shears ra punch le flywheel sanga achanak heavy load linchan (cumulative compound).',
+        tag: 'Dhyan check 👀',
+        q: 'Shears ra punching press ko lagi kun motor bhaneko?',
+        voice: 'शियर्स र पन्चिङ प्रेसको लागि कुन मोटर भनेको?',
+        options: ['Series', 'Cumulative compound', 'Shunt'],
+        answer: 1,
+        why: 'Cumulative compound le flywheel sanga achanak aaune heavy load handle garcha.',
       },
     },
   ],
@@ -263,7 +255,7 @@ const compound = video('Compound motor ra kun motor kaha use huncha', {
   ],
 });
 
-const shuntNumerical = solve({
+export const shuntNumerical = solve({
   title: 'Sangai solve garau: shunt motor speed',
   paper: '2071 Magh Q4(b)',
   paperVoice: 'टु थाउजेन्ड सेभेन्टी वान माघ, क्यू फोर बी',
@@ -331,7 +323,7 @@ const shuntNumerical = solve({
   },
 });
 
-const seriesNumerical = solve({
+export const seriesNumerical = solve({
   title: 'Sangai solve garau: series motor current',
   paper: '2069 Bhadra · 2066 Magh',
   paperVoice: 'टु थाउजेन्ड सिक्स्टी नाइन भदौ र टु थाउजेन्ड सिक्स्टी सिक्स माघ',
@@ -402,33 +394,18 @@ const seriesNumerical = solve({
   },
 });
 
-export const ch6 = {
-  title: 'Performance characteristics',
-  syllabus: 'Unit 4 · DC motor ko performance characteristics',
-  steps: [
-    shunt,
-    series,
-    compound,
-    shuntNumerical,
-    seriesNumerical,
-    model({
-      q: 'DC shunt ra DC series motor ko torque–armature current ra speed–torque characteristics explain gara.',
-      papers: ['2070 Magh'],
-      marks: '[8]',
-      points: [
-        <>Duita relation bata suru gara: <b>Ta ∝ φ·Ia</b> ra <b>N ∝ Eb/φ = (V − IaRa)/φ</b>.</>,
-        <><b>Shunt, Ta–Ia</b>: φ constant, so Ta ∝ Ia, origin bata jane sidha line. Shaft torque Tsh yo bhanda ali tala huncha (lost torque).</>,
-        <><b>Shunt, N–Ia ra N–T</b>: IaRa sano huncha, so speed ali matra jharcha (lagbhag 5–15%). Yo almost constant-speed motor ho.</>,
-        <><b>Series, Ta–Ia</b>: φ ∝ Ia, so saturation aghi Ta ∝ Ia² (parabola), ani saturation pachi Ta ∝ Ia. Dherai high starting torque.</>,
-        <><b>Series, N–Ia ra N–T</b>: N ∝ 1/Ia, rectangular hyperbola. Low speed ma high torque, ani light load ma khatarnak high speed, so yeslai kahile pani no load ma start nagara.</>,
-        <>Charai curve labelled axes sanga sketch gara, ani applications le conclude gara: constant-speed drive ko lagi shunt, traction ra crane ko lagi series.</>,
-      ],
-      tip: 'Axes label gara ani series Ta–Ia curve ma saturation bend mark gara. “Never at no load” chai alag question ko rup ma pani sodhincha (2067 Mangsir, 2065 Chaitra, 2068 Bhadra). Exam ma English mai lekha.',
-    }),
-    hook('Shunt: Steady speed · Series: Strong start, Solo kahile pani hoina', [
-      'Shunt: Ta ∝ Ia (line), N lagbhag constant.',
-      'Series: Ta ∝ Ia² (parabola), N ∝ 1/Ia (hyperbola), no load ma kahile pani chalaunu hudaina.',
-      'Speed ratio: shunt ma N₂/N₁ = Eb₂/Eb₁; series ma I₁/I₂ le multiply gara.',
-    ]),
+// IOE model answer for this chapter.
+export const ch6Model = model({
+  q: 'DC shunt ra DC series motor ko torque–armature current ra speed–torque characteristics explain gara.',
+  papers: ['2070 Magh'],
+  marks: '[8]',
+  points: [
+    <>Duita relation bata suru gara: <b>Ta ∝ φ·Ia</b> ra <b>N ∝ Eb/φ = (V − IaRa)/φ</b>.</>,
+    <><b>Shunt, Ta–Ia</b>: φ constant, so Ta ∝ Ia, origin bata jane sidha line. Shaft torque Tsh yo bhanda ali tala huncha (lost torque).</>,
+    <><b>Shunt, N–Ia ra N–T</b>: IaRa sano huncha, so speed ali matra jharcha (lagbhag 5–15%). Yo almost constant-speed motor ho.</>,
+    <><b>Series, Ta–Ia</b>: φ ∝ Ia, so saturation aghi Ta ∝ Ia² (parabola), ani saturation pachi Ta ∝ Ia. Dherai high starting torque.</>,
+    <><b>Series, N–Ia ra N–T</b>: N ∝ 1/Ia, rectangular hyperbola. Low speed ma high torque, ani light load ma khatarnak high speed, so yeslai kahile pani no load ma start nagara.</>,
+    <>Charai curve labelled axes sanga sketch gara, ani applications le conclude gara: constant-speed drive ko lagi shunt, traction ra crane ko lagi series.</>,
   ],
-};
+  tip: 'Axes label gara ani series Ta–Ia curve ma saturation bend mark gara. “Never at no load” chai alag question ko rup ma pani sodhincha (2067 Mangsir, 2065 Chaitra, 2068 Bhadra). Exam ma English mai lekha.',
+});

@@ -82,7 +82,14 @@ function pickVoice(text) {
   return vs.find((v) => v.lang === 'en-IN') ?? vs.find((v) => /en[-_]GB/i.test(v.lang)) ?? vs.find((v) => v.lang?.startsWith('en'));
 }
 
-const readMs = (t = '') => Math.max(2600, 1200 + t.length * 58);
+// Playback speed for the voice: fast, explainer-video pace (pitch is kept).
+const SPEED = 1.3;
+const GAP = 200; // pause after a line, ms
+const MIN_BEAT = 800; // shortest a beat can be, ms
+
+const ZOOM_MAX = 1.6; // closest the camera gets to one part
+
+const readMs = (t = '') => Math.max(2000, (1200 + t.length * 58) / SPEED);
 
 export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, tall, upcoming = [] }) {
   const [beat, setBeat] = useState(0);
@@ -92,20 +99,60 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
   const [picked, setPicked] = useState({});
   const [ended, setEnded] = useState(false);
   const endedRef = useRef(false);
-  const boardRef = useRef(null);
+  const stageRef = useRef(null);
+  const camRef = useRef(null);
+  const [cam, setCam] = useState({ x: 0, y: 0, k: 1 });
 
-  // Keep the line being written in view when the board is taller than the screen.
-  // Only the board scrolls, never the page.
+  // Camera, like an explainer video: zoom onto what this beat explains (the
+  // board line being written, or the drawing parts it highlights); on beats
+  // with nothing new, and at the end, pull back to show the whole board.
   useEffect(() => {
-    const box = boardRef.current;
-    const el = box?.querySelector('.board-line.hl');
-    if (!el) return;
-    const t = setTimeout(() => {
-      const below = el.offsetTop + el.offsetHeight - (box.scrollTop + box.clientHeight);
-      if (below > 0) box.scrollTo({ top: box.scrollTop + below + 8, behavior: 'smooth' });
-    }, 650);
-    return () => clearTimeout(t);
-  }, [beat]);
+    const frame = () => {
+      const stage = stageRef.current;
+      const el = camRef.current;
+      if (!stage || !el) return;
+      const W = stage.clientWidth;
+      const H = stage.clientHeight;
+      const cw = el.offsetWidth;
+      const ch = el.offsetHeight;
+      if (!W || !H || !cw || !ch) return;
+      const fit = Math.min(1, W / cw, H / ch);
+      const whole = ended || beat === beats.length - 1;
+      let box = null;
+      if (!whole) {
+        // Measure against the transform on screen now (it may be mid-move).
+        const o = el.getBoundingClientRect();
+        const k0 = new DOMMatrix(getComputedStyle(el).transform).a || 1;
+        for (const part of el.querySelectorAll('.board-line.hl .ink, svg .hl')) {
+          const r = part.getBoundingClientRect();
+          if (!r.width && !r.height) continue;
+          const b = { l: (r.left - o.left) / k0, t: (r.top - o.top) / k0, r: (r.right - o.left) / k0, b: (r.bottom - o.top) / k0 };
+          box = box ? { l: Math.min(box.l, b.l), t: Math.min(box.t, b.t), r: Math.max(box.r, b.r), b: Math.max(box.b, b.b) } : b;
+        }
+      }
+      let k = fit;
+      let cx = cw / 2;
+      let cy = ch / 2;
+      if (box) {
+        const pad = 28;
+        k = Math.max(fit, Math.min(ZOOM_MAX, W / (box.r - box.l + 2 * pad), H / (box.b - box.t + 2 * pad)));
+        cx = (box.l + box.r) / 2;
+        cy = (box.t + box.b) / 2;
+      }
+      // Centre on the part, but never show past the board's edges.
+      const place = (view, size, c) => (size * k <= view ? (view - size * k) / 2 : Math.min(0, Math.max(view - size * k, view / 2 - c * k)));
+      setCam({ k, x: place(W, cw, cx), y: place(H, ch, cy) });
+    };
+    // Once as the line starts, again after it has grown to full height.
+    const a = setTimeout(frame, 60);
+    const b = setTimeout(frame, 700);
+    window.addEventListener('resize', frame);
+    return () => {
+      clearTimeout(a);
+      clearTimeout(b);
+      window.removeEventListener('resize', frame);
+    };
+  }, [beat, ended, beats.length]);
   const cur = beats[beat];
   const ask = cur.ask;
   const waiting = ask && !picked[beat]?.done;
@@ -152,13 +199,13 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
       const u = new SpeechSynthesisUtterance(spoken(text));
       u.voice = v;
       u.lang = v.lang;
-      u.rate = 1.03;
+      u.rate = SPEED;
       u.onstart = () => (started = true);
       u.onend = u.onerror = () => {
         if (!live) return;
         if (!started) return silent();
         spokeDone = true;
-        later(maybe, 450);
+        later(maybe, GAP);
       };
       window.speechSynthesis.speak(u);
       // Some browsers never fire onend; don't let the video hang on them.
@@ -169,7 +216,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
       later(() => {
         timeUp = true;
         maybe();
-      }, 1400);
+      }, MIN_BEAT);
     };
 
     if (!voice || !text) {
@@ -185,10 +232,12 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
         const src = clips[key] ? `${BASE}audio/scene/${key}.mp3?v=${clips[key]}` : import.meta.env.DEV ? `${BASE}api/tts/${key}.mp3` : null;
         if (!src) return speakBrowser();
         audio = new Audio(src);
+        audio.playbackRate = SPEED;
+        audio.preservesPitch = true;
         audio.onplay = () => (clips[key] ??= 'new');
         audio.onended = () => {
           spokeDone = true;
-          later(maybe, 500);
+          later(maybe, GAP);
         };
         // Recording failed or autoplay was blocked: fall back once.
         let fell = false;
@@ -202,7 +251,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
         later(() => {
           timeUp = true;
           maybe();
-        }, 1400);
+        }, MIN_BEAT);
       });
     }
     return () => {
@@ -249,21 +298,25 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
   return (
     <div className={`scene beat-${beat} ${tall ? 'tall' : ''}`}>
       <div className={`scene-screen ${ask ? 'asking' : ''}`}>
-        {draw && (
-          <svg viewBox={viewBox} className="scene-svg" role="img">
-            {draw(s)}
-          </svg>
-        )}
-        {board && (
-          <div className={`board ${draw ? '' : 'board-only'}`} ref={boardRef}>
-            {board.map((b, i) => (
-              <div key={i} className={`board-line kind-${b.kind ?? 'text'} ${beat >= b.at && (b.until == null || beat <= b.until) ? 'on' : ''} ${beat === b.at ? 'hl' : ''}`}>
-                <span className="ink">{b.node}</span>
-                {beat === b.at && <span className="pen" aria-hidden="true">✎</span>}
+        <div className="scene-stage" ref={stageRef}>
+          <div className="scene-cam" ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
+            {draw && (
+              <svg viewBox={viewBox} className="scene-svg" role="img">
+                {draw(s)}
+              </svg>
+            )}
+            {board && (
+              <div className={`board ${draw ? '' : 'board-only'}`}>
+                {board.map((b, i) => (
+                  <div key={i} className={`board-line kind-${b.kind ?? 'text'} ${beat >= b.at && (b.until == null || beat <= b.until) ? 'on' : ''} ${beat === b.at ? 'hl' : ''}`}>
+                    <span className="ink">{b.node}</span>
+                    {beat === b.at && <span className="pen" aria-hidden="true">✎</span>}
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        )}
+        </div>
         {ask && (
           <div className="scene-ask">
             <div className="scene-ask-card">
@@ -344,6 +397,43 @@ export function Hook({ big, lines }) {
 }
 
 /*
+  Memory map: the Memorization segment of a chapter, as one card. It compresses
+  the chapter (never re-teaches it): one line, the formulas, the derivation
+  order, the mnemonic, must-remember points and the common slips.
+*/
+export function Memory({ line, formulas, order, big, remember, forget }) {
+  return (
+    <div className="memory">
+      <span className="hook-tag">Memory map</span>
+      <p className="memory-line">{line}</p>
+      {formulas && (
+        <div className="memory-block">
+          <h4>Formula</h4>
+          {formulas.map((f, i) => <div key={i} className="memory-eq">{f}</div>)}
+        </div>
+      )}
+      {order && (
+        <div className="memory-block">
+          <h4>Derivation ko order</h4>
+          <p className="memory-order">{order.join(' → ')}</p>
+        </div>
+      )}
+      <div className="hook">
+        <span className="hook-tag">Yaad rakhne trick</span>
+        <div className="hook-big">{big}</div>
+        {remember && <ul>{remember.map((l, i) => <li key={i}>{l}</li>)}</ul>}
+      </div>
+      {forget && (
+        <div className="memory-block">
+          <h4>Bhulne galti</h4>
+          <ul>{forget.map((l, i) => <li key={i}>{l}</li>)}</ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/*
   Model answer for an IOE theory question: the question as set, the papers it
   came in, and the points to write (revealed on tap, like the marking scheme).
 */
@@ -352,11 +442,11 @@ export function ModelAnswer({ q, papers, marks, points, tip }) {
   return (
     <div className="model">
       <div className="model-head">
-        <span className="model-tag">IOE ma sodhiyeko · {papers.length} paper</span>
+        <span className="model-tag">{papers.length ? `IOE ma sodhiyeko · ${papers.length} paper` : 'Exam-style question'}</span>
         {marks && <span className="model-marks">{marks}</span>}
       </div>
       <p className="model-q">“{q}”</p>
-      <div className="model-papers">{papers.map((p) => <span key={p}>{p}</span>)}</div>
+      {papers.length > 0 && <div className="model-papers">{papers.map((p) => <span key={p}>{p}</span>)}</div>}
       {open ? (
         <ol className="model-points">
           {points.map((p, i) => (

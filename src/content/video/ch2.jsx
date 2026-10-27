@@ -1,4 +1,4 @@
-import { Arrow, C, Conductor, Pole, hook, model, video } from './kit.jsx';
+import { Arrow, C, Conductor, Pole, model, video } from './kit.jsx';
 
 /* Chapter 2 · Construction & commutator action (Syllabus Unit 3: constructional details, armature winding, commutator action, EMF equation). */
 
@@ -23,7 +23,7 @@ function Label({ s, k, x, y, tx, ty, text, sub }) {
   );
 }
 
-const crossSection = video('DC machine bhitra k cha?', {
+export const crossSection = video('DC machine bhitra k cha?', {
   viewBox: '0 0 400 230',
   beats: [
     { say: 'Yo two-pole DC machine ko cross-section ho. Bahira ko frame chai yoke. Yesle sabai kura hold garcha ra flux lai euta pole bata arko pole samma lancha.', voice: 'यो टु पोल डीसी मेसिनको क्रस सेक्सन हो। बाहिरको फ्रेम चाहिँ योक। यसले सबै कुरा होल्ड गर्छ र फ्लक्सलाई एउटा पोलबाट अर्को पोलसम्म लान्छ।' },
@@ -134,7 +134,7 @@ function CoilAt({ deg, a = 'in', b = 'out', forces, plain }) {
   );
 }
 
-const commutatorAction = video('Commutator action: kina ghumi rahancha', {
+export const commutatorAction = video('Commutator action: kina ghumi rahancha', {
   viewBox: '0 0 360 220',
   beats: [
     { say: 'Euta matra coil poles ko bich ma flat cha. Current N najik ko side ma bhitra jancha ra S najik ko side bata bahira aaucha.', voice: 'एउटा मात्र कोइल पोल्सको बिचमा फ्ल्याट छ। करेन्ट एन नजिकको साइडमा भित्र जान्छ र एस नजिकको साइडबाट बाहिर आउँछ।' },
@@ -209,7 +209,7 @@ const commutatorAction = video('Commutator action: kina ghumi rahancha', {
   ),
 });
 
-const lapWave = video('Lap ra wave windings', {
+export const lapWave = video('Lap ra wave windings', {
   beats: [
     { say: 'Armature conductors yesari jodincha ki brushes ko bich ma current kei parallel paths ma split huncha. Tyo number lai A bhanchau.', voice: 'आर्मेचर कन्डक्टर्स यसरी जोडिन्छ कि ब्रसेसको बिचमा करेन्ट केही प्यारालल पाथ्समा स्प्लिट हुन्छ। त्यो नम्बरलाई ए भन्छौं।' },
     { say: 'Lap winding ma A equals P, matlab poles ko number. Dherai paths, so thulo current ra kam voltage ko lagi sahi.', voice: 'ल्याप वाइन्डिङमा ए इक्वल्स पी, मतलब पोल्सको नम्बर। धेरै पाथ्स, सो ठूलो करेन्ट र कम भोल्टेजको लागि सही।' },
@@ -240,7 +240,7 @@ const lapWave = video('Lap ra wave windings', {
   ],
 });
 
-const emfDerivation = video('Derivation: EMF equation', {
+export const emfDerivation = video('Derivation: EMF equation', {
   tall: true,
   beats: [
     { say: 'La EMF equation derive garau. P poles, phi weber per pole, Z armature conductors, A parallel paths, ra speed N r p m ma.', voice: 'ल ई एम एफ इक्वेसन डिराइभ गरौं। पी पोल्स, फाइ वेबर पर पोल, जेड आर्मेचर कन्डक्टर्स, ए प्यारालल पाथ्स, र स्पिड एन आर पी एममा।' },
@@ -275,7 +275,7 @@ const emfDerivation = video('Derivation: EMF equation', {
   ],
 });
 
-const emfIoe = video('IOE 2078 Poush Q3(b): EMF equation use garau', {
+export const emfIoe = video('IOE 2078 Poush Q3(b): EMF equation use garau', {
   beats: [
     { say: 'Real IOE question. 4-pole, lap-wound machine ma 300 conductors cha, fifty slots of six, ra fifty milliweber per pole. Yesle 260.25 volt generate garnu parcha. Speed nikala.', voice: 'रियल आइओई क्वेस्चन। फोर पोल, ल्याप वाउन्ड मेसिनमा थ्री हन्ड्रेड कन्डक्टर्स छ, फिफ्टी स्लट्स अफ सिक्स, र फिफ्टी मिलिवेबर पर पोल। यसले टु हन्ड्रेड सिक्स्टी पोइन्ट टु फाइभ भोल्ट जेनेरेट गर्नुपर्छ। स्पिड निकाल।' },
     { say: 'EMF equation lai speed ko lagi rearrange gara: N equals sixty A E over P phi Z.', voice: 'ई एम एफ इक्वेसनलाई स्पिडको लागि रिअरेन्ज गर: एन इक्वल्स सिक्स्टी ए ई ओभर पी फाइ जेड।' },
@@ -315,32 +315,17 @@ const emfIoe = video('IOE 2078 Poush Q3(b): EMF equation use garau', {
   ],
 });
 
-export const ch2 = {
-  title: 'Construction ra commutator action',
-  syllabus: 'Unit 3 · Constructional details, armature winding, commutator action, EMF equation',
-  steps: [
-    crossSection,
-    commutatorAction,
-    lapWave,
-    emfDerivation,
-    emfIoe,
-    model({
-      q: 'DC machine ma commutator ra carbon brushes ko function explain gara.',
-      papers: ['2071 Chaitra', '2072 Ashwin', '2081 Ashwin (ECM)', '2082 Bhadra (ECM)'],
-      marks: '3–5 marks',
-      points: [
-        <><b>Commutator, construction:</b> hard-drawn copper segments ko cylinder, ek arka bata patalo mica le insulated, shaft ma mount gareko. Har segment armature coils ko end sanga jodieko huncha.</>,
-        <><b>Motor ma commutator:</b> coil neutral zone pass garda tyo coil ko current reverse garcha, so euta pole muni ka conductors ma sadhai same direction ma current bagcha ra torque unidirectional rahancha.</>,
-        <><b>Generator ma commutator:</b> coils ma induce bhako alternating EMF lai brushes ma unidirectional (DC) voltage ma convert garcha. Exam ma lekha: “a mechanical rectifier”.</>,
-        <><b>Brushes:</b> brush holder ko spring le commutator ma thicheko stationary contacts. Yinle ghumne armature ra external circuit ko bich ma current bokchan.</>,
-        <><b>Carbon kina:</b> yo self-lubricating ra copper bhanda naram huncha, so commutator ko satta brush khiyincha, ani yesko contact resistance le sparkless commutation ma help garcha.</>,
-      ],
-      tip: 'Duita brush sahit split ring draw gara, ani segments, mica ra brushes label gara. Diagram le marks dilaucha, bro. Exam ma English mai lekha.',
-    }),
-    hook('Lap = Lots of paths · Wave = Two paths', [
-      'Lap: A = P (high current) · Wave: A = 2 (high voltage)',
-      'E = PφZN / 60A, ani euta machine ko lagi E ∝ φN',
-      'Commutator = automatic current reverser → eutai direction ko torque',
-    ]),
+// IOE model answer for this chapter.
+export const ch2Model = model({
+  q: 'DC machine ma commutator ra carbon brushes ko function explain gara.',
+  papers: ['2071 Chaitra', '2072 Ashwin', '2081 Ashwin (ECM)', '2082 Bhadra (ECM)'],
+  marks: '3–5 marks',
+  points: [
+    <><b>Commutator, construction:</b> hard-drawn copper segments ko cylinder, ek arka bata patalo mica le insulated, shaft ma mount gareko. Har segment armature coils ko end sanga jodieko huncha.</>,
+    <><b>Motor ma commutator:</b> coil neutral zone pass garda tyo coil ko current reverse garcha, so euta pole muni ka conductors ma sadhai same direction ma current bagcha ra torque unidirectional rahancha.</>,
+    <><b>Generator ma commutator:</b> coils ma induce bhako alternating EMF lai brushes ma unidirectional (DC) voltage ma convert garcha. Exam ma lekha: “a mechanical rectifier”.</>,
+    <><b>Brushes:</b> brush holder ko spring le commutator ma thicheko stationary contacts. Yinle ghumne armature ra external circuit ko bich ma current bokchan.</>,
+    <><b>Carbon kina:</b> yo self-lubricating ra copper bhanda naram huncha, so commutator ko satta brush khiyincha, ani yesko contact resistance le sparkless commutation ma help garcha.</>,
   ],
-};
+  tip: 'Duita brush sahit split ring draw gara, ani segments, mica ra brushes label gara. Diagram le marks dilaucha, bro. Exam ma English mai lekha.',
+});

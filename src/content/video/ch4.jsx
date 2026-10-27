@@ -1,4 +1,4 @@
-import { Armature, Arrow, C, Resistor, Source, hook, model, video } from './kit.jsx';
+import { Armature, Arrow, C, Resistor, Source, model, video } from './kit.jsx';
 
 /* Chapter 4 · Back EMF (Syllabus Unit 4: Back EMF). 220 V motor, Ra = 0.5 Ω throughout. */
 
@@ -33,25 +33,21 @@ function Bar({ x, frac, color, label, value }) {
   );
 }
 
-const story = video('Motor le aafno current aafai kina limit garcha', {
+export const story = video('Motor le aafno current aafai kina limit garcha', {
   viewBox: '0 0 360 220',
   beats: [
     { say: 'Yo hera 220 volt ko DC motor, armature resistance half ohm. Switch ahile open cha, tesaile kei pani bagdaina.', voice: 'यो हेर टु ट्वेन्टी भोल्टको डीसी मोटर, आर्मेचर रेजिस्टेन्स हाफ ओम। स्विच अहिले ओपन छ, त्यसैले केही पनि बग्दैन।' },
     { say: 'Switch on. Armature ahile ghumeko chaina, tesaile back EMF zero. Current V over R a: 440 ampere, dami!', voice: 'स्विच अन। आर्मेचर अहिले घुमेको छैन, त्यसैले ब्याक ई एम एफ जिरो। करेन्ट भी ओभर आर ए: फोर हन्ड्रेड फोर्टी एम्पियर, दामी!' },
     {
-      say: 'Yo exact question ghari ghari aaucha hai.',
-      voice: 'यो एक्जाक्ट क्वेस्चन घरि घरि आउँछ है।',
+      say: 'Dhyan diyera herya? Check garau.',
+      voice: 'ध्यान दिएर हेर्यौ? चेक गरौं।',
       ask: {
-        tag: 'IOE 2079 Jestha · 2068 Magh · 2066 Magh · 2073 Bhadra · 2082 Bhadra',
-        q: 'DC motor le starting ma kina thulo current tancha?',
-        voice: 'डीसी मोटरले स्टार्टिङमा किन ठूलो करेन्ट तान्छ?',
-        options: [
-          'Rest ma N = 0, so Eb = 0, ani sano Ra le matra current limit garcha',
-          'Starting ma field sabai bhanda strong huncha, tesaile dherai current tancha',
-          'Starting ma friction sabai bhanda dherai huncha, tesaile dherai current chahincha',
-        ],
-        answer: 0,
-        why: 'Ia = (V − Eb)/Ra. Standstill ma Eb = 0, ani Ra ta ohm ko sano fraction matra, tesaile Ia = V/Ra rated current bhanda dherai guna huncha. Tei bhayera starter chahincha.',
+        tag: 'Dhyan check 👀',
+        q: 'Switch on garda back EMF kati thiyo?',
+        voice: 'स्विच अन गर्दा ब्याक ई एम एफ कति थियो?',
+        options: ['V jati', 'Zero', '440 volt'],
+        answer: 1,
+        why: 'Armature ghumeko chaina, tesaile back EMF zero, ani current V/Ra = 440 A.',
       },
     },
     { say: 'Armature ko speed badhdai jada yesko conductor le flux cut garchan ra supply lai oppose garne EMF generate garchan. Tyo nai back EMF ho, ani current ghatcha.', voice: 'आर्मेचरको स्पिड बढ्दै जाँदा यसको कन्डक्टरले फ्लक्स कट गर्छन् र सप्लाईलाई अपोज गर्ने ई एम एफ जेनेरेट गर्छन्। त्यो नै ब्याक ई एम एफ हो, अनि करेन्ट घट्छ।' },
@@ -61,16 +57,12 @@ const story = video('Motor le aafno current aafai kina limit garcha', {
       say: 'Bharkhar k bhayo, ekchoti socha ta.',
       voice: 'भर्खर के भयो, एकचोटि सोच त।',
       ask: {
-        tag: 'IOE 2067 Mangsir',
-        q: 'Shaft load badhda DC motor le aafno current kasari adjust garcha?',
-        voice: 'शाफ्ट लोड बढ्दा डीसी मोटरले आफ्नो करेन्ट कसरी एड्जस्ट गर्छ?',
-        options: [
-          'Speed ali ghatcha, so Eb ghatcha, so Ia = (V − Eb)/Ra badhcha',
-          'Dherai current dina supply voltage badhcha',
-          'Motor load hunda Ra ghatcha',
-        ],
-        answer: 0,
-        why: 'Load ↑ → N ↓ → Eb ↓ → Ia ↑ → torque ↑, jaba samma torque pheri load sanga match hudaina. Load hatayo bhane chain ulto chalcha.',
+        tag: 'Dhyan check 👀',
+        q: 'Load thapda current kati samma badhyo?',
+        voice: 'लोड थप्दा करेन्ट कति सम्म बढ्यो?',
+        options: ['205 A', '440 A', '30 A'],
+        answer: 2,
+        why: 'Eb 205 V ma jharyo ani current 30 A samma badhyo, load lai chahine extra torque ko lagi.',
       },
     },
     { say: 'So back EMF le motor lai self-regulating banaucha. Load lai jati current chahincha, exactly tyati nai tancha. Ekdam smart.', voice: 'सो ब्याक ई एम एफले मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ। लोडलाई जति करेन्ट चाहिन्छ, एक्जाक्ट्ली त्यति नै तान्छ। एकदम स्मार्ट।' },
@@ -118,7 +110,7 @@ const story = video('Motor le aafno current aafai kina limit garcha', {
   ],
 });
 
-const voltagePower = video('Derivation: voltage, power ra torque equation', {
+export const voltagePower = video('Derivation: voltage, power ra torque equation', {
   beats: [
     { say: 'Supply ko duita kaam cha. Back EMF lai overcome garnu parcha, ani armature resistance bata current push garnu parcha.', voice: 'सप्लाईको दुईटा काम छ। ब्याक ई एम एफलाई ओभरकम गर्नु पर्छ, अनि आर्मेचर रेजिस्टेन्सबाट करेन्ट पुस गर्नु पर्छ।' },
     { say: 'So motor ko voltage equation: V equals E b plus I a R a.', voice: 'सो मोटरको भोल्टेज इक्वेसन: भी इक्वल्स ई बी प्लस आई ए आर ए।' },
@@ -154,7 +146,7 @@ const voltagePower = video('Derivation: voltage, power ra torque equation', {
   ],
 });
 
-const maxPower = video('Derivation: maximum power ko condition', {
+export const maxPower = video('Derivation: maximum power ko condition', {
   beats: [
     { say: 'Motor le sabai bhanda dherai mechanical power kahile develop garcha? P m equals E b I a bata start garau.', voice: 'मोटरले सबैभन्दा धेरै मेकानिकल पावर कहिले डेभलप गर्छ? पी एम इक्वल्स ई बी आई ए बाट स्टार्ट गरौं।' },
     { say: 'E b equals V minus I a R a substitute gara. Ani P m equals V I a minus I a squared R a.', voice: 'ई बी इक्वल्स भी माइनस आई ए आर ए सब्स्टिच्युट गर। अनि पी एम इक्वल्स भी आई ए माइनस आई ए स्क्वायर्ड आर ए।' },
@@ -189,7 +181,7 @@ const maxPower = video('Derivation: maximum power ko condition', {
   ],
 });
 
-const speedEq = video('Derivation: speed equation', {
+export const speedEq = video('Derivation: speed equation', {
   beats: [
     { say: 'Back EMF le generator ko jastai EMF equation follow garcha: E b equals P phi Z N over sixty A.', voice: 'ब्याक ई एम एफले जेनेरेटरको जस्तै ई एम एफ इक्वेसन फलो गर्छ: ई बी इक्वल्स पी फाइ जेड एन ओभर सिक्स्टी ए।' },
     { say: 'Speed ko lagi rearrange gara: N equals sixty A E b over P phi Z.', voice: 'स्पिडको लागि रिएरेन्ज गर: एन इक्वल्स सिक्स्टी ए ई बी ओभर पी फाइ जेड।' },
@@ -232,31 +224,17 @@ const speedEq = video('Derivation: speed equation', {
   ],
 });
 
-export const ch4 = {
-  title: 'Back EMF',
-  syllabus: 'Unit 4 · Back EMF',
-  steps: [
-    story,
-    voltagePower,
-    maxPower,
-    speedEq,
-    model({
-      q: 'Back EMF bhaneko k ho? DC motor ma yesle kasari important role khelcha?',
-      papers: ['2071 Magh', '2078 Poush', '2082 Baishakh (ECM)'],
-      marks: '[2 + 4]',
-      points: [
-        <>Definition: armature ghumda yesko conductor le flux cut garchan ra EMF induce huncha (Faraday’s law). Lenz’s law anusar yesle applied voltage lai oppose garcha, tesaile yeslai back (counter) EMF bhanincha. Exam ma lekha: “It opposes the applied voltage, so it is called the back (counter) EMF”: <b>Eb = PφZN / 60A</b>.</>,
-        <>Equivalent circuit (V, Ra, Eb) draw gara ra <b>V = Eb + IaRa</b> lekha, tesaile <b>Ia = (V − Eb) / Ra</b>.</>,
-        <>Role 1, current limit garcha: chaliraheko bela Eb V ko najik huncha, tesaile Ia sano rahancha. Standstill ma Eb = 0 ra Ia = V/Ra khatarnak thulo huncha, tei bhayera starter chahincha.</>,
-        <>Role 2, self-regulation: load ↑ → N ↓ → Eb ↓ → Ia ↑ → Ta ↑, jaba samma torque load sanga match hudaina. Load ghatda chain reverse huncha.</>,
-        <>Role 3, energy conversion: Eb·Ia bhaneko develop bhaeko mechanical power (Pm) ho. Back EMF bina kunai electrical power convert hudaina thiyo.</>,
-      ],
-      tip: 'Examiner le circuit diagram, V = Eb + IaRa ra arrow sahit ko self-regulation chain herchan. Exam ma English mai lekha.',
-    }),
-    hook('Back EMF bhaneko current ma motor ko aafnai brake ho', [
-      'Speed chaina → Eb chaina → huge current → tei bhayera starter chahincha.',
-      'Load ↑ → N ↓ → Eb ↓ → Ia ↑ → torque ↑ (self-regulating).',
-      'Pm = Eb·Ia; Eb = V/2 hunda maximum, tara kahile use hudaina (η ≤ 50%).',
-    ]),
+// IOE model answer for this chapter.
+export const ch4Model = model({
+  q: 'Back EMF bhaneko k ho? DC motor ma yesle kasari important role khelcha?',
+  papers: ['2071 Magh', '2078 Poush', '2082 Baishakh (ECM)'],
+  marks: '[2 + 4]',
+  points: [
+    <>Definition: armature ghumda yesko conductor le flux cut garchan ra EMF induce huncha (Faraday’s law). Lenz’s law anusar yesle applied voltage lai oppose garcha, tesaile yeslai back (counter) EMF bhanincha. Exam ma lekha: “It opposes the applied voltage, so it is called the back (counter) EMF”: <b>Eb = PφZN / 60A</b>.</>,
+    <>Equivalent circuit (V, Ra, Eb) draw gara ra <b>V = Eb + IaRa</b> lekha, tesaile <b>Ia = (V − Eb) / Ra</b>.</>,
+    <>Role 1, current limit garcha: chaliraheko bela Eb V ko najik huncha, tesaile Ia sano rahancha. Standstill ma Eb = 0 ra Ia = V/Ra khatarnak thulo huncha, tei bhayera starter chahincha.</>,
+    <>Role 2, self-regulation: load ↑ → N ↓ → Eb ↓ → Ia ↑ → Ta ↑, jaba samma torque load sanga match hudaina. Load ghatda chain reverse huncha.</>,
+    <>Role 3, energy conversion: Eb·Ia bhaneko develop bhaeko mechanical power (Pm) ho. Back EMF bina kunai electrical power convert hudaina thiyo.</>,
   ],
-};
+  tip: 'Examiner le circuit diagram, V = Eb + IaRa ra arrow sahit ko self-regulation chain herchan. Exam ma English mai lekha.',
+});

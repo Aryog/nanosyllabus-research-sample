@@ -1,22 +1,16 @@
-import { ch1 } from './video/ch1.jsx';
-import { ch2 } from './video/ch2.jsx';
-import { ch3 } from './video/ch3.jsx';
-import { ch4 } from './video/ch4.jsx';
-import { ch5 } from './video/ch5.jsx';
-import { ch6 } from './video/ch6.jsx';
-import { ch7 } from './video/ch7.jsx';
-import { ch8 } from './video/ch8.jsx';
-import { ch9 } from './video/ch9.jsx';
-import { pastQuestions, recap } from './video/past.jsx';
+import { topics } from './topics.jsx';
+import { recap } from './video/past.jsx';
 
 /*
-  The DC Motors course as one video-first journey, in IOE syllabus order:
-  Unit 1 (force on a conductor) and Unit 3 (construction, commutator, EMF
-  equation) as groundwork, then every bullet of Unit 4 (DC Motor).
+  The DC Motors course as one video-first journey through the six micro-topics
+  of IOE Electrical Machines Unit 4 (topics.jsx), in syllabus order, about
+  5 minutes each. Every topic is Intuitive Learning → Academic Learning →
+  Memorization with its own IOE past questions; questions pause the video.
+  The journey ends with a recap video. Surplus videos and numericals are the
+  optional Extra practice set after the course.
 
-  Each chapter (src/content/video/chN.jsx) is mostly self-playing videos with
-  questions that pause the video, one IOE model answer and one memory hook.
-  The journey ends with interleaved IOE past numericals and a recap video.
+  src/content/video/chN.jsx and testing.jsx are the bank of videos and model
+  answers the topics are built from.
 */
 
 const M = ({ children }) => <span className="math">{children}</span>;
@@ -34,26 +28,24 @@ const summary = {
         <li>Torque: <M>Ta = 0.159φZIa(P/A) = 9.55EbIa/N</M>; speed <M>N ∝ (V − IaRa)/φ</M>.</li>
         <li>Shunt: speed constant jasto. Series: Ta ∝ Ia², no load ma kahile pani na chalau. Compound: dubai ko bich ma.</li>
         <li>Starter le starting current limit garcha (3-point / 4-point, NVC ra OLR). Speed chai flux, resistance wa voltage le control huncha.</li>
-        <li>Variable loss = constant loss huda η maximum; Swinburne’s test le constant loss nikalcha.</li>
+        <li>Direction ulto garna armature WA field, euta matra ulto gara.</li>
+        <li>Variable loss = constant loss huda η maximum. Swinburne’s test le constant loss nikalcha; retardation test le rotational loss.</li>
       </ol>
     </>
   ),
 };
 
-const chapters = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9];
-
 export const journey = {
   id: 'dc-motors-journey',
   title: 'DC Motors',
   doneTitle: 'Course sakiyo! 🎉',
-  chapters: chapters.map((c) => c.title),
+  chapters: topics.map((t) => t.title),
+  nums: topics.map((t) => t.num),
   steps: [
-    ...chapters.flatMap((c, i) => [
-      { interstitial: { title: c.title, badge: 'chapter', icon: i + 1, kicker: c.syllabus } },
-      ...c.steps.map((s) => ({ ...s, chapter: `Chapter ${i + 1} · ${c.title}` })),
+    ...topics.flatMap((t) => [
+      { interstitial: { title: t.title, badge: 'chapter', icon: t.num, kicker: `Unit 4 · ${t.num} · ~5 min` } },
+      ...t.steps.map((s) => (s.interstitial ? s : { ...s, chapter: `${t.num} · ${t.title}` })),
     ]),
-    { interstitial: { title: 'Past Questions', badge: 'check', kicker: 'Real IOE numerical haru, 2065–2083' }, narration: 'past-questions' },
-    ...pastQuestions,
     { ...recap, chapter: 'Dohoryau' },
     summary,
   ],

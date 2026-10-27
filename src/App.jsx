@@ -19,9 +19,13 @@ function load() {
 
 const journey = course.lessons[0];
 const steps = journey.steps;
-const breaks = steps.map((st, i) => (st.interstitial ? i : -1)).filter((i) => i >= 0);
-const videos = steps.filter((s) => s.video).length;
-const pastCount = steps.filter((s) => s.chapter === 'Past Questions').length;
+// Chapter (and Past Questions) cards only; segment cards inside a chapter don't start a row.
+const breaks = steps.map((st, i) => (st.interstitial && !st.segmentBreak ? i : -1)).filter((i) => i >= 0);
+const videos = steps.filter((s) => s.video && !s.practice).length;
+// IOE past questions in the main path: solve videos, model answers and IOE-tagged in-video questions.
+const pastCount = steps
+  .filter((s) => !s.practice)
+  .reduce((n, s) => n + (s.ioe ? 1 : 0) + (s.figureProps?.beats ?? []).filter((b) => !s.ioe && b.ask?.tag?.includes('IOE')).length, 0);
 
 // Which outline row (chapter or Past Questions) a saved screen index falls in.
 const sectionOf = (pos) => breaks.reduce((acc, b, k) => (pos >= b ? k : acc), 0);
@@ -99,7 +103,7 @@ export default function App() {
           </div>
           <button className="btn btn-green wide" onClick={() => setActive(0)}>{label}</button>
           <div className="course-meta">
-            <span>{journey.chapters.length} chapter · {pastCount} past question</span>
+            <span>{journey.chapters.length} micro-topic · {pastCount} IOE past question</span>
             <span>{videos} wota sano video</span>
           </div>
         </section>
@@ -112,15 +116,15 @@ export default function App() {
             <div className="node-tip">{label}</div>
             <div className="node-label">
               <b>Euta journey, suru dekhi antya samma</b>
-              <span className="muted">Sano sano video jun bich ma rokera question sodhcha, IOE model answer ra yaad rakhne trick, syllabus kai order ma. Ani last ma real past questions.</span>
+              <span className="muted">Syllabus ka 6 micro-topic, har euta lagbhag 5 minute: intuition, academic ani memorization, aafnai IOE past questions sanga.</span>
             </div>
           </div>
           <ol className="outline">
-            {[...journey.chapters, 'Past Questions'].map((title, k) => (
-              <li key={title} className={`${k === now ? 'now' : ''} ${now === -1 || k < now ? 'done' : ''} ${k === journey.chapters.length ? 'past' : ''}`}>
-                <span className="outline-num">{now === -1 || k < now ? '✓' : k === journey.chapters.length ? 'PQ' : k + 1}</span>
+            {journey.chapters.map((title, k) => (
+              <li key={title} className={`${k === now ? 'now' : ''} ${now === -1 || k < now ? 'done' : ''}`}>
+                <span className="outline-num">{now === -1 || k < now ? '✓' : journey.nums[k]}</span>
                 {title}
-                {k === journey.chapters.length && <span className="outline-beats">IOE 2065–2083</span>}
+                <span className="outline-beats">~5 min</span>
               </li>
             ))}
           </ol>

@@ -1,4 +1,4 @@
-import { Hook, ModelAnswer, Scene } from '../../video/Scene.jsx';
+import { Hook, Memory, ModelAnswer, Scene } from '../../video/Scene.jsx';
 
 /*
   Authoring kit for the video course. A chapter is { title, steps }, where steps
@@ -47,6 +47,36 @@ export const video = (title, props) => ({
 export const hook = (big, lines) => ({ tag: 'Yaad rakhne trick', tagKind: 'hook', pose: 'dab', body: <Hook big={big} lines={lines} /> });
 
 export const model = (props) => ({ ioe: true, body: <ModelAnswer {...props} /> });
+
+// Optional extra: left out of the main path (each chapter stays under ~5 min)
+// and offered after the course in the Extra practice set.
+export const extra = (step) => ({ ...step, practice: true });
+
+// Memory card closing the Big picture: memory(big, { line, formulas?, order?, remember?, forget? }).
+// Compression only: never repeat the explanation here.
+export const memory = (big, props) => ({ tag: 'Yaad rakha', tagKind: 'hook', pose: 'dab', body: <Memory big={big} {...props} /> });
+
+/*
+  Every micro-topic is three video segments:
+    terms    Terms ra definitions: what the terms and symbols mean, shown with visuals
+    derive   Derivation: each video titled "Derivation: …"
+    picture  Big picture: an old IOE question and its solution (solve videos,
+             model answers), then the memory() card
+  steps: segments({ terms: [...], derive: [...], picture: [...] })
+  Each step gets a segment chip; segments 2 and 3 open with a short, silent
+  title card. Segment 1 follows straight on from the topic card.
+*/
+const SEGMENTS = [
+  ['terms', 'Terms ra definitions', '1/3 · Terms ra definitions'],
+  ['derive', 'Derivation', '2/3 · Derivation', '∫', 'Step by step derivation'],
+  ['picture', 'Big picture', '3/3 · Big picture', '★', 'Purano IOE question ra solution'],
+];
+
+export const segments = (parts) =>
+  SEGMENTS.flatMap(([key, title, chip, icon, kicker], i) => [
+    ...(i ? [{ interstitial: { title, badge: 'chapter', icon, kicker }, segmentBreak: true }] : []),
+    ...parts[key].map((s) => ({ ...s, segment: chip })),
+  ]);
 
 /* ── SVG primitives (use inside draw) ─────────────────────────────── */
 

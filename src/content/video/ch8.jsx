@@ -1,4 +1,4 @@
-import { Arrow, C, D, hook, model, solve, video } from './kit.jsx';
+import { Arrow, C, D, model, solve, video } from './kit.jsx';
 
 /* Chapter 8 · Speed control: field & armature (Syllabus Unit 4: Speed control — field control, armature control). */
 
@@ -10,7 +10,7 @@ const KNOBS = [
   { k: 'V', name: 'armature V', x: 270, beat: 6, color: C.green },
 ];
 
-const threeKnobs = video('Speed ka tinta handle', {
+export const threeKnobs = video('Speed ka tinta handle', {
   viewBox: '0 0 360 200',
   beats: [
     {
@@ -29,11 +29,12 @@ const threeKnobs = video('Speed ka tinta handle', {
       say: 'Aba field ko barema socha.',
       voice: 'अब फिल्डको बारेमा सोच।',
       ask: {
-        q: 'Base speed ma field already full strength ma cha. Tesaile field control le matra…',
-        voice: 'बेस स्पिडमा फिल्ड अलरेडी फुल स्ट्रेन्थमा छ। त्यसैले फिल्ड कन्ट्रोलले मात्र…',
-        options: ['φ weaken garna sakcha, jasle speed base bhanda mathi lancha', 'φ jhan strengthen garna sakcha', 'motor lai zero speed samma lyauna sakcha'],
+        tag: 'Dhyan check 👀',
+        q: 'Base speed ma field kasto huncha bhanyo?',
+        voice: 'बेस स्पिडमा फिल्ड कस्तो हुन्छ भन्यो?',
+        options: ['Full field', 'Aadha field', 'Field nai hudaina'],
         answer: 0,
-        why: 'N ∝ 1/φ. φ ko lagi baaki direction bhaneko tala matra ho, tesaile field control base speed bhanda mathi kaam garcha.',
+        why: 'Base speed: rated voltage, full field, armature ma extra R chaina. Tesaile field lai weaken matra garna sakincha.',
       },
     },
     {
@@ -81,7 +82,7 @@ const threeKnobs = video('Speed ka tinta handle', {
   },
 });
 
-const fieldControl = video('Field (flux) control', {
+export const fieldControl = video('Field (flux) control', {
   beats: [
     {
       say: 'Field control: shunt field winding sanga series ma euta rheostat.',
@@ -92,14 +93,15 @@ const fieldControl = video('Field (flux) control', {
       voice: 'रियोस्ट्याट बढाऊ, फिल्ड करेन्ट घट्छ, फ्लक्स घट्छ, अनि स्पिड बेस स्पिडभन्दा माथि जान्छ।',
     },
     {
-      say: 'Yo method kina yati economical cha?',
-      voice: 'यो मेथड किन यति इकोनोमिकल छ?',
+      say: 'Bharkhar ko kura.',
+      voice: 'भर्खरको कुरा।',
       ask: {
-        q: 'Armature control sanga compare garda field control kina efficient cha?',
-        voice: 'आर्मेचर कन्ट्रोलसँग कम्पेयर गर्दा फिल्ड कन्ट्रोल किन इफिसियन्ट छ?',
-        options: ['Field current sano huncha, tesaile rheostat ma thorai power matra loss huncha', 'Yaslai rheostat nai chahidaina', 'Yasle armature current zero banaucha'],
-        answer: 0,
-        why: 'Ish line current ko kehi percent matra ho, tesaile field rheostat ma Ish²R ekdam sano huncha.',
+        tag: 'Dhyan check 👀',
+        q: 'Field rheostat badhauda speed kata jancha?',
+        voice: 'फिल्ड रियोस्ट्याट बढाउँदा स्पिड कता जान्छ?',
+        options: ['Base bhanda tala', 'Base bhanda mathi'],
+        answer: 1,
+        why: 'Rheostat ↑ → Ish ↓ → φ ↓ → N ↑, base bhanda mathi.',
       },
     },
     {
@@ -124,7 +126,7 @@ const fieldControl = video('Field (flux) control', {
   ],
 });
 
-const solveField = solve({
+export const solveField = solve({
   title: 'IOE 2075 Baishakh solve: field weakening',
   paper: '2075 Baishakh',
   paperVoice: 'टु थाउजेन्ड सेभेन्टी फाइभ बैशाख',
@@ -185,7 +187,7 @@ const solveField = solve({
   },
 });
 
-const armatureControl = video('Armature (rheostatic) control', {
+export const armatureControl = video('Armature (rheostatic) control', {
   beats: [
     {
       say: 'Armature control: armature sanga series ma euta resistance.',
@@ -196,14 +198,15 @@ const armatureControl = video('Armature (rheostatic) control', {
       voice: 'एक्स्ट्रा रेजिस्टेन्सले ठूलो भोल्टेज ड्रप दिन्छ, त्यसैले ब्याक ई एम एफ घट्छ र स्पिड बेस स्पिडभन्दा तल झर्छ।',
     },
     {
-      say: 'Yesko cost k ho ta?',
-      voice: 'यसको कस्ट के हो त?',
+      say: 'Bharkhar ko kura.',
+      voice: 'भर्खरको कुरा।',
       ask: {
-        q: 'Armature resistance control ko main drawback k ho?',
-        voice: 'आर्मेचर रेजिस्टेन्स कन्ट्रोलको मेन ड्रब्याक के हो?',
-        options: ['Resistance ma Ia²R power waste huncha, ani load anusar speed dherai change huncha', 'Yasle speed badhauna matra sakcha', 'Yasle field weaken garcha'],
-        answer: 0,
-        why: 'Pura armature current R bata bagcha, tesaile dherai power jalcha, ani Ia·R drop load anusar change huncha.',
+        tag: 'Dhyan check 👀',
+        q: 'Armature ma extra resistance thapda speed kata jancha?',
+        voice: 'आर्मेचरमा एक्स्ट्रा रेजिस्टेन्स थप्दा स्पिड कता जान्छ?',
+        options: ['Base bhanda mathi', 'Base bhanda tala'],
+        answer: 1,
+        why: 'Extra R le thulo drop dincha, Eb ghatcha, tesaile speed base bhanda tala.',
       },
     },
     {
@@ -224,7 +227,7 @@ const armatureControl = video('Armature (rheostatic) control', {
   ],
 });
 
-const solveArmature = solve({
+export const solveArmature = solve({
   title: 'IOE 2072 Ashwin solve: armature resistance',
   paper: '2072 Ashwin',
   paperVoice: 'टु थाउजेन्ड सेभेन्टी टु आश्विन',
@@ -284,7 +287,7 @@ const solveArmature = solve({
   },
 });
 
-const seriesControl = video('Series motor ko speed control', {
+export const seriesControl = video('IOE 2075 Baisakh: series motor ko speed control', {
   viewBox: '0 0 360 120',
   beats: [
     {
@@ -311,12 +314,12 @@ const seriesControl = video('Series motor ko speed control', {
       say: 'La solve gara.',
       voice: 'ल सल्भ गर।',
       ask: {
-        tag: 'IOE 2075 Baishakh',
-        q: 'Eb₁ = 200 − 15 × 1 = 185 V ra Eb₂ = 200 − 15 × 6 = 110 V. Naya speed kati?',
-        voice: 'ई बी वान बराबर टु हन्ड्रेड माइनस फिफ्टीन टाइम्स वान, वान हन्ड्रेड एटी फाइभ भोल्ट, र ई बी टु बराबर टु हन्ड्रेड माइनस फिफ्टीन टाइम्स सिक्स, वान हन्ड्रेड टेन भोल्ट। नयाँ स्पिड कति?',
-        options: ['≈ 476 rpm', '≈ 1345 rpm', '≈ 667 rpm', '800 rpm'],
-        answer: 0,
-        why: 'N₂ = 800 × 110/185 ≈ 476 rpm. Ratio ulto garyo bhane 1345 rpm aaucha.',
+        tag: 'Dhyan check 👀',
+        q: 'Eb₁ = 185 V ra Eb₂ = 110 V. Current same bhaye speed ratio kasko ratio bhanyo?',
+        voice: 'ई बी वान वान एटी फाइभ भोल्ट र ई बी टु वान टेन भोल्ट। करेन्ट सेम भए स्पिड रेसियो कसको रेसियो भन्यो?',
+        options: ['Current ko ratio', 'Resistance ko ratio', 'Back EMF ko ratio'],
+        answer: 2,
+        why: 'Same current → same flux, tesaile N₂/N₁ = Eb₂/Eb₁ = 110/185.',
       },
     },
     {
@@ -351,33 +354,106 @@ const seriesControl = video('Series motor ko speed control', {
   ],
 });
 
-export const ch8 = {
-  title: 'Speed control: field ra armature',
-  syllabus: 'Unit 4 · DC motor ko speed control: field control, armature control',
-  steps: [
-    threeKnobs,
-    fieldControl,
-    solveField,
-    armatureControl,
-    solveArmature,
-    seriesControl,
-    model({
-      q: 'DC shunt motor ko speed control garne bibhinna method haru describe gara.',
-      papers: ['2071 Bhadra', '2069 Bhadra', '2065 Chaitra'],
-      marks: '[8]',
-      points: [
-        <><b>Aadhar:</b> Eb = PφZN/60A ⟹ N ∝ Eb/φ = (V − IaRa)/φ. Speed lai φ, armature circuit resistance, ya armature voltage bata change garna sakincha.</>,
-        <><b>Field (flux) control:</b> shunt field sanga series ma rheostat. Yo badhauda Ish ra φ ghatcha, tesaile N base speed bhanda mathi jancha. Efficient ra sasto (field current sano huncha), fine control; high speed ma commutation ra mechanical strength le limit garcha. Circuit ra φ ghatdai jada ko N–Ia curves draw gara.</>,
-        <><b>Armature (rheostatic) control:</b> armature sanga series ma variable resistance. Ia(Ra + R) drop le Eb ra N lai base speed bhanda tala jharcha. Simple cha, tara Ia²R power waste garcha ra speed regulation poor huncha. Circuit ra R badhdai jada ko N–Ia lines draw gara.</>,
-        <><b>Voltage control (Ward-Leonard):</b> armature lai arko motor le chalaune separately excited generator bata feed garincha; generator field change garda V change huncha, ani zero dekhi base speed samma dubai direction ma smooth control milcha. Ekdam ramro tara mahango.</>,
-        <><b>Tulana:</b> field control base bhanda mathi (constant power), armature/voltage control base bhanda tala (constant torque).</>,
-      ],
-      tip: 'Pahila N ∝ (V − IaRa)/φ lekha: ani har method “yo equation ko euta term change gara” jasto padhincha.',
-    }),
-    hook('Field → Faster (base bhanda mathi) · Armature → slower (base bhanda tala)', [
-      'N ∝ (V − IaRa)/φ: tinta handle φ, R, V.',
-      'Constant torque: shunt ma Ia fixed (φ fixed); φ weaken garyo bhane Ia badhnu parcha, φ₁Ia₁ = φ₂Ia₂.',
-      'Series motor: field control ko lagi diverter ya tapped field; armature control ko lagi series R.',
-    ]),
+// Segment 2: where the three knobs and the speed-control ratios come from.
+export const speedDerivation = video('Derivation: speed control ko equation', {
+  tall: true,
+  beats: [
+    {
+      say: 'Aba yo equation derive garau. Suru voltage equation bata: V equals E b plus I a R a, ani E b equals k phi N.',
+      voice: 'अब यो इक्वेसन डिराइभ गरौं। सुरु भोल्टेज इक्वेसनबाट: भी इक्वल्स ई बी प्लस आई ए आर ए, अनि ई बी इक्वल्स के फाइ एन।',
+    },
+    {
+      say: 'k bhaneko P Z over 60 A, machine ko constant. N lai alag gara: N equals V minus I a R a, over k phi.',
+      voice: 'के भनेको पी जेड ओभर सिक्स्टी ए, मेसिनको कन्स्टेन्ट। एनलाई अलग गर: एन इक्वल्स भी माइनस आई ए आर ए, ओभर के फाइ।',
+    },
+    {
+      say: 'Armature sanga extra R thapyo bhane drop I a times R a plus R huncha. Aba tinai knob eutai equation ma dekhincha: V, R ra phi.',
+      voice: 'आर्मेचरसँग एक्स्ट्रा आर थप्यो भने ड्रप आई ए टाइम्स आर ए प्लस आर हुन्छ। अब तीनै नब एउटै इक्वेसनमा देखिन्छ: भी, आर र फाइ।',
+    },
+    { say: 'Eutai motor ko duita operating point ko lagi N 2 over N 1 equals E b 2 over E b 1, times phi 1 over phi 2. Yo euta ratio le dherai jaso IOE speed numerical solve huncha.', voice: 'एउटै मोटरको दुईटा अपरेटिङ पोइन्टको लागि एन टु ओभर एन वान इक्वल्स ई बी टु ओभर ई बी वान, टाइम्स फाइ वान ओभर फाइ टु। यो एउटा रेसियोले धेरैजसो आइओई स्पिड न्युमेरिकल सल्भ हुन्छ।' },
+    {
+      say: 'Aba load torque ko condition.',
+      voice: 'अब लोड टर्कको कन्डिसन।',
+      ask: {
+        tag: 'Derivation ko bich ma',
+        q: 'Load torque constant cha, ra Ta ∝ φIa. Flux aadha garyo bhane armature current…',
+        voice: 'लोड टर्क कन्स्टेन्ट छ, र टी ए प्रोपोर्सनल टु फाइ आई ए। फ्लक्स आधा गर्यो भने आर्मेचर करेन्ट…',
+        options: ['double huncha', 'aadha huncha', 'same rahancha'],
+        answer: 0,
+        why: 'φ₁Ia₁ = φ₂Ia₂: φ aadha bhaye Ia double hunai parcha. Tesaile field weakening ma Eb ali ghatcha.',
+      },
+    },
+    {
+      say: 'Constant torque bhaneko phi 1 I a 1 equals phi 2 I a 2. Har speed-control numerical yi duita line ho: pahila naya I a, ani naya E b, ani speed ratio.',
+      voice: 'कन्स्टेन्ट टर्क भनेको फाइ वान आई ए वान इक्वल्स फाइ टु आई ए टु। हर स्पिड कन्ट्रोल न्युमेरिकल यी दुईटा लाइन हो: पहिला नयाँ आई ए, अनि नयाँ ई बी, अनि स्पिड रेसियो।',
+    },
   ],
-};
+  board: [
+    { at: 0, kind: 'h', node: <>Speed equation, step by step</> },
+    { at: 0, kind: 'step', node: <>V = E<sub>b</sub> + I<sub>a</sub>R<sub>a</sub>, E<sub>b</sub> = kφN (k = PZ/60A)</> },
+    { at: 1, kind: 'step', node: <>N = (V − I<sub>a</sub>R<sub>a</sub>) / kφ</> },
+    { at: 2, kind: 'eq', node: <>N = [V − I<sub>a</sub>(R<sub>a</sub> + R)] / kφ</> },
+    { at: 2, kind: 'note', node: <><span className="g">V</span> voltage control · <span className="y">R</span> armature control · <span className="y">φ</span> field control</> },
+    { at: 3, kind: 'eq', node: <>N₂/N₁ = (E<sub>b2</sub>/E<sub>b1</sub>) × (φ₁/φ₂)</> },
+    { at: 5, kind: 'eq', node: <>Constant torque: φ₁I<sub>a1</sub> = φ₂I<sub>a2</sub></> },
+    { at: 5, kind: 'note', node: <>Recipe: naya I<sub>a</sub> → naya E<sub>b</sub> → speed ratio</> },
+  ],
+});
+
+// IOE model answer for this chapter.
+export const ch8Model = model({
+  q: 'DC shunt motor ko speed control garne bibhinna method haru describe gara.',
+  papers: ['2071 Bhadra', '2069 Bhadra', '2065 Chaitra'],
+  marks: '[8]',
+  points: [
+    <><b>Aadhar:</b> Eb = PφZN/60A ⟹ N ∝ Eb/φ = (V − IaRa)/φ. Speed lai φ, armature circuit resistance, ya armature voltage bata change garna sakincha.</>,
+    <><b>Field (flux) control:</b> shunt field sanga series ma rheostat. Yo badhauda Ish ra φ ghatcha, tesaile N base speed bhanda mathi jancha. Efficient ra sasto (field current sano huncha), fine control; high speed ma commutation ra mechanical strength le limit garcha. Circuit ra φ ghatdai jada ko N–Ia curves draw gara.</>,
+    <><b>Armature (rheostatic) control:</b> armature sanga series ma variable resistance. Ia(Ra + R) drop le Eb ra N lai base speed bhanda tala jharcha. Simple cha, tara Ia²R power waste garcha ra speed regulation poor huncha. Circuit ra R badhdai jada ko N–Ia lines draw gara.</>,
+    <><b>Voltage control (Ward-Leonard):</b> armature lai arko motor le chalaune separately excited generator bata feed garincha; generator field change garda V change huncha, ani zero dekhi base speed samma dubai direction ma smooth control milcha. Ekdam ramro tara mahango.</>,
+    <><b>Tulana:</b> field control base bhanda mathi (constant power), armature/voltage control base bhanda tala (constant torque).</>,
+  ],
+  tip: 'Pahila N ∝ (V − IaRa)/φ lekha: ani har method “yo equation ko euta term change gara” jasto padhincha.',
+});
+
+// Syllabus 4.5: reversing the direction of rotation.
+export const reversing = video('Rotation ko direction kasari ulto garne?', {
+  tall: true,
+  beats: [
+    {
+      say: 'Motor lai ulto ghumauna parcha bhane? Torque ko direction field ra armature current dubai le decide garcha, Fleming ko left-hand rule jastai.',
+      voice: 'मोटरलाई उल्टो घुमाउन पर्छ भने? टर्कको डाइरेक्सन फिल्ड र आर्मेचर करेन्ट दुवैले डिसाइड गर्छ, फ्लेमिङको लेफ्ट ह्यान्ड रुल जस्तै।',
+    },
+    {
+      say: 'Tesaile euta matra ulto gara: field current wa armature current. Rotation ulto huncha.',
+      voice: 'त्यसैले एउटा मात्र उल्टो गर: फिल्ड करेन्ट वा आर्मेचर करेन्ट। रोटेसन उल्टो हुन्छ।',
+    },
+    {
+      say: 'Ekchin socha.',
+      voice: 'एकछिन सोच।',
+      ask: {
+        tag: 'Dhyan check 👀',
+        q: 'Rotation ulto garna kati ota current ulto garnu parcha bhanyo?',
+        voice: 'रोटेसन उल्टो गर्न कति ओटा करेन्ट उल्टो गर्नु पर्छ भन्यो?',
+        options: ['Euta matra: field wa armature', 'Dubai'],
+        answer: 0,
+        why: 'Euta matra. Dubai ulto garyo bhane (jastai series motor ko supply swap) direction uhi rahancha.',
+      },
+    },
+    {
+      say: 'Practice ma armature ko connection ulto garincha. Field winding ko inductance thulo huncha, tesaile yesko current achanak ulto garda high voltage induce huncha, ani field open bhaye motor race garna sakcha.',
+      voice: 'प्र्याक्टिसमा आर्मेचरको कनेक्सन उल्टो गरिन्छ। फिल्ड वाइन्डिङको इन्डक्टेन्स ठूलो हुन्छ, त्यसैले यसको करेन्ट अचानक उल्टो गर्दा हाई भोल्टेज इन्ड्युस हुन्छ, अनि फिल्ड ओपन भए मोटर रेस गर्न सक्छ।',
+    },
+    {
+      say: 'Shunt, series, compound, sabai ma rule eutai: armature ra field madhye euta matra ulto.',
+      voice: 'शन्ट, सिरिज, कम्पाउन्ड, सबैमा रुल एउटै: आर्मेचर र फिल्डमध्ये एउटा मात्र उल्टो।',
+    },
+  ],
+  board: [
+    { at: 0, kind: 'h', node: <>Reversing the direction of rotation</> },
+    { at: 0, kind: 'step', node: <>Torque direction ← field (φ) ko direction × armature current (Ia) ko direction</> },
+    { at: 1, kind: 'eq', node: <>Euta matra ulto: φ <i>wa</i> Ia → rotation ulto</> },
+    { at: 2, kind: 'note', node: <>Dubai ulto (supply swap) → torque uhi direction</> },
+    { at: 3, kind: 'step', node: <>Practice: <span className="y">armature terminals</span> ulto gara (field inductive; open field → race)</> },
+    { at: 4, kind: 'note', node: <>Compound motor: armature ulto gara, tesaile shunt ra series field ko relation (cumulative) uhi rahancha</> },
+  ],
+});

@@ -1,8 +1,8 @@
-import { C, D, hook, solve, video } from './kit.jsx';
+import { C, D, solve, video } from './kit.jsx';
 
 /* Chapter 9 · Losses & efficiency (Syllabus Unit 4: Losses and efficiency). */
 
-const losses = video('Power kata jancha?', {
+export const losses = video('Power kata jancha?', {
   beats: [
     {
       say: 'Sabai input power shaft power bandaina. DC machine ka losses tin group ma bandincha.',
@@ -21,14 +21,15 @@ const losses = video('Power kata jancha?', {
       voice: 'मेकानिकल लसेस: बियरिङ र ब्रसमा फ्रिक्सन, अनि विन्डेज, अर्थात् घुम्दै गरेको आर्मेचरको एयर रेजिस्टेन्स।',
     },
     {
-      say: 'Core lai iron loss sanga ladna nai banaieko huncha.',
-      voice: 'कोरलाई आइरन लससँग लड्न नै बनाइएको हुन्छ।',
+      say: 'Check garau.',
+      voice: 'चेक गरौं।',
       ask: {
-        q: 'Armature core ma silicon steel RA patlo laminations dubai use huncha. Kasle k garcha?',
-        voice: 'आर्मेचर कोरमा सिलिकन स्टिल र पातलो लेमिनेसन्स दुवै युज हुन्छ। कसले के गर्छ?',
-        options: ['Silicon steel le hysteresis ghataucha; laminations le eddy current ghataucha', 'Silicon steel le eddy current ghataucha; laminations le hysteresis ghataucha', 'Dubai le copper loss matra ghataucha'],
-        answer: 0,
-        why: 'Silicon steel ko B–H loop narrow huncha, tesaile hysteresis kam. Eddy loss t² sanga badhcha, tesaile patlo laminations le eddy current ko bato block garcha.',
+        tag: 'Dhyan check 👀',
+        q: 'Windage loss bhaneko k ho bhanyo?',
+        voice: 'विन्डेज लस भनेको के हो भन्यो?',
+        options: ['Bearing ko friction', 'Ghumne armature ko air resistance', 'Core ma eddy current'],
+        answer: 1,
+        why: 'Windage = ghumdai gareko armature ko air resistance. Bearing ra brush friction sangai yo mechanical loss ho.',
       },
     },
     {
@@ -68,7 +69,7 @@ const BRANCHES = [
   { x: 260, from: 46, w: 12, label: 'iron + mechanical', beat: 5, color: C.blue },
 ];
 
-const powerFlow = video('DC motor ma power flow', {
+export const powerFlow = video('DC motor ma power flow', {
   viewBox: '0 0 360 220',
   beats: [
     {
@@ -130,7 +131,7 @@ const powerFlow = video('DC motor ma power flow', {
   ],
 });
 
-const maxEff = video('Derivation: maximum efficiency ko condition', {
+export const maxEff = video('Derivation: maximum efficiency ko condition', {
   beats: [
     {
       say: 'DC machine kahile sabai bhanda efficient huncha? La derive garau.',
@@ -148,11 +149,12 @@ const maxEff = video('Derivation: maximum efficiency ko condition', {
       say: 'Aba key move.',
       voice: 'अब की मुभ।',
       ask: {
-        q: 'Maximum efficiency dine load current nikalna hami k garchau?',
-        voice: 'म्याक्सिमम इफिसियन्सी दिने लोड करेन्ट निकाल्न हामी के गर्छौं?',
-        options: ['dη/dI = 0 rakha', 'I = 0 rakha', 'Wc = 0 rakha'],
+        tag: 'Dhyan check 👀',
+        q: 'η = 1 − Wc/VI − … ani tesro term kun bhanyo?',
+        voice: 'इटा इक्वल्स वान माइनस डब्लु सी ओभर भी आई माइनस, अनि तेस्रो टर्म कुन भन्यो?',
+        options: ['IRa/V', 'V/IRa', 'Wc/Ra'],
         answer: 0,
-        why: 'η load current I ko function ho. Maximum ma, slope dη/dI zero huncha.',
+        why: 'η = 1 − Wc/VI − IRa/V. Aba yeslai I sanga differentiate garchau.',
       },
     },
     {
@@ -172,15 +174,15 @@ const maxEff = video('Derivation: maximum efficiency ko condition', {
       voice: 'म्याक्सिमम इफिसियन्सीमा लोड करेन्ट भनेको डब्लु सी ओभर आर एको स्क्वायर रुट हो।',
     },
     {
-      say: 'La use gara.',
-      voice: 'ल युज गर।',
+      say: 'Feri ekchoti.',
+      voice: 'फेरि एकचोटि।',
       ask: {
-        tag: 'Quick check',
-        q: 'Euta machine ko constant losses Wc = 1312 W ra Ra = 0.5 Ω cha. Kun current ma yesko efficiency maximum huncha?',
-        voice: 'एउटा मेसिनको कन्स्ट्यान्ट लसेस डब्लु सी बराबर थर्टीन हन्ड्रेड ट्वेल्भ वाट र आर ए बराबर जिरो पोइन्ट फाइभ ओह्म छ। कुन करेन्टमा यसको इफिसियन्सी म्याक्सिमम हुन्छ?',
-        options: ['≈ 51 A', '≈ 2624 A', '≈ 26 A'],
-        answer: 0,
-        why: 'I = √(1312/0.5) = √2624 ≈ 51 A.',
+        tag: 'Dhyan check 👀',
+        q: 'Maximum efficiency ko current kasto bhanyo?',
+        voice: 'म्याक्सिमम इफिसियन्सीको करेन्ट कस्तो भन्यो?',
+        options: ['Wc/Ra', '√(Wc/Ra)', 'Wc·Ra'],
+        answer: 1,
+        why: 'I²Ra = Wc, tesaile I = √(Wc/Ra).',
       },
     },
   ],
@@ -196,7 +198,7 @@ const maxEff = video('Derivation: maximum efficiency ko condition', {
   ],
 });
 
-const ioeEff = solve({
+export const ioeEff = solve({
   title: 'IOE 2074 Bhadra solve: efficiency',
   paper: '2074 Bhadra',
   paperVoice: 'टु थाउजेन्ड सेभेन्टी फोर भदौ',
@@ -227,15 +229,15 @@ const ioeEff = solve({
     },
     {
       node: <>Armature Cu = 154² × 0.05 = 1185.8 W</>,
-      say: 'Aba armature copper loss.',
-      voice: 'अब आर्मेचर कपर लस।',
+      say: 'Data yaad cha?',
+      voice: 'डाटा याद छ?',
       ask: {
-        tag: 'IOE 2074 Bhadra',
-        q: 'Armature copper loss Ia²Ra = 154² × 0.05 = kati?',
-        voice: 'आर्मेचर कपर लस आई ए स्क्वायर्ड आर ए बराबर वान फिफ्टी फोर स्क्वायर्ड टाइम्स जिरो पोइन्ट जिरो फाइभ बराबर कति?',
-        options: ['1185.8 W', '1125 W', '7.7 W', '800 W'],
-        answer: 0,
-        why: '154² = 23 716, yeslai 0.05 le multiply garda 1185.8 W. IL = 150 A use garyo bhane 1125 W aaucha.',
+        tag: 'Dhyan check 👀',
+        q: 'Ia kati aayo?',
+        voice: 'आई ए कति आयो?',
+        options: ['150 A', '154 A', '146 A'],
+        answer: 1,
+        why: 'Generator: Ia = IL + Ish = 150 + 4 = 154 A. Armature copper loss = 154² × 0.05 = 1185.8 W.',
       },
     },
     {
@@ -250,15 +252,15 @@ const ioeEff = solve({
     },
     {
       node: <>η = 30 000 / 32 985.8</>,
-      say: 'Aba efficiency.',
-      voice: 'अब इफिसियन्सी।',
+      say: 'Ekchin check.',
+      voice: 'एकछिन चेक।',
       ask: {
-        tag: 'IOE 2074 Bhadra',
-        q: 'η = 30 000 / (30 000 + 2985.8) ≈ kati?',
-        voice: 'इटा बराबर थर्टी थाउजेन्ड ओभर थर्टी थाउजेन्ड प्लस टु थाउजेन्ड नाइन हन्ड्रेड एटी फाइभ पोइन्ट एट, लगभग कति?',
-        options: ['90.9 %', '93.2 %', '96.2 %'],
-        answer: 0,
-        why: '30 000 / 32 985.8 ≈ 0.909.',
+        tag: 'Dhyan check 👀',
+        q: 'Total losses kati bhayo?',
+        voice: 'टोटल लसेस कति भयो?',
+        options: ['1985.8 W', '2985.8 W', '1000 W'],
+        answer: 1,
+        why: 'Copper 1985.8 W + iron ra friction 1000 W = 2985.8 W.',
       },
     },
   ],
@@ -273,19 +275,3 @@ const ioeEff = solve({
     voice: 'ट्र्याप्स: फिल्ड लस बिर्सियो भने नाइन्टी थ्री पोइन्ट टु पर्सेन्ट आउँछ, अनि आई एको लागि लाइन करेन्ट युज गर्यो भने कपर लस गलत आउँछ।',
   },
 });
-
-export const ch9 = {
-  title: 'Losses ra efficiency',
-  syllabus: 'Unit 4 · Losses ra efficiency',
-  steps: [
-    losses,
-    powerFlow,
-    maxEff,
-    ioeEff,
-    hook('Variable loss = Constant loss huda Maximum η', [
-      'Constant: iron + mechanical + shunt field. Variable: Ia²Ra, series field, brush drop.',
-      'η = Output / (Output + losses) · I(max η) = √(Wc / Ra)',
-      'Silicon steel → kam hysteresis · Laminations → kam eddy current.',
-    ]),
-  ],
-};

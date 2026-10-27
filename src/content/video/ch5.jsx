@@ -1,4 +1,4 @@
-import { Armature, Arrow, C, Coil, Source, hook, video } from './kit.jsx';
+import { Armature, Arrow, C, Coil, D, Source, solve, video } from './kit.jsx';
 
 /* Chapter 5 · Types of DC motor (Syllabus Unit 4: Method of excitation, Types of DC motor). */
 
@@ -20,7 +20,7 @@ function Rails({ xEnd = 320, gapFrom, gapTo }) {
   );
 }
 
-const connections = video('Field le current kasari pauncha', {
+export const connections = video('Field le current kasari pauncha', {
   viewBox: '0 0 360 220',
   beats: [
     { say: 'DC motor ko naam field winding le current kasari pauncha tyo anusar huncha. First, separately excited: field ko aafnai supply huncha, armature bata independent.', voice: 'डीसी मोटरको नाम फिल्ड वाइन्डिङले करेन्ट कसरी पाउँछ त्यो अनुसार हुन्छ। फर्स्ट, सेपरेटली एक्साइटेड: फिल्डको आफ्नै सप्लाई हुन्छ, आर्मेचरबाट इन्डिपेन्डेन्ट।' },
@@ -29,12 +29,12 @@ const connections = video('Field le current kasari pauncha', {
       say: 'Shunt field full supply voltage across baseko huncha.',
       voice: 'शन्ट फिल्ड फुल सप्लाई भोल्टेज एक्रस बसेको हुन्छ।',
       ask: {
-        tag: 'Ekchin socha 🤔',
-        q: 'Shunt field current sano rakhna shunt field lai yesari wind garincha…',
-        voice: 'शन्ट फिल्ड करेन्ट सानो राख्न शन्ट फिल्डलाई यसरी वाइन्ड गरिन्छ…',
-        options: ['patalo wire ko dherai turn (high resistance)', 'moto wire ko thorai turn (low resistance)', 'euta matra copper bar'],
+        tag: 'Dhyan check 👀',
+        q: 'Shunt motor ma line current kun duita ma split huncha?',
+        voice: 'शन्ट मोटरमा लाइन करेन्ट कुन दुईटामा स्प्लिट हुन्छ?',
+        options: ['Ia ra Ish', 'Ia ra Ise', 'IL ra V'],
         answer: 0,
-        why: 'Full V across bhayera high resistance chahincha, taki Ish line current ko few percent matra hos. Dherai turn le pani prasasta ampere-turns dincha.',
+        why: 'Field parallel ma cha, tesaile IL = Ia + Ish. Shunt field patalo wire ko dherai turn, Ish sano.',
       },
     },
     { say: 'Series motor: field armature sanga series ma huncha, tesaile dubai bata eutai current bagcha. Yo moto wire ko thorai turn ho, resistance ekdam low.', voice: 'सिरिज मोटर: फिल्ड आर्मेचरसँग सिरिजमा हुन्छ, त्यसैले दुवैबाट एउटै करेन्ट बग्छ। यो मोटो वायरको थोरै टर्न हो, रेजिस्टेन्स एकदम लो।' },
@@ -42,12 +42,12 @@ const connections = video('Field le current kasari pauncha', {
       say: 'Current lai follow gara.',
       voice: 'करेन्टलाई फलो गर।',
       ask: {
-        tag: 'Quick check',
-        q: 'Series motor ma load current double bhayo. Field current…',
-        voice: 'सिरिज मोटरमा लोड करेन्ट डबल भयो। फिल्ड करेन्ट…',
-        options: ['tyo pani double huncha', 'half huncha', 'same rahancha'],
-        answer: 0,
-        why: 'Eutai current ho ni ta. Tei bhayera saturation bhanda tala series-motor ko flux Ia sanga proportional huncha.',
+        tag: 'Dhyan check 👀',
+        q: 'Series field ko wire kasto huncha bhanyo?',
+        voice: 'सिरिज फिल्डको तार कस्तो हुन्छ भन्यो?',
+        options: ['Patalo wire, dherai turn', 'Moto wire, thorai turn'],
+        answer: 1,
+        why: 'Series field le pura armature current bokcha, tesaile moto wire ko thorai turn, resistance ekdam low.',
       },
     },
     { say: 'Compound motor ma dubai field huncha. Long shunt: shunt field chai series field ra armature dubai ko across huncha.', voice: 'कम्पाउन्ड मोटरमा दुवै फिल्ड हुन्छ। लङ शन्ट: शन्ट फिल्ड चाहिँ सिरिज फिल्ड र आर्मेचर दुवैको एक्रस हुन्छ।' },
@@ -55,12 +55,12 @@ const connections = video('Field le current kasari pauncha', {
       say: 'Series field kaha cha, hera.',
       voice: 'सिरिज फिल्ड कहाँ छ, हेर।',
       ask: {
-        tag: 'Quick check',
-        q: 'Long-shunt compound motor ma series field le carry garcha…',
-        voice: 'लङ शन्ट कम्पाउन्ड मोटरमा सिरिज फिल्डले क्यारी गर्छ…',
-        options: ['armature current Ia', 'line current IL', 'shunt field current Ish'],
-        answer: 0,
-        why: 'Series field armature sanga matra series ma cha, tesaile Ise = Ia. Shunt branch tyo bhanda aghi nai chuttincha.',
+        tag: 'Dhyan check 👀',
+        q: 'Long shunt ma shunt field kasko across huncha?',
+        voice: 'लङ शन्टमा शन्ट फिल्ड कसको अक्रस हुन्छ?',
+        options: ['Armature matra', 'Series field ra armature dubai'],
+        answer: 1,
+        why: 'Long shunt: shunt field le series field ra armature dubai span garcha, tesaile series field le Ia bokcha.',
       },
     },
     { say: 'Short shunt: shunt field armature ko matra across huncha, tesaile series field le full line current carry garcha.', voice: 'सर्ट शन्ट: शन्ट फिल्ड आर्मेचरको मात्र एक्रस हुन्छ, त्यसैले सिरिज फिल्डले फुल लाइन करेन्ट क्यारी गर्छ।' },
@@ -131,7 +131,7 @@ const connections = video('Field le current kasari pauncha', {
   ),
 });
 
-const equations = video('Euta connection, euta set equation', {
+export const equations = video('Euta connection, euta set equation', {
   beats: [
     { say: 'Har IOE numerical connection anusar ko sahi current ra voltage equation lekhera start huncha. Yo hera, ek ek type gardai.', voice: 'हर आइओई न्युमेरिकल कनेक्सन अनुसारको सही करेन्ट र भोल्टेज इक्वेसन लेखेर स्टार्ट हुन्छ। यो हेर, एक एक टाइप गर्दै।' },
     { say: 'Shunt: field current V over R sh. Line current I a plus I sh. Ani V equals E b plus I a R a.', voice: 'शन्ट: फिल्ड करेन्ट भी ओभर आर एस एच। लाइन करेन्ट आई ए प्लस आई एस एच। अनि भी इक्वल्स ई बी प्लस आई ए आर ए।' },
@@ -164,16 +164,33 @@ const equations = video('Euta connection, euta set equation', {
   ],
 });
 
-export const ch5 = {
-  title: 'DC motor ka types',
-  syllabus: 'Unit 4 · Method of excitation, DC motor ka types',
-  steps: [
-    connections,
-    equations,
-    hook('Shunt = Chheu chheu ma · Series = Eutai line ma', [
-      'Shunt field: armature sanga parallel, patalo wire ko dherai turn, Ish = V/Rsh.',
-      'Series field: armature sanga eutai line ma, moto wire ko thorai turn, Ia carry garcha.',
-      'Long shunt: Ise = Ia. Short shunt: Ise = IL.',
-    ]),
+// Big picture: a full IOE shunt numerical that needs exactly these equations.
+export const shuntLoadSpeed = solve({
+  title: 'Shunt motor: load badhda speed kati?',
+  paper: '2075 Baishakh',
+  paperVoice: 'टु थाउजेन्ड सेभेन्टी फाइभ बैशाख',
+  read: 'Euta 1.25 kilowatt, 250 volt ko DC shunt motor no load ma 1000 rpm ma ghumcha. Armature resistance 0.2 ohm, shunt field 250 ohm. Load halepachi 50 ampere tanda speed kati huncha, nikalnu cha.',
+  readVoice: 'एउटा वान पोइन्ट टु फाइभ किलोवाट, टु हन्ड्रेड फिफ्टी भोल्टको डीसी शन्ट मोटर नो लोडमा थाउजेन्ड आर पी एममा घुम्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट टु ओम, शन्ट फिल्ड टु हन्ड्रेड फिफ्टी ओम। लोड हालेपछि फिफ्टी एम्पियर तान्दा स्पिड कति हुन्छ, निकाल्नु छ।',
+  question: <>A <D>1.25 kW</D>, <D>250 V</D> DC shunt motor on no load runs at <D>1000 rpm</D>. <D>Ra = 0.2 Ω</D>, <D>Rsh = 250 Ω</D>. Find its speed when loaded and drawing <D>50 A</D>. (The 1.25 kW is read as the no-load input.)</>,
+  given: [
+    { node: <>V = 250 V, Ra = 0.2 Ω, Rsh = 250 Ω</>, say: 'V 250 volt, Ra 0.2 ohm, Rsh 250 ohm', voice: 'भी टु हन्ड्रेड फिफ्टी भोल्ट, आर ए जिरो पोइन्ट टु ओम, आर एस एच टु हन्ड्रेड फिफ्टी ओम' },
+    { node: <>No load ma: input 1.25 kW ⟹ IL₀ = 1250/250 = 5 A, N₀ = 1000 rpm</>, say: 'no load ma 1.25 kilowatt linchha, tesaile line current 1250 over 250, matlab 5 ampere, 1000 rpm ma', voice: 'नो लोडमा वान पोइन्ट टु फाइभ किलोवाट लिन्छ, तेसैले लाइन करेन्ट ट्वेल्भ हन्ड्रेड फिफ्टी ओभर टु हन्ड्रेड फिफ्टी, मतलब फाइभ एम्पियर, थाउजेन्ड आर पी एममा' },
+    { node: <>Load ma: IL = 50 A, N = ?</>, say: 'load ma line current 50 ampere', voice: 'लोडमा लाइन करेन्ट फिफ्टी एम्पियर' },
   ],
-};
+  find: { node: <>50 A ma speed N</>, say: '50 ampere ma speed kati, tyo chahiyo.', voice: 'फिफ्टी एम्पियरमा स्पिड कति, त्यो चाहियो।' },
+  idea: { node: <>Shunt ⟹ φ fixed ⟹ N₂/N₁ = Eb₂/Eb₁</>, say: 'Shunt motor ho, so flux constant rahancha. Ani speed simply back EMF ko proportional huncha, simple cha.', voice: 'शन्ट मोटर हो, सो फ्लक्स कन्स्टेन्ट रहन्छ। अनि स्पिड सिम्प्ली ब्याक ई एम एफको प्रोपोर्सनल हुन्छ, सिम्पल छ।' },
+  steps: [
+    { node: <>Ish = 250/250 = <b>1 A</b></>, say: 'Pahila field current: 250 over 250, 1 ampere.', voice: 'पहिला फिल्ड करेन्ट: टु हन्ड्रेड फिफ्टी ओभर टु हन्ड्रेड फिफ्टी, वान एम्पियर।' },
+    {
+      node: <>Ia₀ = 5 − 1 = 4 A,  Ia = 50 − 1 = <b>49 A</b></>,
+      say: 'Aba yeslai duitai line current bata ghatau.',
+      voice: 'अब यसलाई दुईटै लाइन करेन्टबाट घटाऊ।',
+      ask: { tag: 'Step predict gara', q: '5 A ra 50 A chai line current hun. Load ma armature current kati?', voice: 'फाइभ एम्पियर र फिफ्टी एम्पियर चाहिँ लाइन करेन्ट हुन्। लोडमा आर्मेचर करेन्ट कति?', options: ['49 A', '50 A', '51 A'], answer: 0, why: 'Shunt motor ma IL = Ia + Ish, tesaile Ia = 50 − 1 = 49 A.' },
+    },
+    { node: <>Eb₀ = 250 − 4 × 0.2 = 249.2 V</>, say: 'No load ma back EMF: 250 minus 4 times 0.2, matlab 249.2 volt.', voice: 'नो लोडमा ब्याक ई एम एफ: टु हन्ड्रेड फिफ्टी माइनस फोर टाइम्स जिरो पोइन्ट टु, मतलब टु हन्ड्रेड फोर्टी नाइन पोइन्ट टु भोल्ट।' },
+    { node: <>Eb = 250 − 49 × 0.2 = 240.2 V</>, say: 'Load ma: 250 minus 49 times 0.2, matlab 240.2 volt.', voice: 'लोडमा: टु हन्ड्रेड फिफ्टी माइनस फोर्टी नाइन टाइम्स जिरो पोइन्ट टु, मतलब टु हन्ड्रेड फोर्टी पोइन्ट टु भोल्ट।' },
+    { node: <>N = 1000 × 240.2 / 249.2</>, say: 'Speed back EMF sangai scale huncha: 1000 times 240.2 over 249.2.', voice: 'स्पिड ब्याक ई एम एफसँगै स्केल हुन्छ: थाउजेन्ड टाइम्स टु हन्ड्रेड फोर्टी पोइन्ट टु ओभर टु हन्ड्रेड फोर्टी नाइन पोइन्ट टु।' },
+  ],
+  answer: { node: <>N ≈ 964 rpm</>, say: 'Lagbhag 964 rpm. Shunt motor load ma ali matra slow huncha.', voice: 'लगभग नाइन हन्ड्रेड सिक्स्टी फोर आर पी एम। शन्ट मोटर लोडमा अलि मात्र स्लो हुन्छ।' },
+  trap: { node: <>Trap: Eb₀ = V = 250 V liyo bhane (no-load IaRa drop bhulera) 960.8 rpm aaucha. Eb₀ = 249.2 V use gara.</>, say: 'Trap yo ho: no load ko back EMF pura 250 volt liyo bhane 960.8 rpm aaucha. No load ma pani Eb nikala hai.', voice: 'ट्र्याप यो हो: नो लोडको ब्याक ई एम एफ पुरा टु हन्ड्रेड फिफ्टी भोल्ट लियो भने नाइन हन्ड्रेड सिक्स्टी पोइन्ट एट आर पी एम आउँछ। नो लोडमा पनि ई बी निकाल है।' },
+});

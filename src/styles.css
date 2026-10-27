@@ -58,6 +58,8 @@ button:disabled { cursor: default; }
 .progress-group { display: flex; align-items: center; gap: 10px; }
 .progress { flex: 1; height: 8px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
 .progress-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.5s cubic-bezier(0.3, 0.8, 0.3, 1); }
+.progress-seg { opacity: 0.55; transition: opacity 0.3s; }
+.progress-seg.now { opacity: 1; outline: 2px solid var(--line); outline-offset: 2px; }
 .progress-dot { width: 14px; height: 8px; border-radius: 99px; background: var(--surface-2); flex: none; }
 .xp { justify-self: end; display: flex; align-items: center; gap: 4px; color: var(--muted); font-weight: 600; font-size: 15px; }
 .xp.bump span { color: var(--ink); transition: color 0.4s; }
@@ -449,6 +451,7 @@ button:disabled { cursor: default; }
 
 /* ───────── single journey: chapter tags, chapter breaks, home outline ───────── */
 .q-tag-chapter { color: var(--ink-2); font-weight: 600; }
+.q-tag-segment { color: var(--teal); font-weight: 700; }
 .q-tag-ioe { color: var(--amber-ink); font-weight: 600; }
 .q-tag-tryit { color: var(--teal); font-weight: 600; }
 .badge-chapter { font-size: 20px; }
@@ -485,6 +488,10 @@ button:disabled { cursor: default; }
 @keyframes sc-spin { to { transform: rotate(360deg); } }
 .flowdash { stroke-dasharray: 6 6; animation: flow 0.8s linear infinite; }
 
+/* Camera (Scene.jsx): the stage is the frame, the cam pans and zooms inside it. */
+.scene-stage { position: relative; overflow: hidden; flex: 1 1 auto; min-height: 0; }
+.scene-cam { transform-origin: 0 0; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .scene-cam { transition: none; } }
 .board { display: flex; flex-direction: column; gap: 2px; padding: 4px 4px 8px; }
 .board-only { flex: 1; justify-content: center; padding: 18px 10px 14px; }
 .board-line { position: relative; opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.3s ease, max-height 0.6s ease, color 0.4s; color: var(--chalk-2); font-family: var(--hand); font-size: 18px; line-height: 1.45; }
@@ -533,6 +540,12 @@ button:disabled { cursor: default; }
 .hook-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); }
 .hook-big { font-size: 24px; font-weight: 800; margin: 6px 0 8px; color: var(--ink); line-height: 1.3; }
 .hook ul { margin: 0; padding-left: 18px; color: var(--ink-2); }
+.memory { display: flex; flex-direction: column; gap: 12px; }
+.memory-line { font-size: 18px; font-weight: 700; margin: 0; color: var(--ink); }
+.memory-block h4 { margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.memory-block ul { margin: 0; padding-left: 18px; color: var(--ink-2); }
+.memory-eq { font-family: Georgia, serif; font-style: italic; font-size: 17px; padding: 2px 0; }
+.memory-order { margin: 0; color: var(--ink-2); }
 .model { border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; background: var(--card); }
 .model-head { display: flex; justify-content: space-between; align-items: center; }
 .model-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--amber-ink); }
@@ -597,14 +610,14 @@ button:disabled { cursor: default; }
 .scene-screen.asking > :not(.scene-ask) { display: none; }
 .scene-screen.asking .scene-ask { position: relative; inset: auto; flex: 1; padding: 18px 8px 22px; }
 /* Desktop: the whole video fits the window, so the page never scrolls. The
-   drawing shrinks to the space left; a long board keeps its newest line in view. */
+   stage takes the space left; the camera zooms to the part being explained
+   and pulls back to fit the whole board. */
 @media (min-width: 901px) {
   .content.wide { --scene-h: clamp(260px, calc(100dvh - 445px), 640px); }
   .content.wide .scene-screen, .content.wide .scene.tall .scene-screen { height: var(--scene-h); min-height: 0; }
-  .content.wide .scene-svg { flex: 1 1 0; min-height: 90px; max-height: none; height: auto; }
-  .content.wide .board { position: relative; flex: 0 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: none; }
-  .content.wide .board-only { flex: 1 1 auto; justify-content: flex-start; }
-  .content.wide .board::-webkit-scrollbar { display: none; }
+  .content.wide .scene-stage { flex: 1 1 0; }
+  .content.wide .scene-svg { max-height: none; }
+  .content.wide .board-only { justify-content: flex-start; }
   .content.wide .scene-caption { flex: none; }
   .content.wide .scene-screen.asking .scene-ask { overflow-y: auto; display: flex; align-items: center; justify-content: center; }
   .content.wide .scene-screen.asking .scene-ask-card { margin: auto 0; }

@@ -1,37 +1,37 @@
-import { C, Coil, Resistor, hook, model, video } from './kit.jsx';
+import { C, Coil, Resistor, model, video } from './kit.jsx';
 
 /* Chapter 7 · Starting: 3-point & 4-point starters (Syllabus Unit 4: Starting of DC motors). */
 
-const whyStarter = video('DC motor lai starter kina chahincha?', {
+export const whyStarter = video('Derivation: starting current ra starter resistance', {
   beats: [
     { say: 'DC motor lai starter kina chahincha? Armature current hera.', voice: 'डीसी मोटरलाई स्टार्टर किन चाहिन्छ? आर्मेचर करेन्ट हेर।' },
     { say: 'Armature current bhaneko supply voltage minus back EMF, divide by armature resistance.', voice: 'आर्मेचर करेन्ट भनेको सप्लाई भोल्टेज माइनस ब्याक ई एम एफ, डिभाइड बाई आर्मेचर रेजिस्टेन्स।' },
     { say: 'Start garne instant ma armature ruki rakheko huncha, so N zero ani back EMF pani zero. Current V over R a huncha.', voice: 'स्टार्ट गर्ने इन्स्ट्यान्टमा आर्मेचर रोकिराखेको हुन्छ, सो एन जिरो अनि ब्याक ई एम एफ पनि जिरो। करेन्ट भी ओभर आर ए हुन्छ।' },
     {
-      say: 'Real number le try garau.',
-      voice: 'रियल नम्बरले ट्राई गरौं।',
+      say: 'Dhyan diyera herya? Check garau.',
+      voice: 'ध्यान दिएर हेर्यौ? चेक गरौं।',
       ask: {
-        tag: 'IOE 2079 Jestha · 2068 Magh · 2066 Magh',
-        q: 'DC motor le starting ma kina thulo current tancha? 220 V motor ko Ra = 0.5 Ω cha. Directly switch on garyo bhane kati current bagcha?',
-        voice: 'डीसी मोटरले स्टार्टिङमा किन ठूलो करेन्ट तान्छ? टु ट्वेन्टी भोल्ट मोटरको आर ए जिरो पोइन्ट फाइभ ओम छ। डाइरेक्ट्ली स्विच अन गर्यो भने कति करेन्ट बग्छ?',
-        options: ['440 A', '20 A', '110 A', '0.5 A'],
-        answer: 0,
-        why: 'Eb = 0 huda, Ia = V/Ra = 220/0.5 = 440 A.',
+        tag: 'Dhyan check 👀',
+        q: 'Start garne instant ma current kati huncha bhanyo?',
+        voice: 'स्टार्ट गर्ने इन्स्टेन्टमा करेन्ट कति हुन्छ भन्यो?',
+        options: ['Zero', 'V/Ra', '(V − Eb)/2Ra'],
+        answer: 1,
+        why: 'N = 0 → Eb = 0 → Ia = V/Ra. 220 V ra Ra = 0.5 Ω bhaye 440 A!',
       },
     },
     { say: 'Four hundred forty ampere bhaneko twenty ampere ko full-load current ko lagbhag twenty-two guna ho.', voice: 'फोर हन्ड्रेड फोर्टी एम्पियर भनेको ट्वेन्टी एम्पियरको फुल लोड करेन्टको लगभग ट्वेन्टी टु गुणा हो।' },
     { say: 'Yesle commutator ra brush jalaucha, winding overheat garcha, shaft lai jhatka dincha, ani aru sabai ko lagi supply voltage tala jharcha.', voice: 'यसले कम्युटेटर र ब्रस जलाउँछ, वाइन्डिङ ओभरहिट गर्छ, शाफ्टलाई झट्का दिन्छ, अनि अरू सबैको लागि सप्लाई भोल्टेज तल झार्छ।' },
     { say: 'Starter le start ma armature sanga series ma resistance R thapcha. Ani starting current V over R a plus R huncha, so R equals V over allowed current, minus R a.', voice: 'स्टार्टरले स्टार्टमा आर्मेचरसँग सिरिजमा रेजिस्टेन्स आर थप्छ। अनि स्टार्टिङ करेन्ट भी ओभर आर ए प्लस आर हुन्छ, सो आर इक्वल्स भी ओभर अलाउड करेन्ट, माइनस आर ए।' },
     {
-      say: 'Aba starter size garau.',
-      voice: 'अब स्टार्टर साइज गरौं।',
+      say: 'Formula yaad cha?',
+      voice: 'फर्मुला याद छ?',
       ask: {
-        tag: 'Quick check',
-        q: '220 V motor ko Ra = 0.4 Ω ra full-load current 25 A cha. Starting current lai full load ko double ma limit gara. Starter resistance kati?',
-        voice: 'टु ट्वेन्टी भोल्ट मोटरको आर ए जिरो पोइन्ट फोर ओम र फुल लोड करेन्ट ट्वेन्टी फाइभ एम्पियर छ। स्टार्टिङ करेन्टलाई फुल लोडको डबलमा लिमिट गर। स्टार्टर रेजिस्टेन्स कति?',
-        options: ['4 Ω', '4.4 Ω', '8.8 Ω', '0.4 Ω'],
-        answer: 0,
-        why: 'Ist = 50 A, so total resistance 220/50 = 4.4 Ω. Starter le 4.4 − 0.4 = 4 Ω thapcha.',
+        tag: 'Dhyan check 👀',
+        q: 'Starter resistance ko formula k bhanyo?',
+        voice: 'स्टार्टर रेजिस्टेन्सको फर्मुला के भन्यो?',
+        options: ['R = V·I + Ra', 'R = V/I − Ra', 'R = Ra/V'],
+        answer: 1,
+        why: 'Starting current = V/(Ra + R), tesaile R = V/I − Ra.',
       },
     },
     { say: 'Motor ko speed badhdai jada back EMF badhcha ani aafai current limit garcha, so resistance step by step cut out garincha.', voice: 'मोटरको स्पिड बढ्दै जाँदा ब्याक ई एम एफ बढ्छ अनि आफैं करेन्ट लिमिट गर्छ, सो रेजिस्टेन्स स्टेप बाई स्टेप कट आउट गरिन्छ।' },
@@ -60,7 +60,7 @@ function arc(r, a1, a2) {
   return `M${p1.x} ${p1.y} A${r} ${r} 0 0 1 ${p2.x} ${p2.y}`;
 }
 
-const threePoint = video('3-point starter', {
+export const threePoint = video('3-point starter', {
   viewBox: '0 0 360 220',
   tall: true,
   beats: [
@@ -71,11 +71,12 @@ const threePoint = video('3-point starter', {
       say: 'Yaha ekchoti pause.',
       voice: 'यहाँ एकचोटि पज।',
       ask: {
-        q: 'Start garda field full strength ma kina hunu parcha?',
-        voice: 'स्टार्ट गर्दा फिल्ड फुल स्ट्रेन्थमा किन हुनु पर्छ?',
-        options: ['Ampere pichhe maximum torque ko lagi, so motor chado start huncha', 'Speed zero mai rakhna', 'Starting resistance tatauna'],
+        tag: 'Dhyan check 👀',
+        q: 'Stud 1 ma field le kati voltage paucha?',
+        voice: 'स्टड वानमा फिल्डले कति भोल्टेज पाउँछ?',
+        options: ['Full voltage', 'Aadha', 'Zero'],
         answer: 0,
-        why: 'Ta ∝ φIa. Full φ huda, limited starting current le pani baliyo starting torque dincha.',
+        why: 'Brass arc hudai field le full voltage paucha: full field, ampere pichhe maximum torque.',
       },
     },
     { say: 'Motor ko speed badhdai jada back EMF badhcha ani current ghatcha. Ani arko stud ma sara, resistance ko euta section cut out hudai.', voice: 'मोटरको स्पिड बढ्दै जाँदा ब्याक ई एम एफ बढ्छ अनि करेन्ट घट्छ। अनि अर्को स्टडमा सार, रेजिस्टेन्सको एउटा सेक्सन कट आउट हुँदै।' },
@@ -84,11 +85,12 @@ const threePoint = video('3-point starter', {
       say: 'Aba achanak supply fail bhayo.',
       voice: 'अब अचानक सप्लाई फेल भयो।',
       ask: {
-        q: 'Motor chaldai garda supply fail bhayo. Handle le k garcha?',
-        voice: 'मोटर चल्दै गर्दा सप्लाई फेल भयो। ह्यान्डलले के गर्छ?',
-        options: ['Spring le OFF ma pharkancha', 'RUN mai bascha', 'Stud 1 samma matra pharkancha'],
-        answer: 0,
-        why: 'NVC ko magnetism jancha ani spring le handle lai OFF ma tancha. Power pharkada motor resistance bina restart huna sakdaina.',
+        tag: 'Dhyan check 👀',
+        q: 'RUN ma handle lai no-volt coil le samaucha. Supply fail bhaye coil le handle lai…',
+        voice: 'रनमा ह्यान्डललाई नो भोल्ट कोइलले समाउँछ। सप्लाई फेल भए कोइलले ह्यान्डललाई…',
+        options: ['aajhai kasera samaucha', 'chodcha'],
+        answer: 1,
+        why: 'Current nabhaye coil magnet hudaina, tesaile handle chodcha.',
       },
     },
     { say: 'Sahi ho. No-volt coil le chodcha ani spring le handle lai ghar, OFF ma pharkaucha. Open field circuit le pani yahi garcha, so motor field bina kahile pani run away garna sakdaina.', voice: 'सही हो। नो भोल्ट कोइलले छोड्छ अनि स्प्रिङले ह्यान्डललाई घर, अफमा फर्काउँछ। ओपन फिल्ड सर्किटले पनि यही गर्छ, सो मोटर फिल्ड बिना कहिले पनि रन अवे गर्न सक्दैन।' },
@@ -160,7 +162,7 @@ const threePoint = video('3-point starter', {
   },
 });
 
-const fourPoint = video('4-point starter', {
+export const fourPoint = video('4-point starter', {
   viewBox: '0 0 360 220',
   beats: [
     { say: '3-point starter ko euta kamjori cha. Speed badhauna field control use garda k huncha, hera.', voice: 'थ्री पोइन्ट स्टार्टरको एउटा कमजोरी छ। स्पिड बढाउन फिल्ड कन्ट्रोल युज गर्दा के हुन्छ, हेर।' },
@@ -169,11 +171,12 @@ const fourPoint = video('4-point starter', {
       say: 'No-volt coil ko barema socha ta.',
       voice: 'नो भोल्ट कोइलको बारेमा सोच त।',
       ask: {
-        q: '3-point starter ma NVC field sanga series ma huncha. Field current dherai ghatayo bhane k huncha?',
-        voice: 'थ्री पोइन्ट स्टार्टरमा एन भी सी फिल्डसँग सिरिजमा हुन्छ। फिल्ड करेन्ट धेरै घटायो भने के हुन्छ?',
-        options: ['NVC kamjor huncha ani handle chodna sakcha, motor rokincha', 'NVC jhan baliyo huncha', 'Kehi farak pardaina'],
-        answer: 0,
-        why: 'Field current kam bhaneko NVC current pani kam. Timilai speed matra badhaunu thiyo, tara handle OFF ma khasna sakcha.',
+        tag: 'Dhyan check 👀',
+        q: '3-point ma NVC field sanga series ma cha. Field current ghatyo bhane NVC ko current pani…',
+        voice: 'थ्री पोइन्टमा एन भी सी फिल्डसँग सिरिजमा छ। फिल्ड करेन्ट घट्यो भने एन भी सी को करेन्ट पनि…',
+        options: ['badhcha', 'ghatcha'],
+        answer: 1,
+        why: 'Series ma eutai current bagcha. NVC kamjor huncha ani handle chodna sakcha.',
       },
     },
     { say: 'So 3-point starter field weakening bata wide speed control ko lagi suitable chaina.', voice: 'सो थ्री पोइन्ट स्टार्टर फिल्ड विकनिङ बाट वाइड स्पिड कन्ट्रोलको लागि सुटेबल छैन।' },
@@ -183,12 +186,12 @@ const fourPoint = video('4-point starter', {
       say: 'Aafai check gara.',
       voice: 'आफैं चेक गर।',
       ask: {
-        tag: 'Quick check',
-        q: '3-point starter bhanda 4-point starter ko main advantage yo ho ki…',
-        voice: 'थ्री पोइन्ट स्टार्टर भन्दा फोर पोइन्ट स्टार्टरको मेन एड्भान्टेज यो हो कि…',
-        options: ['speed control ko lagi field current change garda NVC lai affect gardaina', 'yeslai starting resistance chahindaina', 'yo brake ko rup ma pani kaam garcha'],
-        answer: 0,
-        why: 'NVC supply ko across cha, field bata independent, so field-weakening speed control safe huncha.',
+        tag: 'Dhyan check 👀',
+        q: '4-point starter ko chautho terminal k ho bhanyo?',
+        voice: 'फोर पोइन्ट स्टार्टरको चौथो टर्मिनल के हो भन्यो?',
+        options: ['Extra armature terminal', 'NVC ko lagi extra supply connection', 'Earth'],
+        answer: 1,
+        why: 'NVC lai field bata nikalera supply ma jodne connection: tesaile field rheostat le NVC affect gardaina.',
       },
     },
     { say: 'Tara catch yo ho: field circuit open bhayo bhane pani no-volt coil le handle samaai rakhcha, so 4-point starter le open-field protection dinna.', voice: 'तर क्याच यो हो: फिल्ड सर्किट ओपन भयो भने पनि नो भोल्ट कोइलले ह्यान्डल समाइ राख्छ, सो फोर पोइन्ट स्टार्टरले ओपन फिल्ड प्रोटेक्सन दिँदैन।' },
@@ -244,31 +247,18 @@ const fourPoint = video('4-point starter', {
   ),
 });
 
-export const ch7 = {
-  title: 'Starting: 3-point ra 4-point starter',
-  syllabus: 'Unit 4 · DC motor ko starting: 3-point ra 4-point starter',
-  steps: [
-    whyStarter,
-    threePoint,
-    fourPoint,
-    model({
-      q: 'DC motor ma starter ko necessity k ho? 3-point starter ko working neat diagram sanga describe gara.',
-      papers: ['2075 Baisakh', '2074 Bhadra', '2073 Bhadra', '2070 Bhadra', '2068 Magh', '2066 Magh', '2083 Baishakh (ECM)'],
-      marks: '[2 + 6]',
-      points: [
-        <><b>Necessity:</b> Ia = (V − Eb)/Ra. Start ma N = 0, so Eb = 0 ani Ia = V/Ra, jun rated current ko 15–25 guna huncha kina bhane Ra dherai sano huncha (e.g. 220/0.5 = 440 A). Yesle commutator, brush ra winding damage garcha ani supply dip garcha, so start ma resistance thapnu parcha ani Eb badhdai jada cut out garnu parcha.</>,
-        <><b>Diagram:</b> terminal L, F, A; starting resistance studs ko bichma section ma baadieko; handle pivot gareko ra OLR coil hudai L sanga connected; brass arc NVC hudai field sanga connected; last stud A sanga connected; handle ma spring.</>,
-        <><b>Starting:</b> handle OFF bata stud 1 ma, so full resistance armature sanga series ma huncha ra field le brass arc hudai full voltage paucha (maximum starting torque). Speed ra Eb badhdai jada, sabai resistance cut out nahunjel stud by stud sara.</>,
-        <><b>NVC (no-volt coil):</b> field sanga series ma huncha; RUN ma soft-iron handle lai spring ko biruddha samaucha. Supply fail wa open field huda yesko magnetism jancha ani spring le handle OFF ma pharkaucha.</>,
-        <><b>OLR (overload release):</b> line sanga series ma huncha; excessive current huda iron piece tancha jasle NVC short-circuit garcha, so handle OFF ma pharkancha.</>,
-        <><b>Drawback:</b> speed control ko lagi field weakening garda NVC pani kamjor huncha ani handle release huna sakcha. 4-point starter le NVC lai supply ko across jodera yo solve garcha.</>,
-      ],
-      tip: '6 marks ko dherai jaso part diagram mai cha: L, F, A, studs, brass arc, NVC, OLR ra spring clearly label gara.',
-    }),
-    hook('NVC = No Volts → handle ghar jancha (OFF) · OLR = Over Load → Release', [
-      '3 points: L (line), F (field), A (armature). 4-point le NVC ko lagi alag supply terminal thapcha.',
-      'SABAI resistance bhitra ra FULL field sanga start gara. Eb badhdai jada resistance cut out gara.',
-      'R_starter = V / I_start − Ra',
-    ]),
+// IOE model answer for this chapter.
+export const ch7Model = model({
+  q: 'DC motor ma starter ko necessity k ho? 3-point starter ko working neat diagram sanga describe gara.',
+  papers: ['2075 Baisakh', '2074 Bhadra', '2073 Bhadra', '2070 Bhadra', '2068 Magh', '2066 Magh', '2083 Baishakh (ECM)'],
+  marks: '[2 + 6]',
+  points: [
+    <><b>Necessity:</b> Ia = (V − Eb)/Ra. Start ma N = 0, so Eb = 0 ani Ia = V/Ra, jun rated current ko 15–25 guna huncha kina bhane Ra dherai sano huncha (e.g. 220/0.5 = 440 A). Yesle commutator, brush ra winding damage garcha ani supply dip garcha, so start ma resistance thapnu parcha ani Eb badhdai jada cut out garnu parcha.</>,
+    <><b>Diagram:</b> terminal L, F, A; starting resistance studs ko bichma section ma baadieko; handle pivot gareko ra OLR coil hudai L sanga connected; brass arc NVC hudai field sanga connected; last stud A sanga connected; handle ma spring.</>,
+    <><b>Starting:</b> handle OFF bata stud 1 ma, so full resistance armature sanga series ma huncha ra field le brass arc hudai full voltage paucha (maximum starting torque). Speed ra Eb badhdai jada, sabai resistance cut out nahunjel stud by stud sara.</>,
+    <><b>NVC (no-volt coil):</b> field sanga series ma huncha; RUN ma soft-iron handle lai spring ko biruddha samaucha. Supply fail wa open field huda yesko magnetism jancha ani spring le handle OFF ma pharkaucha.</>,
+    <><b>OLR (overload release):</b> line sanga series ma huncha; excessive current huda iron piece tancha jasle NVC short-circuit garcha, so handle OFF ma pharkancha.</>,
+    <><b>Drawback:</b> speed control ko lagi field weakening garda NVC pani kamjor huncha ani handle release huna sakcha. 4-point starter le NVC lai supply ko across jodera yo solve garcha.</>,
   ],
-};
+  tip: '6 marks ko dherai jaso part diagram mai cha: L, F, A, studs, brass arc, NVC, OLR ra spring clearly label gara.',
+});

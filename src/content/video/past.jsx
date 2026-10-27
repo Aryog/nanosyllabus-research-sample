@@ -12,36 +12,6 @@ import { D, solve, video } from './kit.jsx';
 
 export const pastQuestions = [
   solve({
-    title: 'Shunt motor: load badhda speed kati?',
-    paper: '2075 Baishakh',
-    paperVoice: 'टु थाउजेन्ड सेभेन्टी फाइभ बैशाख',
-    read: 'Euta 1.25 kilowatt, 250 volt ko DC shunt motor no load ma 1000 rpm ma ghumcha. Armature resistance 0.2 ohm, shunt field 250 ohm. Load halepachi 50 ampere tanda speed kati huncha, nikalnu cha.',
-    readVoice: 'एउटा वान पोइन्ट टु फाइभ किलोवाट, टु हन्ड्रेड फिफ्टी भोल्टको डीसी शन्ट मोटर नो लोडमा थाउजेन्ड आर पी एममा घुम्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट टु ओम, शन्ट फिल्ड टु हन्ड्रेड फिफ्टी ओम। लोड हालेपछि फिफ्टी एम्पियर तान्दा स्पिड कति हुन्छ, निकाल्नु छ।',
-    question: <>A <D>1.25 kW</D>, <D>250 V</D> DC shunt motor on no load runs at <D>1000 rpm</D>. <D>Ra = 0.2 Ω</D>, <D>Rsh = 250 Ω</D>. Find its speed when loaded and drawing <D>50 A</D>. (The 1.25 kW is read as the no-load input.)</>,
-    given: [
-      { node: <>V = 250 V, Ra = 0.2 Ω, Rsh = 250 Ω</>, say: 'V 250 volt, Ra 0.2 ohm, Rsh 250 ohm', voice: 'भी टु हन्ड्रेड फिफ्टी भोल्ट, आर ए जिरो पोइन्ट टु ओम, आर एस एच टु हन्ड्रेड फिफ्टी ओम' },
-      { node: <>No load ma: input 1.25 kW ⟹ IL₀ = 1250/250 = 5 A, N₀ = 1000 rpm</>, say: 'no load ma 1.25 kilowatt linchha, tesaile line current 1250 over 250, matlab 5 ampere, 1000 rpm ma', voice: 'नो लोडमा वान पोइन्ट टु फाइभ किलोवाट लिन्छ, तेसैले लाइन करेन्ट ट्वेल्भ हन्ड्रेड फिफ्टी ओभर टु हन्ड्रेड फिफ्टी, मतलब फाइभ एम्पियर, थाउजेन्ड आर पी एममा' },
-      { node: <>Load ma: IL = 50 A, N = ?</>, say: 'load ma line current 50 ampere', voice: 'लोडमा लाइन करेन्ट फिफ्टी एम्पियर' },
-    ],
-    find: { node: <>50 A ma speed N</>, say: '50 ampere ma speed kati, tyo chahiyo.', voice: 'फिफ्टी एम्पियरमा स्पिड कति, त्यो चाहियो।' },
-    idea: { node: <>Shunt ⟹ φ fixed ⟹ N₂/N₁ = Eb₂/Eb₁</>, say: 'Shunt motor ho, so flux constant rahancha. Ani speed simply back EMF ko proportional huncha, simple cha.', voice: 'शन्ट मोटर हो, सो फ्लक्स कन्स्टेन्ट रहन्छ। अनि स्पिड सिम्प्ली ब्याक ई एम एफको प्रोपोर्सनल हुन्छ, सिम्पल छ।' },
-    steps: [
-      { node: <>Ish = 250/250 = <b>1 A</b></>, say: 'Pahila field current: 250 over 250, 1 ampere.', voice: 'पहिला फिल्ड करेन्ट: टु हन्ड्रेड फिफ्टी ओभर टु हन्ड्रेड फिफ्टी, वान एम्पियर।' },
-      {
-        node: <>Ia₀ = 5 − 1 = 4 A,  Ia = 50 − 1 = <b>49 A</b></>,
-        say: 'Aba yeslai duitai line current bata ghatau.',
-        voice: 'अब यसलाई दुईटै लाइन करेन्टबाट घटाऊ।',
-        ask: { tag: 'Step predict gara', q: '5 A ra 50 A chai line current hun. Load ma armature current kati?', voice: 'फाइभ एम्पियर र फिफ्टी एम्पियर चाहिँ लाइन करेन्ट हुन्। लोडमा आर्मेचर करेन्ट कति?', options: ['49 A', '50 A', '51 A'], answer: 0, why: 'Shunt motor ma IL = Ia + Ish, tesaile Ia = 50 − 1 = 49 A.' },
-      },
-      { node: <>Eb₀ = 250 − 4 × 0.2 = 249.2 V</>, say: 'No load ma back EMF: 250 minus 4 times 0.2, matlab 249.2 volt.', voice: 'नो लोडमा ब्याक ई एम एफ: टु हन्ड्रेड फिफ्टी माइनस फोर टाइम्स जिरो पोइन्ट टु, मतलब टु हन्ड्रेड फोर्टी नाइन पोइन्ट टु भोल्ट।' },
-      { node: <>Eb = 250 − 49 × 0.2 = 240.2 V</>, say: 'Load ma: 250 minus 49 times 0.2, matlab 240.2 volt.', voice: 'लोडमा: टु हन्ड्रेड फिफ्टी माइनस फोर्टी नाइन टाइम्स जिरो पोइन्ट टु, मतलब टु हन्ड्रेड फोर्टी पोइन्ट टु भोल्ट।' },
-      { node: <>N = 1000 × 240.2 / 249.2</>, say: 'Speed back EMF sangai scale huncha: 1000 times 240.2 over 249.2.', voice: 'स्पिड ब्याक ई एम एफसँगै स्केल हुन्छ: थाउजेन्ड टाइम्स टु हन्ड्रेड फोर्टी पोइन्ट टु ओभर टु हन्ड्रेड फोर्टी नाइन पोइन्ट टु।' },
-    ],
-    answer: { node: <>N ≈ 964 rpm</>, say: 'Lagbhag 964 rpm. Shunt motor load ma ali matra slow huncha.', voice: 'लगभग नाइन हन्ड्रेड सिक्स्टी फोर आर पी एम। शन्ट मोटर लोडमा अलि मात्र स्लो हुन्छ।' },
-    trap: { node: <>Trap: Eb₀ = V = 250 V liyo bhane (no-load IaRa drop bhulera) 960.8 rpm aaucha. Eb₀ = 249.2 V use gara.</>, say: 'Trap yo ho: no load ko back EMF pura 250 volt liyo bhane 960.8 rpm aaucha. No load ma pani Eb nikala hai.', voice: 'ट्र्याप यो हो: नो लोडको ब्याक ई एम एफ पुरा टु हन्ड्रेड फिफ्टी भोल्ट लियो भने नाइन हन्ड्रेड सिक्स्टी पोइन्ट एट आर पी एम आउँछ। नो लोडमा पनि ई बी निकाल है।' },
-  }),
-
-  solve({
     title: 'Series motor: thap resistance, uhi current',
     paper: '2070 Bhadra',
     paperVoice: 'टु थाउजेन्ड सेभेन्टी भदौ',
@@ -309,19 +279,40 @@ export const recap = video('Pura DC motor 3 minute ma', {
     {
       say: 'Quick recall.',
       voice: 'क्विक रिकल।',
-      ask: { tag: 'Recall', q: 'Armature torque Ta kasko proportional huncha…', voice: 'आर्मेचर टर्क टी ए कसको प्रोपोर्सनल हुन्छ?', options: ['φ × Ia', 'φ / Ia', 'Eb × Ra', 'N × φ'], answer: 0, why: 'Ta = 0.159 φ Z Ia (P/A), tesaile Ta ∝ φIa.' },
+      ask: {
+        tag: 'Dhyan check 👀',
+        q: 'Commutator le coil ko current kati choti reverse garcha bhanyo?',
+        voice: 'कम्युटेटरले कोइलको करेन्ट कति चोटि रिभर्स गर्छ भन्यो?',
+        options: ['Har half turn ma', 'Kahile pani gardaina', 'Har das turn ma'],
+        answer: 0,
+        why: 'Har half turn ma reverse, tesaile torque kahile pani reverse hudaina.',
+      },
     },
     { say: 'Ghumne conductor le back EMF generate garcha, Eb equals P phi Z N over 60 A, ani V equals Eb plus Ia Ra.', voice: 'घुम्ने कन्डक्टरले ब्याक ई एम एफ जेनेरेट गर्छ, ई बी इक्वल्स पी फाइ जेड एन ओभर सिक्स्टी ए, अनि भी इक्वल्स ई बी प्लस आई ए आर ए।' },
     {
       say: 'Feri recall.',
       voice: 'फेरि रिकल।',
-      ask: { tag: 'Recall', q: 'Motor lai starter kina chahincha?', voice: 'मोटरलाई स्टार्टर किन चाहिन्छ?', options: ['Standstill ma Eb = 0, tesaile Ia = V/Ra ekdam thulo', 'Motor reverse garna', 'Field baliyo banauna', 'Iron loss ghataauna'], answer: 0, why: 'Speed chaina, back EMF chaina: sano Ra le matra current limit garcha.' },
+      ask: {
+        tag: 'Dhyan check 👀',
+        q: 'Voltage equation k bhanyo?',
+        voice: 'भोल्टेज इक्वेसन के भन्यो?',
+        options: ['V = Eb − IaRa', 'V = Eb + IaRa', 'V = IaRa'],
+        answer: 1,
+        why: 'V = Eb + IaRa, ani Eb = PφZN/60A.',
+      },
     },
     { say: 'Speed V minus Ia Ra over phi ko proportional. Base speed bhanda mathi jana field weak gara; tala jana armature resistance thapa.', voice: 'स्पिड भी माइनस आई ए आर ए ओभर फाइको प्रोपोर्सनल। बेस स्पिडभन्दा माथि जान फिल्ड वीक गर; तल जान आर्मेचर रेजिस्टेन्स थप।' },
     {
       say: 'Ani motor types ko lagi.',
       voice: 'अनि मोटर टाइप्सको लागि।',
-      ask: { tag: 'Recall', q: 'Kun motor kahile pani load bina chalaunu hudaina?', voice: 'कुन मोटर कहिल्यै पनि लोड बिना चलाउनु हुँदैन?', options: ['Series', 'Shunt', 'Cumulative compound', 'Separately excited'], answer: 0, why: 'Series motor ma φ ∝ Ia, tesaile no load ma φ collapse huncha ra N ∝ 1/φ le run away garcha.' },
+      ask: {
+        tag: 'Dhyan check 👀',
+        q: 'Base speed bhanda mathi jana k garne bhanyo?',
+        voice: 'बेस स्पिडभन्दा माथि जान के गर्ने भन्यो?',
+        options: ['Field weak garne', 'Armature resistance thapne'],
+        answer: 0,
+        why: 'Field weak → base bhanda mathi. Armature resistance → base bhanda tala.',
+      },
     },
     { say: 'Last ma, variable copper loss ra constant losses barabar huda efficiency maximum huncha. Pura chapter yahi ho, sahi ho.', voice: 'लास्टमा, भेरियेबल कपर लस र कन्स्टेन्ट लसेस बराबर हुँदा इफिसियन्सी म्याक्सिमम हुन्छ। पुरा च्याप्टर यही हो, सही हो।' },
   ],

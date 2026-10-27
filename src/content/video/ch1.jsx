@@ -1,10 +1,10 @@
-import { Arrow, C, Conductor, Pole, hook, video } from './kit.jsx';
+import { Arrow, C, Conductor, Pole, model, video } from './kit.jsx';
 
 /* Chapter 1 · Force on a conductor (Syllabus Unit 1: force on a current-carrying conductor). */
 
 const fieldLines = [62, 88, 132, 158];
 
-const whyItMoves = video('Magnetic field ma wire kina chalcha?', {
+export const whyItMoves = video('Magnetic field ma wire kina chalcha?', {
   viewBox: '0 0 360 220',
   beats: [
     { say: 'Duita magnet ko pole aamne-saamne chan. Field chai gap bhari sidha N bata S tira jancha.', voice: 'दुईटा म्याग्नेटको पोल आमने–सामने छन्। फिल्ड चाहिँ ग्याप भरि सिधा एन बाट एस तिर जान्छ।' },
@@ -60,7 +60,7 @@ const whyItMoves = video('Magnetic field ma wire kina chalcha?', {
   ],
 });
 
-const howBig = video('Push kati thulo huncha?', {
+export const howBig = video('F = BIl sin θ: push kati thulo huncha?', {
   beats: [
     { say: 'Push kati thulo huncha? Scene yo ho, teen ta kura le decide garcha.', voice: 'पुस कति ठूलो हुन्छ? सिन यो हो, तीन ओटा कुराले डिसाइड गर्छ।' },
     { say: 'Flux density B tesla ma, current I ampere ma, ra active length l metre ma. Force chai newton ma aaucha.', voice: 'फ्लक्स डेन्सिटी बी टेस्लामा, करेन्ट आई एम्पियरमा, र एक्टिभ लेन्थ एल मिटरमा। फोर्स चाहिँ न्युटनमा आउँछ।' },
@@ -91,7 +91,7 @@ const howBig = video('Push kati thulo huncha?', {
   ],
 });
 
-const fleming = video('Kun tira? Fleming ko left-hand rule', {
+export const fleming = video('Kun tira? Fleming ko left-hand rule', {
   viewBox: '0 0 360 220',
   beats: [
     { say: 'Aafno left hand uthau. Thumb, first finger ra second finger tana, sabai ek arka sanga right angle ma.', voice: 'आफ्नो लेफ्ट ह्यान्ड उठाऊ। थम्ब, फर्स्ट फिङ्गर र सेकेन्ड फिङ्गर तान, सबै एक अर्कासँग राइट एङ्गलमा।' },
@@ -149,17 +149,17 @@ const fleming = video('Kun tira? Fleming ko left-hand rule', {
   ),
 });
 
-export const ch1 = {
-  title: 'Conductor ma force',
-  syllabus: 'Unit 1 · Current-carrying conductor ma force',
-  steps: [
-    whyItMoves,
-    howBig,
-    fleming,
-    hook('Left hand, F-B-I', [
-      'thuMb = Motion (Force) · First finger = Field (B) · seCond finger = Current (I)',
-      'Motor ma LEFT hand. Generator ma RIGHT hand.',
-      'F = BIl sin θ: 90° ma sabai bhanda thulo, field kai direction ma zero.',
-    ]),
+// Segment 3: the principle half of the IOE working-principle question.
+export const ch1Model = model({
+  q: 'Explain the working principle of a DC motor. (Principle wala part: conductor ma force ra yesko direction.)',
+  papers: ['2073 Chaitra', '2069 Bhadra'],
+  marks: 'Principle part',
+  points: [
+    <><b>Principle:</b> “When a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force.”</>,
+    <><b>Kina:</b> conductor ko current le aafnai circular field banaucha. Main field sanga milda euta side ma field crowded ra arko side ma patalo huncha; tanieko field lines le conductor lai patalo side tira push garcha.</>,
+    <><b>Magnitude:</b> F = BIl sin θ newton (B tesla, I ampere, l metre, θ conductor ra field bich ko angle). θ = 90° ma F = BIl, maximum.</>,
+    <><b>Direction:</b> Fleming ko left-hand rule: First finger = Field, seCond finger = Current, thuMb = Motion. Field wa current euta matra reverse garda force reverse huncha.</>,
+    <><b>Diagram:</b> N ra S ko bich ma ⊙ conductor, crowded ra patalo field side, ani force arrow.</>,
   ],
-};
+  tip: 'Yo principle part ho. Torque equation sangai pura answer Chapter 3 ma cha. Exam ma English mai lekha.',
+});
