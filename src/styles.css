@@ -515,13 +515,12 @@ button:disabled { cursor: default; }
 .scene-cam { position: relative; }
 .scene-cam.split { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 22px; align-items: center; }
 .scene-cam.split .board { justify-content: center; }
-/* The hand writing the current line: the marker tip runs along the ink as it
-   appears, bobbing a little like real handwriting, then leaves. */
+/* The hand writing the current line (Scene.jsx writeLines moves it line by
+   line as the ink appears), bobbing a little like real handwriting, then leaves. */
 .hand { position: absolute; width: 0; height: 0; pointer-events: none; z-index: 2; }
 .hand-svg { display: block; width: 64px; height: auto; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.18)); }
-.hand-write { animation: handrun var(--wd) linear both, handleave 0.5s ease var(--wd) forwards; }
+.hand-write { animation: handleave 0.5s ease var(--wd) forwards; }
 .hand-write .hand-bob { animation: handbob 0.22s ease-in-out infinite alternate; }
-@keyframes handrun { from { transform: translateX(0); } to { transform: translateX(var(--w)); } }
 @keyframes handleave { to { opacity: 0; translate: 30px 40px; } }
 @keyframes handbob { from { transform: translate(0, -3px) rotate(-2deg); } to { transform: translate(2px, 2px) rotate(1deg); } }
 .hand-point { animation: handin 0.6s cubic-bezier(0.3, 0.8, 0.3, 1) both, handleave 0.6s ease 2.6s forwards; }

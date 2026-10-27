@@ -51,6 +51,43 @@ const useWide = () => {
   return wide;
 };
 
+// Write a (possibly wrapped) board line the way a hand does: one visual line at
+// a time, left to right. Reveals the ink with a clip-path and returns the
+// marker's path over it as WAAPI keyframes (ink-local px).
+function writeLines(ink, r, k0, w, h, secs) {
+  const range = document.createRange();
+  range.selectNodeContents(ink);
+  const rows = [];
+  for (const q of range.getClientRects()) {
+    if (!q.width) continue;
+    const b = { top: (q.top - r.top) / k0, bottom: (q.bottom - r.top) / k0, left: (q.left - r.left) / k0, right: (q.right - r.left) / k0 };
+    const row = rows.find((x) => b.top < x.bottom - 2 && b.bottom > x.top + 2);
+    if (row) Object.assign(row, { top: Math.min(row.top, b.top), bottom: Math.max(row.bottom, b.bottom), left: Math.min(row.left, b.left), right: Math.max(row.right, b.right) });
+    else rows.push(b);
+  }
+  rows.sort((a, b) => a.top - b.top);
+  if (!rows.length) return null;
+  const W = w + 20;
+  const H = h + 20;
+  // Everything above this row, plus the row itself up to x.
+  const poly = (row, x) => `polygon(-10px -10px, ${W}px -10px, ${W}px ${row.top}px, ${x}px ${row.top}px, ${x}px ${row.bottom}px, -10px ${row.bottom}px)`;
+  const total = rows.reduce((n, x) => n + (x.right - x.left), 0) || 1;
+  const clip = [];
+  const pen = [];
+  let t = 0;
+  rows.forEach((row, i) => {
+    const t1 = i === rows.length - 1 ? 0.97 : t + ((row.right - row.left) / total) * 0.97;
+    const y = row.top + (row.bottom - row.top) * 0.75;
+    clip.push({ offset: t, clipPath: poly(row, row.left) }, { offset: t1, clipPath: poly(row, row.right + 4) });
+    pen.push({ offset: t, transform: `translate(${row.left}px, ${y}px)` }, { offset: t1, transform: `translate(${row.right}px, ${y}px)` });
+    t = t1;
+  });
+  clip.push({ offset: 1, clipPath: `polygon(-10px -10px, ${W}px -10px, ${W}px ${H}px, ${W}px ${H}px, ${W}px ${H}px, -10px ${H}px)` });
+  pen.push({ offset: 1, transform: pen[pen.length - 1].transform });
+  ink.animate(clip, { duration: secs * 1000, easing: 'linear', fill: 'forwards' });
+  return pen;
+}
+
 // Cartoon hand holding a marker; the marker tip is the element's top-left corner.
 const Hand = () => (
   <svg className="hand-svg" viewBox="0 0 120 130" aria-hidden="true">
@@ -134,6 +171,11 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
   const camRef = useRef(null);
   const [cam, setCam] = useState({ x: 0, y: 0, k: 1 });
   const [hand, setHand] = useState(null);
+  const handRef = useRef(null);
+  useEffect(() => {
+    if (hand?.path && handRef.current) handRef.current.animate(hand.path, { duration: hand.secs * 1000, easing: 'linear', fill: 'forwards' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hand?.path]);
   const wide = useWide();
   const split = wide && draw && board?.length > 1;
   // Long derivation: heading across the top, the rest written column by column.
@@ -203,14 +245,29 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
       const y = (r.top - o.top) / k0;
       const w = r.width / k0;
       const h = r.height / k0;
-      setHand(ink ? { mode: 'write', x, y: y + h * 0.7, w, secs: ink.parentElement.style.getPropertyValue('--wd') } : { mode: 'point', x: x + w / 2, y: y + h / 2, w: 0 });
+      if (!ink) return setHand({ mode: 'point', x: x + w / 2, y: y + h / 2 });
+      const secs = parseFloat(ink.parentElement.style.getPropertyValue('--wd')) || 1.4;
+      setHand({ mode: 'write', x, y, secs, path: writeLines(ink, r, k0, w, h, secs) });
+    };
+    // Lines above may still be growing: re-anchor the hand once they settle.
+    const follow = () => {
+      const el = camRef.current;
+      const ink = el?.querySelector('.board-line.hl:not(.kind-q) .ink');
+      if (!ink) return;
+      const o = el.getBoundingClientRect();
+      const r = ink.getBoundingClientRect();
+      const k0 = new DOMMatrix(getComputedStyle(el).transform).a || 1;
+      setHand((h) => (h?.mode === 'write' ? { ...h, x: (r.left - o.left) / k0, y: (r.top - o.top) / k0 } : h));
     };
     // Once as the line starts, again after it has grown to full height.
     const a = setTimeout(() => {
       frame();
       pen();
     }, 60);
-    const b = setTimeout(frame, 700);
+    const b = setTimeout(() => {
+      frame();
+      follow();
+    }, 700);
     window.addEventListener('resize', frame);
     return () => {
       clearTimeout(a);
@@ -390,8 +447,9 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
             {hand && (
               <div
                 key={`${beat}-${run}`}
+                ref={handRef}
                 className={`hand hand-${hand.mode}`}
-                style={{ left: hand.x, top: hand.y, '--w': `${hand.w}px`, '--wd': hand.secs || '1.4s' }}
+                style={{ left: hand.x, top: hand.y, '--wd': `${hand.secs ?? 1.4}s` }}
               >
                 <div className="hand-bob">
                   <Hand />
