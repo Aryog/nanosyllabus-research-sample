@@ -138,7 +138,16 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
   const split = wide && draw && board?.length > 1;
   // Long derivation: heading across the top, the rest written column by column.
   const head = board && !draw && board[0]?.kind === 'h' ? 1 : 0;
-  const cols = wide && board && !draw && board.length - head >= 7 ? Math.ceil((board.length - head) / 2) + head : 0;
+  // Columns are balanced by text length, so long answer points don't pile up on one side.
+  let cols = 0;
+  if (wide && board && !draw && board.length - head >= 7) {
+    const size = board.slice(head).map((b) => textOf(b.node).length + 30);
+    const half = size.reduce((a, b) => a + b, 0) / 2;
+    let sum = 0;
+    let k = 0;
+    while (k < size.length - 1 && sum + size[k] / 2 < half) sum += size[k++];
+    cols = head + Math.max(1, k);
+  }
 
   // Camera, like an explainer video: zoom onto what this beat explains (the
   // board line being written, or the drawing parts it highlights); on beats
@@ -466,43 +475,6 @@ export function Hook({ big, lines }) {
       <span className="hook-tag">Yaad rakhne trick</span>
       <div className="hook-big">{big}</div>
       {lines && <ul>{lines.map((l, i) => <li key={i}>{l}</li>)}</ul>}
-    </div>
-  );
-}
-
-/*
-  Memory map: the Memorization segment of a chapter, as one card. It compresses
-  the chapter (never re-teaches it): one line, the formulas, the derivation
-  order, the mnemonic, must-remember points and the common slips.
-*/
-export function Memory({ line, formulas, order, big, remember, forget }) {
-  return (
-    <div className="memory">
-      <span className="hook-tag">Memory map</span>
-      <p className="memory-line">{line}</p>
-      {formulas && (
-        <div className="memory-block">
-          <h4>Formula</h4>
-          {formulas.map((f, i) => <div key={i} className="memory-eq">{f}</div>)}
-        </div>
-      )}
-      {order && (
-        <div className="memory-block">
-          <h4>Derivation ko order</h4>
-          <p className="memory-order">{order.join(' → ')}</p>
-        </div>
-      )}
-      <div className="hook">
-        <span className="hook-tag">Yaad rakhne trick</span>
-        <div className="hook-big">{big}</div>
-        {remember && <ul>{remember.map((l, i) => <li key={i}>{l}</li>)}</ul>}
-      </div>
-      {forget && (
-        <div className="memory-block">
-          <h4>Bhulne galti</h4>
-          <ul>{forget.map((l, i) => <li key={i}>{l}</li>)}</ul>
-        </div>
-      )}
     </div>
   );
 }

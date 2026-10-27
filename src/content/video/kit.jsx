@@ -1,4 +1,4 @@
-import { Hook, Memory, ModelAnswer, Scene } from '../../video/Scene.jsx';
+import { Hook, ModelAnswer, Scene } from '../../video/Scene.jsx';
 
 /*
   Authoring kit for the video course. A chapter is { title, steps }, where steps
@@ -52,16 +52,50 @@ export const model = (props) => ({ ioe: true, body: <ModelAnswer {...props} /> }
 // and offered after the course in the Extra practice set.
 export const extra = (step) => ({ ...step, practice: true });
 
-// Memory card closing the Big picture: memory(big, { line, formulas?, order?, remember?, forget? }).
-// Compression only: never repeat the explanation here.
-export const memory = (big, props) => ({ tag: 'Yaad rakha', tagKind: 'hook', pose: 'dab', body: <Memory big={big} {...props} /> });
+/*
+  Model answer as a video: the question goes up on the board, then each point
+  the marking scheme wants (one beat each, narrated), then the exam tip.
+    answer(title, { papers, marks, q, read: { say, voice }, points: [{ node, say, voice }], tip: { node, say, voice } })
+*/
+export function answer(title, { papers, marks, q, read, points, tip }) {
+  const src = papers.length ? `IOE ${papers.slice(0, 3).join(' · ')}${papers.length > 3 ? ` +${papers.length - 3}` : ''}` : 'Exam-style';
+  const beats = [read, ...points, ...(tip ? [tip] : [])].map(({ say, voice, ask }) => ({ say, voice, ask }));
+  const board = [
+    { at: 0, kind: 'q', node: <><span className="tag">{src}{marks ? ` · ${marks}` : ''}</span>{q}</> },
+    ...points.map((p, i) => ({ at: i + 1, kind: 'step', node: p.node })),
+    ...(tip ? [{ at: points.length + 1, kind: 'idea', node: <>✍️ {tip.node}</> }] : []),
+  ];
+  return { ...video(title, { beats, board, tall: true }), ioe: papers.length > 0, tag: 'Model answer', tagKind: 'watch' };
+}
+
+/*
+  Memory map closing the Big picture, written up as a video. Compression only:
+  never repeat the explanation here.
+    recall(title, big, { line, formulas, order?, remember, forget }, say)
+  `say` narrates each part: { line, formulas, order?, big, check, forget },
+  each { say, voice }; `check` also carries the easy attention `ask`.
+*/
+export function recall(title, big, { line, formulas, order, remember, forget }, say) {
+  const parts = [say.line, say.formulas, ...(order ? [say.order] : []), say.big, say.check, say.forget];
+  const at = { formulas: 1, order: 2, big: order ? 3 : 2 };
+  const board = [
+    { at: 0, kind: 'h', node: <>Memory map</> },
+    { at: 0, kind: 'idea', node: line },
+    ...formulas.map((f) => ({ at: at.formulas, kind: 'formula', node: f })),
+    ...(order ? [{ at: at.order, kind: 'step', node: <>Order: {order.join(' → ')}</> }] : []),
+    { at: at.big, kind: 'hook', node: <>🧠 {big}</> },
+    ...remember.map((r) => ({ at: at.big, kind: 'given', node: r })),
+    ...forget.map((f) => ({ at: parts.length - 1, kind: 'trap', node: f })),
+  ];
+  return { ...video(title, { beats: parts.map(({ say: s, voice, ask }) => ({ say: s, voice, ask })), board }), tag: 'Yaad rakha', tagKind: 'hook' };
+}
 
 /*
   Every micro-topic is three video segments:
     terms    Terms ra definitions: what the terms and symbols mean, shown with visuals
     derive   Derivation: each video titled "Derivation: …"
-    picture  Big picture: an old IOE question and its solution (solve videos,
-             model answers), then the memory() card
+    picture  Big picture: an old IOE question and its solution (solve() or
+             answer() videos), then the recall() memory-map video
   steps: segments({ terms: [...], derive: [...], picture: [...] })
   Each step gets a segment chip; segments 2 and 3 open with a short, silent
   title card. Segment 1 follows straight on from the topic card.

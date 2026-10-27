@@ -569,12 +569,6 @@ button:disabled { cursor: default; }
 .hook-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); }
 .hook-big { font-size: 24px; font-weight: 800; margin: 6px 0 8px; color: var(--ink); line-height: 1.3; }
 .hook ul { margin: 0; padding-left: 18px; color: var(--ink-2); }
-.memory { display: flex; flex-direction: column; gap: 12px; }
-.memory-line { font-size: 18px; font-weight: 700; margin: 0; color: var(--ink); }
-.memory-block h4 { margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-.memory-block ul { margin: 0; padding-left: 18px; color: var(--ink-2); }
-.memory-eq { font-family: Georgia, serif; font-style: italic; font-size: 17px; padding: 2px 0; }
-.memory-order { margin: 0; color: var(--ink-2); }
 .model { border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; background: var(--card); }
 .model-head { display: flex; justify-content: space-between; align-items: center; }
 .model-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--amber-ink); }
@@ -610,6 +604,7 @@ button:disabled { cursor: default; }
 .board-line.kind-answer { text-align: center; font-size: 24px; color: var(--c-green); }
 .board-line.kind-answer .ink { padding: 4px 16px; border: 3px double var(--c-green); border-radius: 12px; }
 .board-line.kind-trap { color: var(--c-red); font-size: 16px; }
+.board-line.kind-formula { font-size: 21px; color: var(--c-blue); padding-left: 14px; }
 .board-line.kind-trap .ink::before { content: '⚠ '; }
 .board-line .y { color: var(--c-orange); } .board-line .r { color: var(--c-red); } .board-line .bl { color: var(--c-blue); } .board-line .g { color: var(--c-green); }
 .board-line b { color: var(--chalk); }
@@ -625,6 +620,7 @@ button:disabled { cursor: default; }
   .board-line.kind-h { font-size: 38px; }
   .board-line.kind-eq { font-size: 33px; }
   .board-line.kind-q { font-size: 20px; }
+  .board-line.kind-formula { font-size: 26px; }
   .scene-screen { padding: 16px 26px 0; }
   .scene-caption { margin: auto -26px 0; padding: 14px 26px; font-size: 19px; min-height: 60px; }
   .scene-bar { padding: 10px 16px 12px; }
