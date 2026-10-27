@@ -93,6 +93,8 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
   const [reviewStats, setReviewStats] = useState({ correct: 0, total: 0 });
   const [done, setDone] = useState(false);
   const [videoEnded, setVideoEnded] = useState(false);
+  // Furthest screen reached, so the progress bar can jump back to anything seen.
+  const [reach, setReach] = useState(startStep);
   const scrollRef = useRef(null);
 
   // Playable sequence: lesson steps (minus `retryOf` alternates), with the review
@@ -150,6 +152,10 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
     scrollRef.current?.scrollTo({ top: 0 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pos, lessonIndex, done, mode]);
+
+  useEffect(() => {
+    if (!done) setReach((r) => Math.max(r, pos));
+  }, [pos, done]);
 
   useEffect(() => {
     if (done || inPractice || entry.review || entry.retry) return;
@@ -305,9 +311,10 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
       .sort()
       .map((seg) => {
         const ks = groups[seg];
-        return { seg, now: seg === step.segment, frac: ks.filter((k) => k < entry.i).length / ks.length };
+        const ticks = ks.map((k) => ({ k, at: sequence.findIndex((e) => e.i === k && !e.retry), title: lesson.steps[k].figureProps?.title ?? seg }));
+        return { seg, ticks, now: seg === step.segment, frac: ks.filter((k) => k < entry.i).length / ks.length };
       });
-  }, [lesson, step, entry, inPractice, done]);
+  }, [lesson, step, entry, sequence, inPractice, done]);
   const resolved = status === 'correct' || status === 'revealed';
   const complete = isQuestion && inputDef.complete(value, step.input);
   const Figure = step.Figure;
@@ -365,6 +372,18 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
             segBars.map((b) => (
               <div key={b.seg} className={`progress progress-seg ${b.now ? 'now' : ''}`} title={b.seg}>
                 <div className="progress-fill" style={{ width: `${b.now ? Math.max(b.frac * 100, 4) : b.frac * 100}%` }} />
+                <div className="progress-ticks">
+                  {b.ticks.map((t) => (
+                    <button
+                      key={t.k}
+                      className={`progress-tick ${t.k === entry.i ? 'on' : ''}`}
+                      disabled={t.at < 0 || t.at > reach || t.k === entry.i}
+                      onClick={() => setPos(t.at)}
+                      title={t.title}
+                      aria-label={`Go to: ${t.title}`}
+                    />
+                  ))}
+                </div>
               </div>
             ))
           ) : (

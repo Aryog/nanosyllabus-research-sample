@@ -58,7 +58,15 @@ button:disabled { cursor: default; }
 .progress-group { display: flex; align-items: center; gap: 10px; }
 .progress { flex: 1; height: 8px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
 .progress-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.5s cubic-bezier(0.3, 0.8, 0.3, 1); }
-.progress-seg { opacity: 0.55; transition: opacity 0.3s; }
+.progress-seg { position: relative; overflow: visible; opacity: 0.55; transition: opacity 0.3s; }
+.progress-seg:hover { opacity: 1; }
+.progress-seg .progress-fill { border-radius: 99px; }
+/* One click target per screen, so any screen already seen can be revisited. */
+.progress-ticks { position: absolute; inset: -8px 0; display: flex; }
+.progress-tick { flex: 1; border: 0; padding: 0; background: transparent; cursor: pointer; position: relative; }
+.progress-tick + .progress-tick::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; background: var(--bg); }
+.progress-tick:not(:disabled):hover::after { content: ''; position: absolute; inset: 6px 1px; border-radius: 99px; background: rgba(0, 0, 0, 0.12); }
+.progress-tick:disabled { cursor: default; }
 .progress-seg.now { opacity: 1; outline: 2px solid var(--line); outline-offset: 2px; }
 .progress-dot { width: 14px; height: 8px; border-radius: 99px; background: var(--surface-2); flex: none; }
 .xp { justify-self: end; display: flex; align-items: center; gap: 4px; color: var(--muted); font-weight: 600; font-size: 15px; }
@@ -476,7 +484,7 @@ button:disabled { cursor: default; }
   background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.9), transparent 60%), linear-gradient(180deg, #fffef9, #f7f6f0); }
 .scene-screen { position: relative; padding: 14px 16px 0; min-height: 300px; display: flex; flex-direction: column; }
 .scene.tall .scene-screen { min-height: 420px; }
-.scene-svg { width: 100%; height: auto; display: block; max-height: 340px; font-family: Inter, sans-serif; }
+.scene-svg { width: 100%; height: auto; display: block; overflow: visible; padding: 0 6%; box-sizing: border-box; max-height: 340px; font-family: Inter, sans-serif; }
 .scene-svg text { fill: var(--chalk); font-family: var(--hand); font-size: 1.05em; }
 .sc { opacity: 0; transition: opacity 0.6s ease, transform 0.8s ease; }
 .sc.on { opacity: 1; }
@@ -496,10 +504,31 @@ button:disabled { cursor: default; }
 .board-only { flex: 1; justify-content: center; padding: 18px 10px 14px; }
 .board-line { position: relative; opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.3s ease, max-height 0.6s ease, color 0.4s; color: var(--chalk-2); font-family: var(--hand); font-size: 18px; line-height: 1.45; }
 .board-line.on { opacity: 1; max-height: 320px; padding: 3px 0; }
-.board-line.on .ink { display: inline-block; animation: write 1.4s steps(28, end) both; }
+.board-line.on .ink { display: inline-block; animation: write var(--wd, 1.4s) linear both; }
 @keyframes write { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 -2% 0 0); } }
-.pen { position: absolute; top: 2px; font-size: 22px; color: var(--chalk); animation: penmove 1.4s steps(28, end) both; pointer-events: none; }
-@keyframes penmove { from { left: 0; } to { left: calc(100% - 22px); opacity: 0.0; } 90% { opacity: 1; } }
+/* Whiteboard layout: long derivations in two columns, a drawing beside its notes. */
+.board-cols { display: grid; grid-template-columns: 1fr 1fr; column-gap: 36px; align-content: start; }
+.board-cols .board-head { grid-column: 1 / -1; }
+.board-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.board-col + .board-col { border-left: 2px dashed #e3e6ea; padding-left: 28px; }
+.board-flow { display: contents; }
+.scene-cam { position: relative; }
+.scene-cam.split { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 22px; align-items: center; }
+.scene-cam.split .board { justify-content: center; }
+/* The hand writing the current line: the marker tip runs along the ink as it
+   appears, bobbing a little like real handwriting, then leaves. */
+.hand { position: absolute; width: 0; height: 0; pointer-events: none; z-index: 2; }
+.hand-svg { display: block; width: 64px; height: auto; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.18)); }
+.hand-write { animation: handrun var(--wd) linear both, handleave 0.5s ease var(--wd) forwards; }
+.hand-write .hand-bob { animation: handbob 0.22s ease-in-out infinite alternate; }
+@keyframes handrun { from { transform: translateX(0); } to { transform: translateX(var(--w)); } }
+@keyframes handleave { to { opacity: 0; translate: 30px 40px; } }
+@keyframes handbob { from { transform: translate(0, -3px) rotate(-2deg); } to { transform: translate(2px, 2px) rotate(1deg); } }
+.hand-point { animation: handin 0.6s cubic-bezier(0.3, 0.8, 0.3, 1) both, handleave 0.6s ease 2.6s forwards; }
+.hand-point .hand-bob { animation: handtap 0.9s ease-in-out 0.6s 2 alternate; }
+@keyframes handin { from { opacity: 0; translate: 60px 70px; } }
+@keyframes handtap { to { transform: translate(-4px, -5px); } }
+@media (prefers-reduced-motion: reduce) { .hand { display: none; } }
 .board-line.hl { color: var(--chalk); filter: none; animation: none; }
 .board-line.kind-h { font-family: var(--script); font-size: 30px; font-weight: 700; color: var(--chalk); }
 .board-line.kind-eq { text-align: center; font-family: var(--hand); font-size: 26px; color: var(--c-blue); }

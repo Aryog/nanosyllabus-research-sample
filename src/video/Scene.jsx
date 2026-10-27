@@ -33,6 +33,37 @@ const isMuted = () => {
 
 const BASE = import.meta.env.BASE_URL;
 
+// Plain text of a board line, to pace its handwriting by length.
+const textOf = (n) => (n == null || typeof n === 'boolean' ? '' : typeof n !== 'object' ? String(n) : Array.isArray(n) ? n.map(textOf).join('') : textOf(n.props?.children));
+const writeSecs = (n) => Math.min(2.6, Math.max(0.8, textOf(n).length * 0.045));
+
+// Wide screens lay the board out like a real whiteboard: a drawing beside its
+// notes, and long derivations in two columns.
+const WIDE = '(min-width: 901px)';
+const useWide = () => {
+  const [wide, setWide] = useState(() => typeof matchMedia !== 'undefined' && matchMedia(WIDE).matches);
+  useEffect(() => {
+    const m = matchMedia(WIDE);
+    const on = () => setWide(m.matches);
+    m.addEventListener('change', on);
+    return () => m.removeEventListener('change', on);
+  }, []);
+  return wide;
+};
+
+// Cartoon hand holding a marker; the marker tip is the element's top-left corner.
+const Hand = () => (
+  <svg className="hand-svg" viewBox="0 0 120 130" aria-hidden="true">
+    <path d="M72 96 L120 130 L120 104 L88 80 Z" fill="#3b5bdb" stroke="#1f2328" strokeWidth="3" strokeLinejoin="round" />
+    <path d="M4 4 L14 9 L58 58 L48 66 L6 16 Z" fill="#1f2328" />
+    <path d="M14 9 L58 58 L52 63 L9 14 Z" fill="#495057" />
+    <path d="M4 4 L10 6 L6 12 Z" fill="#1c7ed6" />
+    <path d="M44 52 C40 42 52 34 62 40 L96 62 C108 70 104 92 90 96 L70 100 C56 102 46 92 48 80 Z" fill="#f2c39b" stroke="#1f2328" strokeWidth="3" strokeLinejoin="round" />
+    <path d="M38 50 C32 44 38 36 46 40 L62 52" fill="#f2c39b" stroke="#1f2328" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M56 70 C62 72 70 72 76 68 M60 82 C66 84 74 84 80 80" fill="none" stroke="#1f2328" strokeWidth="2.5" strokeLinecap="round" />
+  </svg>
+);
+
 // Recorded clips, keyed by voiceKey(text). Loaded once for all scenes.
 let clips = {};
 const clipsReady = fetch(`${BASE}audio/scene/manifest.json`)
@@ -102,6 +133,12 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
   const stageRef = useRef(null);
   const camRef = useRef(null);
   const [cam, setCam] = useState({ x: 0, y: 0, k: 1 });
+  const [hand, setHand] = useState(null);
+  const wide = useWide();
+  const split = wide && draw && board?.length > 1;
+  // Long derivation: heading across the top, the rest written column by column.
+  const head = board && !draw && board[0]?.kind === 'h' ? 1 : 0;
+  const cols = wide && board && !draw && board.length - head >= 7 ? Math.ceil((board.length - head) / 2) + head : 0;
 
   // Camera, like an explainer video: zoom onto what this beat explains (the
   // board line being written, or the drawing parts it highlights); on beats
@@ -143,8 +180,27 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
       const place = (view, size, c) => (size * k <= view ? (view - size * k) / 2 : Math.min(0, Math.max(view - size * k, view / 2 - c * k)));
       setCam({ k, x: place(W, cw, cx), y: place(H, ch, cy) });
     };
+    // The hand follows the line being written, or points at the highlighted part.
+    const pen = () => {
+      const el = camRef.current;
+      if (!el || ended) return setHand(null);
+      const o = el.getBoundingClientRect();
+      const k0 = new DOMMatrix(getComputedStyle(el).transform).a || 1;
+      const ink = el.querySelector('.board-line.hl:not(.kind-q) .ink');
+      const part = !ink && el.querySelector('svg .hl');
+      const r = (ink || part)?.getBoundingClientRect();
+      if (!r || (!r.width && !r.height)) return setHand(null);
+      const x = (r.left - o.left) / k0;
+      const y = (r.top - o.top) / k0;
+      const w = r.width / k0;
+      const h = r.height / k0;
+      setHand(ink ? { mode: 'write', x, y: y + h * 0.7, w, secs: ink.parentElement.style.getPropertyValue('--wd') } : { mode: 'point', x: x + w / 2, y: y + h / 2, w: 0 });
+    };
     // Once as the line starts, again after it has grown to full height.
-    const a = setTimeout(frame, 60);
+    const a = setTimeout(() => {
+      frame();
+      pen();
+    }, 60);
     const b = setTimeout(frame, 700);
     window.addEventListener('resize', frame);
     return () => {
@@ -299,20 +355,38 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
     <div className={`scene beat-${beat} ${tall ? 'tall' : ''}`}>
       <div className={`scene-screen ${ask ? 'asking' : ''}`}>
         <div className="scene-stage" ref={stageRef}>
-          <div className="scene-cam" ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
+          <div className={`scene-cam ${split ? 'split' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
             {draw && (
               <svg viewBox={viewBox} className="scene-svg" role="img">
                 {draw(s)}
               </svg>
             )}
             {board && (
-              <div className={`board ${draw ? '' : 'board-only'}`}>
-                {board.map((b, i) => (
-                  <div key={i} className={`board-line kind-${b.kind ?? 'text'} ${beat >= b.at && (b.until == null || beat <= b.until) ? 'on' : ''} ${beat === b.at ? 'hl' : ''}`}>
-                    <span className="ink">{b.node}</span>
-                    {beat === b.at && <span className="pen" aria-hidden="true">✎</span>}
+              <div className={`board ${draw ? '' : 'board-only'} ${cols ? 'board-cols' : ''}`}>
+                {(cols ? [board.slice(0, head), board.slice(head, cols), board.slice(cols)] : [board]).map((part, c) => (
+                  <div key={c} className={cols ? (c ? 'board-col' : 'board-head') : 'board-flow'}>
+                    {part.map((b, i) => (
+                      <div
+                        key={i}
+                        className={`board-line kind-${b.kind ?? 'text'} ${beat >= b.at && (b.until == null || beat <= b.until) ? 'on' : ''} ${beat === b.at ? 'hl' : ''}`}
+                        style={{ '--wd': `${writeSecs(b.node)}s` }}
+                      >
+                        <span className="ink">{b.node}</span>
+                      </div>
+                    ))}
                   </div>
                 ))}
+              </div>
+            )}
+            {hand && (
+              <div
+                key={`${beat}-${run}`}
+                className={`hand hand-${hand.mode}`}
+                style={{ left: hand.x, top: hand.y, '--w': `${hand.w}px`, '--wd': hand.secs || '1.4s' }}
+              >
+                <div className="hand-bob">
+                  <Hand />
+                </div>
               </div>
             )}
           </div>
