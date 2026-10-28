@@ -173,7 +173,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
 
   useEffect(() => {
     if (!toast) return;
-    const t = setTimeout(() => setToast(null), 1800);
+    const t = setTimeout(() => setToast(null), 2200);
     return () => clearTimeout(t);
   }, [toast]);
 
@@ -190,14 +190,14 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
     setTimeout(() => setXpBump(false), 600);
   };
 
-  const pop = (text) => setToast({ text, key: Date.now() });
+  const pop = (label, xp) => setToast({ label, xp, key: Date.now() });
   const onVideoEnd = () => {
     setVideoEnded(true);
     const id = `${mode}-${entry.i}`;
     if (watched.current.has(id)) return;
     watched.current.add(id);
     gainXp(10);
-    pop('🎬 Video complete · +10 XP');
+    pop('Video complete', 10);
   };
   const onCheck = (right, first) => {
     if (!first) return;
@@ -206,7 +206,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
     setStreak(n);
     const bonus = n >= 3 ? 5 : 0;
     gainXp(5 + bonus);
-    pop(n >= 3 ? `🔥 ${n} streak · +${5 + bonus} XP` : '✅ Sahi · +5 XP');
+    pop(n >= 3 ? `🔥 ${n} streak!` : 'Ekdam sahi!', 5 + bonus);
   };
 
   const markRight = (line) => {
@@ -452,8 +452,15 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
 
       <main className={`card ${glow} ${step.video && !done ? "card-video" : ""}`}>
         {toast && (
-          <div className="xp-toast" key={toast.key}>
-            {toast.text}
+          <div className="xp-toast" key={toast.key} role="status">
+            <Mascot pose="dab" size={84} />
+            <div className="xp-toast-text">
+              <b>+{toast.xp} XP</b>
+              <span>{toast.label}</span>
+            </div>
+            {[...Array(8)].map((_, i) => (
+              <i key={i} className="xp-bit" style={{ '--a': `${i * 45 + 20}deg` }} />
+            ))}
           </div>
         )}
 

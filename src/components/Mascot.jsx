@@ -1,6 +1,7 @@
-// "Sparky" — a little graduate with a mortarboard. Poses: idle, talk, think, oops, jab.
+// "Sparky" — a little graduate with a mortarboard. Poses: idle, talk, think, oops, jab, dab.
 // Everything is drawn with smooth curves (no straight segments) so it reads soft at any size.
 // The jab (on a correct answer) is a quick SMIL punch: chamber → extend → settle.
+// The dab (with the XP toast) flings one arm up and tucks the face into the other elbow.
 const INK = '#1b1b1b';
 const GOLD = '#f4b400';
 
@@ -24,6 +25,12 @@ const ARMS = {
   ],
   // Guard hand up by the face; the punching arm is animated below.
   jab: [{ d: 'M34 78 Q21 77 29 65', hand: [29, 64] }],
+  // Dab: the near arm folded across the face, the far arm flung up and out,
+  // both pointing the same way.
+  dab: [
+    { d: 'M34 80 Q40 60 56 59 Q68 58 79 49', hand: [80, 48], cls: 'dab-tuck' },
+    { d: 'M86 78 Q100 65 113 50', hand: [114, 49], cls: 'dab-fling' },
+  ],
 };
 
 // Punching arm keyframes: chambered by the chest, fully extended, settled slightly back.
@@ -80,13 +87,13 @@ function JabArm() {
 }
 
 export default function Mascot({ pose = 'idle', speaking = false, size = 84 }) {
-  const p = pose === 'dab' ? 'jab' : pose; // old name kept working
+  const p = pose;
   const arms = ARMS[p] ?? ARMS.idle;
-  const happy = p === 'jab';
-  const tilt = p === 'jab' ? -5 : p === 'oops' ? 5 : 0;
+  const happy = p === 'jab' || p === 'dab';
+  const tilt = p === 'jab' ? -5 : p === 'dab' ? -12 : p === 'oops' ? 5 : 0;
   return (
     <svg
-      key={p /* remount so the jab replays on every correct answer */}
+      key={p /* remount so the jab and dab replay every time */}
       className={`mascot pose-${p} ${speaking ? 'is-speaking' : ''}`}
       viewBox="0 0 120 120"
       width={size}
@@ -148,12 +155,19 @@ export default function Mascot({ pose = 'idle', speaking = false, size = 84 }) {
           <rect className="mascot-tassel" x="83.5" y="53" width="5" height="7" rx="2.2" fill={GOLD} />
         </g>
         {arms.map((a, i) => (
-          <g key={i}>
+          <g key={i} className={a.cls}>
             <ArmStroke d={a.d} />
             <Hand x={a.hand[0]} y={a.hand[1]} r={p === 'jab' ? 6 : 5.2} />
           </g>
         ))}
         {p === 'jab' && <JabArm />}
+        {p === 'dab' && (
+          <g className="dab-sparks" fill={GOLD}>
+            <path d="M104 22 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2z" />
+            <path d="M16 44 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5z" />
+            <path d="M92 12 l1 3 3 1 -3 1 -1 3 -1 -3 -3 -1 3 -1z" />
+          </g>
+        )}
         {p === 'think' && (
           <text x="96" y="40" fontSize="20" fontWeight="800" fill={GOLD}>?</text>
         )}

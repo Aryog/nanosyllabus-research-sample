@@ -1,0 +1,57 @@
+{
+  "0b800a0d": {
+    "title": "Model answer: shunt ra series characteristics",
+    "v": "mvs330x8",
+    "voiced": "11111111"
+  },
+  "0fb19fa9": {
+    "title": "Motor le aafno current aafai kina limit garcha",
+    "v": "mvs2wcps",
+    "voiced": "11111111"
+  },
+  "10d3df3d": {
+    "title": "DC motor hamro dherai najik cha",
+    "v": "mvs2ujev",
+    "voiced": "1111"
+  },
+  "20105ce6": {
+    "title": "Derivation: torque equation",
+    "v": "mvs2xh0a",
+    "voiced": "111111111"
+  },
+  "4c78098f": {
+    "title": "Kun motor kasto swabhav ko?",
+    "v": "mvs2ytal",
+    "voiced": "1111"
+  },
+  "79a18d31": {
+    "title": "Field le current kasari pauncha",
+    "v": "mvs2zp44",
+    "voiced": "11111111"
+  },
+  "8de9eb1d": {
+    "title": "Model answer: working principle ra torque equation",
+    "v": "mvs2ygfe",
+    "voiced": "11111111"
+  },
+  "9e7fea6e": {
+    "title": "Derivation: series motor ko characteristics",
+    "v": "mvs31epw",
+    "voiced": "11111111"
+  },
+  "cf7561eb": {
+    "title": "Derivation: shunt motor ko characteristics",
+    "v": "mvs30htf",
+    "voiced": "11111111"
+  },
+  "d558029c": {
+    "title": "Armature le torque kasari banaucha",
+    "v": "mvs2vdln",
+    "voiced": "1111111"
+  },
+  "de070903": {
+    "title": "Compound motor ra kun motor kaha use huncha",
+    "v": "mvs324h6",
+    "voiced": "1111111"
+  }
+}

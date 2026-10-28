@@ -32,3 +32,7 @@ export function voiceKey(text) {
   }
   return (h >>> 0).toString(16).padStart(8, '0');
 }
+
+// A whole video's key, from everything it says: its rendered MP4 is
+// public/videos/<key>.mp4, so editing any line marks the video for a re-render.
+export const videoKey = (beats) => voiceKey(beats.map(beatText).join(' | '));
