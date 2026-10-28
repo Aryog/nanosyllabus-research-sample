@@ -351,7 +351,11 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
       .sort()
       .map((seg) => {
         const ks = groups[seg];
-        const ticks = ks.map((k) => ({ k, at: sequence.findIndex((e) => e.i === k && !e.retry), title: lesson.steps[k].figureProps?.title ?? seg }));
+        const ticks = ks.map((k, n) => {
+          const st = lesson.steps[k];
+          const name = st.title ?? (st.input ? 'Question' : st.task ? 'Try it' : seg);
+          return { k, n: n + 1, of: ks.length, at: sequence.findIndex((e) => e.i === k && !e.retry), title: name, kind: st.video ? 'Video' : st.input ? 'Question' : 'Screen' };
+        });
         return { seg, ticks, now: seg === step.segment, frac: ks.filter((k) => k < entry.i).length / ks.length };
       });
   }, [lesson, step, entry, sequence, inPractice, done]);
@@ -429,19 +433,30 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
         <div className="progress-group">
           {segBars ? (
             segBars.map((b) => (
-              <div key={b.seg} className={`progress progress-seg ${b.now ? 'now' : ''}`} title={b.seg}>
+              <div key={b.seg} className={`progress progress-seg ${b.now ? 'now' : ''}`}>
                 <div className="progress-fill" style={{ width: `${b.now ? Math.max(b.frac * 100, 4) : b.frac * 100}%` }} />
                 <div className="progress-ticks">
-                  {b.ticks.map((t) => (
-                    <button
-                      key={t.k}
-                      className={`progress-tick ${t.k === entry.i ? 'on' : ''}`}
-                      disabled={t.at < 0 || t.at > reach || t.k === entry.i}
-                      onClick={() => setPos(t.at)}
-                      title={t.title}
-                      aria-label={`Go to: ${t.title}`}
-                    />
-                  ))}
+                  {b.ticks.map((t) => {
+                    // Hover card: where this screen sits, its name, and whether you can go there.
+                    const here = t.k === entry.i;
+                    const open = t.at >= 0 && t.at <= reach && !here;
+                    const state = here ? '▶ Ahile yaha cha' : t.at >= 0 && t.at < pos ? '✓ Herisakyau · click garera feri hera' : open ? 'Click garera jau' : '🔒 Aghi badhepachi khulcha';
+                    return (
+                      <button
+                        key={t.k}
+                        className={`progress-tick ${here ? 'on' : ''}`}
+                        aria-disabled={!open}
+                        onClick={() => open && setPos(t.at)}
+                        aria-label={`${t.kind} ${t.n}/${t.of}: ${t.title}. ${state}`}
+                      >
+                        <span className="tick-tip" role="tooltip">
+                          <small>{[step.chapter?.split(' · ')[0], b.seg].filter(Boolean).join(' · ')} · {t.kind} {t.n}/{t.of}</small>
+                          <b>{t.title}</b>
+                          <span className={here ? 'now' : open ? 'go' : 'lock'}>{state}</span>
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             ))

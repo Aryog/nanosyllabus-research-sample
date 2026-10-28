@@ -65,8 +65,17 @@ button:disabled { cursor: default; }
 .progress-ticks { position: absolute; inset: -8px 0; display: flex; }
 .progress-tick { flex: 1; border: 0; padding: 0; background: transparent; cursor: pointer; position: relative; }
 .progress-tick + .progress-tick::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; background: var(--bg); }
-.progress-tick:not(:disabled):hover::after { content: ''; position: absolute; inset: 6px 1px; border-radius: 99px; background: rgba(0, 0, 0, 0.12); }
-.progress-tick:disabled { cursor: default; }
+.progress-tick:not([aria-disabled='true']):hover::after { content: ''; position: absolute; inset: 6px 1px; border-radius: 99px; background: rgba(0, 0, 0, 0.12); }
+.progress-tick[aria-disabled='true'] { cursor: default; }
+/* Hover card for each screen in the progress bar. */
+.tick-tip { position: absolute; top: calc(100% + 10px); left: 50%; z-index: 30; display: flex; flex-direction: column; gap: 3px; min-width: 250px; max-width: 320px; padding: 9px 12px; border-radius: 12px; background: var(--card); border: 1.5px solid var(--line); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14); text-align: left; white-space: normal; pointer-events: none; opacity: 0; transform: translate(-50%, -4px); transition: opacity 0.15s ease, transform 0.15s ease; }
+.tick-tip::before { content: ''; position: absolute; top: -7px; left: 50%; width: 12px; height: 12px; background: var(--card); border-left: 1.5px solid var(--line); border-top: 1.5px solid var(--line); transform: translateX(-50%) rotate(45deg); }
+.progress-tick:hover .tick-tip, .progress-tick:focus-visible .tick-tip { opacity: 1; transform: translate(-50%, 0); }
+.tick-tip small { font-size: 11px; font-weight: 700; color: var(--green-btn); letter-spacing: 0.02em; }
+.tick-tip b { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+.tick-tip span { font-size: 12px; font-weight: 600; color: var(--muted); }
+.tick-tip span.now { color: var(--blue-ink); }
+.tick-tip span.go { color: var(--green-btn); }
 .progress-seg.now { opacity: 1; outline: 2px solid var(--line); outline-offset: 2px; }
 .progress-dot { width: 14px; height: 8px; border-radius: 99px; background: var(--surface-2); flex: none; }
 .xp { justify-self: end; display: flex; align-items: center; gap: 4px; color: var(--muted); font-weight: 600; font-size: 15px; }
