@@ -45,6 +45,11 @@ const t41 = topic({
       voice: 'अनि घुम्दा बन्ने ब्याक इएमएफ के हो, र टर्क कति हुन्छ, त्यो निकाल्छौं।',
       lines: [{ kind: 'idea', node: <>Back EMF k ho?</> }, { kind: 'idea', node: <>Torque kati huncha, kasari nikalne?</> }],
     },
+    {
+      say: 'Ani last ma, IOE ma tin choti aayeko question: working principle ra torque equation, sangai solve garchau. Antya samma hera!',
+      voice: 'अनि लास्टमा, आइओईमा तीन चोटि आएको क्वेस्चन: वर्किङ प्रिन्सिपल र टर्क इक्वेसन, सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
+      lines: [{ kind: 'hook', node: <>★ Last ma: IOE ma 3 choti aayeko question</> }],
+    },
   ],
   introArt: {
     viewBox: '0 0 360 220',
@@ -89,6 +94,11 @@ const t42 = topic({
       say: 'Load thapda kun motor ko speed ra torque kasari change huncha, ani kun kaha use garne, bujhchau.',
       voice: 'लोड थप्दा कुन मोटरको स्पिड र टर्क कसरी चेन्ज हुन्छ, अनि कुन कहाँ युज गर्ने, बुझ्छौं।',
       lines: [{ kind: 'idea', node: <>Load thapda speed ra torque ma k huncha?</> }, { kind: 'idea', node: <>Kun kaam ma kun motor?</> }],
+    },
+    {
+      say: 'Ani last ma, IOE 2070 Magh ko shunt ra series characteristics question sangai solve garchau. Antya samma hera!',
+      voice: 'अनि लास्टमा, आइओई दुई हजार सत्तरी माघको शन्ट र सिरिज क्यारेक्टरिस्टिक्स क्वेस्चन सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
+      lines: [{ kind: 'hook', node: <>★ Last ma: IOE 2070 Magh ko question</> }],
     },
   ],
   introArt: {
@@ -142,6 +152,11 @@ const t43 = topic({
       voice: 'अनि मोटर सबैभन्दा इफिसियन्ट कहिले हुन्छ, त्यो कन्डिसन निकाल्छौं।',
       lines: [{ kind: 'idea', node: <>Efficiency kahile maximum huncha?</> }],
     },
+    {
+      say: 'Ani last ma, IOE 2074 Bhadra ko efficiency numerical sangai solve garchau. Antya samma hera!',
+      voice: 'अनि लास्टमा, आइओई दुई हजार चौहत्तर भदौको इफिसियन्सी न्युमेरिकल सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
+      lines: [{ kind: 'hook', node: <>★ Last ma: IOE 2074 Bhadra ko numerical</> }],
+    },
   ],
   terms: [vibe43, losses],
   derive: [maxEff],
@@ -165,6 +180,11 @@ const t44 = topic({
       say: 'Ani starter le motor lai kasari bachaucha, 3-point ra 4-point ma k farak, bujhchau.',
       voice: 'अनि स्टार्टरले मोटरलाई कसरी बचाउँछ, थ्री-पोइन्ट र फोर-पोइन्टमा के फरक, बुझ्छौं।',
       lines: [{ kind: 'idea', node: <>Starter le kasari bachaucha?</> }, { kind: 'step', node: <>3-point vs 4-point: k farak?</> }],
+    },
+    {
+      say: 'Ani last ma, IOE ma saat choti aayeko starter question sangai solve garchau. Antya samma hera!',
+      voice: 'अनि लास्टमा, आइओईमा सात चोटि आएको स्टार्टर क्वेस्चन सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
+      lines: [{ kind: 'hook', node: <>★ Last ma: IOE ma 7 choti aayeko question</> }],
     },
   ],
   terms: [vibe44, threePoint, fourPoint],
@@ -190,6 +210,11 @@ const t45 = topic({
       voice: 'अनि स्पिड घटाउने बढाउने र डाइरेक्सन उल्टो गर्ने तरिका सिक्छौं।',
       lines: [{ kind: 'idea', node: <>Speed kasari ghataune, badhaune?</> }, { kind: 'idea', node: <>Direction kasari ulto garne?</> }],
     },
+    {
+      say: 'Ani last ma, IOE 2075 Baisakh ko series motor speed control question sangai solve garchau. Antya samma hera!',
+      voice: 'अनि लास्टमा, आइओई दुई हजार पचहत्तर वैशाखको सिरिज मोटर स्पिड कन्ट्रोल क्वेस्चन सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
+      lines: [{ kind: 'hook', node: <>★ Last ma: IOE 2075 Baisakh ko question</> }],
+    },
   ],
   terms: [vibe45, threeKnobs, fieldControl, armatureControl, reversing],
   derive: [speedDerivation],
@@ -213,6 +238,11 @@ const t46 = topic({
       say: "Swinburne's test ra retardation test le k k napcha, bujhchau.",
       voice: 'स्विनबर्न्स टेस्ट र रिटार्डेसन टेस्टले के के नाप्छ, बुझ्छौं।',
       lines: [{ kind: 'idea', node: <>Swinburne's test le k napcha?</> }, { kind: 'idea', node: <>Retardation test le k napcha?</> }],
+    },
+    {
+      say: 'Ani last ma, exam ma aaune testing ko model answer sangai lekhchau. Antya samma hera!',
+      voice: 'अनि लास्टमा, एक्जाममा आउने टेस्टिङको मोडल आन्सर सँगै लेख्छौं। अन्त्यसम्म हेर!',
+      lines: [{ kind: 'hook', node: <>★ Last ma: exam-style model answer</> }],
     },
   ],
   terms: [vibe46, testIntro],

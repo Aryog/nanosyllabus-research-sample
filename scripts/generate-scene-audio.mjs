@@ -2,8 +2,13 @@
 // public/audio/scene/<key>.mp3 (key = voiceKey of the spoken text). Only new or
 // edited lines are requested; clips for removed lines are deleted.
 //
-//   npm run audio:scenes            record missing lines
-//   npm run audio:scenes -- --dry   just count lines and characters
+//   npm run audio:scenes -- 4.1            record missing lines of micro-topic 4.1
+//   npm run audio:scenes -- 4.1 --dry      just count lines and characters
+//   npm run audio:scenes -- 4.1 --even     even out clips already recorded (no credits)
+//   npm run audio:scenes                   every topic (asks nothing: estimate first!)
+//
+// Every new clip is evened out (audio-even.mjs): same pace, loudness and
+// pauses, so the voice sounds the same everywhere.
 //
 // Key is read from .env as ELEVENLABS_API_KEY=sk_... (a bare sk_... line also works).
 // Optional: ELEVENLABS_SCENE_VOICE_ID, ELEVENLABS_SCENE_MODEL_ID.
@@ -13,11 +18,14 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { build } from 'esbuild';
 import { beatText, isNepali, spoken, voiceKey } from '../src/video/voice.js';
+import { evenClip, evenTag, isEven } from './audio-even.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = path.join(root, 'public', 'audio', 'scene');
 const manifestPath = path.join(outDir, 'manifest.json');
 const dry = process.argv.includes('--dry');
+const evenOnly = process.argv.includes('--even');
+const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 
 async function loadEnv() {
   const env = {};
@@ -60,10 +68,16 @@ globalThis.fetch = (u, ...r) => (String(u).startsWith('/') ? Promise.reject(new 
 const { journey } = await import(pathToFileURL(bundle).href);
 await rm(tmp, { recursive: true, force: true });
 
+// Every line of the course (to drop stale clips), and the ones asked for: the
+// main path of the given micro-topics (or everything).
 const lines = new Map();
+const want = new Map();
 for (const st of journey.steps) for (const b of st.figureProps?.beats ?? []) {
   const text = beatText(b);
-  if (text) lines.set(voiceKey(text), spoken(text));
+  if (!text) continue;
+  lines.set(voiceKey(text), spoken(text));
+  const topic = st.chapter?.split(' · ')[0];
+  if (!only.length || (!st.practice && only.includes(topic))) want.set(voiceKey(text), spoken(text));
 }
 const chars = [...lines.values()].reduce((n, t) => n + t.length, 0);
 
@@ -75,13 +89,26 @@ try {
 const exists = (p) => access(p).then(() => true, () => false);
 const todo = [];
 const onDisk = new Set();
-for (const [key, text] of lines) {
+for (const [key, text] of want) {
   if (await exists(path.join(outDir, `${key}.mp3`))) onDisk.add(key);
   else todo.push([key, text]);
 }
 const todoChars = todo.reduce((n, [, t]) => n + t.length, 0);
-console.log(`${lines.size} lines (${chars} chars); ${todo.length} to record (${todoChars} chars).`);
+console.log(`${only.length ? only.join(', ') : 'all topics'}: ${want.size} lines; ${todo.length} to record (${todoChars} chars = credits). Course total ${lines.size} lines (${chars} chars).`);
 if (dry) process.exit(0);
+if (evenOnly) {
+  let n = 0;
+  for (const key of onDisk) {
+    if (isEven(manifest[key])) continue;
+    const { pace, tempo } = await evenClip(path.join(outDir, `${key}.mp3`), want.get(key));
+    manifest[key] = evenTag(manifest[key] ?? 'v3ne');
+    n++;
+    console.log(`≈ ${key} ${pace.toFixed(1)} ch/s × ${tempo.toFixed(2)}`);
+  }
+  await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
+  console.log(`Evened ${n} clips.`);
+  process.exit(0);
+}
 
 const env = await loadEnv();
 const apiKey = env.ELEVENLABS_API_KEY;
@@ -128,7 +155,8 @@ await Promise.all(
       const [key, text] = job;
       try {
         await synth(key, text);
-        manifest[key] = tagFor(text);
+        await evenClip(path.join(outDir, `${key}.mp3`), text);
+        manifest[key] = evenTag(tagFor(text));
         made++;
         console.log(`✓ ${key} ${text.slice(0, 60)}`);
         if (made % 20 === 0) await save();

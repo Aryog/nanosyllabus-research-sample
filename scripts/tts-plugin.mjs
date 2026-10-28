@@ -6,11 +6,16 @@
 //
 // Only lines that exist in the course can be recorded: the key is looked up in
 // the course's beats, never taken as free text from the browser.
+//
+// Off unless TTS_LIVE=1 in .env: recording costs credits, so by default lines
+// are recorded on purpose with `npm run audio:scenes -- <topic>`, and an
+// unrecorded line just falls back in the player.
 
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import path from 'node:path';
 import { loadEnv } from 'vite';
 import { beatText, isNepali, spoken, voiceKey } from '../src/video/voice.js';
+import { evenClip, evenTag } from './audio-even.mjs';
 
 export function sceneTts() {
   let server;
@@ -72,15 +77,16 @@ export function sceneTts() {
     const mp3 = Buffer.from(await res.arrayBuffer());
     await mkdir(outDir, { recursive: true });
     await writeFile(path.join(outDir, `${key}.mp3`), mp3);
+    await evenClip(path.join(outDir, `${key}.mp3`), text);
     const manifestPath = path.join(outDir, 'manifest.json');
     let manifest = {};
     try {
       manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
     } catch {}
-    manifest[key] = (nepali ? 'v3ne' : modelId.slice(7, 12)) + voiceId.slice(0, 4);
+    manifest[key] = evenTag((nepali ? 'v3ne' : modelId.slice(7, 12)) + voiceId.slice(0, 4));
     await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
     console.log(`[tts] recorded ${key} (${text.length} chars): ${text.slice(0, 60)}`);
-    return mp3;
+    return readFile(path.join(outDir, `${key}.mp3`));
   }
 
   return {
@@ -104,6 +110,7 @@ export function sceneTts() {
         const file = path.join(outDir, `${key}.mp3`);
         try {
           if (await access(file).then(() => true, () => false)) return send(200, await readFile(file), 'audio/mpeg');
+          if (env.TTS_LIVE !== '1') return send(404, 'not recorded (TTS_LIVE is off)');
           if (!env.ELEVENLABS_API_KEY) return send(503, 'no ELEVENLABS_API_KEY in .env');
           const text = (await courseLines()).get(key);
           if (!text) return send(404, 'not a course line');
