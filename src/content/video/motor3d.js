@@ -9,7 +9,9 @@
     5  question (the armature keeps turning)
     6  neutral zone: crossing it, a conductor's current (and its push) flips
   Front view = looking along the shaft (+z toward the viewer), as in the 2D
-  drawing. Everything moves on the scene clock (see Stage3D.jsx).
+  drawing. Everything moves on the scene clock (see Stage3D.jsx). Inside a
+  beat, parts come in when the voice names them: CUE holds those moments in
+  ms into the beat (from the evened clips, about 14 characters a second).
 */
 
 const COL = { north: 0xe03131, south: 0x1c7ed6, steel: 0x5c636a, copper: 0xd9480f, spark: 0xffd43b, force: 0x2b8a3e, field: 0x1c7ed6, torque: 0xf08c00 };
@@ -18,16 +20,26 @@ const L = 3; // armature length (along z)
 const ANGLES = [140, 180, 220, -40, 0, 40].map((d) => (d * Math.PI) / 180);
 // Camera per beat: where it stands (it always looks at the armature).
 const SHOTS = [
-  [3.6, 2.6, 8.6],
-  [4.4, 3.8, 7.2],
-  [-3, 1.4, 8.6],
-  [3, 1.4, 8.6],
-  [0.8, 1.4, 9.2],
-  [0.8, 1.4, 9.2],
-  [0, 0.8, 9.2],
+  [3.8, 2.6, 9.4],
+  [4.2, 3.4, 9],
+  [-3, 1.4, 8.8],
+  [3, 1.4, 8.8],
+  [0.8, 1.4, 9.4],
+  [0.8, 1.4, 9.4],
+  [0, 0.9, 9.6],
 ];
+const AIM = [0, -0.25, 0]; // look a little below the shaft, so the poles clear the caption
 const MOVE = 1100; // ms for the camera to reach the beat's shot
-const SPIN = 0.0011; // armature turn, rad per ms of clock, from beat 4 on
+const SPIN = 0.0011; // armature turn, rad per ms of clock, once it is turning
+const SLOW = 0.0006; // slower on the neutral-zone beat, so each current flip can be followed
+// When each part comes in, in ms into its beat (as the line names it).
+const CUE = {
+  armature: 300, north: 1900, south: 3400, field: 5000, // beat 0
+  left: 2100, right: 7500, // beat 1: current under N, then under S
+  fieldHi: 2400, currentHi: 3800, pushDown: 5800, // beat 2: Fleming, field → current → force
+  rightHi: 500, pushUp: 2500, // beat 3
+  tapLeft: 100, tapRight: 1100, turn: 5000, arc: 6000, ta: 10300, // beat 4
+};
 
 export function buildMotor(THREE, scene) {
   const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.45, metalness: 0.15, ...o });
@@ -97,21 +109,30 @@ export function buildMotor(THREE, scene) {
     g.add(tag);
     g.position.x = x;
     scene.add(g);
+    return g;
   };
-  pole(-2.9, COL.north, 'N');
-  pole(2.9, COL.south, 'S');
+  const north = pole(-2.9, COL.north, 'N');
+  const south = pole(2.9, COL.south, 'S');
 
-  // Field lines from N to S, with dots flowing along them.
+  // Field lines from N to S, with dots flowing along them. They grow out of
+  // N's face (field.scale.x) when the line names the field.
+  const X0 = -2.38;
+  const X1 = 2.3;
+  const field = new THREE.Group();
+  field.position.x = X0;
+  scene.add(field);
+  const fieldLines = [];
   const dots = [];
   for (const y of [-0.85, 0.85]) {
     for (const z of [-1.1, 0, 1.1]) {
-      const pts = [new THREE.Vector3(-2.38, y, z), new THREE.Vector3(2.3, y, z)];
+      const pts = [new THREE.Vector3(0, y, z), new THREE.Vector3(X1 - X0, y, z)];
       const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: COL.field, transparent: true, opacity: 0.35 }));
-      scene.add(line);
+      field.add(line);
+      fieldLines.push(line);
       const head = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.2, 12), mat(COL.field));
       head.rotation.z = -Math.PI / 2;
-      head.position.set(2.3, y, z);
-      scene.add(head);
+      head.position.set(X1 - X0, y, z);
+      field.add(head);
       for (let k = 0; k < 6; k++) {
         const d = new THREE.Mesh(new THREE.SphereGeometry(0.045, 10, 8), mat(COL.field, { emissive: COL.field, emissiveIntensity: 0.4 }));
         d.userData = { y, z, k };
@@ -139,7 +160,7 @@ export function buildMotor(THREE, scene) {
   const conductors = ANGLES.map((a) => {
     const g = new THREE.Group();
     g.position.set(R * 0.93 * Math.cos(a), R * 0.93 * Math.sin(a), 0);
-    const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, L + 0.12, 20), mat(COL.copper, { metalness: 0.5, roughness: 0.3 }));
+    const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, L + 0.12, 20), mat(COL.copper, { metalness: 0.5, roughness: 0.3, emissive: COL.spark, emissiveIntensity: 0 }));
     rod.rotation.x = Math.PI / 2;
     g.add(rod);
     const cap = new THREE.Mesh(new THREE.CircleGeometry(0.15, 24), new THREE.MeshBasicMaterial({ map: marks.none, transparent: true }));
@@ -155,7 +176,7 @@ export function buildMotor(THREE, scene) {
     const push = arrow(COL.force);
     scene.add(push);
     const out = new THREE.Vector2(Math.cos(a), Math.sin(a)).multiplyScalar(0.16);
-    return { g, cap, sparks, push, out };
+    return { g, rod, cap, sparks, push, out, home: a < Math.PI / 2 && a > -Math.PI / 2 ? 'out' : 'in', was: null, flash: 0 };
   });
 
   // Torque: a curved arrow around the shaft, in front.
@@ -173,24 +194,34 @@ export function buildMotor(THREE, scene) {
   torque.add(ta);
   torque.position.z = L / 2 + 0.35;
   scene.add(torque);
+  const ARC = Math.PI * 1.5;
 
-  // Neutral zone: the plane where a conductor passes from N's side to S's.
+  // Neutral zone: the plane where a conductor passes from N's side to S's,
+  // with a dashed line on the front face like the 2D drawing.
   const neutral = new THREE.Group();
-  const plane = new THREE.Mesh(new THREE.BoxGeometry(0.02, 3.3, 3.6), new THREE.MeshBasicMaterial({ color: 0x495057, transparent: true, opacity: 0.18, depthWrite: false }));
+  const plane = new THREE.Mesh(new THREE.BoxGeometry(0.02, 3.6, 3.6), new THREE.MeshBasicMaterial({ color: 0x495057, transparent: true, opacity: 0.16, depthWrite: false }));
   neutral.add(plane);
+  for (let i = 0; i < 9; i++) {
+    const dash = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.22, 0.02), new THREE.MeshBasicMaterial({ color: 0x495057 }));
+    dash.position.set(0, -1.75 + i * 0.44, L / 2 + 0.12);
+    neutral.add(dash);
+  }
   const nz = label('neutral zone', { size: 0.42, weight: 700 });
-  nz.position.set(0, 1.75, 1.6);
+  nz.position.set(0, 2.2, L / 2);
   neutral.add(nz);
   scene.add(neutral);
 
   // State that runs on the clock.
   let spin = 0;
+  let speed = 0; // rad per ms, eased toward the beat's speed
   let flow = 0;
+  let sweepWas = 1;
   let beatWas = -1;
   const from = new THREE.Vector3();
   const pos = new THREE.Vector3(...SHOTS[0]);
   const world = new THREE.Vector3();
   const smooth = (t) => t * t * (3 - 2 * t);
+  const clamp = (t) => Math.max(0, Math.min(1, t));
 
   return ({ beat, ms, dt, camera, look }) => {
     const b = Math.min(beat, SHOTS.length - 1);
@@ -198,8 +229,16 @@ export function buildMotor(THREE, scene) {
       from.copy(beatWas < 0 ? pos.set(...SHOTS[b]) : pos);
       beatWas = b;
     }
+    // 0 → 1 as a part comes in on beat `k` at `at` ms (already there after it).
+    const cue = (k, at, dur = 500) => (b > k ? 1 : b < k ? 0 : smooth(clamp((ms - at) / dur)));
+    // A short swell (0 → 1 → 0) around `at` on beat `k`, to point at a part.
+    const swell = (k, at, dur = 1100) => (b === k ? Math.sin(Math.PI * clamp((ms - at) / dur)) : 0);
     flow += dt;
-    if (b >= 4) spin += dt * SPIN;
+    // The armature starts turning when the line says so, and slows on the
+    // neutral-zone beat; the speed eases, it never jumps.
+    const want = b < 4 ? 0 : b === 4 ? (ms >= CUE.turn ? SPIN : 0) : b === 6 ? SLOW : SPIN;
+    speed += (want - speed) * clamp(dt / 600);
+    spin += dt * speed;
     rotor.rotation.z = spin;
 
     // Camera: glide to this beat's shot, then add the viewer's drag.
@@ -209,33 +248,74 @@ export function buildMotor(THREE, scene) {
     const yaw = Math.atan2(pos.x, pos.z) + look.yaw;
     const pitch = Math.max(-0.5, Math.min(1.2, Math.asin(pos.y / r) + look.pitch));
     camera.position.set(r * Math.cos(pitch) * Math.sin(yaw), r * Math.sin(pitch), r * Math.cos(pitch) * Math.cos(yaw));
-    camera.lookAt(0, 0, 0);
+    camera.lookAt(...AIM);
 
+    // Beat 0: armature, then N, then S, then the field growing N → S.
+    rotor.scale.setScalar(0.6 + 0.4 * cue(0, CUE.armature));
+    rotor.visible = cue(0, CUE.armature) > 0;
+    north.scale.setScalar(Math.max(0.001, cue(0, CUE.north)));
+    south.scale.setScalar(Math.max(0.001, cue(0, CUE.south)));
+    const grow = cue(0, CUE.field, 900);
+    field.visible = grow > 0;
+    field.scale.x = Math.max(0.001, grow);
+    const fieldHi = swell(2, CUE.fieldHi);
+    for (const l of fieldLines) l.material.opacity = 0.35 + 0.5 * fieldHi;
     for (const d of dots) {
       const { y, z, k } = d.userData;
-      d.position.set(-2.3 + ((k / 6 + flow * 0.00028) % 1) * 4.55, y, z);
+      const x = -2.3 + ((k / 6 + flow * 0.00028) % 1) * 4.55;
+      d.position.set(x, y, z);
+      d.visible = x <= X0 + (X1 - X0) * grow;
+      d.scale.setScalar(1 + 0.8 * fieldHi);
     }
 
     // Each conductor: its current depends on which pole it is under
     // (the commutator's job), and so does its push.
-    for (const c of conductors) {
+    for (const [i, c] of conductors.entries()) {
       c.g.getWorldPosition(world);
       const side = world.x < 0 ? 'in' : 'out';
-      const lit = b >= 1;
+      // Current comes on under N first, then under S (beat 1).
+      const lit = b > 1 || (b === 1 && ms >= (c.home === 'in' ? CUE.left : CUE.right));
+      // Crossing the neutral zone: the current flips, and the rod flashes.
+      if (c.was && c.was !== side && b >= 4) c.flash = 1;
+      c.was = side;
+      c.flash = Math.max(0, c.flash - dt / 700);
+      const on = b === 1 ? swell(1, c.home === 'in' ? CUE.left : CUE.right, 1400) : 0;
+      c.rod.material.emissiveIntensity = 0.85 * Math.max(c.flash, on);
       c.cap.material.map = marks[lit ? side : 'none'];
       c.cap.rotation.z = -spin; // the mark stays upright as the armature turns
+      const hi = side === 'in' ? swell(2, CUE.currentHi) : swell(3, CUE.rightHi);
       c.sparks.forEach((sp) => {
         sp.visible = lit;
+        sp.scale.setScalar(1 + 0.7 * hi);
         const u = (sp.userData.k / 4 + flow * 0.0006) % 1;
         // On the rod's outer surface, so they show.
         sp.position.set(c.out.x, c.out.y, (side === 'in' ? 0.5 - u : u - 0.5) * L);
       });
-      const show = side === 'in' ? b >= 2 : b >= 3;
-      c.push.visible = show && b !== 5;
+      // Its push grows out of the conductor when the line names it, one
+      // conductor after another; on beat 4 each side is tapped as it is named.
+      const n = conductors.filter((o, j) => j < i && o.home === c.home).length;
+      const g = side === 'in' ? cue(2, CUE.pushDown + n * 180, 450) : cue(3, CUE.pushUp + n * 180, 450);
+      const tap = swell(4, side === 'in' ? CUE.tapLeft : CUE.tapRight, 900);
+      c.push.visible = g > 0 && b !== 5;
+      c.push.scale.set(1 + 0.3 * tap, Math.max(0.001, g) * (1 + 0.3 * tap), 1 + 0.3 * tap);
       c.push.position.set(world.x + (side === 'in' ? -0.32 : 0.32), world.y, L / 2 + 0.2);
       c.push.rotation.z = side === 'in' ? Math.PI : 0;
     }
-    torque.visible = b >= 4;
+    // Torque: the arc sweeps round counter-clockwise, then its name comes in.
+    const sweep = cue(4, CUE.arc, 900);
+    torque.visible = sweep > 0;
+    if (sweep !== sweepWas) {
+      sweepWas = sweep;
+      arc.geometry.dispose();
+      arc.geometry = new THREE.TorusGeometry(0.72, 0.055, 10, 64, Math.max(0.01, ARC * sweep));
+    }
+    const endA = Math.PI * 0.25 + ARC * sweep;
+    tip.position.set(0.72 * Math.cos(endA), 0.72 * Math.sin(endA), 0);
+    tip.rotation.z = endA;
+    tip.visible = sweep > 0.05;
+    const name = cue(4, CUE.ta, 450);
+    ta.visible = name > 0;
+    ta.scale.set(0.55 * 4 * name, 0.55 * name, 1);
     neutral.visible = b >= 6;
   };
 }

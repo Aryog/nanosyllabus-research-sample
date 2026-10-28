@@ -1,5 +1,5 @@
 import { C, video } from './kit.jsx';
-import { Car, Crane, Dial, Face, Fan, MagnetWire, Note, Phone, Treadmill } from './doodles.jsx';
+import { Car, Crane, Dial, Face, Fan, Lift, MagnetWire, Meter, Note, Phone, Treadmill } from './doodles.jsx';
 
 /*
   Segment 1 openers: one short video per micro-topic that ties the terms to a
@@ -15,19 +15,42 @@ const check = (q, voice, options, answer, why) => ({
 
 export const vibe41 = video('DC motor hamro dherai najik cha', {
   viewBox: '0 0 360 220',
+  // Each beat's things arrive as the voice names them (ms into the beat).
   draw: (s) => (
     <>
       <g className={s.on(0, 0)}>
-        <Phone x={60} y={40} />
-        <Fan x={258} y={86} />
+        <g className="seq pop">
+          <Phone x={46} y={40} />
+        </g>
+        <g className="seq pop" style={{ '--d': '4100ms' }}>
+          <Fan x={176} y={80} r={30} />
+          <Note x={176} y={178}>fan</Note>
+        </g>
+        <g className="seq pop" style={{ '--d': '4650ms' }}>
+          <Lift x={236} y={36} h={122} />
+          <Note x={256} y={178}>lift</Note>
+        </g>
+        <g className="seq pop" style={{ '--d': '5250ms' }}>
+          <g transform="translate(286 118) scale(0.5)">
+            <Car x={0} y={0} />
+          </g>
+          <Note x={322} y={178}>e-car</Note>
+        </g>
       </g>
       <g className={s.on(1, 1)}>
-        <MagnetWire x={75} y={70} />
-        <Note x={222} y={60} color={C.green} size={14}>dhakka!</Note>
+        <MagnetWire x={75} y={70} seq={[900, 1900, 4400]} />
+        <g className="seq pop" style={{ '--d': '4900ms' }}>
+          <Note x={222} y={196} color={C.green} size={14}>dhakka!</Note>
+        </g>
       </g>
       <g className={s.on(2)}>
-        <Treadmill x={115} y={44} />
-        <Note x={180} y={170} color={C.red} size={14}>ulto push</Note>
+        <Treadmill x={90} y={44} pushAt={3900} />
+        <g className="seq" style={{ '--d': '3900ms' }}>
+          <Note x={155} y={170} color={C.red} size={14}>ulto push</Note>
+        </g>
+        <g className="seq" style={{ '--d': '5200ms' }}>
+          <Meter x={276} y={54} h={88} from={1} to={0.3} at={6800} label="current" />
+        </g>
       </g>
     </>
   ),

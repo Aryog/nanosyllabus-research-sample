@@ -48,7 +48,12 @@ export function Phone({ x, y }) {
         <rect x={x + 7} y={y + 12} width={48} height={74} rx={4} fill="#e7f5ff" stroke={C.dim} strokeWidth={1.2} />
         <circle cx={x + 31} cy={y + 99} r={5} fill="none" stroke={C.dim} strokeWidth={1.5} />
         <circle cx={x + 31} cy={y + 49} r={11} fill="#ffe8cc" stroke={C.orange} strokeWidth={2} />
-        <circle cx={x + 31} cy={y + 49} r={3} fill={C.orange} />
+        {/* The vibration motor: an off-centre weight spinning on its shaft. */}
+        <g className="doodle-spin" style={{ animationDuration: '0.5s' }}>
+          <circle cx={x + 31} cy={y + 49} r={9} fill="none" />
+          <path d={`M${x + 31} ${y + 49} L${x + 31} ${y + 41} A8 8 0 0 1 ${x + 38} ${y + 45} Z`} fill={C.orange} />
+        </g>
+        <circle cx={x + 31} cy={y + 49} r={2.5} fill={C.chalk} />
       </g>
       {[-1, 1].map((d) => (
         <g key={d} className="doodle-blink" fill="none" stroke={C.orange} strokeWidth={2.2} strokeLinecap="round">
@@ -77,32 +82,50 @@ export function Fan({ x, y, r = 34 }) {
   );
 }
 
-// Two magnets with a wire between them, and the wire's push.
-export function MagnetWire({ x, y, push = true, current = true }) {
+// Two magnets with a wire between them, and the wire's push. Field N → S
+// (right), current into the screen (⊗), so Fleming gives a push DOWN.
+// `seq` = [field, current, push] ms into the beat: the parts come in in that
+// order (inside a <g className={s.on(k)}>); the wire then nudges with its push.
+const later = (ms) => (ms == null ? undefined : { '--d': `${ms}ms` });
+export function MagnetWire({ x, y, push = true, current = true, seq = [] }) {
+  const [field, wire, force] = seq;
   return (
     <g>
       <Pole x={x} y={y} w={38} h={96} label="N" color={C.north} />
       <Pole x={x + 172} y={y} w={38} h={96} label="S" color={C.south} />
-      {[y + 26, y + 70].map((yy) => (
-        <Arrow key={yy} x1={x + 44} y1={yy} x2={x + 166} y2={yy} color={C.blue} w={1.2} dash="3 6" />
-      ))}
-      <circle cx={x + 105} cy={y + 48} r={12} fill="#fff" stroke={C.orange} strokeWidth={3} />
-      {current && (
-        <g stroke={C.orange} strokeWidth={2.6} strokeLinecap="round">
-          <line x1={x + 98} y1={y + 41} x2={x + 112} y2={y + 55} />
-          <line x1={x + 112} y1={y + 41} x2={x + 98} y2={y + 55} />
+      <g className={seq.length ? 'seq' : ''} style={later(field)}>
+        {[y + 26, y + 70].map((yy) => (
+          <Arrow key={yy} x1={x + 44} y1={yy} x2={x + 166} y2={yy} color={C.blue} w={1.2} dash="3 6" />
+        ))}
+      </g>
+      <g className={seq.length ? 'seq' : ''} style={later(wire)}>
+        <g className={push ? 'doodle-nudge' : ''} style={later(force)}>
+          <circle cx={x + 105} cy={y + 48} r={12} fill="#fff" stroke={C.orange} strokeWidth={3} />
+          {current && (
+            <g stroke={C.orange} strokeWidth={2.6} strokeLinecap="round">
+              <line x1={x + 98} y1={y + 41} x2={x + 112} y2={y + 55} />
+              <line x1={x + 112} y1={y + 41} x2={x + 98} y2={y + 55} />
+            </g>
+          )}
+          {push && (
+            <g className={seq.length ? 'seq' : ''} style={later(force)}>
+              <Arrow x1={x + 105} y1={y + 63} x2={x + 105} y2={y + 100} color={C.green} w={3.4} head={11} />
+            </g>
+          )}
         </g>
-      )}
-      {push && <Arrow x1={x + 105} y1={y + 34} x2={x + 105} y2={y - 4} color={C.green} w={3.4} head={11} />}
+      </g>
     </g>
   );
 }
 
-// A stick person running on a treadmill, with the belt pushing back.
-export function Treadmill({ x, y }) {
+// A stick person running on a treadmill: the belt runs backward under them
+// and pushes back (red arrow). `pushAt` = ms into the beat for the arrow.
+export function Treadmill({ x, y, pushAt }) {
   return (
     <g>
       <rect x={x} y={y + 70} width={130} height={14} rx={7} fill="#e9ecef" {...ink} />
+      {/* Belt surface moving backward (dashes run to the left). */}
+      <line x1={x + 16} y1={y + 77} x2={x + 114} y2={y + 77} stroke={C.dim} strokeWidth={2} className="flowdash" />
       <circle cx={x + 10} cy={y + 77} r={4} fill={C.chalk} />
       <circle cx={x + 120} cy={y + 77} r={4} fill={C.chalk} />
       <line x1={x + 118} y1={y + 70} x2={x + 128} y2={y + 6} {...ink} />
@@ -110,7 +133,40 @@ export function Treadmill({ x, y }) {
         <circle cx={x + 64} cy={y + 10} r={9} fill="#ffe8cc" {...ink} />
         <path d={`M${x + 62} ${y + 19} L${x + 56} ${y + 44} L${x + 44} ${y + 68} M${x + 56} ${y + 44} L${x + 72} ${y + 66} M${x + 60} ${y + 28} L${x + 76} ${y + 36} M${x + 60} ${y + 28} L${x + 46} ${y + 36}`} fill="none" {...ink} />
       </g>
-      <Arrow x1={x + 100} y1={y + 98} x2={x + 30} y2={y + 98} color={C.red} w={3} head={10} />
+      <g className={pushAt == null ? '' : 'seq'} style={later(pushAt)}>
+        <Arrow x1={x + 100} y1={y + 98} x2={x + 30} y2={y + 98} color={C.red} w={3} head={10} />
+      </g>
+    </g>
+  );
+}
+
+// A lift: the cabin rides up and down its shaft.
+export function Lift({ x, y, h = 120 }) {
+  return (
+    <g>
+      <rect x={x} y={y} width={40} height={h} rx={4} fill="#f8f9fa" {...ink} />
+      <g className="doodle-lift">
+        <line x1={x + 20} y1={y + 2} x2={x + 20} y2={y + h - 46} stroke={C.dim} strokeWidth={1.6} />
+        <rect x={x + 6} y={y + h - 46} width={28} height={32} rx={3} fill="#fff3bf" {...ink} />
+        <line x1={x + 20} y1={y + h - 42} x2={x + 20} y2={y + h - 18} stroke={C.dim} strokeWidth={1.4} />
+      </g>
+    </g>
+  );
+}
+
+// An exam paper with a stamp: "asked n times". `stampAt` = ms into the beat.
+export function Paper({ x, y, n = 3, stampAt }) {
+  return (
+    <g>
+      <path d={`M${x} ${y} h36 l10 10 v48 h-46 z`} fill="#fff" {...ink} />
+      <text x={x + 21} y={y + 20} textAnchor="middle" fontSize={11} fontWeight={800} fill={C.red}>IOE</text>
+      {[30, 38, 46].map((d) => (
+        <line key={d} x1={x + 8} y1={y + d} x2={x + 38} y2={y + d} stroke={C.faint} strokeWidth={2} strokeLinecap="round" />
+      ))}
+      <g className={stampAt == null ? '' : 'seq pop'} style={later(stampAt)}>
+        <circle cx={x + 44} cy={y + 52} r={13} fill="#fff5f5" stroke={C.red} strokeWidth={2.4} />
+        <text x={x + 44} y={y + 57} textAnchor="middle" fontSize={13} fontWeight={800} fill={C.red}>{n}×</text>
+      </g>
     </g>
   );
 }
@@ -180,6 +236,27 @@ export function MysteryGraph({ x, y, w = 110, h = 80, xLabel, yLabel }) {
       {xLabel && <Note x={x + w} y={y + h + 14} anchor="end">{xLabel}</Note>}
       {yLabel && <Note x={x - 4} y={y - 6} anchor="start">{yLabel}</Note>}
       <Ask x={x + w * 0.55} y={y + h * 0.45} size={26} />
+    </g>
+  );
+}
+
+// A tall meter with a label; inside a beat (s.on(k)) its fill moves from
+// `from` to `to` (0–1) at `at` ms, e.g. current dropping as the motor speeds up.
+export function Meter({ x, y, h = 80, from = 1, to = 0.3, at = 0, color = C.red, label }) {
+  return (
+    <g>
+      <rect x={x} y={y} width={20} height={h} rx={5} fill="#fff" {...ink} />
+      <rect
+        className="meter-fill"
+        x={x + 3}
+        y={y + 3}
+        width={14}
+        height={h - 6}
+        rx={3}
+        fill={color}
+        style={{ transform: `scaleY(${to})`, transformBox: 'fill-box', transformOrigin: 'bottom', '--from': from, '--d': `${at}ms` }}
+      />
+      {label && <Note x={x + 10} y={y + h + 16} color={color}>{label}</Note>}
     </g>
   );
 }

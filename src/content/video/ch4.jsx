@@ -13,10 +13,25 @@ const STORY = [
   [1464, 205, 30],
   [1464, 205, 30],
 ];
+// When the meters move in each beat, ms into it ([Eb, Ia]), as the line names
+// them; Ia follows Eb a moment later (Ia = (V − Eb)/Ra ties them together).
+const MOVES = [
+  [0, 0],
+  [0, 500],
+  [0, 0],
+  [5600, 6000],
+  [800, 1200],
+  [2600, 3000],
+  [0, 0],
+  [0, 0],
+];
 
-function Bar({ x, frac, color, label, value }) {
+// A meter: the fill moves to `frac` `at` ms into the beat, and its number
+// changes at the same moment (the old one fades out as the new one comes in).
+function Bar({ x, frac, color, label, value, was, at = 0, className = '' }) {
+  const d = { '--d': `${at}ms` };
   return (
-    <g>
+    <g className={className}>
       <rect x={x} y={40} width={26} height={150} rx={4} fill="none" stroke={C.faint} strokeWidth={1.5} />
       <rect
         x={x}
@@ -25,10 +40,13 @@ function Bar({ x, frac, color, label, value }) {
         height={150}
         rx={4}
         fill={color}
-        style={{ transform: `scaleY(${Math.max(frac, 0.001)})`, transformBox: 'fill-box', transformOrigin: 'bottom', transition: 'transform 1.2s ease' }}
+        style={{ transform: `scaleY(${Math.max(frac, 0.001)})`, transformBox: 'fill-box', transformOrigin: 'bottom', transition: `transform 1.2s ease-in-out ${at}ms` }}
       />
       <text x={x + 13} y={206} textAnchor="middle" fontSize={12} fontWeight={700} fill={color}>{label}</text>
-      <text x={x + 13} y={32} textAnchor="middle" fontSize={11.5} fill={C.chalk}>{value}</text>
+      {was !== value && (
+        <text key={`was-${was}`} className="val-out" style={d} x={x + 13} y={32} textAnchor="middle" fontSize={11.5} fill={C.chalk}>{was}</text>
+      )}
+      <text key={value} className={was !== value ? 'val-in' : ''} style={d} x={x + 13} y={32} textAnchor="middle" fontSize={11.5} fill={C.chalk}>{value}</text>
     </g>
   );
 }
@@ -66,37 +84,93 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
     { say: 'So back EMF le motor lai self-regulating banaucha. Load lai jati current chahincha, exactly tyati nai tancha. Ekdam smart.', voice: 'सो ब्याक ई एम एफले मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ। लोडलाई जति करेन्ट चाहिन्छ, एक्जाक्ट्ली त्यति नै तान्छ। एकदम स्मार्ट।' },
   ],
   draw: (s) => {
-    const [n, eb, ia] = STORY[s.beat];
-    const on = s.beat >= 1;
+    const k = s.beat;
+    const [n, eb, ia] = STORY[k];
+    const [, eb0, ia0] = STORY[Math.max(0, k - 1)];
+    const [ebAt, iaAt] = MOVES[k];
+    const on = k >= 1;
+    const hl = (...ks) => (ks.includes(k) ? ' hl' : '');
+    // Current flows round the loop (+ terminal → switch → Ra → motor → back),
+    // faster when more current flows. Each dash line runs from where the
+    // current goes to where it comes from (the flow keyframe moves dashes
+    // toward the path's start).
+    const flow = { animationDuration: `${Math.min(2.2, 0.35 * Math.sqrt(440 / Math.max(ia, 1))).toFixed(2)}s` };
     return (
       <>
-        <line x1={40} y1={40} x2={40} y2={103} stroke={C.chalk} strokeWidth={2} />
-        <line x1={40} y1={117} x2={40} y2={180} stroke={C.chalk} strokeWidth={2} />
-        <Source x={40} y={110} label="220 V" />
-        <line x1={40} y1={40} x2={80} y2={40} stroke={C.chalk} strokeWidth={2} />
-        {on ? (
-          <line x1={80} y1={40} x2={100} y2={40} stroke={C.chalk} strokeWidth={2.4} />
-        ) : (
-          <line x1={80} y1={40} x2={97} y2={26} stroke={C.red} strokeWidth={2.4} strokeLinecap="round" />
+        <g className={s.on(0)}>
+          <line x1={40} y1={40} x2={40} y2={103} stroke={C.chalk} strokeWidth={2} />
+          <line x1={40} y1={117} x2={40} y2={180} stroke={C.chalk} strokeWidth={2} />
+          <line x1={40} y1={40} x2={80} y2={40} stroke={C.chalk} strokeWidth={2} />
+          <line x1={100} y1={40} x2={110} y2={40} stroke={C.chalk} strokeWidth={2} />
+          <line x1={180} y1={40} x2={220} y2={40} stroke={C.chalk} strokeWidth={2} />
+          <line x1={220} y1={40} x2={220} y2={86} stroke={C.chalk} strokeWidth={2} />
+          <line x1={220} y1={134} x2={220} y2={180} stroke={C.chalk} strokeWidth={2} />
+          <line x1={40} y1={180} x2={220} y2={180} stroke={C.chalk} strokeWidth={2} />
+          {/* "220 volt ko DC motor": the supply, then the motor. */}
+          <g className="seq">
+            <Source x={40} y={110} label="220 V" />
+          </g>
+          <g className="seq pop" style={{ '--d': '2500ms' }}>
+            <Armature x={220} y={110} r={22} label="M" />
+            {/* The armature turns: dots on it spin up from rest (beat 3) and
+                speed up to full speed (beat 4); the brushes and the M stay put. */}
+            <g className={k >= 3 ? 'spin-up' : ''} style={{ transformOrigin: '220px 110px', '--ramp': '5.2s', '--per': '2.6s' }}>
+              <g className={k >= 4 ? 'spin-up' : ''} style={{ transformOrigin: '220px 110px', '--ramp': '3.25s', '--per': '1.625s' }}>
+                {[0, 90, 180, 270].map((a) => (
+                  <circle key={a} cx={220 + 15 * Math.cos((a * Math.PI) / 180)} cy={110 + 15 * Math.sin((a * Math.PI) / 180)} r={2.4} fill={C.chalk} />
+                ))}
+              </g>
+            </g>
+          </g>
+          <g className="seq" style={{ '--d': '3300ms' }}>
+            <Resistor x1={110} y={40} x2={180} label="Ra = 0.5 Ω" />
+          </g>
+        </g>
+        {/* The switch: open (red, up) until beat 1, then it swings shut. */}
+        <g className={s.on(0)}>
+          <g className="seq" style={{ '--d': '5600ms' }}>
+            <g style={{ transform: on ? 'none' : 'rotate(-38deg)', transformOrigin: '80px 40px', transformBox: 'view-box', transition: 'transform 0.4s ease-in' }}>
+              <line x1={80} y1={40} x2={100} y2={40} stroke={on ? C.chalk : C.red} strokeWidth={2.4} strokeLinecap="round" />
+            </g>
+            <circle cx={80} cy={40} r={2.6} fill={C.chalk} />
+          </g>
+        </g>
+        <g className={s.on(3) + hl(3)}>
+          <g className="seq" style={{ '--d': '5600ms' }}>
+            <Arrow x1={192} y1={128} x2={192} y2={92} color={C.yellow} w={2.4} />
+            <text x={186} y={150} textAnchor="end" fontSize={13} fontWeight={700} fill={C.yellow}>Eb</text>
+            <text x={186} y={164} textAnchor="end" fontSize={10.5} fill={C.dim}>V lai oppose</text>
+          </g>
+        </g>
+        {on && (
+          <g stroke={C.orange} strokeWidth={2.4} className="current-flow">
+            <line x1={40} y1={42} x2={40} y2={101} className="flowdash" style={flow} />
+            <line x1={110} y1={40} x2={42} y2={40} className="flowdash" style={flow} />
+            <line x1={218} y1={40} x2={182} y2={40} className="flowdash" style={flow} />
+            <line x1={220} y1={86} x2={220} y2={42} className="flowdash" style={flow} />
+            <line x1={220} y1={178} x2={220} y2={134} className="flowdash" style={flow} />
+            <line x1={42} y1={180} x2={218} y2={180} className="flowdash" style={flow} />
+            <line x1={40} y1={119} x2={40} y2={178} className="flowdash" style={flow} />
+          </g>
         )}
-        <line x1={100} y1={40} x2={110} y2={40} stroke={C.chalk} strokeWidth={2} />
-        <Resistor x1={110} y={40} x2={180} label="Ra = 0.5 Ω" />
-        <line x1={180} y1={40} x2={220} y2={40} stroke={C.chalk} strokeWidth={2} />
-        <line x1={220} y1={40} x2={220} y2={86} stroke={C.chalk} strokeWidth={2} />
-        <line x1={220} y1={134} x2={220} y2={180} stroke={C.chalk} strokeWidth={2} />
-        <line x1={40} y1={180} x2={220} y2={180} stroke={C.chalk} strokeWidth={2} />
-        <g className={s.beat >= 3 ? 'spin-c' : ''} style={{ transformOrigin: '220px 110px', animationDuration: s.beat >= 4 ? '1s' : '2.6s' }}>
-          <Armature x={220} y={110} r={22} label="M" />
+        {/* "Aba load thapa": a load hangs on the motor (beat 5 on). */}
+        <g className={s.on(5)}>
+          <g className="seq pop">
+            <line x1={236} y1={124} x2={249} y2={148} stroke={C.dim} strokeWidth={1.8} />
+            <rect x={236} y={148} width={26} height={22} rx={3} fill="#ffe3e3" stroke={C.chalk} strokeWidth={2} />
+            <text x={249} y={163} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={C.red}>Load</text>
+          </g>
         </g>
-        <g className={s.on(3)}>
-          <Arrow x1={192} y1={128} x2={192} y2={92} color={C.yellow} w={2.4} />
-          <text x={186} y={150} textAnchor="end" fontSize={13} fontWeight={700} fill={C.yellow}>Eb</text>
-          <text x={186} y={164} textAnchor="end" fontSize={10.5} fill={C.dim}>V lai oppose</text>
-        </g>
-        {on && <line x1={60} y1={180} x2={200} y2={180} stroke={C.orange} strokeWidth={2.4} className="flowdash" />}
         <text x={130} y={204} textAnchor="middle" fontSize={12} fill={C.dim}>N = {n} rpm</text>
-        <Bar x={268} frac={eb / 220} color={C.yellow} label="Eb" value={`${eb} V`} />
-        <Bar x={314} frac={ia / 440} color={C.red} label="Ia" value={`${ia} A`} />
+        <Bar x={268} frac={eb / 220} was={`${eb0} V`} at={ebAt} color={C.yellow} label="Eb" value={`${eb} V`} className={hl(3, 4, 5)} />
+        <Bar x={314} frac={ia / 440} was={`${ia0} A`} at={iaAt} color={C.red} label="Ia" value={`${ia} A`} className={hl(1, 3, 4, 5, 7)} />
+        {/* Full speed: only V − Eb = 10 V is left to push current through Ra. */}
+        <g className={s.on(4, 4)}>
+          <g className="seq" style={{ '--d': '2800ms' }}>
+            <path d="M266 40 h-4 v7 h4 M262 44 L257 52" fill="none" stroke={C.chalk} strokeWidth={1.2} />
+            <text x={262} y={63} textAnchor="end" fontSize={10} fontWeight={700} fill={C.chalk}>10 V</text>
+          </g>
+        </g>
       </>
     );
   },

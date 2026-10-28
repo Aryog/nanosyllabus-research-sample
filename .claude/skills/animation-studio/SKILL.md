@@ -35,6 +35,11 @@ this file (see "Keep this skill alive").**
 8. **Camera stays calm.** At most 10% zoom past the full board, no cut-off parts, the board always above the caption; a drawing beside notes is shown whole.
 9. **3D when turning explains.** Use Stage3D for ideas that need rotation or depth; one camera shot per beat, smooth glide, drag to look around.
 10. **CSS transforms on SVG:** an element that has its own `transform` attribute must not get a CSS `transform` (it would replace it); wrap it in a `<g>` and animate the wrapper (`transform-box: fill-box; transform-origin: center`).
+11. **Cue to the word.** Inside a beat, stagger parts to roughly when the voice names them: clips are evened to about 14 characters a second, so a word's time ≈ its position in the Devanagari line ÷ its length × the clip length. 2D: give the part `style={{ '--d': '<ms>ms' }}` and either its own `s.on(k)` or class `seq` inside an `s.on(k)` group (`seq pop` adds a small scale-in). 3D: a `CUE` table of ms per part in the build module.
+12. **Entrances are animations, exits are quick.** `.sc.on.now` parts come in with a CSS animation (so beat 0 and replays animate too); a part leaving (`s.on(k, j)`) fades in 0.25 s, so two pictures in the same spot never overlap.
+13. **Numbers and meters move together.** A meter that changes in a beat moves at its cue, and its number swaps at the same moment (old fades out, new fades in); quantities tied by an equation (Ia = (V − Eb)/Ra) move within ~400 ms of each other.
+14. **Turning starts from rest and never jumps.** A wheel spins up with one ease-in turn then steady turns (`.spin-up`, `--ramp` = 2 × `--per`); to go faster later, nest a second `.spin-up` inside rather than changing the first's duration. Spin only the moving part (dots on the rotor), never brushes or labels. In 3D, ease the speed toward the beat's target.
+15. **Show the step the line says happens.** Cancellations in a derivation are drawn as red `\cancel{}` strikes after the line is written; a flip (current reversing at the neutral zone) flashes the conductor when it crosses; flowing dashes run the way the quantity flows (the `flow` keyframe moves dashes toward the path's start, so draw the path from where it goes to where it comes from) and faster for more current.
 
 ## Review loop (do it every time)
 
@@ -51,3 +56,4 @@ Every time the user corrects or praises motion: add or replace a numbered rule a
 ## Changelog
 
 - 2026-10-28: Created. Rules from the course so far: one clock, focus ring instead of dimming, 10% camera, 2.5D look without filters, 3D for turning ideas.
+- 2026-10-28: 4.1 main-path pass. New rules 11–15: cue parts to the word (`--d`, `seq`, `seq pop`, 3D `CUE`), entrances as animations with quick exits, meters and numbers move together, spin-up from rest without jumps, show cancels/flips/flow direction. Doodle MagnetWire fixed to push down for ⊗ under N → S.

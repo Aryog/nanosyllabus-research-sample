@@ -8,34 +8,74 @@ import { Armature, Arrow, Axes, C, Coil, Conductor, K, Pole, Source, answer } fr
 */
 
 // 4.1: armature between N and S. Field → right; ⊗ under N pushed down, ⊙ under S up.
+// Parts come in as each point's line names them (--d = ms into the beat).
 const torqueFigure = (s) => (
   <>
     <Pole x={8} y={45} h={170} label="N" color={C.north} />
     <Pole x={308} y={45} h={170} label="S" color={C.south} />
     <g className={s.on(1)}>
+      {/* Field lines N → S; on the principle beat the dashes flow toward S.
+          (Each line runs from S back to N: the flow moves dashes toward the start.) */}
       {[75, 130, 185].map((y) => (
-        <line key={y} x1={58} y1={y} x2={302} y2={y} stroke={C.faint} strokeWidth={1.5} strokeDasharray="5 5" />
+        <g key={y}>
+          <line x1={300} y1={y} x2={58} y2={y} stroke={C.blue} strokeOpacity={0.45} strokeWidth={1.5} strokeDasharray="5 5" className={s.beat === 1 ? 'flowdash' : ''} />
+          <polygon points={`302,${y} 295,${y - 4} 295,${y + 4}`} fill={C.blue} fillOpacity={0.6} />
+        </g>
       ))}
-      <text x={180} y={30} textAnchor="middle" fontSize={15} fill={C.blue} className={s.hl(1)}>F = BIl · field N → S</text>
+      <g className={'seq' + s.hl(1)} style={{ '--d': '2300ms' }}>
+        <text x={180} y={30} textAnchor="middle" fontSize={15} fill={C.blue}>F = BIl · field N → S</text>
+      </g>
     </g>
     <circle cx={180} cy={130} r={74} fill="none" stroke={C.chalk} strokeWidth={2.5} />
     <g className={s.on(2)}>
-      {[90, 130, 170].map((y) => (
-        <g key={y}>
-          <Conductor x={126} y={y} dir="in" />
+      {/* "N muni ra S muni current ulto": ⊗ under N, then ⊙ under S, then every push. */}
+      <g className="seq" style={{ '--d': '500ms' }}>
+        {[90, 130, 170].map((y) => <Conductor key={y} x={126} y={y} dir="in" />)}
+      </g>
+      <g className="seq" style={{ '--d': '1300ms' }}>
+        {[90, 130, 170].map((y) => <Conductor key={y} x={234} y={y} dir="out" />)}
+      </g>
+      {[90, 130, 170].map((y, i) => (
+        <g key={y} className="seq" style={{ '--d': `${4300 + i * 180}ms` }}>
           <Arrow x1={110} y1={y - 8} x2={110} y2={y + 22} color={C.red} w={2.5} head={7} />
-          <Conductor x={234} y={y} dir="out" />
           <Arrow x1={250} y1={y + 8} x2={250} y2={y - 22} color={C.red} w={2.5} head={7} />
         </g>
       ))}
-      <text x={180} y={250} textAnchor="middle" fontSize={13} fill={C.dim}>⊗ N muni tala · ⊙ S muni mathi</text>
+      <g className="seq" style={{ '--d': '4900ms' }}>
+        <text x={180} y={250} textAnchor="middle" fontSize={13} fill={C.dim}>⊗ N muni tala · ⊙ S muni mathi</text>
+      </g>
     </g>
     <g className={s.on(3)}>
-      <path d="M220 60 A80 80 0 0 0 140 60" fill="none" stroke={C.green} strokeWidth={3} className={s.hl(3)} />
-      <polygon points="140,60 152,52 150,66" fill={C.green} />
-      <text x={180} y={118} textAnchor="middle" fontSize={12} fill={C.green}>ek tira torque</text>
+      {/* Commutator: the neutral zone (where each coil's current reverses),
+          then the torque that stays one way (counter-clockwise). */}
+      <g className="seq" style={{ '--d': '800ms' }}>
+        <line x1={180} y1={50} x2={180} y2={212} stroke={C.dim} strokeWidth={1.4} strokeDasharray="4 4" />
+        <text x={184} y={222} fontSize={11} fill={C.dim}>neutral zone</text>
+      </g>
+      <g className="seq pop" style={{ '--d': '3200ms' }}>
+        <text x={180} y={44} textAnchor="middle" fontSize={11} fontWeight={700} fill={C.violet}>⊗ ⇄ ⊙ reverse</text>
+      </g>
+      <g className="seq" style={{ '--d': '4600ms' }}>
+        <path d="M220 60 A80 80 0 0 0 140 60" fill="none" stroke={C.green} strokeWidth={3} className={'draw' + s.hl(3)} pathLength={1} />
+        <polygon points="140,60 152,52 150,66" fill={C.green} />
+        <text x={180} y={118} textAnchor="middle" fontSize={12} fill={C.green}>ek tira torque</text>
+      </g>
     </g>
-    <text x={180} y={152} textAnchor="middle" fontSize={16} fill={C.blue} className={`${s.on(5)}${s.hl(5)}`}>Ta ∝ φ Ia</text>
+    <g className={s.on(4, 4)}>
+      {/* Derivation chain, on one conductor: its force F, then the lever arm r. */}
+      <g className="seq" style={{ '--d': '6500ms' }}>
+        <circle cx={250} cy={108} r={11} fill="none" stroke={C.orange} strokeWidth={2} />
+        <text x={262} y={104} fontSize={13} fontWeight={800} fill={C.orange}>F</text>
+      </g>
+      <g className="seq" style={{ '--d': '7600ms' }}>
+        <line x1={180} y1={130} x2={223} y2={130} stroke={C.orange} strokeWidth={2} strokeDasharray="3 3" />
+        <text x={200} y={145} textAnchor="middle" fontSize={12} fontWeight={800} fill={C.orange}>r</text>
+        <text x={156} y={158} textAnchor="middle" fontSize={12} fontWeight={700} fill={C.orange}>τ = F·r</text>
+      </g>
+    </g>
+    <g className={s.on(5) + ' pop' + s.hl(5) + s.hl(6)}>
+      <text x={180} y={152} textAnchor="middle" fontSize={16} fill={C.blue}>Ta ∝ φ Ia</text>
+    </g>
   </>
 );
 

@@ -1,5 +1,5 @@
 import { C, extra, overview, segments } from './video/kit.jsx';
-import { Ask, Battery, Crane, Face, Fan, MagnetWire, Note } from './video/doodles.jsx';
+import { Ask, Battery, Crane, Face, Fan, MagnetWire, Note, Paper } from './video/doodles.jsx';
 import { characteristicsAnswer, starterAnswer, testingAnswer, torqueAnswer } from './video/picture.jsx';
 import { ch1Model, fleming, howBig, whyItMoves } from './video/ch1.jsx';
 import { ch2Model, commutatorAction, crossSection, emfDerivation, emfIoe, lapWave } from './video/ch2.jsx';
@@ -53,21 +53,39 @@ const t41 = topic({
   ],
   introArt: {
     viewBox: '0 0 360 220',
+    // Each question's picture comes in as the voice asks it (--d = ms into the beat).
     draw: (s) => (
       <>
         <g className={s.on(0)}>
-          <Face x={292} y={104} r={36} />
+          <g className="seq pop">
+            <Face x={292} y={104} r={36} />
+          </g>
           <Note x={292} y={176}>Motor-dai</Note>
         </g>
         <g className={s.on(1)}>
-          <MagnetWire x={10} y={70} />
-          <Ask x={140} y={66} />
+          <MagnetWire x={10} y={70} seq={[500, 1200, 2700]} />
+          <g className="seq pop" style={{ '--d': '3100ms' }}>
+            <Ask x={142} y={60} />
+          </g>
         </g>
         <g className={s.on(2)}>
-          <path d="M262 62 A48 48 0 1 1 250 140" fill="none" stroke={C.yellow} strokeWidth={3} strokeLinecap="round" />
-          <polygon points="244,132 252,148 260,134" fill={C.yellow} />
-          <Ask x={346} y={70} size={28} />
-          <Note x={292} y={200} color={C.violet}>back EMF? torque?</Note>
+          {/* Turning (counter-clockwise, like the torque later): drawn as "ghumda" is said. */}
+          <path d="M324.1 65.7 A50 50 0 1 0 324.1 142.3" fill="none" stroke={C.yellow} strokeWidth={3} strokeLinecap="round" className="draw" pathLength={1} />
+          <g className="seq" style={{ '--d': '1000ms' }}>
+            <polygon points="330.2,137.2 326.5,148.2 318.7,139" fill={C.yellow} />
+          </g>
+          <g className="seq pop" style={{ '--d': '1200ms' }}>
+            <Ask x={350} y={60} size={28} />
+            <Note x={288} y={200} color={C.violet} anchor="end">back EMF?</Note>
+          </g>
+          <g className="seq pop" style={{ '--d': '2800ms' }}>
+            <Note x={296} y={200} color={C.violet} anchor="start">torque?</Note>
+          </g>
+        </g>
+        <g className={s.on(3)}>
+          <g className="seq pop" style={{ '--d': '900ms' }}>
+            <Paper x={56} y={2} stampAt={1500} />
+          </g>
         </g>
       </>
     ),

@@ -518,15 +518,37 @@ button:disabled { cursor: default; }
 .scene.tall .scene-screen { min-height: 420px; }
 .scene-svg { width: 100%; height: auto; display: block; overflow: visible; padding: 0 6%; box-sizing: border-box; max-height: 340px; font-family: Inter, sans-serif; }
 .scene-svg text { fill: var(--chalk); font-family: var(--hand); font-size: 1.05em; }
-.sc { opacity: 0; transition: opacity 0.6s ease, transform 0.8s ease; }
-.sc.on { opacity: 1; }
-.sc .draw, .draw.sc { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.3s ease, opacity 0.6s ease; }
+/* Drawing parts on the scene clock (animation-studio skill). A part leaves
+   quickly (0.25 s) so the next picture never overlaps it; the beat's own parts
+   (.now) come in with an animation, so they also animate on beat 0 and on a
+   replay. Inside a beat, --d staggers them in the order the line names them:
+   a part with its own s.on(k), or a child marked .seq, waits var(--d). */
+.sc { opacity: 0; transition: opacity 0.25s ease, transform 0.8s ease; }
+.sc.on { opacity: 1; transition: opacity 0.5s ease-out, transform 0.8s ease; }
+.sc.on.now { transition: transform 0.8s ease; animation: scin 0.5s ease-out calc(var(--d, 0s) + 0.15s) both; }
+.sc.now .seq { animation: scin 0.45s ease-out calc(var(--d, 0s) + 0.15s) both; }
+/* .pop: a doodle or label that arrives with a little scale (only on a <g> or
+   shape without its own transform attribute). */
+.sc.on.now.pop, .sc.now .seq.pop { transform-box: fill-box; transform-origin: center; animation-name: scpop; animation-timing-function: cubic-bezier(0.3, 1.4, 0.5, 1); }
+@keyframes scin { from { opacity: 0; } }
+@keyframes scpop { from { opacity: 0; transform: scale(0.6); } }
+.sc .draw, .draw.sc { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.3s ease, opacity 0.5s ease; }
 .sc.on .draw, .draw.sc.on { stroke-dashoffset: 0; }
+.sc.now .draw, .draw.sc.now { transition: none; animation: drawin 1s ease-out calc(var(--d, 0s) + 0.15s) both; }
+@keyframes drawin { from { stroke-dashoffset: 1; } }
 .hl { filter: drop-shadow(0 0 5px rgba(255, 212, 59, 0.95)) drop-shadow(0 0 9px rgba(255, 212, 59, 0.6)); animation: hlpulse 1.6s ease-in-out infinite; }
 @keyframes hlpulse { 50% { filter: drop-shadow(0 0 3px rgba(255, 212, 59, 0.6)); } }
 .spin-c { animation: sc-spin 3.2s linear infinite; transform-box: view-box; }
 @keyframes sc-spin { to { transform: rotate(360deg); } }
 .flowdash { stroke-dasharray: 6 6; animation: flow 0.8s linear infinite; }
+/* A wheel that starts from rest: one ease-in turn (--ramp), then steady turns
+   (--per = --ramp / 2, so the speed carries on without a jump). Nest a second
+   one inside to speed up again later without restarting the first. */
+.spin-up { transform-box: view-box; animation: sc-spin var(--ramp) cubic-bezier(0.4, 0, 0.8, 0.6), sc-spin var(--per) linear var(--ramp) infinite; }
+/* A changing number: the old value fades out as the new one comes in, at --d. */
+.val-in { animation: scin 0.4s ease-out var(--d, 0s) both; }
+.val-out { animation: scout 0.3s ease-in var(--d, 0s) both; }
+@keyframes scout { to { opacity: 0; } }
 
 /* Camera (Scene.jsx): the stage is the frame, the cam pans and zooms inside it. */
 /* The stage is a size container: board writing scales with the video's width
@@ -825,6 +847,11 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .board-line.kind-h.on { padding-bottom: 12px; }
 .board-line.kind-eq.on, .board-line.kind-answer.on { padding: 12px 0; }
 .board-line .tex { margin: 0 0.2em; }
+/* \cancel{…} in a derivation: the strike is drawn in red once the line has
+   been written (--wd), so "l cancel huncha" is seen happening. */
+.board-line .tex svg line { stroke: #e03131; stroke-width: 0.07em; }
+.board-line.hl .tex svg line { stroke-dasharray: 60; stroke-dashoffset: 60; animation: strike 0.5s ease-out calc(var(--wd, 1.4s) + 0.3s) forwards; }
+@keyframes strike { to { stroke-dashoffset: 0; } }
 
 /* Highlighted drawing parts stay fully visible (the focus ring marks them):
    no glow, since a drop-shadow filter under the camera's zoom renders
@@ -867,6 +894,12 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .doodle-shake { animation: dshake 0.15s ease-in-out infinite alternate; }
 @keyframes dshake { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
 .doodle-lift { animation: dlift 1.6s ease-in-out infinite alternate; }
+/* A pushed wire: nudges the way its force points (down), once the push is shown. */
+.doodle-nudge { animation: dnudge 0.45s ease-in-out var(--d, 0s) infinite alternate; }
+@keyframes dnudge { to { transform: translateY(3px); } }
+/* A meter that falls or rises to its value during the beat (doodles.jsx Meter). */
+.sc.now .meter-fill { animation: meter 1.2s ease-in-out calc(var(--d, 0s) + 0.15s) both; }
+@keyframes meter { from { transform: scaleY(var(--from, 1)); } }
 @keyframes dlift { to { transform: translateY(-14px); } }
 
 /* 3D pictures (Stage3D.jsx): drag to turn them. */
