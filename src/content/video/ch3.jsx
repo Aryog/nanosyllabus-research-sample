@@ -1,4 +1,4 @@
-import { Arrow, C, Conductor, K, model, Pole, video } from './kit.jsx';
+import { Arrow, C, Conductor, K, model, Pole, video, Rotor } from './kit.jsx';
 
 /* Chapter 3 · Working principle & torque equation (Syllabus Unit 4: working principle and torque equation). */
 
@@ -18,11 +18,11 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
     { say: 'Right tira current bahira aaucha, tesaile force mathi tira huncha.', voice: 'राइटतिर करेन्ट बाहिर आउँछ, त्यसैले फोर्स माथितिर हुन्छ।' },
     { say: 'Left ma tala, right ma mathi: sabai force le armature lai eutai tira ghumaucha, counter-clockwise. Yinko turning effect jodda armature torque bancha.', voice: 'लेफ्टमा तल, राइटमा माथि: सबै फोर्सले आर्मेचरलाई एउटै तिर घुमाउँछ, काउन्टर क्लकवाइज। यिनको टर्निङ इफेक्ट जोड्दा आर्मेचर टर्क बन्छ।' },
     {
-      say: 'Dhyan diyera herya? Check garau.',
-      voice: 'ध्यान दिएर हेर्यौ? चेक गरौं।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: 'Bharkhar bhaneko: left ra right ka sabai force le armature lai kata ghumaucha?',
-        voice: 'भर्खर भनेको: लेफ्ट र राइटका सबै फोर्सले आर्मेचरलाई कता घुमाउँछ?',
+        q: 'Left ra right ka sabai force le armature lai kata ghumaucha?',
+        voice: 'लेफ्ट र राइटका सबै फोर्सले आर्मेचरलाई कता घुमाउँछ?',
         options: ['Duitai tira, cancel huncha', 'Eutai tira, counter-clockwise', 'Ghumaudai ghumaudaina'],
         answer: 1,
         why: 'Left ma tala, right ma mathi: sabai force le eutai tira, counter-clockwise ghumaucha.',
@@ -37,8 +37,7 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
       {[70, 154].map((y) => (
         <Arrow key={y} x1={62} y1={y} x2={298} y2={y} color={C.blue} w={1.2} className="sc on" dash="3 6" />
       ))}
-      <circle cx={CX} cy={CY} r={70} fill="#343a40" stroke={C.chalk} strokeWidth={1.5} className={s.on(0)} />
-      <circle cx={CX} cy={CY} r={6} fill={C.dim} />
+      <Rotor x={CX} y={CY} r={70} className={s.on(0)} />
       <line x1={CX} y1={CY - 76} x2={CX} y2={CY + 76} stroke={C.dim} strokeWidth={1} strokeDasharray="3 4" className={s.on(6)} />
       <text x={CX + 4} y={CY - 80} fontSize={11} fill={C.dim} className={s.on(6)}>neutral zone</text>
       <g className={s.on(1) + s.hl(1)}>
@@ -129,8 +128,8 @@ export const torqueFactors = video('Torque kasle decide garcha?', {
     },
     { say: 'Trap hera: lap winding ma P over A one huncha, tara wave winding ma P over two. Eutai machine wave ma wound bhaye per ampere dui guna torque dincha.', voice: 'ट्र्याप हेर: ल्याप वाइन्डिङमा पी ओभर ए वान हुन्छ, तर वेभ वाइन्डिङमा पी ओभर टु। एउटै मेसिन वेभमा वाउन्ड भए पर एम्पियर दुई गुना टर्क दिन्छ।' },
     {
-      say: 'Arko ekchoti.',
-      voice: 'अर्को एकचोटि।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         tag: 'Quick check',
         q: 'Armature current double garyo ra flux half garyo. Torque…',

@@ -21,8 +21,8 @@ export const losses = video('Power kata jancha?', {
       voice: 'मेकानिकल लसेस: बियरिङ र ब्रसमा फ्रिक्सन, अनि विन्डेज, अर्थात् घुम्दै गरेको आर्मेचरको एयर रेजिस्टेन्स।',
     },
     {
-      say: 'Check garau.',
-      voice: 'चेक गरौं।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Windage loss bhaneko k ho bhanyo?',
         voice: 'विन्डेज लस भनेको के हो भन्यो?',
@@ -172,8 +172,8 @@ export const maxEff = video('Derivation: maximum efficiency ko condition', {
       voice: 'म्याक्सिमम इफिसियन्सीमा लोड करेन्ट भनेको डब्लु सी ओभर आर एको स्क्वायर रुट हो।',
     },
     {
-      say: 'Feri ekchoti.',
-      voice: 'फेरि एकचोटि।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Maximum efficiency ko current kasto bhanyo?',
         voice: 'म्याक्सिमम इफिसियन्सीको करेन्ट कस्तो भन्यो?',
@@ -226,8 +226,8 @@ export const ioeEff = solve({
     },
     {
       node: <>Armature Cu = 154² × 0.05 = 1185.8 W</>,
-      say: 'Data yaad cha?',
-      voice: 'डाटा याद छ?',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Ia kati aayo?',
         voice: 'आई ए कति आयो?',

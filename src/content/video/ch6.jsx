@@ -43,8 +43,8 @@ export const shunt = video('Derivation: shunt motor ko characteristics', {
       voice: 'शाफ्ट टर्क चाहिँ अलि कम हुन्छ, किनभने टर्कको अलि पार्ट आइरन र फ्रिक्सन लसेसमा खाइन्छ।',
     },
     {
-      say: 'Bharkhar ko kura.',
-      voice: 'भर्खरको कुरा।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Shaft torque armature torque bhanda kina ali kam huncha?',
         voice: 'स्याफ्ट टर्क आर्मेचर टर्कभन्दा किन अलि कम हुन्छ?',
@@ -66,8 +66,8 @@ export const shunt = video('Derivation: shunt motor ko characteristics', {
       voice: 'यो ड्रपलाई स्पिड रेगुलेसनले नाप्छ: नो लोड स्पिड माइनस फुल लोड स्पिड, डिभाइड बाई फुल लोड स्पिड, टाइम्स वान हन्ड्रेड।',
     },
     {
-      say: 'Dhyan diyau?',
-      voice: 'ध्यान दियौ?',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Speed regulation ma divide kasle garincha?',
         voice: 'स्पिड रेगुलेसनमा डिभाइड कसले गरिन्छ?',
@@ -126,8 +126,8 @@ export const series = video('Derivation: series motor ko characteristics', {
       voice: 'स्याचुरेसन पछि फाइ बढ्न छोड्छ, सो टर्क फेरि आई ए सँग प्रोपोर्सनल हुन्छ, अनि कर्भ सिधा हुँदै जान्छ।',
     },
     {
-      say: 'Bharkhar bhaneko yaad cha?',
-      voice: 'भर्खर भनेको याद छ?',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Saturation pachi series motor ko torque curve kasto huncha?',
         voice: 'स्याचुरेसनपछि सिरिज मोटरको टर्क कर्भ कस्तो हुन्छ?',

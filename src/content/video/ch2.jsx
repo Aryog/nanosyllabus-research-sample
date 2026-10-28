@@ -1,4 +1,4 @@
-import { Arrow, C, Conductor, Pole, model, video } from './kit.jsx';
+import { Arrow, C, Conductor, Pole, model, video, Rotor } from './kit.jsx';
 
 /* Chapter 2 · Construction & commutator action (Syllabus Unit 3: constructional details, armature winding, commutator action, EMF equation). */
 
@@ -68,7 +68,7 @@ export const crossSection = video('DC machine bhitra k cha?', {
             <rect key={`${x}-${y}`} x={x} y={y} width={12} height={26} rx={2} fill={C.orange} opacity={0.9} />
           ))}
         </g>
-        <circle cx={CX} cy={CY} r={44} fill="#343a40" stroke={C.chalk} strokeWidth={1.5} className={part(3) || part(4)} />
+        <Rotor x={CX} y={CY} r={44} className={part(3) || part(4)} />
         <g className={part(5)}>
           {slots.map((a, i) => (
             <circle key={i} cx={CX + 37 * Math.cos(a)} cy={CY + 37 * Math.sin(a)} r={4.2} fill={C.orange} />
@@ -199,7 +199,7 @@ export const commutatorAction = video('Commutator action: kina ghumi rahancha', 
         <text x={200} y={212} fontSize={12} fill={C.chalk}>S najik: sadhai ⊙ → mathi</text>
       </g>
       <g className={s.on(7)}>
-        <circle cx={180} cy={110} r={62} fill="#343a40" stroke={C.chalk} strokeWidth={1.5} />
+        <Rotor x={180} y={110} r={62} />
         {slots.map((a, i) => (
           <circle key={i} cx={180 + 52 * Math.cos(a)} cy={110 + 52 * Math.sin(a)} r={6} fill={C.orange} />
         ))}
@@ -216,8 +216,8 @@ export const lapWave = video('Lap ra wave windings', {
     { say: 'Wave winding ma A sadhai two, poles jati sukai hos. Per path series ma dherai conductors, so voltage badhi ra current kam.', voice: 'वेभ वाइन्डिङमा ए सधैं टु, पोल्स जतिसुकै होस्। पर पाथ सिरिजमा धेरै कन्डक्टर्स, सो भोल्टेज बढी र करेन्ट कम।' },
     { say: 'Armature current I a sabai paths ma barabar baadincha, so har conductor ma I a divided by A bagcha.', voice: 'आर्मेचर करेन्ट आई ए सबै पाथ्समा बराबर बाँडिन्छ, सो हर कन्डक्टरमा आई ए डिभाइडेड बाई ए बग्छ।' },
     {
-      say: 'Ekchoti try gara.',
-      voice: 'एकचोटि ट्राई गर।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         tag: 'Quick check',
         q: '4-pole, lap-wound armature ma Ia = 40 A cha. Har conductor ma kati current bagcha?',

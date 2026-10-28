@@ -44,7 +44,7 @@ these rules too.
 
 ### Questions inside videos
 8. Teach before test: a question may only ask what an earlier beat already explained.
-9. The lead-in beat before a question says `La, yo answer gara.` / voice `ल, यो आन्सर गर।`. Never "Ekchin, dhyan check" or similar.
+9. A lead-in beat that only cues a question says `La, yo answer gara.` / voice `ल, यो आन्सर गर।`. Never filler like "Ekchin, dhyan check", "Bharkhar ko kura", "Ekchoti socha ta", "Dhyan diyera herya?", "Feri recall". Question text doesn't start with "Bharkhar bhaneko:". Lead-ins that carry content ("Aba naya back EMF.") stay.
 10. Question cards carry no "Dhyan check 👀" / "Ekchin socha 🤔" tag. Only informative tags (IOE paper, "Quick check", etc.) are allowed.
 11. Every question card has **↺ Rewatch** before answering; after an answer the video goes on by itself after 2 s; rewinding before a question asks it again (answers are not kept); XP only for the first try.
 
@@ -52,17 +52,18 @@ these rules too.
 12. Default speed 1× (pref key `dcm-rate`). Space plays and pauses.
 13. Camera zoom is at most 10% past the full-board view (`ZOOM_IN = 1.1` in `Scene.jsx`); the drawing must never be cut off.
 14. Pause freezes everything (voice, handwriting, hand, CSS animations); seeking lands on the exact moment; all of it runs on the scene clock `within`.
-15. Focus follows the voice: the parts a beat brings in (`s.on(k)`) or highlights (`s.hl(k)`) are the spotlight, and the rest of the drawing dims (CSS `.scene-svg:has(.now, .hl)`). So every beat that talks about a part of the drawing must mark that part with `s.on(k)` or `s.hl(k)`. The pointing hand points at the middle of the part's left edge.
+15. Focus follows the voice, and the drawing always stays fully visible (never dim or fade parts). The part a beat brings in (`s.on(k)`) or highlights (`s.hl(k)`) gets the pulsing yellow focus ring and the pointing hand, so every beat that talks about a part of the drawing must mark it with `s.on(k)` or `s.hl(k)`.
+16. Drawings look solid (2.5D): use the shaded kit parts (`Pole`, `Conductor`, `Rotor`, `Shadow` in `kit.jsx`), with gradients and soft ground shadows, never SVG filters. New objects follow the same lighting (from the top left).
 
 ### Unit path and flow
-16. One bubble per micro-topic, with a three-part bar for its segments.
-17. Segments run straight into each other inside the player, with no trip back to the path. Only after all three segments, the last screen says **Finish ✓**; then Sparky hops on the path to the next topic's bubble and waits there (no auto-enter).
+17. One bubble per micro-topic, with a three-part bar for its segments.
+18. Segments run straight into each other inside the player, with no trip back to the path. Only after all three segments, the last screen says **Finish ✓**; then Sparky hops on the path to the next topic's bubble and waits there (no auto-enter).
 
 ### Voice, credits and video files
-18. ElevenLabs costs 1 credit per character and the key's balance can't be queried. **Before recording, estimate the characters (`npm run audio:scenes -- --dry`) and ask the user.** Record only the modules the user approved (so far 4.1 and 4.2).
-19. The dev server records unrecorded lines on its own when they play (spends credits). Preview unrecorded content with `vite preview` on a fresh build instead.
-20. Editing a line's `say`/`voice` changes its clip key, so it must be recorded again; keep unchanged lines byte-identical so their clips are reused.
-21. MP4 downloads are rendered offline frame by frame (`npm run render:videos -- 4.1 4.2`), never screen-recorded. Re-render after any change to a video's content, voice, the camera or the player look; the script re-renders automatically when the text or the recorded lines change, otherwise use `--force`.
+19. ElevenLabs costs 1 credit per character and the key's balance can't be queried. **Before recording, estimate the characters (`npm run audio:scenes -- --dry`) and ask the user.** Record only the modules the user approved (so far 4.1 and 4.2).
+20. The dev server records unrecorded lines on its own when they play (spends credits). Preview unrecorded content with `vite preview` on a fresh build instead.
+21. Editing a line's `say`/`voice` changes its clip key, so it must be recorded again; keep unchanged lines byte-identical so their clips are reused.
+22. MP4 downloads are rendered offline frame by frame (`npm run render:videos -- 4.1 4.2`), never screen-recorded. Re-render after any change to a video's content, voice, the camera or the player look; the script re-renders automatically when the text or the recorded lines change, otherwise use `--force`.
 
 ## Procedure
 
@@ -91,3 +92,5 @@ Every time the user improves or corrects course content or quality:
 - 2026-10-28: Rule 4: the opener previews the topic as questions; it must not give away formulas or conclusions.
 - 2026-10-28: New rule 6: segment 1 gets kid-simple doodle pictures for every video (doodles.jsx). Rules renumbered.
 - 2026-10-28: New rule 15: spotlight; the drawing part the voice is about stays bright and the rest dims, and the hand points at it.
+- 2026-10-28: Rule 15 replaced: no dimming (the user found it faded); a focus ring marks the part instead. New rule 16: solid 2.5D look with the shaded kit parts.
+- 2026-10-28: The question lead-in rule now covers every filler cue (bharkhar / ekchoti / dhyan / recall); 24 lead-ins replaced.

@@ -8,8 +8,8 @@ export const whyStarter = video('Derivation: starting current ra starter resista
     { say: 'Armature current bhaneko supply voltage minus back EMF, divide by armature resistance.', voice: 'आर्मेचर करेन्ट भनेको सप्लाई भोल्टेज माइनस ब्याक ई एम एफ, डिभाइड बाई आर्मेचर रेजिस्टेन्स।' },
     { say: 'Start garne instant ma armature ruki rakheko huncha, so N zero ani back EMF pani zero. Current V over R a huncha.', voice: 'स्टार्ट गर्ने इन्स्ट्यान्टमा आर्मेचर रोकिराखेको हुन्छ, सो एन जिरो अनि ब्याक ई एम एफ पनि जिरो। करेन्ट भी ओभर आर ए हुन्छ।' },
     {
-      say: 'Dhyan diyera herya? Check garau.',
-      voice: 'ध्यान दिएर हेर्यौ? चेक गरौं।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Start garne instant ma current kati huncha bhanyo?',
         voice: 'स्टार्ट गर्ने इन्स्टेन्टमा करेन्ट कति हुन्छ भन्यो?',
@@ -22,8 +22,8 @@ export const whyStarter = video('Derivation: starting current ra starter resista
     { say: 'Yesle commutator ra brush jalaucha, winding overheat garcha, shaft lai jhatka dincha, ani aru sabai ko lagi supply voltage tala jharcha.', voice: 'यसले कम्युटेटर र ब्रस जलाउँछ, वाइन्डिङ ओभरहिट गर्छ, शाफ्टलाई झट्का दिन्छ, अनि अरू सबैको लागि सप्लाई भोल्टेज तल झार्छ।' },
     { say: 'Starter le start ma armature sanga series ma resistance R thapcha. Ani starting current V over R a plus R huncha, so R equals V over allowed current, minus R a.', voice: 'स्टार्टरले स्टार्टमा आर्मेचरसँग सिरिजमा रेजिस्टेन्स आर थप्छ। अनि स्टार्टिङ करेन्ट भी ओभर आर ए प्लस आर हुन्छ, सो आर इक्वल्स भी ओभर अलाउड करेन्ट, माइनस आर ए।' },
     {
-      say: 'Formula yaad cha?',
-      voice: 'फर्मुला याद छ?',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Starter resistance ko formula k bhanyo?',
         voice: 'स्टार्टर रेजिस्टेन्सको फर्मुला के भन्यो?',
@@ -66,8 +66,8 @@ export const threePoint = video('3-point starter', {
     { say: 'Line current L bata chirchha, overload release coil hudai handle samma pugcha.', voice: 'लाइन करेन्ट एल बाट छिर्छ, ओभरलोड रिलिज कोइल हुँदै ह्यान्डल सम्म पुग्छ।' },
     { say: 'Handle lai stud one ma lag. Aba sabai starting resistance armature sanga series ma cha, ani field le brass arc hudai full voltage paucha.', voice: 'ह्यान्डललाई स्टड वानमा लैजाऊ। अब सबै स्टार्टिङ रेजिस्टेन्स आर्मेचरसँग सिरिजमा छ, अनि फिल्डले ब्रास आर्क हुँदै फुल भोल्टेज पाउँछ।' },
     {
-      say: 'Yaha ekchoti pause.',
-      voice: 'यहाँ एकचोटि पज।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Stud 1 ma field le kati voltage paucha?',
         voice: 'स्टड वानमा फिल्डले कति भोल्टेज पाउँछ?',
@@ -178,8 +178,8 @@ export const fourPoint = video('4-point starter', {
     { say: '4-point starter le yo fix garcha. No-volt coil lai field circuit bata nikalera, protective resistance hudai sidhai supply ko across jodincha.', voice: 'फोर पोइन्ट स्टार्टरले यो फिक्स गर्छ। नो भोल्ट कोइललाई फिल्ड सर्किट बाट निकालेर, प्रोटेक्टिभ रेजिस्टेन्स हुँदै सिधै सप्लाईको एक्रस जोडिन्छ।' },
     { say: 'Tyo extra supply connection nai fourth terminal ho. Aba field rheostat le no-volt coil lai ekdam affect gardaina.', voice: 'त्यो एक्स्ट्रा सप्लाई कनेक्सन नै फोर्थ टर्मिनल हो। अब फिल्ड रियोस्ट्याटले नो भोल्ट कोइललाई एकदमै अफेक्ट गर्दैन।' },
     {
-      say: 'Aafai check gara.',
-      voice: 'आफैं चेक गर।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: '4-point starter ko chautho terminal k ho bhanyo?',
         voice: 'फोर पोइन्ट स्टार्टरको चौथो टर्मिनल के हो भन्यो?',

@@ -39,8 +39,8 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
     { say: 'Yo hera 220 volt ko DC motor, armature resistance half ohm. Switch ahile open cha, tesaile kei pani bagdaina.', voice: 'यो हेर टु ट्वेन्टी भोल्टको डीसी मोटर, आर्मेचर रेजिस्टेन्स हाफ ओम। स्विच अहिले ओपन छ, त्यसैले केही पनि बग्दैन।' },
     { say: 'Switch on. Armature ahile ghumeko chaina, tesaile back EMF zero. Current V over R a: 440 ampere, dami!', voice: 'स्विच अन। आर्मेचर अहिले घुमेको छैन, त्यसैले ब्याक ई एम एफ जिरो। करेन्ट भी ओभर आर ए: फोर हन्ड्रेड फोर्टी एम्पियर, दामी!' },
     {
-      say: 'Dhyan diyera herya? Check garau.',
-      voice: 'ध्यान दिएर हेर्यौ? चेक गरौं।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Switch on garda back EMF kati thiyo?',
         voice: 'स्विच अन गर्दा ब्याक ई एम एफ कति थियो?',
@@ -53,8 +53,8 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
     { say: 'Full speed ma back EMF 210 volt huncha. R a bata current push garna 10 volt matra baki huncha, tesaile armature current just 20 ampere.', voice: 'फुल स्पिडमा ब्याक ई एम एफ टु हन्ड्रेड टेन भोल्ट हुन्छ। आर ए बाट करेन्ट पुस गर्न टेन भोल्ट मात्र बाँकी हुन्छ, त्यसैले आर्मेचर करेन्ट जस्ट ट्वेन्टी एम्पियर।' },
     { say: 'Aba load thapa. Motor ali slow huncha, E b 205 volt ma jharcha, ani current 30 ampere samma badhcha, jasle load lai chahine extra torque dincha.', voice: 'अब लोड थप। मोटर अलि स्लो हुन्छ, ई बी टु हन्ड्रेड फाइभ भोल्टमा झर्छ, अनि करेन्ट थर्टी एम्पियर सम्म बढ्छ, जसले लोडलाई चाहिने एक्स्ट्रा टर्क दिन्छ।' },
     {
-      say: 'Bharkhar k bhayo, ekchoti socha ta.',
-      voice: 'भर्खर के भयो, एकचोटि सोच त।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Load thapda current kati samma badhyo?',
         voice: 'लोड थप्दा करेन्ट कति सम्म बढ्यो?',
@@ -198,8 +198,8 @@ export const speedEq = video('Derivation: speed equation', {
     { say: 'Shunt motor: flux constant huncha, tesaile speed ratio bhaneko back EMF ko ratio matra ho.', voice: 'शन्ट मोटर: फ्लक्स कन्स्टेन्ट हुन्छ, त्यसैले स्पिड रेसियो भनेको ब्याक ई एम एफको रेसियो मात्र हो।' },
     { say: 'Saturation bina ko series motor: flux I a sanga proportional, tesaile I a 1 over I a 2 le pani multiply gara.', voice: 'स्याचुरेसन बिनाको सिरिज मोटर: फ्लक्स आई ए सँग प्रोपोर्सनल, त्यसैले आई ए वान ओभर आई ए टु ले पनि मल्टिप्लाई गर।' },
     {
-      say: 'Arko ekchoti.',
-      voice: 'अर्को एकचोटि।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         tag: 'Quick check',
         q: 'V same rakhera shunt motor ko field weak garyo. Yesko speed…',

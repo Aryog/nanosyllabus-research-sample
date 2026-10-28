@@ -823,14 +823,15 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .board-line.kind-eq.on, .board-line.kind-answer.on { padding: 12px 0; }
 .board-line .tex { margin: 0 0.2em; }
 
-/* Highlighted drawing parts pulse instead of glowing: a drop-shadow filter
-   under the camera's zoom renders shifted ghost copies in Chrome. */
-.scene-svg .hl { filter: none; animation: hlsvg 1.4s ease-in-out infinite; }
-@keyframes hlsvg { 50% { opacity: 0.55; } }
-/* Spotlight: while a beat brings in or highlights parts of the drawing, the
-   rest of it steps back, so the eye goes where the voice is. */
-.scene-svg > * { transition: opacity 0.5s ease; }
-.scene-svg:has(.now, .hl) > :not(.now, .hl, :has(.now, .hl), .sc:not(.on)) { opacity: 0.35; }
+/* Highlighted drawing parts stay fully visible (the focus ring marks them):
+   no glow, since a drop-shadow filter under the camera's zoom renders
+   shifted ghost copies in Chrome, and no fading pulse. */
+.scene-svg .hl { filter: none; animation: none; }
+/* Focus: a ring around the part of the drawing the voice is talking about;
+   everything else stays fully visible. */
+.focus-ring { position: absolute; pointer-events: none; z-index: 1; border: 3px solid #fab005; border-radius: 16px; box-sizing: border-box; transition: left 0.5s ease, top 0.5s ease, width 0.5s ease, height 0.5s ease; animation: focusin 0.4s ease both, focuspulse 1.4s ease-in-out 0.4s infinite; }
+@keyframes focusin { from { opacity: 0; transform: scale(1.08); } }
+@keyframes focuspulse { 50% { border-color: rgba(250, 176, 5, 0.35); } }
 /* Video screens: no card around the player; the video sits right under the
    top bar and takes the rest of the window. */
 .card.card-video { border: 0; background: none; box-shadow: none; }

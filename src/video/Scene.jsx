@@ -355,6 +355,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
   const camRef = useRef(null);
   const [cam, setCam] = useState({ x: 0, y: 0, k: 1 });
   const [hand, setHand] = useState(null);
+  const [focus, setFocus] = useState(null); // ring around the part the voice is about
   const handRef = useRef(null);
   useEffect(() => {
     if (hand?.mode !== 'write') return;
@@ -445,6 +446,9 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
     const frame = (shot) => {
       const v = view(measure(shot.cam));
       if (v) setCam(v);
+      // Ring the part of the drawing this shot is about.
+      const f = !ended && draw && shot.cam?.includes(FIG) ? measure(FIG) : null;
+      setFocus(f && { x: f.l - 8, y: f.t - 8, w: f.r - f.l + 16, h: f.b - f.t + 16 });
     };
     const pen = (mode) => {
       if (!mode) return setHand(null);
@@ -880,6 +884,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
                 ))}
               </div>
             )}
+            {focus && <div className="focus-ring" style={{ left: focus.x, top: focus.y, width: focus.w, height: focus.h }} />}
             {hand && (
               <div
                 key={`${beat}-${run}`}

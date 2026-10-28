@@ -92,8 +92,8 @@ export const fieldControl = video('Field (flux) control', {
       voice: 'रियोस्ट्याट बढाऊ, फिल्ड करेन्ट घट्छ, फ्लक्स घट्छ, अनि स्पिड बेस स्पिडभन्दा माथि जान्छ।',
     },
     {
-      say: 'Bharkhar ko kura.',
-      voice: 'भर्खरको कुरा।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Field rheostat badhauda speed kata jancha?',
         voice: 'फिल्ड रियोस्ट्याट बढाउँदा स्पिड कता जान्छ?',
@@ -196,8 +196,8 @@ export const armatureControl = video('Armature (rheostatic) control', {
       voice: 'एक्स्ट्रा रेजिस्टेन्सले ठूलो भोल्टेज ड्रप दिन्छ, त्यसैले ब्याक ई एम एफ घट्छ र स्पिड बेस स्पिडभन्दा तल झर्छ।',
     },
     {
-      say: 'Bharkhar ko kura.',
-      voice: 'भर्खरको कुरा।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Armature ma extra resistance thapda speed kata jancha?',
         voice: 'आर्मेचरमा एक्स्ट्रा रेजिस्टेन्स थप्दा स्पिड कता जान्छ?',
