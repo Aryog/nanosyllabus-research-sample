@@ -520,12 +520,18 @@ button:disabled { cursor: default; }
 .flowdash { stroke-dasharray: 6 6; animation: flow 0.8s linear infinite; }
 
 /* Camera (Scene.jsx): the stage is the frame, the cam pans and zooms inside it. */
-.scene-stage { position: relative; overflow: hidden; flex: 1 1 auto; min-height: 0; }
+/* The stage is a size container: board writing scales with the video's width
+   (the camera only zooms 10%, so the text itself has to be big enough). */
+.scene-stage { position: relative; overflow: hidden; flex: 1 1 auto; min-height: 0; container-type: inline-size; }
+/* Board text size: every line kind is a multiple of it. */
+.scene-cam { --bs: clamp(17px, 2cqw, 36px); }
+/* Drawing beside notes: the notes column is narrower. */
+.scene-cam.split { --bs: clamp(15px, 1.45cqw, 28px); }
 .scene-cam { transform-origin: 0 0; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
 @media (prefers-reduced-motion: reduce) { .scene-cam { transition: none; } }
 .board { display: flex; flex-direction: column; gap: 2px; padding: 4px 4px 8px; }
 .board-only { flex: 1; justify-content: center; padding: 18px 10px 14px; }
-.board-line { position: relative; opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.3s ease, max-height 0.6s ease, color 0.4s; color: var(--chalk-2); font-family: var(--hand); font-size: 18px; line-height: 1.45; }
+.board-line { position: relative; opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.3s ease, max-height 0.6s ease, color 0.4s; color: var(--chalk-2); font-family: var(--hand); font-size: var(--bs); line-height: 1.45; }
 .board-line.on { opacity: 1; max-height: 320px; padding: 3px 0; }
 .board-line.on .ink { display: inline-block; animation: write var(--wd, 1.4s) linear both; }
 @keyframes write { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(-20px -20px -20px -20px); } }
@@ -562,12 +568,12 @@ button:disabled { cursor: default; }
 @keyframes handtap { to { transform: translate(-4px, -5px); } }
 @media (prefers-reduced-motion: reduce) { .hand { display: none; } }
 .board-line.hl { color: var(--chalk); filter: none; animation: none; }
-.board-line.kind-h { font-family: var(--script); font-size: 30px; font-weight: 700; color: var(--chalk); }
-.board-line.kind-eq { text-align: center; font-family: var(--hand); font-size: 26px; color: var(--c-blue); }
+.board-line.kind-h { font-family: var(--script); font-size: calc(var(--bs) * 1.67); font-weight: 700; color: var(--chalk); }
+.board-line.kind-eq { text-align: center; font-family: var(--hand); font-size: calc(var(--bs) * 1.45); color: var(--c-blue); }
 .board-line.kind-eq .ink { padding: 2px 14px; border: 2px solid currentColor; border-radius: 10px 14px 9px 16px; }
-.board-line.kind-step { font-size: 19px; padding-left: 14px; color: var(--chalk); }
-.board-line.kind-note { font-size: 16px; color: var(--chalk-2); }
-.board-line.kind-hook { font-family: var(--script); font-size: 26px; font-weight: 700; color: var(--c-green); }
+.board-line.kind-step { font-size: calc(var(--bs) * 1.05); padding-left: 14px; color: var(--chalk); }
+.board-line.kind-note { font-size: calc(var(--bs) * 0.95); color: var(--chalk-2); }
+.board-line.kind-hook { font-family: var(--script); font-size: calc(var(--bs) * 1.45); font-weight: 700; color: var(--c-green); }
 .board-line b { color: var(--chalk); }
 .board-line .y { color: var(--c-yellow); } .board-line .r { color: var(--c-red); } .board-line .bl { color: var(--c-blue); } .board-line .g { color: var(--c-green); }
 .scene-caption { margin: auto -16px 0; padding: 12px 18px; min-height: 52px; background: #f1f3f5; border-top: 1px solid #e3e6ea; color: var(--chalk); font-size: 15.5px; line-height: 1.45; text-align: center; animation: capin 0.4s ease; }
@@ -653,18 +659,18 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .q-tag-pattern { color: var(--ink-2); font-weight: 600; }
 
 /* whiteboard solving videos (solve() in kit.jsx) */
-.board-line.kind-q { font-size: 17px; color: var(--chalk); background: #fff; border: 1.5px dashed #ced4da; border-radius: 10px; padding: 8px 12px !important; margin-bottom: 6px; }
+.board-line.kind-q { font-size: calc(var(--bs) * 0.95); color: var(--chalk); background: #fff; border: 1.5px dashed #ced4da; border-radius: 10px; padding: 8px 12px !important; margin-bottom: 6px; }
 .board-line.kind-q .ink { animation: none; }
-.board-line.kind-q .tag { font-family: var(--script); font-size: 22px; color: var(--c-red); margin-right: 6px; }
+.board-line.kind-q .tag { font-family: var(--script); font-size: 1.3em; color: var(--c-red); margin-right: 6px; }
 .wb-data { border-radius: 4px; padding: 0 2px; transition: background 0.6s, box-shadow 0.6s; }
 .scene:not(.beat-0) .wb-data { background: rgba(255, 212, 59, 0.55); box-shadow: 0 2px 0 var(--c-orange); }
 .board-line.kind-given { color: var(--chalk); padding-left: 14px; }
 .board-line.kind-given .ink::before { content: '✓ '; color: var(--c-green); }
-.board-line.kind-find { color: var(--c-red); font-size: 20px; }
-.board-line.kind-idea { font-family: var(--script); font-size: 25px; color: var(--c-violet); }
-.board-line.kind-answer { text-align: center; font-size: 24px; color: var(--c-green); }
+.board-line.kind-find { color: var(--c-red); font-size: calc(var(--bs) * 1.1); }
+.board-line.kind-idea { font-family: var(--script); font-size: calc(var(--bs) * 1.4); color: var(--c-violet); }
+.board-line.kind-answer { text-align: center; font-size: calc(var(--bs) * 1.33); color: var(--c-green); }
 .board-line.kind-answer .ink { padding: 4px 16px; border: 3px double var(--c-green); border-radius: 12px; }
-.board-line.kind-trap { color: var(--c-red); font-size: 16px; }
+.board-line.kind-trap { color: var(--c-red); font-size: calc(var(--bs) * 0.95); }
 .board-line.kind-trap .ink::before { content: '⚠ '; }
 .board-line .y { color: var(--c-orange); } .board-line .r { color: var(--c-red); } .board-line .bl { color: var(--c-blue); } .board-line .g { color: var(--c-green); }
 .board-line b { color: var(--chalk); }
@@ -676,10 +682,6 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 /* Big screens: the video fills more of the page, like a real player. */
 @media (min-width: 1200px) and (min-height: 760px) {
   .content.wide { max-width: min(1640px, 96vw); }
-  .board-line { font-size: 23px; }
-  .board-line.kind-h { font-size: 38px; }
-  .board-line.kind-eq { font-size: 33px; }
-  .board-line.kind-q { font-size: 20px; }
   .scene-screen { padding: 16px 26px 0; }
   .scene-caption { margin: auto -26px 0; padding: 14px 26px; font-size: 19px; min-height: 60px; }
   .scene-bar { padding: 10px 16px 12px; }
@@ -740,14 +742,6 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .scene-screen { padding-bottom: 14px; }
 /* Very large screens: bigger marker writing so the board fills the frame. */
 @media (min-width: 1600px) and (min-height: 900px) {
-  .board-line { font-size: 29px; }
-  .board-line.kind-h { font-size: 48px; }
-  .board-line.kind-eq { font-size: 41px; }
-  .board-line.kind-q { font-size: 24px; }
-  .board-line.kind-step { font-size: 29px; }
-  .board-line.kind-idea { font-size: 31px; }
-  .board-line.kind-answer { font-size: 31px; }
-  .board-line.kind-hook { font-size: 33px; }
   .hand-img { width: 92px; height: 92px; top: -89px; }
 }
 
@@ -865,3 +859,9 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 @keyframes dshake { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
 .doodle-lift { animation: dlift 1.6s ease-in-out infinite alternate; }
 @keyframes dlift { to { transform: translateY(-14px); } }
+
+/* 3D pictures (Stage3D.jsx): drag to turn them. */
+.stage3d { width: 100%; aspect-ratio: 16 / 10; max-height: 420px; margin: 0 auto; cursor: grab; touch-action: none; }
+.stage3d:active { cursor: grabbing; }
+.stage3d canvas { display: block; width: 100% !important; height: 100% !important; object-fit: contain; }
+.content.wide .stage3d { max-height: none; }

@@ -3,7 +3,7 @@ import { Ask, Battery, Crane, Face, Fan, MagnetWire, Note } from './video/doodle
 import { characteristicsAnswer, starterAnswer, testingAnswer, torqueAnswer } from './video/picture.jsx';
 import { ch1Model, fleming, howBig, whyItMoves } from './video/ch1.jsx';
 import { ch2Model, commutatorAction, crossSection, emfDerivation, emfIoe, lapWave } from './video/ch2.jsx';
-import { ch3Model, torqueDerivation, torqueFactors, torqueProduction } from './video/ch3.jsx';
+import { ch3Model, torqueDerivation, torqueFactors, torqueProduction, torqueProduction3d } from './video/ch3.jsx';
 import { ch4Model, maxPower, speedEq, story, voltagePower } from './video/ch4.jsx';
 import { connections, equations, shuntLoadSpeed } from './video/ch5.jsx';
 import { ch6Model, compound, series, seriesNumerical, shunt, shuntNumerical } from './video/ch6.jsx';
@@ -67,12 +67,12 @@ const t41 = topic({
       </>
     ),
   },
-  terms: [vibe41, torqueProduction, story],
+  terms: [vibe41, torqueProduction3d, story],
   derive: [torqueDerivation],
   picture: [
     torqueAnswer,
   ],
-  extras: [ch3Model, whyItMoves, howBig, fleming, ch1Model, crossSection, commutatorAction, lapWave, emfDerivation, emfIoe, ch2Model, torqueFactors, voltagePower, maxPower, speedEq, ch4Model],
+  extras: [torqueProduction, ch3Model, whyItMoves, howBig, fleming, ch1Model, crossSection, commutatorAction, lapWave, emfDerivation, emfIoe, ch2Model, torqueFactors, voltagePower, maxPower, speedEq, ch4Model],
 });
 
 const t42 = topic({

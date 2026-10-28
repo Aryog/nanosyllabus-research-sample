@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import rough from 'roughjs';
 import { beatText, isNepali, spoken, videoKey, voiceKey } from './voice.js';
+
+const Stage3D = lazy(() => import('./Stage3D.jsx'));
 
 /*
   Scene: a short, self-playing "video" built from beats, like a whiteboard
@@ -10,6 +12,7 @@ import { beatText, isNepali, spoken, videoKey, voiceKey } from './voice.js';
   <Scene
     viewBox="0 0 360 220"           // optional SVG drawing area
     draw={(s) => <>…svg…</>}         // s.on(k) → class that fades in from beat k
+    three={build}                    // instead of draw: a 3D picture (Stage3D.jsx)
                                      // s.on(k, j) → visible only for beats k…j
                                      // s.hl(k) → ' hl' on beat k (signal / glow)
                                      // s.beat → current beat index
@@ -316,7 +319,7 @@ const clock = (ms) => {
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
 };
 
-export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, nextLabel, tall, notes, title, kicker, upcoming = [] }) {
+export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, upcoming = [] }) {
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [voice, setVoice] = useState(() => !isMuted() && 'speechSynthesis' in window);
@@ -363,7 +366,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
     if (ink && handRef.current) return writeLive(ink, camRef.current, handRef.current, hand.secs, () => within.current);
   }, [hand]);
   const wide = useWide();
-  const split = wide && draw && board?.length > 1;
+  const split = wide && (draw || three) && board?.length > 1;
   // Long derivation: heading across the top, the rest written column by column.
   const head = board && !draw && board[0]?.kind === 'h' ? 1 : 0;
   // Columns are balanced by text length, so long answer points don't pile up on one side.
@@ -406,7 +409,10 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
     };
     const view = (box) => {
       const W = stage.clientWidth;
-      const H = stage.clientHeight;
+      // Frame the board above the caption, not behind it.
+      const cap = stage.parentElement?.querySelector('.scene-caption')?.getBoundingClientRect();
+      const under = cap ? Math.max(0, stage.getBoundingClientRect().bottom - cap.top + 8) : 0;
+      const H = stage.clientHeight - under;
       const cw = el.offsetWidth;
       const ch = el.offsetHeight;
       if (!W || !H || !cw || !ch) return null;
@@ -859,6 +865,11 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
         )}
         <div className="scene-stage" ref={stageRef}>
           <div className={`scene-cam ${split ? 'split' : ''} ${split && notes ? 'notes' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
+            {three && (
+              <Suspense fallback={<div className="stage3d" />}>
+                <Stage3D build={three} beat={beat} clock={within} />
+              </Suspense>
+            )}
             {draw && (
               <svg viewBox={viewBox} className="scene-svg" role="img">
                 {draw(s)}

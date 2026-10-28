@@ -98,10 +98,11 @@ if (todo.length) {
   const { chromium } = await import('playwright-core');
   // Frames are drawn only when asked for (begin-frame control), and every
   // animation runs on the main thread, so the frame clock drives all of them.
+  // SwiftShader draws the 3D videos (WebGL) without a GPU.
   const browser = await chromium.launchPersistentContext('', {
     executablePath: await findShell(),
     viewport: null,
-    args: ['--deterministic-mode', '--enable-begin-frame-control', '--run-all-compositor-stages-before-draw', '--disable-threaded-animation', '--disable-threaded-scrolling', '--disable-checker-imaging'],
+    args: ['--deterministic-mode', '--enable-begin-frame-control', '--run-all-compositor-stages-before-draw', '--disable-threaded-animation', '--disable-threaded-scrolling', '--disable-checker-imaging', '--enable-unsafe-swiftshader'],
   });
   // Animation frames get the page clock's time, like everything else the player times.
   await browser.addInitScript((d) => {

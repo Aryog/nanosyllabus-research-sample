@@ -1,4 +1,5 @@
 import { Arrow, C, Conductor, K, model, Pole, video, Rotor } from './kit.jsx';
+import { buildMotor } from './motor3d.js';
 
 /* Chapter 3 · Working principle & torque equation (Syllabus Unit 4: working principle and torque equation). */
 
@@ -71,6 +72,11 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
   ),
   board: [{ at: 4, kind: 'note', node: <>N muni ko sabai conductor: ⊗ ra tala push. S muni ko sabai: ⊙ ra mathi push. → <b>unidirectional torque</b></> }],
 });
+
+// The same video in 3D: the motor turns, current flows along the conductors,
+// and the camera moves to each step (motor3d.js). Same beats, so same voice.
+const { draw: _flat, viewBox: _vb, ...torqueBeats } = torqueProduction.figureProps;
+export const torqueProduction3d = video(torqueProduction.title, { ...torqueBeats, three: buildMotor });
 
 export const torqueDerivation = video('Derivation: torque equation', {
   tall: true,

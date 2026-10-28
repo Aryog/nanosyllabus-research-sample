@@ -19,6 +19,7 @@ or quality task ends by updating it (see "Keep this skill alive").**
 | Video helpers (`video`, `answer`, `overview`, `segments`, SVG parts) | `src/content/video/kit.jsx` |
 | Video bank (beats, board, drawings) | `src/content/video/*.jsx` (`vibe.jsx` = segment-1 openers) |
 | Player (clock, camera, voice, asks, download) | `src/video/Scene.jsx`, voice keys in `src/video/voice.js` |
+| 3D pictures | `src/video/Stage3D.jsx` (stage), `src/content/video/motor3d.js` (motor) |
 | Lesson flow, XP, Finish | `src/components/LessonPlayer.jsx` |
 | Unit path (one bubble per micro-topic, Sparky) | `src/App.jsx` |
 | Voice clips | `public/audio/scene/<key>.mp3` (`npm run audio:scenes`) |
@@ -51,19 +52,21 @@ these rules too.
 ### Player and camera
 12. Default speed 1× (pref key `dcm-rate`). Space plays and pauses.
 13. Camera zoom is at most 10% past the full-board view (`ZOOM_IN = 1.1` in `Scene.jsx`); the drawing must never be cut off.
-14. Pause freezes everything (voice, handwriting, hand, CSS animations); seeking lands on the exact moment; all of it runs on the scene clock `within`.
-15. Focus follows the voice, and the drawing always stays fully visible (never dim or fade parts). The part a beat brings in (`s.on(k)`) or highlights (`s.hl(k)`) gets the pulsing yellow focus ring and the pointing hand, so every beat that talks about a part of the drawing must mark it with `s.on(k)` or `s.hl(k)`.
-16. Drawings look solid (2.5D): use the shaded kit parts (`Pole`, `Conductor`, `Rotor`, `Shadow` in `kit.jsx`), with gradients and soft ground shadows, never SVG filters. New objects follow the same lighting (from the top left).
+14. Board text is big and scales with the video's width: every line kind's size is a multiple of `--bs` (`.scene-cam`, `clamp(17px, 2cqw, 36px)`; smaller beside a drawing). Never give a line kind a fixed px size. The camera frames the board above the caption, never behind it.
+15. Pause freezes everything (voice, handwriting, hand, CSS animations); seeking lands on the exact moment; all of it runs on the scene clock `within`.
+16. Focus follows the voice, and the drawing always stays fully visible (never dim or fade parts). The part a beat brings in (`s.on(k)`) or highlights (`s.hl(k)`) gets the pulsing yellow focus ring and the pointing hand, so every beat that talks about a part of the drawing must mark it with `s.on(k)` or `s.hl(k)`.
+17. Drawings look solid (2.5D): use the shaded kit parts (`Pole`, `Conductor`, `Rotor`, `Shadow` in `kit.jsx`), with gradients and soft ground shadows, never SVG filters. New objects follow the same lighting (from the top left).
+18. Where turning the object makes the idea click (the motor turning, current along conductors, force directions), use a real 3D picture: a video's `three: build` prop (`src/video/Stage3D.jsx`, three.js, loaded lazily) with a build module like `src/content/video/motor3d.js`. It keeps the 2D video's beats (so voice is reused), one camera shot per beat, everything driven by the scene clock (`ms`, `dt`, never wall time), and drag to look around. Keep the flat version in `extras`.
 
 ### Unit path and flow
-17. One bubble per micro-topic, with a three-part bar for its segments.
-18. Segments run straight into each other inside the player, with no trip back to the path. Only after all three segments, the last screen says **Finish ✓**; then Sparky hops on the path to the next topic's bubble and waits there (no auto-enter).
+19. One bubble per micro-topic, with a three-part bar for its segments.
+20. Segments run straight into each other inside the player, with no trip back to the path. Only after all three segments, the last screen says **Finish ✓**; then Sparky hops on the path to the next topic's bubble and waits there (no auto-enter).
 
 ### Voice, credits and video files
-19. ElevenLabs costs 1 credit per character and the key's balance can't be queried. **Before recording, estimate the characters (`npm run audio:scenes -- --dry`) and ask the user.** Record only the modules the user approved (so far 4.1 and 4.2).
-20. The dev server records unrecorded lines on its own when they play (spends credits). Preview unrecorded content with `vite preview` on a fresh build instead.
-21. Editing a line's `say`/`voice` changes its clip key, so it must be recorded again; keep unchanged lines byte-identical so their clips are reused.
-22. MP4 downloads are rendered offline frame by frame (`npm run render:videos -- 4.1 4.2`), never screen-recorded. Re-render after any change to a video's content, voice, the camera or the player look; the script re-renders automatically when the text or the recorded lines change, otherwise use `--force`.
+21. ElevenLabs costs 1 credit per character and the key's balance can't be queried. **Before recording, estimate the characters (`npm run audio:scenes -- --dry`) and ask the user.** Record only the modules the user approved (so far 4.1 and 4.2).
+22. The dev server records unrecorded lines on its own when they play (spends credits). Preview unrecorded content with `vite preview` on a fresh build instead.
+23. Editing a line's `say`/`voice` changes its clip key, so it must be recorded again; keep unchanged lines byte-identical so their clips are reused.
+24. MP4 downloads are rendered offline frame by frame (`npm run render:videos -- 4.1 4.2`), never screen-recorded. Re-render after any change to a video's content, voice, the camera or the player look; the script re-renders automatically when the text or the recorded lines change, otherwise use `--force`.
 
 ## Procedure
 
@@ -94,3 +97,5 @@ Every time the user improves or corrects course content or quality:
 - 2026-10-28: New rule 15: spotlight; the drawing part the voice is about stays bright and the rest dims, and the hand points at it.
 - 2026-10-28: Rule 15 replaced: no dimming (the user found it faded); a focus ring marks the part instead. New rule 16: solid 2.5D look with the shaded kit parts.
 - 2026-10-28: The question lead-in rule now covers every filler cue (bharkhar / ekchoti / dhyan / recall); 24 lead-ins replaced.
+- 2026-10-28: New rule 17: real 3D (three.js) for ideas that need turning; first one is "Armature le torque kasari banaucha" (motor3d.js).
+- 2026-10-28: New rule 14: board text scales with the video width (after the 10% zoom cap made it tiny); the camera frames the board above the caption.
