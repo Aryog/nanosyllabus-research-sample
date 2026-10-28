@@ -43,10 +43,9 @@ export const shunt = video('Derivation: shunt motor ko characteristics', {
       voice: 'शाफ्ट टर्क चाहिँ अलि कम हुन्छ, किनभने टर्कको अलि पार्ट आइरन र फ्रिक्सन लसेसमा खाइन्छ।',
     },
     {
-      say: 'Bharkhar ko kura.',
-      voice: 'भर्खरको कुरा।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Shaft torque armature torque bhanda kina ali kam huncha?',
         voice: 'स्याफ्ट टर्क आर्मेचर टर्कभन्दा किन अलि कम हुन्छ?',
         options: ['Field weak huncha', 'Iron ra friction losses le ali khaancha', 'Supply voltage ghatcha'],
@@ -67,10 +66,9 @@ export const shunt = video('Derivation: shunt motor ko characteristics', {
       voice: 'यो ड्रपलाई स्पिड रेगुलेसनले नाप्छ: नो लोड स्पिड माइनस फुल लोड स्पिड, डिभाइड बाई फुल लोड स्पिड, टाइम्स वान हन्ड्रेड।',
     },
     {
-      say: 'Dhyan diyau?',
-      voice: 'ध्यान दियौ?',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Speed regulation ma divide kasle garincha?',
         voice: 'स्पिड रेगुलेसनमा डिभाइड कसले गरिन्छ?',
         options: ['No-load speed', 'Full-load speed'],
@@ -128,10 +126,9 @@ export const series = video('Derivation: series motor ko characteristics', {
       voice: 'स्याचुरेसन पछि फाइ बढ्न छोड्छ, सो टर्क फेरि आई ए सँग प्रोपोर्सनल हुन्छ, अनि कर्भ सिधा हुँदै जान्छ।',
     },
     {
-      say: 'Bharkhar bhaneko yaad cha?',
-      voice: 'भर्खर भनेको याद छ?',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Saturation pachi series motor ko torque curve kasto huncha?',
         voice: 'स्याचुरेसनपछि सिरिज मोटरको टर्क कर्भ कस्तो हुन्छ?',
         options: ['Parabola nai rahancha', 'Sidha hudai jancha (Ta ∝ Ia)'],
@@ -151,7 +148,6 @@ export const series = video('Derivation: series motor ko characteristics', {
       say: 'Yo classic IOE question ho bro.',
       voice: 'यो क्लासिक आइओई क्वेस्चन हो ब्रो।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Load hatauda series motor ko speed k huncha bhanyo?',
         voice: 'लोड हटाउँदा सिरिज मोटरको स्पिड के हुन्छ भन्यो?',
         options: ['Ghatcha', 'Same rahancha', 'Ekdam badhcha, khatarnak'],
@@ -225,7 +221,6 @@ export const compound = video('Compound motor ra kun motor kaha use huncha', {
       say: 'Applications yaad gara.',
       voice: 'एप्लिकेसन याद गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Shears ra punching press ko lagi kun motor bhaneko?',
         voice: 'शियर्स र पन्चिङ प्रेसको लागि कुन मोटर भनेको?',
         options: ['Series', 'Cumulative compound', 'Shunt'],

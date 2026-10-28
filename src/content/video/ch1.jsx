@@ -99,8 +99,8 @@ export const fleming = video('Kun tira? Fleming ko left-hand rule', {
     { say: 'Second finger le Current ko direction dekhaucha.', voice: 'सेकेन्ड फिङ्गरले करेन्टको डाइरेक्सन देखाउँछ।' },
     { say: 'Ani thumb le Motion dekhaucha, matlab force ko direction. Simple cha.', voice: 'अनि थम्बले मोसन देखाउँछ, मतलब फोर्सको डाइरेक्सन। सिम्पल छ।' },
     {
-      say: 'Bharkhar herya wire sanga check garau.',
-      voice: 'भर्खर हेर्या वायरसँग चेक गरौं।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
         tag: 'Quick check',
         q: 'Field right tira, current timi tira aaudai cha. Force kun tira?',

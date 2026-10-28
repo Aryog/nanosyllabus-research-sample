@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import LessonPlayer, { XpCounter } from './components/LessonPlayer.jsx';
 import Mascot from './components/Mascot.jsx';
@@ -29,16 +29,19 @@ const breaks = path.map((st, i) => (st.interstitial && !st.segmentBreak ? i : -1
 // /electrical-machines/dc-motor/lesson/:n (player at main-path screen n).
 const UNIT = '/electrical-machines/dc-motor';
 
-// Each micro-topic's three lesson nodes: where each segment starts and ends in
-// the main path (segment 1 starts at the topic card, 2 and 3 at their cards).
-const SEG = [['📘', 'Terms'], ['∫', 'Derivation'], ['★', 'Big picture']];
+// One node per micro-topic, spanning its main-path screens; inside it, where
+// each of its three segments starts and ends (segment 1 starts at the topic
+// card, 2 and 3 at their cards).
+const SEG = ['Terms', 'Derivation', 'Big picture'];
 const topicNodes = breaks.map((b, k) => {
   const end = (breaks[k + 1] ?? path.length) - 1;
   const cuts = [b, ...path.map((st, i) => (st.segmentBreak && i > b && i <= end ? i : -1)).filter((i) => i >= 0)];
   return {
     num: journey.nums[k],
     title: journey.chapters[k],
-    nodes: cuts.map((start, j) => ({ start, end: (cuts[j + 1] ?? end + 1) - 1, icon: SEG[j][0], label: SEG[j][1] })),
+    start: b,
+    end,
+    segs: cuts.map((start, j) => ({ start, end: (cuts[j + 1] ?? end + 1) - 1, label: SEG[j] })),
   };
 });
 
@@ -47,7 +50,7 @@ export default function App() {
   // Dev shortcut: ?s=<step> jumps straight into a screen.
   const dev = import.meta.env.DEV ? new URLSearchParams(location.search) : null;
   // The URL is the state, so Back works and a reload stays put.
-  const { pathname } = useLocation();
+  const { pathname, state } = useLocation();
   const navigate = useNavigate();
   const lesson = matchPath(`${UNIT}/lesson/:n`, pathname);
   const view = lesson || matchPath(UNIT, pathname) ? 'unit' : 'syllabus';
@@ -60,6 +63,32 @@ export default function App() {
     requestAnimationFrame(() => document.querySelector('.unit-node.now')?.scrollIntoView({ block: 'center' }));
   }, [view, active]);
   const narrator = useNarrator();
+  // Just finished a micro-topic: Sparky hops from its last node to the next
+  // topic's first one (state.hop = the main screen it starts at) and waits there.
+  const hop = view === 'unit' && active === null ? state?.hop : null;
+  useLayoutEffect(() => {
+    if (hop == null) return;
+    const go = () => navigate(UNIT, { replace: true });
+    const to = document.querySelector('.unit-node.now');
+    const from = document.querySelector(`.unit-node[data-end="${hop - 1}"]`);
+    const sparky = to?.querySelector('.mascot');
+    if (!from || !sparky || !to.matches(`[data-start="${hop}"]`)) return go();
+    const a = from.getBoundingClientRect();
+    const b = to.getBoundingClientRect();
+    const dx = a.left - b.left;
+    const dy = a.top - b.top;
+    const at = (f) => `translate(${dx * (1 - f)}px, ${dy * (1 - f) - Math.sin(f * Math.PI) * 60}px)`;
+    const run = sparky.animate(
+      [{ transform: at(0) }, { transform: at(0.25) }, { transform: at(0.5) }, { transform: at(0.75) }, { transform: at(1) }],
+      { duration: 1100, delay: 350, easing: 'ease-in-out', fill: 'backwards' },
+    );
+    const t = setTimeout(go, 1100 + 350);
+    return () => {
+      run.cancel();
+      clearTimeout(t);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hop]);
 
   useEffect(() => {
     try {
@@ -89,6 +118,10 @@ export default function App() {
         addXp={addXp}
         onComplete={complete}
         onProgress={saveSpot}
+        onTopicEnd={(at) => {
+          saveSpot(at);
+          navigate(UNIT, { state: { hop: at } });
+        }}
         crumbs={[
           { label: syllabus.subject, onClick: () => { narrator.stop(); setView('syllabus'); } },
           { label: 'DC Motor', onClick: () => { narrator.stop(); setActive(null); } },
@@ -170,20 +203,27 @@ export default function App() {
               <b>{t.num}</b> {t.title}
             </div>
             <div className="unit-path">
-              {t.nodes.map((n, j) => {
-                const st = nodeState(n.start, n.end);
-                const off = [-1, 0, 1][(j + k) % 3] * 70;
+              {(() => {
+                const st = nodeState(t.start, t.end);
+                const off = [-1, 0, 1][k % 3] * 70;
+                const seg = t.segs.find((g) => furthest <= g.end) ?? t.segs.at(-1);
                 return (
-                  <div key={j} className={`unit-node ${st}`} style={{ transform: `translateX(${off}px)` }}>
-                    {st === 'now' && <span className="unit-tip">{furthest > n.start ? 'Continue' : 'Start'}</span>}
-                    <button disabled={st === 'locked'} onClick={() => open(st === 'now' ? furthest : n.start)} aria-label={`${t.num} ${n.label}`}>
-                      {st === 'done' ? '✓' : st === 'locked' ? '🔒' : n.icon}
+                  <div className={`unit-node ${st}`} data-start={t.start} data-end={t.end} style={{ transform: `translateX(${off}px)` }}>
+                    {st === 'now' && <span className="unit-tip">{furthest > t.start ? 'Continue' : 'Start'}</span>}
+                    <button disabled={st === 'locked'} onClick={() => open(st === 'now' ? furthest : t.start)} aria-label={`${t.num} ${t.title}`}>
+                      {st === 'done' ? '✓' : st === 'locked' ? '🔒' : t.num}
                     </button>
-                    <span className="unit-label">{n.label}</span>
+                    {/* Its three segments: done, the one you're in, still to come. */}
+                    <span className="unit-segs">
+                      {t.segs.map((g) => (
+                        <i key={g.start} className={nodeState(g.start, g.end)} title={g.label} />
+                      ))}
+                    </span>
+                    <span className="unit-label">{st === 'now' ? seg.label : `${t.segs.length} parts`}</span>
                     {st === 'now' && <Mascot pose="talk" size={78} />}
                   </div>
                 );
-              })}
+              })()}
             </div>
           </section>
         ))}

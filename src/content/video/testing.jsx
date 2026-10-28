@@ -28,10 +28,9 @@ export const testIntro = video('Load nahali efficiency kasari thaha paune?', {
       voice: 'अर्को ट्रिक: सप्लाई काटिदेऊ अनि मेसिन कति छिटो स्लो हुन्छ हेर। घुमिरहेको इनर्जी लसेसले खान्छ। यो रिटार्डेसन टेस्ट हो।',
     },
     {
-      say: 'La socha.',
-      voice: 'ल सोच।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Supply kaatepachi slow hune machine ko energy kasle khaancha bhanyo?',
         voice: 'सप्लाई काटेपछि स्लो हुने मेसिनको इनर्जी कसले खान्छ भन्यो?',
         options: ['Supply le', 'Losses le', 'Field le'],
@@ -79,10 +78,9 @@ export const swinburne = video('Derivation: Swinburne test bata constant losses 
       voice: 'आई एस एच इक्वल्स भी ओभर आर एस एच, अनि आई ए जिरो इक्वल्स आई जिरो माइनस आई एस एच। त्यसैले डब्लु सी इक्वल्स भी आई जिरो माइनस आई ए जिरो स्क्वायर्ड आर ए।',
     },
     {
-      say: 'Formula check.',
-      voice: 'फर्मुला चेक।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Wc nikalna V I₀ bata kun loss ghatauchau?',
         voice: 'डब्लु सी निकाल्न भी आई जिरोबाट कुन लस घटाउँछौं?',
         options: ['Iron loss', 'Ia₀²Ra (armature copper loss)', 'Field loss'],
@@ -140,10 +138,9 @@ export const retardation = video('Derivation: retardation test bata rotational l
       voice: 'जे थाहा छैन भने दुईटा रन गर। पहिला खाली, स्पिडले डी एन घट्न टी वान टाइम लाग्छ। अनि आर्मेचरमा थाहा भएको लोड डब्लु ड्यास जोडेर, टी टु।',
     },
     {
-      say: 'Sochau.',
-      voice: 'सोचौं।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Dosro run ma armature ma k jodincha bhanyo?',
         voice: 'दोस्रो रनमा आर्मेचरमा के जोडिन्छ भन्यो?',
         options: ['Supply', 'Thaha bhaeko load W′', 'Extra field'],

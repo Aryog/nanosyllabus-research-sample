@@ -29,7 +29,6 @@ export const connections = video('Field le current kasari pauncha', {
       say: 'Shunt field full supply voltage across baseko huncha.',
       voice: 'शन्ट फिल्ड फुल सप्लाई भोल्टेज एक्रस बसेको हुन्छ।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Shunt motor ma line current kun duita ma split huncha?',
         voice: 'शन्ट मोटरमा लाइन करेन्ट कुन दुईटामा स्प्लिट हुन्छ?',
         options: ['Ia ra Ish', 'Ia ra Ise', 'IL ra V'],
@@ -42,7 +41,6 @@ export const connections = video('Field le current kasari pauncha', {
       say: 'Current lai follow gara.',
       voice: 'करेन्टलाई फलो गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Series field ko wire kasto huncha bhanyo?',
         voice: 'सिरिज फिल्डको तार कस्तो हुन्छ भन्यो?',
         options: ['Patalo wire, dherai turn', 'Moto wire, thorai turn'],
@@ -55,7 +53,6 @@ export const connections = video('Field le current kasari pauncha', {
       say: 'Series field kaha cha, hera.',
       voice: 'सिरिज फिल्ड कहाँ छ, हेर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Long shunt ma shunt field kasko across huncha?',
         voice: 'लङ शन्टमा शन्ट फिल्ड कसको अक्रस हुन्छ?',
         options: ['Armature matra', 'Series field ra armature dubai'],

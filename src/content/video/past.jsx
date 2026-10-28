@@ -277,10 +277,9 @@ export const recap = video('Pura DC motor 3 minute ma', {
     { say: 'Field ma rakheko current-carrying conductor le F equals B I l force feel garcha, direction left-hand rule le.', voice: 'फिल्डमा राखेको करेन्ट क्यारिङ कन्डक्टरले एफ इक्वल्स बी आई एल फोर्स फिल गर्छ, डाइरेक्सन लेफ्ट ह्यान्ड रुलले।' },
     { say: 'Commutator le har half turn ma coil ko current reverse garcha, tesaile torque kahile pani reverse hudaina.', voice: 'कम्युटेटरले हरेक हाफ टर्नमा कोइलको करेन्ट रिभर्स गर्छ, तेसैले टर्क कहिल्यै पनि रिभर्स हुँदैन।' },
     {
-      say: 'Quick recall.',
-      voice: 'क्विक रिकल।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Commutator le coil ko current kati choti reverse garcha bhanyo?',
         voice: 'कम्युटेटरले कोइलको करेन्ट कति चोटि रिभर्स गर्छ भन्यो?',
         options: ['Har half turn ma', 'Kahile pani gardaina', 'Har das turn ma'],
@@ -290,10 +289,9 @@ export const recap = video('Pura DC motor 3 minute ma', {
     },
     { say: 'Ghumne conductor le back EMF generate garcha, Eb equals P phi Z N over 60 A, ani V equals Eb plus Ia Ra.', voice: 'घुम्ने कन्डक्टरले ब्याक ई एम एफ जेनेरेट गर्छ, ई बी इक्वल्स पी फाइ जेड एन ओभर सिक्स्टी ए, अनि भी इक्वल्स ई बी प्लस आई ए आर ए।' },
     {
-      say: 'Feri recall.',
-      voice: 'फेरि रिकल।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Voltage equation k bhanyo?',
         voice: 'भोल्टेज इक्वेसन के भन्यो?',
         options: ['V = Eb − IaRa', 'V = Eb + IaRa', 'V = IaRa'],
@@ -306,7 +304,6 @@ export const recap = video('Pura DC motor 3 minute ma', {
       say: 'Ani motor types ko lagi.',
       voice: 'अनि मोटर टाइप्सको लागि।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Base speed bhanda mathi jana k garne bhanyo?',
         voice: 'बेस स्पिडभन्दा माथि जान के गर्ने भन्यो?',
         options: ['Field weak garne', 'Armature resistance thapne'],

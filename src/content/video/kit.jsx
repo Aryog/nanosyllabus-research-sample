@@ -51,6 +51,24 @@ export const video = (title, props) => ({
   figureProps: props,
 });
 
+/*
+  A micro-topic's opening: what the topic is about, in about three short voiced
+  beats. Beat 0 names the topic (number as the heading, title under it); each
+  later beat writes its key idea, usually with the formula.
+    overview(num, title, [{ say, voice, lines: [{ kind, node }] }, …], art?)
+  `art` = { viewBox, draw } adds a kid-simple picture (doodles.jsx) beside it.
+*/
+export const overview = (num, title, beats, art = {}) =>
+  video(`${num} ma k padhne?`, {
+    ...art,
+    beats: beats.map(({ say, voice }) => ({ say, voice })),
+    board: [
+      { at: 0, kind: 'h', node: <>{num}</> },
+      { at: 0, kind: 'step', node: <>{title}</> },
+      ...beats.flatMap((b, i) => (b.lines ?? []).map((l) => ({ at: i, ...l }))),
+    ],
+  });
+
 export const hook = (big, lines) => ({ tag: 'Yaad rakhne trick', tagKind: 'hook', pose: 'dab', body: <Hook big={big} lines={lines} /> });
 
 export const model = (props) => ({ ioe: true, body: <ModelAnswer {...props} /> });
@@ -115,26 +133,96 @@ export function Arrow({ x1, y1, x2, y2, color = C.chalk, w = 2.5, head = 8, clas
   );
 }
 
+// The drawings get a light 3D look from gradients and soft ground shadows
+// (no filters: drop-shadow under the camera's zoom renders ghost copies).
+const tint = (hex, f) => {
+  const n = parseInt(hex.slice(1), 16);
+  const ch = (v) => Math.round(f > 0 ? v + (255 - v) * f : v * (1 + f));
+  return `rgb(${ch(n >> 16)}, ${ch((n >> 8) & 255)}, ${ch(n & 255)})`;
+};
+const gid = (kind, color) => `${kind}-${color.replace(/[^\w]/g, '')}`;
+
+// Soft oval shadow on the ground under an object.
+export const Shadow = ({ cx, cy, rx, ry = rx * 0.16 }) => (
+  <>
+    <defs>
+      <radialGradient id="kit-shadow">
+        <stop offset="0%" stopColor="#000" stopOpacity={0.22} />
+        <stop offset="100%" stopColor="#000" stopOpacity={0} />
+      </radialGradient>
+    </defs>
+    <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="url(#kit-shadow)" />
+  </>
+);
+
+// A magnet pole as a solid block: lit from the top left, with a bevelled edge.
 export function Pole({ x, y, w = 44, h = 140, label, color }) {
+  const id = gid('pole', color);
   return (
     <g>
-      <rect x={x} y={y} width={w} height={h} rx={6} fill={color} opacity={0.9} />
-      <text x={x + w / 2} y={y + h / 2 + 8} textAnchor="middle" fontSize={24} fontWeight={800}>{label}</text>
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor={tint(color, 0.35)} />
+          <stop offset="45%" stopColor={color} />
+          <stop offset="100%" stopColor={tint(color, -0.35)} />
+        </linearGradient>
+      </defs>
+      <Shadow cx={x + w / 2} cy={y + h + 6} rx={w * 0.75} />
+      <rect x={x + 4} y={y + 4} width={w} height={h} rx={7} fill={tint(color, -0.5)} />
+      <rect x={x} y={y} width={w} height={h} rx={7} fill={`url(#${id})`} />
+      <rect x={x + 5} y={y + 5} width={w * 0.28} height={h - 10} rx={4} fill="#fff" opacity={0.18} />
+      <text x={x + w / 2} y={y + h / 2 + 8} textAnchor="middle" fontSize={24} fontWeight={800} fill="#fff" stroke={tint(color, -0.5)} strokeWidth={0.8}>{label}</text>
     </g>
   );
 }
 
-// Conductor end-on: dir 'out' = ⊙ (toward you), 'in' = ⊗ (away from you).
+// Conductor end-on, as the copper end of a rod: dir 'out' = ⊙ (toward you),
+// 'in' = ⊗ (away from you).
 export function Conductor({ x, y, r = 11, dir = 'out', color = C.orange }) {
   const k = r * 0.5;
+  const id = gid('rod', color);
   return (
     <g>
-      <circle cx={x} cy={y} r={r} fill={C.board} stroke={color} strokeWidth={2.5} />
+      <defs>
+        <radialGradient id={id} cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stopColor={tint(color, 0.75)} />
+          <stop offset="55%" stopColor={tint(color, 0.2)} />
+          <stop offset="100%" stopColor={tint(color, -0.4)} />
+        </radialGradient>
+      </defs>
+      <circle cx={x + 1.5} cy={y + 2} r={r + 1} fill="#000" opacity={0.3} />
+      <circle cx={x} cy={y} r={r} fill={`url(#${id})`} stroke={tint(color, -0.45)} strokeWidth={1.6} />
       {dir === 'out' ? (
-        <circle cx={x} cy={y} r={r * 0.28} fill={color} />
+        <circle cx={x} cy={y} r={r * 0.3} fill={tint(color, -0.55)} />
       ) : (
-        <path d={`M${x - k} ${y - k}L${x + k} ${y + k}M${x + k} ${y - k}L${x - k} ${y + k}`} stroke={color} strokeWidth={2.2} strokeLinecap="round" />
+        <path d={`M${x - k} ${y - k}L${x + k} ${y + k}M${x + k} ${y - k}L${x - k} ${y + k}`} stroke={tint(color, -0.55)} strokeWidth={2.4} strokeLinecap="round" />
       )}
+    </g>
+  );
+}
+
+// The armature seen end-on, as a steel cylinder: lit from the top left, with
+// its laminations, a shaft and a shadow under it.
+export function Rotor({ x, y, r, className = '' }) {
+  return (
+    <g className={className}>
+      <defs>
+        <radialGradient id="kit-rotor" cx="35%" cy="30%" r="80%">
+          <stop offset="0%" stopColor="#868e96" />
+          <stop offset="55%" stopColor="#3b4248" />
+          <stop offset="100%" stopColor="#1a1d20" />
+        </radialGradient>
+        <radialGradient id="kit-shaft" cx="35%" cy="30%" r="80%">
+          <stop offset="0%" stopColor="#f1f3f5" />
+          <stop offset="100%" stopColor="#868e96" />
+        </radialGradient>
+      </defs>
+      <Shadow cx={x} cy={y + r + 8} rx={r * 0.9} ry={r * 0.12} />
+      <circle cx={x} cy={y} r={r} fill="url(#kit-rotor)" stroke="#16181b" strokeWidth={2} />
+      <circle cx={x} cy={y} r={r * 0.92} fill="none" stroke="#fff" strokeOpacity={0.08} strokeWidth={r * 0.06} />
+      <circle cx={x} cy={y} r={r * 0.62} fill="none" stroke="#fff" strokeOpacity={0.06} strokeWidth={1} />
+      <path d={`M${x - r * 0.7} ${y - r * 0.45} A${r * 0.85} ${r * 0.85} 0 0 1 ${x + r * 0.1} ${y - r * 0.82}`} fill="none" stroke="#fff" strokeOpacity={0.28} strokeWidth={r * 0.07} strokeLinecap="round" />
+      <circle cx={x} cy={y} r={r * 0.1} fill="url(#kit-shaft)" stroke="#495057" strokeWidth={1} />
     </g>
   );
 }

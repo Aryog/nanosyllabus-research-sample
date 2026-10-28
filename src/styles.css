@@ -99,8 +99,27 @@ button:disabled { cursor: default; }
 .card.glow-wrong { border-color: var(--amber-btn); box-shadow: 0 0 0 3px rgba(224, 154, 0, 0.12), var(--shadow); }
 .card.glow-wrong::after { opacity: 1; background: linear-gradient(to top, rgba(224, 154, 0, 0.08), transparent); }
 
-.xp-toast { position: absolute; z-index: 20; top: 14px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 99px; background: var(--ink); color: #fff; font-weight: 700; font-size: 14.5px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18); animation: xppop 1.8s ease both; pointer-events: none; white-space: nowrap; }
-@keyframes xppop { 0% { opacity: 0; transform: translate(-50%, -8px) scale(0.9); } 12% { opacity: 1; transform: translate(-50%, 0) scale(1.05); } 20% { transform: translate(-50%, 0) scale(1); } 85% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -6px); } }
+/* XP toast: Sparky pops in with a dab, the XP bounces up, confetti bursts. */
+.xp-toast { position: absolute; z-index: 20; top: 12px; left: 50%; display: flex; align-items: center; gap: 4px; padding: 2px 22px 2px 4px; border-radius: 26px; background: linear-gradient(135deg, #fff9db, #fff); color: var(--ink); border: 2px solid #ffd43b; box-shadow: 0 10px 28px rgba(240, 140, 0, 0.22); animation: xppop 2.2s cubic-bezier(0.3, 1.5, 0.5, 1) both; pointer-events: none; white-space: nowrap; }
+.xp-toast .mascot { margin: -26px -2px -8px 0; }
+.xp-toast .mascot-bob { animation: none; }
+.xp-toast-text { display: flex; flex-direction: column; line-height: 1.1; }
+.xp-toast-text b { font-size: 24px; font-weight: 800; color: #f08c00; animation: xpcount 0.5s cubic-bezier(0.3, 1.8, 0.5, 1) 0.2s both; }
+.xp-toast-text span { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.xp-bit { position: absolute; left: 44px; top: 50%; width: 7px; height: 7px; border-radius: 2px; background: #ffd43b; opacity: 0; animation: xpbit 0.8s ease-out 0.15s; }
+.xp-bit:nth-of-type(3n) { background: #4dabf7; }
+.xp-bit:nth-of-type(3n + 1) { background: #69db7c; border-radius: 50%; }
+@keyframes xppop { 0% { opacity: 0; transform: translate(-50%, -16px) scale(0.6); } 14% { opacity: 1; transform: translate(-50%, 0) scale(1); } 85% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, -10px) scale(0.95); } }
+@keyframes xpcount { from { transform: translateY(10px) scale(0.5); opacity: 0; } }
+@keyframes xpbit { 0% { opacity: 1; transform: rotate(var(--a)) translateX(0); } 100% { opacity: 0; transform: rotate(var(--a)) translateX(46px) rotate(200deg); } }
+.mascot.pose-dab .mascot-bob { animation: dabsnap 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
+.mascot .dab-fling { transform-origin: 86px 78px; animation: dabfling 0.45s cubic-bezier(0.2, 1.7, 0.4, 1) both; }
+.mascot .dab-tuck { transform-origin: 34px 80px; animation: dabtuck 0.45s cubic-bezier(0.2, 1.7, 0.4, 1) both; }
+.mascot .dab-sparks { transform-origin: 60px 40px; animation: dabspark 0.6s ease-out 0.25s both; }
+@keyframes dabsnap { from { transform: scale(0.75) rotate(10deg); } }
+@keyframes dabfling { from { transform: rotate(75deg); } }
+@keyframes dabtuck { from { transform: rotate(-55deg); } }
+@keyframes dabspark { from { opacity: 0; transform: scale(0.3); } }
 .rail { position: absolute; left: 18px; top: 26px; display: flex; flex-direction: column; gap: 30px; z-index: 2; }
 .rail-btn { background: none; border: 0; color: var(--faint); padding: 6px; border-radius: 8px; }
 .rail-btn:hover { color: var(--ink-2); background: var(--surface); }
@@ -261,14 +280,12 @@ button:disabled { cursor: default; }
 .mascot { overflow: visible; }
 .mascot-bob { animation: bob 2.6s ease-in-out infinite; transform-origin: 60px 110px; }
 .mascot.is-speaking .mascot-bob { animation: talkbob 0.45s ease-in-out infinite; }
-.mascot.pose-dab .mascot-bob { animation: dab 0.5s ease; }
 .mascot.pose-oops .mascot-bob { animation: none; }
 .mascot-eyes { animation: blink 4s infinite; transform-origin: 60px 67px; }
 .mascot-mouth-talk { animation: mouth 0.22s ease-in-out infinite alternate; transform-origin: 60px 81px; }
 .mascot-tassel { animation: tassel 2.6s ease-in-out infinite; transform-origin: 86px 41px; }
 @keyframes bob { 50% { transform: translateY(-3px); } }
 @keyframes talkbob { 50% { transform: translateY(-2px) scale(1.02); } }
-@keyframes dab { from { transform: translateY(2px); } }
 @keyframes shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
 @keyframes mouth { from { transform: scaleY(0.35); } to { transform: scaleY(1.1); } }
@@ -558,6 +575,13 @@ button:disabled { cursor: default; }
 .scene-bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px 10px; background: #e9ecef; }
 .scene-btn { width: 34px; height: 34px; border-radius: 50%; border: 0; background: #fff; color: var(--chalk); font-size: 13px; flex: none; box-shadow: 0 1px 2px rgba(0,0,0,0.12); }
 .scene-btn:hover { background: #f8f9fa; }
+.scene-btn:has(.scene-ico) { display: grid; place-items: center; }
+.scene-ico { width: 18px; height: 18px; }
+.scene-btn.on .scene-ico { color: var(--c-blue); }
+.scene-ico .wave1, .scene-ico .wave2 { animation: wave 1.6s ease-in-out infinite; }
+.scene-ico .wave2 { animation-delay: 0.25s; }
+@keyframes wave { 50% { opacity: 0.35; } }
+a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; }
 .scene-track { flex: 1; display: flex; gap: 4px; }
 /* One continuous progress bar, like a real player; green dots mark the checks. */
 .scene-progress { flex: 1; position: relative; height: 6px; border-radius: 99px; background: #ced4da; cursor: pointer; }
@@ -577,6 +601,7 @@ button:disabled { cursor: default; }
 .scene-title b { font-size: 17px; color: var(--chalk); }
 .scene-rewatch { display: inline-block; margin-left: 8px; border: 1.5px solid var(--c-blue); background: #fff; color: var(--c-blue); border-radius: 99px; padding: 4px 12px; font-weight: 700; font-size: 13.5px; }
 .scene-rewatch:hover { background: #e7f5ff; }
+.scene-rewatch-ask { margin: 12px 0 0; }
 .scene-cam.split.notes { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
 /* Full screen: the video takes the whole display. */
 .scene.full { border: 0; border-radius: 0; display: flex; flex-direction: column; height: 100vh; }
@@ -684,6 +709,10 @@ button:disabled { cursor: default; }
   .content.wide .scene-screen.asking .scene-ask-card { margin: auto 0; }
 }
 .scene-bar .scene-resume { flex: 1; margin: 0; padding: 8px 18px; font-size: 15px; animation: capin 0.3s ease; }
+/* The wait before the video goes on by itself, filling the button. */
+.scene-bar .scene-resume { position: relative; overflow: hidden; isolation: isolate; }
+.scene-bar .scene-resume[style*='--go']::before { content: ''; position: absolute; inset: 0; z-index: -1; background: rgba(255, 255, 255, 0.28); transform-origin: left; animation: gofill var(--go) linear both; }
+@keyframes gofill { from { transform: scaleX(0); } }
 /* Short windows: a more compact question card. */
 @media (max-height: 820px) and (min-width: 901px) {
   .scene-ask-q { font-size: 20px; margin: 4px 0 8px; }
@@ -753,7 +782,7 @@ button:disabled { cursor: default; }
 .unit-topic-head { display: flex; align-items: center; gap: 10px; color: var(--muted); font-weight: 700; font-size: 15px; }
 .unit-topic-head::before, .unit-topic-head::after { content: ''; flex: 1; height: 2px; background: var(--line); }
 .unit-topic-head b { color: var(--ink); }
-.unit-path { display: flex; flex-direction: column; align-items: center; gap: 22px; margin-top: 20px; }
+.unit-path { display: flex; flex-direction: column; align-items: center; gap: 22px; margin-top: 46px; }
 .unit-node { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .unit-node button { width: 72px; height: 66px; border-radius: 50%; border: 0; font-size: 26px; font-weight: 800; color: #fff; background: var(--green); box-shadow: 0 6px 0 var(--green-dark); cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; }
 .unit-node button:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 2px 0 var(--green-dark); }
@@ -762,6 +791,10 @@ button:disabled { cursor: default; }
 .unit-node.now button { outline: 6px solid rgba(31, 157, 85, 0.22); outline-offset: 4px; animation: nodepulse 1.8s ease-in-out infinite; }
 @keyframes nodepulse { 50% { outline-color: rgba(31, 157, 85, 0.06); } }
 .unit-label { font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.unit-segs { display: flex; gap: 4px; margin-top: 4px; }
+.unit-segs i { width: 16px; height: 5px; border-radius: 3px; background: var(--line-strong); }
+.unit-segs i.done { background: #ffc800; }
+.unit-segs i.now { background: var(--green); }
 .unit-tip { position: absolute; top: -34px; padding: 5px 12px; border-radius: 10px; background: var(--card); border: 2px solid var(--line); color: var(--green-btn); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; animation: tipbob 1.4s ease-in-out infinite; }
 @keyframes tipbob { 50% { transform: translateY(-3px); } }
 .unit-node .mascot, .unit-node > svg { position: absolute; left: 96px; top: -6px; }
@@ -790,10 +823,15 @@ button:disabled { cursor: default; }
 .board-line.kind-eq.on, .board-line.kind-answer.on { padding: 12px 0; }
 .board-line .tex { margin: 0 0.2em; }
 
-/* Highlighted drawing parts pulse instead of glowing: a drop-shadow filter
-   under the camera's zoom renders shifted ghost copies in Chrome. */
-.scene-svg .hl { filter: none; animation: hlsvg 1.4s ease-in-out infinite; }
-@keyframes hlsvg { 50% { opacity: 0.55; } }
+/* Highlighted drawing parts stay fully visible (the focus ring marks them):
+   no glow, since a drop-shadow filter under the camera's zoom renders
+   shifted ghost copies in Chrome, and no fading pulse. */
+.scene-svg .hl { filter: none; animation: none; }
+/* Focus: a ring around the part of the drawing the voice is talking about;
+   everything else stays fully visible. */
+.focus-ring { position: absolute; pointer-events: none; z-index: 1; border: 3px solid #fab005; border-radius: 16px; box-sizing: border-box; transition: left 0.5s ease, top 0.5s ease, width 0.5s ease, height 0.5s ease; animation: focusin 0.4s ease both, focuspulse 1.4s ease-in-out 0.4s infinite; }
+@keyframes focusin { from { opacity: 0; transform: scale(1.08); } }
+@keyframes focuspulse { 50% { border-color: rgba(250, 176, 5, 0.35); } }
 /* Video screens: no card around the player; the video sits right under the
    top bar and takes the rest of the window. */
 .card.card-video { border: 0; background: none; box-shadow: none; }
@@ -813,3 +851,17 @@ button:disabled { cursor: default; }
 .scene-progress:hover .sp-knob { transform: scale(1.25); }
 .sp-ask { z-index: 1; }
 .scene-time { flex: none; min-width: 84px; text-align: center; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--chalk-2); }
+
+/* Segment-1 doodles (src/content/video/doodles.jsx): a little life in the drawings. */
+.doodle-spin { animation: dspin 1.2s linear infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes dspin { to { transform: rotate(360deg); } }
+.doodle-buzz { animation: dbuzz 0.12s ease-in-out infinite alternate; }
+@keyframes dbuzz { from { transform: translateX(-1.5px); } to { transform: translateX(1.5px); } }
+.doodle-blink { animation: dblink 0.6s ease-in-out infinite alternate; }
+@keyframes dblink { from { opacity: 0.25; } }
+.doodle-run { animation: drun 0.35s ease-in-out infinite alternate; }
+@keyframes drun { to { transform: translateY(-4px); } }
+.doodle-shake { animation: dshake 0.15s ease-in-out infinite alternate; }
+@keyframes dshake { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+.doodle-lift { animation: dlift 1.6s ease-in-out infinite alternate; }
+@keyframes dlift { to { transform: translateY(-14px); } }
