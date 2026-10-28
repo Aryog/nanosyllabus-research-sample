@@ -17,7 +17,8 @@ const Curve = ({ d, color, w = 3, className = '' }) => (
 const Lbl = ({ x, y, children, color, anchor = 'start' }) => (
   <text x={x} y={y} fontSize={12.5} fontWeight={700} fill={color} textAnchor={anchor}>{children}</text>
 );
-const Title = ({ children }) => <text x={180} y={18} textAnchor="middle" fontSize={14} fontWeight={800} fill={C.yellow}>{children}</text>;
+// Graph title, right of the y-axis label so they never overlap.
+const Title = ({ children }) => <text x={330} y={16} textAnchor="end" fontSize={14} fontWeight={800} fill={C.yellow}>{children}</text>;
 
 const shuntT = (u) => 0.9 * u;
 const shuntTsh = (u) => Math.max(0, 0.9 * u - 0.06);
@@ -80,25 +81,25 @@ export const shunt = video('Derivation: shunt motor ko characteristics', {
   draw: (s) => (
     <>
       <g className={s.on(1, 3)}>
-        <Title>Ta – Ia</Title>
-        <Axes xLabel="Ia" yLabel="Torque" />
+        <Title>Shunt: torque vs armature current</Title>
+        <Axes xLabel="Armature current Ia" yLabel="Torque T" />
         <Curve d={path(shuntT)} color={C.blue} className={s.on(1)} />
-        <Lbl x={X(0.95)} y={Y(0.9) - 8} color={C.blue} anchor="end">Ta</Lbl>
+        <Lbl x={X(0.95)} y={Y(0.9) - 8} color={C.blue} anchor="end">Ta (armature torque)</Lbl>
         <g className={s.on(2)}>
           <Curve d={path(shuntTsh, 0.067)} color={C.green} w={2.4} className={s.on(2)} />
-          <Lbl x={X(1)} y={Y(0.8) + 16} color={C.green} anchor="end">Tsh</Lbl>
+          <Lbl x={X(0.6)} y={Y(shuntTsh(0.6)) + 28} color={C.green}>Tsh (shaft torque)</Lbl>
         </g>
       </g>
       <g className={s.on(4, 4)}>
-        <Title>N – Ia</Title>
-        <Axes xLabel="Ia" yLabel="Speed N" />
+        <Title>Shunt: speed vs armature current</Title>
+        <Axes xLabel="Armature current Ia" yLabel="Speed N" />
         <Curve d={path(shuntN)} color={C.blue} className={s.on(4)} />
-        <Lbl x={X(0.05)} y={Y(0.8) - 8} color={C.blue}>N₀</Lbl>
+        <Lbl x={X(0.05)} y={Y(0.8) - 8} color={C.blue}>N₀ (no-load speed)</Lbl>
         <Lbl x={X(0.95)} y={Y(0.7) - 8} color={C.blue} anchor="end">sano droop</Lbl>
       </g>
       <g className={s.on(5)}>
-        <Title>N – T</Title>
-        <Axes xLabel="Torque" yLabel="Speed N" />
+        <Title>Shunt: speed vs torque</Title>
+        <Axes xLabel="Torque T" yLabel="Speed N" />
         <Curve d={path(shuntN)} color={C.blue} className={s.on(5)} />
         <Lbl x={X(0.95)} y={Y(0.7) - 8} color={C.blue} anchor="end">lagbhag constant speed</Lbl>
       </g>
@@ -106,6 +107,10 @@ export const shunt = video('Derivation: shunt motor ko characteristics', {
   ),
   board: [
     { at: 0, until: 0, kind: 'eq', node: <><K>{String.raw`T_a \propto \phi I_a \qquad N \propto \dfrac{E_b}{\phi}`}</K></> },
+    { at: 1, until: 3, kind: 'step', node: <>Graph: shunt ma φ constant, so <K>{String.raw`T_a \propto I_a`}</K> → origin bata sidha line</> },
+    { at: 2, until: 3, kind: 'note', node: <>Tsh = Ta − iron ra friction loss ko torque → Ta bhanda ali tala</> },
+    { at: 4, until: 4, kind: 'step', node: <>Graph: <K>{String.raw`N \propto V - I_aR_a`}</K>, I<sub>a</sub>R<sub>a</sub> sano → speed thorai matra jharcha</> },
+    { at: 5, until: 5, kind: 'step', node: <>Graph: speed vs torque pani almost flat → constant-speed motor</> },
     { at: 6, kind: 'eq', node: <><K>{String.raw`\%\ \text{speed regulation} = \dfrac{N_0 - N_{fl}}{N_{fl}} \times 100`}</K></> },
   ],
 });
@@ -163,30 +168,32 @@ export const series = video('Derivation: series motor ko characteristics', {
   draw: (s) => (
     <>
       <g className={s.on(1, 3)}>
-        <Title>Ta – Ia</Title>
-        <Axes xLabel="Ia" yLabel="Torque" />
+        <Title>Series: torque vs armature current</Title>
+        <Axes xLabel="Armature current Ia" yLabel="Torque Ta" />
         <Curve d={path(seriesT, 0, 0.45)} color={C.red} className={s.on(1)} />
-        <Lbl x={X(0.3)} y={Y(0.2) - 10} color={C.red} anchor="end">∝ Ia²</Lbl>
+        <Lbl x={X(0.08)} y={Y(0.45)} color={C.red}>Ta ∝ Ia² (parabola)</Lbl>
         <g className={s.on(2)}>
           <Curve d={path(seriesT, 0.45, 1)} color={C.red} className={s.on(2)} />
-          <Lbl x={X(0.98)} y={Y(seriesT(0.98)) + 18} color={C.red} anchor="end">∝ Ia (saturation pachi)</Lbl>
+          <Lbl x={X(0.98)} y={Y(seriesT(0.98)) + 18} color={C.red} anchor="end">Ta ∝ Ia (saturation pachi sidha)</Lbl>
         </g>
       </g>
       <g className={s.on(4)}>
-        <Title>N – Ia</Title>
-        <Axes xLabel="Ia" yLabel="Speed N" />
+        <Title>Series: speed vs armature current</Title>
+        <Axes xLabel="Armature current Ia" yLabel="Speed N" />
         <Curve d={path(seriesN, 0.13)} color={C.red} className={s.on(4)} />
         <g className={s.on(5) + s.hl(5)}>
           <rect x={X(0)} y={Y(1.05)} width={X(0.2) - X(0)} height={Y(0.65) - Y(1.05)} fill={C.red} opacity={0.12} />
-          <Lbl x={X(0.22)} y={Y(0.92)} color={C.red}>no load ma runaway!</Lbl>
+          <Lbl x={X(0.22)} y={Y(0.92)} color={C.red}>no load ma speed runaway!</Lbl>
         </g>
       </g>
     </>
   ),
   board: [
     { at: 1, kind: 'step', node: <>Saturation aghi: <K>{String.raw`\phi \propto I_a \;\Rightarrow\; T_a \propto I_a^2`}</K></> },
+    { at: 2, until: 3, kind: 'note', node: <>Graph: saturation pachi φ badhdaina → <K>{String.raw`T_a \propto I_a`}</K>, curve sidha</> },
     { at: 4, kind: 'step', node: <><K>{String.raw`N \propto \dfrac{E_b}{\phi} \approx \dfrac{V}{I_a} \;\Rightarrow\; N \propto \dfrac{1}{I_a}`}</K></> },
     { at: 4, kind: 'step', node: <>N–T: <K>{String.raw`T \propto I_a^2 \;\Rightarrow\; N \propto \dfrac{1}{\sqrt{T}}`}</K> (low speed ma high torque)</> },
+    { at: 5, kind: 'trap', node: <>Graph: load hatayo → I<sub>a</sub> ra φ sano → speed ekdam badhcha (runaway)</> },
   ],
 });
 
@@ -231,19 +238,21 @@ export const compound = video('Compound motor ra kun motor kaha use huncha', {
   ],
   draw: (s) => (
     <>
-      <Title>N – Ia</Title>
-      <Axes xLabel="Ia" yLabel="Speed N" />
+      <Title>Speed vs armature current: tin motor</Title>
+      <Axes xLabel="Armature current Ia" yLabel="Speed N" />
       <Curve d={path(shuntN)} color={C.blue} w={2.2} className={s.on(0)} />
-      <Lbl x={X(1)} y={Y(0.7) - 8} color={C.blue} anchor="end">shunt</Lbl>
+      <Lbl x={X(1)} y={Y(0.7) - 8} color={C.blue} anchor="end">shunt (almost flat)</Lbl>
       <Curve d={path(seriesN, 0.13)} color={C.red} w={2.2} className={s.on(0)} />
-      <Lbl x={X(1)} y={Y(0.13) - 8} color={C.red} anchor="end">series</Lbl>
+      <Lbl x={X(1)} y={Y(0.13) + 16} color={C.red} anchor="end">series (ekdam jharcha)</Lbl>
       <g className={s.on(1) + s.hl(1)}>
         <Curve d={path(compoundN)} color={C.green} className={s.on(1)} />
-        <Lbl x={X(0.62)} y={Y(compoundN(0.62)) + 18} color={C.green}>cumulative compound</Lbl>
+        <Lbl x={X(1)} y={Y(compoundN(1)) + 17} color={C.green} anchor="end">cumulative compound</Lbl>
       </g>
     </>
   ),
   board: [
+    { at: 0, until: 2, kind: 'note', node: <>Graph: <span className="bl">shunt</span> almost flat · <span className="r">series</span> current badhda ekdam jharcha</> },
+    { at: 1, until: 2, kind: 'step', node: <><span className="g">Cumulative compound</span>: duitai ko bichma, ramro starting torque ra safe no-load speed</> },
     { at: 3, kind: 'step', node: <><span className="bl">Shunt</span>: lathe, fan, blower, centrifugal pump, paper making</> },
     { at: 4, kind: 'step', node: <><span className="r">Series</span>: traction, crane, hoist · universal: vacuum cleaner</> },
     { at: 5, kind: 'step', node: <><span className="g">Cumulative compound</span>: shears, punching press, rolling mill, elevator</> },

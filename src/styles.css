@@ -526,7 +526,7 @@ button:disabled { cursor: default; }
 /* Board text size: every line kind is a multiple of it. */
 .scene-cam { --bs: clamp(17px, 2cqw, 36px); }
 /* Drawing beside notes: the notes column is narrower. */
-.scene-cam.split { --bs: clamp(15px, 1.45cqw, 28px); }
+.scene-cam.split { --bs: clamp(17px, 1.7cqw, 30px); }
 .scene-cam { transform-origin: 0 0; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
 @media (prefers-reduced-motion: reduce) { .scene-cam { transition: none; } }
 .board { display: flex; flex-direction: column; gap: 2px; padding: 4px 4px 8px; }

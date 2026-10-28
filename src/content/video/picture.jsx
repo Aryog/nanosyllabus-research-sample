@@ -46,8 +46,8 @@ const hyperbola = Array.from({ length: 16 }, (_, i) => {
 }).join(' ');
 const curvesFigure = (s) => (
   <>
-    <Axes x={40} y={150} w={250} h={130} xLabel="Ia" yLabel="Ta" />
-    <Axes x={40} y={320} w={250} h={130} xLabel="Ia" yLabel="N" />
+    <Axes x={40} y={150} w={250} h={130} xLabel="Armature current Ia" yLabel="Torque Ta" />
+    <Axes x={40} y={320} w={250} h={130} xLabel="Armature current Ia" yLabel="Speed N" />
     <text x={60} y={176} fontSize={13} fill={C.dim} className={s.on(1)}>Ta ∝ φIa · N ∝ Eb/φ</text>
     <g className={s.on(2)}>
       <path d="M40 150 L270 55" fill="none" stroke={C.blue} strokeWidth={3} className={`draw${s.hl(2)}`} pathLength={1} />
@@ -141,7 +141,7 @@ const testingFigure = (s) => (
       <text x={150} y={152} textAnchor="middle" fontSize={13} fill={C.blue} className={s.hl(1)}>Wc = V·I₀ − Ia₀²Ra</text>
     </g>
     <g className={s.on(5)}>
-      <Axes x={40} y={320} w={250} h={130} xLabel="t" yLabel="N" />
+      <Axes x={40} y={320} w={250} h={130} xLabel="Time t" yLabel="Speed N" />
       <path d={decay(1.3)} fill="none" stroke={C.blue} strokeWidth={3} className={`draw${s.hl(5)}`} pathLength={1} />
       <text x={190} y={250} fontSize={12} fill={C.blue}>armature OFF</text>
     </g>

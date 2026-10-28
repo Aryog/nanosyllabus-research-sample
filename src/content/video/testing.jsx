@@ -52,7 +52,7 @@ export const testIntro = video('Load nahali efficiency kasari thaha paune?', {
         <text x={40} y={152} fontSize={13} fill={C.yellow} fontWeight={700} className={s.on(1)}>→ losses thaha bhaye η thaha huncha</text>
       </g>
       <g className={s.on(3)}>
-        <Axes x={40} y={180} w={290} h={150} xLabel="time" yLabel="N" />
+        <Axes x={40} y={180} w={290} h={150} xLabel="Time t" yLabel="Speed N" />
         <path d={decay(1.2)} fill="none" stroke={C.blue} strokeWidth={3} />
         <path d={decay(3)} fill="none" stroke={C.red} strokeWidth={3} className={s.on(4)} />
         <text x={250} y={Y(Math.exp(-1.2 * 0.75)) - 8} fontSize={12} fill={C.blue}>kam losses</text>

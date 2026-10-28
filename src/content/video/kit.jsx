@@ -291,13 +291,14 @@ export function Armature({ x, y, r = 18, label = 'M', color = C.chalk }) {
 }
 
 // Simple x–y axes for characteristic curves.
+// Graph axes. Name each axis in full, with its symbol ("Armature current Ia").
 export function Axes({ x = 40, y = 190, w = 290, h = 160, xLabel, yLabel }) {
   return (
     <g>
       <Arrow x1={x} y1={y} x2={x + w} y2={y} color={C.dim} w={1.8} head={7} />
       <Arrow x1={x} y1={y} x2={x} y2={y - h} color={C.dim} w={1.8} head={7} />
-      {xLabel && <text x={x + w} y={y + 18} textAnchor="end" fontSize={13} fill={C.dim}>{xLabel}</text>}
-      {yLabel && <text x={x + 8} y={y - h + 4} fontSize={13} fill={C.dim}>{yLabel}</text>}
+      {xLabel && <text x={x + w} y={y + 19} textAnchor="end" fontSize={14} fontWeight={700} fill={C.chalk}>{xLabel}</text>}
+      {yLabel && <text x={x + 8} y={y - h + 4} fontSize={14} fontWeight={700} fill={C.chalk}>{yLabel}</text>}
     </g>
   );
 }
