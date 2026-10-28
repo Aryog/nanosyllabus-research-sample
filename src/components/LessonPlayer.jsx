@@ -72,7 +72,7 @@ export function XpCounter({ xp, bump }) {
   );
 }
 
-export default function LessonPlayer({ course, lessonIndex, startStep = 0, narrator, xp, addXp, onExit, onComplete, onProgress }) {
+export default function LessonPlayer({ course, lessonIndex, startStep = 0, reachStep = 0, crumbs = [], narrator, xp, addXp, onExit, onComplete, onProgress }) {
   const lesson = course.lessons[lessonIndex];
   const [pos, setPos] = useState(startStep);
   const [missed, setMissed] = useState([]);
@@ -86,15 +86,17 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
   const [resetKey, setResetKey] = useState(0);
   const [bubbleTone, setBubbleTone] = useState('info');
   const [pose, setPose] = useState('talk');
-  const [showCaptions, setShowCaptions] = useState(true);
-  const [flagged, setFlagged] = useState(false);
   const [xpBump, setXpBump] = useState(false);
+  // Game layer: XP pops for finished videos and first-try checks, plus a streak.
+  const [toast, setToast] = useState(null);
+  const [streak, setStreak] = useState(0);
+  const watched = useRef(new Set());
   const [stats, setStats] = useState({ correct: 0, total: 0 });
   const [reviewStats, setReviewStats] = useState({ correct: 0, total: 0 });
   const [done, setDone] = useState(false);
   const [videoEnded, setVideoEnded] = useState(false);
   // Furthest screen reached, so the progress bar can jump back to anything seen.
-  const [reach, setReach] = useState(startStep);
+  const [reach, setReach] = useState(Math.max(startStep, reachStep));
   const scrollRef = useRef(null);
 
   // Playable sequence: lesson steps (minus `retryOf` alternates), with the review
@@ -170,6 +172,12 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
   }, [inter, pos]);
 
   useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 1800);
+    return () => clearTimeout(t);
+  }, [toast]);
+
+  useEffect(() => {
     if (!videoEnded) return;
     const t = setTimeout(() => next(), 4000);
     return () => clearTimeout(t);
@@ -180,6 +188,25 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
     addXp(n);
     setXpBump(true);
     setTimeout(() => setXpBump(false), 600);
+  };
+
+  const pop = (text) => setToast({ text, key: Date.now() });
+  const onVideoEnd = () => {
+    setVideoEnded(true);
+    const id = `${mode}-${entry.i}`;
+    if (watched.current.has(id)) return;
+    watched.current.add(id);
+    gainXp(10);
+    pop('🎬 Video complete · +10 XP');
+  };
+  const onCheck = (right, first) => {
+    if (!first) return;
+    if (!right) return setStreak(0);
+    const n = streak + 1;
+    setStreak(n);
+    const bonus = n >= 3 ? 5 : 0;
+    gainXp(5 + bonus);
+    pop(n >= 3 ? `🔥 ${n} streak · +${5 + bonus} XP` : '✅ Sahi · +5 XP');
   };
 
   const markRight = (line) => {
@@ -337,10 +364,19 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
       ...(step.figureProps ?? {}),
       ...(isTask ? { onSolved: onTaskSolved, solved } : {}),
       ...(isQuestion && step.input.type === 'figure' ? { value, setValue: changeValue, status } : {}),
-      ...(step.video ? { onEnded: () => setVideoEnded(true), upcoming: upcomingLines } : {}),
+      ...(step.video
+        ? {
+            onEnded: onVideoEnd,
+            onCheck,
+            onNext: next,
+            upcoming: upcomingLines,
+            title: step.title,
+            kicker: [step.chapter?.split(' · ')[0], step.segment, step.ioe && 'IOE'].filter(Boolean).join(' · '),
+          }
+        : {}),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [step, solved, value, status, upcomingLines],
+    [step, solved, value, status, upcomingLines, streak],
   );
 
   const glow = status === 'correct' || done ? 'glow-correct' : status === 'wrong' ? 'glow-wrong' : '';
@@ -364,9 +400,18 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
   return (
     <div className="player">
       <header className="topbar">
-        <button className="icon-btn" onClick={onExit} aria-label="Close lesson">
-          <Icon name="close" />
-        </button>
+        <div className="crumbs">
+          <button className="icon-btn" onClick={onExit} aria-label="Close lesson">
+            <Icon name="close" />
+          </button>
+          {/* Where you are: subject › unit › topic · segment; each part links back. */}
+          <nav className="crumb-trail" aria-label="You are here">
+            {crumbs.map((c) => (
+              <button key={c.label} onClick={c.onClick}>{c.label}</button>
+            ))}
+            {step.chapter && <span>{[step.chapter.split(' · ')[0], step.segment?.split(' · ')[1]].filter(Boolean).join(' · ')}</span>}
+          </nav>
+        </div>
         <div className="progress-group">
           {segBars ? (
             segBars.map((b) => (
@@ -405,15 +450,12 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
         <XpCounter xp={xp} bump={xpBump} />
       </header>
 
-      <main className={`card ${glow}`}>
-        <aside className="rail">
-          <button className={`rail-btn ${flagged ? 'on' : ''}`} onClick={() => setFlagged((f) => !f)} title="Flag this problem">
-            <Icon name="flag" />
-          </button>
-          <button className="rail-btn" onClick={() => (narrator.muted ? narrator.toggleMute() : narrator.replay())} onContextMenu={(e) => { e.preventDefault(); narrator.toggleMute(); }} title={narrator.muted ? 'Unmute Sparky' : 'Replay (right-click to mute)'}>
-            <Icon name={narrator.muted ? 'mute' : 'sound'} />
-          </button>
-        </aside>
+      <main className={`card ${glow} ${step.video && !done ? "card-video" : ""}`}>
+        {toast && (
+          <div className="xp-toast" key={toast.key}>
+            {toast.text}
+          </div>
+        )}
 
         <div className="scroll" ref={scrollRef}>
           {done ? (
@@ -437,7 +479,8 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
             </div>
           ) : (
             <div className={`content ${step.video ? 'wide' : ''}`} key={`${lessonIndex}-${pos}`}>
-              {(step.chapter || step.segment || step.retry || step.checkin || step.flashback || step.ioe || step.tag || inPractice) && (
+              {/* Videos carry their own title and topic inside the player. */}
+              {!step.video && (step.chapter || step.segment || step.retry || step.checkin || step.flashback || step.ioe || step.tag || inPractice) && (
                 <div className="q-tags">
                   {step.chapter && <span className="q-tag q-tag-chapter">{step.chapter}</span>}
                   {step.segment && <span className="q-tag q-tag-segment">{step.segment}</span>}
@@ -449,7 +492,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
                   {step.flashback && <span className="q-tag q-tag-flash">Flashback</span>}
                 </div>
               )}
-              {step.body}
+              {!step.video && step.body}
               {Figure && (
                 <div className="figure">
                   <Figure key={resetKey} {...figureProps} />
@@ -481,9 +524,11 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
           )}
         </div>
 
+        {/* Videos carry Skip / Next in their own bar; the page is all video. */}
+        {(!step.video || done) && (
         <footer className="bottom">
           <div className="sparky">
-            {showCaptions && narrator.caption && (
+            {narrator.caption && (
               <div className={`bubble tone-${bubbleTone}`} key={narrator.caption + bubbleTone}>
                 {narrator.caption}
               </div>
@@ -492,14 +537,6 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
               <button className="sparky-btn" onClick={narrator.replay} title="Hear Sparky again">
                 <Mascot pose={pose} speaking={narrator.speaking} size={88} />
               </button>
-              <div className="pill">
-                <button className={showCaptions ? 'on' : ''} onClick={() => setShowCaptions((s) => !s)} title="Toggle captions">
-                  <Icon name="chat" />
-                </button>
-                <button disabled title="Voice answers coming soon">
-                  <Icon name="mic" />
-                </button>
-              </div>
             </div>
           </div>
 
@@ -541,6 +578,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, narra
           </div>
           <div className="bottom-spacer" />
         </footer>
+        )}
       </main>
     </div>
   );

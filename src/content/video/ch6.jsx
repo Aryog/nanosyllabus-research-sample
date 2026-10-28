@@ -1,4 +1,4 @@
-import { Axes, C, D, model, solve, video } from './kit.jsx';
+import { Axes, C, D, K, model, solve, video } from './kit.jsx';
 
 /* Chapter 6 · Performance characteristics (Syllabus Unit 4: Performance characteristics of DC motors). */
 
@@ -107,8 +107,8 @@ export const shunt = video('Derivation: shunt motor ko characteristics', {
     </>
   ),
   board: [
-    { at: 0, until: 0, kind: 'eq', node: <>Ta ∝ φ·Ia &nbsp;&nbsp; N ∝ Eb/φ</> },
-    { at: 6, kind: 'eq', node: <>% speed regulation = (N₀ − N_fl) / N_fl × 100</> },
+    { at: 0, until: 0, kind: 'eq', node: <><K>{String.raw`T_a \propto \phi I_a \qquad N \propto \dfrac{E_b}{\phi}`}</K></> },
+    { at: 6, kind: 'eq', node: <><K>{String.raw`\%\ \text{speed regulation} = \dfrac{N_0 - N_{fl}}{N_{fl}} \times 100`}</K></> },
   ],
 });
 
@@ -188,9 +188,9 @@ export const series = video('Derivation: series motor ko characteristics', {
     </>
   ),
   board: [
-    { at: 1, kind: 'step', node: <>Saturation aghi: φ ∝ Ia ⟹ Ta ∝ Ia²</> },
-    { at: 4, kind: 'step', node: <>N ∝ Eb/φ ≈ V/Ia ⟹ N ∝ 1/Ia</> },
-    { at: 4, kind: 'step', node: <>N–T: T ∝ Ia² ⟹ N ∝ 1/√T (low speed ma high torque)</> },
+    { at: 1, kind: 'step', node: <>Saturation aghi: <K>{String.raw`\phi \propto I_a \;\Rightarrow\; T_a \propto I_a^2`}</K></> },
+    { at: 4, kind: 'step', node: <><K>{String.raw`N \propto \dfrac{E_b}{\phi} \approx \dfrac{V}{I_a} \;\Rightarrow\; N \propto \dfrac{1}{I_a}`}</K></> },
+    { at: 4, kind: 'step', node: <>N–T: <K>{String.raw`T \propto I_a^2 \;\Rightarrow\; N \propto \dfrac{1}{\sqrt{T}}`}</K> (low speed ma high torque)</> },
   ],
 });
 

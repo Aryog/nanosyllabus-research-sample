@@ -1,4 +1,4 @@
-import { Arrow, C, D, model, solve, video } from './kit.jsx';
+import { Arrow, C, D, K, model, solve, video } from './kit.jsx';
 
 /* Chapter 8 · Speed control: field & armature (Syllabus Unit 4: Speed control — field control, armature control). */
 
@@ -122,7 +122,7 @@ export const fieldControl = video('Field (flux) control', {
     { at: 1, kind: 'step', node: <>Rheostat ↑ → Ish ↓ → φ ↓ → <span className="y">N ↑ (base speed bhanda mathi)</span></> },
     { at: 3, kind: 'step', node: <><span className="g">✓</span> sasto, efficient (Ish sano), smooth control</> },
     { at: 4, kind: 'step', node: <><span className="r">✗</span> base bhanda mathi matra · commutation ra armature strength le limit</> },
-    { at: 5, kind: 'eq', node: <>Constant torque: φ₁·Ia₁ = φ₂·Ia₂</> },
+    { at: 5, kind: 'eq', node: <>Constant torque: <K>{String.raw`\phi_1 I_{a1} = \phi_2 I_{a2}`}</K></> },
   ],
 });
 
@@ -390,12 +390,12 @@ export const speedDerivation = video('Derivation: speed control ko equation', {
   ],
   board: [
     { at: 0, kind: 'h', node: <>Speed equation, step by step</> },
-    { at: 0, kind: 'step', node: <>V = E<sub>b</sub> + I<sub>a</sub>R<sub>a</sub>, E<sub>b</sub> = kφN (k = PZ/60A)</> },
-    { at: 1, kind: 'step', node: <>N = (V − I<sub>a</sub>R<sub>a</sub>) / kφ</> },
-    { at: 2, kind: 'eq', node: <>N = [V − I<sub>a</sub>(R<sub>a</sub> + R)] / kφ</> },
+    { at: 0, kind: 'step', node: <><K>{String.raw`V = E_b + I_a R_a,\quad E_b = k\phi N \;\; (k = \tfrac{PZ}{60A})`}</K></> },
+    { at: 1, kind: 'step', node: <><K>{String.raw`N = \dfrac{V - I_a R_a}{k\phi}`}</K></> },
+    { at: 2, kind: 'eq', node: <><K>{String.raw`N = \dfrac{V - I_a (R_a + R)}{k\phi}`}</K></> },
     { at: 2, kind: 'note', node: <><span className="g">V</span> voltage control · <span className="y">R</span> armature control · <span className="y">φ</span> field control</> },
-    { at: 3, kind: 'eq', node: <>N₂/N₁ = (E<sub>b2</sub>/E<sub>b1</sub>) × (φ₁/φ₂)</> },
-    { at: 5, kind: 'eq', node: <>Constant torque: φ₁I<sub>a1</sub> = φ₂I<sub>a2</sub></> },
+    { at: 3, kind: 'eq', node: <><K>{String.raw`\dfrac{N_2}{N_1} = \dfrac{E_{b2}}{E_{b1}} \times \dfrac{\phi_1}{\phi_2}`}</K></> },
+    { at: 5, kind: 'eq', node: <>Constant torque: <K>{String.raw`\phi_1 I_{a1} = \phi_2 I_{a2}`}</K></> },
     { at: 5, kind: 'note', node: <>Recipe: naya I<sub>a</sub> → naya E<sub>b</sub> → speed ratio</> },
   ],
 });

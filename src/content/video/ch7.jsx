@@ -1,4 +1,4 @@
-import { C, Coil, Resistor, model, video } from './kit.jsx';
+import { C, Coil, K, model, Resistor, video } from './kit.jsx';
 
 /* Chapter 7 · Starting: 3-point & 4-point starters (Syllabus Unit 4: Starting of DC motors). */
 
@@ -38,11 +38,11 @@ export const whyStarter = video('Derivation: starting current ra starter resista
   ],
   board: [
     { at: 0, kind: 'h', node: <>Starter kina?</> },
-    { at: 1, kind: 'eq', node: <>Ia = (V − Eb) / Ra</> },
-    { at: 2, kind: 'step', node: <>Start ma: N = 0 → Eb = 0 → <span className="y">Ia = V / Ra</span></> },
-    { at: 4, kind: 'step', node: <>220 / 0.5 = 440 A ≈ <span className="r">22 × rated 20 A</span></> },
+    { at: 1, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K></> },
+    { at: 2, kind: 'step', node: <>Start ma: <K>{String.raw`N = 0 \to E_b = 0 \to \textcolor{#d9480f}{I_a = V / R_a}`}</K></> },
+    { at: 4, kind: 'step', node: <><K>{String.raw`\dfrac{220}{0.5} = 440\ \text{A} \approx \textcolor{#e03131}{22 \times \text{rated } 20\ \text{A}}`}</K></> },
     { at: 5, kind: 'step', node: <>→ commutator ra brush ma sparking · winding overheat · torque jerk · supply dip</> },
-    { at: 6, kind: 'eq', node: <>Ist = V / (Ra + R) ⟹ R = V / Ist − Ra</> },
+    { at: 6, kind: 'eq', node: <><K>{String.raw`I_{st} = \dfrac{V}{R_a + R} \;\Rightarrow\; R = \dfrac{V}{I_{st}} - R_a`}</K></> },
     { at: 8, kind: 'note', node: <>Eb ∝ N speed sangai badhcha, so R lai stud by stud cut out garincha.</> },
   ],
 });

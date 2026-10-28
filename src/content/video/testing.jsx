@@ -1,4 +1,4 @@
-import { Arrow, Axes, C, model, video } from './kit.jsx';
+import { Arrow, Axes, C, K, model, video } from './kit.jsx';
 
 /* Syllabus 4.6 · Testing of DC machine: retardation test and Swinburne's test for shunt motor.
    The vault has no IOE past question on these tests, so the numbers here are worked examples. */
@@ -106,12 +106,12 @@ export const swinburne = video('Derivation: Swinburne test bata constant losses 
   board: [
     { at: 0, kind: 'h', node: <>Swinburne’s test (no-load test, shunt machine)</> },
     { at: 0, kind: 'note', node: <>Rated V, rated N, no load · napne: I₀</> },
-    { at: 1, kind: 'step', node: <>No-load input = V·I₀ = W<sub>c</sub> + I<sub>a0</sub>²R<sub>a</sub></> },
-    { at: 2, kind: 'step', node: <>I<sub>sh</sub> = V/R<sub>sh</sub>, I<sub>a0</sub> = I₀ − I<sub>sh</sub></> },
-    { at: 2, kind: 'eq', node: <>W<sub>c</sub> = V·I₀ − I<sub>a0</sub>²R<sub>a</sub></> },
-    { at: 3, kind: 'step', node: <>Example: I<sub>sh</sub> = 2 A, I<sub>a0</sub> = 4 A, W<sub>c</sub> = 1320 − 8 = <span className="y">1312 W</span></> },
-    { at: 4, kind: 'eq', node: <>Motor: η = [V·I<sub>L</sub> − W<sub>c</sub> − I<sub>a</sub>²R<sub>a</sub>] / V·I<sub>L</sub>,  I<sub>a</sub> = I<sub>L</sub> − I<sub>sh</sub></> },
-    { at: 5, kind: 'step', node: <>I<sub>L</sub> = 40 A: I<sub>a</sub> = 38 A, I<sub>a</sub>²R<sub>a</sub> = 722 W, η = 6766/8800 ≈ <span className="y">76.9%</span></> },
+    { at: 1, kind: 'step', node: <>No-load input = <K>{String.raw`V I_0 = W_c + I_{a0}^2 R_a`}</K></> },
+    { at: 2, kind: 'step', node: <><K>{String.raw`I_{sh} = V / R_{sh},\quad I_{a0} = I_0 - I_{sh}`}</K></> },
+    { at: 2, kind: 'eq', node: <><K>{String.raw`W_c = V I_0 - I_{a0}^2 R_a`}</K></> },
+    { at: 3, kind: 'step', node: <>Example: <K>{String.raw`I_{sh} = 2\ \text{A},\ I_{a0} = 4\ \text{A},\ W_c = 1320 - 8 = \textcolor{#d9480f}{1312\ \text{W}}`}</K></> },
+    { at: 4, kind: 'eq', node: <>Motor: <K>{String.raw`\eta = \dfrac{V I_L - W_c - I_a^2 R_a}{V I_L},\quad I_a = I_L - I_{sh}`}</K></> },
+    { at: 5, kind: 'step', node: <><K>{String.raw`I_L = 40\ \text{A}:\ I_a = 38\ \text{A},\ I_a^2 R_a = 722\ \text{W},\ \eta = \tfrac{6766}{8800} \approx \textcolor{#d9480f}{76.9\%}`}</K></> },
     { at: 6, kind: 'step', node: <><span className="g">✓</span> sasto, thorai power · <span className="r">✗</span> load ma iron loss change ignore, series motor ma mildaina</> },
   ],
 });
@@ -160,12 +160,12 @@ export const retardation = video('Derivation: retardation test bata rotational l
     { at: 0, kind: 'h', node: <>Retardation (running-down) test</> },
     { at: 0, kind: 'note', node: <>Rated speed bhanda ali mathi chalau</> },
     { at: 1, kind: 'step', node: <>Armature supply OFF, field ON → machine slow huncha</> },
-    { at: 2, kind: 'step', node: <>W = d/dt(½Jω²) = Jω·dω/dt</> },
-    { at: 2, kind: 'eq', node: <>W = (2π/60)² · J · N · dN/dt</> },
+    { at: 2, kind: 'step', node: <><K>{String.raw`W = \dfrac{d}{dt}\left(\tfrac12 J\omega^2\right) = J\omega \dfrac{d\omega}{dt}`}</K></> },
+    { at: 2, kind: 'eq', node: <><K>{String.raw`W = \left(\dfrac{2\pi}{60}\right)^2 J N \dfrac{dN}{dt}`}</K></> },
     { at: 3, kind: 'note', node: <>Speed ∝ armature voltage → voltmeter le N padhincha</> },
     { at: 4, kind: 'step', node: <>Run 1: khali, same dN ma time t₁ · Run 2: extra load W′, time t₂</> },
-    { at: 6, kind: 'step', node: <>Same energy: W·t₁ = (W + W′)·t₂</> },
-    { at: 6, kind: 'eq', node: <>W = W′ · t₂ / (t₁ − t₂)</> },
+    { at: 6, kind: 'step', node: <>Same energy: <K>{String.raw`W t_1 = (W + W') t_2`}</K></> },
+    { at: 6, kind: 'eq', node: <><K>{String.raw`W = W' \cdot \dfrac{t_2}{t_1 - t_2}`}</K></> },
   ],
 });
 

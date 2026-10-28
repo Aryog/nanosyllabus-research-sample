@@ -1,4 +1,4 @@
-import { Arrow, C, Conductor, Pole, model, video } from './kit.jsx';
+import { Arrow, C, Conductor, K, model, Pole, video } from './kit.jsx';
 
 /* Chapter 3 · Working principle & torque equation (Syllabus Unit 4: working principle and torque equation). */
 
@@ -101,13 +101,13 @@ export const torqueDerivation = video('Derivation: torque equation', {
   board: [
     { at: 0, kind: 'h', node: <>Torque equation</> },
     { at: 0, kind: 'note', node: <>r radius · l length · P pole · φ Wb/pole · Z conductor · A path · I<sub>a</sub></> },
-    { at: 1, kind: 'step', node: <>Euta conductor ko current: I<sub>c</sub> = <span className="y">I<sub>a</sub> / A</span></> },
-    { at: 2, kind: 'step', node: <>Flux density: B = Pφ / (2πrl)</> },
-    { at: 3, kind: 'step', node: <>Euta conductor ma force: F = B·I<sub>c</sub>·l = (Pφ/2πrl)(I<sub>a</sub>/A)·l = <span className="y">PφI<sub>a</sub> / (2πrA)</span></> },
-    { at: 5, kind: 'step', node: <>Euta conductor ko torque: τ = F·r = <span className="y">PφI<sub>a</sub> / (2πA)</span></> },
-    { at: 6, kind: 'step', node: <>Sabai Z conductor: T<sub>a</sub> = PφZI<sub>a</sub> / (2πA)</> },
-    { at: 7, kind: 'eq', node: <>T<sub>a</sub> = 0.159 · φ · Z · I<sub>a</sub> · (P/A) N·m</> },
-    { at: 8, kind: 'step', node: <>Given machine ma: <span className="g">T<sub>a</sub> ∝ φ I<sub>a</sub></span></> },
+    { at: 1, kind: 'step', node: <>Euta conductor ko current: <K>{String.raw`I_c = \textcolor{#d9480f}{I_a / A}`}</K></> },
+    { at: 2, kind: 'step', node: <>Flux density: <K>{String.raw`B = \dfrac{P\phi}{2\pi r l}`}</K></> },
+    { at: 3, kind: 'step', node: <>Euta conductor ma force: <K>{String.raw`F = B I_c l = \dfrac{P\phi}{2\pi r l}\cdot\dfrac{I_a}{A}\cdot l = \textcolor{#d9480f}{\dfrac{P\phi I_a}{2\pi r A}}`}</K></> },
+    { at: 5, kind: 'step', node: <>Euta conductor ko torque: <K>{String.raw`\tau = F r = \textcolor{#d9480f}{\dfrac{P\phi I_a}{2\pi A}}`}</K></> },
+    { at: 6, kind: 'step', node: <>Sabai Z conductor: <K>{String.raw`T_a = \dfrac{P\phi Z I_a}{2\pi A}`}</K></> },
+    { at: 7, kind: 'eq', node: <><K>{String.raw`T_a = 0.159\,\phi Z I_a \left(\tfrac{P}{A}\right)\ \text{N}\cdot\text{m}`}</K></> },
+    { at: 8, kind: 'step', node: <>Given machine ma: <K>{String.raw`\textcolor{#2b8a3e}{T_a \propto \phi I_a}`}</K></> },
   ],
 });
 

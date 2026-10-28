@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import rough from 'roughjs';
 import { beatText, isNepali, spoken, voiceKey } from './voice.js';
 
 /*
@@ -51,55 +52,88 @@ const useWide = () => {
   return wide;
 };
 
-// Write a (possibly wrapped) board line the way a hand does: one visual line at
-// a time, left to right. Reveals the ink with a clip-path and returns the
-// marker's path over it as WAAPI keyframes (ink-local px).
-function writeLines(ink, r, k0, w, h, secs) {
+// The visual lines of a (possibly wrapped) board line, in ink-local px at
+// scale 1: one box per row of text.
+function rowsOf(ink, r, k) {
   const range = document.createRange();
   range.selectNodeContents(ink);
   const rows = [];
   for (const q of range.getClientRects()) {
-    if (!q.width) continue;
-    const b = { top: (q.top - r.top) / k0, bottom: (q.bottom - r.top) / k0, left: (q.left - r.left) / k0, right: (q.right - r.left) / k0 };
+    // Skip zero-size and KaTeX's 1px screen-reader boxes.
+    if (q.width < 2 || q.height < 2) continue;
+    const b = { top: (q.top - r.top) / k, bottom: (q.bottom - r.top) / k, left: (q.left - r.left) / k, right: (q.right - r.left) / k };
     const row = rows.find((x) => b.top < x.bottom - 2 && b.bottom > x.top + 2);
     if (row) Object.assign(row, { top: Math.min(row.top, b.top), bottom: Math.max(row.bottom, b.bottom), left: Math.min(row.left, b.left), right: Math.max(row.right, b.right) });
     else rows.push(b);
   }
-  rows.sort((a, b) => a.top - b.top);
-  if (!rows.length) return null;
-  const W = w + 20;
-  const H = h + 20;
-  // Everything above this row, plus the row itself up to x.
-  const poly = (row, x) => `polygon(-10px -10px, ${W}px -10px, ${W}px ${row.top}px, ${x}px ${row.top}px, ${x}px ${row.bottom}px, -10px ${row.bottom}px)`;
-  const total = rows.reduce((n, x) => n + (x.right - x.left), 0) || 1;
-  const clip = [];
-  const pen = [];
-  let t = 0;
-  rows.forEach((row, i) => {
-    const t1 = i === rows.length - 1 ? 0.97 : t + ((row.right - row.left) / total) * 0.97;
-    const y = row.top + (row.bottom - row.top) * 0.75;
-    clip.push({ offset: t, clipPath: poly(row, row.left) }, { offset: t1, clipPath: poly(row, row.right + 4) });
-    pen.push({ offset: t, transform: `translate(${row.left}px, ${y}px)` }, { offset: t1, transform: `translate(${row.right}px, ${y}px)` });
-    t = t1;
-  });
-  clip.push({ offset: 1, clipPath: `polygon(-10px -10px, ${W}px -10px, ${W}px ${H}px, ${W}px ${H}px, ${W}px ${H}px, -10px ${H}px)` });
-  pen.push({ offset: 1, transform: pen[pen.length - 1].transform });
-  ink.animate(clip, { duration: secs * 1000, easing: 'linear', fill: 'forwards' });
-  return pen;
+  return rows.sort((a, b) => a.top - b.top);
 }
 
-// Cartoon hand holding a marker; the marker tip is the element's top-left corner.
-const Hand = () => (
-  <svg className="hand-svg" viewBox="0 0 120 130" aria-hidden="true">
-    <path d="M72 96 L120 130 L120 104 L88 80 Z" fill="#3b5bdb" stroke="#1f2328" strokeWidth="3" strokeLinejoin="round" />
-    <path d="M4 4 L14 9 L58 58 L48 66 L6 16 Z" fill="#1f2328" />
-    <path d="M14 9 L58 58 L52 63 L9 14 Z" fill="#495057" />
-    <path d="M4 4 L10 6 L6 12 Z" fill="#1c7ed6" />
-    <path d="M44 52 C40 42 52 34 62 40 L96 62 C108 70 104 92 90 96 L70 100 C56 102 46 92 48 80 Z" fill="#f2c39b" stroke="#1f2328" strokeWidth="3" strokeLinejoin="round" />
-    <path d="M38 50 C32 44 38 36 46 40 L62 52" fill="#f2c39b" stroke="#1f2328" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M56 70 C62 72 70 72 76 68 M60 82 C66 84 74 84 80 80" fill="none" stroke="#1f2328" strokeWidth="2.5" strokeLinecap="round" />
-  </svg>
-);
+// Write a board line the way a hand does: row by row, left to right. Every
+// frame re-measures the line as it is on screen now (camera zoom mid-move,
+// fonts loading, lines above still growing, a resize), so the reveal and the
+// pen tip on `hand` always sit exactly on the text. Returns a stop function.
+function writeLive(ink, cam, hand, secs) {
+  const start = performance.now();
+  ink.style.animation = 'none';
+  let raf;
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / (secs * 1000));
+    const cr = cam.getBoundingClientRect();
+    const k = cr.width / cam.offsetWidth || 1;
+    const r = ink.getBoundingClientRect();
+    const rows = rowsOf(ink, r, k);
+    if (rows.length) {
+      const size = (x) => x.right - x.left;
+      let d = t * rows.reduce((n, x) => n + size(x), 0);
+      let i = 0;
+      while (i < rows.length - 1 && d > size(rows[i])) d -= size(rows[i++]);
+      const row = rows[i];
+      const x = Math.min(row.right, row.left + d);
+      const W = r.width / k + 20;
+      // Everything above this row, plus the row itself up to the pen.
+      ink.style.clipPath = t < 1 ? `polygon(-10px -10px, ${W}px -10px, ${W}px ${row.top}px, ${x}px ${row.top}px, ${x}px ${row.bottom}px, -10px ${row.bottom}px)` : '';
+      hand.style.transform = `translate(${(r.left - cr.left) / k + x}px, ${(r.top - cr.top) / k + row.top + (row.bottom - row.top) * 0.78}px)`;
+      hand.style.visibility = 'visible';
+    }
+    if (t < 1) raf = requestAnimationFrame(step);
+  };
+  raf = requestAnimationFrame(step);
+  return () => {
+    cancelAnimationFrame(raf);
+    ink.style.clipPath = '';
+  };
+}
+
+// Writing hand: Twemoji ✍🏽 (CC-BY 4.0, https://github.com/jdecked/twemoji),
+// turned so the pen tip, the element's origin, leads and the hand trails below.
+const Hand = () => <img className="hand-img" src={`${BASE}img/writing-hand.svg`} alt="" draggable={false} />;
+
+// Marker strokes drawn with Rough.js once a line is written: a highlighter
+// swipe behind a line, or a scribbled underline under a result.
+const gen = rough.generator();
+function Marker({ kind, delay }) {
+  const ref = useRef(null);
+  const [paths, setPaths] = useState(null);
+  useEffect(() => {
+    const ink = ref.current?.parentElement;
+    if (!ink) return;
+    const w = ink.offsetWidth;
+    const h = ink.offsetHeight;
+    const result = kind === 'eq' || kind === 'answer';
+    const d = result
+      ? gen.linearPath([[4, h + 3], [w * 0.5, h + 5], [w - 4, h + 2]], { stroke: '#e8590c', strokeWidth: 2.6, roughness: 1.6, bowing: 2 })
+      : gen.line(-2, h * 0.68, w + 2, h * 0.64, { stroke: 'rgba(255, 212, 59, 0.6)', strokeWidth: h * 0.42, roughness: 1.2, bowing: 1.5 });
+    setPaths({ w, h, list: gen.toPaths(d) });
+  }, [kind]);
+  return (
+    <svg ref={ref} className="marker" aria-hidden="true" style={paths ? { width: paths.w, height: paths.h, '--md': `${delay}s` } : { display: 'none' }}>
+      {paths?.list.map((p, i) => (
+        <path key={i} d={p.d} stroke={p.stroke} strokeWidth={p.strokeWidth} fill="none" strokeLinecap="round" pathLength={1} />
+      ))}
+    </svg>
+  );
+}
 
 // Recorded clips, keyed by voiceKey(text). Loaded once for all scenes.
 let clips = {};
@@ -150,32 +184,69 @@ function pickVoice(text) {
   return vs.find((v) => v.lang === 'en-IN') ?? vs.find((v) => /en[-_]GB/i.test(v.lang)) ?? vs.find((v) => v.lang?.startsWith('en'));
 }
 
-// Playback speed for the voice: fast, explainer-video pace (pitch is kept).
-const SPEED = 1.3;
+// Player preferences, remembered across videos: playback speed (voice pitch is
+// kept) and subtitles.
+const SPEEDS = [0.75, 1, 1.25, 1.5];
+const pref = (key, def) => {
+  try {
+    const v = localStorage.getItem(key);
+    return v == null ? def : JSON.parse(v);
+  } catch {
+    return def;
+  }
+};
+const keep = (key, v) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(v));
+  } catch {}
+};
 const GAP = 200; // pause after a line, ms
 const MIN_BEAT = 800; // shortest a beat can be, ms
 
 const ZOOM_MAX = 1.6; // closest the camera gets to one part
 
-const readMs = (t = '') => Math.max(2000, (1200 + t.length * 58) / SPEED);
+// Predicted length of a beat when played: recorded Nepali clips run about
+// 80 ms per character at 1×, plus the pause after the line. Only the spoken
+// line counts; an ask's question and the time spent answering don't.
+const estMs = (b, speed) => b.ms ?? Math.max(MIN_BEAT, (300 + spoken(b.voice ?? b.say ?? '').length * 80) / speed) + GAP;
+const clock = (ms) => {
+  const t = Math.max(0, Math.round(ms / 1000));
+  return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
+};
+const readMs = (t = '', speed = 1.25) => Math.max(2000, (1200 + t.length * 58) / speed);
 
-export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, tall, upcoming = [] }) {
+export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, tall, notes, title, kicker, upcoming = [] }) {
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [voice, setVoice] = useState(() => !isMuted() && 'speechSynthesis' in window);
   const [run, setRun] = useState(0);
   const [picked, setPicked] = useState({});
   const [ended, setEnded] = useState(false);
+  const [speed, setSpeed] = useState(() => (SPEEDS.includes(pref('dcm-speed', 1.25)) ? pref('dcm-speed', 1.25) : 1.25));
+  const [cc, setCc] = useState(() => pref('dcm-cc', true) !== false);
+  const [full, setFull] = useState(false);
+  const sceneRef = useRef(null);
+  const audioRef = useRef(null);
+  const tried = useRef(new Set());
   const endedRef = useRef(false);
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.playbackRate = speed;
+  }, [speed]);
+  useEffect(() => {
+    const on = () => setFull(document.fullscreenElement === sceneRef.current);
+    document.addEventListener('fullscreenchange', on);
+    return () => document.removeEventListener('fullscreenchange', on);
+  }, []);
   const stageRef = useRef(null);
   const camRef = useRef(null);
   const [cam, setCam] = useState({ x: 0, y: 0, k: 1 });
   const [hand, setHand] = useState(null);
   const handRef = useRef(null);
   useEffect(() => {
-    if (hand?.path && handRef.current) handRef.current.animate(hand.path, { duration: hand.secs * 1000, easing: 'linear', fill: 'forwards' });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hand?.path]);
+    if (hand?.mode !== 'write') return;
+    const ink = camRef.current?.querySelector('.board-line.hl:not(.kind-q) .ink');
+    if (ink && handRef.current) return writeLive(ink, camRef.current, handRef.current, hand.secs);
+  }, [hand]);
   const wide = useWide();
   const split = wide && draw && board?.length > 1;
   // Long derivation: heading across the top, the rest written column by column.
@@ -227,9 +298,11 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
         cx = (box.l + box.r) / 2;
         cy = (box.t + box.b) / 2;
       }
-      // Centre on the part, but never show past the board's edges.
+      // Centre on the part, but never show past the board's edges. A board
+      // shorter than the frame starts at the top, like a real whiteboard.
       const place = (view, size, c) => (size * k <= view ? (view - size * k) / 2 : Math.min(0, Math.max(view - size * k, view / 2 - c * k)));
-      setCam({ k, x: place(W, cw, cx), y: place(H, ch, cy) });
+      const top = ch * k <= H ? Math.min((H - ch * k) / 2, H * 0.06) : place(H, ch, cy);
+      setCam({ k, x: place(W, cw, cx), y: draw ? place(H, ch, cy) : top });
     };
     // The hand follows the line being written, or points at the highlighted part.
     const pen = () => {
@@ -241,33 +314,17 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
       const part = !ink && el.querySelector('svg .hl');
       const r = (ink || part)?.getBoundingClientRect();
       if (!r || (!r.width && !r.height)) return setHand(null);
-      const x = (r.left - o.left) / k0;
-      const y = (r.top - o.top) / k0;
-      const w = r.width / k0;
-      const h = r.height / k0;
-      if (!ink) return setHand({ mode: 'point', x: x + w / 2, y: y + h / 2 });
-      const secs = parseFloat(ink.parentElement.style.getPropertyValue('--wd')) || 1.4;
-      setHand({ mode: 'write', x, y, secs, path: writeLines(ink, r, k0, w, h, secs) });
-    };
-    // Lines above may still be growing: re-anchor the hand once they settle.
-    const follow = () => {
-      const el = camRef.current;
-      const ink = el?.querySelector('.board-line.hl:not(.kind-q) .ink');
-      if (!ink) return;
-      const o = el.getBoundingClientRect();
-      const r = ink.getBoundingClientRect();
-      const k0 = new DOMMatrix(getComputedStyle(el).transform).a || 1;
-      setHand((h) => (h?.mode === 'write' ? { ...h, x: (r.left - o.left) / k0, y: (r.top - o.top) / k0 } : h));
+      // Point from the lower-left corner, so the hand doesn't cover what it points at.
+      if (!ink) return setHand({ mode: 'point', x: (r.left - o.left) / k0, y: (r.bottom - o.top) / k0 });
+      // writeLive (above) places the hand every frame while the line is written.
+      setHand({ mode: 'write', x: 0, y: 0, secs: parseFloat(ink.parentElement.style.getPropertyValue('--wd')) || 1.4 });
     };
     // Once as the line starts, again after it has grown to full height.
     const a = setTimeout(() => {
       frame();
       pen();
     }, 60);
-    const b = setTimeout(() => {
-      frame();
-      follow();
-    }, 700);
+    const b = setTimeout(frame, 700);
     window.addEventListener('resize', frame);
     return () => {
       clearTimeout(a);
@@ -303,7 +360,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
     const text = beatText(cur);
     // Lines after this one: rest of this video, then the next videos.
     prepare([...beats.slice(beat + 1).map(beatText), ...upcoming].filter(Boolean));
-    const minMs = cur.ms ?? readMs(text);
+    const minMs = cur.ms ?? readMs(text, speed);
     // Voice failed or is missing: fall back to reading time, never rush the beat.
     const silent = () => {
       spokeDone = true;
@@ -321,7 +378,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
       const u = new SpeechSynthesisUtterance(spoken(text));
       u.voice = v;
       u.lang = v.lang;
-      u.rate = SPEED;
+      u.rate = speed;
       u.onstart = () => (started = true);
       u.onend = u.onerror = () => {
         if (!live) return;
@@ -354,7 +411,8 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
         const src = clips[key] ? `${BASE}audio/scene/${key}.mp3?v=${clips[key]}` : import.meta.env.DEV ? `${BASE}api/tts/${key}.mp3` : null;
         if (!src) return speakBrowser();
         audio = new Audio(src);
-        audio.playbackRate = SPEED;
+        audioRef.current = audio;
+        audio.playbackRate = speed;
         audio.preservesPitch = true;
         audio.onplay = () => (clips[key] ??= 'new');
         audio.onended = () => {
@@ -379,6 +437,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
     return () => {
       live = false;
       timers.forEach(clearTimeout);
+      audioRef.current = null;
       if (audio) audio.pause();
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     };
@@ -386,6 +445,48 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
   }, [beat, playing, run, voice, waiting]);
 
   useEffect(() => () => 'speechSynthesis' in window && window.speechSynthesis.cancel(), []);
+
+  // Timeline: predicted start of every beat and the total, in ms of playback.
+  const est = useMemo(() => beats.map((b) => estMs(b, speed)), [beats, speed]);
+  const starts = useMemo(() => est.reduce((a, m, i) => [...a, a[i] + m], [0]), [est]);
+  const total = starts[beats.length];
+  // The bar, its knob and the clock are moved straight from an animation frame
+  // (no re-render), so the slider glides instead of stepping.
+  const fillRef = useRef(null);
+  const knobRef = useRef(null);
+  const timeRef = useRef(null);
+  const within = useRef(0);
+  const drag = useRef(null);
+  useEffect(() => {
+    within.current = 0;
+  }, [beat, run]);
+  useEffect(() => {
+    let raf;
+    let last = performance.now();
+    const tick = (now) => {
+      const dt = now - last;
+      last = now;
+      if (playing && !waiting && !ended) within.current += dt;
+      const a = audioRef.current;
+      const frac = a && a.duration && !a.paused ? Math.min(1, a.currentTime / a.duration) : Math.min(1, within.current / est[beat]);
+      const pos = drag.current ?? (ended ? total : starts[beat] + frac * est[beat]);
+      const f = Math.min(1, pos / total);
+      if (fillRef.current) fillRef.current.style.transform = `scaleX(${f})`;
+      if (knobRef.current) knobRef.current.style.left = `${f * 100}%`;
+      if (timeRef.current) timeRef.current.textContent = `${clock(pos)} / ${clock(total)}`;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [beat, playing, waiting, ended, est, starts, total]);
+  const timeAt = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * total;
+  };
+  const beatAt = (t) => {
+    const k = est.findIndex((_, i) => t < starts[i + 1]);
+    return k === -1 ? beats.length - 1 : k;
+  };
 
   const jump = (k) => {
     setEnded(false);
@@ -402,7 +503,30 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
     if (picked[beat]) return;
     setPicked((p) => ({ ...p, [beat]: { i, done: false } }));
     if (voice) react(i === ask.answer);
+    // Only the first try at a check earns XP; a rewatched retry doesn't.
+    onCheck?.(i === ask.answer, !tried.current.has(beat));
+    tried.current.add(beat);
   };
+  // Got it wrong: replay the part that explained it, then ask again.
+  const rewatch = () => {
+    setPicked(({ [beat]: _, ...rest }) => rest);
+    jump(ask.from ?? Math.max(0, beat - 2));
+  };
+  // Drag or tap the slider: the knob follows the pointer, release jumps there.
+  const seekDown = (e) => {
+    e.currentTarget.setPointerCapture(e.pointerId);
+    drag.current = timeAt(e);
+  };
+  const seekMove = (e) => {
+    if (drag.current != null) drag.current = timeAt(e);
+  };
+  const seekUp = (e) => {
+    if (drag.current == null) return;
+    const k = beatAt(timeAt(e));
+    drag.current = null;
+    jump(k);
+  };
+  const fullscreen = () => (document.fullscreenElement ? document.exitFullscreen() : sceneRef.current?.requestFullscreen?.())?.catch?.(() => {});
   const resume = () => {
     setPicked((p) => ({ ...p, [beat]: { ...p[beat], done: true } }));
     setPlaying(true);
@@ -418,10 +542,16 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
   const pick = picked[beat];
 
   return (
-    <div className={`scene beat-${beat} ${tall ? 'tall' : ''}`}>
-      <div className={`scene-screen ${ask ? 'asking' : ''}`}>
+    <div className={`scene beat-${beat} ${tall ? 'tall' : ''} ${full ? 'full' : ''}`} ref={sceneRef}>
+      <div className={`scene-screen ${ask && !ended ? 'asking' : ''}`}>
+        {title && (
+          <div className={`scene-title ${(beat === 0 && playing) || !playing || ended ? 'show' : ''}`}>
+            {kicker && <span>{kicker}</span>}
+            <b>{title}</b>
+          </div>
+        )}
         <div className="scene-stage" ref={stageRef}>
-          <div className={`scene-cam ${split ? 'split' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
+          <div className={`scene-cam ${split ? 'split' : ''} ${split && notes ? 'notes' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
             {draw && (
               <svg viewBox={viewBox} className="scene-svg" role="img">
                 {draw(s)}
@@ -437,7 +567,10 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
                         className={`board-line kind-${b.kind ?? 'text'} ${beat >= b.at && (b.until == null || beat <= b.until) ? 'on' : ''} ${beat === b.at ? 'hl' : ''}`}
                         style={{ '--wd': `${writeSecs(b.node)}s` }}
                       >
-                        <span className="ink">{b.node}</span>
+                        <span className="ink">
+                          {b.node}
+                          {beat === b.at && b.kind !== 'q' && b.kind !== 'h' && b.kind !== 'hook' && <Marker kind={b.kind} delay={writeSecs(b.node)} />}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -458,7 +591,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
             )}
           </div>
         </div>
-        {ask && (
+        {ask && !ended && (
           <div className="scene-ask">
             <div className="scene-ask-card">
               <span className="scene-ask-tag">{ask.tag ?? 'Ekchin socha 🤔'}</span>
@@ -477,14 +610,21 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
               {pick && (
                 <div className="scene-ask-why">
                   <b>{pick.i === ask.answer ? 'Ekdam sahi! 🔥' : 'Hmm, yo haina.'}</b> {ask.why}
+                  {pick.i !== ask.answer && (
+                    <button className="scene-rewatch" onClick={rewatch}>
+                      ↺ Tyo part feri hera
+                    </button>
+                  )}
                 </div>
               )}
             </div>
           </div>
         )}
-        <div className="scene-caption" key={`${beat}-${run}`}>
-          {cur.say}
-        </div>
+        {cc && (
+          <div className="scene-caption" key={`${beat}-${run}`}>
+            {cur.say}
+          </div>
+        )}
       </div>
 
       <div className="scene-bar">
@@ -497,20 +637,25 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
             Video continue ▶
           </button>
         ) : (
-          <div className="scene-track">
-            {beats.map((b, k) => (
-              <button key={k} className={`seg ${k < beat || ended ? 'done' : k === beat ? 'now' : ''} ${b.ask ? 'ask' : ''}`} onClick={() => jump(k)} aria-label={`Go to part ${k + 1}`}>
-                {k === beat && !ended && (
-                  <span
-                    key={run}
-                    className="seg-fill"
-                    style={{ animationDuration: `${b.ms ?? readMs(beatText(b))}ms`, animationPlayState: playing && !waiting ? 'running' : 'paused' }}
-                  />
-                )}
-              </button>
-            ))}
+          <div
+            className="scene-progress"
+            onPointerDown={seekDown}
+            onPointerMove={seekMove}
+            onPointerUp={seekUp}
+            onPointerCancel={() => (drag.current = null)}
+            role="slider"
+            aria-label="Video progress"
+            aria-valuemin={0}
+            aria-valuemax={Math.round(total / 1000)}
+          >
+            <div className="sp-fill" ref={fillRef} />
+            {beats.map((b, k) =>
+              b.ask ? <span key={k} className={`sp-ask ${k < beat || ended ? 'done' : ''}`} style={{ left: `${(starts[k + 1] / total) * 100}%` }} title="Dhyan check" /> : null,
+            )}
+            <span className="sp-knob" ref={knobRef} />
           </div>
         )}
+        {!(pick && !pick.done) && <span className="scene-time" ref={timeRef} />}
         <button
           className={`scene-btn ${voice ? 'on' : ''}`}
           onClick={() => {
@@ -521,6 +666,37 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, ta
         >
           {voice ? '🔊' : '🔈'}
         </button>
+        <button
+          className="scene-btn scene-speed"
+          onClick={() => {
+            const v = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length];
+            setSpeed(v);
+            keep('dcm-speed', v);
+          }}
+          title="Playback speed"
+        >
+          {speed}×
+        </button>
+        <button
+          className={`scene-btn scene-cc ${cc ? 'on' : ''}`}
+          onClick={() => {
+            setCc(!cc);
+            keep('dcm-cc', !cc);
+          }}
+          title={cc ? 'Subtitle off' : 'Subtitle on'}
+          aria-pressed={cc}
+        >
+          CC
+        </button>
+        <button className="scene-btn" onClick={fullscreen} title={full ? 'Exit full screen' : 'Full screen'} aria-label="Full screen">
+          {full ? '⤡' : '⤢'}
+        </button>
+        {/* The lesson's Skip / Next lives in the player, so the video gets the page. */}
+        {onNext && (
+          <button className={`scene-next ${ended ? 'go' : ''}`} onClick={onNext}>
+            {ended ? 'Aghi badhau →' : 'Skip ⏭'}
+          </button>
+        )}
       </div>
     </div>
   );

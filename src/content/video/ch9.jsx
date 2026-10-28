@@ -1,4 +1,4 @@
-import { C, D, solve, video } from './kit.jsx';
+import { C, D, K, solve, video } from './kit.jsx';
 
 /* Chapter 9 · Losses & efficiency (Syllabus Unit 4: Losses and efficiency). */
 
@@ -47,11 +47,11 @@ export const losses = video('Power kata jancha?', {
   ],
   board: [
     { at: 0, kind: 'h', node: <>DC machine ka losses</> },
-    { at: 1, kind: 'step', node: <><span className="r">Copper:</span> Ia²Ra · shunt Ish²Rsh = V·Ish · series Ise²Rse · brush drop</> },
-    { at: 2, kind: 'step', node: <><span className="bl">Iron:</span> hysteresis Wh = η·Bmax^1.6·f·V · eddy We ∝ Bmax²·f²·t² · f = PN/120</> },
+    { at: 1, kind: 'step', node: <><span className="r">Copper:</span> <K>{String.raw`I_a^2 R_a`}</K> · shunt <K>{String.raw`I_{sh}^2 R_{sh} = V I_{sh}`}</K> · series <K>{String.raw`I_{se}^2 R_{se}`}</K> · brush drop</> },
+    { at: 2, kind: 'step', node: <><span className="bl">Iron:</span> hysteresis <K>{String.raw`W_h = \eta B_{max}^{1.6} f V`}</K> · eddy <K>{String.raw`W_e \propto B_{max}^2 f^2 t^2`}</K> · <K>{String.raw`f = \tfrac{PN}{120}`}</K></> },
     { at: 3, kind: 'step', node: <><span className="g">Mechanical:</span> bearing ra brush friction · windage</> },
-    { at: 5, kind: 'step', node: <><span className="y">Constant losses Wc</span> = iron + mechanical + shunt field Cu</> },
-    { at: 6, kind: 'step', node: <><span className="y">Variable losses</span> = Ia²Ra + series field + brush drop (load sanga change huncha)</> },
+    { at: 5, kind: 'step', node: <><span className="y">Constant losses <K>{String.raw`W_c`}</K></span> = iron + mechanical + shunt field Cu</> },
+    { at: 6, kind: 'step', node: <><span className="y">Variable losses</span> = <K>{String.raw`I_a^2 R_a`}</K> + series field + brush drop (load sanga change huncha)</> },
     { at: 7, kind: 'note', node: <>Iron + mechanical = stray (rotational) losses</> },
   ],
 });
@@ -188,12 +188,12 @@ export const maxEff = video('Derivation: maximum efficiency ko condition', {
   ],
   board: [
     { at: 0, kind: 'h', node: <>Maximum η ko condition</> },
-    { at: 1, kind: 'step', node: <>Input = V·I · Losses = Wc (constant) + I²Ra (variable)</> },
-    { at: 2, kind: 'step', node: <>η = (VI − Wc − I²Ra) / VI = 1 − Wc/(VI) − IRa/V</> },
-    { at: 4, kind: 'step', node: <>dη/dI = Wc/(VI²) − Ra/V = 0</> },
-    { at: 5, kind: 'step', node: <>⟹ Wc/I² = Ra ⟹ <span className="y">I²Ra = Wc</span></> },
+    { at: 1, kind: 'step', node: <>Input = <K>{String.raw`VI`}</K> · Losses = <K>{String.raw`W_c`}</K> (constant) + <K>{String.raw`I^2 R_a`}</K> (variable)</> },
+    { at: 2, kind: 'step', node: <><K>{String.raw`\eta = \dfrac{VI - W_c - I^2 R_a}{VI} = 1 - \dfrac{W_c}{VI} - \dfrac{I R_a}{V}`}</K></> },
+    { at: 4, kind: 'step', node: <><K>{String.raw`\dfrac{d\eta}{dI} = \dfrac{W_c}{V I^2} - \dfrac{R_a}{V} = 0`}</K></> },
+    { at: 5, kind: 'step', node: <><K>{String.raw`\Rightarrow \dfrac{W_c}{I^2} = R_a \;\Rightarrow\; \textcolor{#d9480f}{I^2 R_a = W_c}`}</K></> },
     { at: 6, kind: 'eq', node: <>Variable loss = Constant loss</> },
-    { at: 7, kind: 'step', node: <>I(max η) = √(Wc / Ra)</> },
+    { at: 7, kind: 'step', node: <><K>{String.raw`I_{(\eta_{max})} = \sqrt{W_c / R_a}`}</K></> },
     { at: 7, kind: 'note', node: <>Motor ko lagi I ≈ Ia: sano shunt current Wc bhitrai count gariyeko huncha.</> },
   ],
 });

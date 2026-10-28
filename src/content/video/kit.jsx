@@ -1,3 +1,4 @@
+import katex from 'katex';
 import { Hook, ModelAnswer, Scene } from '../../video/Scene.jsx';
 
 /*
@@ -18,6 +19,11 @@ import { Hook, ModelAnswer, Scene } from '../../video/Scene.jsx';
 
 export const M = ({ children }) => <span className="math">{children}</span>;
 
+// LaTeX on the board, typeset by KaTeX: <K>{String.raw`T_a \propto \phi I_a`}</K>.
+export const K = ({ children }) => (
+  <span className="tex" dangerouslySetInnerHTML={{ __html: katex.renderToString(children, { throwOnError: false }) }} />
+);
+
 // Marker inks on the whiteboard. (Names kept from the chalk version: `chalk`
 // is the main ink, `yellow` the emphasis colour.)
 export const C = {
@@ -37,6 +43,7 @@ export const C = {
 
 export const video = (title, props) => ({
   video: true,
+  title,
   tag: 'Hera',
   tagKind: 'watch',
   body: title ? <h2>{title}</h2> : null,
@@ -55,9 +62,11 @@ export const extra = (step) => ({ ...step, practice: true });
 /*
   Model answer as a video: the question goes up on the board, then each point
   the marking scheme wants (one beat each, narrated), then the exam tip.
-    answer(title, { papers, marks, q, read: { say, voice }, points: [{ node, say, voice }], tip: { node, say, voice } })
+    answer(title, { papers, marks, q, read: { say, voice }, points: [{ node, say, voice }], tip: { node, say, voice }, draw?, viewBox? })
+  `draw` adds the diagram or chart the answer needs, beside the notes; beat 0 is
+  the question, beat k the k-th point.
 */
-export function answer(title, { papers, marks, q, read, points, tip }) {
+export function answer(title, { papers, marks, q, read, points, tip, draw, viewBox }) {
   const src = papers.length ? `IOE ${papers.slice(0, 3).join(' · ')}${papers.length > 3 ? ` +${papers.length - 3}` : ''}` : 'Exam-style';
   const beats = [read, ...points, ...(tip ? [tip] : [])].map(({ say, voice, ask }) => ({ say, voice, ask }));
   const board = [
@@ -65,29 +74,7 @@ export function answer(title, { papers, marks, q, read, points, tip }) {
     ...points.map((p, i) => ({ at: i + 1, kind: 'step', node: p.node })),
     ...(tip ? [{ at: points.length + 1, kind: 'idea', node: <>✍️ {tip.node}</> }] : []),
   ];
-  return { ...video(title, { beats, board, tall: true }), ioe: papers.length > 0, tag: 'Model answer', tagKind: 'watch' };
-}
-
-/*
-  Memory map closing the Big picture, written up as a video. Compression only:
-  never repeat the explanation here.
-    recall(title, big, { line, formulas, order?, remember, forget }, say)
-  `say` narrates each part: { line, formulas, order?, big, check, forget },
-  each { say, voice }; `check` also carries the easy attention `ask`.
-*/
-export function recall(title, big, { line, formulas, order, remember, forget }, say) {
-  const parts = [say.line, say.formulas, ...(order ? [say.order] : []), say.big, say.check, say.forget];
-  const at = { formulas: 1, order: 2, big: order ? 3 : 2 };
-  const board = [
-    { at: 0, kind: 'h', node: <>Memory map</> },
-    { at: 0, kind: 'idea', node: line },
-    ...formulas.map((f) => ({ at: at.formulas, kind: 'formula', node: f })),
-    ...(order ? [{ at: at.order, kind: 'step', node: <>Order: {order.join(' → ')}</> }] : []),
-    { at: at.big, kind: 'hook', node: <>🧠 {big}</> },
-    ...remember.map((r) => ({ at: at.big, kind: 'given', node: r })),
-    ...forget.map((f) => ({ at: parts.length - 1, kind: 'trap', node: f })),
-  ];
-  return { ...video(title, { beats: parts.map(({ say: s, voice, ask }) => ({ say: s, voice, ask })), board }), tag: 'Yaad rakha', tagKind: 'hook' };
+  return { ...video(title, { beats, board, tall: true, draw, viewBox, notes: true }), ioe: papers.length > 0, tag: 'Model answer', tagKind: 'watch' };
 }
 
 /*
@@ -95,7 +82,7 @@ export function recall(title, big, { line, formulas, order, remember, forget }, 
     terms    Terms ra definitions: what the terms and symbols mean, shown with visuals
     derive   Derivation: each video titled "Derivation: …"
     picture  Big picture: an old IOE question and its solution (solve() or
-             answer() videos), then the recall() memory-map video
+             answer() videos, with a diagram or chart where the answer needs one)
   steps: segments({ terms: [...], derive: [...], picture: [...] })
   Each step gets a segment chip; segments 2 and 3 open with a short, silent
   title card. Segment 1 follows straight on from the topic card.

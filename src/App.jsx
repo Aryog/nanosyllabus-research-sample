@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import LessonPlayer, { XpCounter } from './components/LessonPlayer.jsx';
 import Mascot from './components/Mascot.jsx';
 import { useNarrator } from './components/useNarrator.js';
 import { course } from './content/course.jsx';
+import { syllabus } from './content/syllabus.js';
 
 // v2: the video course. Positions saved by the older course don't map onto it,
 // so only the XP carries over.
@@ -19,22 +21,44 @@ function load() {
 
 const journey = course.lessons[0];
 const steps = journey.steps;
-// Chapter (and Past Questions) cards only; segment cards inside a chapter don't start a row.
-const breaks = steps.map((st, i) => (st.interstitial && !st.segmentBreak ? i : -1)).filter((i) => i >= 0);
-const videos = steps.filter((s) => s.video && !s.practice).length;
-// IOE past questions in the main path: solve videos, model answers and IOE-tagged in-video questions.
-const pastCount = steps
-  .filter((s) => !s.practice)
-  .reduce((n, s) => n + (s.ioe ? 1 : 0) + (s.figureProps?.beats ?? []).filter((b) => !s.ioe && b.ask?.tag?.includes('IOE')).length, 0);
+// Screens of the main path, as the player counts them (saved positions index this).
+const path = steps.filter((st) => !st.practice && !st.retryOf);
+// Micro-topic cards only; segment cards inside a topic don't start a row.
+const breaks = path.map((st, i) => (st.interstitial && !st.segmentBreak ? i : -1)).filter((i) => i >= 0);
+// Routes: / (syllabus) · /electrical-machines/dc-motor (unit path) ·
+// /electrical-machines/dc-motor/lesson/:n (player at main-path screen n).
+const UNIT = '/electrical-machines/dc-motor';
 
-// Which outline row (chapter or Past Questions) a saved screen index falls in.
-const sectionOf = (pos) => breaks.reduce((acc, b, k) => (pos >= b ? k : acc), 0);
+// Each micro-topic's three lesson nodes: where each segment starts and ends in
+// the main path (segment 1 starts at the topic card, 2 and 3 at their cards).
+const SEG = [['📘', 'Terms'], ['∫', 'Derivation'], ['★', 'Big picture']];
+const topicNodes = breaks.map((b, k) => {
+  const end = (breaks[k + 1] ?? path.length) - 1;
+  const cuts = [b, ...path.map((st, i) => (st.segmentBreak && i > b && i <= end ? i : -1)).filter((i) => i >= 0)];
+  return {
+    num: journey.nums[k],
+    title: journey.chapters[k],
+    nodes: cuts.map((start, j) => ({ start, end: (cuts[j + 1] ?? end + 1) - 1, icon: SEG[j][0], label: SEG[j][1] })),
+  };
+});
 
 export default function App() {
   const [progress, setProgress] = useState(load);
   // Dev shortcut: ?s=<step> jumps straight into a screen.
   const dev = import.meta.env.DEV ? new URLSearchParams(location.search) : null;
-  const [active, setActive] = useState(dev?.has('s') ? 0 : null);
+  // The URL is the state, so Back works and a reload stays put.
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const lesson = matchPath(`${UNIT}/lesson/:n`, pathname);
+  const view = lesson || matchPath(UNIT, pathname) ? 'unit' : 'syllabus';
+  const active = dev?.has('s') ? Number(dev.get('s')) : lesson ? Number(lesson.params.n) : null;
+  const setView = (v) => navigate(v === 'unit' ? UNIT : '/');
+  const setActive = (n) => navigate(n == null ? UNIT : `${UNIT}/lesson/${n}`);
+  // Opening the unit lands on the lesson node you're at, not the top of the path.
+  useEffect(() => {
+    if (view !== 'unit' || active !== null) return;
+    requestAnimationFrame(() => document.querySelector('.unit-node.now')?.scrollIntoView({ block: 'center' }));
+  }, [view, active]);
   const narrator = useNarrator();
 
   useEffect(() => {
@@ -44,10 +68,13 @@ export default function App() {
   }, [progress]);
 
   const addXp = (n) => setProgress((p) => ({ ...p, xp: p.xp + n }));
-  const complete = (id) => setProgress((p) => ({ ...p, pos: 0, done: p.done.includes(id) ? p.done : [...p.done, id] }));
-  const saveSpot = (pos) => setProgress((p) => (p.pos === pos ? p : { ...p, pos }));
+  const complete = (id) => setProgress((p) => ({ ...p, pos: 0, max: 0, done: p.done.includes(id) ? p.done : [...p.done, id] }));
+  // `pos` is the screen last shown; `max` the furthest reached, so going back to
+  // an earlier topic never loses the place to continue from.
+  const saveSpot = (pos) => setProgress((p) => (p.pos === pos ? p : { ...p, pos, max: Math.max(p.max ?? p.pos, pos) }));
   const finished = progress.done.includes(journey.id);
-  const started = progress.pos > 0;
+  const furthest = Math.max(progress.max ?? 0, progress.pos);
+  const started = furthest > 0;
 
   if (active !== null) {
     return (
@@ -55,12 +82,17 @@ export default function App() {
         key={active}
         course={course}
         lessonIndex={0}
-        startStep={dev?.has('s') ? Number(dev.get('s')) : progress.pos}
+        startStep={active}
+        reachStep={finished ? path.length : furthest}
         narrator={narrator}
         xp={progress.xp}
         addXp={addXp}
         onComplete={complete}
         onProgress={saveSpot}
+        crumbs={[
+          { label: syllabus.subject, onClick: () => { narrator.stop(); setView('syllabus'); } },
+          { label: 'DC Motor', onClick: () => { narrator.stop(); setActive(null); } },
+        ]}
         onExit={() => {
           narrator.stop();
           setActive(null);
@@ -69,71 +101,93 @@ export default function App() {
     );
   }
 
-  const pct = finished && !started ? 100 : Math.round((progress.pos / steps.length) * 100);
-  const now = started ? sectionOf(progress.pos) : finished ? -1 : 0;
-  const label = started ? 'Continue garau' : finished ? 'Feri suru garau' : 'Suru garau';
-  return (
-    <div className="home">
-      <header className="home-top">
-        <div className="brand">
-          <span className="brand-mark">⚡</span> Spark<span className="muted">lab</span>
-        </div>
-        <XpCounter xp={progress.xp} />
-      </header>
-      <div className="home-grid">
-        <section className="course-card">
-          <div className="course-art">
-            <svg viewBox="0 0 120 120" width="96" height="96">
-              <circle cx="60" cy="60" r="40" fill="#f3f3f1" stroke="#0f9d84" strokeWidth="3" />
-              <rect x="22" y="40" width="14" height="40" rx="3" fill="#e03131" />
-              <rect x="84" y="40" width="14" height="40" rx="3" fill="#3b5bdb" />
-              <g className="spin-slow" style={{ transformOrigin: '60px 60px' }}>
-                <rect x="40" y="57" width="40" height="6" rx="3" fill="#c06a1f" />
-                <rect x="57" y="40" width="6" height="40" rx="3" fill="#c06a1f" opacity="0.5" />
-              </g>
-              <circle cx="60" cy="60" r="5" fill="#5c5c5c" />
-            </svg>
-          </div>
-          <span className="eyebrow">Electricity & Magnetism</span>
-          <h1>{course.title}</h1>
-          <p className="muted">{course.tagline}</p>
-          <div className="course-progress">
-            <div className="progress"><div className="progress-fill" style={{ width: `${Math.max(pct, 2)}%` }} /></div>
-            <span>{pct}%</span>
-          </div>
-          <button className="btn btn-green wide" onClick={() => setActive(0)}>{label}</button>
-          <div className="course-meta">
-            <span>{journey.chapters.length} micro-topic · {pastCount} IOE past question</span>
-            <span>{videos} wota sano video</span>
-          </div>
-        </section>
+  const pct = finished ? 100 : Math.round((furthest / path.length) * 100);
+  const open = (k) => setActive(k);
 
-        <section className="journey">
-          <div className="node-row">
-            <button className={`node ${finished && !started ? 'node-done' : 'node-next'}`} onClick={() => setActive(0)} aria-label={label}>
-              <span className="node-face">{finished && !started ? '✓' : '⚡'}</span>
-            </button>
-            <div className="node-tip">{label}</div>
-            <div className="node-label">
-              <b>Euta journey, suru dekhi antya samma</b>
-              <span className="muted">Syllabus ka 6 micro-topic, har euta lagbhag 5 minute: intuition, academic ani memorization, aafnai IOE past questions sanga.</span>
-            </div>
+  if (view === 'syllabus') {
+    return (
+      <div className="home">
+        <header className="home-top">
+          <div className="brand">
+            <span className="brand-mark">⚡</span> Spark<span className="muted">lab</span>
           </div>
-          <ol className="outline">
-            {journey.chapters.map((title, k) => (
-              <li key={title} className={`${k === now ? 'now' : ''} ${now === -1 || k < now ? 'done' : ''}`}>
-                <span className="outline-num">{now === -1 || k < now ? '✓' : journey.nums[k]}</span>
-                {title}
-                <span className="outline-beats">~5 min</span>
+          <XpCounter xp={progress.xp} />
+        </header>
+        <main className="syl">
+          <h1 className="syl-title">{syllabus.subject}</h1>
+          <ol className="syl-units">
+            {syllabus.units.map((u) => (
+              <li key={u.num}>
+                {u.live ? (
+                  <button className="syl-unit live" onClick={() => setView('unit')}>
+                    <span className="syl-icon">{u.icon}</span>
+                    <span className="syl-body">
+                      <span className="syl-kicker">Unit {u.num}</span>
+                      <b>{u.title}</b>
+                      <span className="syl-bar"><span style={{ width: `${Math.max(pct, 3)}%` }} /></span>
+                    </span>
+                    <span className="syl-go">{started ? 'Continue' : 'Start'} →</span>
+                  </button>
+                ) : (
+                  <div className="syl-unit locked">
+                    <span className="syl-icon">{u.icon}</span>
+                    <span className="syl-body">
+                      <span className="syl-kicker">Unit {u.num}</span>
+                      <b>{u.title}</b>
+                      <span className="syl-topics">{u.topics.join(' · ')}</span>
+                    </span>
+                    <span className="syl-soon">🔒 Chhito aaudai</span>
+                  </div>
+                )}
               </li>
             ))}
           </ol>
-          <div className="path-mascot">
-            <div className="bubble tone-info">{started ? 'Welcome back bro! Jaha chhodeko thiyau, tei bata continue garau.' : 'Hi! Ma Sparky. Start thicha, baki ma sangai guide garchu.'}</div>
-            <Mascot pose={finished && !started ? 'dab' : 'talk'} size={96} />
-          </div>
-        </section>
+        </main>
       </div>
+    );
+  }
+
+  // Unit 4 as a Duolingo-style path: each micro-topic is a section of three
+  // lesson nodes (terms, derivation, big picture) winding down the page.
+  const nodeState = (start, end) => (finished || furthest > end ? 'done' : furthest >= start ? 'now' : 'locked');
+  return (
+    <div className="home">
+      <header className="home-top">
+        <button className="link-back" onClick={() => setView('syllabus')}>← {syllabus.subject}</button>
+        <XpCounter xp={progress.xp} />
+      </header>
+      <main className="unit">
+        <div className="unit-banner">
+          <div>
+            <span>Unit 4</span>
+            <h1>DC Motor</h1>
+          </div>
+          <span className="unit-pct">{pct}%</span>
+        </div>
+        {topicNodes.map((t, k) => (
+          <section key={t.num} className="unit-topic">
+            <div className="unit-topic-head">
+              <b>{t.num}</b> {t.title}
+            </div>
+            <div className="unit-path">
+              {t.nodes.map((n, j) => {
+                const st = nodeState(n.start, n.end);
+                const off = [-1, 0, 1][(j + k) % 3] * 70;
+                return (
+                  <div key={j} className={`unit-node ${st}`} style={{ transform: `translateX(${off}px)` }}>
+                    {st === 'now' && <span className="unit-tip">{furthest > n.start ? 'Continue' : 'Start'}</span>}
+                    <button disabled={st === 'locked'} onClick={() => open(st === 'now' ? furthest : n.start)} aria-label={`${t.num} ${n.label}`}>
+                      {st === 'done' ? '✓' : st === 'locked' ? '🔒' : n.icon}
+                    </button>
+                    <span className="unit-label">{n.label}</span>
+                    {st === 'now' && <Mascot pose="talk" size={78} />}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </main>
     </div>
   );
 }

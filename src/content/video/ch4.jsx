@@ -1,4 +1,4 @@
-import { Armature, Arrow, C, Resistor, Source, model, video } from './kit.jsx';
+import { Armature, Arrow, C, K, model, Resistor, Source, video } from './kit.jsx';
 
 /* Chapter 4 · Back EMF (Syllabus Unit 4: Back EMF). 220 V motor, Ra = 0.5 Ω throughout. */
 
@@ -103,10 +103,10 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
     );
   },
   board: [
-    { at: 1, until: 2, kind: 'eq', node: <>Ia = V / Ra = 220 / 0.5 = 440 A</> },
-    { at: 4, until: 4, kind: 'eq', node: <>Ia = (220 − 210) / 0.5 = 20 A</> },
-    { at: 5, until: 6, kind: 'eq', node: <>Ia = (220 − 205) / 0.5 = 30 A</> },
-    { at: 7, kind: 'eq', node: <>Ia = (V − Eb) / Ra</> },
+    { at: 1, until: 2, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{V}{R_a} = \dfrac{220}{0.5} = 440\ \text{A}`}</K></> },
+    { at: 4, until: 4, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{220 - 210}{0.5} = 20\ \text{A}`}</K></> },
+    { at: 5, until: 6, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{220 - 205}{0.5} = 30\ \text{A}`}</K></> },
+    { at: 7, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K></> },
   ],
 });
 
