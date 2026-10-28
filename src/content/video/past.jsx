@@ -280,8 +280,8 @@ export const recap = video('Pura DC motor 3 minute ma', {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: 'Commutator le coil ko current kati choti reverse garcha bhanyo?',
-        voice: 'कम्युटेटरले कोइलको करेन्ट कति चोटि रिभर्स गर्छ भन्यो?',
+        q: 'Commutator le coil ko current kati choti reverse garcha?',
+        voice: 'कम्युटेटरले कोइलको करेन्ट कति चोटि रिभर्स गर्छ?',
         options: ['Har half turn ma', 'Kahile pani gardaina', 'Har das turn ma'],
         answer: 0,
         why: 'Har half turn ma reverse, tesaile torque kahile pani reverse hudaina.',
@@ -292,8 +292,8 @@ export const recap = video('Pura DC motor 3 minute ma', {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: 'Voltage equation k bhanyo?',
-        voice: 'भोल्टेज इक्वेसन के भन्यो?',
+        q: 'Voltage equation k ho?',
+        voice: 'भोल्टेज इक्वेसन के हो?',
         options: ['V = Eb − IaRa', 'V = Eb + IaRa', 'V = IaRa'],
         answer: 1,
         why: 'V = Eb + IaRa, ani Eb = PφZN/60A.',
@@ -304,8 +304,8 @@ export const recap = video('Pura DC motor 3 minute ma', {
       say: 'Ani motor types ko lagi.',
       voice: 'अनि मोटर टाइप्सको लागि।',
       ask: {
-        q: 'Base speed bhanda mathi jana k garne bhanyo?',
-        voice: 'बेस स्पिडभन्दा माथि जान के गर्ने भन्यो?',
+        q: 'Base speed bhanda mathi jana k garne?',
+        voice: 'बेस स्पिडभन्दा माथि जान के गर्ने?',
         options: ['Field weak garne', 'Armature resistance thapne'],
         answer: 0,
         why: 'Field weak → base bhanda mathi. Armature resistance → base bhanda tala.',

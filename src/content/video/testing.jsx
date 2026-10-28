@@ -31,8 +31,8 @@ export const testIntro = video('Load nahali efficiency kasari thaha paune?', {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: 'Supply kaatepachi slow hune machine ko energy kasle khaancha bhanyo?',
-        voice: 'सप्लाई काटेपछि स्लो हुने मेसिनको इनर्जी कसले खान्छ भन्यो?',
+        q: 'Supply kaatepachi slow hune machine ko energy kasle khaancha?',
+        voice: 'सप्लाई काटेपछि स्लो हुने मेसिनको इनर्जी कसले खान्छ?',
         options: ['Supply le', 'Losses le', 'Field le'],
         answer: 1,
         why: 'Ghumne energy losses le khaancha. Losses dherai bhaye machine chhito slow huncha.',
@@ -141,8 +141,8 @@ export const retardation = video('Derivation: retardation test bata rotational l
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: 'Dosro run ma armature ma k jodincha bhanyo?',
-        voice: 'दोस्रो रनमा आर्मेचरमा के जोडिन्छ भन्यो?',
+        q: 'Dosro run ma armature ma k jodincha?',
+        voice: 'दोस्रो रनमा आर्मेचरमा के जोडिन्छ?',
         options: ['Supply', 'Thaha bhaeko load W′', 'Extra field'],
         answer: 1,
         why: 'Known load W′ jodera same dN ko time t₂ napincha. Energy W + W′ le khaancha, tesaile t₂ < t₁.',

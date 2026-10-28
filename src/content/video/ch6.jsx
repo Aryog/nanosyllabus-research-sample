@@ -153,8 +153,8 @@ export const series = video('Derivation: series motor ko characteristics', {
       say: 'Yo classic IOE question ho bro.',
       voice: 'यो क्लासिक आइओई क्वेस्चन हो ब्रो।',
       ask: {
-        q: 'Load hatauda series motor ko speed k huncha bhanyo?',
-        voice: 'लोड हटाउँदा सिरिज मोटरको स्पिड के हुन्छ भन्यो?',
+        q: 'Load hatauda series motor ko speed k huncha?',
+        voice: 'लोड हटाउँदा सिरिज मोटरको स्पिड के हुन्छ?',
         options: ['Ghatcha', 'Same rahancha', 'Ekdam badhcha, khatarnak'],
         answer: 2,
         why: 'Ia ra φ sano hudai jancha, N ∝ 1/φ, tesaile speed khatarnak high.',
@@ -228,8 +228,8 @@ export const compound = video('Compound motor ra kun motor kaha use huncha', {
       say: 'Applications yaad gara.',
       voice: 'एप्लिकेसन याद गर।',
       ask: {
-        q: 'Shears ra punching press ko lagi kun motor bhaneko?',
-        voice: 'शियर्स र पन्चिङ प्रेसको लागि कुन मोटर भनेको?',
+        q: 'Shears ra punching press ko lagi kun motor use huncha?',
+        voice: 'शियर्स र पन्चिङ प्रेसको लागि कुन मोटर युज हुन्छ?',
         options: ['Series', 'Cumulative compound', 'Shunt'],
         answer: 1,
         why: 'Cumulative compound le flywheel sanga achanak aaune heavy load handle garcha.',

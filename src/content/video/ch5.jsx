@@ -41,8 +41,8 @@ export const connections = video('Field le current kasari pauncha', {
       say: 'Current lai follow gara.',
       voice: 'करेन्टलाई फलो गर।',
       ask: {
-        q: 'Series field ko wire kasto huncha bhanyo?',
-        voice: 'सिरिज फिल्डको तार कस्तो हुन्छ भन्यो?',
+        q: 'Series field ko wire kasto huncha?',
+        voice: 'सिरिज फिल्डको तार कस्तो हुन्छ?',
         options: ['Patalo wire, dherai turn', 'Moto wire, thorai turn'],
         answer: 1,
         why: 'Series field le pura armature current bokcha, tesaile moto wire ko thorai turn, resistance ekdam low.',

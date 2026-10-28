@@ -29,8 +29,8 @@ export const threeKnobs = video('Speed ka tinta handle', {
       say: 'Aba field ko barema socha.',
       voice: 'अब फिल्डको बारेमा सोच।',
       ask: {
-        q: 'Base speed ma field kasto huncha bhanyo?',
-        voice: 'बेस स्पिडमा फिल्ड कस्तो हुन्छ भन्यो?',
+        q: 'Base speed ma field kasto huncha?',
+        voice: 'बेस स्पिडमा फिल्ड कस्तो हुन्छ?',
         options: ['Full field', 'Aadha field', 'Field nai hudaina'],
         answer: 0,
         why: 'Base speed: rated voltage, full field, armature ma extra R chaina. Tesaile field lai weaken matra garna sakincha.',
@@ -311,8 +311,8 @@ export const seriesControl = video('IOE 2075 Baisakh: series motor ko speed cont
       say: 'La solve gara.',
       voice: 'ल सल्भ गर।',
       ask: {
-        q: 'Eb₁ = 185 V ra Eb₂ = 110 V. Current same bhaye speed ratio kasko ratio bhanyo?',
-        voice: 'ई बी वान वान एटी फाइभ भोल्ट र ई बी टु वान टेन भोल्ट। करेन्ट सेम भए स्पिड रेसियो कसको रेसियो भन्यो?',
+        q: 'Eb₁ = 185 V ra Eb₂ = 110 V. Current same bhaye speed ratio kasko ratio ho?',
+        voice: 'ई बी वान वान एटी फाइभ भोल्ट र ई बी टु वान टेन भोल्ट। करेन्ट सेम भए स्पिड रेसियो कसको रेसियो हो?',
         options: ['Current ko ratio', 'Resistance ko ratio', 'Back EMF ko ratio'],
         answer: 2,
         why: 'Same current → same flux, tesaile N₂/N₁ = Eb₂/Eb₁ = 110/185.',
@@ -427,8 +427,8 @@ export const reversing = video('Rotation ko direction kasari ulto garne?', {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: 'Rotation ulto garna kati ota current ulto garnu parcha bhanyo?',
-        voice: 'रोटेसन उल्टो गर्न कति ओटा करेन्ट उल्टो गर्नु पर्छ भन्यो?',
+        q: 'Rotation ulto garna kati ota current ulto garnu parcha?',
+        voice: 'रोटेसन उल्टो गर्न कति ओटा करेन्ट उल्टो गर्नु पर्छ?',
         options: ['Euta matra: field wa armature', 'Dubai'],
         answer: 0,
         why: 'Euta matra. Dubai ulto garyo bhane (jastai series motor ko supply swap) direction uhi rahancha.',

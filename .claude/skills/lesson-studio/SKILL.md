@@ -45,30 +45,31 @@ these rules too.
 
 ### Questions inside videos
 8. Teach before test: a question may only ask what an earlier beat already explained.
-9. A lead-in beat that only cues a question says `La, yo answer gara.` / voice `ल, यो आन्सर गर।`. Never filler like "Ekchin, dhyan check", "Bharkhar ko kura", "Ekchoti socha ta", "Dhyan diyera herya?", "Feri recall". Question text doesn't start with "Bharkhar bhaneko:". Lead-ins that carry content ("Aba naya back EMF.") stay.
-10. Question cards carry no "Dhyan check 👀" / "Ekchin socha 🤔" tag. Only informative tags (IOE paper, "Quick check", etc.) are allowed.
-11. Every question card has **↺ Rewatch** before answering; after an answer the video goes on by itself after 2 s; rewinding before a question asks it again (answers are not kept); XP only for the first try.
+9. A question stands on its own, like an exam question: it never points back at the video ("… bhanyo?", "… bhaniyo?", "k bhaneko?", "kun sanga dajaiyo?", "X jastai kun?"). Ask the concept itself ("Start garne instant ma current kati huncha?"); the Devanagari voice matches.
+10. A lead-in beat that only cues a question says `La, yo answer gara.` / voice `ल, यो आन्सर गर।`. Never filler like "Ekchin, dhyan check", "Bharkhar ko kura", "Ekchoti socha ta", "Dhyan diyera herya?", "Feri recall". Question text doesn't start with "Bharkhar bhaneko:". Lead-ins that carry content ("Aba naya back EMF.") stay.
+11. Question cards carry no "Dhyan check 👀" / "Ekchin socha 🤔" tag. Only informative tags (IOE paper, "Quick check", etc.) are allowed.
+12. Every question card has **↺ Rewatch** before answering; after an answer the video goes on by itself after 2 s; rewinding before a question asks it again (answers are not kept); XP only for the first try.
 
 ### Player and camera
-12. Default speed 1× (pref key `dcm-rate`). Space, or a click on the picture, plays and pauses (a drag, like turning a 3D picture, is not a click).
-13. Camera zoom is at most 10% past the full-board view (`ZOOM_IN = 1.1` in `Scene.jsx`); the drawing must never be cut off.
-14. Board text is big and scales with the video's width: every line kind's size is a multiple of `--bs` (`.scene-cam`, `clamp(17px, 2cqw, 36px)`; smaller beside a drawing). Never give a line kind a fixed px size. The camera frames the board above the caption, never behind it.
-15. Pause freezes everything (voice, handwriting, hand, CSS animations); seeking lands on the exact moment; all of it runs on the scene clock `within`.
-16. Focus follows the voice, and the drawing always stays fully visible (never dim or fade parts). The part a beat brings in (`s.on(k)`) or highlights (`s.hl(k)`) gets the pulsing yellow focus ring and the pointing hand, so every beat that talks about a part of the drawing must mark it with `s.on(k)` or `s.hl(k)`.
-17. Every graph and picture is captioned: a title that says what it shows ("Shunt: torque vs armature current"), axes named in full with the symbol ("Armature current Ia", "Speed N"), every curve named in words ("Tsh (shaft torque)"), labels in open space (never on a line or across an axis), and a board line per step saying what the graph shows and why ("Graph: φ constant, so Ta ∝ Ia → origin bata sidha line"). A drawing beside notes is shown whole (no zoom).
-18. Drawings look solid (2.5D): use the shaded kit parts (`Pole`, `Conductor`, `Rotor`, `Shadow` in `kit.jsx`), with gradients and soft ground shadows, never SVG filters. New objects follow the same lighting (from the top left).
-19. Where turning the object makes the idea click (the motor turning, current along conductors, force directions), use a real 3D picture: a video's `three: build` prop (`src/video/Stage3D.jsx`, three.js, loaded lazily) with a build module like `src/content/video/motor3d.js`. It keeps the 2D video's beats (so voice is reused), one camera shot per beat, everything driven by the scene clock (`ms`, `dt`, never wall time), and drag to look around. Keep the flat version in `extras`.
+13. Default speed 1× (pref key `dcm-rate`). Space, or a click on the picture, plays and pauses (a drag, like turning a 3D picture, is not a click).
+14. Camera zoom is at most 10% past the full-board view (`ZOOM_IN = 1.1` in `Scene.jsx`); the drawing must never be cut off.
+15. Board text is big and scales with the video's width: every line kind's size is a multiple of `--bs` (`.scene-cam`, `clamp(17px, 2cqw, 36px)`; smaller beside a drawing). Never give a line kind a fixed px size. The camera frames the board above the caption, never behind it.
+16. Pause freezes everything (voice, handwriting, hand, CSS animations); seeking lands on the exact moment; all of it runs on the scene clock `within`.
+17. Focus follows the voice, and the drawing always stays fully visible (never dim or fade parts). The part a beat brings in (`s.on(k)`) or highlights (`s.hl(k)`) gets the pulsing yellow focus ring and the pointing hand, so every beat that talks about a part of the drawing must mark it with `s.on(k)` or `s.hl(k)`.
+18. Every graph and picture is captioned: a title that says what it shows ("Shunt: torque vs armature current"), axes named in full with the symbol ("Armature current Ia", "Speed N"), every curve named in words ("Tsh (shaft torque)"), labels in open space (never on a line or across an axis), and a board line per step saying what the graph shows and why ("Graph: φ constant, so Ta ∝ Ia → origin bata sidha line"). A drawing beside notes is shown whole (no zoom).
+19. Drawings look solid (2.5D): use the shaded kit parts (`Pole`, `Conductor`, `Rotor`, `Shadow` in `kit.jsx`), with gradients and soft ground shadows, never SVG filters. New objects follow the same lighting (from the top left).
+20. Where turning the object makes the idea click (the motor turning, current along conductors, force directions), use a real 3D picture: a video's `three: build` prop (`src/video/Stage3D.jsx`, three.js, loaded lazily) with a build module like `src/content/video/motor3d.js`. It keeps the 2D video's beats (so voice is reused), one camera shot per beat, everything driven by the scene clock (`ms`, `dt`, never wall time), and drag to look around. Keep the flat version in `extras`.
 
 ### Unit path and flow
-20. One bubble per micro-topic, with a three-part bar for its segments.
-21. Every tick in the lesson's top progress bar has a hover card (no browser `title`): topic · segment · Video n/m, the screen's real title, and its state (▶ Ahile yaha cha · ✓ Herisakyau · Click garera jau · 🔒 Aghi badhepachi khulcha).
-22. Segments run straight into each other inside the player, with no trip back to the path. Only after all three segments, the last screen says **Finish ✓**; then Sparky hops on the path to the next topic's bubble and waits there (no auto-enter).
+21. One bubble per micro-topic, with a three-part bar for its segments.
+22. Every tick in the lesson's top progress bar has a hover card (no browser `title`): topic · segment · Video n/m, the screen's real title, and its state (▶ Ahile yaha cha · ✓ Herisakyau · Click garera jau · 🔒 Aghi badhepachi khulcha).
+23. Segments run straight into each other inside the player, with no trip back to the path. Only after all three segments, the last screen says **Finish ✓**; then Sparky hops on the path to the next topic's bubble and waits there (no auto-enter).
 
 ### Voice, credits and video files
-23. ElevenLabs costs 1 credit per character and the key's balance can't be queried. **Before recording, estimate the characters (`npm run audio:scenes -- --dry`) and ask the user.** Record only the modules the user approved (so far 4.1 and 4.2).
-24. The dev server records unrecorded lines on its own when they play (spends credits). Preview unrecorded content with `vite preview` on a fresh build instead.
-25. Editing a line's `say`/`voice` changes its clip key, so it must be recorded again; keep unchanged lines byte-identical so their clips are reused.
-26. MP4 downloads are rendered offline frame by frame (`npm run render:videos -- 4.1 4.2`), never screen-recorded. Re-render after any change to a video's content, voice, the camera or the player look; the script re-renders automatically when the text or the recorded lines change, otherwise use `--force`.
+24. ElevenLabs costs 1 credit per character and the key's balance can't be queried. **Before recording, estimate the characters (`npm run audio:scenes -- --dry`) and ask the user.** Record only the modules the user approved (so far 4.1 and 4.2).
+25. The dev server records unrecorded lines on its own when they play (spends credits). Preview unrecorded content with `vite preview` on a fresh build instead.
+26. Editing a line's `say`/`voice` changes its clip key, so it must be recorded again; keep unchanged lines byte-identical so their clips are reused.
+27. MP4 downloads are rendered offline frame by frame (`npm run render:videos -- 4.1 4.2`), never screen-recorded. Re-render after any change to a video's content, voice, the camera or the player look; the script re-renders automatically when the text or the recorded lines change, otherwise use `--force`.
 
 ## Procedure
 
@@ -104,3 +105,4 @@ Every time the user improves or corrects course content or quality:
 - 2026-10-28: New rule: every graph and picture is captioned (title, full axis names, named curves, board caption per step). Shunt, series and compound graphs, plus the testing and model-answer axes, were redone.
 - 2026-10-28: Rule: a click on the video picture plays and pauses.
 - 2026-10-28: Rule: hover cards on the progress-bar ticks (title, position, state).
+- 2026-10-28: Rule: questions stand on their own (no "bhanyo/bhaniyo", no analogy recall); 26 questions reworded.

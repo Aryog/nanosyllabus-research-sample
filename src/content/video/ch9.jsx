@@ -24,8 +24,8 @@ export const losses = video('Power kata jancha?', {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: 'Windage loss bhaneko k ho bhanyo?',
-        voice: 'विन्डेज लस भनेको के हो भन्यो?',
+        q: 'Windage loss bhaneko k ho?',
+        voice: 'विन्डेज लस भनेको के हो?',
         options: ['Bearing ko friction', 'Ghumne armature ko air resistance', 'Core ma eddy current'],
         answer: 1,
         why: 'Windage = ghumdai gareko armature ko air resistance. Bearing ra brush friction sangai yo mechanical loss ho.',
@@ -148,8 +148,8 @@ export const maxEff = video('Derivation: maximum efficiency ko condition', {
       say: 'Aba key move.',
       voice: 'अब की मुभ।',
       ask: {
-        q: 'η = 1 − Wc/VI − … ani tesro term kun bhanyo?',
-        voice: 'इटा इक्वल्स वान माइनस डब्लु सी ओभर भी आई माइनस, अनि तेस्रो टर्म कुन भन्यो?',
+        q: 'η = 1 − Wc/VI − … ani tesro term kun ho?',
+        voice: 'इटा इक्वल्स वान माइनस डब्लु सी ओभर भी आई माइनस, अनि तेस्रो टर्म कुन हो?',
         options: ['IRa/V', 'V/IRa', 'Wc/Ra'],
         answer: 0,
         why: 'η = 1 − Wc/VI − IRa/V. Aba yeslai I sanga differentiate garchau.',
@@ -175,8 +175,8 @@ export const maxEff = video('Derivation: maximum efficiency ko condition', {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: 'Maximum efficiency ko current kasto bhanyo?',
-        voice: 'म्याक्सिमम इफिसियन्सीको करेन्ट कस्तो भन्यो?',
+        q: 'Maximum efficiency ko current kasto huncha?',
+        voice: 'म्याक्सिमम इफिसियन्सीको करेन्ट कस्तो हुन्छ?',
         options: ['Wc/Ra', '√(Wc/Ra)', 'Wc·Ra'],
         answer: 1,
         why: 'I²Ra = Wc, tesaile I = √(Wc/Ra).',

@@ -11,8 +11,8 @@ export const whyStarter = video('Derivation: starting current ra starter resista
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: 'Start garne instant ma current kati huncha bhanyo?',
-        voice: 'स्टार्ट गर्ने इन्स्टेन्टमा करेन्ट कति हुन्छ भन्यो?',
+        q: 'Start garne instant ma current kati huncha?',
+        voice: 'स्टार्ट गर्ने इन्स्टेन्टमा करेन्ट कति हुन्छ?',
         options: ['Zero', 'V/Ra', '(V − Eb)/2Ra'],
         answer: 1,
         why: 'N = 0 → Eb = 0 → Ia = V/Ra. 220 V ra Ra = 0.5 Ω bhaye 440 A!',
@@ -25,8 +25,8 @@ export const whyStarter = video('Derivation: starting current ra starter resista
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: 'Starter resistance ko formula k bhanyo?',
-        voice: 'स्टार्टर रेजिस्टेन्सको फर्मुला के भन्यो?',
+        q: 'Starter resistance ko formula k ho?',
+        voice: 'स्टार्टर रेजिस्टेन्सको फर्मुला के हो?',
         options: ['R = V·I + Ra', 'R = V/I − Ra', 'R = Ra/V'],
         answer: 1,
         why: 'Starting current = V/(Ra + R), tesaile R = V/I − Ra.',
@@ -181,8 +181,8 @@ export const fourPoint = video('4-point starter', {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
-        q: '4-point starter ko chautho terminal k ho bhanyo?',
-        voice: 'फोर पोइन्ट स्टार्टरको चौथो टर्मिनल के हो भन्यो?',
+        q: '4-point starter ko chautho terminal k ho?',
+        voice: 'फोर पोइन्ट स्टार्टरको चौथो टर्मिनल के हो?',
         options: ['Extra armature terminal', 'NVC ko lagi extra supply connection', 'Earth'],
         answer: 1,
         why: 'NVC lai field bata nikalera supply ma jodne connection: tesaile field rheostat le NVC affect gardaina.',
