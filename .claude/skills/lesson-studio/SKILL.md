@@ -50,7 +50,7 @@ these rules too.
 11. Every question card has **↺ Rewatch** before answering; after an answer the video goes on by itself after 2 s; rewinding before a question asks it again (answers are not kept); XP only for the first try.
 
 ### Player and camera
-12. Default speed 1× (pref key `dcm-rate`). Space plays and pauses.
+12. Default speed 1× (pref key `dcm-rate`). Space, or a click on the picture, plays and pauses (a drag, like turning a 3D picture, is not a click).
 13. Camera zoom is at most 10% past the full-board view (`ZOOM_IN = 1.1` in `Scene.jsx`); the drawing must never be cut off.
 14. Board text is big and scales with the video's width: every line kind's size is a multiple of `--bs` (`.scene-cam`, `clamp(17px, 2cqw, 36px)`; smaller beside a drawing). Never give a line kind a fixed px size. The camera frames the board above the caption, never behind it.
 15. Pause freezes everything (voice, handwriting, hand, CSS animations); seeking lands on the exact moment; all of it runs on the scene clock `within`.
@@ -101,3 +101,4 @@ Every time the user improves or corrects course content or quality:
 - 2026-10-28: New rule 17: real 3D (three.js) for ideas that need turning; first one is "Armature le torque kasari banaucha" (motor3d.js).
 - 2026-10-28: New rule 14: board text scales with the video width (after the 10% zoom cap made it tiny); the camera frames the board above the caption.
 - 2026-10-28: New rule: every graph and picture is captioned (title, full axis names, named curves, board caption per step). Shunt, series and compound graphs, plus the testing and model-answer axes, were redone.
+- 2026-10-28: Rule: a click on the video picture plays and pauses.

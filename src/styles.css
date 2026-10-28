@@ -522,7 +522,7 @@ button:disabled { cursor: default; }
 /* Camera (Scene.jsx): the stage is the frame, the cam pans and zooms inside it. */
 /* The stage is a size container: board writing scales with the video's width
    (the camera only zooms 10%, so the text itself has to be big enough). */
-.scene-stage { position: relative; overflow: hidden; flex: 1 1 auto; min-height: 0; container-type: inline-size; }
+.scene-stage { position: relative; overflow: hidden; flex: 1 1 auto; min-height: 0; container-type: inline-size; cursor: pointer; }
 /* Board text size: every line kind is a multiple of it. */
 .scene-cam { --bs: clamp(17px, 2cqw, 36px); }
 /* Drawing beside notes: the notes column is narrower. */

@@ -755,6 +755,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
   const toggle = () => (ended ? jump(0) : setPlaying((p) => !p));
   // Space plays and pauses, like a video player (not while typing).
   const toggleRef = useRef(toggle);
+  const tap = useRef(null); // where a press on the picture started
   useEffect(() => {
     const isSpace = (e) => e.code === 'Space' && !e.ctrlKey && !e.metaKey && !e.altKey && !e.target.closest?.('input, textarea, select, [contenteditable]');
     const down = (e) => {
@@ -864,7 +865,18 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
             <b>{title}</b>
           </div>
         )}
-        <div className="scene-stage" ref={stageRef}>
+        <div
+          className="scene-stage"
+          ref={stageRef}
+          onPointerDown={(e) => (tap.current = { x: e.clientX, y: e.clientY })}
+          onClick={(e) => {
+            // A click on the picture plays or pauses, like a video player
+            // (a drag, e.g. turning a 3D picture, is not a click).
+            const t = tap.current;
+            if (RENDER || !t || Math.hypot(e.clientX - t.x, e.clientY - t.y) > 6) return;
+            toggleRef.current();
+          }}
+        >
           <div className={`scene-cam ${split ? 'split' : ''} ${split && notes ? 'notes' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
             {three && (
               <Suspense fallback={<div className="stage3d" />}>
