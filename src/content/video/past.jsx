@@ -280,7 +280,6 @@ export const recap = video('Pura DC motor 3 minute ma', {
       say: 'Quick recall.',
       voice: 'क्विक रिकल।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Commutator le coil ko current kati choti reverse garcha bhanyo?',
         voice: 'कम्युटेटरले कोइलको करेन्ट कति चोटि रिभर्स गर्छ भन्यो?',
         options: ['Har half turn ma', 'Kahile pani gardaina', 'Har das turn ma'],
@@ -293,7 +292,6 @@ export const recap = video('Pura DC motor 3 minute ma', {
       say: 'Feri recall.',
       voice: 'फेरि रिकल।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Voltage equation k bhanyo?',
         voice: 'भोल्टेज इक्वेसन के भन्यो?',
         options: ['V = Eb − IaRa', 'V = Eb + IaRa', 'V = IaRa'],
@@ -306,7 +304,6 @@ export const recap = video('Pura DC motor 3 minute ma', {
       say: 'Ani motor types ko lagi.',
       voice: 'अनि मोटर टाइप्सको लागि।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Base speed bhanda mathi jana k garne bhanyo?',
         voice: 'बेस स्पिडभन्दा माथि जान के गर्ने भन्यो?',
         options: ['Field weak garne', 'Armature resistance thapne'],

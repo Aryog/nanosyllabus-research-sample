@@ -177,7 +177,7 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
       node: <><b>Commutator:</b> reverses each coil’s current at the neutral zone, so the torque stays unidirectional.</>,
       say: 'Commutator le neutral zone ma coil ko current reverse garcha, ani torque ek tira matra rahancha.',
       voice: 'कम्युटेटरले न्युट्रल जोनमा कोइलको करेन्ट रिभर्स गर्छ, अनि टर्क एकतिर मात्र रहन्छ।',
-      ask: { tag: 'Dhyan check 👀', q: 'Commutator le k garcha bhaniyo?', voice: 'कम्युटेटरले के गर्छ भनियो?', options: ['Flux badhaucha', 'Current reverse garera torque ek tira rakhcha', 'Voltage ghataucha'], answer: 1, why: 'Neutral zone ma current reverse huncha, tesaile torque unidirectional.' },
+      ask: { q: 'Commutator le k garcha bhaniyo?', voice: 'कम्युटेटरले के गर्छ भनियो?', options: ['Flux badhaucha', 'Current reverse garera torque ek tira rakhcha', 'Voltage ghataucha'], answer: 1, why: 'Neutral zone ma current reverse huncha, tesaile torque unidirectional.' },
     },
     {
       node: <><b>Derivation:</b> <K>{String.raw`I_c = \tfrac{I_a}{A},\ B = \tfrac{P\phi}{2\pi r l},\ F = B I_c l,\ \tau = F r = \tfrac{P\phi I_a}{2\pi A}`}</K> per conductor.</>,
@@ -232,7 +232,7 @@ export const characteristicsAnswer = answer('Model answer: shunt ra series chara
       node: <><b>Series T<sub>a</sub>–I<sub>a</sub>:</b> φ ∝ I<sub>a</sub>, so T<sub>a</sub> ∝ I<sub>a</sub>² (parabola), linear after saturation.</>,
       say: 'Series ma flux Ia sanga badhcha, so torque Ia square: parabola. Saturation pachi line.',
       voice: 'सिरिजमा फ्लक्स आई ए सँग बढ्छ, सो टर्क आई ए स्क्वायर: प्याराबोला। स्याचुरेसन पछि लाइन।',
-      ask: { tag: 'Dhyan check 👀', q: 'Series motor ma torque Ia sanga kasari badhcha bhaniyo?', voice: 'सिरिज मोटरमा टर्क आई ए सँग कसरी बढ्छ भनियो?', options: ['Ia² (parabola)', 'Ia (sidha line)', 'Badhdaina'], answer: 0, why: 'φ ∝ Ia, tesaile Ta ∝ Ia²: parabola.' },
+      ask: { q: 'Series motor ma torque Ia sanga kasari badhcha bhaniyo?', voice: 'सिरिज मोटरमा टर्क आई ए सँग कसरी बढ्छ भनियो?', options: ['Ia² (parabola)', 'Ia (sidha line)', 'Badhdaina'], answer: 0, why: 'φ ∝ Ia, tesaile Ta ∝ Ia²: parabola.' },
     },
     {
       node: <><b>Series N–T:</b> N ∝ 1/I<sub>a</sub>, a hyperbola; dangerously high speed at no load.</>,
@@ -282,7 +282,7 @@ export const starterAnswer = answer('Model answer: starter ko necessity ra 3-poi
       node: <><b>NVC:</b> in series with the field, holds the handle at RUN; if the supply fails, the spring returns the handle to OFF.</>,
       say: 'NVC field sanga series ma. Supply gayo bhane magnet chhodcha, spring le handle OFF ma pharkaucha.',
       voice: 'एनभीसी फिल्ड सँग सिरिजमा। सप्लाई गयो भने म्याग्नेट छोड्छ, स्प्रिङले ह्यान्डल अफमा फर्काउँछ।',
-      ask: { tag: 'Dhyan check 👀', q: 'Supply gayo bhane NVC le k garcha bhaniyo?', voice: 'सप्लाई गयो भने एनभीसीले के गर्छ भनियो?', options: ['Current badhaucha', 'Kei gardaina', 'Handle OFF ma pharkaucha'], answer: 2, why: 'NVC ko magnet chhodcha, spring le handle OFF ma lancha.' },
+      ask: { q: 'Supply gayo bhane NVC le k garcha bhaniyo?', voice: 'सप्लाई गयो भने एनभीसीले के गर्छ भनियो?', options: ['Current badhaucha', 'Kei gardaina', 'Handle OFF ma pharkaucha'], answer: 2, why: 'NVC ko magnet chhodcha, spring le handle OFF ma lancha.' },
     },
     {
       node: <><b>OLR:</b> in series with the line; on overload it shorts the NVC, so the handle goes OFF.</>,
@@ -331,7 +331,7 @@ export const testingAnswer = answer('Model answer: Swinburne ra retardation test
       node: <><b>Demerits:</b> ignores the change in iron loss on load; not for series motors; full-load heating and commutation are not tested.</>,
       say: 'Demerits: load ma iron loss ko change ignore huncha, series motor ma garna mildaina, full load ko heating test hudaina.',
       voice: 'डिमेरिट्स: लोडमा आइरन लसको चेन्ज इग्नोर हुन्छ, सिरिज मोटरमा गर्न मिल्दैन, फुल लोडको हिटिङ टेस्ट हुँदैन।',
-      ask: { tag: 'Dhyan check 👀', q: 'Swinburne test kun motor ma garna mildaina bhaniyo?', voice: 'स्विनबर्न टेस्ट कुन मोटरमा गर्न मिल्दैन भनियो?', options: ['Shunt', 'Series', 'Compound'], answer: 1, why: 'Series motor no load ma race garcha.' },
+      ask: { q: 'Swinburne test kun motor ma garna mildaina bhaniyo?', voice: 'स्विनबर्न टेस्ट कुन मोटरमा गर्न मिल्दैन भनियो?', options: ['Shunt', 'Series', 'Compound'], answer: 1, why: 'Series motor no load ma race garcha.' },
     },
     {
       node: <><b>Retardation:</b> run above rated speed, switch off the armature (field on); <K>{String.raw`W = \left(\tfrac{2\pi}{60}\right)^2 J N \tfrac{dN}{dt}`}</K>.</>,

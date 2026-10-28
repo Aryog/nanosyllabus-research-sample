@@ -24,7 +24,6 @@ export const losses = video('Power kata jancha?', {
       say: 'Check garau.',
       voice: 'चेक गरौं।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Windage loss bhaneko k ho bhanyo?',
         voice: 'विन्डेज लस भनेको के हो भन्यो?',
         options: ['Bearing ko friction', 'Ghumne armature ko air resistance', 'Core ma eddy current'],
@@ -149,7 +148,6 @@ export const maxEff = video('Derivation: maximum efficiency ko condition', {
       say: 'Aba key move.',
       voice: 'अब की मुभ।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'η = 1 − Wc/VI − … ani tesro term kun bhanyo?',
         voice: 'इटा इक्वल्स वान माइनस डब्लु सी ओभर भी आई माइनस, अनि तेस्रो टर्म कुन भन्यो?',
         options: ['IRa/V', 'V/IRa', 'Wc/Ra'],
@@ -177,7 +175,6 @@ export const maxEff = video('Derivation: maximum efficiency ko condition', {
       say: 'Feri ekchoti.',
       voice: 'फेरि एकचोटि।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Maximum efficiency ko current kasto bhanyo?',
         voice: 'म्याक्सिमम इफिसियन्सीको करेन्ट कस्तो भन्यो?',
         options: ['Wc/Ra', '√(Wc/Ra)', 'Wc·Ra'],
@@ -232,7 +229,6 @@ export const ioeEff = solve({
       say: 'Data yaad cha?',
       voice: 'डाटा याद छ?',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Ia kati aayo?',
         voice: 'आई ए कति आयो?',
         options: ['150 A', '154 A', '146 A'],
@@ -252,10 +248,9 @@ export const ioeEff = solve({
     },
     {
       node: <>η = 30 000 / 32 985.8</>,
-      say: 'Ekchin check.',
-      voice: 'एकछिन चेक।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Total losses kati bhayo?',
         voice: 'टोटल लसेस कति भयो?',
         options: ['1985.8 W', '2985.8 W', '1000 W'],

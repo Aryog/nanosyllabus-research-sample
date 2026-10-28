@@ -51,6 +51,24 @@ export const video = (title, props) => ({
   figureProps: props,
 });
 
+/*
+  A micro-topic's opening: what the topic is about, in about three short voiced
+  beats. Beat 0 names the topic (number as the heading, title under it); each
+  later beat writes its key idea, usually with the formula.
+    overview(num, title, [{ say, voice, lines: [{ kind, node }] }, …], art?)
+  `art` = { viewBox, draw } adds a kid-simple picture (doodles.jsx) beside it.
+*/
+export const overview = (num, title, beats, art = {}) =>
+  video(`${num} ma k padhne?`, {
+    ...art,
+    beats: beats.map(({ say, voice }) => ({ say, voice })),
+    board: [
+      { at: 0, kind: 'h', node: <>{num}</> },
+      { at: 0, kind: 'step', node: <>{title}</> },
+      ...beats.flatMap((b, i) => (b.lines ?? []).map((l) => ({ at: i, ...l }))),
+    ],
+  });
+
 export const hook = (big, lines) => ({ tag: 'Yaad rakhne trick', tagKind: 'hook', pose: 'dab', body: <Hook big={big} lines={lines} /> });
 
 export const model = (props) => ({ ioe: true, body: <ModelAnswer {...props} /> });

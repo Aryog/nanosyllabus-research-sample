@@ -1,4 +1,5 @@
-import { video } from './kit.jsx';
+import { C, video } from './kit.jsx';
+import { Car, Crane, Dial, Face, Fan, MagnetWire, Note, Phone, Treadmill } from './doodles.jsx';
 
 /*
   Segment 1 openers: one short video per micro-topic that ties the terms to a
@@ -7,12 +8,29 @@ import { video } from './kit.jsx';
 */
 
 const check = (q, voice, options, answer, why) => ({
-  say: 'Ekchin, dhyan check.',
-  voice: 'एकछिन, ध्यान चेक।',
-  ask: { tag: 'Dhyan check 👀', q, voice, options, answer, why },
+  say: 'La, yo answer gara.',
+  voice: 'ल, यो आन्सर गर।',
+  ask: { q, voice, options, answer, why },
 });
 
 export const vibe41 = video('DC motor hamro dherai najik cha', {
+  viewBox: '0 0 360 220',
+  draw: (s) => (
+    <>
+      <g className={s.on(0, 0)}>
+        <Phone x={60} y={40} />
+        <Fan x={258} y={86} />
+      </g>
+      <g className={s.on(1, 1)}>
+        <MagnetWire x={75} y={70} />
+        <Note x={222} y={60} color={C.green} size={14}>dhakka!</Note>
+      </g>
+      <g className={s.on(2)}>
+        <Treadmill x={115} y={44} />
+        <Note x={180} y={170} color={C.red} size={14}>ulto push</Note>
+      </g>
+    </>
+  ),
   beats: [
     { say: 'Phone vibrate huda bhitra euta sano DC motor ghumcha. Fan, lift ra electric car ma pani yei principle cha.', voice: 'फोन भाइब्रेट हुँदा भित्र एउटा सानो डीसी मोटर घुम्छ। फ्यान, लिफ्ट र इलेक्ट्रिक कारमा पनि यही प्रिन्सिपल छ।' },
     { say: 'Magnetic field bhitra current bokeko taar rakhyo bhane, taar lai dhakka lagcha. Tyo dhakka nai force ho.', voice: 'म्याग्नेटिक फिल्ड भित्र करेन्ट बोकेको तार राख्यो भने, तारलाई धक्का लाग्छ। त्यो धक्का नै फोर्स हो।' },
@@ -28,6 +46,32 @@ export const vibe41 = video('DC motor hamro dherai najik cha', {
 });
 
 export const vibe42 = video('Kun motor kasto swabhav ko?', {
+  viewBox: '0 0 360 220',
+  draw: (s) => (
+    <>
+      <g className={s.on(0, 0)}>
+        <Car x={30} y={96} />
+        <Dial x={270} y={120} at={0.5} />
+        <Note x={270} y={142} color={C.green}>speed steady</Note>
+      </g>
+      <g className={s.on(1, 1)}>
+        <Crane x={50} y={40} />
+        <Note x={110} y={186} color={C.chalk}>dherai torque</Note>
+        <Dial x={276} y={120} at={0.95} color={C.red} shake />
+        <Note x={276} y={142} color={C.red}>load bina: speed ⚠</Note>
+      </g>
+      <g className={s.on(2)}>
+        <Face x={70} y={104} r={26} />
+        <Note x={70} y={148}>Shunt</Note>
+        <Note x={125} y={112} color={C.chalk} size={24}>+</Note>
+        <Face x={180} y={104} r={26} />
+        <Note x={180} y={148}>Series</Note>
+        <Note x={235} y={112} color={C.chalk} size={24}>=</Note>
+        <Face x={292} y={104} r={32} fill="#d3f9d8" />
+        <Note x={292} y={154} color={C.green}>Compound</Note>
+      </g>
+    </>
+  ),
   beats: [
     { say: 'Shunt motor ko speed load thapda pani lagbhag same rahancha, jasari cruise control ma car ko speed.', voice: 'शन्ट मोटरको स्पिड लोड थप्दा पनि लगभग उही रहन्छ, जसरी क्रुज कन्ट्रोलमा कारको स्पिड।' },
     { say: 'Series motor le start mai dherai torque dincha, tesaile crane ra train ma use huncha. Tara load bina chalayo bhane speed khatarnak badhcha.', voice: 'सिरिज मोटरले स्टार्टमै धेरै टर्क दिन्छ, त्यसैले क्रेन र ट्रेनमा युज हुन्छ। तर लोड बिना चलायो भने स्पिड खतरनाक बढ्छ।' },

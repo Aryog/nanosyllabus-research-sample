@@ -27,6 +27,9 @@ const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
     video ends the lesson moves on by itself after a short countdown.
   - `onProgress(k)` reports the index k of the current main screen, so a long
     lesson can resume where the learner left off (passed back as `startStep`).
+  - `onTopicEnd(k)` is called instead of moving on at the end of a whole
+    micro-topic (the next one starts at main screen k); its last screen offers
+    Finish. Segments inside a topic just run on into each other.
   XP: first try 15 / later 5 (Skill check and practice), retry 10 / 5, check-in 10, task 10.
 */
 const REVIEW_STEP = { interstitial: { title: 'Let’s try that again', badge: 'review' }, narration: 'review' };
@@ -72,7 +75,7 @@ export function XpCounter({ xp, bump }) {
   );
 }
 
-export default function LessonPlayer({ course, lessonIndex, startStep = 0, reachStep = 0, crumbs = [], narrator, xp, addXp, onExit, onComplete, onProgress }) {
+export default function LessonPlayer({ course, lessonIndex, startStep = 0, reachStep = 0, crumbs = [], narrator, xp, addXp, onExit, onComplete, onProgress, onTopicEnd }) {
   const lesson = course.lessons[lessonIndex];
   const [pos, setPos] = useState(startStep);
   const [missed, setMissed] = useState([]);
@@ -134,6 +137,12 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
   );
   const inPractice = mode === 'practice';
   const inter = !done && step.interstitial;
+  // The next screen opens a new micro-topic: this one ends with Finish, back
+  // on the unit path.
+  const after = done || inPractice || !onTopicEnd ? null : sequence[pos + 1];
+  const afterStep = after && !after.review && !after.retry ? lesson.steps[after.i] : null;
+  const topicEnd = !!afterStep?.interstitial && !afterStep.segmentBreak;
+  const nextLabel = topicEnd ? 'Finish ✓' : null;
   const isQuestion = !!step.input;
   const isTask = !!step.task;
   const inputDef = isQuestion ? (step.input.type === 'figure' ? step.input : INPUTS[step.input.type]) : null;
@@ -178,7 +187,8 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
   }, [toast]);
 
   useEffect(() => {
-    if (!videoEnded) return;
+    // A micro-topic's last video waits for Finish.
+    if (!videoEnded || topicEnd) return;
     const t = setTimeout(() => next(), 4000);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -304,7 +314,10 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
       !inPractice && isQuestion && shaky && !entry.retry && !entry.review && !step.checkin && skillIdx >= 0 && entry.i > skillIdx && !missed.includes(entry.i);
     const len = sequence.length + (requeue ? (missed.length ? 1 : 2) : 0);
     if (requeue) setMissed((m) => [...m, entry.i]);
-    if (pos < len - 1) {
+    if (topicEnd && !requeue) {
+      narrator.stop();
+      onTopicEnd(base.indexOf(after));
+    } else if (pos < len - 1) {
       setPos((i) => i + 1);
     } else {
       setDone(true);
@@ -369,6 +382,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
             onEnded: onVideoEnd,
             onCheck,
             onNext: next,
+            nextLabel,
             upcoming: upcomingLines,
             title: step.title,
             kicker: [step.chapter?.split(' · ')[0], step.segment, step.ioe && 'IOE'].filter(Boolean).join(' · '),
@@ -376,7 +390,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
         : {}),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [step, solved, value, status, upcomingLines, streak],
+    [step, solved, value, status, upcomingLines, streak, nextLabel],
   );
 
   const glow = status === 'correct' || done ? 'glow-correct' : status === 'wrong' ? 'glow-wrong' : '';
@@ -559,7 +573,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
               resolved ? (
                 <>
                   {step.why && !whyOpen && <button className="btn btn-grey" onClick={() => setWhyOpen(true)}>Why?</button>}
-                  <button className="btn btn-green" onClick={next}>Continue</button>
+                  <button className="btn btn-green" onClick={next}>{nextLabel ?? 'Continue'}</button>
                 </>
               ) : status === 'wrong' ? (
                 <>
@@ -579,7 +593,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
               </>
             ) : (
               <button className={`btn ${isTask || videoEnded ? 'btn-green' : 'btn-light'} ${videoEnded ? 'btn-next-auto' : ''}`} onClick={next}>
-                {step.video && !videoEnded ? 'Skip video' : 'Aghi badhau'}
+                {step.video && !videoEnded ? 'Skip video' : nextLabel ?? 'Aghi badhau'}
               </button>
             )}
           </div>

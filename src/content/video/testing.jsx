@@ -31,7 +31,6 @@ export const testIntro = video('Load nahali efficiency kasari thaha paune?', {
       say: 'La socha.',
       voice: 'ल सोच।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Supply kaatepachi slow hune machine ko energy kasle khaancha bhanyo?',
         voice: 'सप्लाई काटेपछि स्लो हुने मेसिनको इनर्जी कसले खान्छ भन्यो?',
         options: ['Supply le', 'Losses le', 'Field le'],
@@ -82,7 +81,6 @@ export const swinburne = video('Derivation: Swinburne test bata constant losses 
       say: 'Formula check.',
       voice: 'फर्मुला चेक।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Wc nikalna V I₀ bata kun loss ghatauchau?',
         voice: 'डब्लु सी निकाल्न भी आई जिरोबाट कुन लस घटाउँछौं?',
         options: ['Iron loss', 'Ia₀²Ra (armature copper loss)', 'Field loss'],
@@ -143,7 +141,6 @@ export const retardation = video('Derivation: retardation test bata rotational l
       say: 'Sochau.',
       voice: 'सोचौं।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Dosro run ma armature ma k jodincha bhanyo?',
         voice: 'दोस्रो रनमा आर्मेचरमा के जोडिन्छ भन्यो?',
         options: ['Supply', 'Thaha bhaeko load W′', 'Extra field'],

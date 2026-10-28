@@ -185,6 +185,7 @@ const useVideoFile = (beats) => {
   }, [beats]);
   return url;
 };
+const AUTO_GO = 2000; // after an answer: ms until the video goes on by itself
 const ASK_HOLD = 3500; // in a render: ms an ask shows its question, then its answer
 
 // Recorded clips, keyed by voiceKey(text). Loaded once for all scenes.
@@ -255,7 +256,9 @@ const keep = (key, v) => {
 const GAP = 200; // pause after a line, ms
 const MIN_BEAT = 800; // shortest a beat can be, ms
 
-const ZOOM_MAX = 1.6; // closest the camera gets to one part
+// Closest the camera gets to one part: at most 10% past showing the whole
+// board, so the rest of the drawing stays in view.
+const ZOOM_IN = 1.1;
 
 const clipSrc = (key) => `${BASE}audio/scene/${key}.mp3?v=${clips[key]}`;
 const readMs = (t = '', speed = 1.25) => Math.max(2000, (1200 + t.length * 58) / speed);
@@ -313,7 +316,7 @@ const clock = (ms) => {
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
 };
 
-export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, tall, notes, title, kicker, upcoming = [] }) {
+export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, nextLabel, tall, notes, title, kicker, upcoming = [] }) {
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [voice, setVoice] = useState(() => !isMuted() && 'speechSynthesis' in window);
@@ -322,7 +325,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
   const [ended, setEnded] = useState(false);
   const [askOpen, setAskOpen] = useState(false);
   const [scrub, setScrub] = useState(false);
-  const [speed, setSpeed] = useState(() => (SPEEDS.includes(pref('dcm-speed', 1.25)) ? pref('dcm-speed', 1.25) : 1.25));
+  const [speed, setSpeed] = useState(() => (SPEEDS.includes(pref('dcm-rate', 1)) ? pref('dcm-rate', 1) : 1));
   const [cc, setCc] = useState(() => pref('dcm-cc', true) !== false);
   const [full, setFull] = useState(false);
   const sceneRef = useRef(null);
@@ -412,7 +415,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
       let cy = ch / 2;
       if (box) {
         const pad = 28;
-        k = Math.max(fit, Math.min(ZOOM_MAX, W / (box.r - box.l + 2 * pad), H / (box.b - box.t + 2 * pad)));
+        k = Math.max(fit, Math.min(fit * ZOOM_IN, W / (box.r - box.l + 2 * pad), H / (box.b - box.t + 2 * pad)));
         cx = (box.l + box.r) / 2;
         cy = (box.t + box.b) / 2;
       }
@@ -450,9 +453,10 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
         // writeLive (above) places the hand every frame while the line is written.
         return setHand({ mode, x: 0, y: 0, secs: parseFloat(ink.parentElement.style.getPropertyValue('--wd')) || 1.4 });
       }
-      // Point from the lower-left corner, so the hand doesn't cover what it points at.
+      // Point at the middle of the part's left edge, so the hand doesn't cover
+      // it (and stays clear of the caption below).
       const b = measure('svg .hl') ?? measure(FIG);
-      setHand(b ? { mode, x: b.l, y: b.b } : null);
+      setHand(b ? { mode, x: b.l, y: (b.t + b.b) / 2 } : null);
     };
     let shots = null;
     let at = -1;
@@ -717,15 +721,45 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
   };
   const seekTo = (k, at) => (seek.current = { at, fresh: true, t0: performance.now(), done: new WeakSet() });
 
+  // Going back to before a question asks it again: answers from there on are forgotten.
+  const forget = (k, at) =>
+    setPicked((p) => {
+      const opensAt = (j) => askAt(beats[j], speed, voice, durs[voiceKey(beatText(beats[j]))]);
+      const gone = Object.keys(p).filter((j) => j > k || (+j === k && at < opensAt(k)));
+      if (!gone.length) return p;
+      const rest = { ...p };
+      for (const j of gone) delete rest[j];
+      return rest;
+    });
+
   // Play from `at` ms into beat k.
   const jump = (k, at = 0, play = true) => {
     seekTo(k, at);
+    forget(k, at);
     setEnded(false);
     setBeat(k);
     if (play) setPlaying(true);
     setRun((r) => r + 1);
   };
   const toggle = () => (ended ? jump(0) : setPlaying((p) => !p));
+  // Space plays and pauses, like a video player (not while typing).
+  const toggleRef = useRef(toggle);
+  useEffect(() => {
+    const isSpace = (e) => e.code === 'Space' && !e.ctrlKey && !e.metaKey && !e.altKey && !e.target.closest?.('input, textarea, select, [contenteditable]');
+    const down = (e) => {
+      if (!isSpace(e)) return;
+      // Also keeps a focused button from being clicked, and the page from scrolling.
+      e.preventDefault();
+      if (!e.repeat) toggleRef.current();
+    };
+    const up = (e) => isSpace(e) && e.preventDefault();
+    window.addEventListener('keydown', down);
+    window.addEventListener('keyup', up);
+    return () => {
+      window.removeEventListener('keydown', down);
+      window.removeEventListener('keyup', up);
+    };
+  }, []);
   const choose = (i) => {
     if (picked[beat]) return;
     setPicked((p) => ({ ...p, [beat]: { i, done: false } }));
@@ -744,6 +778,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
   const scrubTo = (t) => {
     const k = beatAt(t);
     drag.current = t;
+    forget(k, t - starts[k]);
     if (k === beat && scrub) within.current = t - starts[k];
     else {
       seekTo(k, t - starts[k]);
@@ -799,6 +834,15 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
     at: (k) => beat >= k,
   };
   const pick = picked[beat];
+  const pending = pick && !pick.done;
+  toggleRef.current = pending ? resume : toggle;
+  // Answered: the video goes on by itself after a moment (Continue skips the wait).
+  useEffect(() => {
+    if (RENDER || !pending) return;
+    const t = setTimeout(resume, AUTO_GO);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pending, beat]);
 
   return (
     <div className={`scene beat-${beat} ${tall ? 'tall' : ''} ${full ? 'full' : ''}`} ref={sceneRef}>
@@ -853,7 +897,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
         {ask && askOpen && !ended && (
           <div className="scene-ask">
             <div className="scene-ask-card">
-              <span className="scene-ask-tag">{ask.tag ?? 'Ekchin socha 🤔'}</span>
+              {ask.tag && <span className="scene-ask-tag">{ask.tag}</span>}
               <p className="scene-ask-q">{ask.q}</p>
               <div className="scene-ask-options">
                 {ask.options.map((o, i) => (
@@ -866,6 +910,12 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
                   </button>
                 ))}
               </div>
+              {/* Missed the explanation: watch that part again instead of guessing. */}
+              {!pick && !RENDER && (
+                <button className="scene-rewatch scene-rewatch-ask" onClick={rewatch}>
+                  ↺ Rewatch
+                </button>
+              )}
               {pick && (
                 <div className="scene-ask-why">
                   <b>{pick.i === ask.answer ? 'Ekdam sahi! 🔥' : 'Hmm, yo haina.'}</b> {ask.why}
@@ -892,7 +942,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
         </button>
         {/* After answering, Continue sits in the bar so it is always on screen. */}
         {pick && !pick.done ? (
-          <button className="scene-resume" onClick={resume}>
+          <button className="scene-resume" onClick={resume} style={RENDER ? undefined : { '--go': `${AUTO_GO}ms` }}>
             Video continue ▶
           </button>
         ) : (
@@ -909,7 +959,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
           >
             <div className="sp-fill" ref={fillRef} />
             {beats.map((b, k) =>
-              b.ask ? <span key={k} className={`sp-ask ${k < beat || ended ? 'done' : ''}`} style={{ left: `${(starts[k + 1] / total) * 100}%` }} title="Dhyan check" /> : null,
+              b.ask ? <span key={k} className={`sp-ask ${k < beat || ended ? 'done' : ''}`} style={{ left: `${(starts[k + 1] / total) * 100}%` }} title="Question" /> : null,
             )}
             <span className="sp-knob" ref={knobRef} />
           </div>
@@ -930,7 +980,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
           onClick={() => {
             const v = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length];
             setSpeed(v);
-            keep('dcm-speed', v);
+            keep('dcm-rate', v);
           }}
           title="Playback speed"
         >
@@ -958,7 +1008,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
         {/* The lesson's Skip / Next lives in the player, so the video gets the page. */}
         {onNext && (
           <button className={`scene-next ${ended ? 'go' : ''}`} onClick={onNext}>
-            {ended ? 'Aghi badhau →' : 'Skip ⏭'}
+            {ended ? nextLabel ?? 'Aghi badhau →' : 'Skip ⏭'}
           </button>
         )}
       </div>

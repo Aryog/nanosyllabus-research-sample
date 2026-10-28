@@ -42,7 +42,6 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
       say: 'Dhyan diyera herya? Check garau.',
       voice: 'ध्यान दिएर हेर्यौ? चेक गरौं।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Switch on garda back EMF kati thiyo?',
         voice: 'स्विच अन गर्दा ब्याक ई एम एफ कति थियो?',
         options: ['V jati', 'Zero', '440 volt'],
@@ -57,7 +56,6 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
       say: 'Bharkhar k bhayo, ekchoti socha ta.',
       voice: 'भर्खर के भयो, एकचोटि सोच त।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Load thapda current kati samma badhyo?',
         voice: 'लोड थप्दा करेन्ट कति सम्म बढ्यो?',
         options: ['205 A', '440 A', '30 A'],
@@ -121,7 +119,6 @@ export const voltagePower = video('Derivation: voltage, power ra torque equation
       say: 'Euta term baki cha.',
       voice: 'एउटा टर्म बाँकी छ।',
       ask: {
-        tag: 'Ekchin socha 🤔',
         q: 'Input = Eb·Ia + copper loss. Ta Eb·Ia chai k ho?',
         voice: 'इनपुट इक्वल्स ई बी आई ए प्लस कपर लस। त ई बी आई ए चाहिँ के हो?',
         options: ['Develop bhaeko gross mechanical power, Pm', 'Iron loss', 'Shunt field loss'],
@@ -154,7 +151,6 @@ export const maxPower = video('Derivation: maximum power ko condition', {
       say: 'Aba maximum chahiyo.',
       voice: 'अब म्याक्सिमम चाहियो।',
       ask: {
-        tag: 'Ekchin socha 🤔',
         q: 'Pm lai maximum banaune Ia ko value kasari nikalne?',
         voice: 'पी एमलाई म्याक्सिमम बनाउने आई एको भ्यालु कसरी निकाल्ने?',
         options: ['Differentiate gara ra dPm/dIa = 0 rakha', 'Ia = 0 rakha', 'Eb = 0 rakha'],

@@ -21,7 +21,6 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
       say: 'Dhyan diyera herya? Check garau.',
       voice: 'ध्यान दिएर हेर्यौ? चेक गरौं।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Bharkhar bhaneko: left ra right ka sabai force le armature lai kata ghumaucha?',
         voice: 'भर्खर भनेको: लेफ्ट र राइटका सबै फोर्सले आर्मेचरलाई कता घुमाउँछ?',
         options: ['Duitai tira, cancel huncha', 'Eutai tira, counter-clockwise', 'Ghumaudai ghumaudaina'],
@@ -85,7 +84,6 @@ export const torqueDerivation = video('Derivation: torque equation', {
       say: 'Force lever arm bata torque bancha.',
       voice: 'फोर्स लिभर आर्मबाट टर्क बन्छ।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Euta conductor ko force ma kun kura cancel bhayo?',
         voice: 'एउटा कन्डक्टरको फोर्समा कुन कुरा क्यान्सिल भयो?',
         options: ['l, active length', 'r, radius', 'Z, conductor number'],

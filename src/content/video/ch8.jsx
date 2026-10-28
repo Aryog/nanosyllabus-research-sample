@@ -29,7 +29,6 @@ export const threeKnobs = video('Speed ka tinta handle', {
       say: 'Aba field ko barema socha.',
       voice: 'अब फिल्डको बारेमा सोच।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Base speed ma field kasto huncha bhanyo?',
         voice: 'बेस स्पिडमा फिल्ड कस्तो हुन्छ भन्यो?',
         options: ['Full field', 'Aadha field', 'Field nai hudaina'],
@@ -96,7 +95,6 @@ export const fieldControl = video('Field (flux) control', {
       say: 'Bharkhar ko kura.',
       voice: 'भर्खरको कुरा।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Field rheostat badhauda speed kata jancha?',
         voice: 'फिल्ड रियोस्ट्याट बढाउँदा स्पिड कता जान्छ?',
         options: ['Base bhanda tala', 'Base bhanda mathi'],
@@ -201,7 +199,6 @@ export const armatureControl = video('Armature (rheostatic) control', {
       say: 'Bharkhar ko kura.',
       voice: 'भर्खरको कुरा।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Armature ma extra resistance thapda speed kata jancha?',
         voice: 'आर्मेचरमा एक्स्ट्रा रेजिस्टेन्स थप्दा स्पिड कता जान्छ?',
         options: ['Base bhanda mathi', 'Base bhanda tala'],
@@ -314,7 +311,6 @@ export const seriesControl = video('IOE 2075 Baisakh: series motor ko speed cont
       say: 'La solve gara.',
       voice: 'ल सल्भ गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Eb₁ = 185 V ra Eb₂ = 110 V. Current same bhaye speed ratio kasko ratio bhanyo?',
         voice: 'ई बी वान वान एटी फाइभ भोल्ट र ई बी टु वान टेन भोल्ट। करेन्ट सेम भए स्पिड रेसियो कसको रेसियो भन्यो?',
         options: ['Current ko ratio', 'Resistance ko ratio', 'Back EMF ko ratio'],
@@ -428,10 +424,9 @@ export const reversing = video('Rotation ko direction kasari ulto garne?', {
       voice: 'त्यसैले एउटा मात्र उल्टो गर: फिल्ड करेन्ट वा आर्मेचर करेन्ट। रोटेसन उल्टो हुन्छ।',
     },
     {
-      say: 'Ekchin socha.',
-      voice: 'एकछिन सोच।',
+      say: 'La, yo answer gara.',
+      voice: 'ल, यो आन्सर गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Rotation ulto garna kati ota current ulto garnu parcha bhanyo?',
         voice: 'रोटेसन उल्टो गर्न कति ओटा करेन्ट उल्टो गर्नु पर्छ भन्यो?',
         options: ['Euta matra: field wa armature', 'Dubai'],

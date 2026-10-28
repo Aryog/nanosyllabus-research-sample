@@ -11,7 +11,6 @@ export const whyStarter = video('Derivation: starting current ra starter resista
       say: 'Dhyan diyera herya? Check garau.',
       voice: 'ध्यान दिएर हेर्यौ? चेक गरौं।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Start garne instant ma current kati huncha bhanyo?',
         voice: 'स्टार्ट गर्ने इन्स्टेन्टमा करेन्ट कति हुन्छ भन्यो?',
         options: ['Zero', 'V/Ra', '(V − Eb)/2Ra'],
@@ -26,7 +25,6 @@ export const whyStarter = video('Derivation: starting current ra starter resista
       say: 'Formula yaad cha?',
       voice: 'फर्मुला याद छ?',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Starter resistance ko formula k bhanyo?',
         voice: 'स्टार्टर रेजिस्टेन्सको फर्मुला के भन्यो?',
         options: ['R = V·I + Ra', 'R = V/I − Ra', 'R = Ra/V'],
@@ -71,7 +69,6 @@ export const threePoint = video('3-point starter', {
       say: 'Yaha ekchoti pause.',
       voice: 'यहाँ एकचोटि पज।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'Stud 1 ma field le kati voltage paucha?',
         voice: 'स्टड वानमा फिल्डले कति भोल्टेज पाउँछ?',
         options: ['Full voltage', 'Aadha', 'Zero'],
@@ -85,7 +82,6 @@ export const threePoint = video('3-point starter', {
       say: 'Aba achanak supply fail bhayo.',
       voice: 'अब अचानक सप्लाई फेल भयो।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: 'RUN ma handle lai no-volt coil le samaucha. Supply fail bhaye coil le handle lai…',
         voice: 'रनमा ह्यान्डललाई नो भोल्ट कोइलले समाउँछ। सप्लाई फेल भए कोइलले ह्यान्डललाई…',
         options: ['aajhai kasera samaucha', 'chodcha'],
@@ -171,7 +167,6 @@ export const fourPoint = video('4-point starter', {
       say: 'No-volt coil ko barema socha ta.',
       voice: 'नो भोल्ट कोइलको बारेमा सोच त।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: '3-point ma NVC field sanga series ma cha. Field current ghatyo bhane NVC ko current pani…',
         voice: 'थ्री पोइन्टमा एन भी सी फिल्डसँग सिरिजमा छ। फिल्ड करेन्ट घट्यो भने एन भी सी को करेन्ट पनि…',
         options: ['badhcha', 'ghatcha'],
@@ -186,7 +181,6 @@ export const fourPoint = video('4-point starter', {
       say: 'Aafai check gara.',
       voice: 'आफैं चेक गर।',
       ask: {
-        tag: 'Dhyan check 👀',
         q: '4-point starter ko chautho terminal k ho bhanyo?',
         voice: 'फोर पोइन्ट स्टार्टरको चौथो टर्मिनल के हो भन्यो?',
         options: ['Extra armature terminal', 'NVC ko lagi extra supply connection', 'Earth'],
