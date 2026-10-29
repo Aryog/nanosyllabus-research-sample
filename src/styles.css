@@ -857,8 +857,16 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
    no glow, since a drop-shadow filter under the camera's zoom renders
    shifted ghost copies in Chrome, and no fading pulse. */
 .scene-svg .hl { filter: none; animation: none; }
-/* Focus: a ring around the part of the drawing the voice is talking about;
-   everything else stays fully visible. */
+/* Focus: a ring around the part of the drawing the voice is talking about,
+   and the rest of the picture steps back. On a beat that brings a part in
+   (.now) or highlights one (.hl), the largest pieces of the drawing that hold
+   no focused part soften; parts not shown yet (.sc without .on) stay hidden.
+   Board lines from earlier beats soften while a new one is written. With
+   nothing new on a beat (and at the end) everything is at full strength. */
+.scene-svg > *, .scene-svg :where(:not(.now, .hl):has(.now, .hl)) > * { transition: opacity 0.45s ease; }
+.scene-svg:has(.now, .hl) > :not(.now, .hl, :has(.now, .hl), .sc:not(.on), defs),
+.scene-svg:has(.now, .hl) :where(:not(.now, .hl):has(.now, .hl)) > :not(.now, .hl, :has(.now, .hl), .sc:not(.on), defs) { opacity: 0.32; }
+.scene-cam:has(.board-line.hl) .board-line.on:not(.hl, .kind-h) { opacity: 0.45; }
 .focus-ring { position: absolute; pointer-events: none; z-index: 1; border: 3px solid #fab005; border-radius: 16px; box-sizing: border-box; transition: left 0.5s ease, top 0.5s ease, width 0.5s ease, height 0.5s ease; animation: focusin 0.4s ease both, focuspulse 1.4s ease-in-out 0.4s infinite; }
 @keyframes focusin { from { opacity: 0; transform: scale(1.08); } }
 @keyframes focuspulse { 50% { border-color: rgba(250, 176, 5, 0.35); } }

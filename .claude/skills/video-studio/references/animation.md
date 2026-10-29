@@ -36,12 +36,12 @@ Devanagari `voice`) ÷ 14 × 1000 ms. Check against the real clip with
 ## Motion rules (rigid)
 
 M1. **One clock.** All motion follows the scene clock: CSS animations (paused and seek-synced by the player), `within`, or Stage3D's `ms`/`dt`. Never use `setInterval`, `Date.now()` or wall-time loops. Pause must freeze it, a seek must land on it, and the MP4 render must match it.
-M2. **Motion explains.** Each beat moves only what its line talks about: it comes in (`s.on(k)`) or is highlighted (`s.hl(k)`), and the focus ring and hand go to it. Background parts stay still and fully visible.
+M2. **Motion explains.** Each beat moves only what its line talks about: it comes in (`s.on(k)`) or is highlighted (`s.hl(k)`), and the focus ring and hand go to it. Background parts stay still and soften (rule 18).
 M3. **Sequence, don't dump.** Parts a line names in order arrive in that order (stagger by beat, or by `animation-delay` inside a beat, roughly 150–300 ms apart). Never more than one new idea moves at once.
 M4. **Readable timing.** Entrances take 300–600 ms with ease-out; camera moves take about 0.9 s with ease-in-out; nothing is faster than 150 ms except tiny loops. A beat's key motion finishes before its line ends.
 M5. **Physics-true.** Directions follow the physics: current into the screen ⊗ / out ⊙, Fleming forces, counter-clockwise torque, field N → S, current flipping at the neutral zone. Check every arrow against the line.
 M6. **Loops are small and meaningful.** Idle loops (spinning fan, flowing current dots, field dots) appear only where they show the idea; they never pull focus from the beat's part.
-M7. **Never fade the drawing to show focus.** Focus is the ring and the hand, never dimming. No SVG `filter` (it renders ghost copies under the camera zoom). Prefer gradients for depth.
+M7. **Focus = bright part + ring + hand; the rest softens** (rule 18). Never hide or blur parts that aren't in focus, and never dim by hand with `fade` or inline opacity (the CSS does it). No SVG `filter` (it renders ghost copies under the camera zoom). Prefer gradients for depth.
 M8. **Camera stays calm.** At most 10% zoom past the full board, no cut-off parts, the board always above the caption; a drawing beside notes is shown whole.
 M9. **3D when turning explains.** Use Stage3D for ideas that need rotation or depth: one camera shot per beat, a smooth glide, drag to look around.
 M10. **CSS transforms on SVG.** An element that has its own `transform` attribute must not get a CSS `transform` (it would replace it). Wrap it in a `<g>` and animate the wrapper (`transform-box: fill-box; transform-origin: center`).
@@ -55,7 +55,7 @@ M15. **Show the step the line says happens.** Cancellations in a derivation are 
 
 15. Camera zoom is at most 10% past the full-board view (`ZOOM_IN = 1.1` in `Scene.jsx`); the drawing must never be cut off.
 17. Pause freezes everything (voice, handwriting, hand, CSS animations), and seeking lands on the exact moment; all of it runs on the scene clock `within`.
-18. Focus follows the voice, and the drawing always stays fully visible (never dim or fade parts). The part a beat brings in (`s.on(k)`) or highlights (`s.hl(k)`) gets the pulsing yellow focus ring and the pointing hand, so every beat that talks about a part of the drawing must mark it with `s.on(k)` or `s.hl(k)`.
+18. Focus follows the voice. The part a beat brings in (`s.on(k)`) or highlights (`s.hl(k)`) stays at full strength with the pulsing yellow focus ring and the pointing hand. The rest of the drawing softens to 0.32 opacity, and earlier board lines soften to 0.45 while the beat's new line is written (headings stay full). It is pure CSS in `styles.css` (`:has(.now, .hl)`), so it follows the scene clock. A beat with nothing new, and the end of the video, show everything at full strength. Every beat that talks about a part of the drawing must mark it with `s.on(k)` or `s.hl(k)`; otherwise nothing is in focus. Keep separate ideas in separate top-level `<g>`s, so only the focused one stays bright.
 21. Where turning the object makes the idea click (the motor turning, current along conductors, force directions), use a real 3D picture: a video's `three: build` prop (`src/video/Stage3D.jsx`, three.js, loaded lazily) with a build module like `src/content/video/motor3d.js`. It keeps the 2D video's beats (so the voice is reused), one camera shot per beat, everything driven by the scene clock (`ms`, `dt`, never wall time), and drag to look around. Keep the flat version in `extras`.
 
 ## The 3D build contract

@@ -48,7 +48,7 @@ lives in exactly one reference.
 3. **One whole take per video**, never line by line (rule 27).
 4. **One clock.** All motion runs on the scene clock, never on wall time (M1).
 5. **Teach before test.** A question only asks what an earlier beat taught, and it stands on its own (rules 9–10).
-6. **Never fade the drawing to show focus.** Use the focus ring and the hand. Never use SVG `filter` (rule 18, M7).
+6. **Make the focus obvious.** The part the voice is on stays bright with the ring and the hand; everything else softens, done by CSS (rule 18, M7). Never use SVG `filter`.
 7. **Unchanged lines stay byte-identical**, so their clips are reused (rule 28).
 8. **Test on a build** (`vite preview`), never on the dev server (render-and-qa.md).
 
@@ -123,3 +123,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-10-28: lesson-studio created (house rules 1–29) and animation-studio created (motion rules M1–M15); history kept in their old files' git log.
 - 2026-10-29: Voice now Robust (stability 1.0) with resting points. Every 4.1 video is recorded as one whole take and cut into line clips (rules 27, 28b).
 - 2026-10-29: **video-studio created**: lesson-studio and animation-studio merged into one bundled skill, with references per area (scripting, voice/audio, visuals, animation, player/path, render/QA) and tools (`status.mjs`, `lint.mjs`, `frame-strip.mjs`). Those two skills now point here. The first lint run found one 4.1 practice question that trails off with "…" (EMF derivation, beat 3); fixing it needs a new take.
+- 2026-10-29: Rule 18 and M7 replaced at the user's request ("the part should be more focused, others decreased opacity"). The focused part stays bright with the ring; the rest of the drawing softens to 0.32, and earlier board lines to 0.45 while a new line is written. This is gentler than the old 0.3 spotlight, which dimmed even the focused part's own group.
