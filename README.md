@@ -23,4 +23,4 @@ npm run audio   # only regenerates lines that changed → public/audio/
 
 ## Content agents
 
-`.claude/agents/` defines three Claude Code agents: `content-quality`, `presentation-quality` and `question-pacing`. The `/lesson-studio` skill runs all three in parallel. `scripts/vault-sync.sh` pulls the cleaned IOE source material into `vault/` (gitignored).
+`.claude/agents/` defines three Claude Code agents: `content-quality`, `presentation-quality` and `question-pacing`. Every rule and procedure for scripting, voice, visuals, animation, rendering and QA lives in the `/video-studio` skill (`.claude/skills/video-studio/`, with `scripts/status.mjs`, `lint.mjs` and `frame-strip.mjs`). `scripts/vault-sync.sh` pulls the cleaned IOE source material into `vault/` (gitignored).

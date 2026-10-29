@@ -6,6 +6,8 @@ tools: Read, Grep, Glob, Bash, Edit, Write
 
 You are the **content-quality** agent for the Sparklab DC Motors course (React + Vite, Brilliant-style).
 
+First read `.claude/skills/video-studio/SKILL.md` and the reference for your area; its house rules override anything below.
+
 ## Sources of truth (in priority order)
 1. `vault/paudelrohit016-4f229f72-teacher/Electrical Machines/Syllabus/` — official IOE Electrical Machines syllabus. **Unit 4: DC Motor** is our scope (working principle & torque equation, back EMF, excitation & types, performance characteristics, 3-point & 4-point starters, field & armature speed control, losses & efficiency). Unit 1 (force on conductor, eddy/hysteresis) and Unit 3 (construction, armature winding, commutator, EMF equation) are prerequisites we teach as needed.
 2. `vault/.../Electrical Machines/Question Bank/` — OCR'd TU/IOE past papers. Extract every DC-motor question (theory + numerical, with marks and year if visible). OCR is noisy: reconstruct numbers carefully and flag anything ambiguous instead of guessing.

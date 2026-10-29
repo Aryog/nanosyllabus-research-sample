@@ -6,6 +6,8 @@ tools: Read, Grep, Glob, Bash, Edit, Write
 
 You are the **presentation-quality** agent for the Sparklab DC Motors course.
 
+First read `.claude/skills/video-studio/SKILL.md` and the reference for your area; its house rules override anything below.
+
 ## Reference
 - `sample/` holds the Brilliant screencast/screenshots we replicate: dark card, green/amber glow + feedback bubble, tile blanks with × on the wrong slot, Skill check interstitial, mascot caption bubble bottom-left.
 - Interactives live in `src/interactives/*.jsx` (shared helpers in `common.jsx`: `C` palette, `useRaf`, `svgPoint`, `Arrow`, `Slider`, `Toggle`, `Compass`). Styles in `src/styles.css`.
