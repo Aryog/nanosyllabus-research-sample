@@ -37,17 +37,17 @@ const t41 = topic({
     { say: 'Working principle, back EMF ra torque equation topic suru garau.', voice: 'वर्किङ प्रिन्सिपल, ब्याक इएमएफ र टर्क इक्वेसन टपिक सुरु गरौं।' },
     {
       say: 'Pahila, field ra current bhaye motor kina ghumcha, tyo bujhchau.',
-      voice: 'पहिला, फिल्ड र करेन्ट भए मोटर किन घुम्छ, त्यो बुझ्छौं।',
+      voice: 'पहिला, फिल्ड र करेन्ट भए, मोटर किन घुम्छ — त्यो बुझ्छौं।',
       lines: [{ kind: 'idea', node: <>Motor kina ghumcha?</> }, { kind: 'step', node: <>Field + current bokeko conductor → k huncha?</> }],
     },
     {
       say: 'Ani ghumda banne back EMF k ho, ra torque kati huncha, tyo nikalchau.',
-      voice: 'अनि घुम्दा बन्ने ब्याक इएमएफ के हो, र टर्क कति हुन्छ, त्यो निकाल्छौं।',
+      voice: 'अनि घुम्दा बन्ने ब्याक इएमएफ के हो, र टर्क कति हुन्छ — त्यो निकाल्छौं।',
       lines: [{ kind: 'idea', node: <>Back EMF k ho?</> }, { kind: 'idea', node: <>Torque kati huncha, kasari nikalne?</> }],
     },
     {
       say: 'Ani last ma, IOE ma tin choti aayeko question: working principle ra torque equation, sangai solve garchau. Antya samma hera!',
-      voice: 'अनि लास्टमा, आइओईमा तीन चोटि आएको क्वेस्चन: वर्किङ प्रिन्सिपल र टर्क इक्वेसन, सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
+      voice: 'अनि लास्टमा, आइओईमा तीन चोटि आएको क्वेस्चन — वर्किङ प्रिन्सिपल र टर्क इक्वेसन। सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
       lines: [{ kind: 'hook', node: <>★ Last ma: IOE ma 3 choti aayeko question</> }],
     },
   ],

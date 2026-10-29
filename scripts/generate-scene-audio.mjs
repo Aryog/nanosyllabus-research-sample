@@ -5,6 +5,9 @@
 //   npm run audio:scenes -- 4.1            record missing lines of micro-topic 4.1 (its videos and practice videos)
 //   npm run audio:scenes -- 4.1 --dry      just count lines and characters
 //   npm run audio:scenes -- 4.1 --even     even out clips already recorded (no credits)
+//   npm run audio:scenes -- 4.1 --main     only the main path (overview to big picture), no practice videos
+//   npm run audio:scenes -- 4.1 --redo     record again even the lines that already have a clip
+//   npm run audio:scenes -- 4.1 --whole    each video as one continuous take, cut into its line clips
 //   npm run audio:scenes                   every topic (asks nothing: estimate first!)
 //
 // Every new clip is evened out (audio-even.mjs): same pace, loudness and
@@ -17,14 +20,20 @@ import { readFile, writeFile, mkdir, access, readdir, unlink, rm } from 'node:fs
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { build } from 'esbuild';
-import { beatText, isNepali, spoken, voiceKey } from '../src/video/voice.js';
+import { beatText, isNepali, spoken, videoKey, voiceKey } from '../src/video/voice.js';
+import { cutTake, isWhole, wholeTag } from './whole-take.mjs';
 import { evenClip, evenTag, isEven } from './audio-even.mjs';
 
+// Robust delivery: the steadiest, most even read.
+const VOICE = { stability: 1.0, similarity_boost: 0.8, use_speaker_boost: true };
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = path.join(root, 'public', 'audio', 'scene');
 const manifestPath = path.join(outDir, 'manifest.json');
 const dry = process.argv.includes('--dry');
 const evenOnly = process.argv.includes('--even');
+const mainOnly = process.argv.includes('--main');
+const redo = process.argv.includes('--redo');
+const whole = process.argv.includes('--whole');
 const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 
 async function loadEnv() {
@@ -72,12 +81,19 @@ await rm(tmp, { recursive: true, force: true });
 // given micro-topics, main path and practice videos alike (or everything).
 const lines = new Map();
 const want = new Map();
+const videos = new Map(); // videoKey -> the spoken lines of a wanted video, in order
 for (const st of journey.steps) for (const b of st.figureProps?.beats ?? []) {
   const text = beatText(b);
   if (!text) continue;
   lines.set(voiceKey(text), spoken(text));
   const topic = st.chapter?.split(' · ')[0];
-  if (!only.length || only.includes(topic)) want.set(voiceKey(text), spoken(text));
+  if ((!only.length || only.includes(topic)) && !(mainOnly && st.practice)) want.set(voiceKey(text), spoken(text));
+}
+for (const st of journey.steps) {
+  const topic = st.chapter?.split(' · ')[0];
+  const beats = st.figureProps?.beats ?? [];
+  const said = beats.map(beatText).filter(Boolean).map(spoken);
+  if (said.length && (!only.length || only.includes(topic)) && !(mainOnly && st.practice)) videos.set(videoKey(beats), said);
 }
 const chars = [...lines.values()].reduce((n, t) => n + t.length, 0);
 
@@ -87,10 +103,46 @@ try {
   manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
 } catch {}
 const exists = (p) => access(p).then(() => true, () => false);
+
+// Whole takes: one request per video, so the voice keeps one flow and tone.
+// A video is skipped when every one of its lines already comes from a take.
+if (whole) {
+  const todoV = [];
+  for (const said of videos.values()) {
+    const done = await Promise.all(said.map(async (t) => isWhole(manifest[voiceKey(t)]) && (await exists(path.join(outDir, `${voiceKey(t)}.mp3`)))));
+    if (redo || !done.every(Boolean)) todoV.push(said);
+  }
+  const n = todoV.reduce((c, said) => c + said.join(' ').length, 0);
+  console.log(`${only.length ? only.join(', ') : 'all topics'}: ${videos.size} videos; ${todoV.length} to record as whole takes (${n} chars = credits).`);
+  if (dry) process.exit(0);
+  const env = await loadEnv();
+  if (!env.ELEVENLABS_API_KEY) {
+    console.error('No ELEVENLABS_API_KEY found in .env');
+    process.exit(1);
+  }
+  const tag = 'v3ne' + (env.ELEVENLABS_SCENE_VOICE_ID || 'cgSgspJ2msm6clMCkdW9').slice(0, 4) + 'r';
+  let made = 0;
+  for (const said of todoV) {
+    try {
+      const take = await synthTake(env, said.join(' '));
+      await cutTake(take, said, said.map((t) => path.join(outDir, `${voiceKey(t)}.mp3`)));
+      for (const t of said) manifest[voiceKey(t)] = wholeTag(tag);
+      await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
+      made++;
+      console.log(`✓ ${said.length} lines, ${said.join(' ').length} chars: ${said[0].slice(0, 50)}`);
+    } catch (err) {
+      console.error(`✗ ${said[0].slice(0, 50)}: ${err.message.slice(0, 200)}`);
+      if (/quota|401/.test(err.message)) break;
+    }
+  }
+  console.log(`\nRecorded ${made} of ${todoV.length} videos.`);
+  process.exit(made === todoV.length ? 0 : 1);
+}
+
 const todo = [];
 const onDisk = new Set();
 for (const [key, text] of want) {
-  if (await exists(path.join(outDir, `${key}.mp3`))) onDisk.add(key);
+  if (!redo && (await exists(path.join(outDir, `${key}.mp3`)))) onDisk.add(key);
   else todo.push([key, text]);
 }
 const todoChars = todo.reduce((n, [, t]) => n + t.length, 0);
@@ -129,7 +181,7 @@ async function synth(key, text, tries = 4) {
       text,
       model_id: nepali ? 'eleven_v3' : modelId,
       language_code: nepali ? 'ne' : 'en',
-      voice_settings: { stability: 0.5, similarity_boost: 0.8, use_speaker_boost: true },
+      voice_settings: VOICE,
     }),
   });
   if (res.status === 429 && tries > 1) {
@@ -140,7 +192,21 @@ async function synth(key, text, tries = 4) {
   await writeFile(path.join(outDir, `${key}.mp3`), Buffer.from(await res.arrayBuffer()));
 }
 
-const tagFor = (text) => (isNepali(text) ? 'v3ne' : modelId.slice(7, 12)) + voiceId.slice(0, 4);
+// The 'r' marks the Robust delivery (stability 1.0), so browsers drop older takes.
+// One continuous take with per-character timings, for --whole.
+async function synthTake(env, text) {
+  const id = env.ELEVENLABS_SCENE_VOICE_ID || 'cgSgspJ2msm6clMCkdW9';
+  const res = await realFetch(`https://api.elevenlabs.io/v1/text-to-speech/${id}/with-timestamps?output_format=mp3_44100_128`, {
+    method: 'POST',
+    headers: { 'xi-api-key': env.ELEVENLABS_API_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text, model_id: 'eleven_v3', language_code: 'ne', voice_settings: VOICE }),
+  });
+  if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+  const r = await res.json();
+  return { audio: Buffer.from(r.audio_base64, 'base64'), align: r.alignment ?? r.normalized_alignment };
+}
+
+const tagFor = (text) => (isNepali(text) ? 'v3ne' : modelId.slice(7, 12)) + voiceId.slice(0, 4) + 'r';
 // Clips already on disk (e.g. from an interrupted run) just need registering.
 for (const key of onDisk) manifest[key] ??= tagFor(lines.get(key));
 

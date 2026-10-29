@@ -1,32 +1,32 @@
 {
-  "0b88bd33": {
-    "title": "4.1 ma k padhne?",
-    "v": "mvsce3bn",
-    "voiced": "1111"
-  },
-  "20105ce6": {
-    "title": "Derivation: torque equation",
-    "v": "mvsd371a",
-    "voiced": "111111111"
-  },
-  "aca7371d": {
+  "0a1380aa": {
     "title": "Armature le torque kasari banaucha",
-    "v": "mvsdarzm",
+    "v": "mvt950m8",
     "voiced": "1111111"
   },
-  "c67ce52d": {
-    "title": "Motor le aafno current aafai kina limit garcha",
-    "v": "mvsd1que",
-    "voiced": "11111111"
+  "50e68bd0": {
+    "title": "Derivation: torque equation",
+    "v": "mvt8z023",
+    "voiced": "111111111"
   },
-  "c95e761e": {
+  "9d8f05a8": {
     "title": "DC motor hamro dherai najik cha",
-    "v": "mvscemaz",
+    "v": "mvt818zt",
     "voiced": "1111"
   },
-  "e0078b99": {
+  "c01b1a91": {
     "title": "Model answer: working principle ra torque equation",
-    "v": "mvsd4mws",
+    "v": "mvt90r80",
     "voiced": "11111111"
+  },
+  "c40ca12b": {
+    "title": "Motor le aafno current aafai kina limit garcha",
+    "v": "mvt8x0om",
+    "voiced": "11111111"
+  },
+  "d19a5a1b": {
+    "title": "4.1 ma k padhne?",
+    "v": "mvt801uw",
+    "voiced": "1111"
   }
 }

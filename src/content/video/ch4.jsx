@@ -54,8 +54,8 @@ function Bar({ x, frac, color, label, value, was, at = 0, className = '' }) {
 export const story = video('Motor le aafno current aafai kina limit garcha', {
   viewBox: '0 0 360 220',
   beats: [
-    { say: 'Yo hera 220 volt ko DC motor, armature resistance half ohm. Switch ahile open cha, tesaile kei pani bagdaina.', voice: 'यो हेर टु ट्वेन्टी भोल्टको डीसी मोटर, आर्मेचर रेजिस्टेन्स हाफ ओम। स्विच अहिले ओपन छ, त्यसैले केही पनि बग्दैन।' },
-    { say: 'Switch on. Armature ahile ghumeko chaina, tesaile back EMF zero. Current V over R a: 440 ampere, dami!', voice: 'स्विच अन। आर्मेचर अहिले घुमेको छैन, त्यसैले ब्याक ई एम एफ जिरो। करेन्ट भी ओभर आर ए: फोर हन्ड्रेड फोर्टी एम्पियर, दामी!' },
+    { say: 'Yo hera 220 volt ko DC motor, armature resistance half ohm. Switch ahile open cha, tesaile kei pani bagdaina.', voice: 'यो हेर — टु ट्वेन्टी भोल्टको डीसी मोटर, आर्मेचर रेजिस्टेन्स हाफ ओम। स्विच अहिले ओपन छ, त्यसैले केही पनि बग्दैन।' },
+    { say: 'Switch on. Armature ahile ghumeko chaina, tesaile back EMF zero. Current V over R a: 440 ampere, dami!', voice: 'स्विच अन। आर्मेचर अहिले घुमेको छैन, त्यसैले ब्याक ई एम एफ, जिरो। करेन्ट — भी ओभर आर ए, फोर हन्ड्रेड फोर्टी एम्पियर। दामी!' },
     {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
@@ -67,9 +67,9 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
         why: 'Armature ghumeko chaina, tesaile back EMF zero, ani current V/Ra = 440 A.',
       },
     },
-    { say: 'Armature ko speed badhdai jada yesko conductor le flux cut garchan ra supply lai oppose garne EMF generate garchan. Tyo nai back EMF ho, ani current ghatcha.', voice: 'आर्मेचरको स्पिड बढ्दै जाँदा यसको कन्डक्टरले फ्लक्स कट गर्छन् र सप्लाईलाई अपोज गर्ने ई एम एफ जेनेरेट गर्छन्। त्यो नै ब्याक ई एम एफ हो, अनि करेन्ट घट्छ।' },
-    { say: 'Full speed ma back EMF 210 volt huncha. R a bata current push garna 10 volt matra baki huncha, tesaile armature current just 20 ampere.', voice: 'फुल स्पिडमा ब्याक ई एम एफ टु हन्ड्रेड टेन भोल्ट हुन्छ। आर ए बाट करेन्ट पुस गर्न टेन भोल्ट मात्र बाँकी हुन्छ, त्यसैले आर्मेचर करेन्ट जस्ट ट्वेन्टी एम्पियर।' },
-    { say: 'Aba load thapa. Motor ali slow huncha, E b 205 volt ma jharcha, ani current 30 ampere samma badhcha, jasle load lai chahine extra torque dincha.', voice: 'अब लोड थप। मोटर अलि स्लो हुन्छ, ई बी टु हन्ड्रेड फाइभ भोल्टमा झर्छ, अनि करेन्ट थर्टी एम्पियर सम्म बढ्छ, जसले लोडलाई चाहिने एक्स्ट्रा टर्क दिन्छ।' },
+    { say: 'Armature ko speed badhdai jada yesko conductor le flux cut garchan ra supply lai oppose garne EMF generate garchan. Tyo nai back EMF ho, ani current ghatcha.', voice: 'आर्मेचरको स्पिड बढ्दै जाँदा, यसको कन्डक्टरले फ्लक्स कट गर्छन्, र सप्लाईलाई अपोज गर्ने ई एम एफ जेनेरेट गर्छन्। त्यो नै ब्याक ई एम एफ हो। अनि करेन्ट घट्छ।' },
+    { say: 'Full speed ma back EMF 210 volt huncha. R a bata current push garna 10 volt matra baki huncha, tesaile armature current just 20 ampere.', voice: 'फुल स्पिडमा, ब्याक ई एम एफ टु हन्ड्रेड टेन भोल्ट हुन्छ। आर ए बाट करेन्ट पुस गर्न, टेन भोल्ट मात्र बाँकी हुन्छ। त्यसैले आर्मेचर करेन्ट, जस्ट ट्वेन्टी एम्पियर।' },
+    { say: 'Aba load thapa. Motor ali slow huncha, E b 205 volt ma jharcha, ani current 30 ampere samma badhcha, jasle load lai chahine extra torque dincha.', voice: 'अब, लोड थप। मोटर अलि स्लो हुन्छ, ई बी टु हन्ड्रेड फाइभ भोल्टमा झर्छ। अनि करेन्ट, थर्टी एम्पियर सम्म बढ्छ — जसले लोडलाई चाहिने एक्स्ट्रा टर्क दिन्छ।' },
     {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
@@ -81,7 +81,7 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
         why: 'Eb 205 V ma jharyo ani current 30 A samma badhyo, load lai chahine extra torque ko lagi.',
       },
     },
-    { say: 'So back EMF le motor lai self-regulating banaucha. Load lai jati current chahincha, exactly tyati nai tancha. Ekdam smart.', voice: 'सो ब्याक ई एम एफले मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ। लोडलाई जति करेन्ट चाहिन्छ, एक्जाक्ट्ली त्यति नै तान्छ। एकदम स्मार्ट।' },
+    { say: 'So back EMF le motor lai self-regulating banaucha. Load lai jati current chahincha, exactly tyati nai tancha. Ekdam smart.', voice: 'सो, ब्याक ई एम एफले मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ। लोडलाई जति करेन्ट चाहिन्छ, एक्जाक्ट्ली त्यति नै तान्छ। एकदम स्मार्ट।' },
   ],
   draw: (s) => {
     const k = s.beat;

@@ -13,11 +13,11 @@ const pos = (deg, r = 56) => [CX + r * Math.cos((-deg * Math.PI) / 180), CY + r 
 export const torqueProduction = video('Armature le torque kasari banaucha', {
   viewBox: '0 0 360 224',
   beats: [
-    { say: 'Yo hera armature, left ma north pole ra right ma south pole ko bichma. Field chai yeslai left bata right tira cross garcha.', voice: 'यो हेर आर्मेचर, लेफ्टमा नर्थ पोल र राइटमा साउथ पोलको बीचमा। फिल्ड चाहिँ यसलाई लेफ्टबाट राइटतिर क्रस गर्छ।' },
-    { say: 'Commutator le ensure garcha ki N pole muni ko har conductor ma current screen bhitra jancha, cross le dekhaeko, ra S muni ko har conductor ma current bahira aaucha, dot le dekhaeko.', voice: 'कम्युटेटरले इन्स्योर गर्छ कि एन पोलमुनिको हर कन्डक्टरमा करेन्ट स्क्रिन भित्र जान्छ, क्रसले देखाएको, र एस मुनिको हर कन्डक्टरमा करेन्ट बाहिर आउँछ, डटले देखाएको।' },
-    { say: 'Fleming ko left-hand rule: field right tira ra current screen bhitra bhaye force tala tira huncha. So left ko har conductor tala push huncha.', voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुल: फिल्ड राइटतिर र करेन्ट स्क्रिन भित्र भए फोर्स तलतिर हुन्छ। सो लेफ्टको हर कन्डक्टर तल पुस हुन्छ।' },
-    { say: 'Right tira current bahira aaucha, tesaile force mathi tira huncha.', voice: 'राइटतिर करेन्ट बाहिर आउँछ, त्यसैले फोर्स माथितिर हुन्छ।' },
-    { say: 'Left ma tala, right ma mathi: sabai force le armature lai eutai tira ghumaucha, counter-clockwise. Yinko turning effect jodda armature torque bancha.', voice: 'लेफ्टमा तल, राइटमा माथि: सबै फोर्सले आर्मेचरलाई एउटै तिर घुमाउँछ, काउन्टर क्लकवाइज। यिनको टर्निङ इफेक्ट जोड्दा आर्मेचर टर्क बन्छ।' },
+    { say: 'Yo hera armature, left ma north pole ra right ma south pole ko bichma. Field chai yeslai left bata right tira cross garcha.', voice: 'यो हेर, आर्मेचर। लेफ्टमा नर्थ पोल, र राइटमा साउथ पोलको बीचमा। फिल्ड चाहिँ, यसलाई लेफ्टबाट राइटतिर क्रस गर्छ।' },
+    { say: 'Commutator le ensure garcha ki N pole muni ko har conductor ma current screen bhitra jancha, cross le dekhaeko, ra S muni ko har conductor ma current bahira aaucha, dot le dekhaeko.', voice: 'कम्युटेटरले यो इन्स्योर गर्छ — एन पोलमुनिको हर कन्डक्टरमा, करेन्ट स्क्रिन भित्र जान्छ, क्रसले देखाएको। अनि एस पोलमुनिको हर कन्डक्टरमा, करेन्ट बाहिर आउँछ, डटले देखाएको।' },
+    { say: 'Fleming ko left-hand rule: field right tira ra current screen bhitra bhaye force tala tira huncha. So left ko har conductor tala push huncha.', voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुल — फिल्ड राइटतिर, र करेन्ट स्क्रिन भित्र भए, फोर्स तलतिर हुन्छ। सो, लेफ्टको हर कन्डक्टर तल पुस हुन्छ।' },
+    { say: 'Right tira current bahira aaucha, tesaile force mathi tira huncha.', voice: 'राइटतिर करेन्ट बाहिर आउँछ, त्यसैले फोर्स, माथितिर हुन्छ।' },
+    { say: 'Left ma tala, right ma mathi: sabai force le armature lai eutai tira ghumaucha, counter-clockwise. Yinko turning effect jodda armature torque bancha.', voice: 'लेफ्टमा तल, राइटमा माथि। सबै फोर्सले आर्मेचरलाई एउटै तिर घुमाउँछ — काउन्टर क्लकवाइज। यिनको टर्निङ इफेक्ट जोड्दा, आर्मेचर टर्क बन्छ।' },
     {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
@@ -29,7 +29,7 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
         why: 'Left ma tala, right ma mathi: sabai force le eutai tira, counter-clockwise ghumaucha.',
       },
     },
-    { say: 'Conductor N muni bata S muni jada commutator le tesko current reverse garcha, tesaile force pani flip huncha, ra tyo rotation ko eutai direction ma push garirahancha.', voice: 'कन्डक्टर एन मुनिबाट एस मुनि जाँदा कम्युटेटरले यसको करेन्ट रिभर्स गर्छ, त्यसैले फोर्स पनि फ्लिप हुन्छ, र त्यो रोटेसनको एउटै डाइरेक्सनमा पुस गरिरहन्छ।' },
+    { say: 'Conductor N muni bata S muni jada commutator le tesko current reverse garcha, tesaile force pani flip huncha, ra tyo rotation ko eutai direction ma push garirahancha.', voice: 'कन्डक्टर एन मुनिबाट एस मुनि जाँदा, कम्युटेटरले यसको करेन्ट रिभर्स गर्छ। त्यसैले फोर्स पनि फ्लिप हुन्छ, र त्यो, रोटेसनको एउटै डाइरेक्सनमा पुस गरिरहन्छ।' },
   ],
   draw: (s) => (
     <>
@@ -81,10 +81,10 @@ export const torqueProduction3d = video(torqueProduction.title, { ...torqueBeats
 export const torqueDerivation = video('Derivation: torque equation', {
   tall: true,
   beats: [
-    { say: 'Aba torque equation. Armature radius r, active length l, P pole, per pole phi, Z conductor, A parallel path, ra armature current I a.', voice: 'अब टर्क इक्वेसन। आर्मेचर रेडियस आर, एक्टिभ लेन्थ एल, पी पोल, पर पोल फाइ, जेड कन्डक्टर, ए प्यारालल पाथ, र आर्मेचर करेन्ट आई ए।' },
-    { say: 'Armature current A ota path ma barabar split huncha, tesaile har conductor ma I a over A bagcha.', voice: 'आर्मेचर करेन्ट ए ओटा पाथमा बराबर स्प्लिट हुन्छ, त्यसैले हर कन्डक्टरमा आई ए ओभर ए बग्छ।' },
-    { say: 'Total flux, P phi, armature ko surface bhari phailincha, jasko area two pi r l ho. So average flux density P phi over two pi r l huncha.', voice: 'टोटल फ्लक्स, पी फाइ, आर्मेचरको सर्फेस भरि फैलिन्छ, जसको एरिया टु पाइ आर एल हो। सो एभरेज फ्लक्स डेन्सिटी पी फाइ ओभर टु पाइ आर एल हुन्छ।' },
-    { say: 'Euta conductor ma force B I l. B ra conductor current halda l cancel huncha: P phi I a over two pi r A.', voice: 'एउटा कन्डक्टरमा फोर्स बी आई एल। बी र कन्डक्टर करेन्ट हाल्दा एल क्यान्सिल हुन्छ: पी फाइ आई ए ओभर टु पाइ आर ए।' },
+    { say: 'Aba torque equation. Armature radius r, active length l, P pole, per pole phi, Z conductor, A parallel path, ra armature current I a.', voice: 'अब, टर्क इक्वेसन। आर्मेचर रेडियस आर, एक्टिभ लेन्थ एल, पी पोल, पर पोल फाइ, जेड कन्डक्टर, ए प्यारालल पाथ — र आर्मेचर करेन्ट, आई ए।' },
+    { say: 'Armature current A ota path ma barabar split huncha, tesaile har conductor ma I a over A bagcha.', voice: 'आर्मेचर करेन्ट, ए ओटा पाथमा बराबर स्प्लिट हुन्छ। त्यसैले हर कन्डक्टरमा, आई ए ओभर ए बग्छ।' },
+    { say: 'Total flux, P phi, armature ko surface bhari phailincha, jasko area two pi r l ho. So average flux density P phi over two pi r l huncha.', voice: 'टोटल फ्लक्स, पी फाइ, आर्मेचरको सर्फेस भरि फैलिन्छ, जसको एरिया, टु पाइ आर एल हो। सो, एभरेज फ्लक्स डेन्सिटी — पी फाइ, ओभर टु पाइ आर एल हुन्छ।' },
+    { say: 'Euta conductor ma force B I l. B ra conductor current halda l cancel huncha: P phi I a over two pi r A.', voice: 'एउटा कन्डक्टरमा फोर्स, बी आई एल। बी र कन्डक्टर करेन्ट हाल्दा, एल क्यान्सिल हुन्छ — पी फाइ आई ए, ओभर टु पाइ आर ए।' },
     {
       say: 'Force lever arm bata torque bancha.',
       voice: 'फोर्स लिभर आर्मबाट टर्क बन्छ।',
@@ -96,10 +96,10 @@ export const torqueDerivation = video('Derivation: torque equation', {
         why: 'B = Pφ/2πrl ma l cha ra F = BIl ma pani l cha, tesaile l cancel huncha. Aba F lai r le multiply garera torque.',
       },
     },
-    { say: 'Euta conductor ko torque F times r. r pani cancel huncha, baki rahancha P phi I a over two pi A.', voice: 'एउटा कन्डक्टरको टर्क एफ टाइम्स आर। आर पनि क्यान्सिल हुन्छ, बाँकी रहन्छ पी फाइ आई ए ओभर टु पाइ ए।' },
-    { say: 'Commutator le sabai Z conductor lai eutai tira push garaucha, tesaile Z le multiply gara: T a equals P phi Z I a over two pi A.', voice: 'कम्युटेटरले सबै जेड कन्डक्टरलाई एउटै तिर पुस गराउँछ, त्यसैले जेडले मल्टिप्लाई गर: टी ए इक्वल्स पी फाइ जेड आई ए ओभर टु पाइ ए।' },
-    { say: 'One over two pi bhaneko 0.159. So T a equals 0.159 phi Z I a times P over A, newton metre ma.', voice: 'वान ओभर टु पाइ भनेको जिरो पोइन्ट वान फाइभ नाइन। सो टी ए इक्वल्स जिरो पोइन्ट वान फाइभ नाइन फाइ जेड आई ए टाइम्स पी ओभर ए, न्युटन मिटरमा।' },
-    { say: 'Euta given machine ma P, Z ra A fixed huncha. So armature torque flux times armature current sanga proportional huncha. Simple cha.', voice: 'एउटा गिभन मेसिनमा पी, जेड र ए फिक्स्ड हुन्छ। सो आर्मेचर टर्क फ्लक्स टाइम्स आर्मेचर करेन्टसँग प्रोपोर्सनल हुन्छ। सिम्पल छ।' },
+    { say: 'Euta conductor ko torque F times r. r pani cancel huncha, baki rahancha P phi I a over two pi A.', voice: 'एउटा कन्डक्टरको टर्क, एफ टाइम्स आर। आर पनि क्यान्सिल हुन्छ। बाँकी रहन्छ — पी फाइ आई ए, ओभर टु पाइ ए।' },
+    { say: 'Commutator le sabai Z conductor lai eutai tira push garaucha, tesaile Z le multiply gara: T a equals P phi Z I a over two pi A.', voice: 'कम्युटेटरले सबै जेड कन्डक्टरलाई एउटै तिर पुस गराउँछ, त्यसैले, जेडले मल्टिप्लाई गर। टी ए इक्वल्स — पी फाइ जेड आई ए, ओभर टु पाइ ए।' },
+    { say: 'One over two pi bhaneko 0.159. So T a equals 0.159 phi Z I a times P over A, newton metre ma.', voice: 'वान ओभर टु पाइ भनेको, जिरो पोइन्ट वान फाइभ नाइन। सो, टी ए इक्वल्स — जिरो पोइन्ट वान फाइभ नाइन, फाइ जेड आई ए, टाइम्स पी ओभर ए। न्युटन मिटरमा।' },
+    { say: 'Euta given machine ma P, Z ra A fixed huncha. So armature torque flux times armature current sanga proportional huncha. Simple cha.', voice: 'एउटा गिभन मेसिनमा, पी, जेड र ए फिक्स्ड हुन्छ। सो, आर्मेचर टर्क — फ्लक्स टाइम्स आर्मेचर करेन्टसँग प्रोपोर्सनल हुन्छ। सिम्पल छ।' },
   ],
   board: [
     { at: 0, kind: 'h', node: <>Torque equation</> },

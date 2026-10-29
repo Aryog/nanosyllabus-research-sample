@@ -200,45 +200,45 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
   q: 'Explain the working principle of a DC motor and derive the torque equation.',
   read: {
     say: 'IOE ko favourite question: DC motor ko working principle explain gara ani torque equation derive gara. Tin choti aaisakyo.',
-    voice: 'आइओईको फेभरेट क्वेस्चन: डीसी मोटरको वर्किङ प्रिन्सिपल एक्सप्लेन गर अनि टर्क इक्वेसन डेराइभ गर। तीन चोटि आइसक्यो।',
+    voice: 'आइओईको फेभरेट क्वेस्चन — डीसी मोटरको वर्किङ प्रिन्सिपल एक्सप्लेन गर, अनि टर्क इक्वेसन डेराइभ गर। तीन चोटि आइसक्यो।',
   },
   points: [
     {
       node: <><b>Principle:</b> a current-carrying conductor in a magnetic field experiences a force <K>{String.raw`F = BIl`}</K>; direction by Fleming’s left-hand rule.</>,
       say: 'Pahilo point, principle: field ma current bokeko conductor le F equals B I l force paucha. Direction Fleming ko left-hand rule le.',
-      voice: 'पहिलो पोइन्ट, प्रिन्सिपल: फिल्डमा करेन्ट बोकेको कन्डक्टरले एफ इक्वल्स बी आई एल फोर्स पाउँछ। डाइरेक्सन फ्लेमिङको लेफ्ट ह्यान्ड रुलले।',
+      voice: 'पहिलो पोइन्ट, प्रिन्सिपल। फिल्डमा करेन्ट बोकेको कन्डक्टरले, एफ इक्वल्स बी आई एल फोर्स पाउँछ। डाइरेक्सन — फ्लेमिङको लेफ्ट ह्यान्ड रुलले।',
     },
     {
       node: <><b>Working:</b> conductors under N carry current one way and under S the other, so every force turns the armature the same way.</>,
       say: 'Working: N muni ra S muni current ulto bagcha, tesaile sabai force le armature lai eutai tira ghumauchan.',
-      voice: 'वर्किङ: एन मुनि र एस मुनि करेन्ट उल्टो बग्छ, त्यसैले सबै फोर्सले आर्मेचरलाई एउटै तिर घुमाउँछन्।',
+      voice: 'वर्किङ। एन मुनि र एस मुनि, करेन्ट उल्टो बग्छ। त्यसैले सबै फोर्सले, आर्मेचरलाई एउटै तिर घुमाउँछन्।',
     },
     {
       node: <><b>Commutator:</b> reverses each coil’s current at the neutral zone, so the torque stays unidirectional.</>,
       say: 'Commutator le neutral zone ma coil ko current reverse garcha, ani torque ek tira matra rahancha.',
-      voice: 'कम्युटेटरले न्युट्रल जोनमा कोइलको करेन्ट रिभर्स गर्छ, अनि टर्क एकतिर मात्र रहन्छ।',
+      voice: 'कम्युटेटरले, न्युट्रल जोनमा कोइलको करेन्ट रिभर्स गर्छ। अनि टर्क, एकतिर मात्र रहन्छ।',
       ask: { q: 'Commutator le k garcha?', voice: 'कम्युटेटरले के गर्छ?', options: ['Flux badhaucha', 'Current reverse garera torque ek tira rakhcha', 'Voltage ghataucha'], answer: 1, why: 'Neutral zone ma current reverse huncha, tesaile torque unidirectional.' },
     },
     {
       node: <><b>Derivation:</b> <K>{String.raw`I_c = \tfrac{I_a}{A},\ B = \tfrac{P\phi}{2\pi r l},\ F = B I_c l,\ \tau = F r = \tfrac{P\phi I_a}{2\pi A}`}</K> per conductor.</>,
       say: 'Derivation ko chain segment 2 mai garyau: current per path, flux density, force, ani torque per conductor.',
-      voice: 'डेराइभेसनको चेन सेग्मेन्ट टु मै गर्यौं: करेन्ट पर पाथ, फ्लक्स डेन्सिटी, फोर्स, अनि टर्क पर कन्डक्टर।',
+      voice: 'डेराइभेसनको चेन, सेग्मेन्ट टु मै गर्यौं — करेन्ट पर पाथ, फ्लक्स डेन्सिटी, फोर्स, अनि टर्क पर कन्डक्टर।',
     },
     {
       node: <><b>Result:</b> <K>{String.raw`T_a = 0.159\,\phi Z I_a \tfrac{P}{A}\ \text{N}\cdot\text{m}`}</K>, so <K>{String.raw`\textcolor{#2b8a3e}{T_a \propto \phi I_a}`}</K>.</>,
       say: 'Z le multiply garda result: T a equals zero point one five nine phi Z I a P over A. Yo line box gara!',
-      voice: 'जेडले मल्टिप्लाइ गर्दा रिजल्ट: टी ए इक्वल्स जिरो पोइन्ट वान फाइभ नाइन फाइ जेड आई ए पी ओभर ए। यो लाइन बक्स गर!',
+      voice: 'जेडले मल्टिप्लाइ गर्दा, रिजल्ट — टी ए इक्वल्स, जिरो पोइन्ट वान फाइभ नाइन, फाइ जेड आई ए, पी ओभर ए। यो लाइन, बक्स गर!',
     },
     {
       node: <><b>Consequence:</b> shunt (φ constant): <K>{String.raw`T_a \propto I_a`}</K>; series (<K>{String.raw`\phi \propto I_a`}</K>): <K>{String.raw`T_a \propto I_a^2`}</K>.</>,
       say: 'Last ma consequence: shunt ma torque Ia sanga linear, series ma Ia square sanga.',
-      voice: 'लास्टमा कन्सिक्वेन्स: शन्टमा टर्क आई ए सँग लिनियर, सिरिजमा आई ए स्क्वायर सँग।',
+      voice: 'लास्टमा, कन्सिक्वेन्स। शन्टमा, टर्क आई ए सँग लिनियर। सिरिजमा, आई ए स्क्वायर सँग।',
     },
   ],
   tip: {
     node: <>N–S ko bichma armature, ⊗ ⊙ conductor ra force arrow draw gara. Exam ma English mai lekha.</>,
     say: 'Exam tip: N S ko bichma armature ra force arrow draw gara, ani English mai lekha. Full marks pakka!',
-    voice: 'एक्जाम टिप: एन एसको बिचमा आर्मेचर र फोर्स एरो ड्र गर, अनि इङ्लिस मै लेख। फुल मार्क्स पक्का!',
+    voice: 'एक्जाम टिप — एन एसको बिचमा आर्मेचर र फोर्स एरो ड्र गर, अनि इङ्लिस मै लेख। फुल मार्क्स पक्का!',
   },
 });
 

@@ -66,7 +66,7 @@ export function sceneTts() {
         text,
         model_id: nepali ? 'eleven_v3' : modelId,
         language_code: nepali ? 'ne' : 'en',
-        voice_settings: { stability: 0.5, similarity_boost: 0.8, use_speaker_boost: true },
+        voice_settings: { stability: 1.0, similarity_boost: 0.8, use_speaker_boost: true },
       }),
     });
     if (res.status === 429 && tries > 1) {

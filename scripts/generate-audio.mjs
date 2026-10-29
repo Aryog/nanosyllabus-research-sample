@@ -67,7 +67,7 @@ async function synth(id, text) {
         text,
         model_id: modelId,
         language_code: language,
-        voice_settings: { stability: 0.5, similarity_boost: 0.8, use_speaker_boost: true },
+        voice_settings: { stability: 1.0, similarity_boost: 0.8, use_speaker_boost: true },
       }),
     },
   );
