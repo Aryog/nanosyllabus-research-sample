@@ -14,6 +14,8 @@ How `scripts/render-videos.mjs` works:
 Needs ffmpeg and `npx playwright install chromium-headless-shell` (installed: `~/.cache/ms-playwright/chromium_headless_shell-1234`), or `CHROME=/path`.
 Render only after the voice for those videos is final; lines without a clip render silent.
 
+If one video fails with ffmpeg `Cannot allocate memory` (error -12), memory ran short; the 3D video needs the most. A failed mux may leave a broken MP4 behind. Stop the extra preview servers, delete that video's `public/videos/<key>.mp4`, and run `npm run render:videos -- <topic>` without `--force`: only the missing one is rendered. Check every file with `ffprobe -show_entries format=duration:stream=duration`; the container and stream lengths must match.
+
 ## Browsers for checks
 
 - Screenshots and frame strips: `~/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome` (frame-strip.mjs finds it; add `--enable-unsafe-swiftshader` for 3D, which the script already does).
