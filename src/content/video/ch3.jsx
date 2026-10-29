@@ -138,8 +138,8 @@ export const torqueFactors = video('Torque kasle decide garcha?', {
       voice: 'ल, यो आन्सर गर।',
       ask: {
         tag: 'Quick check',
-        q: 'Armature current double garyo ra flux half garyo. Torque…',
-        voice: 'आर्मेचर करेन्ट डबल गर्यो र फ्लक्स हाफ गर्यो। टर्क…',
+        q: 'Armature current double garyo ra flux half garyo. Torque kati huncha?',
+        voice: 'आर्मेचर करेन्ट डबल गर्यो र फ्लक्स हाफ गर्यो। टर्क कति हुन्छ?',
         options: ['same rahancha', 'double huncha', 'half huncha', 'char guna thulo huncha'],
         answer: 0,
         why: 'Ta ∝ φIa: (½φ)(2Ia) = φIa, tesaile torque change hudaina.',

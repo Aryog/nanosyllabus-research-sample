@@ -276,8 +276,8 @@ export const speedEq = video('Derivation: speed equation', {
       voice: 'ल, यो आन्सर गर।',
       ask: {
         tag: 'Quick check',
-        q: 'V same rakhera shunt motor ko field weak garyo. Yesko speed…',
-        voice: 'भी सेम राखेर शन्ट मोटरको फिल्ड विक गर्यो। यसको स्पिड…',
+        q: 'V same rakhera shunt motor ko field weak garyo. Speed ke huncha?',
+        voice: 'भी सेम राखेर शन्ट मोटरको फिल्ड विक गर्यो। स्पिड के हुन्छ?',
         options: ['badhcha', 'ghatcha', 'same rahancha'],
         answer: 0,
         why: 'N ∝ Eb/φ, ani Eb ≈ V lagbhag fixed rahancha, tesaile sano φ bhaneko thulo N. Yehi ho field control.',

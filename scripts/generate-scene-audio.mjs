@@ -2,7 +2,7 @@
 // public/audio/scene/<key>.mp3 (key = voiceKey of the spoken text). Only new or
 // edited lines are requested; clips for removed lines are deleted.
 //
-//   npm run audio:scenes -- 4.1            record missing lines of micro-topic 4.1
+//   npm run audio:scenes -- 4.1            record missing lines of micro-topic 4.1 (its videos and practice videos)
 //   npm run audio:scenes -- 4.1 --dry      just count lines and characters
 //   npm run audio:scenes -- 4.1 --even     even out clips already recorded (no credits)
 //   npm run audio:scenes                   every topic (asks nothing: estimate first!)
@@ -69,7 +69,7 @@ const { journey } = await import(pathToFileURL(bundle).href);
 await rm(tmp, { recursive: true, force: true });
 
 // Every line of the course (to drop stale clips), and the ones asked for: the
-// main path of the given micro-topics (or everything).
+// given micro-topics, main path and practice videos alike (or everything).
 const lines = new Map();
 const want = new Map();
 for (const st of journey.steps) for (const b of st.figureProps?.beats ?? []) {
@@ -77,7 +77,7 @@ for (const st of journey.steps) for (const b of st.figureProps?.beats ?? []) {
   if (!text) continue;
   lines.set(voiceKey(text), spoken(text));
   const topic = st.chapter?.split(' · ')[0];
-  if (!only.length || (!st.practice && only.includes(topic))) want.set(voiceKey(text), spoken(text));
+  if (!only.length || only.includes(topic)) want.set(voiceKey(text), spoken(text));
 }
 const chars = [...lines.values()].reduce((n, t) => n + t.length, 0);
 

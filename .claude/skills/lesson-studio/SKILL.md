@@ -47,7 +47,7 @@ these rules too.
 
 ### Questions inside videos
 9. Teach before test: a question may only ask what an earlier beat already explained.
-10. A question stands on its own, like an exam question: it never points back at the video ("… bhanyo?", "… bhaniyo?", "k bhaneko?", "kun sanga dajaiyo?", "X jastai kun?"). Ask the concept itself ("Start garne instant ma current kati huncha?"); the Devanagari voice matches.
+10. A question stands on its own, like an exam question: it never points back at the video ("… bhanyo?", "… bhaniyo?", "k bhaneko?", "kun sanga dajaiyo?", "X jastai kun?"). Ask the concept itself ("Start garne instant ma current kati huncha?"); the Devanagari voice matches. It ends as a full question, never a stem trailing off with "…" ("Torque…" → "Torque kati huncha?").
 11. A lead-in beat that only cues a question says `La, yo answer gara.` / voice `ल, यो आन्सर गर।`. Never filler like "Ekchin, dhyan check", "Bharkhar ko kura", "Ekchoti socha ta", "Dhyan diyera herya?", "Feri recall". Question text doesn't start with "Bharkhar bhaneko:". Lead-ins that carry content ("Aba naya back EMF.") stay.
 12. Question cards carry no "Dhyan check 👀" / "Ekchin socha 🤔" tag. Only informative tags (IOE paper, "Quick check", etc.) are allowed.
 13. Every question card has **↺ Rewatch** before answering; after an answer the video goes on by itself after 2 s; rewinding before a question asks it again (answers are not kept); XP only for the first try.
@@ -68,7 +68,7 @@ these rules too.
 24. Segments run straight into each other inside the player, with no trip back to the path. Only after all three segments, the last screen says **Finish ✓**; then Sparky hops on the path to the next topic's bubble and waits there (no auto-enter).
 
 ### Voice, credits and video files
-25. ElevenLabs costs 1 credit per character and the key's balance can't be queried. **Before recording, estimate the characters (`npm run audio:scenes -- --dry`) and ask the user.** Record only the modules the user approved (so far 4.1 and 4.2).
+25. ElevenLabs costs 1 credit per character and the key's balance can't be queried. **Before recording, estimate the characters (`npm run audio:scenes -- --dry`) and ask the user.** Record only the modules the user approved (so far 4.1 and 4.2). A topic is fully voiced only when its practice videos are too: `npm run audio:scenes -- 4.1` covers main path and practice alike, and afterwards every clip of the topic must be evened (run `--even` once more for older takes).
 26. The dev server never spends credits by itself: its recorder is off unless `TTS_LIVE=1` is in `.env`. Record on purpose, one approved topic at a time: `npm run audio:scenes -- 4.1` (estimate with `--dry`). Preview unrecorded content with `vite preview`.
 27. The voice sounds the same everywhere: every clip is evened (`scripts/audio-even.mjs`: 14 characters per second of speech, stretch at most 0.85–1.2×, loudness −16 LUFS, the same short pause at each end). New recordings are evened automatically; older clips with `npm run audio:scenes -- <topic> --even` (no credits). Keep the ElevenLabs settings identical in the script and the dev plugin.
 28. Editing a line's `say`/`voice` changes its clip key, so it must be recorded again; keep unchanged lines byte-identical so their clips are reused.
@@ -110,3 +110,4 @@ Every time the user improves or corrects course content or quality:
 - 2026-10-28: Rule: hover cards on the progress-bar ticks (title, position, state).
 - 2026-10-28: Rule: questions stand on their own (no "bhanyo/bhaniyo", no analogy recall); 26 questions reworded.
 - 2026-10-28: Opener ends with the IOE hook; voice evened (pace, loudness, pauses); dev recorder off unless TTS_LIVE=1; recording per topic; animation-studio skill + animation-quality agent added.
+- 2026-10-29: 4.1 fully voiced including its 17 practice videos (4 lines recorded, 86 old takes evened); topic recording now includes practice; question stems never trail off with "…" in the voice, they end as a full question.
