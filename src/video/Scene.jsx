@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import rough from 'roughjs';
 import { beatText, spoken, videoKey, voiceKey } from './voice.js';
 import { lookCss } from './looks.js';
@@ -275,6 +275,11 @@ const MIN_BEAT = 800; // shortest a beat can be, ms
 // Closest the camera gets to one part: at most 10% past showing the whole
 // board, so the rest of the drawing stays in view.
 const ZOOM_IN = 1.1;
+// Smallest camera scale a board may be shown at before the board is wiped
+// for a new page (see `page`).
+const PAGE_K = 0.86;
+// Lines that stay on every page: the heading and the question.
+const KEEP = new Set(['h', 'q']);
 
 const clipSrc = (key) => `${BASE}audio/scene/${key}.mp3?v=${clips[key]}`;
 const readMs = (t = '', speed = 1.25) => Math.max(2000, (1200 + t.length * 58) / speed);
@@ -349,7 +354,7 @@ export function Scene(props) {
   const [theme, setTheme] = useState(() => (pref('dcm-lecturer-theme', 'blue') === 'white' ? 'white' : 'blue'));
   // Big picture is always taught by the Lecturer (rule 44): no role switch there.
   const locked = props.segment?.startsWith('3/3');
-  const native = locked ? 'lecturer' : props.pov ?? autoPov(props.segment);
+  const native = locked ? 'lecturer' : povById(props.pov) ? props.pov : autoPov(props.segment);
   const id = locked || choice === 'auto' ? native : choice;
   const variant = id !== native ? props.variants?.[id] : null;
   const pick = (v) => {
@@ -376,9 +381,12 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
   const [cc, setCc] = useState(() => pref('dcm-cc', true) !== false);
   // The look comes from the POV; navy is the blue look on a handwritten board.
   // The Lecturer keeps the textbook form (.lect) on either theme.
-  const lect = povId === 'lecturer';
-  const shown = lect ? (theme === 'blue' ? 'blue' : 'book') : povById(povId)?.look ?? 'blue';
-  const lookClass = `${shown === 'navy' ? 'look-blue look-navy' : `look-${shown}`}${lect ? ' lect' : ''}`;
+  // Every segment has the Big-picture form (user, 2026-10-30): the textbook
+  // layout (.lect) in the viewer's theme, Blue or White, whoever teaches.
+  // The Tutor and the Lecturer differ in how they explain, not in the page.
+  const lect = true;
+  const shown = theme === 'blue' ? 'blue' : 'book';
+  const lookClass = `look-${shown} lect`;
   const [full, setFull] = useState(false);
   const sceneRef = useRef(null);
   const audioRef = useRef(null);
@@ -433,6 +441,34 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
     while (k < size.length - 1 && sum + size[k] / 2 < half) sum += size[k++];
     cols = head + Math.max(1, k);
   }
+  // Whiteboard pages (user, 2026-10-30: "why things are becoming small and
+  // small"): the board keeps a readable size. When the lines so far no longer
+  // fit the frame at PAGE_K, the board is wiped as a teacher would: earlier
+  // lines leave (the heading and the question stay) and this beat starts a
+  // new page. Pages are remembered per beat, so a seek lands on the same page.
+  const [page, setPage] = useState(0);
+  const pages = useRef({});
+  useLayoutEffect(() => {
+    if (!wide || !board) return;
+    const known = pages.current[beat];
+    if (known != null) {
+      if (known !== page) setPage(known);
+      return;
+    }
+    const start = Math.min(beat, pages.current[beat - 1] ?? 0);
+    if (start !== page) return setPage(start);
+    const stage = stageRef.current;
+    const el = camRef.current;
+    if (!stage || !el) return;
+    const cap = stage.parentElement?.querySelector('.scene-caption')?.getBoundingClientRect();
+    const H = stage.clientHeight - (cap ? Math.max(0, stage.getBoundingClientRect().bottom - cap.top + 8) : 0);
+    const over = el.offsetHeight * PAGE_K > H || el.offsetWidth * PAGE_K > stage.clientWidth;
+    const p = over && page < beat ? beat : page;
+    pages.current[beat] = p;
+    if (p !== page) setPage(p);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [beat, page, wide]);
+  const shownAt = (b) => beat >= b.at && (b.until == null || beat <= b.until) && (b.at >= page || KEEP.has(b.kind));
 
   // Camera, like an explainer video: zoom onto what this beat explains (the
   // board line being written, and the parts of the drawing it reveals or
@@ -559,7 +595,7 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
       window.removeEventListener('resize', onResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [beat, run, ended, beats.length]);
+  }, [beat, run, ended, beats.length, page]);
   const cur = beats[beat];
   const ask = cur.ask;
   const waiting = ask && !picked[beat]?.done;
@@ -963,7 +999,7 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
               </select>
             )}
             {lect && (
-              <span className="theme" role="group" aria-label="Lecturer theme">
+              <span className="theme" role="group" aria-label="Page theme">
                 {['white', 'blue'].map((t) => (
                   <button key={t} className={theme === t ? 'on' : ''} aria-pressed={theme === t} onClick={() => onTheme(t)}>
                     {t === 'white' ? 'White' : 'Blue'}
@@ -1006,7 +1042,7 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
                     {part.map((b, i) => (
                       <div
                         key={i}
-                        className={`board-line kind-${b.kind ?? 'text'} ${beat >= b.at && (b.until == null || beat <= b.until) ? 'on' : ''} ${beat === b.at ? 'hl' : ''} ${board.indexOf(b) === penAt ? 'pen' : ''}`}
+                        className={`board-line kind-${b.kind ?? 'text'} ${shownAt(b) ? 'on' : ''} ${beat === b.at ? 'hl' : ''} ${board.indexOf(b) === penAt ? 'pen' : ''}`}
                         style={{ '--wd': `${writeSecs(b.node)}s` }}
                       >
                         <span className="ink">
@@ -1059,7 +1095,7 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
               )}
               {pick && (
                 <div className="scene-ask-why">
-                  <b>{pick.i === ask.answer ? 'Ekdam sahi! 🔥' : 'Hmm, yo haina.'}</b> {ask.why}
+                  <b>{pick.i === ask.answer ? 'Sahi.' : 'Hmm, yo haina.'}</b> {ask.why}
                   {pick.i !== ask.answer && (
                     <button className="scene-rewatch" onClick={rewatch}>
                       ↺ Tyo part feri hera
@@ -1191,7 +1227,7 @@ export function ModelAnswer({ q, papers, marks, points, tip }) {
       ) : (
         <button className="chip primary" onClick={() => setOpen(true)}>Model answer hera</button>
       )}
-      {open && tip && <p className="model-tip">✍️ {tip}</p>}
+      {open && tip && <p className="model-tip"><b>Exam tip.</b> {tip}</p>}
     </div>
   );
 }

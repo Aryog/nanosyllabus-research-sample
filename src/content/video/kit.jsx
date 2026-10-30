@@ -17,6 +17,16 @@ import { Hook, ModelAnswer, Scene } from '../../video/Scene.jsx';
   per beat, under ~35 words. Technical terms, numbers and formulas stay English.
 */
 
+// Points on the board instead of a paragraph (user, 2026-10-30: "make a bit
+// more point wise, not heavy text"): one short claim per bullet.
+export const Pts = ({ items }) => (
+  <ul className="pts">
+    {items.map((x, i) => (
+      <li key={i}>{x}</li>
+    ))}
+  </ul>
+);
+
 export const M = ({ children }) => <span className="math">{children}</span>;
 
 // LaTeX on the board, typeset by KaTeX: <K>{String.raw`T_a \propto \phi I_a`}</K>.
@@ -78,9 +88,28 @@ export const model = (props) => ({ ioe: true, body: <ModelAnswer {...props} /> }
 export const extra = (step) => ({ ...step, practice: true });
 
 /*
+  One video in both tellings (two teachers, skill rule 43). The Tutor's script
+  plays by default; the Lecturer's is its variant. Both have the same number of
+  beats and share one textbook figure, so each part of the figure comes in on
+  the same beat in both. A beat is { say, voice, ask?, lines: [[kind, node, until?]] }.
+    duo(title, { draw?, viewBox?, tutor: [beat…], lecturer: [beat…] })
+*/
+const split = (bs) => ({
+  beats: bs.map(({ say, voice, ask }) => (ask ? { say, voice, ask } : { say, voice })),
+  board: bs.flatMap((b, i) => (b.lines ?? []).map(([kind, node, until]) => ({ at: i, kind, node, ...(until != null ? { until } : {}) }))),
+});
+export const duo = (title, { tutor, lecturer, ...rest }) => {
+  if (tutor.length !== lecturer.length) throw new Error(`duo "${title}": the Tutor has ${tutor.length} beats, the Lecturer ${lecturer.length}`);
+  return video(title, { tall: true, ...rest, ...split(tutor), pov: 'tutor', variants: { lecturer: split(lecturer) } });
+};
+
+/*
   Model answer as a video: the question goes up on the board, then each point
-  the marking scheme wants (one beat each, narrated), then the exam tip.
-    answer(title, { papers, marks, q, read: { say, voice }, points: [{ node, say, voice, page? }], tip: { node, say, voice }, draw?, viewBox?, variants? })
+  the marking scheme wants (one beat each, narrated).
+    answer(title, { papers, marks, q, read: { say, voice }, points: [{ node, say, voice, page? }], draw?, viewBox?, variants? })
+  No exam tip (user, 2026-10-30). Each part of the question gets space in
+  proportion to its marks: head each part "(a) … [4]" and give it about one
+  point per mark.
   `draw` adds the diagram or chart the answer needs, beside the notes; beat 0 is
   the question, beat k the k-th point.
 */
@@ -92,9 +121,9 @@ export const figAt = (draw, map) => (s) => {
   return draw({ ...s, on: (k, until) => s.on(m(k), until == null ? Infinity : m(until)), hl: (k) => s.hl(m(k)) });
 };
 
-export function answer(title, { papers, marks, q, read, points, tip, draw, viewBox, variants }) {
+export function answer(title, { papers, marks, q, read, points, draw, viewBox, variants }) {
   const src = papers.length ? `IOE ${papers.slice(0, 3).join(' · ')}${papers.length > 3 ? ` +${papers.length - 3}` : ''}` : 'Exam-style';
-  const beats = [read, ...points, ...(tip ? [tip] : [])].map(({ say, voice, ask }) => ({ say, voice, ask }));
+  const beats = [read, ...points].map(({ say, voice, ask }) => ({ say, voice, ask }));
   // A point with `page: true` turns the page: the points before it leave the
   // board (the question stays), so a long answer stays big enough to read.
   const until = (i) => {
@@ -104,7 +133,6 @@ export function answer(title, { papers, marks, q, read, points, tip, draw, viewB
   const board = [
     { at: 0, kind: 'q', node: <><span className="tag">{src}{marks ? ` · ${marks}` : ''}</span>{q}</> },
     ...points.map((p, i) => ({ at: i + 1, until: until(i), kind: 'step', node: p.node })),
-    ...(tip ? [{ at: points.length + 1, kind: 'idea', node: <>✍️ {tip.node}</> }] : []),
   ];
   return { ...video(title, { beats, board, tall: true, draw, viewBox, notes: true, pov: 'lecturer', variants }), ioe: papers.length > 0, tag: 'Model answer', tagKind: 'watch' };
 }
@@ -355,7 +383,7 @@ export function solve({ title, paper, paperVoice, marks, read, readVoice, questi
     { at: 0, kind: 'q', node: <><span className="tag">IOE {paper}{marks ? ` · ${marks}` : ''}</span>{question}</> },
     ...given.map((g) => ({ at: 1, kind: 'given', node: g.node })),
     { at: 2, kind: 'find', node: <>Nikalnu parne: {find.node}</> },
-    { at: 3, kind: 'idea', node: <>💡 {idea.node}</> },
+    { at: 3, kind: 'idea', node: <><b>Method.</b> {idea.node}</> },
     ...steps.map((st, i) => ({ at: first + i, kind: 'step', node: st.node })),
     { at: first + steps.length, kind: 'answer', node: answer.node },
     ...(trap ? [{ at: first + steps.length + 1, kind: 'trap', node: trap.node }] : []),

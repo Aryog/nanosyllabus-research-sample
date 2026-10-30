@@ -2,7 +2,9 @@ import { C, extra, overview, segments } from './video/kit.jsx';
 import { Ask, Battery, Crane, Face, Fan, MagnetWire, Note, Paper } from './video/doodles.jsx';
 import { backEmfAnswer, characteristicsAnswer, starterAnswer, testingAnswer, torqueAnswer } from './video/picture.jsx';
 import { backEmfDerivation, torqueDerivation, torqueFromPower, voltageEquation } from './video/t41.jsx';
-import { introRoles41 } from './video/roles41.jsx';
+import './video/roles41.jsx';
+import { charsAnswer42, chars42, equations42, noLoad42, opener42, series42, seriesSolve42, shunt42, types42 } from './unit4/u42.jsx';
+import { backEmf41, backEmfAnswer41, opener41, principle41, torque41, torqueAnswer41 } from './unit4/u41.jsx';
 import { ch1Model, fleming, howBig, whyItMoves } from './video/ch1.jsx';
 import { ch2Model, commutatorAction, crossSection, emfDerivation, emfIoe, lapWave } from './video/ch2.jsx';
 import { ch3Model, torqueFactors, torqueProduction, torqueProduction3d } from './video/ch3.jsx';
@@ -27,8 +29,9 @@ import { retardation, swinburne, testIntro, testingModel } from './video/testing
 
 // Segment 1 opens with the topic's overview (what it's about), then its videos.
 // `introRoles` gives the opener a version per teaching role (src/content/pov.js).
-const topic = ({ num, title, intro, introArt, introRoles, extras = [], ...parts }) => {
-  const opener = overview(num, title, intro, introArt);
+// `opener` is a ready duo() video (Tutor + Lecturer); older topics pass `intro`.
+const topic = ({ num, title, intro, introArt, introRoles, opener: given, extras = [], ...parts }) => {
+  const opener = given ?? overview(num, title, intro, introArt);
   if (introRoles) opener.figureProps.variants = introRoles;
   return { num, title, steps: [...segments({ ...parts, terms: [opener, ...parts.terms] }), ...extras.map(extra)] };
 };
@@ -36,125 +39,21 @@ const topic = ({ num, title, intro, introArt, introRoles, extras = [], ...parts 
 const t41 = topic({
   num: '4.1',
   title: 'Working principle, back EMF ra torque equation',
-  intro: [
-    { say: 'Working principle, back EMF ra torque equation topic suru garau.', voice: 'वर्किङ प्रिन्सिपल, ब्याक इएमएफ र टर्क इक्वेसन टपिक सुरु गरौं।' },
-    {
-      say: 'Pahila, field ra current bhaye motor kina ghumcha, tyo bujhchau.',
-      voice: 'पहिला, फिल्ड र करेन्ट भए, मोटर किन घुम्छ — त्यो बुझ्छौं।',
-      lines: [{ kind: 'idea', node: <>Motor kina ghumcha?</> }, { kind: 'step', node: <>Field + current bokeko conductor → k huncha?</> }],
-    },
-    {
-      say: 'Ani ghumda banne back EMF k ho, ra torque kati huncha, tyo nikalchau.',
-      voice: 'अनि घुम्दा बन्ने ब्याक इएमएफ के हो, र टर्क कति हुन्छ — त्यो निकाल्छौं।',
-      lines: [{ kind: 'idea', node: <>Back EMF k ho?</> }, { kind: 'idea', node: <>Torque kati huncha, kasari nikalne?</> }],
-    },
-    {
-      say: 'Last ma, IOE ka duita question solve garchau: working principle ra torque equation, ra back EMF ko role. Dubai tin-tin choti sodhiyeka chan.',
-      voice: 'लास्टमा, आइओईका दुईटा क्वेस्चन सल्भ गर्छौं — वर्किङ प्रिन्सिपल र टर्क इक्वेसन, र ब्याक इएमएफको रोल। दुवै, तीन-तीन चोटि सोधिएका छन्।',
-      lines: [{ kind: 'hook', node: <>★ Last ma: IOE ka 2 question, dubai 3 choti sodhiyeka</> }],
-    },
-  ],
-  introArt: {
-    viewBox: '0 0 360 220',
-    // Each question's picture comes in as the voice asks it (--d = ms into the beat).
-    draw: (s) => (
-      <>
-        <g className={s.on(0)}>
-          <g className="seq pop">
-            <Face x={292} y={104} r={36} />
-          </g>
-          <Note x={292} y={176}>Motor-dai</Note>
-        </g>
-        <g className={s.on(1)}>
-          <MagnetWire x={10} y={70} seq={[500, 1200, 2700]} />
-          <g className="seq pop" style={{ '--d': '3100ms' }}>
-            <Ask x={142} y={60} />
-          </g>
-        </g>
-        <g className={s.on(2)}>
-          {/* Turning (counter-clockwise, like the torque later): drawn as "ghumda" is said. */}
-          <path d="M324.1 65.7 A50 50 0 1 0 324.1 142.3" fill="none" stroke={C.yellow} strokeWidth={3} strokeLinecap="round" className="draw" pathLength={1} />
-          <g className="seq" style={{ '--d': '1000ms' }}>
-            <polygon points="330.2,137.2 326.5,148.2 318.7,139" fill={C.yellow} />
-          </g>
-          <g className="seq pop" style={{ '--d': '1200ms' }}>
-            <Ask x={350} y={60} size={28} />
-            <Note x={288} y={200} color={C.violet} anchor="end">back EMF?</Note>
-          </g>
-          <g className="seq pop" style={{ '--d': '2800ms' }}>
-            <Note x={296} y={200} color={C.violet} anchor="start">torque?</Note>
-          </g>
-        </g>
-        <g className={s.on(3)}>
-          <g className="seq pop" style={{ '--d': '900ms' }}>
-            <Paper x={56} y={2} stampAt={1500} />
-          </g>
-        </g>
-      </>
-    ),
-  },
-  introRoles: introRoles41,
-  terms: [vibe41, torqueProduction3d, story],
+  opener: opener41,
+  terms: [principle41, torque41, backEmf41],
   derive: [backEmfDerivation, voltageEquation, torqueDerivation, torqueFromPower],
-  picture: [torqueAnswer, backEmfAnswer],
-  extras: [torqueProduction, ch3Model, whyItMoves, howBig, fleming, ch1Model, crossSection, commutatorAction, lapWave, emfDerivation, emfIoe, ch2Model, torqueFactors, voltagePower, maxPower, speedEq, ch4Model],
+  picture: [torqueAnswer41, backEmfAnswer41],
+  extras: [vibe41, torqueProduction3d, story, torqueProduction, ch3Model, whyItMoves, howBig, fleming, ch1Model, crossSection, commutatorAction, lapWave, emfDerivation, emfIoe, ch2Model, torqueFactors, voltagePower, maxPower, speedEq, ch4Model],
 });
 
 const t42 = topic({
   num: '4.2',
   title: 'DC motor ka types, characteristics ra applications',
-  intro: [
-    { say: 'DC motor ka types, characteristics ra applications topic suru garau.', voice: 'डीसी मोटरका टाइप्स, क्यारेक्टरिस्टिक्स र एप्लिकेसन्स टपिक सुरु गरौं।' },
-    {
-      say: 'Field kasari jodda motor ko swabhav nai farak huncha. Kasari, herchau.',
-      voice: 'फिल्ड कसरी जोड्दा मोटरको स्वभाव नै फरक हुन्छ। कसरी, हेर्छौं।',
-      lines: [{ kind: 'idea', node: <>Field jodne tarika badlyo bhane k farak parcha?</> }, { kind: 'step', node: <>Shunt · Series · Compound</> }],
-    },
-    {
-      say: 'Load thapda kun motor ko speed ra torque kasari change huncha, ani kun kaha use garne, bujhchau.',
-      voice: 'लोड थप्दा कुन मोटरको स्पिड र टर्क कसरी चेन्ज हुन्छ, अनि कुन कहाँ युज गर्ने, बुझ्छौं।',
-      lines: [{ kind: 'idea', node: <>Load thapda speed ra torque ma k huncha?</> }, { kind: 'idea', node: <>Kun kaam ma kun motor?</> }],
-    },
-    {
-      say: 'Ani last ma, IOE 2070 Magh ko shunt ra series characteristics question sangai solve garchau. Antya samma hera!',
-      voice: 'अनि लास्टमा, आइओई दुई हजार सत्तरी माघको शन्ट र सिरिज क्यारेक्टरिस्टिक्स क्वेस्चन सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
-      lines: [{ kind: 'hook', node: <>★ Last ma: IOE 2070 Magh ko question</> }],
-    },
-  ],
-  introArt: {
-    viewBox: '0 0 360 240',
-    draw: (s) => (
-      <>
-        <g className={s.on(0)}>
-          {[['Shunt', 70], ['Series', 180], ['Compound', 290]].map(([name, x]) => (
-            <g key={name}>
-              <Face x={x} y={48} r={22} />
-              <Note x={x} y={88}>{name}</Note>
-            </g>
-          ))}
-        </g>
-        <g className={s.on(1)}>
-          <Battery x={165} y={112} />
-          {[70, 180, 290].map((x) => (
-            <path key={x} d={`M180 108 Q${(180 + x) / 2} 96 ${x} 96`} fill="none" stroke={C.dim} strokeWidth={1.8} strokeDasharray="4 5" />
-          ))}
-          <Ask x={226} y={150} size={30} />
-        </g>
-        <g className={s.on(2)}>
-          <Fan x={54} y={168} r={18} />
-          <Crane x={232} y={114} />
-          <Ask x={150} y={214} size={30} />
-        </g>
-      </>
-    ),
-  },
-  terms: [vibe42, connections],
-  derive: [shunt, series],
-  picture: [
-    compound,
-    characteristicsAnswer,
-  ],
-  extras: [ch6Model, equations, shuntLoadSpeed, shuntNumerical, seriesNumerical],
+  opener: opener42,
+  terms: [types42, chars42],
+  derive: [equations42, shunt42, series42],
+  picture: [charsAnswer42, noLoad42, seriesSolve42],
+  extras: [vibe42, connections, shunt, series, compound, characteristicsAnswer, ch6Model, equations, shuntLoadSpeed, shuntNumerical, seriesNumerical],
 });
 
 const t43 = topic({

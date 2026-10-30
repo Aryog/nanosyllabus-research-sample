@@ -1078,3 +1078,26 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 /* The POV chip has its own strip above the picture, so it never covers the
    board's first line (fit-check found it on the heading of every video). */
 .scene-look + .scene-stage { margin-top: 30px; }
+
+/* One typeface for the whole video (user, 2026-10-30: "in overall video i
+   want the poppins view"): board text, headings, figure labels, maths,
+   captions and question cards are all Poppins, in every theme. */
+.scene, .scene.lect, .scene.look-blue.lect { --hand: 'Poppins', Inter, system-ui, sans-serif; --script: var(--hand); }
+.scene :is(.board-line, .scene-caption, .scene-ask, .scene-ask-q, .scene-title),
+.scene .scene-svg text,
+.scene.lect .scene-svg text { font-family: var(--hand); }
+.scene .board-line .katex,
+.scene .board-line .katex :is(.mathnormal, .mathit, .mathrm, .textrm, .mainrm, .amsrm, .mathbf, .boldsymbol) { font-family: var(--hand); }
+.scene .board-line .katex .mathnormal { font-style: italic; }
+.scene .board-line .katex { font-size: 1.04em; letter-spacing: 0; }
+.scene.lect .board-line.kind-idea, .scene.lect .board-line.kind-hook { font-style: normal; }
+
+/* Text on the left, the figure on the right (user, 2026-10-30). */
+.scene-cam.split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+.scene-cam.split.notes { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+.scene-cam.split > .scene-svg, .scene-cam.split > .stage3d { order: 2; }
+
+/* Point-wise board text (kit.jsx Pts). */
+.board-line ul.pts { margin: 2px 0 0; padding-left: 1.1em; list-style: none; }
+.board-line ul.pts li { position: relative; margin: 0.12em 0; }
+.board-line ul.pts li::before { content: ''; position: absolute; left: -0.85em; top: 0.62em; width: 0.32em; height: 0.32em; border-radius: 50%; background: currentColor; opacity: 0.75; }

@@ -26,26 +26,11 @@ export const POVS = [
     look: 'navy',
     voice: { stability: 0.85, similarity_boost: 0.8, style: 0.3, speed: 0.95 },
   },
-  {
-    id: 'engineer',
-    name: 'Engineer',
-    role: 'Practising engineer: the real machine and its model first, numbers with units',
-    ref: 'The Engineering Mindset + The Efficient Engineer',
-    look: 'blue',
-    voice: { stability: 1.0, similarity_boost: 0.8, style: 0.15, speed: 1.0 },
-  },
-  {
-    id: 'senior',
-    name: 'Senior',
-    role: 'IOE senior (dai/didi): what to write for the marks, traps, memory tricks',
-    ref: 'Exam notes',
-    look: 'clean',
-    voice: { stability: 0.8, similarity_boost: 0.8, style: 0.35, speed: 1.05 },
-  },
 ];
 
 export const povById = (id) => POVS.find((p) => p.id === id);
 
-// The role a segment uses on Auto: Terms → Engineer, Derivation → Tutor,
-// Big picture → Lecturer.
-export const autoPov = (segment = '') => (segment.startsWith('3/3') ? 'lecturer' : segment.startsWith('2/3') ? 'tutor' : 'engineer');
+// Two teachers only (the user's choice, 2026-10-30): the Tutor teaches Terms
+// and Derivation, the Lecturer the Big picture (locked there) and the
+// textbook version of every other video.
+export const autoPov = (segment = '') => (segment.startsWith('3/3') ? 'lecturer' : 'tutor');

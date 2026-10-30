@@ -330,23 +330,6 @@ export const torqueDerivation = video('Derivation: torque equation (force method
     { at: 8, kind: 'step', node: step('Given machine', String.raw`\textcolor{${GR}}{T_a \propto \phi\, I_a}`) },
   ],
   pov: 'tutor',
-  // Role variants (src/content/pov.js). Engineer: the same lines over the
-  // lever figure (the model first), with a compact board, so no new voice.
-  variants: {
-    engineer: {
-      tall: true,
-      viewBox: '0 0 340 216',
-      draw: lever,
-      board: [
-        { at: 0, kind: 'h', node: <>Torque: force method</> },
-        { at: 1, kind: 'step', node: tex(String.raw`\textcolor{${OR}}{I_c} = \dfrac{I_a}{A},\qquad \textcolor{${BL}}{B} = \dfrac{P\phi}{2\pi r l}`) },
-        { at: 3, kind: 'step', node: tex(String.raw`\begin{aligned} F &= ${X('B', BL)}\,${X('I_c', OR)}\,l \\ &= ${R(String.raw`\dfrac{P\phi I_a}{2\pi r A}`, GR, 1)} \end{aligned}`) },
-        { at: 5, kind: 'step', node: tex(String.raw`\begin{aligned} \tau &= F\,r \\ &= \dfrac{P\phi I_a}{2\pi A} \end{aligned}`) },
-        { at: 7, kind: 'eq', node: tex(String.raw`T_a = 0.159\,\phi Z I_a \tfrac{P}{A}`) },
-        { at: 8, kind: 'step', node: tex(String.raw`\textcolor{${GR}}{T_a \propto \phi\, I_a}`) },
-      ],
-    },
-  },
 });
 
 export const torqueFromPower = video('Derivation: torque equation (power method)', {

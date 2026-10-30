@@ -1,4 +1,4 @@
-import { Armature, Arrow, Axes, C, Coil, Conductor, K, Pole, Source, answer } from './kit.jsx';
+import { Armature, Arrow, Axes, C, Coil, Conductor, K, Pole, Source, answer, figAt } from './kit.jsx';
 
 /*
   Big picture model answers, written up on the board as videos (kit.jsx
@@ -257,7 +257,8 @@ const testingFigure = (s) => (
 const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
 
 export const torqueAnswer = answer('Model answer: working principle ra torque equation', {
-  draw: torqueFigure,
+  // Fig. 1 parts on the answer's beats: Ic·F and r come with part (b).
+  draw: figAt(torqueFigure, { 0: 0, 1: 1, 2: 2, 3: 3, 4: 5, 5: 6 }),
   viewBox: '0 0 360 276',
   papers: ['2073 Chaitra', '2069 Bhadra', '2082 Baishakh (ECM)'],
   marks: '[4 + 2]',
@@ -268,7 +269,7 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
   },
   points: [
     {
-      node: <><H>Working principle</H>A DC motor works on the principle that <i>when a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force</i> <K>{String.raw`F = BIl`}</K> newton, whose direction is given by Fleming’s left-hand rule.</>,
+      node: <><H>(a) Working principle [4]</H>A DC motor works on the principle that <i>when a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force</i> <K>{String.raw`F = BIl`}</K> newton, whose direction is given by Fleming’s left-hand rule.</>,
       say: 'Working principle: magnetic field ma rakheko current-carrying conductor le mechanical force paucha, F equals B I l newton. Yesko direction Fleming ko left-hand rule le dincha.',
       voice: 'वर्किङ प्रिन्सिपल — म्याग्नेटिक फिल्डमा राखेको करेन्ट क्यारिङ कन्डक्टरले, मेकानिकल फोर्स पाउँछ। एफ इक्वल्स बी आई एल न्युटन। यसको डाइरेक्सन, फ्लेमिङको लेफ्ट ह्यान्ड रुलले दिन्छ।',
     },
@@ -290,59 +291,34 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
       },
     },
     {
-      page: true,
-      node: (
-        <>
-          <H>Torque equation</H>
-          Let,&nbsp; P = number of poles; φ = flux per pole (Wb); Z = total armature conductors; A = number of parallel paths; I<sub>a</sub> = armature current (A); r = armature radius (m); l = active length of a conductor (m).
-        </>
-      ),
-      say: 'Torque equation. Let: P pole ko number, phi flux per pole, Z total conductor, A parallel path, I a armature current, r radius, ra l active length.',
-      voice: 'टर्क इक्वेसन। लेट — पी पोलको नम्बर, फाइ फ्लक्स पर पोल, जेड टोटल कन्डक्टर, ए प्यारालल पाथ, आई ए आर्मेचर करेन्ट, आर रेडियस, र एल एक्टिभ लेन्थ।',
-    },
-    {
-      node: (
-        <>
-          Current per conductor, average flux density and force on one conductor:
-          <K>{String.raw`\begin{aligned} I_c &= \dfrac{I_a}{A} && \cdots(1) \\ B &= \dfrac{P\phi}{2\pi r l} && \cdots(2) \\ F &= B\,I_c\,l && \\ &= \dfrac{P\phi I_a}{2\pi r A} && \cdots(3) \end{aligned}`}</K>
-        </>
-      ),
-      say: 'Harek conductor ko current I c equals I a over A, equation ek. Flux density B equals P phi over two pi r l, equation dui. Force F equals B I c l, arthat P phi I a over two pi r A, equation tin.',
-      voice: 'हरेक कन्डक्टरको करेन्ट — आई सी इक्वल्स आई ए ओभर ए, इक्वेसन वान। फ्लक्स डेन्सिटी — बी इक्वल्स पी फाइ, ओभर टु पाइ आर एल, इक्वेसन टु। फोर्स — एफ इक्वल्स बी आई सी एल, अर्थात पी फाइ आई ए, ओभर टु पाइ आर ए, इक्वेसन थ्री।',
-    },
-    {
-      node: (
-        <>
-          Torque due to one conductor, and due to all Z conductors:
-          <K>{String.raw`\begin{aligned} \tau &= F \times r && \\ &= \dfrac{P\phi I_a}{2\pi A} && \cdots(4) \\ T_a &= Z\,\tau && \\ &= \dfrac{P\phi Z I_a}{2\pi A} && \cdots(5) \end{aligned}`}</K>
-        </>
-      ),
-      say: 'Euta conductor ko torque tau equals F times r, arthat P phi I a over two pi A, equation char. Sabai Z conductor ko T a equals P phi Z I a over two pi A, equation panch.',
-      voice: 'एउटा कन्डक्टरको टर्क — टाउ इक्वल्स एफ टाइम्स आर, अर्थात पी फाइ आई ए, ओभर टु पाइ ए, इक्वेसन फोर। सबै जेड कन्डक्टरको — टी ए इक्वल्स पी फाइ जेड आई ए, ओभर टु पाइ ए, इक्वेसन फाइभ।',
+      node: <><H>Continuous rotation</H>The armature carries many coils spread round its periphery. Every coil is commutated as it crosses the MNA, so the forces of all coils add up and the armature runs continuously with a steady torque. Thus electrical energy is converted into mechanical energy.</>,
+      say: 'Continuous rotation: armature ma dherai coil periphery bhari hunchan. Harek coil MNA ma commutate huncha, tesaile sabai ko force jodincha ra armature steady torque le lagatar ghumcha. Yasari electrical energy mechanical energy ma convert huncha.',
+      voice: 'कन्टिन्युअस रोटेसन — आर्मेचरमा धेरै कोइल, पेरिफेरीभरि हुन्छन्। हरेक कोइल एमएनएमा कम्युटेट हुन्छ, त्यसैले सबैको फोर्स जोडिन्छ, र आर्मेचर स्टेडी टर्कले लगातार घुम्छ। यसरी, इलेक्ट्रिकल इनर्जी मेकानिकल इनर्जीमा कन्भर्ट हुन्छ।',
     },
     {
       page: true,
       node: (
         <>
-          <K>{String.raw`\therefore`}</K> Armature torque,
-          <K>{String.raw`\boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\ \text{N}\cdot\text{m}} \qquad \cdots(6)`}</K>
-          For a given machine P, Z and A are constant, <K>{String.raw`\therefore`}</K> <K>{String.raw`T_a \propto \phi\, I_a`}</K>. <b>Hence proved.</b>
+          <H>(b) Torque equation [2]</H>
+          Let P = poles, φ = flux/pole, Z = conductors, A = parallel paths, I<sub>a</sub> = armature current, r = radius, l = length.
+          <K>{String.raw`\begin{aligned} I_c &= \dfrac{I_a}{A},\quad B = \dfrac{P\phi}{2\pi r l} && \cdots(1) \\ F &= B\,I_c\,l = \dfrac{P\phi I_a}{2\pi r A} && \cdots(2) \end{aligned}`}</K>
         </>
       ),
-      say: 'Yesko matlab armature torque T a equals 0.159 phi Z I a times P over A newton metre, equation cha. Given machine ma P, Z ra A constant, tesaile T a phi I a sanga proportional. Hence proved.',
-      voice: 'यसको मतलब, आर्मेचर टर्क — टी ए इक्वल्स जिरो पोइन्ट वान फाइभ नाइन, फाइ जेड आई ए, टाइम्स पी ओभर ए न्युटन मिटर, इक्वेसन सिक्स। गिभन मेसिनमा पी, जेड र ए कन्स्टेन्ट। त्यसैले टी ए, फाइ आई एसँग प्रोपोर्सनल। हेन्स प्रुभ्ड।',
+      say: 'Torque equation. Let: P pole, phi flux per pole, Z conductor, A parallel path, I a armature current, r radius, l length. I c equals I a over A ra B equals P phi over two pi r l, equation ek. Force F equals P phi I a over two pi r A, equation dui.',
+      voice: 'टर्क इक्वेसन। लेट — पी पोल, फाइ फ्लक्स पर पोल, जेड कन्डक्टर, ए प्यारालल पाथ, आई ए आर्मेचर करेन्ट, आर रेडियस, एल लेन्थ। आई सी इक्वल्स आई ए ओभर ए, र बी इक्वल्स पी फाइ ओभर टु पाइ आर एल — इक्वेसन वान। फोर्स — एफ इक्वल्स पी फाइ आई ए, ओभर टु पाइ आर ए — इक्वेसन टु।',
     },
     {
-      node: <><H>Note</H>Shunt motor (φ constant): <K>{String.raw`T_a \propto I_a`}</K>. Series motor (<K>{String.raw`\phi \propto I_a`}</K>, before saturation): <K>{String.raw`T_a \propto I_a^2`}</K>.</>,
-      say: 'Note: shunt motor ma phi constant, yasari T a I a sanga proportional. Series motor ma phi I a sanga badhcha, phalswarup T a I a square sanga.',
-      voice: 'नोट — शन्ट मोटरमा फाइ कन्स्टेन्ट, यसरी टी ए, आई एसँग प्रोपोर्सनल। सिरिज मोटरमा फाइ, आई एसँग बढ्छ। फलस्वरूप टी ए, आई ए स्क्वायरसँग।',
+      node: (
+        <>
+          Torque of Z conductors, <K>{String.raw`T_a = Z\,F\,r = \dfrac{P\phi Z I_a}{2\pi A}`}</K>,
+          <K>{String.raw`\boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\ \text{N}\cdot\text{m}} \qquad \cdots(3)`}</K>
+          For a given machine, <K>{String.raw`T_a \propto \phi\, I_a`}</K>. <b>Hence proved.</b>
+        </>
+      ),
+      say: 'Z conductor ko torque T a equals Z F r, arthat P phi Z I a over two pi A. Tesaile T a equals 0.159 phi Z I a times P over A newton metre, equation tin. Given machine ma T a phi I a sanga proportional. Hence proved.',
+      voice: 'जेड कन्डक्टरको टर्क — टी ए इक्वल्स जेड एफ आर, अर्थात पी फाइ जेड आई ए, ओभर टु पाइ ए। त्यसैले, टी ए इक्वल्स जिरो पोइन्ट वान फाइभ नाइन, फाइ जेड आई ए, टाइम्स पी ओभर ए न्युटन मिटर — इक्वेसन थ्री। गिभन मेसिनमा, टी ए — फाइ आई एसँग प्रोपोर्सनल। हेन्स प्रुभ्ड।',
     },
   ],
-  tip: {
-    node: <>Exam ma: Fig. 1, “Let” ko symbol list, equation (1)–(6) number sahit, boxed result ra “Hence proved” lekha.</>,
-    say: 'Exam tip: Figure 1, Let ko symbol list, equation ek dekhi cha samma number sahit, boxed result, ra Hence proved lekha.',
-    voice: 'एक्जाम टिप — फिगर वान, लेटको सिम्बोल लिस्ट, इक्वेसन वान देखि सिक्ससम्म नम्बरसहित, बक्स्ड रिजल्ट, र हेन्स प्रुभ्ड लेख।',
-  },
 });
 
 export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
@@ -357,7 +333,7 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
   },
   points: [
     {
-      node: <><H>Back EMF</H>When the armature of a DC motor rotates, its conductors cut the magnetic flux and an EMF is induced in them (generator action). By Lenz’s law this EMF opposes the applied voltage V; hence it is called the <b>back EMF</b> or counter EMF, <K>{String.raw`E_b`}</K>.</>,
+      node: <><H>(a) Back EMF [2]</H>When the armature of a DC motor rotates, its conductors cut the magnetic flux and an EMF is induced in them (generator action). By Lenz’s law this EMF opposes the applied voltage V; hence it is called the <b>back EMF</b> or counter EMF, <K>{String.raw`E_b`}</K>.</>,
       say: 'Back EMF: armature ghumda conductor le flux cut garchan ra EMF induce huncha. Lenz ko law anusar yo applied voltage V lai oppose garcha, tesaile yaslai back EMF E b bhanincha.',
       voice: 'ब्याक इएमएफ — आर्मेचर घुम्दा, कन्डक्टरले फ्लक्स कट गर्छन्, र इएमएफ इन्ड्युस हुन्छ। लेन्जको ल अनुसार, यो एप्लाइड भोल्टेज भीलाई अपोज गर्छ। त्यसैले यसलाई — ब्याक इएमएफ, ई बी भनिन्छ।',
     },
@@ -373,7 +349,7 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
     },
     {
       page: true,
-      node: <><H>Significance of back EMF</H>(i) <b>Self-regulation:</b> load ↑ → N ↓ → <K>{String.raw`E_b`}</K> ↓ → <K>{String.raw`I_a`}</K> ↑ (from 3) → <K>{String.raw`T_a`}</K> ↑, until <K>{String.raw`T_a = T_L`}</K>. When the load is reduced, the reverse happens.</>,
+      node: <><H>(b) Role of back EMF [4]</H>(i) <b>Self-regulation:</b> load ↑ → N ↓ → <K>{String.raw`E_b`}</K> ↓ → <K>{String.raw`I_a`}</K> ↑ (from 3) → <K>{String.raw`T_a`}</K> ↑, until <K>{String.raw`T_a = T_L`}</K>. When the load is reduced, the reverse happens.</>,
       say: 'Significance ek, self-regulation: load badhda speed ghatcha, E b ghatcha, ani equation tin anusar I a badhcha. Torque load torque barabar nahunjel badhcha. Load ghatda ulto huncha.',
       voice: 'सिग्निफिकेन्स वान, सेल्फ रेगुलेसन — लोड बढ्दा स्पिड घट्छ, ई बी घट्छ, अनि इक्वेसन थ्री अनुसार आई ए बढ्छ। टर्क, लोड टर्क बराबर नहुन्जेल बढ्छ। लोड घट्दा, उल्टो हुन्छ।',
     },
@@ -400,12 +376,12 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
         why: 'N = 0 ma Eb = 0, tesaile Ia = V/Ra (220/0.5 = 440 A). Starter resistance le yo current limit garcha.',
       },
     },
+    {
+      node: <>(iv) <b>Speed:</b> from (1) and (2), <K>{String.raw`N \propto \dfrac{E_b}{\phi} = \dfrac{V - I_aR_a}{\phi}`}</K>. The back EMF fixes the speed, so the speed can be controlled by changing V, R<sub>a</sub> or φ.</>,
+      say: 'Significance char, speed: equation ek ra dui bata N, E b over phi sanga proportional, arthat V minus I a R a, over phi. Back EMF le speed decide garcha, tesaile V, R a wa phi badlera speed control garincha.',
+      voice: 'सिग्निफिकेन्स फोर, स्पिड — इक्वेसन वान र टुबाट, एन, ई बी ओभर फाइसँग प्रोपोर्सनल, अर्थात भी माइनस आई ए आर ए, ओभर फाइ। ब्याक इएमएफले स्पिड डिसाइड गर्छ, त्यसैले भी, आर ए, वा फाइ बदलेर स्पिड कन्ट्रोल गरिन्छ।',
+    },
   ],
-  tip: {
-    node: <>Exam ma: definition, equation (1)–(5) number sahit, Fig. 2, ra tin significance heading sahit lekha.</>,
-    say: 'Exam tip: definition, equation ek dekhi panch samma number sahit, Figure 2, ra tin significance heading sahit lekha.',
-    voice: 'एक्जाम टिप — डेफिनेसन, इक्वेसन वान देखि फाइभसम्म नम्बरसहित, फिगर टु, र तीन सिग्निफिकेन्स, हेडिङसहित लेख।',
-  },
 });
 
 export const characteristicsAnswer = answer('Model answer: shunt ra series characteristics', {
@@ -451,11 +427,6 @@ export const characteristicsAnswer = answer('Model answer: shunt ra series chara
       voice: 'कन्क्लुड गर: शन्ट कन्स्टेन्ट स्पिड ड्राइभको लागि, सिरिज ट्र्याक्सन र क्रेनको लागि।',
     },
   ],
-  tip: {
-    node: <>Charai curve labelled axes sanga sketch gara; series T<sub>a</sub>–I<sub>a</sub> ma saturation bend mark gara.</>,
-    say: 'Tip: charai curve label gareko axes sanga sketch gara. Graph bina yo answer adhuro ho.',
-    voice: 'टिप: चारै कर्भ लेबल गरेको एक्सिस सँग स्केच गर। ग्राफ बिना यो आन्सर अधुरो हो।',
-  },
 });
 
 export const starterAnswer = answer('Model answer: starter ko necessity ra 3-point starter', {
@@ -501,11 +472,6 @@ export const starterAnswer = answer('Model answer: starter ko necessity ra 3-poi
       voice: 'ड्रब्याक: फिल्ड वीकन गर्दा एनभीसी पनि कमजोर, ह्यान्डल आफै छोड्छ। त्यसको सोलुसन फोर पोइन्ट स्टार्टर।',
     },
   ],
-  tip: {
-    node: <>L, F, A, studs, brass arc, NVC, OLR ra spring clearly label gara.</>,
-    say: 'Tip: diagram ma harek part label gara. Label chhutyo bhane marks katcha.',
-    voice: 'टिप: डायग्राममा हरेक पार्ट लेबल गर। लेबल छुट्यो भने मार्क्स काट्छ।',
-  },
 });
 
 export const testingAnswer = answer('Model answer: Swinburne ra retardation test', {
@@ -550,9 +516,4 @@ export const testingAnswer = answer('Model answer: Swinburne ra retardation test
       voice: 'जे थाहा छैन भने एक्स्ट्रा लोड डब्लु ड्यास राखेर फेरि गर: डब्लु इक्वल्स डब्लु ड्यास टी टु ओभर टी वान माइनस टी टु।',
     },
   ],
-  tip: {
-    node: <>Swinburne ko circuit draw gara: ammeter line ma, field ma ammeter ra rheostat, armature ma voltmeter.</>,
-    say: 'Tip: Swinburne ko circuit draw garna nabirsa. Exam ma English mai lekha.',
-    voice: 'टिप: स्विनबर्नको सर्किट ड्र गर्न नबिर्स। एक्जाममा इङ्लिस मै लेख।',
-  },
 });

@@ -7,14 +7,14 @@ import { backEmfDerivation, circuit, lever, torqueDerivation, torqueFromPower, v
 
 /*
   4.1 told by every role (skill rule 43; roles in src/content/pov.js, one skill
-  each: pov-lecturer, pov-tutor, pov-engineer, pov-senior). Each video keeps
+  each: pov-lecturer, pov-tutor). Each video keeps
   its native role's script; this file adds the other roles' versions as
   `variants`. Every version is its own script (caption first; voice later) on a
   board of its own, so a drawing timed to the native beats is not reused.
     Lecturer: textbook answer (Let, numbered equations, ∴, Hence proved)
     Tutor:    one-on-one, why before how, where students slip, worked by hand
-    Engineer: real machine, numbers with units
-    Senior:   exam plan (how often, marks, what to write), one trap, one trick
+  (Two teachers only since 2026-10-30; the Engineer and Senior versions are in
+  git history.)
   Exam counts and years come from vault/dc-motor-digest.md; every number was
   recomputed by script.
 */
@@ -59,19 +59,6 @@ export const introRoles41 = {
       L(2, 'step', <>Torque equation: harek step board ma</>),
     ],
   ),
-  senior: role(
-    [
-      b('Senior ko kura: 4.1 bata IOE ma duita question baraambar aauchan, dubai tin-tin choti.', 'सिनियरको कुरा — फोर पोइन्ट वानबाट आइओईमा दुईटा क्वेस्चन बारम्बार आउँछन्, दुवै तीन-तीन चोटि।'),
-      b('Pahilo: working principle ra torque equation, 4 plus 2 marks. Dosro: back EMF ra yesko role, 2 plus 4 marks.', 'पहिलो — वर्किङ प्रिन्सिपल र टर्क इक्वेसन, फोर प्लस टु मार्क्स। दोस्रो — ब्याक इएमएफ र यसको रोल, टु प्लस फोर मार्क्स।'),
-      b('4.1 ramrari garyo bhane 12 marks hatmai. Last ko duita answer video jasta ko testai lekha.', 'फोर पोइन्ट वान राम्ररी गर्यो भने, ट्वेल्भ मार्क्स हातमै। लास्टको दुईटा आन्सर भिडियो जस्ताको तस्तै लेख।'),
-    ],
-    [
-      L(0, 'h', <>4.1: exam ma k aaucha?</>),
-      L(1, 'step', <><b>Q1</b> Working principle + torque equation · [4 + 2] · 2073 Chaitra, 2069 Bhadra, 2082 Baishakh (ECM)</>),
-      L(1, 'step', <><b>Q2</b> Back EMF + role · [2 + 4] · 2071 Magh, 2078 Poush, 2082 Baishakh (ECM)</>),
-      L(2, 'hook', <>12 marks: last ka 2 answer jasta ko testai</>),
-    ],
-  ),
 };
 
 /* ── DC motor hamro dherai najik cha (native: Engineer) ─────────────────── */
@@ -101,20 +88,6 @@ addRoles(vibe41, {
       L(0, 'h', <>Motor = electrical → ghumne kaam</>),
       L(1, 'step', <>Key line: field + current bokeko taar → <b>force</b> (N muni tala, S muni mathi)</>),
       L(2, 'step', <>Ghumda: motor bhitra ulto voltage = <b>back EMF</b> (supply hoina!)</>),
-    ],
-  ),
-  senior: role(
-    [
-      b('Senior tip: "Define DC motor" sidhai kamai aaucha, tara principle ra back EMF chai harek barsa jasto aaucha.', 'सिनियर टिप — डिफाइन डीसी मोटर, सिधै कमै आउँछ। तर प्रिन्सिपल र ब्याक इएमएफ, हरेक बर्ष जस्तो आउँछ।'),
-      b('Principle lekhda exact line lekha: when a current-carrying conductor is placed in a magnetic field, it experiences a force.', 'प्रिन्सिपल लेख्दा, एक्जाक्ट लाइन लेख — ह्वेन अ करेन्ट क्यारिङ कन्डक्टर इज प्लेस्ड इन अ म्याग्नेटिक फिल्ड, इट एक्सपिरियन्सेस अ फोर्स।'),
-      b('Trap: Fleming ko right-hand rule lekhyo bhane galat. Motor ma left-hand, generator ma right-hand.', 'ट्र्याप — फ्लेमिङको राइट ह्यान्ड रुल लेख्यो भने गलत। मोटरमा लेफ्ट ह्यान्ड, जेनेरेटरमा राइट ह्यान्ड।',
-        q('DC motor ma force ko direction kun rule le dincha?', 'डीसी मोटरमा फोर्सको डाइरेक्सन, कुन रुलले दिन्छ?', ["Fleming's left-hand rule", "Fleming's right-hand rule", "Lenz's law"], 0, 'Motor = Left (yaad: motor ma "L"eft). Generator = Right.')),
-    ],
-    [
-      L(0, 'h', <>Exam ma k aaucha?</>),
-      L(0, 'step', <>Principle + back EMF: harek barsa jasto</>),
-      L(1, 'step', <>Exact line: “…it experiences a force, F = BIl”</>),
-      L(2, 'trap', <>Motor = Fleming ko <b>left</b>-hand rule. Right-hand = generator.</>),
     ],
   ),
 });
@@ -153,22 +126,6 @@ addRoles(torqueProduction3d, {
       L(4, 'step', <>MNA cross → commutator le current reverse → F flip → torque ek tira</>),
     ],
   ),
-  senior: role(
-    [
-      b('Yo 2079 Jestha ma aayo: how is unidirectional torque produced, ra kun factor le torque affect garcha.', 'यो दुई हजार उनासी जेठमा आयो — हाउ इज युनिडाइरेक्सनल टर्क प्रोड्युस्ड, र कुन फ्याक्टरले टर्क अफेक्ट गर्छ।'),
-      b('Lekhne: N S ko figure, conductor ma cross ra dot, force arrow, ani commutator le MNA ma current reverse garcha bhanne line.', 'लेख्ने — एन एसको फिगर, कन्डक्टरमा क्रस र डट, फोर्स एरो। अनि कम्युटेटरले एमएनएमा करेन्ट रिभर्स गर्छ भन्ने लाइन।'),
-      b('Factors ma T a equals 0.159 phi Z I a P over A lekhera phi, I a, Z, P, A bhana. Commutator chhutyo bhane unidirectional ko marks jancha.', 'फ्याक्टर्समा, टी ए इक्वल्स जिरो पोइन्ट वान फाइभ नाइन फाइ जेड आई ए, पी ओभर ए लेखेर — फाइ, आई ए, जेड, पी, ए भन। कम्युटेटर छुट्यो भने, युनिडाइरेक्सनलको मार्क्स जान्छ।'),
-      b('Yaad garne: FBI. Thumb F, first finger B, second finger I.', 'याद गर्ने — एफ बी आई। थम्ब एफ, फर्स्ट फिंगर बी, सेकेन्ड फिंगर आई।',
-        q('Left-hand rule ma thumb le k dekhaucha?', 'लेफ्ट ह्यान्ड रुलमा, थम्बले के देखाउँछ?', ['Force (motion)', 'Field', 'Current'], 0, 'FBI: thumb F, first finger B, second finger I.')),
-    ],
-    [
-      L(0, 'h', <>2079 Jestha: unidirectional torque + factors</>),
-      L(1, 'step', <>Figure (⊗ ⊙, F arrows) + “commutator reverses current at MNA”</>),
-      L(2, 'step', <>Factors: <K>{String.raw`T_a = 0.159\,\phi Z I_a \tfrac{P}{A}`}</K> → φ, I<sub>a</sub>, Z, P, A</>),
-      L(2, 'trap', <>Commutator nalekhe “unidirectional” ko marks jancha</>),
-      L(3, 'hook', <>FBI: thumb F · first finger B · second finger I</>),
-    ],
-  ),
 });
 
 /* ── Motor le aafno current aafai kina limit garcha (native: Engineer) ──── */
@@ -189,60 +146,10 @@ addRoles(story, {
       L(4, 'step', <>Running: E<sub>b</sub> = 210 V → I<sub>a</sub> = 20 A · loaded: E<sub>b</sub> = 205 V → I<sub>a</sub> = 30 A. <K>{String.raw`\therefore`}</K> the motor is self-regulating.</>),
     ],
   ),
-  senior: role(
-    [
-      b('Senior ko plan: starting current ko question panch choti aayo. Answer ek formula ma cha: I a equals V minus E b, over R a.', 'सिनियरको प्लान — स्टार्टिङ करेन्टको क्वेस्चन पाँच चोटि आयो। आन्सर एउटै फर्मुलामा छ — आई ए इक्वल्स, भी माइनस ई बी, ओभर आर ए।'),
-      b('Numerical ma yo formula nai pahilo step: start ma 440 ampere, full speed ma 20, load thapda 30. Speed ra torque pani yahi bata suru.', 'न्युमेरिकलमा, यो फर्मुला नै पहिलो स्टेप — स्टार्टमा फोर हन्ड्रेड फोर्टी एम्पियर, फुल स्पिडमा ट्वेन्टी, लोड थप्दा थर्टी। स्पिड र टर्क पनि यहीँबाट सुरु।'),
-      b('Trap: shunt motor ma I a bhaneko line current hoina. I a equals I L minus I sh.', 'ट्र्याप — शन्ट मोटरमा आई ए भनेको, लाइन करेन्ट होइन। आई ए इक्वल्स, आई एल माइनस आई एस एच।',
-        q('Shunt motor le line bata 30 A linchha ra shunt field current 2 A cha. Armature current kati huncha?', 'शन्ट मोटरले लाइनबाट थर्टी एम्पियर लिन्छ, र शन्ट फिल्ड करेन्ट टु एम्पियर छ। आर्मेचर करेन्ट कति हुन्छ?', ['28 A', '30 A', '32 A'], 0, 'Ia = IL − Ish = 30 − 2 = 28 A.')),
-      b('Yaad garne: start ma E b zero, current hero. Tesaile starter.', 'याद गर्ने — स्टार्टमा ई बी जिरो, करेन्ट हिरो। त्यसैले स्टार्टर।'),
-    ],
-    [
-      L(0, 'h', <>Starting current: 5 choti aayo</>),
-      L(0, 'step', tex(String.raw`I_a = \dfrac{V - E_b}{R_a}`)),
-      L(1, 'step', <>Numerical ko pahilo step: start 440 A · full speed 20 A · load 30 A</>),
-      L(2, 'trap', <>Shunt: <K>{String.raw`I_a = I_L - I_{sh}`}</K>, line current hoina</>),
-      L(3, 'hook', <>Start ma E<sub>b</sub> zero → current hero → starter</>),
-    ],
-  ),
 });
 
 /* ── Derivation: back EMF equation (native: Tutor) ─────────────────────── */
 addRoles(backEmfDerivation, {
-  engineer: role(
-    [
-      b('Real motor: 4-pole, lap wound, Z 500 conductor, phi 0.02 weber, ani speed 1500 rpm.', 'रियल मोटर — फोर पोल, ल्याप वाउन्ड, जेड पाँच सय कन्डक्टर, फाइ जिरो पोइन्ट जिरो टु वेबर, अनि स्पिड पन्ध्र सय आरपीएम।'),
-      b('Formula kaha bata? Euta revolution ma conductor le P phi flux sixty over N second ma cut garcha, ra Z over A conductor series ma. Yesko matlab E b equals P phi Z N over sixty A.', 'फर्मुला कहाँबाट? एउटा रिभोलुसनमा, कन्डक्टरले पी फाइ फ्लक्स, सिक्स्टी ओभर एन सेकेन्डमा कट गर्छ। र जेड ओभर ए कन्डक्टर सिरिजमा। यसको मतलब — ई बी इक्वल्स, पी फाइ जेड एन ओभर सिक्स्टी ए।'),
-      b('Lap ma A equals P, tesaile E b equals phi Z N over sixty: 0.02 times 500 times 1500, over sixty.', 'ल्यापमा ए इक्वल्स पी। त्यसैले ई बी इक्वल्स — फाइ जेड एन ओभर सिक्स्टी। जिरो पोइन्ट जिरो टु, टाइम्स पाँच सय, टाइम्स पन्ध्र सय, ओभर सिक्स्टी।'),
-      b('Back EMF 250 volt aaucha. Speed aadha, 750 rpm, bhaye E b pani aadha: 125 volt.', 'ब्याक इएमएफ — टु हन्ड्रेड फिफ्टी भोल्ट आउँछ। स्पिड आधा, सात सय पचास आरपीएम भए, ई बी पनि आधा — वान हन्ड्रेड ट्वेन्टी फाइभ भोल्ट।',
-        q('Tyahi motor ma flux same rakhera speed 1500 bata 750 rpm garyo. Eb kati huncha?', 'त्यही मोटरमा फ्लक्स उही राखेर, स्पिड पन्ध्र सयबाट सात सय पचास आरपीएम गर्यो। ई बी कति हुन्छ?', ['125 V', '250 V', '500 V'], 0, 'Eb ∝ N: 250 × 750/1500 = 125 V.')),
-      b('Site ma yahi kaam lagcha: E b le speed bataucha. Supply ra current thaha bhaye, motor kati chhito ghumcha bhanna sakincha.', 'साइटमा यही काम लाग्छ — ई बीले स्पिड बताउँछ। सप्लाई र करेन्ट थाहा भए, मोटर कति छिटो घुम्छ भन्न सकिन्छ।'),
-    ],
-    [
-      L(0, 'h', <>Back EMF on a real motor</>),
-      L(0, 'given', <>4-pole lap (A = P) · Z = 500 · φ = 0.02 Wb · N = 1500 rpm</>),
-      L(1, 'step', <>e = Pφ ÷ (60/N) per conductor, × Z/A in series → <K>{String.raw`E_b = \tfrac{P\phi ZN}{60A}`}</K></>),
-      L(2, 'step', tex(String.raw`\begin{aligned} E_b &= \dfrac{P\phi Z N}{60A} \\ &= \dfrac{0.02 \times 500 \times 1500}{60} \end{aligned}`)),
-      L(3, 'answer', <>E<sub>b</sub> = 250 V · at 750 rpm: 125 V</>),
-      L(4, 'idea', <>E<sub>b</sub> ∝ φN: back EMF tells the speed</>),
-    ],
-  ),
-  senior: role(
-    [
-      b('EMF equation ko derivation IOE ma panch choti aayo: 2078 Baishakh, 2075 Baishakh, 2071 Bhadra, 2070 Bhadra ra 2066 Magh.', 'इएमएफ इक्वेसनको डेराइभेसन, आइओईमा पाँच चोटि आयो — दुई हजार अठहत्तर बैशाख, पचहत्तर बैशाख, एकहत्तर भदौ, सत्तरी भदौ, र छयसट्ठी माघ।'),
-      b('Char line pugcha: flux per revolution, time, EMF per conductor, ani Z over A le multiply.', 'चार लाइन पुग्छ — फ्लक्स पर रिभोलुसन, टाइम, इएमएफ पर कन्डक्टर, अनि जेड ओभर एले मल्टिप्लाई।'),
-      b('Trap: lap ma A equals P, wave ma A equals 2. Numerical ma yo ultyayo bhane answer dui guna farak.', 'ट्र्याप — ल्यापमा ए इक्वल्स पी, वेभमा ए इक्वल्स टु। न्युमेरिकलमा यो उल्टायो भने, आन्सर दुई गुना फरक।',
-        q('4-pole wave wound machine ma parallel path A kati huncha?', 'फोर पोल, वेभ वाउन्ड मेसिनमा, प्यारालल पाथ ए कति हुन्छ?', ['2', '4', '8'], 0, 'Wave winding ma sadhai A = 2. Lap ma A = P = 4.')),
-      b('Yaad garne: "P phi Z N over sixty A": Pi Fi Zen over sixty A.', 'याद गर्ने — पी फाइ जेड एन ओभर सिक्स्टी ए। पाइ फाइ जेन, ओभर सिक्स्टी ए।'),
-    ],
-    [
-      L(0, 'h', <>EMF equation: 5 choti aayo</>),
-      L(0, 'note', <>2078 Baishakh · 2075 Baishakh · 2071 Bhadra · 2070 Bhadra · 2066 Magh</>),
-      L(1, 'step', <>4 lines: dΦ = Pφ → dt = 60/N → e = PφN/60 → × Z/A</>),
-      L(2, 'trap', <>Lap: A = P · Wave: A = 2</>),
-      L(3, 'hook', <>“Pi Fi Zen over sixty A”: <K>{String.raw`E_b = \tfrac{P\phi ZN}{60A}`}</K></>),
-    ],
-  ),
 });
 
 /* ── Derivation: voltage ra power equation (native: Tutor) ─────────────── */
@@ -259,38 +166,6 @@ addRoles(voltageEquation, {
       L(1, 'step', tex(String.raw`\begin{aligned} V &= E_b + I_aR_a && \cdots(1) \\ \therefore\ I_a &= \dfrac{V - E_b}{R_a} && \end{aligned}`)),
       L(2, 'step', <>Multiplying (1) by I<sub>a</sub>,{tex(String.raw`VI_a = E_bI_a + I_a^2R_a \qquad \cdots(2)`)}</>),
       L(3, 'step', <>VI<sub>a</sub> = input, I<sub>a</sub>²R<sub>a</sub> = armature Cu loss, {tex(String.raw`\therefore\ \boxed{P_m = E_b\,I_a} \qquad \cdots(3)`)}</>),
-    ],
-  ),
-  engineer: role(
-    [
-      b('Real motor: 220 volt supply, R a 0.5 ohm, ra load ma I a 20 ampere.', 'रियल मोटर — टु ट्वेन्टी भोल्ट सप्लाई, आर ए जिरो पोइन्ट फाइभ ओम, र लोडमा आई ए ट्वेन्टी एम्पियर।'),
-      b('Armature drop I a R a equals 10 volt. Yasari back EMF 210 volt.', 'आर्मेचर ड्रप, आई ए आर ए इक्वल्स टेन भोल्ट। यसरी ब्याक इएमएफ, टु हन्ड्रेड टेन भोल्ट।'),
-      b('Input 4400 watt. Copper loss 20 squared times 0.5, arthat 200 watt, jun heat bhayera jancha.', 'इनपुट — चवालीस सय वाट। कपर लस — ट्वेन्टी स्क्वायर टाइम्स जिरो पोइन्ट फाइभ, अर्थात टु हन्ड्रेड वाट, जुन हिट भएर जान्छ।'),
-      b('Baki 4200 watt, E b times I a, shaft tira mechanical power banera jancha.', 'बाँकी बयालीस सय वाट — ई बी टाइम्स आई ए, साफ्टतिर मेकानिकल पावर बनेर जान्छ।',
-        q('220 V, Ra = 0.5 Ω, Ia = 20 A. Developed mechanical power Pm kati huncha?', 'टु ट्वेन्टी भोल्ट, आर ए जिरो पोइन्ट फाइभ ओम, आई ए ट्वेन्टी एम्पियर। डेभलप्ड मेकानिकल पावर, पी एम कति हुन्छ?', ['4200 W', '4400 W', '200 W'], 0, 'Eb = 220 − 10 = 210 V; Pm = 210 × 20 = 4200 W.')),
-    ],
-    [
-      L(0, 'h', <>Power on a real motor</>),
-      L(0, 'given', <>V = 220 V · R<sub>a</sub> = 0.5 Ω · I<sub>a</sub> = 20 A</>),
-      L(1, 'step', tex(String.raw`\begin{aligned} E_b &= V - I_aR_a \\ &= 220 - 10 \\ &= 210\ \text{V} \end{aligned}`)),
-      L(2, 'step', <>Input 220 × 20 = 4400 W · Cu loss 20² × 0.5 = 200 W (heat)</>),
-      L(3, 'answer', <>P<sub>m</sub> = E<sub>b</sub>I<sub>a</sub> = 4200 W</>),
-    ],
-  ),
-  senior: role(
-    [
-      b('Numerical ko pahilo line sadhai yahi: E b equals V minus I a R a.', 'न्युमेरिकलको पहिलो लाइन, सधैं यही — ई बी इक्वल्स भी माइनस आई ए आर ए।'),
-      b('Shunt ma I a equals I L minus I sh. Series ma R a sanga series field R se pani jod.', 'शन्टमा आई ए इक्वल्स, आई एल माइनस आई एस एच। सिरिजमा, आर एसँग सिरिज फिल्ड, आर एस ई पनि जोड।'),
-      b('Trap: brush drop diyeko cha bhane tyo pani ghatau. V equals E b plus I a R a plus brush drop.', 'ट्र्याप — ब्रस ड्रप दिएको छ भने, त्यो पनि घटाऊ। भी इक्वल्स — ई बी प्लस आई ए आर ए, प्लस ब्रस ड्रप।',
-        q('220 V motor, Ia = 20 A, Ra = 0.5 Ω, total brush drop 2 V. Eb kati huncha?', 'टु ट्वेन्टी भोल्ट मोटर, आई ए ट्वेन्टी एम्पियर, आर ए जिरो पोइन्ट फाइभ ओम, टोटल ब्रस ड्रप टु भोल्ट। ई बी कति हुन्छ?', ['208 V', '210 V', '212 V'], 0, 'Eb = 220 − 20 × 0.5 − 2 = 208 V.')),
-      b('Yaad garne: V le tin thau tirne bill: E b, I a R a, ra brush. Ani E b times I a nai P m, mechanical power.', 'याद गर्ने — भीले तीन ठाउँ तिर्ने बिल — ई बी, आई ए आर ए, र ब्रस। अनि ई बी टाइम्स आई ए नै — पी एम, मेकानिकल पावर।'),
-    ],
-    [
-      L(0, 'h', <>Numerical ko first line</>),
-      L(0, 'step', tex(String.raw`E_b = V - I_aR_a`)),
-      L(1, 'step', <>Shunt: <K>{String.raw`I_a = I_L - I_{sh}`}</K> · Series: R<sub>a</sub> + R<sub>se</sub></>),
-      L(2, 'trap', <>Brush drop diyeko bhaye: <K>{String.raw`V = E_b + I_aR_a + V_{brush}`}</K></>),
-      L(3, 'hook', <>V ko bill: E<sub>b</sub> + I<sub>a</sub>R<sub>a</sub> + brush · P<sub>m</sub> = E<sub>b</sub>I<sub>a</sub></>),
     ],
   ),
 });
@@ -312,21 +187,6 @@ addRoles(torqueDerivation, {
       L(3, 'step', <>{tex(String.raw`\therefore\ \boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\ \text{N}\cdot\text{m}} \qquad \cdots(5)`)}<b>Hence proved.</b></>),
     ],
   ),
-  senior: role(
-    [
-      b('Torque derivation tin choti aayo. Marks ko lagi chain matra yaad: I c, B, F, tau, ani Z.', 'टर्क डेराइभेसन तीन चोटि आयो। मार्क्सको लागि चेन मात्र याद — आई सी, बी, एफ, टाउ, अनि जेड।'),
-      b('Harek link euta line: I c equals I a over A, B equals P phi over two pi r l, F equals B I c l, tau equals F r, T a equals Z tau.', 'हरेक लिङ्क एउटा लाइन — आई सी इक्वल्स आई ए ओभर ए, बी इक्वल्स पी फाइ ओभर टु पाइ आर एल, एफ इक्वल्स बी आई सी एल, टाउ इक्वल्स एफ आर, टी ए इक्वल्स जेड टाउ।'),
-      b('Trap: 0.159 bhaneko one over two pi ho, ra P over A lap ma 1, wave ma P over 2. Unit newton metre nabirsa.', 'ट्र्याप — जिरो पोइन्ट वान फाइभ नाइन भनेको, वान ओभर टु पाइ हो। र पी ओभर ए — ल्यापमा वान, वेभमा पी ओभर टु। युनिट न्युटन मिटर नबिर्स।',
-        q('4-pole wave wound motor ma P/A kati huncha?', 'फोर पोल, वेभ वाउन्ड मोटरमा, पी ओभर ए कति हुन्छ?', ['2', '1', '4'], 0, 'Wave: A = 2, so P/A = 4/2 = 2. Lap ma P/A = 1.')),
-      b('Yaad garne chain: Current, B, Force, Tau, Z. "Cute Bear Finds Tasty Zucchini."', 'याद गर्ने चेन — करेन्ट, बी, फोर्स, टाउ, जेड। क्युट बियर फाइन्ड्स टेस्टी जुकिनी।'),
-    ],
-    [
-      L(0, 'h', <>Torque derivation: chain yaad gara</>),
-      L(1, 'step', <>I<sub>c</sub> = I<sub>a</sub>/A → B = Pφ/2πrl → F = BI<sub>c</sub>l → τ = Fr → T<sub>a</sub> = Zτ</>),
-      L(2, 'trap', <>0.159 = 1/2π · P/A: lap 1, wave P/2 · unit N·m</>),
-      L(3, 'hook', <>Cute Bear Finds Tasty Zucchini: I<sub>c</sub> · B · F · τ · Z</>),
-    ],
-  ),
 });
 
 /* ── Derivation: torque equation, power method (native: Tutor) ─────────── */
@@ -346,39 +206,6 @@ addRoles(torqueFromPower, {
       L(3, 'step', <>{tex(String.raw`T_{sh} = 9.55\,\dfrac{P_{out}}{N} \qquad \cdots(4)`)}T<sub>a</sub> − T<sub>sh</sub> = lost torque.</>),
     ],
   ),
-  engineer: role(
-    [
-      b('Real motor: E b 210 volt, I a 20 ampere, speed 1500 rpm. P m equals E b I a equals T a omega, yasari T a equals 9.55 E b I a over N.', 'रियल मोटर — ई बी टु हन्ड्रेड टेन भोल्ट, आई ए ट्वेन्टी एम्पियर, स्पिड पन्ध्र सय आरपीएम। पी एम इक्वल्स ई बी आई ए, इक्वल्स टी ए ओमेगा। यसरी, टी ए इक्वल्स नाइन पोइन्ट फाइभ फाइभ, ई बी आई ए ओभर एन।'),
-      b('Armature torque 9.55 times 4200 over 1500, arthat 26.7 newton metre.', 'आर्मेचर टर्क — नाइन पोइन्ट फाइभ फाइभ, टाइम्स बयालीस सय, ओभर पन्ध्र सय। अर्थात छब्बीस पोइन्ट सेभेन न्युटन मिटर।'),
-      b('Shaft bata 3.7 kilowatt matra niskancha. Shaft torque 9.55 times 3700 over 1500, arthat 23.6 newton metre.', 'साफ्टबाट थ्री पोइन्ट सेभेन किलोवाट मात्र निस्कन्छ। साफ्ट टर्क — नाइन पोइन्ट फाइभ फाइभ, टाइम्स सैंतीस सय, ओभर पन्ध्र सय। अर्थात तेइस पोइन्ट सिक्स न्युटन मिटर।'),
-      b('Farak 3.2 newton metre, 500 watt ko iron ra friction loss ma kharcha huncha. Bearing ra core yahi bata taato hunchan.', 'फरक, थ्री पोइन्ट टु न्युटन मिटर — पाँच सय वाटको आइरन र फ्रिक्सन लसमा खर्च हुन्छ। बियरिङ र कोर, यहीँबाट तातो हुन्छन्।',
-        q('Pm = 4200 W ra output 3700 W bhaye, iron ra friction loss kati?', 'पी एम बयालीस सय वाट, र आउटपुट सैंतीस सय वाट भए, आइरन र फ्रिक्सन लस कति?', ['500 W', '200 W', '3700 W'], 0, 'Pm − Pout = 4200 − 3700 = 500 W (lost torque ≈ 3.2 N·m).')),
-    ],
-    [
-      L(0, 'h', <>Torque on a real motor</>),
-      L(0, 'given', <>E<sub>b</sub> = 210 V · I<sub>a</sub> = 20 A · N = 1500 rpm · P<sub>out</sub> = 3.7 kW</>),
-      L(0, 'step', tex(String.raw`\begin{aligned} E_bI_a &= T_a\,\omega \\ \Rightarrow T_a &= 9.55\,\dfrac{E_bI_a}{N} \end{aligned}`)),
-      L(1, 'step', tex(String.raw`\begin{aligned} T_a &= 9.55 \times \dfrac{4200}{1500} \\ &= 26.7\ \text{N}\cdot\text{m} \end{aligned}`)),
-      L(2, 'step', tex(String.raw`\begin{aligned} T_{sh} &= 9.55 \times \dfrac{3700}{1500} \\ &= 23.6\ \text{N}\cdot\text{m} \end{aligned}`)),
-      L(3, 'answer', <>Lost torque ≈ 3.2 N·m (500 W iron + friction)</>),
-    ],
-  ),
-  senior: role(
-    [
-      b('Numerical ma torque chahiyo bhane 9.55 wala formula sabai bhanda chhito: T a equals 9.55 E b I a over N.', 'न्युमेरिकलमा टर्क चाहियो भने, नाइन पोइन्ट फाइभ फाइभ वाला फर्मुला सबैभन्दा छिटो — टी ए इक्वल्स, नाइन पोइन्ट फाइभ फाइभ, ई बी आई ए ओभर एन।'),
-      b('Trap: T a ma E b I a, tara T sh ma output power. Dubai mix garyo bhane marks katcha.', 'ट्र्याप — टी एमा ई बी आई ए, तर टी एस एचमा आउटपुट पावर। दुवै मिक्स गर्यो भने, मार्क्स काटिन्छ।',
-        q('Shaft torque nikalda kun power use garne?', 'साफ्ट टर्क निकाल्दा, कुन पावर युज गर्ने?', ['Output power', 'Eb·Ia', 'V·Ia'], 0, 'Tsh = 9.55 Pout/N. Eb·Ia le armature torque Ta dincha.')),
-      b('Arko trap: N rpm mai halne, 9.55 le conversion garisakeko cha. Radian per second ma feri convert nagara.', 'अर्को ट्र्याप — एन आरपीएममै हाल्ने, नाइन पोइन्ट फाइभ फाइभले कन्भर्सन गरिसकेको छ। रेडियन पर सेकेन्डमा फेरि कन्भर्ट नगर।'),
-      b('Yaad garne: 9.55 equals sixty over two pi.', 'याद गर्ने — नाइन पोइन्ट फाइभ फाइभ इक्वल्स, सिक्स्टी ओभर टु पाइ।'),
-    ],
-    [
-      L(0, 'h', <>Torque numerical: fastest formula</>),
-      L(0, 'step', tex(String.raw`T_a = 9.55\,\dfrac{E_bI_a}{N}`)),
-      L(1, 'trap', <>T<sub>a</sub>: E<sub>b</sub>I<sub>a</sub> · T<sub>sh</sub>: P<sub>out</sub></>),
-      L(2, 'trap', <>N in rpm (9.55 already converts)</>),
-      L(3, 'hook', <>9.55 = 60 / 2π</>),
-    ],
-  ),
 });
 
 // Big picture is always the Lecturer (rule 44): its model answers have no
@@ -395,23 +222,18 @@ addRoles(torqueFromPower, {
 const T = (map) => ({ draw: figAt(torqueFigure, map), viewBox: '0 0 360 276' });
 const E = (map) => ({ draw: figAt(backEmfFigure, map), viewBox: '0 0 360 222' });
 const figures = (step, byRole) => {
-  for (const [r, f] of Object.entries(byRole)) Object.assign(step.figureProps.variants[r], f);
+  for (const [r, f] of Object.entries(byRole)) if (step.figureProps.variants?.[r]) Object.assign(step.figureProps.variants[r], f);
 };
-figures(vibe41, { lecturer: T({ 0: 0, 1: 1, 2: 1 }), tutor: T({ 0: 0, 1: 1, 2: 1 }), senior: T({ 0: 0, 1: 1, 2: 1 }) });
+figures(vibe41, { lecturer: T({ 0: 0, 1: 1, 2: 1 }), tutor: T({ 0: 0, 1: 1, 2: 1 }) });
 figures(torqueProduction3d, {
   lecturer: T({ 0: 0, 1: 0, 2: 1, 3: 2, 4: 2, 6: 2 }),
   tutor: T({ 0: 0, 1: 0, 2: 1, 3: 3, 6: 4 }),
-  senior: T({ 0: 1, 1: 1, 2: 1, 3: 1 }),
 });
-figures(story, { lecturer: E({ 0: 0, 1: 1, 2: 1, 5: 2, 3: 4 }), senior: E({ 0: 0, 1: 0, 2: 0, 5: 3 }) });
-figures(backEmfDerivation, { engineer: T({ 0: 0, 1: 0 }), senior: T({ 0: 0, 1: 0 }) });
+figures(story, { lecturer: E({ 0: 0, 1: 1, 2: 1, 5: 2, 3: 4 }) });
 figures(voltageEquation, {
   lecturer: { draw: figAt(circuit, { 0: 0, 1: 1 }), viewBox: '0 0 376 200' },
-  engineer: { draw: figAt(circuit, { 0: 0, 1: 1 }), viewBox: '0 0 376 200' },
-  senior: { draw: figAt(circuit, { 0: 0, 1: 0 }), viewBox: '0 0 376 200' },
 });
 figures(torqueDerivation, {
   lecturer: { draw: figAt(lever, { 0: 0, 1: 1, 2: 1, 3: 2, 4: 2, 5: 2, 6: 3 }), viewBox: '0 0 340 216' },
-  senior: { draw: figAt(lever, { 0: 0, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1 }), viewBox: '0 0 340 216' },
 });
-figures(torqueFromPower, { lecturer: E({ 0: 0, 1: 0, 2: 0 }), engineer: E({ 0: 0, 1: 0, 2: 0 }), senior: E({ 0: 0, 1: 0, 2: 0 }) });
+figures(torqueFromPower, { lecturer: E({ 0: 0, 1: 0, 2: 0 }) });

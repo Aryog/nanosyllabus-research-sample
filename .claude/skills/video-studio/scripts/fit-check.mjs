@@ -3,7 +3,7 @@
 // cut off, hidden under the caption or the POV chip, overlapping other text,
 // or spilling out of its board column. Needs `vite preview` on :4182.
 //
-//   node .claude/skills/video-studio/scripts/fit-check.mjs 4.1 [--roles tutor,senior] [--sizes 1280x760,390x844] [--screens 6,7]
+//   node .claude/skills/video-studio/scripts/fit-check.mjs 4.1 [--roles tutor,lecturer] [--sizes 1280x760,390x844] [--screens 6,7]
 //
 // Exit code 1 when anything is found. Never spends credits.
 
