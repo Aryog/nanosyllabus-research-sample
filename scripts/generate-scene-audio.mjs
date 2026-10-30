@@ -7,7 +7,9 @@
 //   npm run audio:scenes -- 4.1 --even     even out clips already recorded (no credits)
 //   npm run audio:scenes -- 4.1 --main     only the main path (overview to big picture), no practice videos
 //   npm run audio:scenes -- 4.1 --redo     record again even the lines that already have a clip
-//   npm run audio:scenes -- 4.1 --whole    each video as one continuous take, cut into its line clips
+//   npm run audio:scenes -- 4.1 --whole    each segment as one continuous take per telling (Tutor and
+//                                          Lecturer), cut into its line clips (skill rule 27)
+//   npm run audio:scenes -- 4.1 --whole --per-video   the old way: one take per video
 //   npm run audio:scenes                   every topic (asks nothing: estimate first!)
 //
 // Every new clip is evened out (audio-even.mjs): same pace, loudness and
@@ -34,6 +36,10 @@ const evenOnly = process.argv.includes('--even');
 const mainOnly = process.argv.includes('--main');
 const redo = process.argv.includes('--redo');
 const whole = process.argv.includes('--whole');
+const perVideo = process.argv.includes('--per-video');
+// Longest text one take may carry (eleven_v3 request limit); a longer segment
+// is split at video boundaries into as few takes as possible.
+const MAX_TAKE = 3000;
 const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 
 async function loadEnv() {
@@ -95,6 +101,26 @@ for (const st of journey.steps) {
   const said = beats.map(beatText).filter(Boolean).map(spoken);
   if (said.length && (!only.length || only.includes(topic)) && !(mainOnly && st.practice)) videos.set(videoKey(beats), said);
 }
+// Segment takes: per topic, per segment (Terms, Derivation, Big picture), per
+// telling (the video's own script and each role version), the lines of all
+// its videos in order.
+const segTakes = new Map(); // "4.1 · 1/3 · tutor" -> [[lines of video 1], [lines of video 2], …]
+for (const st of journey.steps) {
+  const topic = st.chapter?.split(' · ')[0];
+  const fp = st.figureProps;
+  if (!fp?.beats?.length || !st.segment || st.practice || (only.length && !only.includes(topic))) continue;
+  const locked = st.segment.startsWith('3/3');
+  const native = locked ? 'lecturer' : fp.pov ?? (st.segment.startsWith('3/3') ? 'lecturer' : 'tutor');
+  const tellings = [[native, fp.beats], ...(locked ? [] : Object.entries(fp.variants ?? {}).map(([r, va]) => [r, va.beats]).filter(([, b]) => b?.length))];
+  for (const [role, beats] of tellings) {
+    const said = beats.map(beatText).filter(Boolean).map(spoken);
+    for (const t of said) lines.set(voiceKey(t), t);
+    if (!said.length) continue;
+    const k = `${topic} · ${st.segment.split(' · ')[0]} · ${role}`;
+    if (!segTakes.has(k)) segTakes.set(k, []);
+    segTakes.get(k).push(said);
+  }
+}
 const chars = [...lines.values()].reduce((n, t) => n + t.length, 0);
 
 await mkdir(outDir, { recursive: true });
@@ -106,6 +132,55 @@ const exists = (p) => access(p).then(() => true, () => false);
 
 // Whole takes: one request per video, so the voice keeps one flow and tone.
 // A video is skipped when every one of its lines already comes from a take.
+const SEG = 'swe'; // manifest versions of clips cut from a segment take end with this
+const isSeg = (v) => typeof v === 'string' && v.endsWith(SEG);
+if (whole && !perVideo) {
+  // Pack a segment's videos into takes of at most MAX_TAKE characters.
+  const takesOf = (vids) => {
+    const out = [[]];
+    for (const said of vids) {
+      const cur = out.at(-1);
+      const len = [...cur, ...said].join(' ').length;
+      if (cur.length && len > MAX_TAKE) out.push([...said]);
+      else cur.push(...said);
+    }
+    return out;
+  };
+  const todo = [];
+  for (const [k, vids] of segTakes) {
+    const all = vids.flat();
+    const done = await Promise.all(all.map(async (t) => isSeg(manifest[voiceKey(t)]) && (await exists(path.join(outDir, `${voiceKey(t)}.mp3`)))));
+    if (redo || !done.every(Boolean)) todo.push([k, takesOf(vids)]);
+  }
+  const n = todo.reduce((c, [, takes]) => c + takes.reduce((m, t) => m + t.join(' ').length, 0), 0);
+  console.log(`${only.length ? only.join(', ') : 'all topics'}: ${segTakes.size} segment tellings; ${todo.length} to record (${n} chars = credits):`);
+  for (const [k, takes] of todo) console.log(`  ${k}: ${takes.reduce((m, t) => m + t.join(' ').length, 0)} chars${takes.length > 1 ? ` in ${takes.length} takes (over ${MAX_TAKE})` : ''}`);
+  if (dry) process.exit(0);
+  const env = await loadEnv();
+  if (!env.ELEVENLABS_API_KEY) {
+    console.error('No ELEVENLABS_API_KEY found in .env');
+    process.exit(1);
+  }
+  const tag = 'v3ne' + (env.ELEVENLABS_SCENE_VOICE_ID || 'cgSgspJ2msm6clMCkdW9').slice(0, 4) + 'r' + SEG;
+  let made = 0;
+  for (const [k, takes] of todo) {
+    try {
+      for (const said of takes) {
+        const take = await synthTake(env, said.join(' '));
+        await cutTake(take, said, said.map((t) => path.join(outDir, `${voiceKey(t)}.mp3`)));
+        for (const t of said) manifest[voiceKey(t)] = tag;
+        await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
+      }
+      made++;
+      console.log(`✓ ${k}`);
+    } catch (err) {
+      console.error(`✗ ${k}: ${err.message.slice(0, 200)}`);
+      if (/quota|401/.test(err.message)) break;
+    }
+  }
+  console.log(`\nRecorded ${made} of ${todo.length} segment tellings.`);
+  process.exit(made === todo.length ? 0 : 1);
+}
 if (whole) {
   const todoV = [];
   for (const said of videos.values()) {

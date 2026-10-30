@@ -15,7 +15,7 @@ video beats ──videoKey()──▶ key of everything the video says ──▶
 
 ## Recording a whole take (the only way to record)
 
-`npm run audio:scenes -- <topic> --whole` makes one ElevenLabs request per video (`/with-timestamps`, eleven_v3, `language_code: ne`, mp3 128k). Then `scripts/whole-take.mjs`:
+`npm run audio:scenes -- <topic> --whole` makes one ElevenLabs request per segment telling (rule 27) (`/with-timestamps`, eleven_v3, `language_code: ne`, mp3 128k). Then `scripts/whole-take.mjs`:
 1. Normalises loudness once for the take (`loudnorm I=-16 TP=-1.5 LRA=11`).
 2. Cuts each line at the midpoint of the pause between lines, using the per-character timings. It fails loudly if the timings don't cover the text.
 3. Trims silence at both ends of each clip, then adds the same 120 ms lead and 250 ms tail.
@@ -29,7 +29,7 @@ A video is skipped when all of its lines are already whole-take clips on disk. `
 |---|---|---|
 | `<topic …>` | limits to topics (4.1 …) | — |
 | `--dry` | prints the count (combine with `--whole` for the whole-take count) | 0 |
-| `--whole` | one take per video, cut into clips | yes |
+| `--whole` | one take per segment telling (Tutor and Lecturer), cut into clips | yes |
 | `--even` | evens old line-by-line clips in place | 0 |
 | `--redo` | re-records clips that exist | yes |
 | `--main` | main path only | — |
@@ -41,7 +41,7 @@ Running it without `--dry` and without topics records the **whole course**. Neve
 
 25. ElevenLabs costs 1 credit per character, and the key's balance can't be queried. **Before recording, estimate the characters (`npm run audio:scenes -- <topic> --whole --dry`) and ask the user.** Record only the modules the user approved (so far 4.1 and 4.2). A topic counts as fully voiced only when its practice videos are voiced too: a topic covers main path and practice alike (`--main` for the main path only).
 26. The dev server never spends credits by itself: its recorder is off unless `TTS_LIVE=1` is in `.env`. Record on purpose, one approved topic at a time: `npm run audio:scenes -- <topic> --whole` (estimate with `--dry`). Preview unrecorded content with `vite preview`.
-27. **Every video is recorded as one whole take** (`npm run audio:scenes -- <topic> --whole`): one ElevenLabs request per video, so the voice keeps a single flow and tone. `scripts/whole-take.mjs` then cuts it into line clips in the middle of the pause between lines, so questions still wait between clips. Never record a video line by line again; the user found chunked takes uneven. Loudness is set to −16 LUFS once per take, the pace is left as read, and every clip gets the same short pause at each end; manifest tags end in `we`. The voice is Jessica on eleven_v3 Nepali with **Robust** delivery (stability 1.0, the `VOICE` setting); keep it identical in `generate-scene-audio.mjs` and the dev plugin `tts-plugin.mjs`. Older line-by-line clips can only be evened (`--even`); re-record them as whole takes.
+27. **Every segment is recorded as one long take per telling** (user, 2026-10-30: "generate the whole segment audio as one audio … for both tutor and lecturer"). `npm run audio:scenes -- <topic> --whole` makes one ElevenLabs request for each segment telling: Terms × (Tutor, Lecturer), Derivation × (Tutor, Lecturer), Big picture × Lecturer, so 5 takes per topic. It joins the lines of all the segment's videos in order, and `scripts/whole-take.mjs` cuts the take into line clips (manifest versions end in `swe`). A segment longer than 3,000 characters (the eleven_v3 request limit) is split at a video boundary into as few takes as possible, and the dry run says so. Never record per video (`--per-video` is only for the old takes) and never line by line. The dry run lists every segment telling with its characters.
 28. Editing a line's `say`/`voice` changes its clip key, so the line must be recorded again; keep unchanged lines byte-identical so their clips are reused. (Because recording is per video, one edited line means a new take for the whole video.)
 28b. Resting points: in the Devanagari `voice` (never the roman caption), split long sentences in two, put a comma after openers ("अब,", "सो,", "अनि"), put a short dash pause "—" before a formula, definition or key term, and read formulas in chunks ("टी ए इक्वल्स — पी फाइ जेड आई ए, ओभर टु पाइ ए"). No "…" (it sounds hesitant).
 
