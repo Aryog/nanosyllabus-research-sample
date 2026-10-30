@@ -125,15 +125,15 @@ export const backEmfFigure = (s) => (
       <text x={145} y={74} textAnchor="middle" fontSize={10} fill={C.chalk}>IaRa drop</text>
     </g>
     <g className={s.on(3, 4) + s.hl(3)}>
-      <text x={135} y={106} textAnchor="middle" fontSize={10} fill={C.chalk}>Load ↑ → N ↓</text>
-      <text x={135} y={122} textAnchor="middle" fontSize={10} fill={C.chalk}>→ Eb ↓ → Ia ↑</text>
+      <text x={135} y={100} textAnchor="middle" fontSize={10} fill={C.chalk}>Load ↑ → N ↓</text>
+      <text x={135} y={126} textAnchor="middle" fontSize={10} fill={C.chalk}>→ Eb ↓ → Ia ↑</text>
     </g>
     <g className={s.on(4, 4) + s.hl(4)}>
-      <text x={135} y={146} textAnchor="middle" fontSize={10} fill={C.chalk}>Pm = Eb·Ia</text>
+      <text x={135} y={150} textAnchor="middle" fontSize={10} fill={C.chalk}>Pm = Eb·Ia</text>
     </g>
     <g className={s.on(5, 5) + s.hl(5)}>
-      <text x={135} y={106} textAnchor="middle" fontSize={10} fill={C.chalk}>Start: N = 0, Eb = 0</text>
-      <text x={135} y={122} textAnchor="middle" fontSize={10} fill={C.chalk}>Ia = V/Ra, very large</text>
+      <text x={135} y={100} textAnchor="middle" fontSize={10} fill={C.chalk}>Start: N = 0, Eb = 0</text>
+      <text x={135} y={126} textAnchor="middle" fontSize={10} fill={C.chalk}>Ia = V/Ra, very large</text>
     </g>
   </>
 );

@@ -111,7 +111,7 @@ export const forceFigure = (s) => (
         </g>
       ))}
       <T x={128} y={66} i>B</T>
-      <Cap y={206}>Fig. 1  Current-carrying conductor in a magnetic field</Cap>
+      <Cap y={206}>Fig. 1  Conductor in a magnetic field</Cap>
     </g>
     <g className={s.on(1) + s.hl(1)}>
       {cond(200, 110, 'in', 10)}
@@ -180,7 +180,7 @@ export const typesFigure = (s) => (
     <g className={s.on(1) + s.hl(1)}>{panel(190, 0, 'shunt', '(b) Shunt')}</g>
     <g className={s.on(2) + s.hl(2)}>{panel(20, 124, 'series', '(c) Series')}</g>
     <g className={s.on(3) + s.hl(3)}>{panel(190, 124, 'compound', '(d) Compound (long shunt)')}</g>
-    <Cap y={262}>Fig. 2  Methods of excitation of a DC motor</Cap>
+    <Cap y={262}>Fig. 2  Methods of excitation</Cap>
   </>
 );
 
@@ -210,7 +210,7 @@ export const curvesFigure = (s) => (
       <T x={66} y={152} size={10}>(i) Ta – Ia</T>
       <T x={186} y={152} size={10}>(ii) N – Ia</T>
       <T x={306} y={152} size={10}>(iii) N – Ta</T>
-      <Cap y={174}>Fig. 3  Characteristics: shunt (solid) and series (dashed)</Cap>
+      <Cap y={174}>Fig. 3  Shunt (solid) and series (dashed)</Cap>
     </g>
     <g className={s.on(1) + s.hl(1)}>
       <W d="M22 120 L104 44" w={1.6} />
@@ -327,7 +327,7 @@ export const effFigure = (s) => (
   <>
     <g className={s.on(0)}>
       {axes(40, 20, 290, 150, 'Load current IL', 'Losses, η')}
-      <Cap y={214}>Fig. 6  Efficiency and losses against load</Cap>
+      <Cap y={214}>Fig. 6  Efficiency and losses vs load</Cap>
     </g>
     <g className={s.on(1) + s.hl(1)}>
       <W d="M40 120 H326" w={1.4} />
@@ -484,7 +484,7 @@ export const speedCtrlFigure = (s) => (
       <W d="M120 58 V64 M120 98 V110" />
       <Cur x={60} y={40} label="IL" />
       <T x={320} y={108} a="start" i>Eb</T>
-      <Cap y={204}>Fig. 10  Speed control of a shunt motor</Cap>
+      <Cap y={204}>Fig. 10  Shunt motor speed control</Cap>
     </g>
     <g className={s.on(0)}>
       <ResV x={120} y1={64} y2={98} />
@@ -511,7 +511,7 @@ export const speedCurvesFigure = (s) => (
       <W d="M40 90 L316 100" w={1.6} />
       <T x={316} y={94} a="end" size={10}>normal (R = 0, full field)</T>
       <W d="M40 96 H24" w={0} />
-      <Cap y={200}>Fig. 11  N–Ia lines under field and armature control</Cap>
+      <Cap y={200}>Fig. 11  N–Ia under speed control</Cap>
     </g>
     <g className={s.on(1) + s.hl(1)}>
       <W d="M40 44 L316 56" w={1.4} dash="6 3" />
@@ -536,7 +536,7 @@ export const seriesCtrlFigure = (s) => (
       <CoilH x1={90} x2={150} y={50} label="series field" ly={-12} />
       <W d="M150 50 H290 V94 M290 126 V170 H33" />
       <Arm x={290} y={110} r={16} />
-      <Cap y={206}>Fig. 12  Speed control and reversal of a series motor</Cap>
+      <Cap y={206}>Fig. 12  Series motor: control, reversal</Cap>
     </g>
     <g className={s.on(1) + s.hl(1)}>
       <W d="M80 50 V86 M160 50 V86" />
@@ -597,7 +597,7 @@ export const retardFigure = (s) => (
   <>
     <g className={s.on(0)}>
       {axes(50, 24, 280, 140, 't (s)', 'N (rpm)')}
-      <Cap y={204}>Fig. 14  Retardation test: speed against time</Cap>
+      <Cap y={204}>Fig. 14  Retardation test: N vs t</Cap>
     </g>
     <g className={s.on(1) + s.hl(1)}>
       <path d={decay(1.4)} {...INK} strokeWidth={1.8} />

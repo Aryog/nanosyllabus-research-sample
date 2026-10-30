@@ -214,7 +214,7 @@ export const equations42 = duo('Derivation: voltage ra current equations', {
     {
       say: 'Series motor ma eutai bato cha, tesaile eutai current. Tara V le aba R a ra R se dubai ko drop tirnu parcha.',
       voice: 'सिरिज मोटरमा एउटै बाटो छ, त्यसैले एउटै करेन्ट। तर भीले अब, आर ए र आर एस ई दुवैको ड्रप तिर्नुपर्छ।',
-      lines: [['step', tex(String.raw`\begin{aligned} I_L &= I_a = I_{se} \\ V &= E_b + I_a(R_a + R_{se}) \end{aligned}`)]],
+      lines: [['step', tex(String.raw`\begin{aligned} I_L &= I_a \\ &= I_{se} \\ V &= E_b + I_a(R_a + R_{se}) \end{aligned}`)]],
       ask: {
         q: 'Series motor: V 220 V, I a 20 A, R a plus R se 0.5 ohm. E b kati?',
         voice: 'सिरिज मोटर — भी टु ट्वेन्टी भोल्ट, आई ए ट्वेन्टी एम्पियर, आर ए प्लस आर एस ई जिरो पोइन्ट फाइभ ओम। ई बी कति?',
@@ -226,7 +226,7 @@ export const equations42 = duo('Derivation: voltage ra current equations', {
     {
       say: 'Long shunt compound ma armature current series field bata pani jaancha. Tesaile drop I a times R a plus R se, ra I sh equals V over R sh.',
       voice: 'लङ शन्ट कम्पाउन्डमा, आर्मेचर करेन्ट सिरिज फिल्डबाट पनि जान्छ। त्यसैले ड्रप — आई ए टाइम्स आर ए प्लस आर एस ई, र आई एस एच इक्वल्स भी ओभर आर एस एच।',
-      lines: [['step', tex(String.raw`\begin{aligned} I_L &= I_a + I_{sh},\quad I_{sh} = \tfrac{V}{R_{sh}} \\ V &= E_b + I_a(R_a + R_{se}) \end{aligned}`)]],
+      lines: [['step', tex(String.raw`\begin{aligned} I_L &= I_a + I_{sh},\quad I_{sh} \\ &= \tfrac{V}{R_{sh}} \\ V &= E_b + I_a(R_a + R_{se}) \end{aligned}`)]],
     },
     {
       say: 'Short shunt ma series field bata pura line current I L bagcha. Tesaile series drop I L R se, ra armature drop I a R a.',
@@ -243,7 +243,7 @@ export const equations42 = duo('Derivation: voltage ra current equations', {
     {
       say: 'Series motor: I L equals I a equals I se, ra V equals E b plus I a times R a plus R se.',
       voice: 'सिरिज मोटर — आई एल इक्वल्स आई ए इक्वल्स आई एस ई। र भी इक्वल्स ई बी प्लस आई ए, टाइम्स आर ए प्लस आर एस ई।',
-      lines: [['step', <><H>(ii) Series motor</H><K>{String.raw`\begin{aligned} I_L &= I_a = I_{se} && \cdots(4) \\ V &= E_b + I_a(R_a + R_{se}) && \cdots(5) \end{aligned}`}</K></>]],
+      lines: [['step', <><H>(ii) Series motor</H><K>{String.raw`\begin{aligned} I_L &= I_a \\ &= I_{se} && \cdots(4) \\ V &= E_b + I_a(R_a + R_{se}) && \cdots(5) \end{aligned}`}</K></>]],
       ask: {
         q: 'Series motor ma voltage equation kun ho?',
         voice: 'सिरिज मोटरमा भोल्टेज इक्वेसन कुन हो?',

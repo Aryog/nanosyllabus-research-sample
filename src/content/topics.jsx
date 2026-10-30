@@ -4,6 +4,7 @@ import { backEmfAnswer, characteristicsAnswer, starterAnswer, testingAnswer, tor
 import { backEmfDerivation, torqueDerivation, torqueFromPower, voltageEquation } from './video/t41.jsx';
 import './video/roles41.jsx';
 import { charsAnswer42, chars42, equations42, noLoad42, opener42, series42, seriesSolve42, shunt42, types42 } from './unit4/u42.jsx';
+import { eff2074, eff2083, flow43, losses43, maxEff43, opener43 } from './unit4/u43.jsx';
 import { backEmf41, backEmfAnswer41, opener41, principle41, torque41, torqueAnswer41 } from './unit4/u41.jsx';
 import { ch1Model, fleming, howBig, whyItMoves } from './video/ch1.jsx';
 import { ch2Model, commutatorAction, crossSection, emfDerivation, emfIoe, lapWave } from './video/ch2.jsx';
@@ -59,30 +60,11 @@ const t42 = topic({
 const t43 = topic({
   num: '4.3',
   title: 'Losses ra efficiency',
-  intro: [
-    { say: 'Losses ra efficiency topic suru garau.', voice: 'लसेस र इफिसियन्सी टपिक सुरु गरौं।' },
-    {
-      say: 'Motor lai diyeko power kata kata harauncha, tyo khojchau.',
-      voice: 'मोटरलाई दिएको पावर कता कता हराउँछ, त्यो खोज्छौं।',
-      lines: [{ kind: 'idea', node: <>Diyeko sabai power kaam ma lagcha ta?</> }, { kind: 'step', node: <>Power kata harauncha?</> }],
-    },
-    {
-      say: 'Ani motor sabai bhanda efficient kahile huncha, tyo condition nikalchau.',
-      voice: 'अनि मोटर सबैभन्दा इफिसियन्ट कहिले हुन्छ, त्यो कन्डिसन निकाल्छौं।',
-      lines: [{ kind: 'idea', node: <>Efficiency kahile maximum huncha?</> }],
-    },
-    {
-      say: 'Ani last ma, IOE 2074 Bhadra ko efficiency numerical sangai solve garchau. Antya samma hera!',
-      voice: 'अनि लास्टमा, आइओई दुई हजार चौहत्तर भदौको इफिसियन्सी न्युमेरिकल सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
-      lines: [{ kind: 'hook', node: <>★ Last ma: IOE 2074 Bhadra ko numerical</> }],
-    },
-  ],
-  terms: [vibe43, losses],
-  derive: [maxEff],
-  picture: [
-    ioeEff,
-  ],
-  extras: [powerFlow],
+  opener: opener43,
+  terms: [losses43],
+  derive: [flow43, maxEff43],
+  picture: [eff2074, eff2083],
+  extras: [vibe43, losses, maxEff, ioeEff, powerFlow],
 });
 
 const t44 = topic({
