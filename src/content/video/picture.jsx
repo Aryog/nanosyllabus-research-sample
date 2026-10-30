@@ -35,7 +35,7 @@ const leader = (x1, y1, x2, y2, label, anchor = 'start') => (
 const LEFT_C = [[132.5, 95.1], [118, 135], [132.5, 174.9]];
 const RIGHT_C = [[227.5, 95.1], [242, 135], [227.5, 174.9]];
 
-const torqueFigure = (s) => (
+export const torqueFigure = (s) => (
   <>
     <g className={s.on(0)}>
       <path d="M14 100 H70 V80 H112 V92.9 A80 80 0 0 0 112 177.1 V190 H70 V170 H14 Z" {...INK} />
@@ -96,7 +96,7 @@ const torqueFigure = (s) => (
 
 // Labels are sized for the widest look font (Inter, about 0.6 × font size per
 // character) and kept inside the 360-wide figure.
-const backEmfFigure = (s) => (
+export const backEmfFigure = (s) => (
   <>
     <g className={s.on(0)}>
       {/* Supply V (cell symbol), Ra (box resistor), armature M with Eb. */}
@@ -163,7 +163,7 @@ const curvesFigure = (s) => (
     <g className={s.on(5)}>
       <path d={hyperbola} fill="none" stroke={C.red} strokeWidth={3} className={`draw${s.hl(5)}`} pathLength={1} />
       <text x={175} y={300} fontSize={13} fill={C.red}>Series (1/Ia)</text>
-      <text x={102} y={200} fontSize={12} fill={C.red}>⚠ no load → N bahut high</text>
+      <text x={102} y={200} fontSize={12} fill={C.red}>⚠ no load → N dherai high</text>
     </g>
   </>
 );
@@ -279,8 +279,8 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
     },
     {
       node: <><H>Function of commutator</H>As each coil crosses the magnetic neutral axis (MNA), the commutator reverses its current, so the torque remains unidirectional.</>,
-      say: 'Commutator: har coil le magnetic neutral axis cross garda tesko current reverse garcha. Phalswarup torque eutai direction ma rahancha.',
-      voice: 'कम्युटेटर — हर कोइलले म्याग्नेटिक न्युट्रल एक्सिस क्रस गर्दा, त्यसको करेन्ट रिभर्स गर्छ। फलस्वरूप, टर्क एउटै डाइरेक्सनमा रहन्छ।',
+      say: 'Commutator: harek coil le magnetic neutral axis cross garda tesko current reverse garcha. Phalswarup torque eutai direction ma rahancha.',
+      voice: 'कम्युटेटर — हरेक कोइलले म्याग्नेटिक न्युट्रल एक्सिस क्रस गर्दा, त्यसको करेन्ट रिभर्स गर्छ। फलस्वरूप, टर्क एउटै डाइरेक्सनमा रहन्छ।',
       ask: {
         q: 'DC motor ma commutator ko kaam k ho?',
         voice: 'डीसी मोटरमा कम्युटेटरको काम के हो?',
@@ -307,8 +307,8 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
           <K>{String.raw`\begin{aligned} I_c &= \dfrac{I_a}{A} && \cdots(1) \\ B &= \dfrac{P\phi}{2\pi r l} && \cdots(2) \\ F &= B\,I_c\,l && \\ &= \dfrac{P\phi I_a}{2\pi r A} && \cdots(3) \end{aligned}`}</K>
         </>
       ),
-      say: 'Har conductor ko current I c equals I a over A, equation ek. Flux density B equals P phi over two pi r l, equation dui. Force F equals B I c l, arthat P phi I a over two pi r A, equation tin.',
-      voice: 'हर कन्डक्टरको करेन्ट — आई सी इक्वल्स आई ए ओभर ए, इक्वेसन वान। फ्लक्स डेन्सिटी — बी इक्वल्स पी फाइ, ओभर टु पाइ आर एल, इक्वेसन टु। फोर्स — एफ इक्वल्स बी आई सी एल, अर्थात पी फाइ आई ए, ओभर टु पाइ आर ए, इक्वेसन थ्री।',
+      say: 'Harek conductor ko current I c equals I a over A, equation ek. Flux density B equals P phi over two pi r l, equation dui. Force F equals B I c l, arthat P phi I a over two pi r A, equation tin.',
+      voice: 'हरेक कन्डक्टरको करेन्ट — आई सी इक्वल्स आई ए ओभर ए, इक्वेसन वान। फ्लक्स डेन्सिटी — बी इक्वल्स पी फाइ, ओभर टु पाइ आर एल, इक्वेसन टु। फोर्स — एफ इक्वल्स बी आई सी एल, अर्थात पी फाइ आई ए, ओभर टु पाइ आर ए, इक्वेसन थ्री।',
     },
     {
       node: (
@@ -324,9 +324,9 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
       page: true,
       node: (
         <>
-          ∴ Armature torque,
+          <K>{String.raw`\therefore`}</K> Armature torque,
           <K>{String.raw`\boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\ \text{N}\cdot\text{m}} \qquad \cdots(6)`}</K>
-          For a given machine P, Z and A are constant, ∴ <K>{String.raw`T_a \propto \phi\, I_a`}</K>. <b>Hence proved.</b>
+          For a given machine P, Z and A are constant, <K>{String.raw`\therefore`}</K> <K>{String.raw`T_a \propto \phi\, I_a`}</K>. <b>Hence proved.</b>
         </>
       ),
       say: 'Yesko matlab armature torque T a equals 0.159 phi Z I a times P over A newton metre, equation cha. Given machine ma P, Z ra A constant, tesaile T a phi I a sanga proportional. Hence proved.',
@@ -389,7 +389,7 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
       voice: 'सिग्निफिकेन्स टु, इनर्जी कन्भर्सन — इक्वेसन टुलाई आई एले मल्टिप्लाई गर्दा, भी आई ए इक्वल्स ई बी आई ए प्लस आई ए स्क्वायर आर ए। ब्याक इएमएफको बिरुद्ध लिएको पावर, ई बी आई ए नै — मेकानिकल पावर पी एम हो।',
     },
     {
-      node: <>(iii) <b>Starting:</b> at start N = 0, ∴ <K>{String.raw`E_b = 0`}</K> and from (3) <K>{String.raw`I_a = V/R_a`}</K>, which is very large (220 V, R<sub>a</sub> = 0.5 Ω → 440 A). Hence a starter is necessary.</>,
+      node: <>(iii) <b>Starting:</b> at start N = 0, <K>{String.raw`\therefore`}</K> <K>{String.raw`E_b = 0`}</K> and from (3) <K>{String.raw`I_a = V/R_a`}</K>, which is very large (220 V, R<sub>a</sub> = 0.5 Ω → 440 A). Hence a starter is necessary.</>,
       say: 'Significance tin, starting: start ma N zero, yasari E b zero, ani equation tin bata I a equals V over R a dherai thulo, jastai 220 volt ra 0.5 ohm ma 440 ampere. Yahi karan starter chahincha.',
       voice: 'सिग्निफिकेन्स थ्री, स्टार्टिङ — स्टार्टमा एन जिरो, यसरी ई बी जिरो। अनि इक्वेसन थ्रीबाट, आई ए इक्वल्स भी ओभर आर ए, धेरै ठूलो — जस्तै टु ट्वेन्टी भोल्ट र जिरो पोइन्ट फाइभ ओममा, फोर हन्ड्रेड फोर्टी एम्पियर। यही कारण, स्टार्टर चाहिन्छ।',
       ask: {

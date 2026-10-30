@@ -84,6 +84,14 @@ export const extra = (step) => ({ ...step, practice: true });
   `draw` adds the diagram or chart the answer needs, beside the notes; beat 0 is
   the question, beat k the k-th point.
 */
+// Reuses a figure in another telling (skill rule 46): `map` sends the figure's
+// own beat numbers to the beats of the new script; parts left out of the map
+// never show.
+export const figAt = (draw, map) => (s) => {
+  const m = (k) => map[k] ?? 99;
+  return draw({ ...s, on: (k, until) => s.on(m(k), until == null ? Infinity : m(until)), hl: (k) => s.hl(m(k)) });
+};
+
 export function answer(title, { papers, marks, q, read, points, tip, draw, viewBox, variants }) {
   const src = papers.length ? `IOE ${papers.slice(0, 3).join(' · ')}${papers.length > 3 ? ` +${papers.length - 3}` : ''}` : 'Exam-style';
   const beats = [read, ...points, ...(tip ? [tip] : [])].map(({ say, voice, ask }) => ({ say, voice, ask }));

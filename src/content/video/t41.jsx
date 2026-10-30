@@ -1,4 +1,5 @@
-import { Arrow, C, Conductor, K, Resistor, Source, video } from './kit.jsx';
+import { Arrow, C, Conductor, K, Resistor, Source, figAt, video } from './kit.jsx';
+import { backEmfFigure, torqueFigure } from './picture.jsx';
 
 /*
   4.1 segment 2, Derivation: every equation the syllabus bullet needs, one video
@@ -25,6 +26,9 @@ const step = (label, math) => <><span className="lbl">{label}</span>{tex(math)}<
 
 export const backEmfDerivation = video('Derivation: back EMF equation', {
   tall: true,
+  // The armature between the poles: the conductors that cut the flux.
+  draw: figAt(torqueFigure, { 0: 0, 1: 0 }),
+  viewBox: '0 0 360 276',
   beats: [
     {
       say: 'Back EMF equation derive garchau. Symbols: P pole, phi flux per pole, Z conductor, A parallel path, ra N speed rpm ma.',
@@ -113,8 +117,8 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
         { at: 0, kind: 'step', node: <>Let,&nbsp; P = number of poles; φ = flux per pole (Wb); Z = total armature conductors; A = number of parallel paths; N = speed (rpm).</> },
         { at: 1, kind: 'step', node: <>In one revolution, flux cut by one conductor and the time taken:{tex(String.raw`\begin{aligned} d\Phi &= P\phi\ \text{Wb} && \cdots(1) \\ dt &= \dfrac{60}{N}\ \text{s} && \cdots(2) \end{aligned}`)}</> },
         { at: 2, kind: 'step', node: <>By Faraday’s law, EMF per conductor,{tex(String.raw`\begin{aligned} e &= \dfrac{d\Phi}{dt} && \\ &= \dfrac{P\phi N}{60}\ \text{V} && \cdots(3) \end{aligned}`)}</> },
-        { at: 3, kind: 'step', node: <>With Z/A conductors in series per path, ∴{tex(String.raw`\boxed{E_b = \dfrac{P\phi Z N}{60A}\ \text{V}} \qquad \cdots(4)`)}</> },
-        { at: 4, kind: 'step', node: <>For a given machine, <K>{String.raw`E_b = k\phi N`}</K> ∴ <K>{String.raw`E_b \propto \phi N`}</K>. <b>Hence proved.</b></> },
+        { at: 3, kind: 'step', node: <>With Z/A conductors in series per path, {tex(String.raw`\therefore\ \boxed{E_b = \dfrac{P\phi Z N}{60A}\ \text{V}} \qquad \cdots(4)`)}</> },
+        { at: 4, kind: 'step', node: <>For a given machine, <K>{String.raw`E_b = k\phi N`}</K> <K>{String.raw`\therefore`}</K> <K>{String.raw`E_b \propto \phi N`}</K>. <b>Hence proved.</b></> },
       ],
     },
   },
@@ -122,7 +126,7 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
 
 // Armature circuit for the voltage equation: supply V, Ra, armature with Eb
 // against the supply, Ia round the loop.
-const circuit = (s) => (
+export const circuit = (s) => (
   <>
     <g className={s.on(0)}>
       <line x1={60} y1={40} x2={140} y2={40} stroke={C.chalk} strokeWidth={2} />
@@ -156,7 +160,7 @@ const circuit = (s) => (
 
 export const voltageEquation = video('Derivation: voltage ra power equation', {
   tall: true,
-  viewBox: '0 0 360 200',
+  viewBox: '0 0 376 200', // room for "opposes V" (rule 39)
   draw: circuit,
   beats: [
     {
@@ -213,7 +217,7 @@ export const voltageEquation = video('Derivation: voltage ra power equation', {
 // Engineer role (model first, Efficient Engineer style): symbols live on the figure.
 // One conductor on the armature: radius r to it, force F along the rim (the
 // lever arm), length l into the page. Same beats as the main script.
-const lever = (s) => (
+export const lever = (s) => (
   <>
     <g className={s.on(0)}>
       <circle cx={150} cy={110} r={74} fill="none" stroke={C.chalk} strokeWidth={2.4} />
@@ -253,6 +257,8 @@ const lever = (s) => (
 
 export const torqueDerivation = video('Derivation: torque equation (force method)', {
   tall: true,
+  viewBox: '0 0 340 216',
+  draw: lever,
   beats: [
     {
       say: 'Torque equation, force method bata. Armature radius r, active length l, ra armature current I a.',
@@ -345,6 +351,9 @@ export const torqueDerivation = video('Derivation: torque equation (force method
 
 export const torqueFromPower = video('Derivation: torque equation (power method)', {
   tall: true,
+  // Armature circuit: Eb·Ia is the power that turns into torque.
+  draw: figAt(backEmfFigure, { 0: 0, 1: 0, 2: 0 }),
+  viewBox: '0 0 360 222',
   beats: [
     {
       say: 'Arko method: mechanical power bata torque. P m equals E b I a, ra rotating shaft ma P m equals T a omega pani ho.',

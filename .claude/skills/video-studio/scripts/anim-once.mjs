@@ -31,7 +31,7 @@ const { chromium } = await import('playwright-core');
 const browser = await chromium.launch({ executablePath: chrome, args: ['--enable-unsafe-swiftshader', '--autoplay-policy=no-user-gesture-required'] });
 const page = await browser.newPage({ viewport: { width: 1280, height: 760 } });
 await page.addInitScript((role) => {
-  localStorage.setItem('dcm-pov', JSON.stringify(role));
+  for (const n of [1, 2, 3]) localStorage.setItem(`dcm-pov-${n}`, JSON.stringify(role));
   window.__anims = [];
   const ids = new WeakMap();
   let id = 0;

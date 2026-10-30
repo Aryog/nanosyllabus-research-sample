@@ -215,7 +215,7 @@ export const ioeEff = solve({
   find: { node: <>E, copper losses, η</>, say: 'EMF, copper losses ra efficiency chahiyo.', voice: 'ई एम एफ, कपर लसेस र इफिसियन्सी चाहियो।' },
   idea: {
     node: <>Generator: Ia = IL + Ish · η = Output / (Output + sabai losses)</>,
-    say: 'Key idea: generator ma armature le load ra aafnai field dubai lai feed garcha, tesaile I a = I L plus I shunt. Ani har loss jodne.',
+    say: 'Key idea: generator ma armature le load ra aafnai field dubai lai feed garcha, tesaile I a = I L plus I shunt. Ani harek loss jodne.',
     voice: 'की आइडिया: जेनेरेटरमा आर्मेचरले लोड र आफ्नै फिल्ड दुवैलाई फिड गर्छ, त्यसैले आई ए बराबर आई एल प्लस आई शन्ट। अनि हरेक लस जोड्ने।',
   },
   steps: [

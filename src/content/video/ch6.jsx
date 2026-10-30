@@ -32,7 +32,7 @@ export const shunt = video('Derivation: shunt motor ko characteristics', {
   viewBox: '0 0 360 220',
   beats: [
     {
-      say: 'Har characteristic lai duita rule le chalaucha: torque proportional to phi times I a, ani speed proportional to E b over phi.',
+      say: 'Harek characteristic lai duita rule le chalaucha: torque proportional to phi times I a, ani speed proportional to E b over phi.',
       voice: 'हरेक क्यारेक्टरिस्टिकलाई दुईटा रुलले चलाउँछ: टर्क प्रोपोर्सनल टु फाइ टाइम्स आई ए, अनि स्पिड प्रोपोर्सनल टु ई बी ओभर फाइ।',
     },
     {

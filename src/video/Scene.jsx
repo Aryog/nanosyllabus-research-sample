@@ -338,12 +338,15 @@ const clock = (ms) => {
   POV starts the video again from the top in the new telling.
 */
 export function Scene(props) {
+  // The choice is kept per segment, so Terms, Derivation and Big picture each
+  // open on their own teacher (Engineer, Tutor, Lecturer) until changed there.
+  const povKey = `dcm-pov-${props.segment?.[0] ?? 0}`;
   const [choice, setChoice] = useState(() => {
-    const v = pref('dcm-pov', 'auto');
+    const v = pref(povKey, 'auto');
     return v === 'auto' || povById(v) ? v : 'auto';
   });
-  // The Lecturer's page is white (Book) or blue, the viewer's choice.
-  const [theme, setTheme] = useState(() => (pref('dcm-lecturer-theme', 'white') === 'blue' ? 'blue' : 'white'));
+  // The Lecturer's page is blue (default) or white (Book), the viewer's choice.
+  const [theme, setTheme] = useState(() => (pref('dcm-lecturer-theme', 'blue') === 'white' ? 'white' : 'blue'));
   // Big picture is always taught by the Lecturer (rule 44): no role switch there.
   const locked = props.segment?.startsWith('3/3');
   const native = locked ? 'lecturer' : props.pov ?? autoPov(props.segment);
@@ -351,7 +354,7 @@ export function Scene(props) {
   const variant = id !== native ? props.variants?.[id] : null;
   const pick = (v) => {
     setChoice(v);
-    keep('dcm-pov', v);
+    keep(povKey, v);
   };
   const pickTheme = (t) => {
     setTheme(t);

@@ -78,6 +78,6 @@ Every Big-picture video is taught by the Lecturer only; the player locks the rol
 - [ ] Headings are underlined, every symbol is in "Let,", and equations are numbered and referred back to.
 - [ ] The result is boxed with ∴, plus "Hence proved" where it applies.
 - [ ] The figure is numbered, cited and bookish, with no overlaps in any role's look.
-- [ ] Frame strip with `dcm-pov = "lecturer"` in both themes (`dcm-lecturer-theme` white and blue): each page is readable at 1280 px.
+- [ ] Frame strip with `dcm-pov-<segment> = "lecturer"` in both themes (`dcm-lecturer-theme` white and blue): each page is readable at 1280 px.
 
 When the user corrects this role, add the rule here, with a dated line in video-studio's changelog.

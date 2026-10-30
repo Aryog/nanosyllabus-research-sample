@@ -70,6 +70,6 @@ Big picture is always taught by the Lecturer (the player locks it). This role ha
 - [ ] The count, years and marks match `vault/`.
 - [ ] Every mark has a concrete "write this / draw this".
 - [ ] One trap with an ask that tests it, and one memory trick.
-- [ ] Frame strip with `dcm-pov = "senior"`: the board is readable.
+- [ ] Frame strip with `dcm-pov-<segment> = "senior"`: the board is readable.
 
 When the user corrects this role, add the rule here, with a dated line in video-studio's changelog.

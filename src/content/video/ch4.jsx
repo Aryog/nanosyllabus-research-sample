@@ -206,7 +206,7 @@ export const voltagePower = video('Derivation: voltage, power ra torque equation
   beats: [
     { say: 'Supply ko duita kaam cha. Back EMF lai overcome garnu parcha, ani armature resistance bata current push garnu parcha.', voice: 'सप्लाईको दुईटा काम छ। ब्याक ई एम एफलाई ओभरकम गर्नु पर्छ, अनि आर्मेचर रेजिस्टेन्सबाट करेन्ट पुस गर्नु पर्छ।' },
     { say: 'So motor ko voltage equation: V equals E b plus I a R a.', voice: 'सो मोटरको भोल्टेज इक्वेसन: भी इक्वल्स ई बी प्लस आई ए आर ए।' },
-    { say: 'Voltage lai power ma convert garna har term lai I a le multiply gara.', voice: 'भोल्टेजलाई पावरमा कन्भर्ट गर्न हर टर्मलाई आई एले मल्टिप्लाई गर।' },
+    { say: 'Voltage lai power ma convert garna harek term lai I a le multiply gara.', voice: 'भोल्टेजलाई पावरमा कन्भर्ट गर्न हरेक टर्मलाई आई एले मल्टिप्लाई गर।' },
     { say: 'V I a equals E b I a plus I a squared R a.', voice: 'भी आई ए इक्वल्स ई बी आई ए प्लस आई ए स्क्वायर्ड आर ए।' },
     { say: 'V I a bhaneko armature lai diyeko electrical power. I a squared R a chai copper loss, heat bhayera waste huncha.', voice: 'भी आई ए भनेको आर्मेचरलाई दिएको इलेक्ट्रिकल पावर। आई ए स्क्वायर्ड आर ए चाहिँ कपर लस, हिट भएर वेस्ट हुन्छ।' },
     {

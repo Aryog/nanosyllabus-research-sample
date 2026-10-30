@@ -275,16 +275,16 @@ export const recap = video('Pura DC motor 3 minute ma', {
   beats: [
     { say: 'Last ekchoti sabai kura feri herau, wire ko push dekhi efficiency samma.', voice: 'लास्ट एकचोटि सबै कुरा फेरि हेरौं, वायरको पुश देखि इफिसियन्सीसम्म।' },
     { say: 'Field ma rakheko current-carrying conductor le F equals B I l force feel garcha, direction left-hand rule le.', voice: 'फिल्डमा राखेको करेन्ट क्यारिङ कन्डक्टरले एफ इक्वल्स बी आई एल फोर्स फिल गर्छ, डाइरेक्सन लेफ्ट ह्यान्ड रुलले।' },
-    { say: 'Commutator le har half turn ma coil ko current reverse garcha, tesaile torque kahile pani reverse hudaina.', voice: 'कम्युटेटरले हरेक हाफ टर्नमा कोइलको करेन्ट रिभर्स गर्छ, तेसैले टर्क कहिल्यै पनि रिभर्स हुँदैन।' },
+    { say: 'Commutator le harek half turn ma coil ko current reverse garcha, tesaile torque kahile pani reverse hudaina.', voice: 'कम्युटेटरले हरेक हाफ टर्नमा कोइलको करेन्ट रिभर्स गर्छ, तेसैले टर्क कहिल्यै पनि रिभर्स हुँदैन।' },
     {
       say: 'La, yo answer gara.',
       voice: 'ल, यो आन्सर गर।',
       ask: {
         q: 'Commutator le coil ko current kati choti reverse garcha?',
         voice: 'कम्युटेटरले कोइलको करेन्ट कति चोटि रिभर्स गर्छ?',
-        options: ['Har half turn ma', 'Kahile pani gardaina', 'Har das turn ma'],
+        options: ['Harek half turn ma', 'Kahile pani gardaina', 'Harek das turn ma'],
         answer: 0,
-        why: 'Har half turn ma reverse, tesaile torque kahile pani reverse hudaina.',
+        why: 'Harek half turn ma reverse, tesaile torque kahile pani reverse hudaina.',
       },
     },
     { say: 'Ghumne conductor le back EMF generate garcha, Eb equals P phi Z N over 60 A, ani V equals Eb plus Ia Ra.', voice: 'घुम्ने कन्डक्टरले ब्याक ई एम एफ जेनेरेट गर्छ, ई बी इक्वल्स पी फाइ जेड एन ओभर सिक्स्टी ए, अनि भी इक्वल्स ई बी प्लस आई ए आर ए।' },

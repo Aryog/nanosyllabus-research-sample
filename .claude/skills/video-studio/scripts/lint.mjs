@@ -22,6 +22,10 @@ const FILLER = /\b(ekchin|dhyan check|bharkhar|ekchoti socha|dhyan diyera|feri r
 const BAD_TAG = /dhyan check|ekchin socha/i;
 // Hype and filler (rule 32), and beats that only cue a question (rule 11).
 const HYPE = /\b(dami|ekdam smart|simple cha|pakka|antya samma hera|box gara|yo hera)\b/i;
+// Pointing words (rule 47): "yaha bata aaucha" points at nothing; yaha/tyaha/hera
+// only when the figure shows that part on that beat.
+const POINT_NOWHERE = /\b(yaha|yahi|tyaha|tyahi)\s*bata\s+aau/i;
+const POINT = /\b(yaha|tyaha|hera)\b/i;
 const LEAD_IN = /^(la,? yo answer gara|la use garau|euta term baki cha|aba maximum chahiyo)\.?$/i;
 // LaTeX inside a board line (the <K> children), to check rule 33.
 const texOf = (n) => (n == null || typeof n !== 'object' ? '' : Array.isArray(n) ? n.map(texOf).filter(Boolean).join(' \\\\ ') : n.type?.name === 'K' && typeof n.props?.children === 'string' ? n.props.children : texOf(n.props?.children));
@@ -46,6 +50,8 @@ for (const v of videos) {
     if (/\byo topic\b/i.test(say)) report('error', v, k, 'says "yo topic"; name the topic (rule 5)');
     if (FILLER.test(say)) report('error', v, k, `filler lead-in "${say.match(FILLER)[0]}"; use "La, yo answer gara." (rule 11)`);
     if (HYPE.test(say)) report('error', v, k, `filler "${say.match(HYPE)[0]}" (rule 32)`);
+    if (POINT_NOWHERE.test(say)) report('error', v, k, `"${say.match(POINT_NOWHERE)[0]}" points at nothing; say what it is (rule 47)`);
+    else if (POINT.test(say)) report('warn', v, k, `pointing word "${say.match(POINT)[0]}": only if the figure shows it now (rule 47)`);
     if (b.ask && LEAD_IN.test(say.trim())) report(topics.length ? 'error' : 'warn', v, k, 'beat only cues its question; attach the ask to the beat that taught it (rule 11)');
     const words = say.split(/\s+/).filter(Boolean).length;
     if (words > 35) report('warn', v, k, `${words} words in one beat (keep under ~35)`);

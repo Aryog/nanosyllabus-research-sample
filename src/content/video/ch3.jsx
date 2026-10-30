@@ -14,8 +14,8 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
   viewBox: '0 0 360 224',
   beats: [
     { say: 'Armature: left ma north pole ra right ma south pole ko bichma. Field yeslai left bata right tira cross garcha.', voice: 'आर्मेचर — लेफ्टमा नर्थ पोल, र राइटमा साउथ पोलको बीचमा। फिल्ड चाहिँ, यसलाई लेफ्टबाट राइटतिर क्रस गर्छ।' },
-    { say: 'Commutator le ensure garcha ki N pole muni ko har conductor ma current screen bhitra jancha, cross le dekhaeko, ra S muni ko har conductor ma current bahira aaucha, dot le dekhaeko.', voice: 'कम्युटेटरले यो इन्स्योर गर्छ — एन पोलमुनिको हर कन्डक्टरमा, करेन्ट स्क्रिन भित्र जान्छ, क्रसले देखाएको। अनि एस पोलमुनिको हर कन्डक्टरमा, करेन्ट बाहिर आउँछ, डटले देखाएको।' },
-    { say: 'Fleming ko left-hand rule: field right tira ra current screen bhitra bhaye force tala tira huncha. So left ko har conductor tala push huncha.', voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुल — फिल्ड राइटतिर, र करेन्ट स्क्रिन भित्र भए, फोर्स तलतिर हुन्छ। सो, लेफ्टको हर कन्डक्टर तल पुस हुन्छ।' },
+    { say: 'Commutator le ensure garcha ki N pole muni ko harek conductor ma current screen bhitra jancha, cross le dekhaeko, ra S muni ko harek conductor ma current bahira aaucha, dot le dekhaeko.', voice: 'कम्युटेटरले यो इन्स्योर गर्छ — एन पोलमुनिको हरेक कन्डक्टरमा, करेन्ट स्क्रिन भित्र जान्छ, क्रसले देखाएको। अनि एस पोलमुनिको हरेक कन्डक्टरमा, करेन्ट बाहिर आउँछ, डटले देखाएको।' },
+    { say: 'Fleming ko left-hand rule: field right tira ra current screen bhitra bhaye force tala tira huncha. So left ko harek conductor tala push huncha.', voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुल — फिल्ड राइटतिर, र करेन्ट स्क्रिन भित्र भए, फोर्स तलतिर हुन्छ। सो, लेफ्टको हरेक कन्डक्टर तल पुस हुन्छ।' },
     { say: 'Right tira current bahira aaucha, tesaile force mathi tira huncha.', voice: 'राइटतिर करेन्ट बाहिर आउँछ, त्यसैले फोर्स, माथितिर हुन्छ।' },
     {
       say: 'Left ma tala, right ma mathi: sabai force le armature lai eutai tira ghumaucha, counter-clockwise. Yinko turning effect jodda armature torque bancha.',
@@ -134,7 +134,7 @@ export const ch3Model = model({
   points: [
     <><b>Principle:</b> Exam ma exactly yo lekha: “When a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force F = BIl”, ani yesko direction Fleming ko left-hand rule le dincha.</>,
     <><b>Working:</b> field winding le flux banaucha; armature lai brush ra commutator bata feed garincha. N muni ka conductor ma current euta tira ra S muni ka ma arko tira bagcha, tesaile sabai force eutai rotational sense ma lagchan ra torque produce garchan.</>,
-    <><b>Commutator ko role:</b> har coil le neutral zone pass garda tesko current reverse garcha, ani torque lai unidirectional rakhcha.</>,
+    <><b>Commutator ko role:</b> harek coil le neutral zone pass garda tesko current reverse garcha, ani torque lai unidirectional rakhcha.</>,
     <><b>Derivation:</b> I<sub>c</sub> = I<sub>a</sub>/A; B = Pφ/(2πrl); F = BI<sub>c</sub>l = PφI<sub>a</sub>/(2πrA); euta conductor ko torque = F·r = PφI<sub>a</sub>/(2πA).</>,
     <><b>Result:</b> T<sub>a</sub> = PφZI<sub>a</sub>/(2πA) = 0.159 φZI<sub>a</sub>(P/A) N·m, tesaile T<sub>a</sub> ∝ φI<sub>a</sub>.</>,
     <><b>Consequence:</b> shunt motor (φ constant) ma T<sub>a</sub> ∝ I<sub>a</sub>; series motor (φ ∝ I<sub>a</sub>) ma saturation aghi T<sub>a</sub> ∝ I<sub>a</sub>².</>,

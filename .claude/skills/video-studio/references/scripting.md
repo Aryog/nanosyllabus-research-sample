@@ -117,3 +117,6 @@ Graph step board line (rule 19):
 - Run `lint.mjs <topic>`: no errors.
 - Check every number with a quick node or python calculation, and make sure every wrong option is really wrong.
 - The real IOE question and its year or count come from `vault/` (Question Bank), cited in the board `tag`.
+
+47. **Say what it is; don't point at nothing.** Never "yaha bata aaucha", "baki sabai yahi bata", "yaha dherai le…" or "hera" as filler. "Yaha/tyaha/hera" are allowed only when the figure shows that exact part on that beat; otherwise name it ("MNA mai commutator le…", "Dherai le confuse garchan"). Lint: "… bata aau…" is an error, other pointing words a warning.
+

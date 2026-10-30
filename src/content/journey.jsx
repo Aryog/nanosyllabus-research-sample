@@ -23,7 +23,7 @@ const summary = {
       <h2>DC motor, suru dekhi antya samma</h2>
       <ol className="summary">
         <li>Motor principle: field ma rakheko current-carrying conductor le <M>F = BIl</M> force paucha (Fleming’s left-hand rule).</li>
-        <li>Commutator le har half turn ma coil ko current ulto pharcha, tyesaile torque eutai direction ma rahancha.</li>
+        <li>Commutator le harek half turn ma coil ko current ulto pharcha, tyesaile torque eutai direction ma rahancha.</li>
         <li>Back EMF: <M>Eb = PφZN/60A</M>; voltage equation <M>V = Eb + IaRa</M>; Pm = EbIa, Eb = V/2 huda maximum.</li>
         <li>Torque: <M>Ta = 0.159φZIa(P/A) = 9.55EbIa/N</M>; speed <M>N ∝ (V − IaRa)/φ</M>.</li>
         <li>Shunt: speed constant jasto. Series: Ta ∝ Ia², no load ma kahile pani na chalau. Compound: dubai ko bich ma.</li>

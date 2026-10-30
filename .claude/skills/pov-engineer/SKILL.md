@@ -74,6 +74,6 @@ Big picture is always taught by the Lecturer (the player locks it). This role ha
 - [ ] The real object comes first, and every symbol appears on the figure before it is used in the equation.
 - [ ] The figure's colour of each symbol matches its colour in the equation, and units are said.
 - [ ] The board beside the figure has 6 lines or fewer.
-- [ ] Frame strip with `dcm-pov = "engineer"`: nothing overlaps, and the ring is on the part.
+- [ ] Frame strip with `dcm-pov-<segment> = "engineer"`: nothing overlaps, and the ring is on the part.
 
 When the user corrects this role, add the rule here, with a dated line in video-studio's changelog.

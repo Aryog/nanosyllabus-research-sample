@@ -24,3 +24,6 @@ Local preferences: `dcm-rate` speed, `dcm-cc` captions, `dcm-muted`, `dcm-look` 
 37. **Video page like a video site.** On a topic's video, the player sits left and an *Up next* list sits right (stacked under it below 1100 px): the topic's videos grouped by segment, each with a 16:9 thumbnail (blue for segments 1–2, white for 3), its number, its running time (from its lines) and its state (Ahile herdai · ✓ Herisakyau · Click garera hera · locked). Open ones are clickable, like the progress-bar ticks.
 
 Extra practice (`extras`) is offered after the course, grouped by topic.
+
+- **POV is kept per segment** (`dcm-pov-1`, `dcm-pov-2`, `dcm-pov-3`): Terms opens on the Engineer, Derivation on the **Tutor**, Big picture on the Lecturer (locked), until the viewer changes that segment. The Lecturer's theme defaults to **Blue** (`dcm-lecturer-theme`, White on request).
+

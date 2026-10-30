@@ -380,8 +380,8 @@ export const speedDerivation = video('Derivation: speed control ko equation', {
       },
     },
     {
-      say: 'Constant torque bhaneko phi 1 I a 1 equals phi 2 I a 2. Har speed-control numerical yi duita line ho: pahila naya I a, ani naya E b, ani speed ratio.',
-      voice: 'कन्स्टेन्ट टर्क भनेको फाइ वान आई ए वान इक्वल्स फाइ टु आई ए टु। हर स्पिड कन्ट्रोल न्युमेरिकल यी दुईटा लाइन हो: पहिला नयाँ आई ए, अनि नयाँ ई बी, अनि स्पिड रेसियो।',
+      say: 'Constant torque bhaneko phi 1 I a 1 equals phi 2 I a 2. Harek speed-control numerical yi duita line ho: pahila naya I a, ani naya E b, ani speed ratio.',
+      voice: 'कन्स्टेन्ट टर्क भनेको फाइ वान आई ए वान इक्वल्स फाइ टु आई ए टु। हरेक स्पिड कन्ट्रोल न्युमेरिकल यी दुईटा लाइन हो: पहिला नयाँ आई ए, अनि नयाँ ई बी, अनि स्पिड रेसियो।',
     },
   ],
   board: [
@@ -408,7 +408,7 @@ export const ch8Model = model({
     <><b>Voltage control (Ward-Leonard):</b> armature lai arko motor le chalaune separately excited generator bata feed garincha; generator field change garda V change huncha, ani zero dekhi base speed samma dubai direction ma smooth control milcha. Ekdam ramro tara mahango.</>,
     <><b>Tulana:</b> field control base bhanda mathi (constant power), armature/voltage control base bhanda tala (constant torque).</>,
   ],
-  tip: 'Pahila N ∝ (V − IaRa)/φ lekha: ani har method “yo equation ko euta term change gara” jasto padhincha.',
+  tip: 'Pahila N ∝ (V − IaRa)/φ lekha: ani harek method “yo equation ko euta term change gara” jasto padhincha.',
 });
 
 // Syllabus 4.5: reversing the direction of rotation.

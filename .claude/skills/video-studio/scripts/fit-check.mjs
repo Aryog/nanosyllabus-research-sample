@@ -107,7 +107,7 @@ await Promise.all(
       {
         const page = await ctx.newPage();
         await page.addInitScript(([r, t]) => {
-          localStorage.setItem('dcm-pov', JSON.stringify(r));
+          for (const n of [1, 2, 3]) localStorage.setItem(`dcm-pov-${n}`, JSON.stringify(r));
           localStorage.setItem('dcm-lecturer-theme', JSON.stringify(t));
         }, [role, theme]);
         await page.goto(`${base}electrical-machines/dc-motor/lesson/${n}`, { waitUntil: 'networkidle' });

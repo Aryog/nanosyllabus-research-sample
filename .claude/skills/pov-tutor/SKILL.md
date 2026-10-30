@@ -77,6 +77,6 @@ Big picture is always taught by the Lecturer (the player locks it). This role ha
 - [ ] Every step has a why, and nothing is skipped between rows.
 - [ ] Every substitution uses X → R; two "=" never share a row.
 - [ ] Every ask sits on a teaching beat and checks understanding.
-- [ ] Frame strip with `dcm-pov = "tutor"`: the text is readable, and the columns are balanced.
+- [ ] Frame strip with `dcm-pov-<segment> = "tutor"`: the text is readable, and the columns are balanced.
 
 When the user corrects this role, add the rule here, with a dated line in video-studio's changelog.

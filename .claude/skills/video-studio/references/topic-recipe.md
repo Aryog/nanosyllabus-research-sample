@@ -53,7 +53,7 @@ node .claude/skills/video-studio/scripts/frame-strip.mjs "<title words>" --frame
 node .claude/skills/video-studio/scripts/anim-once.mjs <screen> [--pov <role>]          # nothing animates twice (M16)
 node .claude/skills/video-studio/scripts/fit-check.mjs <num>                              # nothing cut/overlapping, every beat × role × size (0 problems)
 ```
-For role versions, screenshot with `localStorage dcm-pov = "<role>"` (see the `pov.mjs`-style snippet: `page.addInitScript(() => localStorage.setItem('dcm-pov', '"tutor"'))`), at least one video per role, and every Big-picture video in both Lecturer themes (`localStorage dcm-lecturer-theme = "blue"`). Open every PNG and look: nothing overlapping, text readable, the question card on top in Big picture, the green ring on the part.
+For role versions, screenshot with `localStorage dcm-pov-<segment> = "<role>"` (one key per segment, 1–3: `page.addInitScript(() => localStorage.setItem('dcm-pov-2', '"tutor"'))`), at least one video per role, and every Big-picture video in both Lecturer themes (`localStorage dcm-lecturer-theme = "blue"`). Open every PNG and look: nothing overlapping, text readable, the question card on top in Big picture, the green ring on the part.
 
 ## 6. Voice and render (only with the user's yes)
 

@@ -1,8 +1,9 @@
-import { K } from './kit.jsx';
+import { K, figAt } from './kit.jsx';
+import { backEmfFigure, torqueFigure } from './picture.jsx';
 import { story } from './ch4.jsx';
 import { torqueProduction3d } from './ch3.jsx';
 import { vibe41 } from './vibe.jsx';
-import { backEmfDerivation, torqueDerivation, torqueFromPower, voltageEquation } from './t41.jsx';
+import { backEmfDerivation, circuit, lever, torqueDerivation, torqueFromPower, voltageEquation } from './t41.jsx';
 
 /*
   4.1 told by every role (skill rule 43; roles in src/content/pov.js, one skill
@@ -23,7 +24,8 @@ const q = (qq, voice, options, answer, why, tag) => ({ q: qq, voice, options, an
 const tex = (s) => <K>{s}</K>;
 const L = (at, kind, node, until) => ({ at, kind, node, ...(until != null ? { until } : {}) });
 const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
-// A role's own telling: board only, no drawing or 3D from the native script.
+// A role's own telling: its own board, no drawing or 3D timed to the native
+// script. Its textbook figure is added below (figures, rule 46).
 const role = (beats, board, extra = {}) => ({ draw: undefined, three: undefined, notes: false, tall: true, beats, board, ...extra });
 const addRoles = (step, roles) => {
   step.figureProps.variants = { ...(step.figureProps.variants ?? {}), ...roles };
@@ -54,7 +56,7 @@ export const introRoles41 = {
       L(0, 'h', <>4.1 sangai</>),
       L(0, 'step', <>Pahila: motor kina ghumcha? → ani formula</>),
       L(1, 'step', <>Back EMF: number sanga, bistarai</>),
-      L(2, 'step', <>Torque equation: har step board ma</>),
+      L(2, 'step', <>Torque equation: harek step board ma</>),
     ],
   ),
   senior: role(
@@ -91,26 +93,26 @@ addRoles(vibe41, {
   tutor: role(
     [
       b('Timi ko phone vibrate huda bhitra sano DC motor ghumcha. Electrical energy bata ghumne kaam bancha.', 'तिम्रो फोन भाइब्रेट हुँदा, भित्र सानो डीसी मोटर घुम्छ। इलेक्ट्रिकल इनर्जीबाट, घुम्ने काम बन्छ।'),
-      b('Ghumcha kina? Field bhitra current bokeko taar lai force lagcha. Yo ek line yaad rakha, baki sabai yaha bata aaucha.', 'घुम्छ किन? फिल्डभित्र करेन्ट बोकेको तारलाई फोर्स लाग्छ। यो एक लाइन याद राख — बाँकी सबै यहीँबाट आउँछ।'),
-      b('Ani ghumda motor aafai ulto voltage banaucha, back EMF. Yaha dherai le confuse garchan: yo supply hoina, motor kai bhitra bancha.', 'अनि घुम्दा, मोटर आफैं उल्टो भोल्टेज बनाउँछ — ब्याक इएमएफ। यहाँ धेरैले कन्फ्युज गर्छन् — यो सप्लाई होइन, मोटरकै भित्र बन्छ।',
+      b('Ghumcha kina? Field bhitra current bokeko taar lai force lagcha. N muni ko conductor tala, S muni ko mathi push huncha.', 'घुम्छ किन? फिल्डभित्र करेन्ट बोकेको तारलाई फोर्स लाग्छ। एन मुनिको कन्डक्टर तल, एस मुनिको माथि पुस हुन्छ।'),
+      b('Ani ghumda motor aafai ulto voltage banaucha, back EMF. Dherai le confuse garchan: yo supply hoina, motor kai bhitra bancha.', 'अनि घुम्दा, मोटर आफैं उल्टो भोल्टेज बनाउँछ — ब्याक इएमएफ। धेरैले कन्फ्युज गर्छन् — यो सप्लाई होइन, मोटरकै भित्र बन्छ।',
         q('Back EMF kaha bancha?', 'ब्याक इएमएफ कहाँ बन्छ?', ['Ghumne armature bhitra', 'Supply battery ma', 'Field winding ko resistance ma'], 0, 'Armature ghumda conductor le flux cut garchan; tyahi EMF back EMF ho.')),
     ],
     [
       L(0, 'h', <>Motor = electrical → ghumne kaam</>),
-      L(1, 'step', <>Key line: field + current bokeko taar → <b>force</b></>),
+      L(1, 'step', <>Key line: field + current bokeko taar → <b>force</b> (N muni tala, S muni mathi)</>),
       L(2, 'step', <>Ghumda: motor bhitra ulto voltage = <b>back EMF</b> (supply hoina!)</>),
     ],
   ),
   senior: role(
     [
-      b('Senior tip: "Define DC motor" sidhai kamai aaucha, tara principle ra back EMF chai har barsa jasto aaucha.', 'सिनियर टिप — डिफाइन डीसी मोटर, सिधै कमै आउँछ। तर प्रिन्सिपल र ब्याक इएमएफ, हर बर्ष जस्तो आउँछ।'),
+      b('Senior tip: "Define DC motor" sidhai kamai aaucha, tara principle ra back EMF chai harek barsa jasto aaucha.', 'सिनियर टिप — डिफाइन डीसी मोटर, सिधै कमै आउँछ। तर प्रिन्सिपल र ब्याक इएमएफ, हरेक बर्ष जस्तो आउँछ।'),
       b('Principle lekhda exact line lekha: when a current-carrying conductor is placed in a magnetic field, it experiences a force.', 'प्रिन्सिपल लेख्दा, एक्जाक्ट लाइन लेख — ह्वेन अ करेन्ट क्यारिङ कन्डक्टर इज प्लेस्ड इन अ म्याग्नेटिक फिल्ड, इट एक्सपिरियन्सेस अ फोर्स।'),
       b('Trap: Fleming ko right-hand rule lekhyo bhane galat. Motor ma left-hand, generator ma right-hand.', 'ट्र्याप — फ्लेमिङको राइट ह्यान्ड रुल लेख्यो भने गलत। मोटरमा लेफ्ट ह्यान्ड, जेनेरेटरमा राइट ह्यान्ड।',
         q('DC motor ma force ko direction kun rule le dincha?', 'डीसी मोटरमा फोर्सको डाइरेक्सन, कुन रुलले दिन्छ?', ["Fleming's left-hand rule", "Fleming's right-hand rule", "Lenz's law"], 0, 'Motor = Left (yaad: motor ma "L"eft). Generator = Right.')),
     ],
     [
       L(0, 'h', <>Exam ma k aaucha?</>),
-      L(0, 'step', <>Principle + back EMF: har barsa jasto</>),
+      L(0, 'step', <>Principle + back EMF: harek barsa jasto</>),
       L(1, 'step', <>Exact line: “…it experiences a force, F = BIl”</>),
       L(2, 'trap', <>Motor = Fleming ko <b>left</b>-hand rule. Right-hand = generator.</>),
     ],
@@ -129,7 +131,7 @@ addRoles(torqueProduction3d, {
     [
       L(0, 'h', <>Production of unidirectional torque</>),
       L(1, 'step', <>Under N: current inward (⊗) → F downward; under S: outward (⊙) → F upward (Fleming’s LHR).</>),
-      L(2, 'step', <>All forces give torque in one sense. At the MNA the commutator reverses the coil current, ∴ torque is <b>unidirectional</b>.</>),
+      L(2, 'step', <>All forces give torque in one sense. At the MNA the commutator reverses the coil current, <K>{String.raw`\therefore`}</K> torque is <b>unidirectional</b>.</>),
       L(3, 'step', <><H>Factors</H>φ, I<sub>a</sub> and Z, P, A: <K>{String.raw`T_a = 0.159\,\phi Z I_a \tfrac{P}{A} \propto \phi I_a`}</K></>),
     ],
   ),
@@ -138,9 +140,9 @@ addRoles(torqueProduction3d, {
       b('Fleming ko left hand bistarai milau. First finger field, second finger current, ra thumb force.', 'फ्लेमिङको लेफ्ट ह्यान्ड बिस्तारै मिलाऊ। फर्स्ट फिंगर फिल्ड, सेकेन्ड फिंगर करेन्ट, र थम्ब फोर्स।'),
       b('Left ko conductor ma field right tira, current screen bhitra. Hat milayo bhane thumb tala aaucha: force tala.', 'लेफ्टको कन्डक्टरमा, फिल्ड राइटतिर, करेन्ट स्क्रिनभित्र। हात मिलायो भने, थम्ब तल आउँछ — फोर्स तल।'),
       b('Right ko conductor ma current bahira, tesaile thumb mathi. Left tala ra right mathi: dubai le eutai tira ghumauchan.', 'राइटको कन्डक्टरमा करेन्ट बाहिर, त्यसैले थम्ब माथि। लेफ्ट तल र राइट माथि — दुवैले एउटै तिर घुमाउँछन्।'),
-      b('Yaha dherai le sochchan force cancel huncha. Hudaina, kinaki duita force centre ko duita side ma ulto direction ma chan.', 'यहाँ धेरैले सोच्छन् — फोर्स क्यान्सिल हुन्छ। हुँदैन, किनकि दुईटा फोर्स, सेन्टरको दुईटा साइडमा, उल्टो डाइरेक्सनमा छन्।',
+      b('Dherai le sochchan force cancel huncha. Hudaina, kinaki duita force centre ko duita side ma ulto direction ma chan.', 'धेरैले सोच्छन् — फोर्स क्यान्सिल हुन्छ। हुँदैन, किनकि दुईटा फोर्स, सेन्टरको दुईटा साइडमा, उल्टो डाइरेक्सनमा छन्।',
         q('Left ma force tala ra right ma force mathi bhaye, net torque k huncha?', 'लेफ्टमा फोर्स तल र राइटमा फोर्स माथि भए, नेट टर्क के हुन्छ?', ['Dubai jodincha, eutai tira ghumcha', 'Cancel bhayera zero', 'Armature mathi uthcha'], 0, 'Centre ko duita side ma ulto force = couple. Turning effect jodincha.')),
-      b('Ani conductor N muni bata S muni jada MNA cross garcha. Tyaha commutator le current reverse garcha, force pani flip huncha, ra torque ek tira nai rahancha.', 'अनि कन्डक्टर एन मुनिबाट एस मुनि जाँदा, एमएनए क्रस गर्छ। त्यहाँ कम्युटेटरले करेन्ट रिभर्स गर्छ, फोर्स पनि फ्लिप हुन्छ, र टर्क एकतिर नै रहन्छ।'),
+      b('Ani conductor N muni bata S muni jada MNA cross garcha. MNA mai commutator le current reverse garcha, force pani flip huncha, ra torque ek tira nai rahancha.', 'अनि कन्डक्टर एन मुनिबाट एस मुनि जाँदा, एमएनए क्रस गर्छ। एमएनएमै कम्युटेटरले करेन्ट रिभर्स गर्छ, फोर्स पनि फ्लिप हुन्छ, र टर्क एकतिर नै रहन्छ।'),
     ],
     [
       L(0, 'h', <>Fleming LHR, hat le</>),
@@ -182,9 +184,9 @@ addRoles(story, {
     [
       L(0, 'q', <><span className="tag">IOE 2079 Jestha · 2068 Magh · 2066 Magh +2</span>Why does a DC motor draw a large current at starting?</>),
       L(1, 'step', tex(String.raw`I_a = \dfrac{V - E_b}{R_a} \qquad \cdots(1)`)),
-      L(2, 'step', <>At start N = 0, ∴ E<sub>b</sub> = 0; from (1),{tex(String.raw`I_a = \dfrac{V}{R_a} \qquad \cdots(2)`)}</>),
+      L(2, 'step', <>At start N = 0, <K>{String.raw`\therefore`}</K> E<sub>b</sub> = 0; from (1),{tex(String.raw`I_a = \dfrac{V}{R_a} \qquad \cdots(2)`)}</>),
       L(3, 'step', <>R<sub>a</sub> is very small (e.g. 0.5 Ω): 220/0.5 = <b>440 A</b>. Hence a starter is used to limit the starting current.</>),
-      L(4, 'step', <>Running: E<sub>b</sub> = 210 V → I<sub>a</sub> = 20 A · loaded: E<sub>b</sub> = 205 V → I<sub>a</sub> = 30 A. ∴ the motor is self-regulating.</>),
+      L(4, 'step', <>Running: E<sub>b</sub> = 210 V → I<sub>a</sub> = 20 A · loaded: E<sub>b</sub> = 205 V → I<sub>a</sub> = 30 A. <K>{String.raw`\therefore`}</K> the motor is self-regulating.</>),
     ],
   ),
   senior: role(
@@ -250,13 +252,13 @@ addRoles(voltageEquation, {
       b('Voltage equation of a DC motor: applied voltage le back EMF ra armature drop dubai overcome garcha.', 'भोल्टेज इक्वेसन अफ अ डीसी मोटर — एप्लाइड भोल्टेजले, ब्याक इएमएफ र आर्मेचर ड्रप, दुवै ओभरकम गर्छ।'),
       b('Yesko matlab V equals E b plus I a R a, equation ek. Yasbata I a equals V minus E b, over R a.', 'यसको मतलब — भी इक्वल्स ई बी प्लस आई ए आर ए, इक्वेसन वान। यसबाट, आई ए इक्वल्स भी माइनस ई बी, ओभर आर ए।'),
       b('Equation ek lai I a le multiply garda V I a equals E b I a plus I a squared R a, equation dui.', 'इक्वेसन वानलाई आई एले मल्टिप्लाई गर्दा — भी आई ए इक्वल्स, ई बी आई ए प्लस आई ए स्क्वायर आर ए, इक्वेसन टु।'),
-      b('Yaha V I a input, I a squared R a copper loss, ra E b I a gross mechanical power P m ho, equation tin.', 'यहाँ भी आई ए इनपुट, आई ए स्क्वायर आर ए कपर लस, र ई बी आई ए — ग्रस मेकानिकल पावर पी एम हो, इक्वेसन थ्री।'),
+      b('V I a input, I a squared R a copper loss, ra E b I a gross mechanical power P m ho, equation tin.', 'भी आई ए इनपुट, आई ए स्क्वायर आर ए कपर लस, र ई बी आई ए — ग्रस मेकानिकल पावर पी एम हो, इक्वेसन थ्री।'),
     ],
     [
       L(0, 'h', <>Voltage and power equation</>),
       L(1, 'step', tex(String.raw`\begin{aligned} V &= E_b + I_aR_a && \cdots(1) \\ \therefore\ I_a &= \dfrac{V - E_b}{R_a} && \end{aligned}`)),
       L(2, 'step', <>Multiplying (1) by I<sub>a</sub>,{tex(String.raw`VI_a = E_bI_a + I_a^2R_a \qquad \cdots(2)`)}</>),
-      L(3, 'step', <>VI<sub>a</sub> = input, I<sub>a</sub>²R<sub>a</sub> = armature Cu loss, ∴{tex(String.raw`\boxed{P_m = E_b\,I_a} \qquad \cdots(3)`)}</>),
+      L(3, 'step', <>VI<sub>a</sub> = input, I<sub>a</sub>²R<sub>a</sub> = armature Cu loss, {tex(String.raw`\therefore\ \boxed{P_m = E_b\,I_a} \qquad \cdots(3)`)}</>),
     ],
   ),
   engineer: role(
@@ -307,13 +309,13 @@ addRoles(torqueDerivation, {
       L(0, 'step', <>Let, P = poles; φ = flux/pole; Z = conductors; A = paths; I<sub>a</sub> = armature current; r = radius; l = length.</>),
       L(1, 'step', tex(String.raw`\begin{aligned} I_c &= \dfrac{I_a}{A} && \cdots(1) \\ B &= \dfrac{P\phi}{2\pi r l} && \cdots(2) \end{aligned}`)),
       L(2, 'step', tex(String.raw`\begin{aligned} F &= B\,I_c\,l && \\ &= \dfrac{P\phi I_a}{2\pi r A} && \cdots(3) \\ \tau &= F\,r && \cdots(4) \end{aligned}`)),
-      L(3, 'step', <>∴{tex(String.raw`\boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\ \text{N}\cdot\text{m}} \qquad \cdots(5)`)}<b>Hence proved.</b></>),
+      L(3, 'step', <>{tex(String.raw`\therefore\ \boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\ \text{N}\cdot\text{m}} \qquad \cdots(5)`)}<b>Hence proved.</b></>),
     ],
   ),
   senior: role(
     [
       b('Torque derivation tin choti aayo. Marks ko lagi chain matra yaad: I c, B, F, tau, ani Z.', 'टर्क डेराइभेसन तीन चोटि आयो। मार्क्सको लागि चेन मात्र याद — आई सी, बी, एफ, टाउ, अनि जेड।'),
-      b('Har link euta line: I c equals I a over A, B equals P phi over two pi r l, F equals B I c l, tau equals F r, T a equals Z tau.', 'हर लिङ्क एउटा लाइन — आई सी इक्वल्स आई ए ओभर ए, बी इक्वल्स पी फाइ ओभर टु पाइ आर एल, एफ इक्वल्स बी आई सी एल, टाउ इक्वल्स एफ आर, टी ए इक्वल्स जेड टाउ।'),
+      b('Harek link euta line: I c equals I a over A, B equals P phi over two pi r l, F equals B I c l, tau equals F r, T a equals Z tau.', 'हरेक लिङ्क एउटा लाइन — आई सी इक्वल्स आई ए ओभर ए, बी इक्वल्स पी फाइ ओभर टु पाइ आर एल, एफ इक्वल्स बी आई सी एल, टाउ इक्वल्स एफ आर, टी ए इक्वल्स जेड टाउ।'),
       b('Trap: 0.159 bhaneko one over two pi ho, ra P over A lap ma 1, wave ma P over 2. Unit newton metre nabirsa.', 'ट्र्याप — जिरो पोइन्ट वान फाइभ नाइन भनेको, वान ओभर टु पाइ हो। र पी ओभर ए — ल्यापमा वान, वेभमा पी ओभर टु। युनिट न्युटन मिटर नबिर्स।',
         q('4-pole wave wound motor ma P/A kati huncha?', 'फोर पोल, वेभ वाउन्ड मोटरमा, पी ओभर ए कति हुन्छ?', ['2', '1', '4'], 0, 'Wave: A = 2, so P/A = 4/2 = 2. Lap ma P/A = 1.')),
       b('Yaad garne chain: Current, B, Force, Tau, Z. "Cute Bear Finds Tasty Zucchini."', 'याद गर्ने चेन — करेन्ट, बी, फोर्स, टाउ, जेड। क्युट बियर फाइन्ड्स टेस्टी जुकिनी।'),
@@ -382,3 +384,34 @@ addRoles(torqueFromPower, {
 // Big picture is always the Lecturer (rule 44): its model answers have no
 // role versions. (The Tutor/Engineer/Senior answers are in git history,
 // commit 0451c4c, if they are ever wanted as practice.)
+
+/* ── Figures for every telling (rule 46) ──────────────────────────────────
+   No role teaches a part it cannot show. Each role version gets the
+   textbook figure of its idea, its parts brought in on that role's own beats
+   (figAt: figure beat → role beat; parts left out never show).
+   torqueFigure: 0 poles + armature, 1 field, 2 ⊗/⊙ + forces, 3 Ta (6: MNA),
+   4 Ic·F, 5 r. backEmfFigure: 0 circuit, 1 Eb, 2 Ia + drop, 3 load chain,
+   4 Pm, 5 start. circuit: 0 circuit, 1 Ia. lever: native torque beats. */
+const T = (map) => ({ draw: figAt(torqueFigure, map), viewBox: '0 0 360 276' });
+const E = (map) => ({ draw: figAt(backEmfFigure, map), viewBox: '0 0 360 222' });
+const figures = (step, byRole) => {
+  for (const [r, f] of Object.entries(byRole)) Object.assign(step.figureProps.variants[r], f);
+};
+figures(vibe41, { lecturer: T({ 0: 0, 1: 1, 2: 1 }), tutor: T({ 0: 0, 1: 1, 2: 1 }), senior: T({ 0: 0, 1: 1, 2: 1 }) });
+figures(torqueProduction3d, {
+  lecturer: T({ 0: 0, 1: 0, 2: 1, 3: 2, 4: 2, 6: 2 }),
+  tutor: T({ 0: 0, 1: 0, 2: 1, 3: 3, 6: 4 }),
+  senior: T({ 0: 1, 1: 1, 2: 1, 3: 1 }),
+});
+figures(story, { lecturer: E({ 0: 0, 1: 1, 2: 1, 5: 2, 3: 4 }), senior: E({ 0: 0, 1: 0, 2: 0, 5: 3 }) });
+figures(backEmfDerivation, { engineer: T({ 0: 0, 1: 0 }), senior: T({ 0: 0, 1: 0 }) });
+figures(voltageEquation, {
+  lecturer: { draw: figAt(circuit, { 0: 0, 1: 1 }), viewBox: '0 0 376 200' },
+  engineer: { draw: figAt(circuit, { 0: 0, 1: 1 }), viewBox: '0 0 376 200' },
+  senior: { draw: figAt(circuit, { 0: 0, 1: 0 }), viewBox: '0 0 376 200' },
+});
+figures(torqueDerivation, {
+  lecturer: { draw: figAt(lever, { 0: 0, 1: 1, 2: 1, 3: 2, 4: 2, 5: 2, 6: 3 }), viewBox: '0 0 340 216' },
+  senior: { draw: figAt(lever, { 0: 0, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1 }), viewBox: '0 0 340 216' },
+});
+figures(torqueFromPower, { lecturer: E({ 0: 0, 1: 0, 2: 0 }), engineer: E({ 0: 0, 1: 0, 2: 0 }), senior: E({ 0: 0, 1: 0, 2: 0 }) });

@@ -130,7 +130,7 @@ export const connections = video('Field le current kasari pauncha', {
 
 export const equations = video('Euta connection, euta set equation', {
   beats: [
-    { say: 'Har IOE numerical connection anusar ko sahi current ra voltage equation lekhera start huncha. Yo hera, ek ek type gardai.', voice: 'हर आइओई न्युमेरिकल कनेक्सन अनुसारको सही करेन्ट र भोल्टेज इक्वेसन लेखेर स्टार्ट हुन्छ। यो हेर, एक एक टाइप गर्दै।' },
+    { say: 'Harek IOE numerical connection anusar ko sahi current ra voltage equation lekhera start huncha. Yo hera, ek ek type gardai.', voice: 'हरेक आइओई न्युमेरिकल कनेक्सन अनुसारको सही करेन्ट र भोल्टेज इक्वेसन लेखेर स्टार्ट हुन्छ। यो हेर, एक एक टाइप गर्दै।' },
     { say: 'Shunt: field current V over R sh. Line current I a plus I sh. Ani V equals E b plus I a R a.', voice: 'शन्ट: फिल्ड करेन्ट भी ओभर आर एस एच। लाइन करेन्ट आई ए प्लस आई एस एच। अनि भी इक्वल्स ई बी प्लस आई ए आर ए।' },
     { say: 'Series: jata pani eutai current bagcha, tesaile V equals E b plus I a times R a plus R se.', voice: 'सिरिज: जता पनि एउटै करेन्ट बग्छ, त्यसैले भी इक्वल्स ई बी प्लस आई ए टाइम्स आर ए प्लस आर एस ई।' },
     { say: 'Long shunt: series field le I a carry garcha. So V equals E b plus I a times R a plus R se, ani I L equals I a plus I sh.', voice: 'लङ शन्ट: सिरिज फिल्डले आई ए क्यारी गर्छ। सो भी इक्वल्स ई बी प्लस आई ए टाइम्स आर ए प्लस आर एस ई, अनि आई एल इक्वल्स आई ए प्लस आई एस एच।' },
