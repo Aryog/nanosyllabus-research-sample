@@ -25,5 +25,5 @@ Local preferences: `dcm-rate` speed, `dcm-cc` captions, `dcm-muted`, `dcm-look` 
 
 Extra practice (`extras`) is offered after the course, grouped by topic.
 
-- **POV is kept per segment** (`dcm-pov-1`, `dcm-pov-2`, `dcm-pov-3`): Terms opens on the Engineer, Derivation on the **Tutor**, Big picture on the Lecturer (locked), until the viewer changes that segment. The Lecturer's theme defaults to **Blue** (`dcm-lecturer-theme`, White on request).
+- **POV is kept per segment** (`dcm-pov-1`, `dcm-pov-2`, `dcm-pov-3`): Terms and Derivation open on the **Tutor**, Big picture on the Lecturer (locked), until the viewer changes that segment. The Lecturer's theme defaults to **Blue** (`dcm-lecturer-theme`, White on request).
 

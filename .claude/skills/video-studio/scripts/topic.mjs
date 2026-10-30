@@ -90,7 +90,7 @@ for (const q of spec.bigPicture) {
   ok(!!hit, `Past question ${q.id} (${q.papers[0]}…) is answered in Big picture${hit ? `: "${hit.title}"` : ''}`);
 }
 
-// Roles: every main video outside Big picture in all four roles.
+// Roles: every main video outside Big picture in both roles (Tutor, Lecturer).
 for (const st of steps.filter((x) => !x.segment?.startsWith('3/3'))) {
   const native = st.figureProps.pov ?? autoPov(st.segment);
   const have = new Set([native, ...Object.keys(st.figureProps.variants ?? {})]);

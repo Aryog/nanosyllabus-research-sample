@@ -69,7 +69,7 @@ A Lecturer version of a derivation has its own beats: heading â†’ "Let," list â†
 
 ## Big picture belongs to the Lecturer (rule 44)
 
-Every Big-picture video is taught by the Lecturer only; the player locks the role there. The viewer can switch the Lecturer's **theme**: White (`book`) or Blue (brand field), pref `dcm-lecturer-theme`, a switch beside the POV chip. Both keep the textbook form (`.lect`: serif, underlined headings, numbered equations, boxed result). Write and check every answer so it reads well in both themes (figures in palette inks only).
+Every Big-picture video is taught by the Lecturer only; the player locks the role there. The viewer can switch the Lecturer's **theme**: Blue (brand field, the default) or White (`book`), pref `dcm-lecturer-theme`, a switch beside the POV chip. Both keep the textbook form (`.lect`: Poppins, underlined headings, numbered equations, boxed result). Write and check every answer so it reads well in both themes (figures in palette inks only).
 
 ## Checklist
 

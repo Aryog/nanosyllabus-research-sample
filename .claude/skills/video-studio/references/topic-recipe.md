@@ -1,13 +1,13 @@
 # Generate a topic: the full recipe
 
-When the user names a topic ("generate 4.3", "make 4.5 ready", "do losses and efficiency"), make that topic **game-ready** end to end without asking for each step. Game-ready means every segment is complete, every video outside Big picture exists in all four roles, the Big picture answers the topic's real past IOE questions in the Lecturer's textbook form, lint and the topic gate pass, and the user has the credit estimate. 4.1 is the reference implementation: copy its patterns, not its words.
+When the user names a topic ("generate 4.3", "make 4.5 ready", "do losses and efficiency"), make that topic **game-ready** end to end without asking for each step. Game-ready means every segment is complete, every video outside Big picture exists in both roles (Tutor, Lecturer), the Big picture answers the topic's real past IOE questions in the Lecturer's textbook form, lint and the topic gate pass, and the user has the credit estimate. 4.1 is the reference implementation: copy its patterns, not its words.
 
 Treat this as exam material for real students. Every fact, number and paper must be verifiable. Take nothing from memory that `vault/` can confirm.
 
 ## 0. Read first (always)
 
 1. This skill's SKILL.md non-negotiables, then `scripting.md`, `visuals.md` and `animation.md`.
-2. The four role skills: `pov-lecturer`, `pov-tutor`, `pov-engineer`, `pov-senior`.
+2. The two role skills: `pov-tutor`, `pov-lecturer`.
 3. `node .claude/skills/video-studio/scripts/topic.mjs <num>` prints the brief: syllabus bullets, the derivations segment 2 needs, the Big-picture past questions, "also asked" items, and the current state with every gap.
 4. `vault/dc-motor-digest.md` plus the raw Question Bank lines for each paper you cite. If the topic is not in `references/topics.json`, add it from `vault/` first (syllabus bullets, derivations, past questions with papers, marks and exact text), then re-run the brief.
 
@@ -17,7 +17,7 @@ A short table per segment:
 
 | Segment | Videos | Native role | Notes |
 |---|---|---|---|
-| 1/3 Terms | opener + 2–4 | Engineer | one idea per video; every beat gets a what-and-why line (rule 40) |
+| 1/3 Terms | opener + 2–4 | Tutor (+ Lecturer) | one idea per video, `duo()` over a book figure (rules 40, 46, 48) |
 | 2/3 Derivation | one per item in `derivations` | Tutor | rule 33 maths; X → R expansion; boxed result; meaning |
 | 3/3 Big picture | one per item in `bigPicture` | Lecturer | `answer()` for theory, `solve()` for numericals; textbook form (rule 41) |
 

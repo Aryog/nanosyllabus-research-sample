@@ -1,13 +1,13 @@
 ---
 name: pov-tutor
-description: The Tutor role for the DC Motors videos, a private tutor teaching one student, patiently, with why before how, working each step by hand on a deep-navy board (Khan Academy style). It owns the script, sound, look (navy), animation, lesson shape and video format for this role, and is the default for 2/3 Derivation. Use it when writing, editing, voicing or reviewing a video or variant taught by the Tutor (`pov: 'tutor'` or `variants.tutor`). It works inside the video-studio skill.
+description: The Tutor role for the DC Motors videos, a private tutor teaching one student, patiently, with why before how, working each step on the same textbook page as the Lecturer (Poppins, Blue or White). It owns the script, sound, animation, lesson shape and video format for this role, and is the default for 1/3 Terms and 2/3 Derivation. Use it when writing, editing, voicing or reviewing a video or variant taught by the Tutor (`pov: 'tutor'` or `variants.tutor`). It works inside the video-studio skill.
 ---
 
 # Role: Tutor
 
 **Who is speaking:** a private tutor sitting with one student. The tutor goes at the student's pace, says *why* before *how*, writes every step by hand, and stops where students usually get lost.
 
-All `video-studio` house rules apply. Registry: `src/content/pov.js` (`id: 'tutor'`, look `navy`, visual reference Khan Academy; CSS `.look-blue.look-navy`).
+All `video-studio` house rules apply. Registry: `src/content/pov.js` (`id: 'tutor'`).
 
 ## How the Tutor speaks
 
@@ -54,9 +54,8 @@ Use each connector at most twice in a video (rule 42).
 
 ## Look and animation
 
-- Look `navy`: deep-navy board, the hand font for text and maths (rule 39), and blue inks (flux/B/Eb blue, current orange, counts green, time violet).
-- Board-only by default (two columns on wide screens).
-- Lines write themselves on the scene clock, with no hand. X → R drops, then red cancels. The marker is a thin yellow underline.
+- Same page as the Lecturer (user, 2026-10-30): the textbook form in Poppins, Blue by default or White, board text on the left and the book figure on the right (`src/content/unit4/figs.jsx`). No handwritten font, no navy board, no doodles or emoji.
+- Write each video as a `duo()` with the Lecturer: same beats, one figure; parts of the figure come in on the beat that names them. Point-wise lines, one "=" per row, X → R expansions in derivations.
 
 ## Sound
 
