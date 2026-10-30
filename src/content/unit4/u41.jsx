@@ -1,11 +1,11 @@
 import { K, Pts, answer, duo, figAt } from '../video/kit.jsx';
 import { backEmfFigure, torqueFigure } from '../video/picture.jsx';
-import { forceFigure } from './figs.jsx';
+import { backEmf41 as backEmfScene41, fan41, swing41, torque41 as torqueScene41 } from './scenes41.js';
 
 /*
   4.1 Working principle, back EMF and torque equation: the opener and the
-  Terms segment, each video told by the Tutor (default) and the Lecturer
-  (variant) over one textbook figure. Derivations: t41.jsx. Big picture:
+  Terms segment (playful, 3D scenes41.js), each video told by the Tutor
+  (default) and the Lecturer (variant). Derivations: t41.jsx. Big picture:
   picture.jsx (torqueAnswer, backEmfAnswer).
   Tone (user, 2026-10-30): serious, exact, no emoji, no hype; text on the left,
   the book figure on the right; every part named on the beat it is drawn.
@@ -14,46 +14,53 @@ import { forceFigure } from './figs.jsx';
 const tex = (s) => <K>{s}</K>;
 const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
 
+/*
+  Segment 1 is playful (skill rule 7, user 2026-10-30): each Terms video is a
+  3D scene of something an 8th-grader has seen (scenes41.js): the ceiling
+  fan, a rod swinging between a magnet's poles, bicycle pedals turning a
+  wheel, a toy motor on an ammeter. The term and its symbol are named after
+  the picture has made the idea click. Same scene for the Tutor and the
+  Lecturer; same beat count, because the scene follows the beats.
+*/
 export const opener41 = duo('4.1 ma k padhne?', {
-  draw: forceFigure,
-  viewBox: '0 0 360 214',
+  three: fan41,
   tutor: [
     {
-      say: 'Unit 4.1: working principle, back EMF ra torque equation. Sabai DC motor ko jag yahi topic ho.',
-      voice: 'युनिट फोर पोइन्ट वान — वर्किङ प्रिन्सिपल, ब्याक इएमएफ र टर्क इक्वेसन। सबै डीसी मोटरको जग, यही टपिक हो।',
-      lines: [['h', <>4.1</>], ['step', <>Working principle, back EMF ra torque equation</>]],
+      say: 'Ghar ko ceiling fan sochau. Switch thichyo, pankha ghumna thalcha. Tyo ghumaune kaam garne chij motor ho.',
+      voice: 'घरको सिलिङ फ्यान सोचौं। स्विच थिच्यो, पङ्खा घुम्न थाल्छ। त्यो घुमाउने काम गर्ने चीज, मोटर हो।',
+      lines: [['h', <>4.1 · Motor kasari ghumcha?</>], ['step', <>Ceiling fan, mixer, e-rickshaw: sabai bhitra motor</>]],
     },
     {
-      say: 'Pahila, magnetic field bhitra current bokeko conductor le kina force paucha, ra tyo force le armature kasari ghumcha, bujhchau.',
-      voice: 'पहिला, म्याग्नेटिक फिल्डभित्र करेन्ट बोकेको कन्डक्टरले किन फोर्स पाउँछ, र त्यो फोर्सले आर्मेचर कसरी घुम्छ — बुझ्छौं।',
-      lines: [['step', <>1. Conductor in a field → force <K>{String.raw`F = BIl`}</K></>]],
+      say: 'Fan ko hub bhitra tamako armature ra magnet ka pole chan. Current ra magnet milera armature ghumaucha.',
+      voice: 'फ्यानको हबभित्र तामाको आर्मेचर, र म्याग्नेटका पोल छन्। करेन्ट र म्याग्नेट मिलेर, आर्मेचर घुमाउँछ।',
+      lines: [['step', <>Hub bhitra: copper armature + magnet poles (N, S)</>]],
     },
     {
-      say: 'Tyaspachi, ghumda armature mai banne back EMF, ra torque ko equation derive garchau.',
-      voice: 'त्यसपछि, घुम्दा आर्मेचरमै बन्ने ब्याक इएमएफ, र टर्कको इक्वेसन डेराइभ गर्छौं।',
-      lines: [['step', <>2. Back EMF · 3. Torque equation</>]],
+      say: '4.1 ma tin kura: conductor le force kina paucha, tyo force le torque kasari banaucha, ra ghumda banne back EMF.',
+      voice: 'फोर पोइन्ट वानमा तीन कुरा — कन्डक्टरले फोर्स किन पाउँछ, त्यो फोर्सले टर्क कसरी बनाउँछ, र घुम्दा बन्ने ब्याक इएमएफ।',
+      lines: [['step', <Pts items={[<>Force: <K>{String.raw`F = BIl`}</K></>, <>Torque: T<sub>a</sub></>, <>Back EMF: E<sub>b</sub></>]} />]],
     },
     {
-      say: 'Antim ma, IOE ka duita question ko model answer: torque equation ra back EMF ko role. Dubai tin-tin choti sodhiyeka chan.',
-      voice: 'अन्तिममा, आइओईका दुईटा क्वेस्चनको मोडल आन्सर — टर्क इक्वेसन, र ब्याक इएमएफको रोल। दुवै, तीन-तीन चोटि सोधिएका छन्।',
+      say: 'IOE ma torque equation ra back EMF, dubai tin-tin choti sodhiyeka chan. Suru garau.',
+      voice: 'आइओईमा टर्क इक्वेसन र ब्याक इएमएफ, दुवै तीन-तीन चोटि सोधिएका छन्। सुरु गरौं।',
       lines: [['hook', <>IOE: torque equation [4 + 2] · back EMF [2 + 4], each asked 3 times</>]],
     },
   ],
   lecturer: [
     {
-      say: 'Unit 4.1: working principle, back EMF and torque equation of a DC motor.',
-      voice: 'युनिट फोर पोइन्ट वान — डीसी मोटरको वर्किङ प्रिन्सिपल, ब्याक इएमएफ, एन्ड टर्क इक्वेसन।',
-      lines: [['h', <>Unit 4.1</>], ['step', <>Working principle, back EMF and torque equation</>]],
+      say: 'Ceiling fan, mixer grinder, electric scooter: yi sabai lai electric motor le ghumaucha. Unit 4.1 ma tesko working principle padhincha.',
+      voice: 'सिलिङ फ्यान, मिक्सर ग्राइन्डर, इलेक्ट्रिक स्कुटर — यी सबैलाई इलेक्ट्रिक मोटरले घुमाउँछ। युनिट फोर पोइन्ट वानमा, त्यसको वर्किङ प्रिन्सिपल पढिन्छ।',
+      lines: [['h', <>Unit 4.1</>], ['step', <>Fans, mixers, e-scooters: all driven by motors</>]],
     },
     {
-      say: 'Syllabus ko pahilo bhag: working principle. Field ma rakheko current-carrying conductor le force paucha, F equals B I l.',
-      voice: 'सिलेबसको पहिलो भाग — वर्किङ प्रिन्सिपल। फिल्डमा राखेको करेन्ट क्यारिङ कन्डक्टरले फोर्स पाउँछ — एफ इक्वल्स बी आई एल।',
-      lines: [['step', <><H>1. Working principle</H>Force on a current-carrying conductor, <K>{String.raw`F = BIl`}</K></>]],
+      say: 'Fan ko hub bhitra armature ra field poles huncha. Armature le current bokcha, poles le magnetic field dincha.',
+      voice: 'फ्यानको हबभित्र आर्मेचर र फिल्ड पोल्स हुन्छ। आर्मेचरले करेन्ट बोक्छ, पोल्सले म्याग्नेटिक फिल्ड दिन्छ।',
+      lines: [['step', <>Inside: armature (carries current) + field poles (give B)</>]],
     },
     {
-      say: 'Dosro ra tesro bhag: back EMF ko expression ra significance, ani torque equation ko derivation.',
-      voice: 'दोस्रो र तेस्रो भाग — ब्याक इएमएफको एक्स्प्रेसन र सिग्निफिकेन्स, अनि टर्क इक्वेसनको डेराइभेसन।',
-      lines: [['step', <><H>2. Back EMF</H>expression and significance · <H>3. Torque equation</H>derivation</>]],
+      say: 'Syllabus: working principle, back EMF ko expression ra significance, ani torque equation.',
+      voice: 'सिलेबस — वर्किङ प्रिन्सिपल, ब्याक इएमएफको एक्स्प्रेसन र सिग्निफिकेन्स, अनि टर्क इक्वेसन।',
+      lines: [['step', <Pts items={[<>Working principle</>, <>Back EMF: expression and significance</>, <>Torque equation</>]} />]],
     },
     {
       say: 'Exam ma yi duita question tin-tin choti aayeka chan. Big picture ma dubai ko model answer lekhincha.',
@@ -63,25 +70,24 @@ export const opener41 = duo('4.1 ma k padhne?', {
   ],
 });
 
-/* ── Working principle: force on a conductor ─────────────────────────── */
+/* ── Working principle: the wire swing ───────────────────────────────── */
 export const principle41 = duo('Working principle: F = BIl', {
-  draw: forceFigure,
-  viewBox: '0 0 360 214',
+  three: swing41,
   tutor: [
     {
-      say: 'N ra S pole ko bich ma magnetic field cha, N bata S tira. Yesko flux density B ho, tesla ma.',
-      voice: 'एन र एस पोलको बीचमा म्याग्नेटिक फिल्ड छ, एनबाट एसतिर। यसको फ्लक्स डेन्सिटी बी हो, टेस्लामा।',
-      lines: [['h', <>Working principle</>], ['step', <>Field N → S, flux density <b>B</b> (T)</>]],
+      say: 'Euta horseshoe magnet lyau: mathi N pole, tala S pole. Bich ma magnetic field cha, N bata S tira. Yesko flux density B, tesla ma.',
+      voice: 'एउटा हर्सशु म्याग्नेट ल्याऔं — माथि एन पोल, तल एस पोल। बीचमा म्याग्नेटिक फिल्ड छ, एनबाट एसतिर। यसको फ्लक्स डेन्सिटी बी, टेस्लामा।',
+      lines: [['h', <>Working principle</>], ['step', <>Magnet: field N → S, flux density <b>B</b> (T)</>]],
     },
     {
-      say: 'Aba field bhitra euta conductor rakhau, jasma current I page bhitra jaancha. Cross ko chinha le bhitra jaane current janaucha.',
-      voice: 'अब फिल्डभित्र एउटा कन्डक्टर राखौं, जसमा करेन्ट आई पेजभित्र जान्छ। क्रसको चिन्हले, भित्र जाने करेन्ट जनाउँछ।',
-      lines: [['step', <>Conductor with current <b>I</b> into the page (⊗)</>]],
+      say: 'Aba bich ma tamako dandi jhula jastai jhundyau, ra cell jodera tyasma current I pathau.',
+      voice: 'अब बीचमा तामाको डन्डी, झुला जस्तै झुन्ड्याऔं। र सेल जोडेर, त्यसमा करेन्ट आई पठाऔं।',
+      lines: [['step', <>Copper rod hung like a swing, current <b>I</b> through it</>]],
     },
     {
-      say: 'Conductor ko aafnai field ra pole ko field milda, conductor tala dhakelincha. Yahi mechanical force F ho.',
-      voice: 'कन्डक्टरको आफ्नै फिल्ड र पोलको फिल्ड मिल्दा, कन्डक्टर तल धकेलिन्छ। यही मेकानिकल फोर्स एफ हो।',
-      lines: [['step', <>Two fields combine → conductor pushed down: force <b>F</b></>]],
+      say: 'Current pugne bittikai dandi jhula jastai bahira dhakelincha. Yahi mechanical force F ho.',
+      voice: 'करेन्ट पुग्नेबित्तिकै, डन्डी झुला जस्तै बाहिर धकेलिन्छ। यही मेकानिकल फोर्स एफ हो।',
+      lines: [['step', <>Current on → rod pushed out: force <b>F</b></>]],
       ask: {
         q: 'Field ma rakheko conductor ma current nabaye force kati huncha?',
         voice: 'फिल्डमा राखेको कन्डक्टरमा करेन्ट नभए, फोर्स कति हुन्छ?',
@@ -91,25 +97,25 @@ export const principle41 = duo('Working principle: F = BIl', {
       },
     },
     {
-      say: 'Force ko magnitude F equals B I l newton, l conductor ko active length. Direction Fleming ko left-hand rule le dincha: first finger field, second finger current, thumb force.',
-      voice: 'फोर्सको म्याग्निच्युड — एफ इक्वल्स बी आई एल न्युटन, एल कन्डक्टरको एक्टिभ लेन्थ। डाइरेक्सन, फ्लेमिङको लेफ्ट ह्यान्ड रुलले दिन्छ — फर्स्ट फिंगर फिल्ड, सेकेन्ड फिंगर करेन्ट, थम्ब फोर्स।',
+      say: 'Force kati? F equals B I l newton, jaha l dandi ko field bhitra ko length. Direction Fleming ko left-hand rule le dincha: first finger field, second finger current, thumb force.',
+      voice: 'फोर्स कति? एफ इक्वल्स बी आई एल न्युटन — जहाँ एल, डन्डीको फिल्डभित्रको लेन्थ। डाइरेक्सन, फ्लेमिङको लेफ्ट ह्यान्ड रुलले दिन्छ — फर्स्ट फिंगर फिल्ड, सेकेन्ड फिंगर करेन्ट, थम्ब फोर्स।',
       lines: [['eq', tex(String.raw`F = B\,I\,l\ \ \text{N}`)], ['note', <>Fleming’s left-hand rule: first finger B · second finger I · thumb F</>]],
     },
   ],
   lecturer: [
     {
-      say: 'Figure 1 ma N ra S pole ko bich uniform magnetic field cha, jasko flux density B tesla.',
-      voice: 'फिगर वानमा, एन र एस पोलको बीच युनिफर्म म्याग्नेटिक फिल्ड छ, जसको फ्लक्स डेन्सिटी बी टेस्ला।',
-      lines: [['h', <>Principle of a DC motor</>], ['step', <>Let a uniform magnetic field of flux density B (T) act from N to S (Fig. 1).</>]],
+      say: 'Horseshoe magnet ko N ra S pole ko bich uniform magnetic field cha, jasko flux density B tesla.',
+      voice: 'हर्सशु म्याग्नेटको एन र एस पोलको बीच, युनिफर्म म्याग्नेटिक फिल्ड छ, जसको फ्लक्स डेन्सिटी बी टेस्ला।',
+      lines: [['h', <>Principle of a DC motor</>], ['step', <>Let a uniform magnetic field of flux density B (T) act from N to S.</>]],
     },
     {
-      say: 'Field ma length l ko conductor rakhincha, jasma current I page bhitra bagcha.',
-      voice: 'फिल्डमा लेन्थ एलको कन्डक्टर राखिन्छ, जसमा करेन्ट आई पेजभित्र बग्छ।',
-      lines: [['step', <>A conductor of active length l carrying current I (into the page) is placed in the field.</>]],
+      say: 'Field ma active length l ko copper rod jhundyaincha, ra yasma current I pathaincha.',
+      voice: 'फिल्डमा एक्टिभ लेन्थ एलको कपर रड झुन्ड्याइन्छ, र यसमा करेन्ट आई पठाइन्छ।',
+      lines: [['step', <>A rod of active length l carrying current I is placed in the field.</>]],
     },
     {
-      say: 'Principle: when a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force.',
-      voice: 'प्रिन्सिपल — ह्वेन अ करेन्ट क्यारिङ कन्डक्टर इज प्लेस्ड इन अ म्याग्नेटिक फिल्ड, इट एक्स्पिरियन्सेस अ मेकानिकल फोर्स।',
+      say: 'Rod turuntai side tira dhakelincha. Principle: when a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force.',
+      voice: 'रड तुरुन्तै साइडतिर धकेलिन्छ। प्रिन्सिपल — ह्वेन अ करेन्ट क्यारिङ कन्डक्टर इज प्लेस्ड इन अ म्याग्नेटिक फिल्ड, इट एक्स्पिरियन्सेस अ मेकानिकल फोर्स।',
       lines: [['step', <><i>When a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force.</i></>]],
       ask: {
         q: 'DC motor ko working principle kun ho?',
@@ -127,27 +133,32 @@ export const principle41 = duo('Working principle: F = BIl', {
   ],
 });
 
-/* ── Unidirectional torque and the commutator ───────────────────────── */
-// torqueFigure parts: 0 poles + armature · 1 field · 2 ⊗/⊙ + forces ·
-// 3 MNA + Ta (ringed again on 6) · 4 Ic, F · 5 r.
+/* ── Unidirectional torque: the armature, like bicycle pedals ────────── */
+// The 3D armature's beats (motor3d.js): 0 armature, N, S, field · 1 currents
+// under N then S · 2 force down on the left · 3 force up on the right ·
+// 4 it turns, torque arc Ta · 5 neutral zone, currents flip.
 export const torque41 = duo('Unidirectional torque ra commutator', {
-  draw: torqueFigure,
-  viewBox: '0 0 360 276',
+  three: torqueScene41,
   tutor: [
     {
-      say: 'Motor ma euta conductor hoina, armature ma dherai conductor hunchan. Armature N ra S pole ko bich ma ghumcha.',
-      voice: 'मोटरमा एउटा कन्डक्टर होइन, आर्मेचरमा धेरै कन्डक्टर हुन्छन्। आर्मेचर, एन र एस पोलको बीचमा घुम्छ।',
-      lines: [['h', <>Unidirectional torque</>], ['step', <>Armature: many conductors between N and S</>]],
+      say: 'Real motor ma euta dandi hoina. Armature bhanne ghumne drum ma dherai conductor hunchan, N ra S pole ko bich ma.',
+      voice: 'रियल मोटरमा एउटा डन्डी होइन। आर्मेचर भन्ने घुम्ने ड्रममा धेरै कन्डक्टर हुन्छन्, एन र एस पोलको बीचमा।',
+      lines: [['h', <>Unidirectional torque</>], ['step', <>Armature: a drum of many conductors between N and S</>]],
     },
     {
-      say: 'Field N bata S tira, armature ko mathi ra tala dubai bata.',
-      voice: 'फिल्ड एनबाट एसतिर, आर्मेचरको माथि र तल दुवैबाट।',
-      lines: [['step', <>Field B: N → S across the armature</>]],
+      say: 'Supply diyepachi N pole tira ka conductor ma current bhitra jaancha, S pole tira ka ma bahira aaucha.',
+      voice: 'सप्लाई दिएपछि, एन पोलतिरका कन्डक्टरमा करेन्ट भित्र जान्छ, एस पोलतिरकामा बाहिर आउँछ।',
+      lines: [['step', <>Under N: current in (⊗) · under S: out (⊙)</>]],
     },
     {
-      say: 'N pole muni ko conductor ma current bhitra, S pole muni ko ma bahira. Tesaile left ma force tala, right ma force mathi.',
-      voice: 'एन पोलमुनिको कन्डक्टरमा करेन्ट भित्र, एस पोलमुनिकोमा बाहिर। त्यसैले, लेफ्टमा फोर्स तल, राइटमा फोर्स माथि।',
-      lines: [['step', <>Under N: ⊗ → F down · under S: ⊙ → F up</>]],
+      say: 'Fleming ko rule lagau: field, current, ani force. N pole tira ka conductor tala dhakelinchan.',
+      voice: 'फ्लेमिङको रुल लगाऔं — फिल्ड, करेन्ट, अनि फोर्स। एन पोलतिरका कन्डक्टर तल धकेलिन्छन्।',
+      lines: [['step', <>Left side (under N): F down</>]],
+    },
+    {
+      say: 'Ra S pole tira ka conductor chai mathi dhakelinchan.',
+      voice: 'र एस पोलतिरका कन्डक्टर चाहिं माथि धकेलिन्छन्।',
+      lines: [['step', <>Right side (under S): F up</>]],
       ask: {
         q: 'Left ma force tala ra right ma force mathi bhaye, armature lai k huncha?',
         voice: 'लेफ्टमा फोर्स तल र राइटमा फोर्स माथि भए, आर्मेचरलाई के हुन्छ?',
@@ -157,36 +168,36 @@ export const torque41 = duo('Unidirectional torque ra commutator', {
       },
     },
     {
-      say: 'Ulto side ma ulto force bhayeko le turning effect jodincha. Yo couple le armature anticlockwise ghumcha: yahi torque T a ho.',
-      voice: 'उल्टो साइडमा उल्टो फोर्स भएकोले, टर्निङ इफेक्ट जोडिन्छ। यो कपलले आर्मेचर एन्टिक्लकवाइज घुम्छ — यही टर्क टी ए हो।',
-      lines: [['step', <>Opposite forces on opposite sides → couple → torque <b>Ta</b> (anticlockwise)</>]],
+      say: 'Cycle ko pedal jastai: euta side tala, arko mathi, ani chakka ghumcha. Yo couple le armature anticlockwise ghumcha: torque T a. Euta conductor ma F equals B I c l, torque F r.',
+      voice: 'साइकलको पेडल जस्तै — एउटा साइड तल, अर्को माथि, अनि चक्का घुम्छ। यो कपलले आर्मेचर एन्टिक्लकवाइज घुम्छ — टर्क टी ए। एउटा कन्डक्टरमा — एफ इक्वल्स बी आई सी एल, टर्क — एफ आर।',
+      lines: [['step', <>Like pedals: down on one side, up on the other → couple → torque <b>Ta</b></>], ['note', <>One conductor: <K>{String.raw`F = BI_cl`}</K>, torque <K>{String.raw`\tau = Fr`}</K></>]],
     },
     {
-      say: 'Euta conductor ko force F equals B I c l, ra centre bata duri r bhaye usko torque F r.',
-      voice: 'एउटा कन्डक्टरको फोर्स — एफ इक्वल्स बी आई सी एल। र सेन्टरबाट दूरी आर भए, उसको टर्क — एफ आर।',
-      lines: [['step', <>One conductor: <K>{String.raw`F = BI_cl`}</K>, torque <K>{String.raw`\tau = Fr`}</K></>]],
-    },
-    {
-      say: 'Conductor ghumdai S pole muni pugda current ulto nabhaye force pani ulto huncha. Commutator le MNA ma current reverse garcha, ra torque sadhai eutai direction ma rahancha.',
-      voice: 'कन्डक्टर घुम्दै एस पोलमुनि पुग्दा, करेन्ट उल्टो नभए फोर्स पनि उल्टो हुन्छ। कम्युटेटरले एमएनएमा करेन्ट रिभर्स गर्छ, र टर्क सधैं एउटै डाइरेक्सनमा रहन्छ।',
-      lines: [['idea', <>Commutator reverses the coil current at the MNA → torque stays unidirectional</>]],
+      say: 'Conductor neutral zone kaatera arko pole tira pugda, current ulto nabhaye force ulto hunthyo. Commutator le tyahi current palta dincha, tesaile torque sadhai eutai direction ma.',
+      voice: 'कन्डक्टर न्युट्रल जोन काटेर अर्को पोलतिर पुग्दा, करेन्ट उल्टो नभए फोर्स उल्टो हुन्थ्यो। कम्युटेटरले त्यही करेन्ट पल्टा दिन्छ, त्यसैले टर्क सधैं एउटै डाइरेक्सनमा।',
+      lines: [['idea', <>Commutator flips the current at the neutral zone (MNA) → torque stays one way</>]],
     },
   ],
   lecturer: [
     {
-      say: 'Production of unidirectional torque. Figure ma armature N ra S pole ko bich rakhiyeko cha.',
-      voice: 'प्रोडक्सन अफ युनिडाइरेक्सनल टर्क। फिगरमा, आर्मेचर एन र एस पोलको बीच राखिएको छ।',
-      lines: [['h', <>Production of unidirectional torque</>], ['step', <>The armature is placed between the N and S poles (Fig. 1).</>]],
+      say: 'Production of unidirectional torque. Armature N ra S pole ko bich rakhiyeko cha, jasma dherai conductor chan.',
+      voice: 'प्रोडक्सन अफ युनिडाइरेक्सनल टर्क। आर्मेचर, एन र एस पोलको बीच राखिएको छ, जसमा धेरै कन्डक्टर छन्।',
+      lines: [['h', <>Production of unidirectional torque</>], ['step', <>The armature, with many conductors, lies between the N and S poles.</>]],
     },
     {
-      say: 'Field winding excite garda flux N bata S tira armature bhayera jaancha.',
-      voice: 'फिल्ड वाइन्डिङ एक्साइट गर्दा, फ्लक्स एनबाट एसतिर, आर्मेचर भएर जान्छ।',
-      lines: [['step', <>When the field winding is excited, flux passes from N to S through the armature.</>]],
+      say: 'DC supply dida N pole muni ka conductor ma current inward ra S pole muni ka ma outward huncha.',
+      voice: 'डीसी सप्लाई दिँदा, एन पोलमुनिका कन्डक्टरमा करेन्ट इनवार्ड, र एस पोलमुनिकामा आउटवार्ड हुन्छ।',
+      lines: [['step', <>Conductors under N carry current inward (⊗), those under S outward (⊙).</>]],
     },
     {
-      say: 'Armature lai DC supply diyepachi N pole muni ka conductor ma current inward ra S pole muni ka ma outward huncha. Left-hand rule anusar left ma force downward, right ma upward.',
-      voice: 'आर्मेचरलाई डीसी सप्लाई दिएपछि, एन पोलमुनिका कन्डक्टरमा करेन्ट इनवार्ड, र एस पोलमुनिकामा आउटवार्ड हुन्छ। लेफ्ट ह्यान्ड रुल अनुसार, लेफ्टमा फोर्स डाउनवार्ड, राइटमा अपवार्ड।',
-      lines: [['step', <>Conductors under N carry current inward (⊗), those under S outward (⊙); by Fleming’s left-hand rule the force is downward on the left and upward on the right.</>]],
+      say: 'Fleming ko left-hand rule anusar N pole muni ka conductor ma force downward huncha.',
+      voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुल अनुसार, एन पोलमुनिका कन्डक्टरमा फोर्स डाउनवार्ड हुन्छ।',
+      lines: [['step', <>By Fleming’s left-hand rule, the force is downward under N,</>]],
+    },
+    {
+      say: 'Ra S pole muni ka conductor ma force upward.',
+      voice: 'र एस पोलमुनिका कन्डक्टरमा फोर्स अपवार्ड।',
+      lines: [['step', <>and upward under S.</>]],
       ask: {
         q: 'Fleming ko left-hand rule ma thumb le k dekhaucha?',
         voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुलमा, थम्बले के देखाउँछ?',
@@ -196,14 +207,9 @@ export const torque41 = duo('Unidirectional torque ra commutator', {
       },
     },
     {
-      say: 'Yi forces le couple banaucha ra armature anticlockwise ghumcha. Yo turning moment armature torque T a ho.',
-      voice: 'यी फोर्सले कपल बनाउँछ, र आर्मेचर एन्टिक्लकवाइज घुम्छ। यो टर्निङ मोमेन्ट, आर्मेचर टर्क टी ए हो।',
-      lines: [['step', <>These forces form a couple; the turning moment produced is the armature torque T<sub>a</sub>.</>]],
-    },
-    {
-      say: 'Euta conductor ma force F equals B I c l, ra radius r ma usko torque tau equals F r.',
-      voice: 'एउटा कन्डक्टरमा फोर्स — एफ इक्वल्स बी आई सी एल। र रेडियस आरमा, उसको टर्क — टाउ इक्वल्स एफ आर।',
-      lines: [['step', tex(String.raw`\begin{aligned} F &= B\,I_c\,l \\ \tau &= F\,r \end{aligned}`)]],
+      say: 'Yi forces le bicycle ko pedal jastai couple banaucha, ra armature anticlockwise ghumcha. Yo turning moment armature torque T a ho. Euta conductor ma F equals B I c l, ra tau equals F r.',
+      voice: 'यी फोर्सले बाइसाइकलको पेडल जस्तै कपल बनाउँछ, र आर्मेचर एन्टिक्लकवाइज घुम्छ। यो टर्निङ मोमेन्ट, आर्मेचर टर्क टी ए हो। एउटा कन्डक्टरमा — एफ इक्वल्स बी आई सी एल, र टाउ इक्वल्स एफ आर।',
+      lines: [['step', <>The forces form a couple; the turning moment is the armature torque T<sub>a</sub>.</>], ['step', tex(String.raw`\begin{aligned} F &= B\,I_c\,l \\ \tau &= F\,r \end{aligned}`)]],
     },
     {
       say: 'Coil MNA cross garda commutator le tesko current reverse garcha. Phalswarup torque unidirectional rahancha.',
@@ -213,22 +219,22 @@ export const torque41 = duo('Unidirectional torque ra commutator', {
   ],
 });
 
-/* ── Back EMF and its significance ───────────────────────────────────── */
-// backEmfFigure parts: 0 circuit · 1 Eb opposes V · 2 Ia, drop ·
-// 3 load chain (3–4) · 4 Pm · 5 starting.
+/* ── Back EMF: a toy motor on an ammeter ─────────────────────────────── */
+// The 3D scene's beats (scenes41.js): 0 cell, ammeter, motor · 1 it runs,
+// Eb grows against V · 2 the needle settles low · 3 a brake (load) ·
+// 4 load held · 5 a fresh start: the needle jumps to the red.
 export const backEmf41 = duo('Back EMF ra yesko significance', {
-  draw: backEmfFigure,
-  viewBox: '0 0 360 222',
+  three: backEmfScene41,
   tutor: [
     {
-      say: 'Armature circuit ma supply V, armature resistance R a, ra armature M series ma chan.',
-      voice: 'आर्मेचर सर्किटमा — सप्लाई भी, आर्मेचर रेजिस्टेन्स आर ए, र आर्मेचर एम, सिरिजमा छन्।',
-      lines: [['h', <>Back EMF</>], ['step', <>Supply V → R<sub>a</sub> → armature M</>]],
+      say: 'Euta sano toy motor, cell ra ammeter series ma jodau. Cell ko voltage V, ra motor ko armature resistance R a.',
+      voice: 'एउटा सानो टोय मोटर, सेल र एमिटर सिरिजमा जोडौं। सेलको भोल्टेज भी, र मोटरको आर्मेचर रेजिस्टेन्स आर ए।',
+      lines: [['h', <>Back EMF</>], ['step', <>Cell V → ammeter → toy motor (resistance R<sub>a</sub>)</>]],
     },
     {
-      say: 'Armature ghumda conductor le flux cut garcha, tesaile generator jastai EMF induce huncha. Lenz ko law anusar yo EMF supply V ko viruddha huncha: yahi back EMF E b.',
-      voice: 'आर्मेचर घुम्दा, कन्डक्टरले फ्लक्स कट गर्छ, त्यसैले जेनेरेटर जस्तै इएमएफ इन्ड्युस हुन्छ। लेन्जको ल अनुसार, यो इएमएफ सप्लाई भीको विरुद्ध हुन्छ — यही ब्याक इएमएफ ई बी।',
-      lines: [['step', <>Rotating conductors cut flux → EMF induced, opposing V (Lenz’s law) = <b>back EMF E<sub>b</sub></b></>], ['eq', tex(String.raw`E_b = \dfrac{P\phi Z N}{60A}`)]],
+      say: 'Motor ghumna thalepachi aafai sano generator banchha: conductor le flux kaatcha ra EMF induce huncha. Lenz ko law anusar yo V ko ulto huncha: yahi back EMF E b.',
+      voice: 'मोटर घुम्न थालेपछि, आफैं सानो जेनेरेटर बन्छ — कन्डक्टरले फ्लक्स काट्छ, र इएमएफ इन्ड्युस हुन्छ। लेन्जको ल अनुसार, यो भीको उल्टो हुन्छ — यही ब्याक इएमएफ ई बी।',
+      lines: [['step', <>Spinning motor = small generator → EMF against V (Lenz) = <b>back EMF E<sub>b</sub></b></>], ['eq', tex(String.raw`E_b = \dfrac{P\phi Z N}{60A}`)]],
       ask: {
         q: 'Back EMF le supply voltage lai k garcha?',
         voice: 'ब्याक इएमएफले सप्लाई भोल्टेजलाई के गर्छ?',
@@ -238,13 +244,13 @@ export const backEmf41 = duo('Back EMF ra yesko significance', {
       },
     },
     {
-      say: 'Tesaile armature current V hoina, V minus E b le chalaucha. I a equals V minus E b, over R a.',
-      voice: 'त्यसैले आर्मेचर करेन्ट, भी होइन — भी माइनस ई बीले चलाउँछ। आई ए इक्वल्स — भी माइनस ई बी, ओभर आर ए।',
+      say: 'Speed badhdai jada ammeter ko needle jhardai jancha. Current V le hoina, V minus E b le chalaucha: I a equals V minus E b, over R a.',
+      voice: 'स्पिड बढ्दै जाँदा, एमिटरको निडल झर्दै जान्छ। करेन्ट भीले होइन, भी माइनस ई बीले चलाउँछ — आई ए इक्वल्स, भी माइनस ई बी, ओभर आर ए।',
       lines: [['eq', tex(String.raw`I_a = \dfrac{V - E_b}{R_a}`)]],
     },
     {
-      say: 'Load badhyo bhane speed alikati ghatcha, E b ghatcha, ani I a badhcha. Badhi current le badhi torque dincha. Motor le aafno current aafai milaucha.',
-      voice: 'लोड बढ्यो भने, स्पिड अलिकति घट्छ — ई बी घट्छ — अनि आई ए बढ्छ। बढी करेन्टले बढी टर्क दिन्छ। मोटरले आफ्नो करेन्ट आफैं मिलाउँछ।',
+      say: 'Aba shaft lai brake le thichau. Speed ghatcha, E b ghatcha, ani I a badhcha; badhi current le badhi torque dincha. Motor le aafno current aafai milaucha.',
+      voice: 'अब शाफ्टलाई ब्रेकले थिचौं। स्पिड घट्छ, ई बी घट्छ, अनि आई ए बढ्छ — बढी करेन्टले बढी टर्क दिन्छ। मोटरले आफ्नो करेन्ट आफैं मिलाउँछ।',
       lines: [['step', <>Load ↑ → N ↓ → E<sub>b</sub> ↓ → I<sub>a</sub> ↑ → T<sub>a</sub> ↑: self-regulating</>]],
     },
     {
@@ -253,8 +259,8 @@ export const backEmf41 = duo('Back EMF ra yesko significance', {
       lines: [['eq', tex(String.raw`P_m = E_b\,I_a`)]],
     },
     {
-      say: 'Start ma N zero, tesaile E b zero ra I a equals V over R a. R a sano bhayeko le current dherai thulo huncha: yesaile starter chahincha.',
-      voice: 'स्टार्टमा एन जिरो, त्यसैले ई बी जिरो, र आई ए इक्वल्स भी ओभर आर ए। आर ए सानो भएकोले, करेन्ट धेरै ठूलो हुन्छ — यसैले स्टार्टर चाहिन्छ।',
+      say: 'Switch on garne bela motor rokiyeko huncha: N zero, E b zero, ra I a equals V over R a. R a sano bhayeko le current dherai thulo huncha: yesaile starter chahincha.',
+      voice: 'स्विच अन गर्ने बेला मोटर रोकिएको हुन्छ — एन जिरो, ई बी जिरो, र आई ए इक्वल्स भी ओभर आर ए। आर ए सानो भएकोले, करेन्ट धेरै ठूलो हुन्छ — यसैले स्टार्टर चाहिन्छ।',
       lines: [['step', <>At start: N = 0 → E<sub>b</sub> = 0 → <K>{String.raw`I_a = V/R_a`}</K> (very large) → starter needed</>]],
       ask: {
         q: '220 V supply ra R a 0.5 ohm bhaye, start ko current kati huncha?',
@@ -267,9 +273,9 @@ export const backEmf41 = duo('Back EMF ra yesko significance', {
   ],
   lecturer: [
     {
-      say: 'Figure 2: DC motor ko armature circuit. Supply V, armature resistance R a ra armature M.',
-      voice: 'फिगर टु — डीसी मोटरको आर्मेचर सर्किट। सप्लाई भी, आर्मेचर रेजिस्टेन्स आर ए, र आर्मेचर एम।',
-      lines: [['h', <>Back EMF</>], ['step', <>Fig. 2 shows the armature circuit: supply V, armature resistance R<sub>a</sub>, armature M.</>]],
+      say: 'Supply V bata ammeter hudai motor jodiyeko cha; armature resistance R a.',
+      voice: 'सप्लाई भीबाट एमिटर हुँदै मोटर जोडिएको छ — आर्मेचर रेजिस्टेन्स आर ए।',
+      lines: [['h', <>Back EMF</>], ['step', <>A motor is connected to a supply V through an ammeter; armature resistance R<sub>a</sub>.</>]],
     },
     {
       say: 'Definition: when the armature rotates, an EMF is induced in it which opposes the applied voltage. This EMF is called back EMF.',
@@ -284,8 +290,8 @@ export const backEmf41 = duo('Back EMF ra yesko significance', {
       },
     },
     {
-      say: 'Significance one: armature current V minus E b, over R a huncha.',
-      voice: 'सिग्निफिकेन्स वान — आर्मेचर करेन्ट, भी माइनस ई बी, ओभर आर ए हुन्छ।',
+      say: 'Significance one: armature current V minus E b, over R a huncha; speed badhda ammeter ko reading ghatcha.',
+      voice: 'सिग्निफिकेन्स वान — आर्मेचर करेन्ट, भी माइनस ई बी, ओभर आर ए हुन्छ। स्पिड बढ्दा, एमिटरको रिडिङ घट्छ।',
       lines: [['step', <>(i) The armature current is <K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K></>]],
     },
     {
