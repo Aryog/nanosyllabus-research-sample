@@ -132,8 +132,8 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
         <g className={s.on(2) + hl(2)}>
           <g className="seq" style={{ '--d': '5600ms' }}>
             <Arrow x1={192} y1={128} x2={192} y2={92} color={C.yellow} w={2.4} />
-            <text x={186} y={150} textAnchor="end" fontSize={13} fontWeight={700} fill={C.yellow}>Eb</text>
-            <text x={186} y={164} textAnchor="end" fontSize={10.5} fill={C.dim}>V lai oppose</text>
+            <text x={186} y={145} textAnchor="end" fontSize={13} fontWeight={700} fill={C.yellow}>Eb</text>
+            <text x={186} y={167} textAnchor="end" fontSize={10.5} fill={C.dim}>V lai oppose</text>
           </g>
         </g>
         {on && (

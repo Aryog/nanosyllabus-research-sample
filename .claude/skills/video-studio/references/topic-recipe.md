@@ -1,6 +1,6 @@
 # Generate a topic: the full recipe
 
-When the user names a topic ("generate 4.3", "make 4.5 ready", "do losses and efficiency"), make that topic **game-ready** end to end without asking for each step. Game-ready means every segment is complete, every video exists in all four roles, the Big picture answers the topic's real past IOE questions, lint and the topic gate pass, and the user has the credit estimate. 4.1 is the reference implementation: copy its patterns, not its words.
+When the user names a topic ("generate 4.3", "make 4.5 ready", "do losses and efficiency"), make that topic **game-ready** end to end without asking for each step. Game-ready means every segment is complete, every video outside Big picture exists in all four roles, the Big picture answers the topic's real past IOE questions in the Lecturer's textbook form, lint and the topic gate pass, and the user has the credit estimate. 4.1 is the reference implementation: copy its patterns, not its words.
 
 Treat this as exam material for real students. Every fact, number and paper must be verifiable. Take nothing from memory that `vault/` can confirm.
 
@@ -32,14 +32,10 @@ Reuse existing videos that already meet the rules (check them against this recip
 
 ## 3. Write every role (rule 43, rule 44)
 
-For **every** main video, opener included, add the three non-native roles in `src/content/video/roles<topic>.jsx` with `addRoles(video, { role: role(beats, board) })` (the opener via `topic({ introRoles })`). Copy the helpers from `roles41.jsx`.
+For **every** main video outside Big picture, opener included, add the three non-native roles in `src/content/video/roles<topic>.jsx` with `addRoles(video, { role: role(beats, board) })` (the opener via `topic({ introRoles })`). Copy the helpers from `roles41.jsx`.
 
 - **Same material, different explanation (rule 44).** A role version covers the same definitions, equations, results and conclusions as the native script. Only the way it explains changes (register, examples, order of why/how, traps, memory tricks). Never drop a key result. `topic.mjs` warns when a role misses a native `eq`/`answer` line.
-- **Big picture always answers the past question (rule 44).** Every role version of a Big-picture video opens with the same IOE question card (`ioeQ(...)`: kind `q`, tag with papers and marks, the exact question text), and its first caption reads that question. Then it covers the same answer points in that role's way:
-  - Lecturer: the textbook answer (rule 41).
-  - Tutor: the same points, with the doubts students have.
-  - Engineer: the same points, with a real machine and numbers.
-  - Senior: the same points as a marks plan, with one trap and one memory trick.
+- **Big picture is the Lecturer's, always (rule 44).** Big-picture videos (the past IOE questions) get **no** role versions; the player locks them to the Lecturer and offers only the White/Blue theme. Put the care into the Lecturer's textbook answer instead (pov-lecturer), and check it in both themes.
 - Each role follows its skill's lesson shape, phrase bank and voice register, on a board of its own (no drawing timed to other beats).
 
 ## 4. Visuals and motion
@@ -55,8 +51,9 @@ node .claude/skills/video-studio/scripts/topic.mjs <num> --check         # exit 
 npx vite build && npx vite preview --port 4182
 node .claude/skills/video-studio/scripts/frame-strip.mjs "<title words>" --frames 6   # every changed native video
 node .claude/skills/video-studio/scripts/anim-once.mjs <screen> [--pov <role>]          # nothing animates twice (M16)
+node .claude/skills/video-studio/scripts/fit-check.mjs <num>                              # nothing cut/overlapping, every beat × role × size (0 problems)
 ```
-For role versions, screenshot with `localStorage dcm-pov = "<role>"` (see the `pov.mjs`-style snippet: `page.addInitScript(() => localStorage.setItem('dcm-pov', '"tutor"'))`), at least one video per role and every Big-picture role. Open every PNG and look: nothing overlapping, text readable, the question card on top in Big picture, the green ring on the part.
+For role versions, screenshot with `localStorage dcm-pov = "<role>"` (see the `pov.mjs`-style snippet: `page.addInitScript(() => localStorage.setItem('dcm-pov', '"tutor"'))`), at least one video per role, and every Big-picture video in both Lecturer themes (`localStorage dcm-lecturer-theme = "blue"`). Open every PNG and look: nothing overlapping, text readable, the question card on top in Big picture, the green ring on the part.
 
 ## 6. Voice and render (only with the user's yes)
 

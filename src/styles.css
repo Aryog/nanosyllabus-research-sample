@@ -563,7 +563,7 @@ button:disabled { cursor: default; }
 .board { display: flex; flex-direction: column; gap: 2px; padding: 4px 4px 8px; }
 .board-only { flex: 1; justify-content: center; padding: 18px 10px 14px; }
 .board-line { position: relative; opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.3s ease, max-height 0.6s ease, color 0.4s; color: var(--chalk-2); font-family: var(--hand); font-size: var(--bs); line-height: 1.45; }
-.board-line.on { opacity: 1; max-height: 320px; padding: 3px 0; }
+.board-line.on { opacity: 1; max-height: none; overflow: visible; padding: 3px 0; } /* never clip a written line: tall aligned blocks were cut at 320px */
 .board-line.on .ink { display: inline-block; animation: write var(--wd, 1.4s) linear both; }
 @keyframes write { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(-20px -20px -20px -20px); } }
 /* Whiteboard layout: long derivations in two columns, a drawing beside its notes. */
@@ -948,14 +948,14 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
   --hand: 'Source Serif 4', 'STIX Two Text', Georgia, 'Times New Roman', serif; --script: var(--hand);
   border: 1px solid #d4d4d4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); background: #ffffff;
 }
-.scene.look-book .board-line.kind-h { font-weight: 700; font-size: calc(var(--bs) * 1.35); border-bottom: 1px solid #111; }
-.scene.look-book .board-line.kind-idea, .scene.look-book .board-line.kind-hook { font-style: italic; font-weight: 600; font-size: calc(var(--bs) * 1.15); }
-.scene.look-book .board-line.kind-eq .ink { border: 1px solid currentColor; border-radius: 0; }
-.scene.look-book .board-line.kind-answer .ink { border: 1px solid currentColor; border-radius: 0; }
+.scene.lect .board-line.kind-h { font-weight: 700; font-size: calc(var(--bs) * 1.35); border-bottom: 1px solid #111; }
+.scene.lect .board-line.kind-idea, .scene.lect .board-line.kind-hook { font-style: italic; font-weight: 600; font-size: calc(var(--bs) * 1.15); }
+.scene.lect .board-line.kind-eq .ink { border: 1px solid currentColor; border-radius: 0; }
+.scene.lect .board-line.kind-answer .ink { border: 1px solid currentColor; border-radius: 0; }
 .scene.look-book .board-line.kind-q { background: #fafafa; border: 1px solid #bdbdbd; border-radius: 0; }
-.scene.look-book .board-line.kind-q .tag { font-family: Inter, sans-serif; font-size: 0.8em; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #a61e1e; }
+.scene.lect .board-line.kind-q .tag { font-family: Inter, sans-serif; font-size: 0.8em; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #a61e1e; }
 .scene.look-book .board-col + .board-col { border-left: 1px solid #d4d4d4; }
-.scene.look-book .scene-svg text { font-family: var(--hand); }
+.scene.lect .scene-svg text { font-family: var(--hand); }
 .scene.look-book .scene-ask { background: rgba(255, 255, 255, 0.97); }
 
 /* The look selector, top right of the picture (like a player's settings chip). */
@@ -1028,10 +1028,10 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
    board's own font (Inter for Terms and Big picture, the hand on the
    Derivation board) instead of KaTeX's serif; big delimiters and radicals
    keep KaTeX's size fonts. The Book look keeps textbook serif maths. */
-.scene.look-blue .board-line .katex,
-.scene.look-blue .board-line .katex :is(.mathnormal, .mathit, .mathrm, .textrm, .mainrm, .amsrm, .mathbf) { font-family: var(--hand); }
-.scene.look-blue .board-line .katex .mathnormal { font-style: italic; }
-.scene.look-blue .board-line .katex { font-size: 1.12em; letter-spacing: 0.01em; }
+.scene.look-blue:not(.lect) .board-line .katex,
+.scene.look-blue:not(.lect) .board-line .katex :is(.mathnormal, .mathit, .mathrm, .textrm, .mainrm, .amsrm, .mathbf) { font-family: var(--hand); }
+.scene.look-blue:not(.lect) .board-line .katex .mathnormal { font-style: italic; }
+.scene.look-blue:not(.lect) .board-line .katex { font-size: 1.12em; letter-spacing: 0.01em; }
 .scene.look-blue .board-line.kind-q .tag { font-family: Inter, sans-serif; font-size: 0.8em; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #ffb3b3; }
 .scene.look-blue .scene-rewatch { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.7); }
 .scene.look-blue .scene-rewatch:hover { background: rgba(255, 255, 255, 0.12); }
@@ -1052,14 +1052,29 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .scene-look > span { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; color: #6b7280; }
 /* Exam answer like a textbook (skill rule 41): headings underlined and
    bold, text flush left, numbered equations aligned right, boxed result. */
-.scene.look-book .board-line.kind-step { padding-left: 0; }
-.scene.look-book .board-line .lbl { color: var(--chalk); font-weight: 700; font-size: 0.95em; margin: 2px 0 4px; }
-.scene.look-book .board-line .lbl u { text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.scene.look-book .board-line .tex:has(.mtable, .boxpad) { display: block; margin: 6px 0 6px 1.2em; }
-.scene.look-book .board-line.kind-q .ink::before { content: 'Q. '; font-weight: 700; }
-.scene.look-book .board-line .katex .boxpad { padding: 0.25em 0.4em; }
+.scene.lect .board-line.kind-step { padding-left: 0; }
+.scene.lect .board-line .lbl { color: var(--chalk); font-weight: 700; font-size: 0.95em; margin: 2px 0 4px; }
+.scene.lect .board-line .lbl u { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.scene.lect .board-line .tex:has(.mtable, .boxpad) { display: block; margin: 6px 0 6px 1.2em; }
+.scene.lect .board-line.kind-q .ink::before { content: 'Q. '; font-weight: 700; }
+.scene.lect .board-line .katex .boxpad { padding: 0.25em 0.4em; }
 /* Senior's clean page also keeps one font: maths in Inter (rule 39). */
 .scene.look-clean .board-line .katex,
 .scene.look-clean .board-line .katex :is(.mathnormal, .mathit, .mathrm, .textrm, .mainrm, .amsrm, .mathbf) { font-family: var(--hand); }
 .scene.look-clean .board-line .katex .mathnormal { font-style: italic; }
 .scene.look-clean .board-line .katex { font-size: 1.12em; }
+
+/* The Lecturer in either theme (rule 41): white = Book, blue = the brand
+   field. Both keep the textbook form (serif, underlined headings, numbered
+   equations, boxed result); .lect carries the form, the look the colours. */
+.scene.look-blue.lect { --hand: 'Source Serif 4', 'STIX Two Text', Georgia, 'Times New Roman', serif; --script: var(--hand); }
+.scene.look-blue.lect .board-line.kind-h { border-bottom-color: rgba(255, 255, 255, 0.7); }
+.scene.look-blue.lect .scene-svg text { font-family: var(--hand); }
+/* Lecturer theme switch beside the POV chip. */
+.scene-look .theme { display: inline-flex; margin-left: 4px; border-radius: 99px; background: rgba(0, 0, 0, 0.06); padding: 2px; }
+.scene-look .theme button { border: 0; background: none; font: inherit; font-size: 11px; padding: 2px 8px; border-radius: 99px; color: #4b5563; cursor: pointer; }
+.scene-look .theme button.on { background: #fff; color: #1f2328; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); }
+.scene-look .locked { font-weight: 700; padding: 0 4px; }
+/* The POV chip has its own strip above the picture, so it never covers the
+   board's first line (fit-check found it on the heading of every video). */
+.scene-look + .scene-stage { margin-top: 30px; }

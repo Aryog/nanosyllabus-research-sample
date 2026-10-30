@@ -342,17 +342,25 @@ export function Scene(props) {
     const v = pref('dcm-pov', 'auto');
     return v === 'auto' || povById(v) ? v : 'auto';
   });
-  const native = props.pov ?? autoPov(props.segment);
-  const id = choice === 'auto' ? native : choice;
+  // The Lecturer's page is white (Book) or blue, the viewer's choice.
+  const [theme, setTheme] = useState(() => (pref('dcm-lecturer-theme', 'white') === 'blue' ? 'blue' : 'white'));
+  // Big picture is always taught by the Lecturer (rule 44): no role switch there.
+  const locked = props.segment?.startsWith('3/3');
+  const native = locked ? 'lecturer' : props.pov ?? autoPov(props.segment);
+  const id = locked || choice === 'auto' ? native : choice;
   const variant = id !== native ? props.variants?.[id] : null;
   const pick = (v) => {
     setChoice(v);
     keep('dcm-pov', v);
   };
-  return <SceneCore key={variant ? id : 'main'} {...props} {...(variant ?? {})} povId={id} povChoice={choice} povNative={native} onPov={pick} />;
+  const pickTheme = (t) => {
+    setTheme(t);
+    keep('dcm-lecturer-theme', t);
+  };
+  return <SceneCore key={variant ? id : 'main'} {...props} {...(variant ?? {})} povId={id} povChoice={choice} povNative={native} povLocked={locked} onPov={pick} theme={theme} onTheme={pickTheme} />;
 }
 
-function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, variants, povId, povChoice, povNative, onPov, upcoming = [] }) {
+function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, variants, povId, povChoice, povNative, povLocked, onPov, theme, onTheme, upcoming = [] }) {
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [voice, setVoice] = useState(() => !isMuted() && 'speechSynthesis' in window);
@@ -364,8 +372,10 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
   const [speed, setSpeed] = useState(() => (SPEEDS.includes(pref('dcm-rate', 1)) ? pref('dcm-rate', 1) : 1));
   const [cc, setCc] = useState(() => pref('dcm-cc', true) !== false);
   // The look comes from the POV; navy is the blue look on a handwritten board.
-  const shown = povById(povId)?.look ?? 'blue';
-  const lookClass = shown === 'navy' ? 'look-blue look-navy' : `look-${shown}`;
+  // The Lecturer keeps the textbook form (.lect) on either theme.
+  const lect = povId === 'lecturer';
+  const shown = lect ? (theme === 'blue' ? 'blue' : 'book') : povById(povId)?.look ?? 'blue';
+  const lookClass = `${shown === 'navy' ? 'look-blue look-navy' : `look-${shown}`}${lect ? ' lect' : ''}`;
   const [full, setFull] = useState(false);
   const sceneRef = useRef(null);
   const audioRef = useRef(null);
@@ -456,7 +466,9 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
       const H = stage.clientHeight - under;
       const cw = el.offsetWidth;
       const ch = el.offsetHeight;
-      if (!W || !H || !cw || !ch) return null;
+      // While a question card covers the stage (or the caption fills it) there
+      // is no room to frame: keep the last shot (a negative height flipped it).
+      if (W <= 40 || H <= 40 || !cw || !ch || el.closest('.scene-screen')?.classList.contains('asking')) return null;
       const fit = Math.min(1, W / cw, H / ch);
       let k = fit;
       let cx = cw / 2;
@@ -782,6 +794,43 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
     setRun((r) => r + 1);
   };
   const toggle = () => (ended ? jump(0) : setPlaying((p) => !p));
+  // Maths never wider than its line (phones): a KaTeX block that overflows
+  // its board line is scaled down to fit (it was cut at the side).
+  useEffect(() => {
+    const cam = camRef.current;
+    if (!cam) return;
+    const fitTex = () => {
+      // Widths in camera-local px (inline KaTeX has no scrollWidth).
+      const camK = cam.getBoundingClientRect().width / cam.offsetWidth || 1;
+      for (const k of cam.querySelectorAll('.board-line .tex > .katex')) {
+        k.style.fontSize = '';
+        const line = k.closest('.board-line');
+        const lr = line.getBoundingClientRect();
+        const kr = k.getBoundingClientRect();
+        // Room from where the maths starts (textbook blocks are indented).
+        const room = (lr.right - kr.left) / camK - 8;
+        const w = kr.width / camK;
+        if (room > 0 && w > room) k.style.fontSize = `${Math.max(55, Math.floor((room / w) * 100))}%`;
+      }
+    };
+    fitTex();
+    window.addEventListener('resize', fitTex);
+    return () => window.removeEventListener('resize', fitTex);
+  }, [beat, wide, board]);
+  // Test hook for the layout checks (scripts/fit-check.mjs): show beat k as
+  // it looks just before its question opens (or near its end), paused.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    window.__scene = {
+      beats: beats.length,
+      show: (k, frac = 0.85) => {
+        const b = beats[k];
+        const at = b?.ask ? Math.max(0, Math.min(askAt(b, speed, voice), askAt(b, speed, false)) * frac) : Math.max(0, est[k] - 300);
+        jump(k, at, false);
+        setPlaying(false);
+      },
+    };
+  });
   // Space plays and pauses, like a video player (not while typing).
   const toggleRef = useRef(toggle);
   const tap = useRef(null); // where a press on the picture started
@@ -895,18 +944,31 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
           </div>
         )}
         {!RENDER && (
-          <label className="scene-look" title={`${povById(povId)?.role}. ★ = this video has its own version for that role.`}>
+          <div className="scene-look" title={`${povById(povId)?.role}. ★ = this video has its own version for that role.`}>
             <span aria-hidden="true">POV</span>
-            <select value={povChoice} aria-label="Who teaches (POV)" onChange={(e) => onPov(e.target.value)}>
-              <option value="auto">Auto · {povById(povNative)?.name}</option>
-              {POVS.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
-                  {p.id === povNative || variants?.[p.id] ? ' ★' : ''}
-                </option>
-              ))}
-            </select>
-          </label>
+            {povLocked ? (
+              <b className="locked">Lecturer</b>
+            ) : (
+              <select value={povChoice} aria-label="Who teaches (POV)" onChange={(e) => onPov(e.target.value)}>
+                <option value="auto">Auto · {povById(povNative)?.name}</option>
+                {POVS.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                    {p.id === povNative || variants?.[p.id] ? ' ★' : ''}
+                  </option>
+                ))}
+              </select>
+            )}
+            {lect && (
+              <span className="theme" role="group" aria-label="Lecturer theme">
+                {['white', 'blue'].map((t) => (
+                  <button key={t} className={theme === t ? 'on' : ''} aria-pressed={theme === t} onClick={() => onTheme(t)}>
+                    {t === 'white' ? 'White' : 'Blue'}
+                  </button>
+                ))}
+              </span>
+            )}
+          </div>
         )}
         <div
           className="scene-stage"

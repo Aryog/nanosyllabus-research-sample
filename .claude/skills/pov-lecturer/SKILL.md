@@ -7,7 +7,7 @@ description: The Lecturer role for the DC Motors videos, a formal college lectur
 
 **Who is speaking:** a college lecturer in front of the class. The tone is formal and complete, and the answer is exactly the page a student will write in the IOE exam. Students will not open a textbook, so this video *is* the textbook answer.
 
-All `video-studio` house rules apply. Registry: `src/content/pov.js` (`id: 'lecturer'`, look `book`, visual reference Science Ready / Indian textbook).
+All `video-studio` house rules apply. Registry: `src/content/pov.js` (`id: 'lecturer'`, look `book` or blue by the viewer's choice, visual reference Science Ready / Indian textbook).
 
 ## How the Lecturer speaks
 
@@ -67,9 +67,9 @@ Use each connector at most twice in a video (rule 42).
 
 A Lecturer version of a derivation has its own beats: heading → "Let," list → numbered rows → boxed result with "Hence proved". Example: `backEmfDerivation.variants.lecturer` in `src/content/video/t41.jsx`.
 
-## Same material for the other roles (rule 44)
+## Big picture belongs to the Lecturer (rule 44)
 
-The Lecturer's model answer is the reference content for the Big picture. Tutor, Engineer and Senior versions must cover every one of its points and open with the same question card, so keep the points explicit (one per beat).
+Every Big-picture video is taught by the Lecturer only; the player locks the role there. The viewer can switch the Lecturer's **theme**: White (`book`) or Blue (brand field), pref `dcm-lecturer-theme`, a switch beside the POV chip. Both keep the textbook form (`.lect`: serif, underlined headings, numbered equations, boxed result). Write and check every answer so it reads well in both themes (figures in palette inks only).
 
 ## Checklist
 
@@ -78,6 +78,6 @@ The Lecturer's model answer is the reference content for the Big picture. Tutor,
 - [ ] Headings are underlined, every symbol is in "Let,", and equations are numbered and referred back to.
 - [ ] The result is boxed with ∴, plus "Hence proved" where it applies.
 - [ ] The figure is numbered, cited and bookish, with no overlaps in any role's look.
-- [ ] Frame strip with `dcm-pov = "lecturer"`: each page is readable at 1280 px.
+- [ ] Frame strip with `dcm-pov = "lecturer"` in both themes (`dcm-lecturer-theme` white and blue): each page is readable at 1280 px.
 
 When the user corrects this role, add the rule here, with a dated line in video-studio's changelog.

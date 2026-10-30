@@ -64,9 +64,9 @@ Use each connector at most twice in a video (rule 42).
 
 The usual Engineer variant keeps the same beats with a model figure and a compact board (no new voice). Example: `torqueDerivation.variants.engineer` in `src/content/video/t41.jsx` (the `lever` figure).
 
-## In Big picture (rule 44)
+## Not in Big picture (rule 44)
 
-Open with the same IOE question card (`ioeQ(...)`), the first caption reading the question. Then cover **every** answer point of the Lecturer's model answer, each shown on a real machine with numbers and units (all recomputed). Example: `roles41.jsx` engineer versions of both answers.
+Big picture is always taught by the Lecturer (the player locks it). This role has no versions of Big-picture videos; its exam help goes into Terms and Derivation.
 
 ## Checklist
 

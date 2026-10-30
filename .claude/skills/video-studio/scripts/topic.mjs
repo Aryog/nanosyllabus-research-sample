@@ -69,6 +69,8 @@ const qLine = (board) => (board ?? []).find((l) => l.kind === 'q' && l.at === 0)
 for (const st of picture) {
   const main = qLine(st.figureProps.board);
   ok(!!main && /IOE/.test(textOf(main.node)), `Big picture "${st.title}" opens with an IOE question card`);
+  // Big picture is always the Lecturer (rule 44): no role versions there.
+  ok(!Object.keys(st.figureProps.variants ?? {}).length, `  taught by the Lecturer only (no role versions)`);
   for (const [r, va] of Object.entries(st.figureProps.variants ?? {})) {
     const vq = qLine(va.board ?? st.figureProps.board);
     ok(!!vq && /IOE/.test(textOf(vq.node)), `  [${r}] opens with the same IOE question`);
@@ -85,8 +87,8 @@ for (const q of spec.bigPicture) {
   ok(!!hit, `Past question ${q.id} (${q.papers[0]}…) is answered in Big picture${hit ? `: "${hit.title}"` : ''}`);
 }
 
-// Roles: every main video in all four roles.
-for (const st of steps) {
+// Roles: every main video outside Big picture in all four roles.
+for (const st of steps.filter((x) => !x.segment?.startsWith('3/3'))) {
   const native = st.figureProps.pov ?? autoPov(st.segment);
   const have = new Set([native, ...Object.keys(st.figureProps.variants ?? {})]);
   const miss = ROLES.filter((r) => !have.has(r));

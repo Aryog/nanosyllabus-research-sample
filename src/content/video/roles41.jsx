@@ -3,7 +3,6 @@ import { story } from './ch4.jsx';
 import { torqueProduction3d } from './ch3.jsx';
 import { vibe41 } from './vibe.jsx';
 import { backEmfDerivation, torqueDerivation, torqueFromPower, voltageEquation } from './t41.jsx';
-import { backEmfAnswer, torqueAnswer } from './picture.jsx';
 
 /*
   4.1 told by every role (skill rule 43; roles in src/content/pov.js, one skill
@@ -380,106 +379,6 @@ addRoles(torqueFromPower, {
   ),
 });
 
-/* ── Big picture (rule 44): every role opens with the same IOE question card
-   (`ioeQ`) and covers the same answer points as the Lecturer's model answer;
-   only the way it is explained changes. ─────────────────────────────────── */
-const TORQUE_Q = { tag: 'IOE 2073 Chaitra · 2069 Bhadra · 2082 Baishakh (ECM) · [4 + 2]', q: 'Explain the working principle of a DC motor and derive the torque equation.' };
-const BACKEMF_Q = { tag: 'IOE 2071 Magh · 2078 Poush · 2082 Baishakh (ECM) · [2 + 4]', q: 'What is back EMF? How does it play an important role in a DC motor?' };
-const ioeQ = ({ tag, q: text }) => L(0, 'q', <><span className="tag">{tag}</span>{text}</>);
-
-/* ── Model answer: working principle ra torque equation (native: Lecturer) ─ */
-addRoles(torqueAnswer, {
-  tutor: role(
-    [
-      b('IOE ko yo question sangai garau: Explain the working principle of a DC motor and derive the torque equation.', 'आइओईको यो क्वेस्चन सँगै गरौं — एक्सप्लेन द वर्किङ प्रिन्सिपल अफ अ डीसी मोटर, एन्ड डेराइभ द टर्क इक्वेसन।'),
-      b('Pahila principle: field ma current bokeko conductor lai F equals B I l force lagcha. N muni ra S muni current ulto, yasari force pani ulto.', 'पहिला प्रिन्सिपल — फिल्डमा करेन्ट बोकेको कन्डक्टरलाई, एफ इक्वल्स बी आई एल फोर्स लाग्छ। एन मुनि र एस मुनि करेन्ट उल्टो, यसरी फोर्स पनि उल्टो।'),
-      b('Yaha dherai le sochchan force cancel huncha. Hudaina: duita side ma ulto force le couple banaucha. Commutator le MNA ma current reverse garera torque ek tira rakhcha.', 'यहाँ धेरैले सोच्छन् — फोर्स क्यान्सिल हुन्छ। हुँदैन — दुईटा साइडमा उल्टो फोर्सले कपल बनाउँछ। कम्युटेटरले एमएनएमा करेन्ट रिभर्स गरेर, टर्क एकतिर राख्छ।',
-        q('Commutator nabhaye armature ma k huncha?', 'कम्युटेटर नभए, आर्मेचरमा के हुन्छ?', ['Agadi pachadi hallincha, pura ghumdaina', 'Jhan chhito ghumcha', 'Kei farak pardaina'], 0, 'MNA pachi current reverse nabhaye torque ulto huncha; armature oscillate matra garcha.')),
-      b('Derivation: I c equals I a over A, ra B equals P phi over two pi r l. F equals B I c l ma l cancel huncha: P phi I a over two pi r A.', 'डेराइभेसन — आई सी इक्वल्स आई ए ओभर ए, र बी इक्वल्स पी फाइ ओभर टु पाइ आर एल। एफ इक्वल्स बी आई सी एलमा, एल क्यान्सिल हुन्छ — पी फाइ आई ए, ओभर टु पाइ आर ए।'),
-      b('Torque F r ma r pani cancel: P phi I a over two pi A. Z le gunda T a equals 0.159 phi Z I a times P over A.', 'टर्क एफ आरमा, आर पनि क्यान्सिल — पी फाइ आई ए, ओभर टु पाइ ए। जेडले गुन्दा — टी ए इक्वल्स जिरो पोइन्ट वान फाइभ नाइन, फाइ जेड आई ए, टाइम्स पी ओभर ए।'),
-      b('Result: T a phi I a sanga proportional. Exam ma yahi kram ma lekha: principle, figure, working, commutator, derivation.', 'रिजल्ट — टी ए, फाइ आई एसँग प्रोपोर्सनल। एक्जाममा यही क्रममा लेख — प्रिन्सिपल, फिगर, वर्किङ, कम्युटेटर, डेराइभेसन।'),
-    ],
-    [
-      ioeQ(TORQUE_Q),
-      L(1, 'step', <>Principle: <K>{String.raw`F = BIl`}</K> · under N and under S, current (and force) opposite</>),
-      L(2, 'step', <>Doubt: cancel? No, opposite forces on two sides = <b>couple</b> · commutator keeps torque one way</>),
-      L(3, 'step', tex(String.raw`\begin{aligned} I_c &= \dfrac{I_a}{A},\qquad B = \dfrac{P\phi}{2\pi r l} \\ F &= \dfrac{P\phi}{2\pi r \cancel{l}} \cdot \dfrac{I_a}{A} \cdot \cancel{l} \\ &= \dfrac{P\phi I_a}{2\pi r A} \end{aligned}`)),
-      L(4, 'step', tex(String.raw`\begin{aligned} \tau &= F\,r \\ &= \dfrac{P\phi I_a}{2\pi A} \\ T_a &= Z\,\tau \\ &= 0.159\,\phi Z I_a \tfrac{P}{A} \end{aligned}`)),
-      L(5, 'idea', <>T<sub>a</sub> ∝ φI<sub>a</sub> · write: principle → Fig. → working → commutator → derivation</>),
-    ],
-  ),
-  engineer: role(
-    [
-      b('IOE question: Explain the working principle of a DC motor and derive the torque equation. Real motor bata herau.', 'आइओई क्वेस्चन — एक्सप्लेन द वर्किङ प्रिन्सिपल अफ अ डीसी मोटर, एन्ड डेराइभ द टर्क इक्वेसन। रियल मोटरबाट हेरौं।'),
-      b('Principle: field ma current bokeko conductor le F equals B I l force paucha. Real motor ma yo force sayau conductor ma ekai choti lagcha.', 'प्रिन्सिपल — फिल्डमा करेन्ट बोकेको कन्डक्टरले, एफ इक्वल्स बी आई एल फोर्स पाउँछ। रियल मोटरमा यो फोर्स, सयौं कन्डक्टरमा एकैचोटि लाग्छ।'),
-      b('N muni ka conductor ma current bhitra, S muni ka ma bahira. Commutator le MNA ma current reverse garcha, yasari shaft ek tira matra ghumcha.', 'एन मुनिका कन्डक्टरमा करेन्ट भित्र, एस मुनिकामा बाहिर। कम्युटेटरले एमएनएमा करेन्ट रिभर्स गर्छ, यसरी साफ्ट एकतिर मात्र घुम्छ।'),
-      b('Euta conductor ko force P phi I a over two pi r A, ra lever arm r le torque P phi I a over two pi A. Z conductor jodda T a equals 0.159 phi Z I a P over A.', 'एउटा कन्डक्टरको फोर्स — पी फाइ आई ए, ओभर टु पाइ आर ए। र लिभर आर्म आरले टर्क — पी फाइ आई ए, ओभर टु पाइ ए। जेड कन्डक्टर जोड्दा — टी ए इक्वल्स जिरो पोइन्ट वान फाइभ नाइन, फाइ जेड आई ए, पी ओभर ए।'),
-      b('Number ma: 4-pole lap, Z 480, phi 20 milliweber, I a 50 ampere bhaye T a lagbhag 76 newton metre.', 'नम्बरमा — फोर पोल ल्याप, जेड चार सय असी, फाइ ट्वेन्टी मिलिवेबर, आई ए फिफ्टी एम्पियर भए, टी ए लगभग छयहत्तर न्युटन मिटर।',
-        q('Tyahi motor ma flux same rakhera Ia 50 A bata 100 A bhayo. Torque kati huncha?', 'त्यही मोटरमा फ्लक्स उही राखेर, आई ए फिफ्टी बाट वान हन्ड्रेड एम्पियर भयो। टर्क कति हुन्छ?', ['≈ 153 N·m', '≈ 76 N·m', '≈ 38 N·m'], 0, 'Ta ∝ Ia at constant φ: 76.3 × 2 ≈ 153 N·m.')),
-      b('Result: T a phi I a sanga proportional. Load badhda motor le aafai dherai I a tancha ra torque badhcha.', 'रिजल्ट — टी ए, फाइ आई एसँग प्रोपोर्सनल। लोड बढ्दा, मोटरले आफैं धेरै आई ए तान्छ, र टर्क बढ्छ।'),
-    ],
-    [
-      ioeQ(TORQUE_Q),
-      L(1, 'step', <>Principle: <K>{String.raw`F = BIl`}</K> on every conductor at once</>),
-      L(2, 'step', <>⊗ under N, ⊙ under S · commutator reverses at the MNA → shaft turns one way</>),
-      L(3, 'step', tex(String.raw`\begin{aligned} F &= \dfrac{P\phi I_a}{2\pi r A} \\ \tau &= F\,r \\ &= \dfrac{P\phi I_a}{2\pi A} \\ T_a &= 0.159\,\phi Z I_a \tfrac{P}{A} \end{aligned}`)),
-      L(4, 'step', tex(String.raw`\begin{aligned} T_a &= 0.159 \times 0.02 \times 480 \times 50 \\ &\approx 76.3\ \text{N}\cdot\text{m} \end{aligned}`)),
-      L(5, 'idea', <>T<sub>a</sub> ∝ φI<sub>a</sub>: load ↑ → I<sub>a</sub> ↑ → T<sub>a</sub> ↑</>),
-    ],
-  ),
-  senior: role(
-    [
-      b('Senior ko plan: Explain the working principle of a DC motor and derive the torque equation. Tin choti aayo, 4 plus 2 marks.', 'सिनियरको प्लान — एक्सप्लेन द वर्किङ प्रिन्सिपल अफ अ डीसी मोटर, एन्ड डेराइभ द टर्क इक्वेसन। तीन चोटि आयो, फोर प्लस टु मार्क्स।'),
-      b('4 marks: principle ko exact line, N S ko figure ⊗ ⊙ sahit, working ra commutator ko ek line.', 'फोर मार्क्स — प्रिन्सिपलको एक्जाक्ट लाइन, एन एसको फिगर, क्रस र डटसहित, वर्किङ, र कम्युटेटरको एक लाइन।'),
-      b('2 marks: derivation ko panch line chain, ani boxed result 0.159 phi Z I a P over A.', 'टु मार्क्स — डेराइभेसनको पाँच लाइन चेन, अनि बक्स्ड रिजल्ट — जिरो पोइन्ट वान फाइभ नाइन, फाइ जेड आई ए, पी ओभर ए।'),
-      b('Trap: N dot m unit ra P over A chhutaunu. Ani figure bina "working" ko marks pura aaudaina.', 'ट्र्याप — एन डट एम युनिट, र पी ओभर ए छुटाउनु। अनि फिगरबिना, वर्किङको मार्क्स पूरा आउँदैन।',
-        q('Torque equation ko result kun unit ma lekhne?', 'टर्क इक्वेसनको रिजल्ट, कुन युनिटमा लेख्ने?', ['N·m', 'N', 'W'], 0, 'Torque = force × radius, so N·m. Watt power ko unit ho.')),
-    ],
-    [
-      ioeQ(TORQUE_Q),
-      L(1, 'step', <><b>4 marks:</b> principle line + Fig. 1 (⊗ ⊙) + working + commutator</>),
-      L(2, 'step', <><b>2 marks:</b> 5-line chain + <K>{String.raw`\boxed{T_a = 0.159\,\phi Z I_a \tfrac{P}{A}}`}</K></>),
-      L(3, 'trap', <>Unit N·m, P/A, ra figure nachhutau</>),
-    ],
-  ),
-});
-
-/* ── Model answer: back EMF ra yesko role (native: Lecturer) ───────────── */
-addRoles(backEmfAnswer, {
-  tutor: role(
-    [
-      b('IOE ko yo question sangai garau: What is back EMF? How does it play an important role in a DC motor?', 'आइओईको यो क्वेस्चन सँगै गरौं — ह्वाट इज ब्याक इएमएफ? हाउ डज इट प्ले एन इम्पोर्टेन्ट रोल इन अ डीसी मोटर?'),
-      b('Back EMF: armature ghumda conductor le flux cut garchan ra EMF induce huncha. Lenz ko law anusar yo aafno karan, supply current, lai oppose garcha.', 'ब्याक इएमएफ — आर्मेचर घुम्दा, कन्डक्टरले फ्लक्स कट गर्छन्, र इएमएफ इन्ड्युस हुन्छ। लेन्जको ल अनुसार, यो आफ्नो कारण — सप्लाई करेन्टलाई अपोज गर्छ।'),
-      b('Expression: E b equals P phi Z N over sixty A, ra V equals E b plus I a R a. Yasari I a equals V minus E b, over R a.', 'एक्स्प्रेसन — ई बी इक्वल्स पी फाइ जेड एन, ओभर सिक्स्टी ए। र भी इक्वल्स ई बी प्लस आई ए आर ए। यसरी, आई ए इक्वल्स भी माइनस ई बी, ओभर आर ए।'),
-      b('Role ek: load badhda speed ghatcha ra E b ghatcha. V fixed, tesaile I a badhcha, ra torque load barabar nahunjel badhcha.', 'रोल वान — लोड बढ्दा स्पिड घट्छ, र ई बी घट्छ। भी फिक्स्ड, त्यसैले आई ए बढ्छ, र टर्क लोड बराबर नहुन्जेल बढ्छ।',
-        q('V fixed cha ra Eb badhyo. Ia ma k huncha?', 'भी फिक्स्ड छ र ई बी बढ्यो। आई एमा के हुन्छ?', ['Ghatcha', 'Badhcha', 'Same rahancha'], 0, 'Ia = (V − Eb)/Ra: Eb ↑ → numerator ↓ → Ia ↓.')),
-      b('Role dui: E b le energy waste gardaina. V I a equals E b I a plus I a squared R a, ra E b I a nai mechanical power ho.', 'रोल टु — ई बीले इनर्जी वेस्ट गर्दैन। भी आई ए इक्वल्स, ई बी आई ए प्लस आई ए स्क्वायर आर ए। र ई बी आई ए नै, मेकानिकल पावर हो।'),
-      b('Role tin: start ma N zero, E b zero, ani I a equals V over R a dherai thulo. Yahi karan starter chahincha.', 'रोल थ्री — स्टार्टमा एन जिरो, ई बी जिरो। अनि आई ए इक्वल्स भी ओभर आर ए, धेरै ठूलो। यही कारण, स्टार्टर चाहिन्छ।'),
-    ],
-    [
-      ioeQ(BACKEMF_Q),
-      L(1, 'step', <>Back EMF: induced on rotation; by Lenz it opposes its cause (the supply current)</>),
-      L(2, 'step', tex(String.raw`\begin{aligned} E_b &= \dfrac{P\phi ZN}{60A} \\ V &= E_b + I_aR_a \\ I_a &= \dfrac{V - E_b}{R_a} \end{aligned}`)),
-      L(3, 'step', <><b>Role 1</b> load ↑ → N ↓ → E<sub>b</sub> ↓ → I<sub>a</sub> ↑ → T<sub>a</sub> = T<sub>L</sub></>),
-      L(4, 'step', <><b>Role 2</b> <K>{String.raw`VI_a = E_bI_a + I_a^2R_a`}</K>: E<sub>b</sub>I<sub>a</sub> = P<sub>m</sub> (not wasted)</>),
-      L(5, 'step', <><b>Role 3</b> start: E<sub>b</sub> = 0 → I<sub>a</sub> = V/R<sub>a</sub> very large → starter</>),
-    ],
-  ),
-  engineer: role(
-    [
-      b('IOE question: What is back EMF? How does it play an important role in a DC motor? Site ko motor bata herau.', 'आइओई क्वेस्चन — ह्वाट इज ब्याक इएमएफ? हाउ डज इट प्ले एन इम्पोर्टेन्ट रोल इन अ डीसी मोटर? साइटको मोटरबाट हेरौं।'),
-      b('Back EMF: ghumda armature ma induce hune EMF, jun Lenz ko law le supply V ko ulto huncha. E b equals P phi Z N over sixty A, ra V equals E b plus I a R a.', 'ब्याक इएमएफ — घुम्दा आर्मेचरमा इन्ड्युस हुने इएमएफ, जुन लेन्जको लले सप्लाई भीको उल्टो हुन्छ। ई बी इक्वल्स पी फाइ जेड एन ओभर सिक्स्टी ए, र भी इक्वल्स ई बी प्लस आई ए आर ए।'),
-      b('Self-regulation: 220 volt, R a 0.5 ohm motor ma full speed E b 210 volt ra current 20 ampere. Load thapda E b 205 volt ra current 30 ampere.', 'सेल्फ रेगुलेसन — टु ट्वेन्टी भोल्ट, आर ए जिरो पोइन्ट फाइभ ओम मोटरमा, फुल स्पिड ई बी टु हन्ड्रेड टेन भोल्ट, र करेन्ट ट्वेन्टी एम्पियर। लोड थप्दा, ई बी टु हन्ड्रेड फाइभ भोल्ट, र करेन्ट थर्टी एम्पियर।'),
-      b('Energy conversion: 210 volt times 20 ampere, 4200 watt, mechanical power ma jancha. 200 watt chai copper loss.', 'इनर्जी कन्भर्सन — टु हन्ड्रेड टेन भोल्ट टाइम्स ट्वेन्टी एम्पियर, बयालीस सय वाट — मेकानिकल पावरमा जान्छ। टु हन्ड्रेड वाट चाहिँ कपर लस।'),
-      b('Starting: E b zero huda 440 ampere, rated ko 22 guna. 40 ampere ma limit garna total 5.5 ohm, arthat starter ma 5 ohm.', 'स्टार्टिङ — ई बी जिरो हुँदा फोर हन्ड्रेड फोर्टी एम्पियर, रेटेडको बाइस गुना। फोर्टी एम्पियरमा लिमिट गर्न, टोटल फाइभ पोइन्ट फाइभ ओम, अर्थात स्टार्टरमा फाइभ ओम।',
-        q('220 V motor, Ra = 0.5 Ω. Starting current 40 A rakhna kati external resistance chahincha?', 'टु ट्वेन्टी भोल्ट मोटर, आर ए जिरो पोइन्ट फाइभ ओम। स्टार्टिङ करेन्ट फोर्टी एम्पियर राख्न, कति एक्सटर्नल रेजिस्टेन्स चाहिन्छ?', ['5 Ω', '5.5 Ω', '0.5 Ω'], 0, 'Total = 220/40 = 5.5 Ω; external = 5.5 − 0.5 = 5 Ω.')),
-    ],
-    [
-      ioeQ(BACKEMF_Q),
-      L(1, 'step', tex(String.raw`\begin{aligned} E_b &= \dfrac{P\phi ZN}{60A} \\ V &= E_b + I_aR_a \end{aligned}`)),
-      L(2, 'step', <><b>Self-regulation</b> full speed: E<sub>b</sub> = 210 V, I<sub>a</sub> = 20 A · loaded: 205 V, 30 A</>),
-      L(3, 'step', <><b>Energy</b> E<sub>b</sub>I<sub>a</sub> = 210 × 20 = 4200 W mechanical · I<sub>a</sub>²R<sub>a</sub> = 200 W heat</>),
-      L(4, 'step', <><b>Starting</b> E<sub>b</sub> = 0 → 440 A (22 × rated) · <K>{String.raw`R_{total} = \tfrac{220}{40}`}</K> = 5.5 Ω → starter 5 Ω</>),
-    ],
-  ),
-});
+// Big picture is always the Lecturer (rule 44): its model answers have no
+// role versions. (The Tutor/Engineer/Senior answers are in git history,
+// commit 0451c4c, if they are ever wanted as practice.)

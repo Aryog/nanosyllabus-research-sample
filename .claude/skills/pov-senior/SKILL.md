@@ -1,6 +1,6 @@
 ---
 name: pov-senior
-description: The Senior role for the DC Motors videos, an IOE senior (dai/didi) who cleared the exam and tells juniors what to write for each mark, how often a question came, the trap examiners catch, and a memory trick, on a clean off-white page. It owns the script, sound, look (clean), animation, lesson shape and video format for this role. Use it when writing, editing, voicing or reviewing a video or variant taught by the Senior (`pov: 'senior'` or `variants.senior`), especially exam-strategy versions of Big-picture answers. It works inside the video-studio skill.
+description: The Senior role for the DC Motors videos, an IOE senior (dai/didi) who cleared the exam and tells juniors what to write for each mark, how often a question came, the trap examiners catch, and a memory trick, on a clean off-white page. It owns the script, sound, look (clean), animation, lesson shape and video format for this role. Use it when writing, editing, voicing or reviewing a video or variant taught by the Senior (`pov: 'senior'` or `variants.senior`) in Terms or Derivation (Big picture is always the Lecturer). It works inside the video-studio skill.
 ---
 
 # Role: Senior (dai/didi)
@@ -58,11 +58,11 @@ Use each connector at most twice in a video (rule 42).
 
 ## Variants
 
-A Senior version always has its own beats (it is a different telling). Example: `backEmfAnswer.variants.senior` in `src/content/video/picture.jsx` (6-mark plan, the Eb < V trap, the RES trick).
+A Senior version always has its own beats (it is a different telling). Examples: the Senior versions in `src/content/video/roles41.jsx` (marks plans, traps, memory tricks).
 
-## In Big picture (rule 44)
+## Not in Big picture (rule 44)
 
-Open with the same IOE question card (`ioeQ(...)`, or a `q` board line with papers and marks), the first caption reading the question and how often it came. The marks plan must name **every** answer point of the Lecturer's model answer. Examples: `backEmfAnswer.variants.senior` (picture.jsx), and `torqueAnswer` senior in `roles41.jsx`.
+Big picture is always taught by the Lecturer (the player locks it). This role has no versions of Big-picture videos; its exam help goes into Terms and Derivation.
 
 ## Checklist
 

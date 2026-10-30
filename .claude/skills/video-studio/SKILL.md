@@ -1,6 +1,6 @@
 ---
 name: video-studio
-description: The complete studio for the DC Motors video course in one skill. When the user names a topic ("generate 4.3", "make speed control ready", "do topic X"), it builds the whole topic game-ready by following references/topic-recipe.md, with every segment, every video in all four teaching roles (Lecturer, Tutor, Engineer, Senior), a Big picture of real past IOE questions, lint and the topic gate. It also covers scripting (beats, board, questions, Gen-Z Nepali), voice and audio (ElevenLabs whole takes, credits, clip cutting), visuals (2.5D kit, doodles, graphs), animation (scene clock, cues, camera, 3D), the player and unit path, MP4 rendering and QA. Use it for any task that creates, edits, reviews, voices, animates or renders a video or lesson, and keep it updated with every rule the user sets.
+description: The complete studio for the DC Motors video course in one skill. When the user names a topic ("generate 4.3", "make speed control ready", "do topic X"), it builds the whole topic game-ready by following references/topic-recipe.md, with every segment, every video outside Big picture in all four teaching roles (Lecturer, Tutor, Engineer, Senior), a Big picture of real past IOE questions taught by the Lecturer, lint and the topic gate. It also covers scripting (beats, board, questions, Gen-Z Nepali), voice and audio (ElevenLabs whole takes, credits, clip cutting), visuals (2.5D kit, doodles, graphs), animation (scene clock, cues, camera, 3D), the player and unit path, MP4 rendering and QA. Use it for any task that creates, edits, reviews, voices, animates or renders a video or lesson, and keep it updated with every rule the user sets.
 ---
 
 # Video studio
@@ -57,7 +57,7 @@ A POV is a **role**: the person teaching the video. The **POV** selector at the 
 
 | Role | Skill | Who | Look (visual reference) | Auto for |
 |---|---|---|---|---|
-| Lecturer | `pov-lecturer` | college lecturer, the textbook/exam answer | `book` (Science Ready, Indian textbook) | 3/3 Big picture |
+| Lecturer | `pov-lecturer` | college lecturer, the textbook/exam answer | `book` or blue (viewer's choice, `dcm-lecturer-theme`) | 3/3 Big picture, **always** (locked) |
 | Tutor | `pov-tutor` | private tutor, one-on-one, why before how | `navy` (Khan Academy board) | 2/3 Derivation |
 | Engineer | `pov-engineer` | practising engineer, machine and model first, units | `blue` (Engineering Mindset + Efficient Engineer) | 1/3 Terms |
 | Senior | `pov-senior` | IOE senior dai/didi, marks plan, trap, memory trick | `clean` | (variants) |
@@ -76,7 +76,7 @@ Registry and voice settings: `src/content/pov.js`. A video sets `pov:` (its nati
 8. **Test on a build** (`vite preview`), never on the dev server (render-and-qa.md).
 9. **Said = shown, no filler.** The caption reads exactly what the beat writes or points at; teacher's register, no hype, no lead-in-only beats (rules 11, 31, 32).
 11. **Exam = textbook answer.** Big-picture answers read like the Indian textbook page students will write: Q., underlined headings, "Let,", numbered equations, ∴, boxed result, "Hence proved" (rule 41, `pov-lecturer`).
-13. **Same material, different explanation; Big picture is always the past questions.** Every role covers the native script's content; every Big-picture video and role version opens with the real IOE question and answers it (rule 44).
+13. **Same material, different explanation; Big picture is always the past questions, taught by the Lecturer.** Every role covers the native script's content; Big picture has no role versions, opens with the real IOE question, and the viewer may only switch the Lecturer's White/Blue theme (rule 44).
 12. **Don't sound repetitive.** Vary connectors from the role's phrase bank; none more than twice per video (rule 42).
 10. **Each segment has its look.** Terms: Blue (Engineering Mindset). Derivation: handwritten navy board (Khan Academy) with Efficient-Engineer maths (one "=" per row, underbraced expansions). Big picture: Book (Science Ready) with textbook figures, one model answer per IOE question (rules 30, 33–36).
 
@@ -109,6 +109,7 @@ node .claude/skills/video-studio/scripts/status.mjs [4.1 …] [--videos]   # voi
 node .claude/skills/video-studio/scripts/lint.mjs [4.1 …] [--main]       # house-rule checks on the scripts
 node .claude/skills/video-studio/scripts/frame-strip.mjs <n|title> [--frames 10]   # screenshots + pause test (needs preview)
 node .claude/skills/video-studio/scripts/anim-once.mjs <n> [--pov role]            # nothing animates twice (needs preview)
+node .claude/skills/video-studio/scripts/fit-check.mjs 4.1 [--sizes 390x844]        # layout: nothing cut or overlapping, every beat × role × size
 
 # Repo pipeline
 npx vite build && npx vite preview --port 4182                # what you test on
@@ -163,3 +164,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-10-30: 4.1 is role-wise: every main video (opener included) now has all four roles, 26 new role versions in `roles41.jsx` (caption-first; voice lines written, nothing recorded). Exam counts from the vault digest; numbers recomputed.
 - 2026-10-30: **Generate-a-topic path** added at the user's request ("whenever I tell you to generate on this topic, make the entire game ready"): `references/topic-recipe.md` (steps 0–7 + flexibility table), `references/topics.json` (syllabus, derivations, past questions per topic from vault/), `scripts/topic.mjs` (brief + `--check` gate: segments, Big-picture question cards in every role, past-question coverage, all four roles, same-material warnings, lint, credits). Rule 44: same material across roles; Big picture always the past IOE questions in every role. 4.1 Big-picture role versions rewritten to open with the question; 4.1 passes the gate. Known gaps for 4.2–4.6 are printed by the gate (4.2 has a non-question video in Big picture; 4.6 has no past question in vault/).
 - 2026-10-30: Animations play once (M16): the board's pen line no longer starts the CSS write first (it was written twice on every beat, 30–80 ms apart); `scripts/anim-once.mjs` checks it. Highlighter replaced: iPad-style stroke that paints behind the rows, holds ~1 s and fades, only on results, traps and "find" lines, never an underline on every line (rule 39). Story video's "220 V" label no longer clipped.
+- 2026-10-30: Big picture is always the Lecturer (user: "big picture to be always lecturer"): the player locks the role there and its role versions were removed; the Lecturer can be shown White (Book) or Blue (`dcm-lecturer-theme`, switch beside the POV chip), textbook form kept in both (`.lect`). Layout fixes from `scripts/fit-check.mjs` (every beat × role × 4 sizes): written lines no longer clipped at 320 px, the camera no longer flips (negative scale) when the caption or a question card shrinks the stage, story labels spaced.
