@@ -63,7 +63,7 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
       },
     },
     { say: 'Armature ko speed badhdai jada yesko conductor le flux cut garchan ra supply lai oppose garne EMF generate garchan. Tyo nai back EMF ho, ani current ghatcha.', voice: 'आर्मेचरको स्पिड बढ्दै जाँदा, यसको कन्डक्टरले फ्लक्स कट गर्छन्, र सप्लाईलाई अपोज गर्ने ई एम एफ जेनेरेट गर्छन्। त्यो नै ब्याक ई एम एफ हो। अनि करेन्ट घट्छ।' },
-    { say: 'Full speed ma back EMF 210 volt huncha. R a bata current push garna 10 volt matra baki huncha, tesaile armature current just 20 ampere.', voice: 'फुल स्पिडमा, ब्याक ई एम एफ टु हन्ड्रेड टेन भोल्ट हुन्छ। आर ए बाट करेन्ट पुस गर्न, टेन भोल्ट मात्र बाँकी हुन्छ। त्यसैले आर्मेचर करेन्ट, जस्ट ट्वेन्टी एम्पियर।' },
+    { say: 'Full speed ma back EMF 210 volt huncha. R a bata current push garna 10 volt matra baki huncha, yasari armature current just 20 ampere.', voice: 'फुल स्पिडमा, ब्याक ई एम एफ टु हन्ड्रेड टेन भोल्ट हुन्छ। आर ए बाट करेन्ट पुस गर्न, टेन भोल्ट मात्र बाँकी हुन्छ। यसरी आर्मेचर करेन्ट, जस्ट ट्वेन्टी एम्पियर।' },
     {
       say: 'Load thapda motor ali slow huncha. E b 205 volt ma jharcha, ra current 30 ampere samma badhcha, jasle load lai chahine extra torque dincha.',
       voice: 'लोड थप्दा, मोटर अलि स्लो हुन्छ। ई बी टु हन्ड्रेड फाइभ भोल्टमा झर्छ, र करेन्ट थर्टी एम्पियरसम्म बढ्छ — जसले लोडलाई चाहिने एक्स्ट्रा टर्क दिन्छ।',
@@ -75,7 +75,7 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
         why: 'Ia = (V − Eb)/Ra. Load le speed ghataucha, Eb ghatcha, tesaile Ia badhcha.',
       },
     },
-    { say: 'Tesaile back EMF le motor lai self-regulating banaucha: load lai jati torque chahincha, tyati current matra tancha.', voice: 'त्यसैले, ब्याक इएमएफले मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ। लोडलाई जति टर्क चाहिन्छ, त्यति करेन्ट मात्र तान्छ।' },
+    { say: 'Yesko matlab back EMF le motor lai self-regulating banaucha: load lai jati torque chahincha, tyati current matra tancha.', voice: 'यसको मतलब, ब्याक इएमएफले मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ। लोडलाई जति टर्क चाहिन्छ, त्यति करेन्ट मात्र तान्छ।' },
   ],
   draw: (s) => {
     const k = s.beat;
@@ -181,6 +181,25 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
     { at: 4, until: 4, kind: 'eq', node: <><K>{String.raw`\begin{aligned} I_a &= \dfrac{220 - 205}{0.5} \\ &= 30\ \text{A} \end{aligned}`}</K></> },
     { at: 5, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K></> },
   ],
+  pov: 'mindset',
+  // Board POV (Khan Academy): the same lines, worked by hand on the board,
+  // one moment per beat, so no new voice is needed.
+  variants: {
+    khan: {
+      draw: undefined,
+      tall: true,
+      board: [
+        { at: 0, kind: 'h', node: <>220 V motor, R<sub>a</sub> = 0.5 Ω</> },
+        { at: 0, kind: 'step', node: <>Switch open → <K>{String.raw`I_a = 0`}</K></> },
+        { at: 1, kind: 'step', node: <>Start (N = 0, E<sub>b</sub> = 0):<K>{String.raw`\begin{aligned} I_a &= \dfrac{V}{R_a} \\ &= \dfrac{220}{0.5} \\ &= 440\ \text{A} \end{aligned}`}</K></> },
+        { at: 2, kind: 'step', node: <>Speed ↑ → E<sub>b</sub> ↑ → I<sub>a</sub> ↓</> },
+        { at: 3, kind: 'step', node: <>Full speed (E<sub>b</sub> = 210 V):<K>{String.raw`\begin{aligned} I_a &= \dfrac{220 - 210}{0.5} \\ &= 20\ \text{A} \end{aligned}`}</K></> },
+        { at: 4, kind: 'step', node: <>Load added (E<sub>b</sub> = 205 V):<K>{String.raw`\begin{aligned} I_a &= \dfrac{220 - 205}{0.5} \\ &= 30\ \text{A} \end{aligned}`}</K></> },
+        { at: 5, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K></> },
+        { at: 5, kind: 'idea', node: <>Back EMF le current aafai milaucha</> },
+      ],
+    },
+  },
 });
 
 export const voltagePower = video('Derivation: voltage, power ra torque equation', {

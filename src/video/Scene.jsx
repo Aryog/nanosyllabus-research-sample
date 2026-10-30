@@ -1,7 +1,8 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import rough from 'roughjs';
 import { beatText, spoken, videoKey, voiceKey } from './voice.js';
-import { autoLook, lookCss, LOOKS } from './looks.js';
+import { lookCss } from './looks.js';
+import { autoPov, povById, POVS } from '../content/pov.js';
 
 // The looks' ink repaint (looks.js), added to the page once.
 if (typeof document !== 'undefined' && !document.getElementById('scene-looks')) {
@@ -321,7 +322,27 @@ const clock = (ms) => {
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
 };
 
-export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, upcoming = [] }) {
+/*
+  The POV wrapper: picks which script plays (the video's own, or its variant
+  for the chosen POV, see src/content/pov.js) and that POV's look. Changing the
+  POV starts the video again from the top in the new telling.
+*/
+export function Scene(props) {
+  const [choice, setChoice] = useState(() => {
+    const v = pref('dcm-pov', 'auto');
+    return v === 'auto' || povById(v) ? v : 'auto';
+  });
+  const native = props.pov ?? autoPov(props.segment);
+  const id = choice === 'auto' ? native : choice;
+  const variant = id !== native ? props.variants?.[id] : null;
+  const pick = (v) => {
+    setChoice(v);
+    keep('dcm-pov', v);
+  };
+  return <SceneCore key={variant ? id : 'main'} {...props} {...(variant ?? {})} povId={id} povChoice={choice} povNative={native} onPov={pick} />;
+}
+
+function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, variants, povId, povChoice, povNative, onPov, upcoming = [] }) {
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [voice, setVoice] = useState(() => !isMuted() && 'speechSynthesis' in window);
@@ -332,8 +353,9 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
   const [scrub, setScrub] = useState(false);
   const [speed, setSpeed] = useState(() => (SPEEDS.includes(pref('dcm-rate', 1)) ? pref('dcm-rate', 1) : 1));
   const [cc, setCc] = useState(() => pref('dcm-cc', true) !== false);
-  const [look, setLook] = useState(() => (LOOKS.some(([k]) => k === pref('dcm-look', 'auto')) ? pref('dcm-look', 'auto') : 'auto'));
-  const shown = look === 'auto' ? autoLook(segment) : look;
+  // The look comes from the POV; navy is the blue look on a handwritten board.
+  const shown = povById(povId)?.look ?? 'blue';
+  const lookClass = shown === 'navy' ? 'look-blue look-navy' : `look-${shown}`;
   const [full, setFull] = useState(false);
   const sceneRef = useRef(null);
   const audioRef = useRef(null);
@@ -674,7 +696,11 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
 
       const scene = sceneRef.current;
       if (scene) {
-        const anims = () => scene.getAnimations({ subtree: true });
+        // Colour transitions (a look or POV change) are left alone: frozen,
+        // they left text stuck in the old look's colour. Everything else,
+        // the camera glide included, follows the clock.
+        const COLOUR = /color|fill|stroke/;
+        const anims = () => scene.getAnimations({ subtree: true }).filter((an) => !(an.transitionProperty && COLOUR.test(an.transitionProperty)));
         // Paused: freeze everything that moves (camera, drawing, markers, the hand).
         if (!playing && !ended) {
           for (const an of anims()) {
@@ -845,7 +871,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
   }, [pending, beat]);
 
   return (
-    <div className={`scene look-${shown} ${segment ? `seg-${segment[0]}` : ''} beat-${beat} ${tall ? 'tall' : ''} ${full ? 'full' : ''}`} ref={sceneRef}>
+    <div className={`scene ${lookClass} ${segment ? `seg-${segment[0]}` : ''} beat-${beat} ${tall ? 'tall' : ''} ${full ? 'full' : ''}`} ref={sceneRef}>
       <div className={`scene-screen ${ask && askOpen && !ended ? 'asking' : ''}`}>
         {title && (
           <div className={`scene-title ${(beat === 0 && playing) || !playing || ended ? 'show' : ''}`}>
@@ -854,18 +880,15 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
           </div>
         )}
         {!RENDER && (
-          <label className="scene-look" title="Video look">
-            <span aria-hidden="true">◐</span>
-            <select
-              value={look}
-              aria-label="Video look"
-              onChange={(e) => {
-                setLook(e.target.value);
-                keep('dcm-look', e.target.value);
-              }}
-            >
-              {LOOKS.map(([k, name]) => (
-                <option key={k} value={k}>{k === 'auto' ? `Auto (${autoLook(segment) === 'book' ? 'Book' : 'Blue'})` : name}</option>
+          <label className="scene-look" title={`POV: ${povById(povId)?.channel} style. ★ = this video has its own script in that POV.`}>
+            <span aria-hidden="true">POV</span>
+            <select value={povChoice} aria-label="Point of view" onChange={(e) => onPov(e.target.value)}>
+              <option value="auto">Auto · {povById(povNative)?.name}</option>
+              {POVS.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name}
+                  {p.id === povNative || variants?.[p.id] ? ' ★' : ''}
+                </option>
               ))}
             </select>
           </label>

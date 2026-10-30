@@ -38,8 +38,21 @@ clips.
 | MP4 render, the review loop, the frame strip, the final checklist | [references/render-and-qa.md](references/render-and-qa.md) |
 
 Read the reference before touching its area. Rules are numbered: house rules
-1 to 40 (the scripts cite them by number) and motion rules M1 to M15. A rule
+1 to 43 (the scripts cite them by number) and motion rules M1 to M15. A rule
 lives in exactly one reference.
+
+## POVs: four tellings, four skills
+
+Every video is told from one POV, and the ◐ **POV** selector at the top right of the player lets the viewer switch (`Auto` = the segment's POV; ★ marks the POVs this video has a script for). Each POV owns its script, sound, look, animation and lesson shape in its own skill. Load the POV skill before writing in that POV.
+
+| POV | Skill | Reference | Look | Auto for |
+|---|---|---|---|---|
+| Mindset | `pov-mindset` | The Engineering Mindset | `blue` | 1/3 Terms |
+| Board | `pov-khan` | Khan Academy | `navy` | 2/3 Derivation |
+| Maths | `pov-efficient` | The Efficient Engineer | `clean` | (variants) |
+| Exam | `pov-exam` | Science Ready, Indian textbook answer | `book` | 3/3 Big picture |
+
+Registry and voice settings: `src/content/pov.js`. A video sets `pov:` (its native POV) and may carry `variants: { <pov>: { beats?, board?, draw?, viewBox?, tall?, notes?, three? } }`. A variant without `beats` reuses the video's lines (no new voice); one with `beats` is a new script. Lint checks variants as `"<title> [<pov>]"`. **Not yet:** the recorder and MP4 renderer only voice and render the main script. Variant beats stay caption-only until the recorder learns `variants` and each POV's `voice` settings.
 
 ## Non-negotiables (break none, ever)
 
@@ -52,6 +65,8 @@ lives in exactly one reference.
 7. **Unchanged lines stay byte-identical**, so their clips are reused (rule 28).
 8. **Test on a build** (`vite preview`), never on the dev server (render-and-qa.md).
 9. **Said = shown, no filler.** The caption reads exactly what the beat writes or points at; teacher's register, no hype, no lead-in-only beats (rules 11, 31, 32).
+11. **Exam = textbook answer.** Big-picture answers read like the Indian textbook page students will write: Q., underlined headings, "Let,", numbered equations, ∴, boxed result, "Hence proved" (rule 41, `pov-exam`).
+12. **Don't sound repetitive.** Vary connectors from the POV's phrase bank; none more than twice per video (rule 42).
 10. **Each segment has its look.** Terms: Blue (Engineering Mindset). Derivation: handwritten navy board (Khan Academy) with Efficient-Engineer maths (one "=" per row, underbraced expansions). Big picture: Book (Science Ready) with textbook figures, one model answer per IOE question (rules 30, 33–36).
 
 ## Where things live
@@ -62,7 +77,8 @@ lives in exactly one reference.
 | Authoring helpers (`video`, `overview`, `solve`, `answer`, `segments`, `extra`, SVG parts, palette `C`, `K` for KaTeX) | `src/content/video/kit.jsx` |
 | Kid-simple doodles (segment 1) | `src/content/video/doodles.jsx` |
 | Video bank | `src/content/video/ch1–ch9.jsx`, `vibe.jsx` (openers), `t41.jsx` (4.1 derivations, `step()` helper), `picture.jsx` (big-picture answers, bookish figure helpers), `past.jsx`, `testing.jsx` |
-| Picture looks (Blue / Book / Board, ink repaint) | `src/video/looks.js` + `styles.css` "video looks" |
+| POV registry (look, voice settings, auto per segment) | `src/content/pov.js`; skills `.claude/skills/pov-*` |
+| Picture looks (blue / navy / clean / book / board, ink repaint) | `src/video/looks.js` + `styles.css` "video looks" |
 | Player: clock, camera, writing hand, voice, asks, download | `src/video/Scene.jsx` |
 | Speakable text, clip keys | `src/video/voice.js` |
 | 3D stage and scenes | `src/video/Stage3D.jsx`, `src/content/video/motor3d.js` |
@@ -129,3 +145,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-10-29: Rule 18 and M7 replaced at the user's request ("the part should be more focused, others decreased opacity"). The focused part stays bright with the ring; the rest of the drawing softens to 0.32, and earlier board lines to 0.45 while a new line is written. This is gentler than the old 0.3 spotlight, which dimmed even the focused part's own group.
 - 2026-10-30: 4.1 rewritten to the user's script level: filler and lead-in-only beats removed (rule 11 replaced, rule 32), captions read what is on screen (31), maths one "=" per row with underbraced expansions (33), Derivation now four videos (back EMF, voltage/power, torque by force, torque by power; 34), Big picture two model answers (torque, back EMF) with bookish figures and page turns (35, 36). Reference channels studied → looks per segment with a ◐ selector (30), Up-next list beside the player (37). Unvoiced lines are caption-only (38); nothing recorded. lint.mjs checks rules 11, 32, 33.
 - 2026-10-30: User feedback on 4.1: no hand (rule 39), one font per board with handwritten maths on the Derivation board, thin underline marker instead of the highlighter band, terms expanding as an animation (rule 33c: X pulses, R drops in), figure labels sized for every look, and a what-and-why line on every Terms beat (rule 40).
+- 2026-10-30: Bug fixed: look/POV changes while paused left board text in the old colour (colour transitions were frozen with the clock); now only non-colour animations follow the clock. Focus ring is green. **POVs added**: Mindset, Board (Khan), Maths (Efficient Engineer), Exam (Science Ready), each with its own skill (`pov-*`), a POV selector replacing the look selector, and 4.1 variants (back EMF derivation [exam], torque force method [efficient], story [khan]). Exam answers rewritten as Indian-textbook answers (rule 41). Connector variety (rule 42) with phrase banks per POV; lint warns past two uses.

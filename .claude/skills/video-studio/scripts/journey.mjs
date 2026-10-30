@@ -46,7 +46,20 @@ export async function loadCourse() {
       beats: st.figureProps.beats,
       board: st.figureProps.board ?? [],
       key: voice.videoKey(st.figureProps.beats),
-    }));
+    }))
+    // POV variants (src/content/pov.js) are checked like videos of their own.
+    .flatMap((v) => [
+      v,
+      ...Object.entries(v.step.figureProps.variants ?? {}).map(([pov, va]) => ({
+        ...v,
+        n: null,
+        pov,
+        title: `${v.title} [${pov}]`,
+        beats: va.beats ?? v.beats,
+        board: va.board ?? v.board,
+        key: voice.videoKey(va.beats ?? v.beats),
+      })),
+    ]);
   return { journey, videos, voice };
 }
 

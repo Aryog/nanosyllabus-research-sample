@@ -19,7 +19,7 @@ it plays.
 | `seq` (child of an `s.on(k)` group) | its own staggered entrance at `--d` |
 | `pop` (with `sc on now` or `seq`) | scale-in with a little overshoot (`scpop`) |
 | `draw` (+ `pathLength={1}`) | the stroke draws itself (1 s) |
-| `hl` (from `s.hl(k)`) | the pulsing yellow focus ring |
+| `hl` (from `s.hl(k)`) | the pulsing green focus ring |
 | `spin-up` | spin up from rest: one ease-in turn (`--ramp`), then steady (`--per`) |
 | `flowdash`, `flow-ccw`/`flow-cw` | dashes flowing along a path |
 | `fade` | dims a part to 0.3: don't use it (M7) |
@@ -55,7 +55,7 @@ M15. **Show the step the line says happens.** Cancellations in a derivation are 
 
 15. Camera zoom is at most 10% past the full-board view (`ZOOM_IN = 1.1` in `Scene.jsx`); the drawing must never be cut off.
 17. Pause freezes everything (voice, handwriting, hand, CSS animations), and seeking lands on the exact moment; all of it runs on the scene clock `within`.
-18. Focus follows the voice. The part a beat brings in (`s.on(k)`) or highlights (`s.hl(k)`) stays at full strength with the pulsing yellow focus ring and the pointing hand. The rest of the drawing softens to 0.32 opacity, and earlier board lines soften to 0.45 while the beat's new line is written (headings stay full). It is pure CSS in `styles.css` (`:has(.now, .hl)`), so it follows the scene clock. A beat with nothing new, and the end of the video, show everything at full strength. Every beat that talks about a part of the drawing must mark it with `s.on(k)` or `s.hl(k)`; otherwise nothing is in focus. Keep separate ideas in separate top-level `<g>`s, so only the focused one stays bright.
+18. Focus follows the voice. The part a beat brings in (`s.on(k)`) or highlights (`s.hl(k)`) stays at full strength with the pulsing green focus ring and the pointing hand. The rest of the drawing softens to 0.32 opacity, and earlier board lines soften to 0.45 while the beat's new line is written (headings stay full). It is pure CSS in `styles.css` (`:has(.now, .hl)`), so it follows the scene clock. A beat with nothing new, and the end of the video, show everything at full strength. Every beat that talks about a part of the drawing must mark it with `s.on(k)` or `s.hl(k)`; otherwise nothing is in focus. Keep separate ideas in separate top-level `<g>`s, so only the focused one stays bright.
 21. Where turning the object makes the idea click (the motor turning, current along conductors, force directions), use a real 3D picture: a video's `three: build` prop (`src/video/Stage3D.jsx`, three.js, loaded lazily) with a build module like `src/content/video/motor3d.js`. It keeps the 2D video's beats (so the voice is reused), one camera shot per beat, everything driven by the scene clock (`ms`, `dt`, never wall time), and drag to look around. Keep the flat version in `extras`.
 
 ## The 3D build contract

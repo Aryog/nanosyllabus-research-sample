@@ -1,21 +1,16 @@
 /*
-  Looks of the video picture (rules 30–32 in the video-studio skill).
-    blue   Brand blue: white ink on a deep blue field, bright marker colours.
-           The default for Terms and Derivation.
-    book   Textbook page: white paper, black serif ink, thin lines, muted colours.
-           The default for the Big picture (IOE model answers).
+  Looks of the video picture (rule 30 in the video-studio skill). Each POV
+  (src/content/pov.js) names its look:
+    blue   Brand blue: white ink on a deep blue field (Mindset).
+    navy   The blue inks on a deep navy, handwritten board (Khan); CSS class
+           `look-blue look-navy`, so it uses the blue repaint below.
+    clean  Off-white page, Inter, the palette's own inks (Efficient Engineer).
+    book   Textbook page: white paper, black serif ink, thin lines (Exam).
     board  The original whiteboard.
-  'auto' picks blue or book from the segment. The scripts keep using the
+  The scripts keep using the
   palette `C` (kit.jsx); a look repaints those inks by CSS, so a drawing never
   has to know which look it is in.
 */
-
-export const LOOKS = [
-  ['auto', 'Auto'],
-  ['blue', 'Blue'],
-  ['book', 'Book'],
-  ['board', 'Board'],
-];
 
 // Palette ink (kit.jsx `C`) → the ink it becomes in each look.
 const INK = {
@@ -60,6 +55,3 @@ export const lookCss = Object.entries(INK)
       .join(''),
   )
   .join('');
-
-// The look a video gets on 'auto': Big picture reads like a textbook.
-export const autoLook = (segment = '') => (segment.startsWith('3/3') ? 'book' : 'blue');

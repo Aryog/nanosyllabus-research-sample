@@ -68,6 +68,11 @@ for (const v of videos) {
     if (!a.why) report('warn', v, k, 'question has no `why`');
   });
 
+  // Rule 42: no connector more than twice per video.
+  const counts = {};
+  for (const b of v.beats) for (const m of (b.say ?? '').toLowerCase().matchAll(/\b(tesaile|yasari|yesko matlab|phalswarup|yahi karan)\b/g)) counts[m[1]] = (counts[m[1]] ?? 0) + 1;
+  for (const [w, n] of Object.entries(counts)) if (n > 2) report('warn', v, 0, `"${w}" used ${n} times; vary it from the POV phrase bank (rule 42)`);
+
   // Topic opener (rules 4–6): number heading, hook line on the last beat.
   if (/ ma k padhne\?$/.test(v.title)) {
     const last = v.beats.length - 1;

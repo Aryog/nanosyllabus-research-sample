@@ -1,4 +1,4 @@
-import { Arrow, C, K, Resistor, Source, video } from './kit.jsx';
+import { Arrow, C, Conductor, K, Resistor, Source, video } from './kit.jsx';
 
 /*
   4.1 segment 2, Derivation: every equation the syllabus bullet needs, one video
@@ -47,12 +47,12 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
       voice: 'एउटा प्यारालल पाथमा, जेड ओभर ए कन्डक्टर सिरिजमा हुन्छन्। मेसिनको इएमएफ, एउटा पाथको इएमएफ हो। त्यसैले, ईलाई जेड ओभर एले मल्टिप्लाई गर्छौं।',
     },
     {
-      say: 'Result: E b equals P phi Z N over sixty A. Motor ma yo EMF supply voltage ko ulto huncha, tesaile yaslai back EMF bhanincha.',
-      voice: 'रिजल्ट — ई बी इक्वल्स, पी फाइ जेड एन, ओभर सिक्स्टी ए। मोटरमा यो इएमएफ, सप्लाई भोल्टेजको उल्टो हुन्छ। त्यसैले यसलाई ब्याक इएमएफ भनिन्छ।',
+      say: 'Result: E b equals P phi Z N over sixty A. Motor ma yo EMF supply voltage ko ulto huncha, yasari yaslai back EMF bhanincha.',
+      voice: 'रिजल्ट — ई बी इक्वल्स, पी फाइ जेड एन, ओभर सिक्स्टी ए। मोटरमा यो इएमएफ, सप्लाई भोल्टेजको उल्टो हुन्छ। यसरी यसलाई ब्याक इएमएफ भनिन्छ।',
     },
     {
-      say: 'Euta machine ma P, Z ra A fixed hunchan. Tesaile E b equals k phi N: back EMF flux ra speed sanga proportional cha.',
-      voice: 'एउटा मेसिनमा, पी, जेड र ए फिक्स्ड हुन्छन्। त्यसैले, ई बी इक्वल्स — के फाइ एन। ब्याक इएमएफ, फ्लक्स र स्पिडसँग प्रोपोर्सनल छ।',
+      say: 'Euta machine ma P, Z ra A fixed hunchan. Yesko matlab E b equals k phi N: back EMF flux ra speed sanga proportional cha.',
+      voice: 'एउटा मेसिनमा, पी, जेड र ए फिक्स्ड हुन्छन्। यसको मतलब, ई बी इक्वल्स — के फाइ एन। ब्याक इएमएफ, फ्लक्स र स्पिडसँग प्रोपोर्सनल छ।',
       ask: {
         tag: 'Quick check',
         q: 'Flux same rakhera motor ko speed aadha garyo. Back EMF kati huncha?',
@@ -81,6 +81,43 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
     { at: 5, kind: 'eq', node: tex(String.raw`E_b = \dfrac{P\phi Z N}{60A}\ \text{V}`) },
     { at: 6, kind: 'step', node: step('Given machine: k = PZ/60A', String.raw`\begin{aligned} E_b &= k\,\phi N \\ \Rightarrow\ E_b &\propto \phi N \end{aligned}`) },
   ],
+  pov: 'khan',
+  // Exam POV: the derivation as it is written in the answer sheet (rule 41).
+  variants: {
+    exam: {
+      tall: true,
+      beats: [
+        {
+          say: 'EMF equation, answer sheet ma lekhne tarika. Let: P pole, phi flux per pole, Z conductor, A parallel path, ra N speed rpm ma.',
+          voice: 'इएमएफ इक्वेसन, आन्सर सिटमा लेख्ने तरिका। लेट — पी पोल, फाइ फ्लक्स पर पोल, जेड कन्डक्टर, ए प्यारालल पाथ, र एन स्पिड आरपीएममा।',
+        },
+        {
+          say: 'Euta revolution ma euta conductor le cut garne flux d Phi equals P phi weber, equation ek. Time d t equals sixty over N second, equation dui.',
+          voice: 'एउटा रिभोलुसनमा, एउटा कन्डक्टरले कट गर्ने फ्लक्स — डी फाइ इक्वल्स पी फाइ वेबर, इक्वेसन वान। टाइम — डी टी इक्वल्स सिक्स्टी ओभर एन सेकेन्ड, इक्वेसन टु।',
+        },
+        {
+          say: 'Faraday ko law anusar EMF per conductor e equals d Phi over d t, arthat P phi N over sixty volt, equation tin.',
+          voice: 'फाराडेको ल अनुसार, इएमएफ पर कन्डक्टर — ई इक्वल्स डी फाइ ओभर डी टी, अर्थात पी फाइ एन ओभर सिक्स्टी भोल्ट, इक्वेसन थ्री।',
+        },
+        {
+          say: 'Euta path ma Z over A conductor series ma hunchan. Yesko matlab E b equals P phi Z N over sixty A, equation char.',
+          voice: 'एउटा पाथमा, जेड ओभर ए कन्डक्टर सिरिजमा हुन्छन्। यसको मतलब — ई बी इक्वल्स, पी फाइ जेड एन ओभर सिक्स्टी ए, इक्वेसन फोर।',
+        },
+        {
+          say: 'Given machine ma P, Z ra A constant. Phalswarup E b phi N sanga proportional. Hence proved.',
+          voice: 'गिभन मेसिनमा, पी, जेड र ए कन्स्टेन्ट। फलस्वरूप, ई बी फाइ एनसँग प्रोपोर्सनल। हेन्स प्रुभ्ड।',
+        },
+      ],
+      board: [
+        { at: 0, kind: 'h', node: <>EMF equation of a DC machine</> },
+        { at: 0, kind: 'step', node: <>Let,&nbsp; P = number of poles; φ = flux per pole (Wb); Z = total armature conductors; A = number of parallel paths; N = speed (rpm).</> },
+        { at: 1, kind: 'step', node: <>In one revolution, flux cut by one conductor and the time taken:{tex(String.raw`\begin{aligned} d\Phi &= P\phi\ \text{Wb} && \cdots(1) \\ dt &= \dfrac{60}{N}\ \text{s} && \cdots(2) \end{aligned}`)}</> },
+        { at: 2, kind: 'step', node: <>By Faraday’s law, EMF per conductor,{tex(String.raw`\begin{aligned} e &= \dfrac{d\Phi}{dt} && \\ &= \dfrac{P\phi N}{60}\ \text{V} && \cdots(3) \end{aligned}`)}</> },
+        { at: 3, kind: 'step', node: <>With Z/A conductors in series per path, ∴{tex(String.raw`\boxed{E_b = \dfrac{P\phi Z N}{60A}\ \text{V}} \qquad \cdots(4)`)}</> },
+        { at: 4, kind: 'step', node: <>For a given machine, <K>{String.raw`E_b = k\phi N`}</K> ∴ <K>{String.raw`E_b \propto \phi N`}</K>. <b>Hence proved.</b></> },
+      ],
+    },
+  },
 });
 
 // Armature circuit for the voltage equation: supply V, Ra, armature with Eb
@@ -173,6 +210,47 @@ export const voltageEquation = video('Derivation: voltage ra power equation', {
   ],
 });
 
+// Maths POV (The Efficient Engineer): the symbols live on the figure first.
+// One conductor on the armature: radius r to it, force F along the rim (the
+// lever arm), length l into the page. Same beats as the main script.
+const lever = (s) => (
+  <>
+    <g className={s.on(0)}>
+      <circle cx={150} cy={110} r={74} fill="none" stroke={C.chalk} strokeWidth={2.4} />
+      <circle cx={150} cy={110} r={3} fill={C.chalk} />
+      <g className="seq" style={{ '--d': '2200ms' }}>
+        <line x1={150} y1={110} x2={224} y2={110} stroke={C.chalk} strokeWidth={1.6} strokeDasharray="4 4" />
+        <text x={186} y={104} textAnchor="middle" fontSize={14} fontWeight={700} fill={C.chalk}>r</text>
+      </g>
+      <g className="seq" style={{ '--d': '3600ms' }}>
+        <text x={150} y={206} textAnchor="middle" fontSize={12} fill={C.dim}>active length l (into the page)</text>
+      </g>
+    </g>
+    <g className={s.on(1) + s.hl(1)}>
+      <Conductor x={224} y={110} dir="out" />
+      <text x={242} y={136} fontSize={13} fontWeight={700} fill={C.orange}>Ic = Ia/A</text>
+    </g>
+    <g className={s.on(2) + s.hl(2)}>
+      {[40, 80, 140, 180].map((y) => (
+        <line key={y} x1={20} y1={y} x2={330} y2={y} stroke={C.blue} strokeOpacity={0.45} strokeWidth={1.2} strokeDasharray="5 6" />
+      ))}
+      <text x={300} y={34} fontSize={13} fontWeight={700} fill={C.blue}>B</text>
+    </g>
+    <g className={s.on(3) + s.hl(3) + s.hl(4)}>
+      <Arrow x1={238} y1={104} x2={238} y2={50} color={C.green} w={2.8} />
+      <text x={246} y={60} fontSize={14} fontWeight={700} fill={C.green}>F</text>
+    </g>
+    <g className={s.on(5) + s.hl(5)}>
+      <path d="M200 52 A74 74 0 0 0 112 46" fill="none" stroke={C.yellow} strokeWidth={3} />
+      <polygon points="112,46 124,40 122,54" fill={C.yellow} />
+      <text x={150} y={30} textAnchor="middle" fontSize={14} fontWeight={700} fill={C.yellow}>τ = F·r</text>
+    </g>
+    <g className={s.on(6) + s.hl(6)}>
+      <text x={150} y={130} textAnchor="middle" fontSize={13} fontWeight={700} fill={C.green}>× Z conductors</text>
+    </g>
+  </>
+);
+
 export const torqueDerivation = video('Derivation: torque equation (force method)', {
   tall: true,
   beats: [
@@ -209,16 +287,16 @@ export const torqueDerivation = video('Derivation: torque equation (force method
       },
     },
     {
-      say: 'Commutator le sabai Z conductor ko torque eutai direction ma rakhcha. Tesaile tau lai Z le multiply garchau.',
-      voice: 'कम्युटेटरले सबै जेड कन्डक्टरको टर्क, एउटै डाइरेक्सनमा राख्छ। त्यसैले, टाउलाई जेडले मल्टिप्लाई गर्छौं।',
+      say: 'Commutator le sabai Z conductor ko torque eutai direction ma rakhcha. Aba tau lai Z le multiply garchau.',
+      voice: 'कम्युटेटरले सबै जेड कन्डक्टरको टर्क, एउटै डाइरेक्सनमा राख्छ। अब, टाउलाई जेडले मल्टिप्लाई गर्छौं।',
     },
     {
-      say: 'One over two pi equals 0.159. Tesaile T a equals 0.159 phi Z I a times P over A, newton metre ma.',
-      voice: 'वान ओभर टु पाइ इक्वल्स, जिरो पोइन्ट वान फाइभ नाइन। त्यसैले, टी ए इक्वल्स — जिरो पोइन्ट वान फाइभ नाइन, फाइ जेड आई ए, टाइम्स पी ओभर ए। न्युटन मिटरमा।',
+      say: 'One over two pi equals 0.159. Yesko matlab T a equals 0.159 phi Z I a times P over A, newton metre ma.',
+      voice: 'वान ओभर टु पाइ इक्वल्स, जिरो पोइन्ट वान फाइभ नाइन। यसको मतलब, टी ए इक्वल्स — जिरो पोइन्ट वान फाइभ नाइन, फाइ जेड आई ए, टाइम्स पी ओभर ए। न्युटन मिटरमा।',
     },
     {
-      say: 'Euta machine ma P, Z ra A fixed hunchan. Tesaile armature torque flux ra armature current ko product sanga proportional cha.',
-      voice: 'एउटा मेसिनमा, पी, जेड र ए फिक्स्ड हुन्छन्। त्यसैले आर्मेचर टर्क — फ्लक्स र आर्मेचर करेन्टको प्रोडक्टसँग प्रोपोर्सनल छ।',
+      say: 'Euta machine ma P, Z ra A fixed hunchan. Phalswarup armature torque flux ra armature current ko product sanga proportional cha.',
+      voice: 'एउटा मेसिनमा, पी, जेड र ए फिक्स्ड हुन्छन्। फलस्वरूप आर्मेचर टर्क — फ्लक्स र आर्मेचर करेन्टको प्रोडक्टसँग प्रोपोर्सनल छ।',
     },
   ],
   board: [
@@ -245,6 +323,24 @@ export const torqueDerivation = video('Derivation: torque equation (force method
     { at: 7, kind: 'eq', node: tex(String.raw`T_a = 0.159\,\phi Z I_a \left(\tfrac{P}{A}\right)\ \text{N}\cdot\text{m}`) },
     { at: 8, kind: 'step', node: step('Given machine', String.raw`\textcolor{${GR}}{T_a \propto \phi\, I_a}`) },
   ],
+  pov: 'khan',
+  // POV variants (src/content/pov.js). Maths: the same lines over the lever
+  // figure, with a compact board, so no new voice is needed.
+  variants: {
+    efficient: {
+      tall: true,
+      viewBox: '0 0 340 216',
+      draw: lever,
+      board: [
+        { at: 0, kind: 'h', node: <>Torque: force method</> },
+        { at: 1, kind: 'step', node: tex(String.raw`\textcolor{${OR}}{I_c} = \dfrac{I_a}{A},\qquad \textcolor{${BL}}{B} = \dfrac{P\phi}{2\pi r l}`) },
+        { at: 3, kind: 'step', node: tex(String.raw`\begin{aligned} F &= ${X('B', BL)}\,${X('I_c', OR)}\,l \\ &= ${R(String.raw`\dfrac{P\phi I_a}{2\pi r A}`, GR, 1)} \end{aligned}`) },
+        { at: 5, kind: 'step', node: tex(String.raw`\begin{aligned} \tau &= F\,r \\ &= \dfrac{P\phi I_a}{2\pi A} \end{aligned}`) },
+        { at: 7, kind: 'eq', node: tex(String.raw`T_a = 0.159\,\phi Z I_a \tfrac{P}{A}`) },
+        { at: 8, kind: 'step', node: tex(String.raw`\textcolor{${GR}}{T_a \propto \phi\, I_a}`) },
+      ],
+    },
+  },
 });
 
 export const torqueFromPower = video('Derivation: torque equation (power method)', {

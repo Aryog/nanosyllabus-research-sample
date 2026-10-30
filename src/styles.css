@@ -867,9 +867,9 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .scene-svg:has(.now, .hl) > :not(.now, .hl, :has(.now, .hl), .sc:not(.on), defs),
 .scene-svg:has(.now, .hl) :where(:not(.now, .hl):has(.now, .hl)) > :not(.now, .hl, :has(.now, .hl), .sc:not(.on), defs) { opacity: 0.32; }
 .scene-cam:has(.board-line.hl) .board-line.on:not(.hl, .kind-h) { opacity: 0.45; }
-.focus-ring { position: absolute; pointer-events: none; z-index: 1; border: 3px solid #fab005; border-radius: 16px; box-sizing: border-box; transition: left 0.5s ease, top 0.5s ease, width 0.5s ease, height 0.5s ease; animation: focusin 0.4s ease both, focuspulse 1.4s ease-in-out 0.4s infinite; }
+.focus-ring { position: absolute; pointer-events: none; z-index: 1; border: 3px solid var(--ring, #2f9e44); border-radius: 16px; box-sizing: border-box; transition: left 0.5s ease, top 0.5s ease, width 0.5s ease, height 0.5s ease; animation: focusin 0.4s ease both, focuspulse 1.4s ease-in-out 0.4s infinite; }
 @keyframes focusin { from { opacity: 0; transform: scale(1.08); } }
-@keyframes focuspulse { 50% { border-color: rgba(250, 176, 5, 0.35); } }
+@keyframes focuspulse { 50% { border-color: rgba(47, 158, 68, 0.35); } }
 /* Video screens: no card around the player; the video sits right under the
    top bar and takes the rest of the window. */
 .card.card-video { border: 0; background: none; box-shadow: none; }
@@ -992,11 +992,11 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .scene.look-blue .scene-bar, .scene.look-blue .scene-ask-card .scene-opt { --chalk: #1f2328; --chalk-2: #4b5563; --c-blue: #1c7ed6; --c-green: #2b8a3e; --c-red: #e03131; }
 /* Derivation (segment 2) in the blue look: a Khan Academy style blackboard in
    brand navy, written by hand as it is said (skill rule 34). */
-.scene.look-blue.seg-2 {
+.scene.look-navy {
   --hand: 'Patrick Hand', 'Comic Neue', cursive; --script: 'Caveat', 'Patrick Hand', cursive;
   background: radial-gradient(ellipse at 25% 15%, rgba(80, 150, 230, 0.22), transparent 60%), linear-gradient(170deg, #0c3a78 0%, #082b5c 60%, #061f44 100%);
 }
-.scene.look-blue.seg-2 .board-line.kind-h { font-weight: 700; letter-spacing: 0; }
+.scene.look-navy .board-line.kind-h { font-weight: 700; letter-spacing: 0; }
 /* No writing hand on screen (skill rule 39): the line still writes itself and
    the focus ring marks the part; the hand element only carries the pen path. */
 .hand { visibility: hidden !important; }
@@ -1027,3 +1027,26 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .scene.look-blue .board-line.kind-q .tag { font-family: Inter, sans-serif; font-size: 0.8em; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #ffb3b3; }
 .scene.look-blue .scene-rewatch { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.7); }
 .scene.look-blue .scene-rewatch:hover { background: rgba(255, 255, 255, 0.12); }
+/* Focus ring is green in every look (brighter on the blue field). */
+.scene.look-blue { --ring: #69db7c; }
+.scene.look-blue .focus-ring { animation-name: focusin, focuspulseb; }
+@keyframes focuspulseb { 50% { border-color: rgba(105, 219, 124, 0.35); } }
+
+/* Clean look (Efficient Engineer POV): off-white page, crisp sans text,
+   KaTeX maths, the palette's own inks. */
+.scene.look-clean {
+  --board: #faf9f6; --hand: Inter, system-ui, sans-serif; --script: Inter, system-ui, sans-serif; --mark: #1c7ed6; --ring: #2f9e44;
+  border-color: #e6e3dc; background: linear-gradient(180deg, #fbfaf7, #f3f1ec);
+}
+.scene.look-clean .board-line.kind-h { font-weight: 800; letter-spacing: -0.01em; font-size: calc(var(--bs) * 1.4); }
+.scene.look-clean .board-line.kind-idea, .scene.look-clean .board-line.kind-hook { font-weight: 600; }
+.scene.look-clean .board-line.kind-q .tag { font-family: Inter, sans-serif; font-size: 0.8em; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.scene-look > span { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; color: #6b7280; }
+/* Exam answer like a textbook (skill rule 41): headings underlined and
+   bold, text flush left, numbered equations aligned right, boxed result. */
+.scene.look-book .board-line.kind-step { padding-left: 0; }
+.scene.look-book .board-line .lbl { color: var(--chalk); font-weight: 700; font-size: 0.95em; margin: 2px 0 4px; }
+.scene.look-book .board-line .lbl u { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.scene.look-book .board-line .tex:has(.mtable, .boxpad) { display: block; margin: 6px 0 6px 1.2em; }
+.scene.look-book .board-line.kind-q .ink::before { content: 'Q. '; font-weight: 700; }
+.scene.look-book .board-line .katex .boxpad { padding: 0.25em 0.4em; }
