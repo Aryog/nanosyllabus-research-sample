@@ -915,3 +915,85 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .stage3d:active { cursor: grabbing; }
 .stage3d canvas { display: block; width: 100% !important; height: 100% !important; object-fit: contain; }
 .content.wide .stage3d { max-height: none; }
+
+/* ───────── video looks (src/video/looks.js; skill rules 30–32) ─────────
+   Blue: the brand field, white ink, bright marker colours (Terms, Derivation).
+   Book: a textbook page, black serif ink, thin rules (Big picture).
+   Board: the original whiteboard. Inks inside drawings are repainted by the
+   rules looks.js adds; these set the page, the text and the chrome. */
+.scene.look-blue {
+  --board: #0d4f9e; --chalk: #ffffff; --chalk-2: #cfe0f5; --c-yellow: #ffc078; --c-blue: #8ee3f5; --c-red: #ff8f8f; --c-green: #8ce99a; --c-orange: #ffa94d; --c-violet: #d0bfff;
+  --hand: Inter, system-ui, sans-serif; --script: Inter, system-ui, sans-serif;
+  border-color: #0a3a75; color: var(--chalk);
+  background: radial-gradient(ellipse at 28% 18%, rgba(120, 190, 255, 0.35), transparent 62%), linear-gradient(165deg, #1466c2 0%, #0d4f9e 55%, #093b7a 100%);
+}
+.scene.look-blue .board-line.kind-h { font-weight: 800; letter-spacing: -0.01em; }
+.scene.look-blue .board-line.kind-idea { font-weight: 600; }
+.scene.look-blue .board-line.kind-hook { font-weight: 800; }
+.scene.look-blue .board-line.kind-q { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.35); }
+.scene.look-blue .board-col + .board-col { border-left-color: rgba(255, 255, 255, 0.22); }
+.scene.look-blue .scene-ask { background: rgba(9, 59, 122, 0.96); }
+.scene.look-blue .scene-ask-q, .scene.look-blue .scene-ask-why { color: #fff; }
+.scene.look-blue .scene-bar { background: #0a3a75; }
+.scene.look-blue .scene-progress { background: rgba(255, 255, 255, 0.28); }
+.scene.look-blue .scene-time { color: #cfe0f5; }
+
+.scene.look-book {
+  --board: #ffffff; --chalk: #111111; --chalk-2: #444444; --c-yellow: #b8460b; --c-blue: #1d4f91; --c-red: #a61e1e; --c-green: #1f6b30; --c-orange: #b8460b; --c-violet: #4b3aa8;
+  --hand: 'Source Serif 4', 'STIX Two Text', Georgia, 'Times New Roman', serif; --script: var(--hand);
+  border: 1px solid #d4d4d4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); background: #ffffff;
+}
+.scene.look-book .board-line.kind-h { font-weight: 700; font-size: calc(var(--bs) * 1.35); border-bottom: 1px solid #111; }
+.scene.look-book .board-line.kind-idea, .scene.look-book .board-line.kind-hook { font-style: italic; font-weight: 600; font-size: calc(var(--bs) * 1.15); }
+.scene.look-book .board-line.kind-eq .ink { border: 1px solid currentColor; border-radius: 0; }
+.scene.look-book .board-line.kind-answer .ink { border: 1px solid currentColor; border-radius: 0; }
+.scene.look-book .board-line.kind-q { background: #fafafa; border: 1px solid #bdbdbd; border-radius: 0; }
+.scene.look-book .board-line.kind-q .tag { font-family: Inter, sans-serif; font-size: 0.8em; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #a61e1e; }
+.scene.look-book .board-col + .board-col { border-left: 1px solid #d4d4d4; }
+.scene.look-book .scene-svg text { font-family: var(--hand); }
+.scene.look-book .scene-ask { background: rgba(255, 255, 255, 0.97); }
+
+/* The look selector, top right of the picture (like a player's settings chip). */
+.scene-look { position: absolute; z-index: 5; top: 12px; right: 14px; display: flex; align-items: center; gap: 4px; padding: 3px 4px 3px 9px; border-radius: 99px; background: rgba(255, 255, 255, 0.88); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14); font: 600 12px Inter, sans-serif; color: #1f2328; opacity: 0.55; transition: opacity 0.2s; }
+.scene-look:hover, .scene-look:focus-within { opacity: 1; }
+.scene-look select { border: 0; background: transparent; font: inherit; color: inherit; cursor: pointer; padding: 2px 2px; }
+
+/* Video page like a video site: the player on the left, the topic's videos
+   (Up next, grouped by segment) on the right; stacked on narrow screens. */
+.content.wide.yt { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+.content.wide.yt > .figure { min-width: 0; }
+.yt-list { display: flex; flex-direction: column; gap: 10px; max-height: calc(var(--scene-h, 70vh) + 60px); overflow-y: auto; padding: 2px 2px 8px; }
+.yt-list-head b { font-size: 14px; line-height: 1.3; color: var(--ink); }
+.yt-seg { display: flex; flex-direction: column; gap: 6px; }
+.yt-seg h3 { margin: 6px 0 0; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.yt-item { display: flex; gap: 10px; align-items: flex-start; width: 100%; padding: 6px; border: 0; border-radius: 10px; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+.yt-item:not(:disabled):hover { background: var(--surface-2); }
+.yt-item.now { background: var(--surface); box-shadow: inset 3px 0 0 #1466c2; }
+.yt-item:disabled { cursor: default; opacity: 0.55; }
+.yt-thumb { position: relative; flex: none; width: 120px; aspect-ratio: 16 / 9; border-radius: 8px; display: grid; place-items: center; color: #fff; background: linear-gradient(165deg, #1466c2, #093b7a); }
+.yt-thumb.seg-3 { background: #fff; color: #111; border: 1px solid #d4d4d4; }
+.yt-thumb i { font-style: normal; font-weight: 800; font-size: 18px; }
+.yt-thumb small { position: absolute; right: 4px; bottom: 4px; padding: 1px 4px; border-radius: 4px; background: rgba(0, 0, 0, 0.78); color: #fff; font-size: 11px; font-weight: 600; }
+.yt-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.yt-text b { font-size: 13.5px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.yt-text small { font-size: 12px; color: var(--muted); }
+.yt-item.seen .yt-text small { color: var(--green); }
+@media (max-width: 1100px) {
+  .content.wide.yt { grid-template-columns: minmax(0, 1fr); }
+  .yt-list { max-height: none; }
+}
+/* A derivation step: its label on one line, the maths (an aligned block, one
+   "=" per line) under it (skill rule 33). */
+.board-line .lbl { display: block; font-size: 0.82em; color: var(--chalk-2); margin-bottom: 2px; }
+.scene.look-blue .scene-title { background: rgba(7, 40, 92, 0.88); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25); }
+.scene.look-blue .scene-title span { color: #8ce99a; }
+.board-line .lbl b { color: var(--chalk); }
+/* The control bar keeps dark ink on its white buttons in every look. */
+.scene.look-blue .scene-bar, .scene.look-blue .scene-ask-card .scene-opt { --chalk: #1f2328; --chalk-2: #4b5563; --c-blue: #1c7ed6; --c-green: #2b8a3e; --c-red: #e03131; }
+/* Derivation (segment 2) in the blue look: a Khan Academy style blackboard in
+   brand navy, written by hand as it is said (skill rule 34). */
+.scene.look-blue.seg-2 {
+  --hand: 'Patrick Hand', 'Comic Neue', cursive; --script: 'Caveat', 'Patrick Hand', cursive;
+  background: radial-gradient(ellipse at 25% 15%, rgba(80, 150, 230, 0.22), transparent 60%), linear-gradient(170deg, #0c3a78 0%, #082b5c 60%, #061f44 100%);
+}
+.scene.look-blue.seg-2 .board-line.kind-h { font-weight: 700; letter-spacing: 0; }

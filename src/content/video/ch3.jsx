@@ -13,20 +13,19 @@ const pos = (deg, r = 56) => [CX + r * Math.cos((-deg * Math.PI) / 180), CY + r 
 export const torqueProduction = video('Armature le torque kasari banaucha', {
   viewBox: '0 0 360 224',
   beats: [
-    { say: 'Yo hera armature, left ma north pole ra right ma south pole ko bichma. Field chai yeslai left bata right tira cross garcha.', voice: 'यो हेर, आर्मेचर। लेफ्टमा नर्थ पोल, र राइटमा साउथ पोलको बीचमा। फिल्ड चाहिँ, यसलाई लेफ्टबाट राइटतिर क्रस गर्छ।' },
+    { say: 'Armature: left ma north pole ra right ma south pole ko bichma. Field yeslai left bata right tira cross garcha.', voice: 'आर्मेचर — लेफ्टमा नर्थ पोल, र राइटमा साउथ पोलको बीचमा। फिल्ड चाहिँ, यसलाई लेफ्टबाट राइटतिर क्रस गर्छ।' },
     { say: 'Commutator le ensure garcha ki N pole muni ko har conductor ma current screen bhitra jancha, cross le dekhaeko, ra S muni ko har conductor ma current bahira aaucha, dot le dekhaeko.', voice: 'कम्युटेटरले यो इन्स्योर गर्छ — एन पोलमुनिको हर कन्डक्टरमा, करेन्ट स्क्रिन भित्र जान्छ, क्रसले देखाएको। अनि एस पोलमुनिको हर कन्डक्टरमा, करेन्ट बाहिर आउँछ, डटले देखाएको।' },
     { say: 'Fleming ko left-hand rule: field right tira ra current screen bhitra bhaye force tala tira huncha. So left ko har conductor tala push huncha.', voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुल — फिल्ड राइटतिर, र करेन्ट स्क्रिन भित्र भए, फोर्स तलतिर हुन्छ। सो, लेफ्टको हर कन्डक्टर तल पुस हुन्छ।' },
     { say: 'Right tira current bahira aaucha, tesaile force mathi tira huncha.', voice: 'राइटतिर करेन्ट बाहिर आउँछ, त्यसैले फोर्स, माथितिर हुन्छ।' },
-    { say: 'Left ma tala, right ma mathi: sabai force le armature lai eutai tira ghumaucha, counter-clockwise. Yinko turning effect jodda armature torque bancha.', voice: 'लेफ्टमा तल, राइटमा माथि। सबै फोर्सले आर्मेचरलाई एउटै तिर घुमाउँछ — काउन्टर क्लकवाइज। यिनको टर्निङ इफेक्ट जोड्दा, आर्मेचर टर्क बन्छ।' },
     {
-      say: 'La, yo answer gara.',
-      voice: 'ल, यो आन्सर गर।',
+      say: 'Left ma tala, right ma mathi: sabai force le armature lai eutai tira ghumaucha, counter-clockwise. Yinko turning effect jodda armature torque bancha.',
+      voice: 'लेफ्टमा तल, राइटमा माथि। सबै फोर्सले आर्मेचरलाई एउटै तिर घुमाउँछ — काउन्टर क्लकवाइज। यिनको टर्निङ इफेक्ट जोड्दा, आर्मेचर टर्क बन्छ।',
       ask: {
-        q: 'Left ra right ka sabai force le armature lai kata ghumaucha?',
-        voice: 'लेफ्ट र राइटका सबै फोर्सले आर्मेचरलाई कता घुमाउँछ?',
-        options: ['Duitai tira, cancel huncha', 'Eutai tira, counter-clockwise', 'Ghumaudai ghumaudaina'],
+        q: 'N muni ko conductor tala ra S muni ko conductor mathi push bhaye, armature kata ghumcha?',
+        voice: 'एन मुनिको कन्डक्टर तल, र एस मुनिको कन्डक्टर माथि पुस भए, आर्मेचर कता घुम्छ?',
+        options: ['Ghumdaina, force cancel huncha', 'Eutai tira, counter-clockwise', 'Clockwise ra counter-clockwise palo palo'],
         answer: 1,
-        why: 'Left ma tala, right ma mathi: sabai force le eutai tira, counter-clockwise ghumaucha.',
+        why: 'Left ma tala ra right ma mathi: dubai le eutai tira, counter-clockwise turning effect dinchan.',
       },
     },
     { say: 'Conductor N muni bata S muni jada commutator le tesko current reverse garcha, tesaile force pani flip huncha, ra tyo rotation ko eutai direction ma push garirahancha.', voice: 'कन्डक्टर एन मुनिबाट एस मुनि जाँदा, कम्युटेटरले यसको करेन्ट रिभर्स गर्छ। त्यसैले फोर्स पनि फ्लिप हुन्छ, र त्यो, रोटेसनको एउटै डाइरेक्सनमा पुस गरिरहन्छ।' },
@@ -39,8 +38,8 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
         <Arrow key={y} x1={62} y1={y} x2={298} y2={y} color={C.blue} w={1.2} className="sc on" dash="3 6" />
       ))}
       <Rotor x={CX} y={CY} r={70} className={s.on(0)} />
-      <line x1={CX} y1={CY - 76} x2={CX} y2={CY + 76} stroke={C.dim} strokeWidth={1} strokeDasharray="3 4" className={s.on(6)} />
-      <text x={CX + 4} y={CY - 80} fontSize={11} fill={C.dim} className={s.on(6)}>neutral zone</text>
+      <line x1={CX} y1={CY - 76} x2={CX} y2={CY + 76} stroke={C.dim} strokeWidth={1} strokeDasharray="3 4" className={s.on(5)} />
+      <text x={CX + 4} y={CY - 80} fontSize={11} fill={C.dim} className={s.on(5)}>neutral zone</text>
       <g className={s.on(1) + s.hl(1)}>
         {LEFT.map((d) => {
           const [x, y] = pos(d);
@@ -77,42 +76,6 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
 // and the camera moves to each step (motor3d.js). Same beats, so same voice.
 const { draw: _flat, viewBox: _vb, ...torqueBeats } = torqueProduction.figureProps;
 export const torqueProduction3d = video(torqueProduction.title, { ...torqueBeats, three: buildMotor });
-
-export const torqueDerivation = video('Derivation: torque equation', {
-  tall: true,
-  beats: [
-    { say: 'Aba torque equation. Armature radius r, active length l, P pole, per pole phi, Z conductor, A parallel path, ra armature current I a.', voice: 'अब, टर्क इक्वेसन। आर्मेचर रेडियस आर, एक्टिभ लेन्थ एल, पी पोल, पर पोल फाइ, जेड कन्डक्टर, ए प्यारालल पाथ — र आर्मेचर करेन्ट, आई ए।' },
-    { say: 'Armature current A ota path ma barabar split huncha, tesaile har conductor ma I a over A bagcha.', voice: 'आर्मेचर करेन्ट, ए ओटा पाथमा बराबर स्प्लिट हुन्छ। त्यसैले हर कन्डक्टरमा, आई ए ओभर ए बग्छ।' },
-    { say: 'Total flux, P phi, armature ko surface bhari phailincha, jasko area two pi r l ho. So average flux density P phi over two pi r l huncha.', voice: 'टोटल फ्लक्स, पी फाइ, आर्मेचरको सर्फेस भरि फैलिन्छ, जसको एरिया, टु पाइ आर एल हो। सो, एभरेज फ्लक्स डेन्सिटी — पी फाइ, ओभर टु पाइ आर एल हुन्छ।' },
-    { say: 'Euta conductor ma force B I l. B ra conductor current halda l cancel huncha: P phi I a over two pi r A.', voice: 'एउटा कन्डक्टरमा फोर्स, बी आई एल। बी र कन्डक्टर करेन्ट हाल्दा, एल क्यान्सिल हुन्छ — पी फाइ आई ए, ओभर टु पाइ आर ए।' },
-    {
-      say: 'Force lever arm bata torque bancha.',
-      voice: 'फोर्स लिभर आर्मबाट टर्क बन्छ।',
-      ask: {
-        q: 'Euta conductor ko force ma kun kura cancel bhayo?',
-        voice: 'एउटा कन्डक्टरको फोर्समा कुन कुरा क्यान्सिल भयो?',
-        options: ['l, active length', 'r, radius', 'Z, conductor number'],
-        answer: 0,
-        why: 'B = Pφ/2πrl ma l cha ra F = BIl ma pani l cha, tesaile l cancel huncha. Aba F lai r le multiply garera torque.',
-      },
-    },
-    { say: 'Euta conductor ko torque F times r. r pani cancel huncha, baki rahancha P phi I a over two pi A.', voice: 'एउटा कन्डक्टरको टर्क, एफ टाइम्स आर। आर पनि क्यान्सिल हुन्छ। बाँकी रहन्छ — पी फाइ आई ए, ओभर टु पाइ ए।' },
-    { say: 'Commutator le sabai Z conductor lai eutai tira push garaucha, tesaile Z le multiply gara: T a equals P phi Z I a over two pi A.', voice: 'कम्युटेटरले सबै जेड कन्डक्टरलाई एउटै तिर पुस गराउँछ, त्यसैले, जेडले मल्टिप्लाई गर। टी ए इक्वल्स — पी फाइ जेड आई ए, ओभर टु पाइ ए।' },
-    { say: 'One over two pi bhaneko 0.159. So T a equals 0.159 phi Z I a times P over A, newton metre ma.', voice: 'वान ओभर टु पाइ भनेको, जिरो पोइन्ट वान फाइभ नाइन। सो, टी ए इक्वल्स — जिरो पोइन्ट वान फाइभ नाइन, फाइ जेड आई ए, टाइम्स पी ओभर ए। न्युटन मिटरमा।' },
-    { say: 'Euta given machine ma P, Z ra A fixed huncha. So armature torque flux times armature current sanga proportional huncha. Simple cha.', voice: 'एउटा गिभन मेसिनमा, पी, जेड र ए फिक्स्ड हुन्छ। सो, आर्मेचर टर्क — फ्लक्स टाइम्स आर्मेचर करेन्टसँग प्रोपोर्सनल हुन्छ। सिम्पल छ।' },
-  ],
-  board: [
-    { at: 0, kind: 'h', node: <>Torque equation</> },
-    { at: 0, kind: 'note', node: <>r radius · l length · P pole · φ Wb/pole · Z conductor · A path · I<sub>a</sub></> },
-    { at: 1, kind: 'step', node: <>Euta conductor ko current: <K>{String.raw`I_c = \textcolor{#d9480f}{I_a / A}`}</K></> },
-    { at: 2, kind: 'step', node: <>Flux density: <K>{String.raw`B = \dfrac{P\phi}{2\pi r l}`}</K></> },
-    { at: 3, kind: 'step', node: <>Euta conductor ma force: <K>{String.raw`F = B I_c l = \dfrac{P\phi}{2\pi r \cancel{l}}\cdot\dfrac{I_a}{A}\cdot \cancel{l} = \textcolor{#d9480f}{\dfrac{P\phi I_a}{2\pi r A}}`}</K></> },
-    { at: 5, kind: 'step', node: <>Euta conductor ko torque: <K>{String.raw`\tau = F r = \dfrac{P\phi I_a}{2\pi \cancel{r} A}\cdot \cancel{r} = \textcolor{#d9480f}{\dfrac{P\phi I_a}{2\pi A}}`}</K></> },
-    { at: 6, kind: 'step', node: <>Sabai Z conductor: <K>{String.raw`T_a = \dfrac{P\phi \textcolor{#d9480f}{Z} I_a}{2\pi A}`}</K></> },
-    { at: 7, kind: 'eq', node: <><K>{String.raw`T_a = 0.159\,\phi Z I_a \left(\tfrac{P}{A}\right)\ \text{N}\cdot\text{m}`}</K></> },
-    { at: 8, kind: 'step', node: <>Given machine ma: <K>{String.raw`\textcolor{#2b8a3e}{T_a \propto \phi I_a}`}</K></> },
-  ],
-});
 
 export const torqueFactors = video('Torque kasle decide garcha?', {
   beats: [

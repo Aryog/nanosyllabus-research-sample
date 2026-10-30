@@ -1,6 +1,15 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import rough from 'roughjs';
-import { beatText, isNepali, spoken, videoKey, voiceKey } from './voice.js';
+import { beatText, spoken, videoKey, voiceKey } from './voice.js';
+import { autoLook, lookCss, LOOKS } from './looks.js';
+
+// The looks' ink repaint (looks.js), added to the page once.
+if (typeof document !== 'undefined' && !document.getElementById('scene-looks')) {
+  const el = document.createElement('style');
+  el.id = 'scene-looks';
+  el.textContent = lookCss;
+  document.head.appendChild(el);
+}
 
 const Stage3D = lazy(() => import('./Stage3D.jsx'));
 
@@ -232,14 +241,6 @@ function prepare(texts) {
   });
 }
 
-// Fallback browser voice: Devanagari lines need a Nepali (or Hindi) voice;
-// an English voice can't read them.
-function pickVoice(text) {
-  const vs = window.speechSynthesis.getVoices();
-  if (isNepali(text)) return vs.find((v) => v.lang?.startsWith('ne')) ?? vs.find((v) => v.lang?.startsWith('hi'));
-  return vs.find((v) => v.lang === 'en-IN') ?? vs.find((v) => /en[-_]GB/i.test(v.lang)) ?? vs.find((v) => v.lang?.startsWith('en'));
-}
-
 // Player preferences, remembered across videos: playback speed (voice pitch is
 // kept) and subtitles.
 const SPEEDS = [0.75, 1, 1.25, 1.5];
@@ -319,7 +320,7 @@ const clock = (ms) => {
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
 };
 
-export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, upcoming = [] }) {
+export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, upcoming = [] }) {
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [voice, setVoice] = useState(() => !isMuted() && 'speechSynthesis' in window);
@@ -330,6 +331,8 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
   const [scrub, setScrub] = useState(false);
   const [speed, setSpeed] = useState(() => (SPEEDS.includes(pref('dcm-rate', 1)) ? pref('dcm-rate', 1) : 1));
   const [cc, setCc] = useState(() => pref('dcm-cc', true) !== false);
+  const [look, setLook] = useState(() => (LOOKS.some(([k]) => k === pref('dcm-look', 'auto')) ? pref('dcm-look', 'auto') : 'auto'));
+  const shown = look === 'auto' ? autoLook(segment) : look;
   const [full, setFull] = useState(false);
   const sceneRef = useRef(null);
   const audioRef = useRef(null);
@@ -371,7 +374,9 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
   const head = board && !draw && board[0]?.kind === 'h' ? 1 : 0;
   // Columns are balanced by text length, so long answer points don't pile up on one side.
   let cols = 0;
-  if (wide && board && !draw && board.length - head >= 7) {
+  // A line holding an aligned block (one "=" per row) counts once per row.
+  const rows = (b) => 1 + (textOf(b.node).match(/\\\\/g) ?? []).length;
+  if (wide && board && !draw && board.slice(head).reduce((n, b) => n + rows(b), 0) >= 7) {
     const size = board.slice(head).map((b) => textOf(b.node).length + 30);
     const half = size.reduce((a, b) => a + b, 0) / 2;
     let sum = 0;
@@ -525,7 +530,9 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
     else seek.current = null;
     setAskOpen(false);
     const text = beatText(cur);
-    const st = { min: cur.ms ?? readMs(text, speed), silent: !voice || !text, spoke: false, at: 0 };
+    // A line not recorded yet is shown as a caption for as long as its voice
+    // will last (the same guess as the timeline), so the drawing's cues match.
+    const st = { min: cur.ms ?? (voice && text ? Math.max(MIN_BEAT, (300 + spoken(text).length * 80) / speed) : readMs(text, speed)), silent: !voice || !text, spoke: false, at: 0 };
     st.wait = !st.silent; // the clock waits for the voice to be ready
     line.current = st;
     // Dragging the slider: show the beat, don't speak.
@@ -538,35 +545,14 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
       st.silent = true;
       st.wait = false;
     };
-    const speakBrowser = () => {
-      // The browser voice isn't part of the tab's sound, so a render stays silent.
-      const v = 'speechSynthesis' in window && !RENDER ? pickVoice(text) : null;
-      if (!v) return silent();
-      let started = false;
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(spoken(text));
-      u.voice = v;
-      u.lang = v.lang;
-      u.rate = speed;
-      u.onstart = () => (started = true);
-      u.onend = u.onerror = () => {
-        if (!live) return;
-        if (!started) return silent();
-        st.spoke = true;
-        st.at = within.current;
-      };
-      st.speech = true;
-      st.wait = false;
-      window.speechSynthesis.speak(u);
-      if (!playingRef.current) window.speechSynthesis.pause();
-    };
     if (!st.silent) {
       clipsReady.then(() => {
         if (!live) return;
         const key = voiceKey(text);
         // In dev, a line that isn't recorded yet is recorded on the spot (and cached).
         const src = clips[key] ? clipSrc(key) : import.meta.env.DEV ? `${BASE}api/tts/${key}.mp3` : null;
-        if (!src) return speakBrowser();
+        // Not recorded yet: caption only, at reading pace (no browser voice).
+        if (!src) return silent();
         if (RENDER) {
           // The clip runs on the scene's clock; the tick logs what is heard.
           const dur = window.__clipDurs?.[key];
@@ -597,7 +583,7 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
           st.audio = null;
           fn();
         };
-        audio.onerror = fallback(speakBrowser);
+        audio.onerror = fallback(silent);
         st.play = () => st.ready && !st.spoke && audio.play().catch(fallback(silent));
         audio.onloadedmetadata = () => {
           durs[key] ??= audio.duration;
@@ -858,13 +844,30 @@ export function Scene({ beats, draw, board, viewBox = '0 0 360 220', onEnded, on
   }, [pending, beat]);
 
   return (
-    <div className={`scene beat-${beat} ${tall ? 'tall' : ''} ${full ? 'full' : ''}`} ref={sceneRef}>
+    <div className={`scene look-${shown} ${segment ? `seg-${segment[0]}` : ''} beat-${beat} ${tall ? 'tall' : ''} ${full ? 'full' : ''}`} ref={sceneRef}>
       <div className={`scene-screen ${ask && askOpen && !ended ? 'asking' : ''}`}>
         {title && (
           <div className={`scene-title ${(beat === 0 && playing) || !playing || ended ? 'show' : ''}`}>
             {kicker && <span>{kicker}</span>}
             <b>{title}</b>
           </div>
+        )}
+        {!RENDER && (
+          <label className="scene-look" title="Video look">
+            <span aria-hidden="true">◐</span>
+            <select
+              value={look}
+              aria-label="Video look"
+              onChange={(e) => {
+                setLook(e.target.value);
+                keep('dcm-look', e.target.value);
+              }}
+            >
+              {LOOKS.map(([k, name]) => (
+                <option key={k} value={k}>{k === 'auto' ? `Auto (${autoLook(segment) === 'book' ? 'Book' : 'Blue'})` : name}</option>
+              ))}
+            </select>
+          </label>
         )}
         <div
           className="scene-stage"

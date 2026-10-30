@@ -80,16 +80,22 @@ export const extra = (step) => ({ ...step, practice: true });
 /*
   Model answer as a video: the question goes up on the board, then each point
   the marking scheme wants (one beat each, narrated), then the exam tip.
-    answer(title, { papers, marks, q, read: { say, voice }, points: [{ node, say, voice }], tip: { node, say, voice }, draw?, viewBox? })
+    answer(title, { papers, marks, q, read: { say, voice }, points: [{ node, say, voice, page? }], tip: { node, say, voice }, draw?, viewBox? })
   `draw` adds the diagram or chart the answer needs, beside the notes; beat 0 is
   the question, beat k the k-th point.
 */
 export function answer(title, { papers, marks, q, read, points, tip, draw, viewBox }) {
   const src = papers.length ? `IOE ${papers.slice(0, 3).join(' · ')}${papers.length > 3 ? ` +${papers.length - 3}` : ''}` : 'Exam-style';
   const beats = [read, ...points, ...(tip ? [tip] : [])].map(({ say, voice, ask }) => ({ say, voice, ask }));
+  // A point with `page: true` turns the page: the points before it leave the
+  // board (the question stays), so a long answer stays big enough to read.
+  const until = (i) => {
+    const next = points.findIndex((p, j) => j > i && p.page);
+    return next < 0 ? undefined : next;
+  };
   const board = [
     { at: 0, kind: 'q', node: <><span className="tag">{src}{marks ? ` · ${marks}` : ''}</span>{q}</> },
-    ...points.map((p, i) => ({ at: i + 1, kind: 'step', node: p.node })),
+    ...points.map((p, i) => ({ at: i + 1, until: until(i), kind: 'step', node: p.node })),
     ...(tip ? [{ at: points.length + 1, kind: 'idea', node: <>✍️ {tip.node}</> }] : []),
   ];
   return { ...video(title, { beats, board, tall: true, draw, viewBox, notes: true }), ioe: papers.length > 0, tag: 'Model answer', tagKind: 'watch' };

@@ -20,6 +20,11 @@ const BACK_REF = /\b(bhanyo|bhaniyo|k bhaneko|dajaiyo|jastai kun)\b/i;
 // Filler lead-ins (rule 11).
 const FILLER = /\b(ekchin|dhyan check|bharkhar|ekchoti socha|dhyan diyera|feri recall)\b/i;
 const BAD_TAG = /dhyan check|ekchin socha/i;
+// Hype and filler (rule 32), and beats that only cue a question (rule 11).
+const HYPE = /\b(dami|ekdam smart|simple cha|pakka|antya samma hera|box gara|yo hera)\b/i;
+const LEAD_IN = /^(la,? yo answer gara|la use garau|euta term baki cha|aba maximum chahiyo)\.?$/i;
+// LaTeX inside a board line (the <K> children), to check rule 33.
+const texOf = (n) => (n == null || typeof n !== 'object' ? '' : Array.isArray(n) ? n.map(texOf).filter(Boolean).join(' \\\\ ') : typeof n.props?.children === 'string' && /\\|[_^=]/.test(n.props.children) && !n.props.className ? n.props.children : texOf(n.props?.children));
 
 const out = [];
 let errors = 0;
@@ -40,6 +45,8 @@ for (const v of videos) {
     if (b.voice && /…|\.\.\./.test(b.voice)) report('error', v, k, '`voice` contains "…" (rule 28b: sounds hesitant)');
     if (/\byo topic\b/i.test(say)) report('error', v, k, 'says "yo topic"; name the topic (rule 5)');
     if (FILLER.test(say)) report('error', v, k, `filler lead-in "${say.match(FILLER)[0]}"; use "La, yo answer gara." (rule 11)`);
+    if (HYPE.test(say)) report('error', v, k, `filler "${say.match(HYPE)[0]}" (rule 32)`);
+    if (b.ask && LEAD_IN.test(say.trim())) report(topics.length ? 'error' : 'warn', v, k, 'beat only cues its question; attach the ask to the beat that taught it (rule 11)');
     const words = say.split(/\s+/).filter(Boolean).length;
     if (words > 35) report('warn', v, k, `${words} words in one beat (keep under ~35)`);
     const spokenLen = voice.spoken(b.voice ?? '').length;
@@ -66,6 +73,16 @@ for (const v of videos) {
     const last = v.beats.length - 1;
     if (!v.board.some((l) => l.kind === 'hook' && l.at === last)) report('error', v, last, 'opener has no `hook` board line on its last beat (rule 6)');
     if (v.board[0]?.kind !== 'h') report('error', v, 0, 'opener must start with the topic number as an `h` line (rule 4)');
+  }
+  // Rule 33: never two "=" on one row of maths, and no unicode "·" inside \text.
+  for (const l of v.board) {
+    const tex = texOf(l.node);
+    if (!tex) continue;
+    for (const row of tex.replace(/\\(begin|end)\{aligned\}/g, '').split(/\\\\/)) {
+      const eqs = (row.replace(/\\(underbrace|overbrace)\{[^]*?\}_\{[^]*?\}\}/g, 'X').match(/(?<![<>!\\])=/g) ?? []).length;
+      if (eqs > 1 && !/\\q?quad|,\\q/.test(row)) report('warn', v, l.at, `board maths has ${eqs} "=" on one row; break it into an aligned block (rule 33)`);
+    }
+    if (/\\text\{[^}]*·/.test(tex)) report('error', v, l.at, 'unicode "·" inside \\text renders red; use \\text{N}\\cdot\\text{m} (rule 33)');
   }
   // Every board line must appear on a beat that exists.
   for (const l of v.board) if (l.at >= v.beats.length) report('error', v, l.at, `board line at beat ${l.at} but the video has ${v.beats.length} beats`);

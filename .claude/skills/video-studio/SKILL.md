@@ -38,7 +38,7 @@ clips.
 | MP4 render, the review loop, the frame strip, the final checklist | [references/render-and-qa.md](references/render-and-qa.md) |
 
 Read the reference before touching its area. Rules are numbered: house rules
-1 to 29 (the scripts cite them by number) and motion rules M1 to M15. A rule
+1 to 38 (the scripts cite them by number) and motion rules M1 to M15. A rule
 lives in exactly one reference.
 
 ## Non-negotiables (break none, ever)
@@ -51,6 +51,8 @@ lives in exactly one reference.
 6. **Make the focus obvious.** The part the voice is on stays bright with the ring and the hand; everything else softens, done by CSS (rule 18, M7). Never use SVG `filter`.
 7. **Unchanged lines stay byte-identical**, so their clips are reused (rule 28).
 8. **Test on a build** (`vite preview`), never on the dev server (render-and-qa.md).
+9. **Said = shown, no filler.** The caption reads exactly what the beat writes or points at; teacher's register, no hype, no lead-in-only beats (rules 11, 31, 32).
+10. **Each segment has its look.** Terms: Blue (Engineering Mindset). Derivation: handwritten navy board (Khan Academy) with Efficient-Engineer maths (one "=" per row, underbraced expansions). Big picture: Book (Science Ready) with textbook figures, one model answer per IOE question (rules 30, 33–36).
 
 ## Where things live
 
@@ -59,12 +61,13 @@ lives in exactly one reference.
 | Topic list, order, openers, extras | `src/content/topics.jsx` (assembled in `src/content/journey.jsx`) |
 | Authoring helpers (`video`, `overview`, `solve`, `answer`, `segments`, `extra`, SVG parts, palette `C`, `K` for KaTeX) | `src/content/video/kit.jsx` |
 | Kid-simple doodles (segment 1) | `src/content/video/doodles.jsx` |
-| Video bank | `src/content/video/ch1–ch9.jsx`, `vibe.jsx` (openers), `picture.jsx` (big-picture answers), `past.jsx`, `testing.jsx` |
+| Video bank | `src/content/video/ch1–ch9.jsx`, `vibe.jsx` (openers), `t41.jsx` (4.1 derivations, `step()` helper), `picture.jsx` (big-picture answers, bookish figure helpers), `past.jsx`, `testing.jsx` |
+| Picture looks (Blue / Book / Board, ink repaint) | `src/video/looks.js` + `styles.css` "video looks" |
 | Player: clock, camera, writing hand, voice, asks, download | `src/video/Scene.jsx` |
 | Speakable text, clip keys | `src/video/voice.js` |
 | 3D stage and scenes | `src/video/Stage3D.jsx`, `src/content/video/motor3d.js` |
 | Motion CSS (`.sc`, `.seq`, `.pop`, `.draw`, `.spin-up`, `.flowdash`, board kinds) | `src/styles.css` |
-| Lesson flow, XP, Finish; unit path | `src/components/LessonPlayer.jsx`; `src/App.jsx` |
+| Lesson flow, XP, Finish, Up-next list (rule 37); unit path | `src/components/LessonPlayer.jsx`; `src/App.jsx` |
 | Voice clips and manifest | `public/audio/scene/<key>.mp3`, `manifest.json` |
 | Rendered MP4s and manifest | `public/videos/<key>.mp4`, `manifest.json` |
 | Recording, cutting, evening, rendering | `scripts/generate-scene-audio.mjs`, `whole-take.mjs`, `audio-even.mjs`, `tts-plugin.mjs`, `render-videos.mjs` |
@@ -124,3 +127,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-10-29: Voice now Robust (stability 1.0) with resting points. Every 4.1 video is recorded as one whole take and cut into line clips (rules 27, 28b).
 - 2026-10-29: **video-studio created**: lesson-studio and animation-studio merged into one bundled skill, with references per area (scripting, voice/audio, visuals, animation, player/path, render/QA) and tools (`status.mjs`, `lint.mjs`, `frame-strip.mjs`). Those two skills now point here. The first lint run found one 4.1 practice question that trails off with "…" (EMF derivation, beat 3); fixing it needs a new take.
 - 2026-10-29: Rule 18 and M7 replaced at the user's request ("the part should be more focused, others decreased opacity"). The focused part stays bright with the ring; the rest of the drawing softens to 0.32, and earlier board lines to 0.45 while a new line is written. This is gentler than the old 0.3 spotlight, which dimmed even the focused part's own group.
+- 2026-10-30: 4.1 rewritten to the user's script level: filler and lead-in-only beats removed (rule 11 replaced, rule 32), captions read what is on screen (31), maths one "=" per row with underbraced expansions (33), Derivation now four videos (back EMF, voltage/power, torque by force, torque by power; 34), Big picture two model answers (torque, back EMF) with bookish figures and page turns (35, 36). Reference channels studied → looks per segment with a ◐ selector (30), Up-next list beside the player (37). Unvoiced lines are caption-only (38); nothing recorded. lint.mjs checks rules 11, 32, 33.

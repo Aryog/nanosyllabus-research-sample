@@ -1,9 +1,10 @@
 import { C, extra, overview, segments } from './video/kit.jsx';
 import { Ask, Battery, Crane, Face, Fan, MagnetWire, Note, Paper } from './video/doodles.jsx';
-import { characteristicsAnswer, starterAnswer, testingAnswer, torqueAnswer } from './video/picture.jsx';
+import { backEmfAnswer, characteristicsAnswer, starterAnswer, testingAnswer, torqueAnswer } from './video/picture.jsx';
+import { backEmfDerivation, torqueDerivation, torqueFromPower, voltageEquation } from './video/t41.jsx';
 import { ch1Model, fleming, howBig, whyItMoves } from './video/ch1.jsx';
 import { ch2Model, commutatorAction, crossSection, emfDerivation, emfIoe, lapWave } from './video/ch2.jsx';
-import { ch3Model, torqueDerivation, torqueFactors, torqueProduction, torqueProduction3d } from './video/ch3.jsx';
+import { ch3Model, torqueFactors, torqueProduction, torqueProduction3d } from './video/ch3.jsx';
 import { ch4Model, maxPower, speedEq, story, voltagePower } from './video/ch4.jsx';
 import { connections, equations, shuntLoadSpeed } from './video/ch5.jsx';
 import { ch6Model, compound, series, seriesNumerical, shunt, shuntNumerical } from './video/ch6.jsx';
@@ -46,9 +47,9 @@ const t41 = topic({
       lines: [{ kind: 'idea', node: <>Back EMF k ho?</> }, { kind: 'idea', node: <>Torque kati huncha, kasari nikalne?</> }],
     },
     {
-      say: 'Ani last ma, IOE ma tin choti aayeko question: working principle ra torque equation, sangai solve garchau. Antya samma hera!',
-      voice: 'अनि लास्टमा, आइओईमा तीन चोटि आएको क्वेस्चन — वर्किङ प्रिन्सिपल र टर्क इक्वेसन। सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
-      lines: [{ kind: 'hook', node: <>★ Last ma: IOE ma 3 choti aayeko question</> }],
+      say: 'Last ma, IOE ka duita question solve garchau: working principle ra torque equation, ra back EMF ko role. Dubai tin-tin choti sodhiyeka chan.',
+      voice: 'लास्टमा, आइओईका दुईटा क्वेस्चन सल्भ गर्छौं — वर्किङ प्रिन्सिपल र टर्क इक्वेसन, र ब्याक इएमएफको रोल। दुवै, तीन-तीन चोटि सोधिएका छन्।',
+      lines: [{ kind: 'hook', node: <>★ Last ma: IOE ka 2 question, dubai 3 choti sodhiyeka</> }],
     },
   ],
   introArt: {
@@ -91,10 +92,8 @@ const t41 = topic({
     ),
   },
   terms: [vibe41, torqueProduction3d, story],
-  derive: [torqueDerivation],
-  picture: [
-    torqueAnswer,
-  ],
+  derive: [backEmfDerivation, voltageEquation, torqueDerivation, torqueFromPower],
+  picture: [torqueAnswer, backEmfAnswer],
   extras: [torqueProduction, ch3Model, whyItMoves, howBig, fleming, ch1Model, crossSection, commutatorAction, lapWave, emfDerivation, emfIoe, ch2Model, torqueFactors, voltagePower, maxPower, speedEq, ch4Model],
 });
 

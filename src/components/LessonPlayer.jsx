@@ -75,6 +75,15 @@ export function XpCounter({ xp, bump }) {
   );
 }
 
+// A video's running time (mm:ss) from its lines: clip length when recorded is
+// not known here, so ~80 ms per spoken character plus the pause between lines.
+const runTime = (st) => {
+  const beats = st?.figureProps?.beats ?? [];
+  const ms = beats.reduce((t, b) => t + Math.max(2000, beatText(b).length * 80) + 200, 0);
+  const sec = Math.round(ms / 1000);
+  return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
+};
+
 export default function LessonPlayer({ course, lessonIndex, startStep = 0, reachStep = 0, crumbs = [], narrator, xp, addXp, onExit, onComplete, onProgress, onTopicEnd }) {
   const lesson = course.lessons[lessonIndex];
   const [pos, setPos] = useState(startStep);
@@ -390,6 +399,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
             upcoming: upcomingLines,
             title: step.title,
             kicker: [step.chapter?.split(' · ')[0], step.segment, step.ioe && 'IOE'].filter(Boolean).join(' · '),
+            segment: step.segment,
           }
         : {}),
     }),
@@ -514,7 +524,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
               )}
             </div>
           ) : (
-            <div className={`content ${step.video ? 'wide' : ''}`} key={`${lessonIndex}-${pos}`}>
+            <div className={`content ${step.video ? 'wide' : ''} ${step.video && segBars ? 'yt' : ''}`} key={`${lessonIndex}-${pos}`}>
               {/* Videos carry their own title and topic inside the player. */}
               {!step.video && (step.chapter || step.segment || step.retry || step.checkin || step.flashback || step.ioe || step.tag || inPractice) && (
                 <div className="q-tags">
@@ -533,6 +543,37 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
                 <div className="figure">
                   <Figure key={resetKey} {...figureProps} />
                 </div>
+              )}
+              {step.video && segBars && (
+                // Up next, like a video site: the topic's videos by segment,
+                // each with its length; open ones can be clicked.
+                <aside className="yt-list" aria-label="Videos in this topic">
+                  <div className="yt-list-head">
+                    <b>{step.chapter}</b>
+                  </div>
+                  {segBars.map((b) => (
+                    <section key={b.seg} className="yt-seg">
+                      <h3>{b.seg}</h3>
+                      {b.ticks.map((t) => {
+                        const here = t.k === entry.i;
+                        const open = t.at >= 0 && t.at <= reach && !here;
+                        const seen = t.at >= 0 && t.at < pos;
+                        return (
+                          <button key={t.k} className={`yt-item ${here ? 'now' : ''} ${seen ? 'seen' : ''}`} disabled={!open && !here} onClick={() => open && setPos(t.at)}>
+                            <span className={`yt-thumb seg-${b.seg[0]}`}>
+                              <i>{here ? '▶' : open || seen ? t.n : '🔒'}</i>
+                              <small>{runTime(lesson.steps[t.k])}</small>
+                            </span>
+                            <span className="yt-text">
+                              <b>{t.title}</b>
+                              <small>{here ? 'Ahile herdai' : seen ? '✓ Herisakyau' : open ? 'Click garera hera' : 'Aghi badhepachi khulcha'}</small>
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </section>
+                  ))}
+                </aside>
               )}
               {step.after}
               {InputComp && <InputComp value={value} setValue={changeValue} status={status} input={step.input} />}

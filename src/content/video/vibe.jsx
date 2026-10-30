@@ -57,8 +57,11 @@ export const vibe41 = video('DC motor hamro dherai najik cha', {
   beats: [
     { say: 'Phone vibrate huda bhitra euta sano DC motor ghumcha. Fan, lift ra electric car ma pani yei principle cha.', voice: 'फोन भाइब्रेट हुँदा, भित्र एउटा सानो डीसी मोटर घुम्छ। फ्यान, लिफ्ट, र इलेक्ट्रिक कारमा पनि, यही प्रिन्सिपल छ।' },
     { say: 'Magnetic field bhitra current bokeko taar rakhyo bhane, taar lai dhakka lagcha. Tyo dhakka nai force ho.', voice: 'म्याग्नेटिक फिल्ड भित्र, करेन्ट बोकेको तार राख्यो भने, तारलाई धक्का लाग्छ। त्यो धक्का नै — फोर्स हो।' },
-    { say: 'Back EMF treadmill jastai: jati chhito daudincha, teti ulto push badhcha. Motor jati chhito ghumcha, current teti nai ghatcha.', voice: 'ब्याक इएमएफ, ट्रेडमिल जस्तै हो। जति छिटो दौडिन्छ, त्यति उल्टो पुस बढ्छ। मोटर जति छिटो घुम्छ, करेन्ट त्यति नै घट्छ।' },
-    check('Phone lai vibrate garaune chij k ho?', 'फोनलाई भाइब्रेट गराउने चिज के हो?', ['Speaker', 'Sano DC motor', 'Battery matra'], 1, 'Phone bhitra sano DC motor ghumera vibration dincha.'),
+    {
+      say: 'Back EMF treadmill jastai: jati chhito daudincha, teti ulto push badhcha. Motor jati chhito ghumcha, current teti nai ghatcha.',
+      voice: 'ब्याक इएमएफ, ट्रेडमिल जस्तै हो। जति छिटो दौडिन्छ, त्यति उल्टो पुस बढ्छ। मोटर जति छिटो घुम्छ, करेन्ट त्यति नै घट्छ।',
+      ask: { q: 'Motor ko speed badhda armature current ma k huncha?', voice: 'मोटरको स्पिड बढ्दा, आर्मेचर करेन्टमा के हुन्छ?', options: ['Ghatcha', 'Badhcha', 'Same rahancha'], answer: 0, why: 'Speed badhda back EMF (ulto push) badhcha, tesaile current ghatcha.' },
+    },
   ],
   board: [
     { at: 0, kind: 'h', node: <>DC motor: kaha kaha?</> },

@@ -6,7 +6,7 @@ unit path (`src/App.jsx`) shows the topics.
 
 Routes: `/` syllabus · `/electrical-machines/dc-motor` unit path · `/electrical-machines/dc-motor/lesson/:n` main-path screen n (`?render` = offline render mode: questions answer themselves, voice is logged to `window.__render`).
 
-Local preferences: `dcm-rate` speed, `dcm-cc` captions, `dcm-muted`.
+Local preferences: `dcm-rate` speed, `dcm-cc` captions, `dcm-muted`, `dcm-look` picture look (rule 30).
 
 ## House rules: player
 
@@ -20,5 +20,7 @@ Local preferences: `dcm-rate` speed, `dcm-cc` captions, `dcm-muted`.
 22. One bubble per micro-topic, with a three-part bar for its segments.
 23. Every tick in the lesson's top progress bar has a hover card (no browser `title`): topic · segment · Video n/m, the screen's real title, and its state (▶ Ahile yaha cha · ✓ Herisakyau · Click garera jau · 🔒 Aghi badhepachi khulcha).
 24. Segments run straight into each other inside the player, with no trip back to the path. Only after all three segments does the last screen say **Finish ✓**; then Sparky hops on the path to the next topic's bubble and waits there (no auto-enter).
+
+37. **Video page like a video site.** On a topic's video, the player sits left and an *Up next* list sits right (stacked under it below 1100 px): the topic's videos grouped by segment, each with a 16:9 thumbnail (blue for segments 1–2, white for 3), its number, its running time (from its lines) and its state (Ahile herdai · ✓ Herisakyau · Click garera hera · locked). Open ones are clickable, like the progress-bar ticks.
 
 Extra practice (`extras`) is offered after the course, grouped by topic.

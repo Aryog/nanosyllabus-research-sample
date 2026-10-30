@@ -1,13 +1,12 @@
 /*
   The DC motor in 3D, for "Armature le torque kasari banaucha" (ch3.jsx). It
-  follows the same seven beats as the flat drawing:
+  follows the same six beats as the flat drawing:
     0  armature between N and S, the field flowing left → right
     1  current: into the screen under N (⊗), out under S (⊙), flowing along the conductors
     2  Fleming: force down on the left conductors
     3  force up on the right conductors
-    4  together they turn the armature counter-clockwise (torque)
-    5  question (the armature keeps turning)
-    6  neutral zone: crossing it, a conductor's current (and its push) flips
+    4  together they turn the armature counter-clockwise (torque), then a question
+    5  neutral zone: crossing it, a conductor's current (and its push) flips
   Front view = looking along the shaft (+z toward the viewer), as in the 2D
   drawing. Everything moves on the scene clock (see Stage3D.jsx). Inside a
   beat, parts come in when the voice names them: CUE holds those moments in
@@ -24,7 +23,6 @@ const SHOTS = [
   [4.2, 3.4, 9],
   [-3, 1.4, 8.8],
   [3, 1.4, 8.8],
-  [0.8, 1.4, 9.4],
   [0.8, 1.4, 9.4],
   [0, 0.9, 9.6],
 ];
@@ -236,7 +234,7 @@ export function buildMotor(THREE, scene) {
     flow += dt;
     // The armature starts turning when the line says so, and slows on the
     // neutral-zone beat; the speed eases, it never jumps.
-    const want = b < 4 ? 0 : b === 4 ? (ms >= CUE.turn ? SPIN : 0) : b === 6 ? SLOW : SPIN;
+    const want = b < 4 ? 0 : b === 4 ? (ms >= CUE.turn ? SPIN : 0) : b === 5 ? SLOW : SPIN;
     speed += (want - speed) * clamp(dt / 600);
     spin += dt * speed;
     rotor.rotation.z = spin;
@@ -316,6 +314,6 @@ export function buildMotor(THREE, scene) {
     const name = cue(4, CUE.ta, 450);
     ta.visible = name > 0;
     ta.scale.set(0.55 * 4 * name, 0.55 * name, 1);
-    neutral.visible = b >= 6;
+    neutral.visible = b >= 5;
   };
 }

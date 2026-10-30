@@ -51,10 +51,10 @@ Keep about 90% of screens as videos, and put questions inside videos as `ask` be
 
 ## House rules: structure
 
-3. Each micro-topic is `topic({ num, title, intro, terms, derive, picture })` in three segments: 1/3 Terms ra definitions → 2/3 Derivation → 3/3 Big picture (a real IOE question solved as a video).
+3. Each micro-topic is `topic({ num, title, intro, terms, derive, picture })` in three segments: 1/3 Terms ra definitions → 2/3 Derivation (every equation the syllabus bullet needs, rule 34) → 3/3 Big picture (the topic's real IOE questions as model answers, rule 36).
 4. Segment 1 opens with `overview(num, title, beats)`: about three short voiced beats. Beat 0 writes the topic **number** (e.g. `4.1`) as the heading and the title under it. Each later beat writes a question the topic will answer ("Motor kina ghumcha?", "Back EMF k ho?"). It is a preview, not a summary: no formulas, results or conclusions, and never a list of the three segments.
 5. The opener names the topic ("Losses ra efficiency topic suru garau."), never "yo topic". Each beat is one short sentence, and the whole opener runs about 10–15 s.
-6. The opener's last beat is the hook. It promises the topic's final IOE question and says how often it was asked ("Ani last ma, IOE ma tin choti aayeko question … sangai solve garchau. Antya samma hera!"), shown as a `hook` board line ("★ Last ma: IOE ma 3 choti aayeko question"). Use the real paper count of that topic's Big-picture video, and name the year when it was asked once.
+6. The opener's last beat is the hook. It names the topic's Big-picture IOE questions and how often each was asked ("Last ma, IOE ka duita question solve garchau: working principle ra torque equation, ra back EMF ko role. Dubai tin-tin choti sodhiyeka chan."), shown as a `hook` board line ("★ Last ma: IOE ka 2 question, dubai 3 choti sodhiyeka"). Use the real paper counts from `vault/`, and name the year when a question was asked once. No "Antya samma hera!" (rule 32).
 7. Segment 1 (Terms ra definitions) is explained as if to a 5-year-old. Every video in it has a `draw` picture made of kid-simple doodles from `src/content/video/doodles.jsx` (everyday objects, thick round strokes, a face on the motor, a little motion such as a spinning fan). Use one picture per beat (`s.on(k, k)`) so each idea gets its own image, and add new doodles to `doodles.jsx` instead of drawing one-offs.
 8. Surplus videos go in `extras` (optional practice) and are never deleted.
 
@@ -62,9 +62,17 @@ Keep about 90% of screens as videos, and put questions inside videos as `ask` be
 
 9. Teach before test: a question may only ask what an earlier beat already explained.
 10. A question stands on its own, like an exam question. It never points back at the video ("… bhanyo?", "… bhaniyo?", "k bhaneko?", "kun sanga dajaiyo?", "X jastai kun?"); ask the concept itself ("Start garne instant ma current kati huncha?"), and the Devanagari voice matches. It ends as a full question, never a stem trailing off with "…" ("Torque…" → "Torque kati huncha?").
-11. A lead-in beat that only cues a question says `La, yo answer gara.` / voice `ल, यो आन्सर गर।`. Never use filler like "Ekchin, dhyan check", "Bharkhar ko kura", "Ekchoti socha ta", "Dhyan diyera herya?" or "Feri recall", and question text never starts with "Bharkhar bhaneko:". Lead-ins that carry content ("Aba naya back EMF.") stay.
+11. **No lead-in-only beats** (replaced by rule 32). A question is attached (`ask`) to the content beat that taught it, so the video pauses right after that line. Never write a beat that only cues a question ("La, yo answer gara.", "Ekchin, dhyan check", "Euta term baki cha.") and never start question text with "Bharkhar bhaneko:". Older topics still have `La, yo answer gara.` beats; remove them whenever that topic is rewritten.
 12. Question cards carry no "Dhyan check 👀" or "Ekchin socha 🤔" tag. Only informative tags (IOE paper, "Quick check", etc.) are allowed.
 13. Every question card has **↺ Rewatch** before answering. After an answer the video goes on by itself after 2 s; rewinding before a question asks it again (answers are not kept); XP is given only for the first try.
+
+## House rules: script quality (set 2026-10-30)
+
+31. **What is said is what is shown.** Every beat writes one board line or brings in / highlights one part, and its caption reads that line or names that part, in the same order. Nothing appears that the caption does not name, and the caption never names something that is not on screen ("Derivation segment 2 mai garyau" over a formula is wrong: read the formula). In a model answer the caption is the Nepali reading of that point, no more.
+32. **Professional, no filler.** A teacher's register: state, define, derive, conclude. No hype or exclamations ("dami!", "Ekdam smart", "Simple cha", "Full marks pakka!", "Antya samma hera!", "Yo line box gara!"), no "Yo hera" openers, no lead-in-only beats (rule 11). One everyday analogy per idea is still fine in segment 1 (rule 2). `lint.mjs` flags these words.
+33. **Maths layout.** (a) A chain with more than one "=" is an `aligned` block with one "=" per row, aligned at "=" (`\begin{aligned} F &= … \\ &= … \end{aligned}`); never two "=" on one row. (b) Each derivation step is `step(label, tex)`: a short English label on its own line, the maths under it. (c) **Expansion is shown**: the term about to be replaced carries an `\underbrace{\textcolor{c}{term}}_{\textstyle\textcolor{c}{what it becomes}}`, and the next row uses that expression in the same colour c. (d) One colour per quantity for the whole video (flux/B/E_b blue, current orange, counts and results green, time and per-path violet); cancels are `\cancel{}` (struck in red). (e) Units stay outside: `\text{N}\cdot\text{m}` (never a unicode "·" inside `\text`, KaTeX shows it red).
+34. **Derivation segment is complete and taught like Khan Academy + The Efficient Engineer.** Segment 2 has one video per equation the syllabus bullet needs (4.1: back EMF equation → voltage and power equation → torque by force → torque by power), not one. Each video: name every symbol first (board `note`), one physical step per beat with *why* before *how*, substitute visibly (rule 33c), box the result (`eq`), then one line on what it means for a given machine (proportionality) and, where useful, a second method or a quick numerical `ask`. The board grows like a notebook from the top left and is written as it is said.
+36. **Big picture = every IOE question of the topic.** When the topic has two distinct past IOE questions, the Big picture has two model-answer videos (`answer()`), one per question, each with its real papers and marks from `vault/`. A long answer turns the page with `page: true` on the point where a new part starts (derivation, roles), so the text stays big. The figure is bookish (rule 35).
 
 ## Writing the voice line (see voice-audio.md for recording)
 
@@ -74,14 +82,24 @@ Keep about 90% of screens as videos, and put questions inside videos as `ask` be
 
 ## Templates
 
-Lead-in plus question:
+Question on the beat that taught it (rule 11):
 ```jsx
-{ say: 'La, yo answer gara.', voice: 'ल, यो आन्सर गर।',
+{ say: 'Switch on. Armature ghumeko chaina, tesaile back EMF zero. Current V over R a, arthat 440 ampere.',
+  voice: 'स्विच अन। आर्मेचर घुमेको छैन, त्यसैले ब्याक इएमएफ जिरो। करेन्ट — भी ओभर आर ए, अर्थात फोर हन्ड्रेड फोर्टी एम्पियर।',
   ask: { tag: 'Quick check', q: 'Start garne instant ma back EMF kati huncha?',
          voice: 'स्टार्ट गर्ने इन्स्ट्यान्टमा ब्याक इएमएफ कति हुन्छ?',
          options: ['Zero', 'V jati', 'Ia Ra jati'], answer: 0,
          why: 'N = 0 bhaye Eb = PφZN/60A = 0.' } },
 ```
+
+Derivation step (rule 33): label above, aligned maths, one "=" per row, the term to be replaced under an underbrace in its colour:
+```jsx
+{ at: 3, kind: 'step', node: step('Force on one conductor',
+  String.raw`F = \underbrace{\textcolor{${BL}}{B}}_{\textstyle\textcolor{${BL}}{\frac{P\phi}{2\pi r l}}}\;\underbrace{\textcolor{${OR}}{I_c}}_{\textstyle\textcolor{${OR}}{\frac{I_a}{A}}}\;l`) },
+{ at: 4, kind: 'step', node: step('Substitute',
+  String.raw`\begin{aligned} F &= \textcolor{${BL}}{\dfrac{P\phi}{2\pi r \cancel{l}}} \cdot \textcolor{${OR}}{\dfrac{I_a}{A}} \cdot \cancel{l} \\ &= \dfrac{P\phi I_a}{2\pi r A} \end{aligned}`) },
+```
+(`step(label, tex)` and the ink constants are in `src/content/video/t41.jsx`.)
 
 Graph step board line (rule 19):
 ```jsx

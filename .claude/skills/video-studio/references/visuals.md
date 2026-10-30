@@ -33,7 +33,19 @@ Add a new doodle here when segment 1 needs an everyday object: thick round strok
 19. Every graph and picture is captioned. It has a title that says what it shows ("Shunt: torque vs armature current"), axes named in full with the symbol ("Armature current Ia", "Speed N"), and every curve named in words ("Tsh (shaft torque)"). Labels sit in open space, never on a line or across an axis. Each step gets a board line saying what the graph shows and why ("Graph: φ constant, so Ta ∝ Ia → origin bata sidha line"). A drawing beside notes, or a two-column board, is shown whole (no zoom).
 20. Drawings look solid (2.5D): use the shaded kit parts (`Pole`, `Conductor`, `Rotor`, `Shadow` in `kit.jsx`), with gradients and soft ground shadows, never SVG filters. New objects follow the same lighting (from the top left).
 
+30. **Looks.** The picture has three looks (`src/video/looks.js`, CSS in `styles.css`): **Blue** (brand blue field, white ink, bright marker colours; Engineering Mindset style) for 1/3 Terms; **Blue + handwriting on deep navy** (Khan Academy blackboard) for 2/3 Derivation (`.look-blue.seg-2`); **Book** (white page, black serif ink, thin rules; Science Ready style) for 3/3 Big picture. `Auto` picks these by segment; the ◐ selector at the top right of the picture lets the viewer force Blue, Book or Board (pref `dcm-look`). Drawings keep using the palette `C`: a look repaints those exact hex inks by CSS, so never hard-code another hex for a palette role, and never put a colour in a drawing that is not in `C` unless it must stay the same in every look.
+35. **Big-picture figures are bookish.** Model-answer figures are drawn like a textbook figure: thin black outlines (`stroke` 0.8–1.6), plain ⊗/⊙ conductors, small filled arrowheads, labels on leader lines (a dot at the part, a thin line to the label), and a numbered italic caption (`Fig. 1  …`) that the tip can cite. No gradients, kit 2.5D parts, doodles, emoji or colour fills; parts still arrive on the point that names them (`s.on(k)`), and labels never overlap one another or a stroke. Helpers `cond`, `head`, `leader` live in `src/content/video/picture.jsx`.
+
 (Rule 7, doodles in segment 1, is in scripting.md. Rule 21, 3D, is in animation.md.)
+
+## Reference channels (what we take from each)
+
+| Channel | Take | Rule |
+|---|---|---|
+| The Engineering Mindset | brand-blue field behind every concept picture; real 3D objects and cutaways; current, field and flow shown as moving dashes/dots; few words on screen, labels near the part | 30, 21, M6 |
+| The Efficient Engineer | symbols defined on the picture before the maths; one colour per quantity carried from picture to equation; each substitution visible; result boxed, then its meaning | 33, 34 |
+| Khan Academy | the derivation is handwritten on a dark board as it is said; the pen goes where the voice is; circling/underlining the term being discussed; conversational why-then-how | 34, 18 |
+| Science Ready | close to the textbook: white page, plain line figures with numbered captions, syllabus wording, exam-style answers with marks | 35, 36 |
 
 ## Layout checks
 

@@ -11,6 +11,8 @@ video beats ──videoKey()──▶ key of everything the video says ──▶
 - The player plays `<key>.mp3` per beat and waits on a question between clips. If a clip is missing, the dev server returns 404 (unless `TTS_LIVE=1`) and the player falls back to the caption alone.
 - `public/audio/scene/manifest.json` maps key → version tag. A tag that ends in `e` means evened; one that ends in `we` means cut from a whole take (also evened). `r` marks Robust delivery. Browsers drop older takes by tag.
 
+38. **Caption-only until voiced.** A line with no recorded clip plays silent with its caption (CC on by default); the browser voice is never used. It lasts as long as its voice will (≈ 300 ms + 80 ms per spoken character, the timeline's guess), so drawing cues timed to the voice still land. When the user says "don't generate audio", write `say` and `voice` as usual and record nothing.
+
 ## Recording a whole take (the only way to record)
 
 `npm run audio:scenes -- <topic> --whole` makes one ElevenLabs request per video (`/with-timestamps`, eleven_v3, `language_code: ne`, mp3 128k). Then `scripts/whole-take.mjs`:

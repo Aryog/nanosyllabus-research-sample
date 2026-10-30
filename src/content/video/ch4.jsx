@@ -6,10 +6,8 @@ import { Armature, Arrow, C, K, model, Resistor, Source, video } from './kit.jsx
 const STORY = [
   [0, 0, 0],
   [0, 0, 440],
-  [0, 0, 440],
   [786, 110, 220],
   [1500, 210, 20],
-  [1464, 205, 30],
   [1464, 205, 30],
   [1464, 205, 30],
 ];
@@ -18,11 +16,9 @@ const STORY = [
 const MOVES = [
   [0, 0],
   [0, 500],
-  [0, 0],
   [5600, 6000],
   [800, 1200],
   [2600, 3000],
-  [0, 0],
   [0, 0],
 ];
 
@@ -54,34 +50,32 @@ function Bar({ x, frac, color, label, value, was, at = 0, className = '' }) {
 export const story = video('Motor le aafno current aafai kina limit garcha', {
   viewBox: '0 0 360 220',
   beats: [
-    { say: 'Yo hera 220 volt ko DC motor, armature resistance half ohm. Switch ahile open cha, tesaile kei pani bagdaina.', voice: 'यो हेर — टु ट्वेन्टी भोल्टको डीसी मोटर, आर्मेचर रेजिस्टेन्स हाफ ओम। स्विच अहिले ओपन छ, त्यसैले केही पनि बग्दैन।' },
-    { say: 'Switch on. Armature ahile ghumeko chaina, tesaile back EMF zero. Current V over R a: 440 ampere, dami!', voice: 'स्विच अन। आर्मेचर अहिले घुमेको छैन, त्यसैले ब्याक ई एम एफ, जिरो। करेन्ट — भी ओभर आर ए, फोर हन्ड्रेड फोर्टी एम्पियर। दामी!' },
+    { say: '220 volt ko DC motor, armature resistance 0.5 ohm. Switch open cha, tesaile current zero cha.', voice: 'टु ट्वेन्टी भोल्टको डीसी मोटर, आर्मेचर रेजिस्टेन्स जिरो पोइन्ट फाइभ ओम। स्विच ओपन छ, त्यसैले करेन्ट जिरो छ।' },
     {
-      say: 'La, yo answer gara.',
-      voice: 'ल, यो आन्सर गर।',
+      say: 'Switch on. Armature ghumeko chaina, tesaile back EMF zero. Current V over R a, arthat 440 ampere.',
+      voice: 'स्विच अन। आर्मेचर घुमेको छैन, त्यसैले ब्याक इएमएफ जिरो। करेन्ट — भी ओभर आर ए, अर्थात फोर हन्ड्रेड फोर्टी एम्पियर।',
       ask: {
-        q: 'Switch on garda back EMF kati thiyo?',
-        voice: 'स्विच अन गर्दा ब्याक ई एम एफ कति थियो?',
-        options: ['V jati', 'Zero', '440 volt'],
+        q: 'Motor start garne instant ma back EMF kati huncha?',
+        voice: 'मोटर स्टार्ट गर्ने इन्स्ट्यान्टमा, ब्याक इएमएफ कति हुन्छ?',
+        options: ['V jati', 'Zero', '440 V'],
         answer: 1,
-        why: 'Armature ghumeko chaina, tesaile back EMF zero, ani current V/Ra = 440 A.',
+        why: 'N = 0 bhaye Eb = PφZN/60A = 0, tesaile Ia = V/Ra = 440 A.',
       },
     },
     { say: 'Armature ko speed badhdai jada yesko conductor le flux cut garchan ra supply lai oppose garne EMF generate garchan. Tyo nai back EMF ho, ani current ghatcha.', voice: 'आर्मेचरको स्पिड बढ्दै जाँदा, यसको कन्डक्टरले फ्लक्स कट गर्छन्, र सप्लाईलाई अपोज गर्ने ई एम एफ जेनेरेट गर्छन्। त्यो नै ब्याक ई एम एफ हो। अनि करेन्ट घट्छ।' },
     { say: 'Full speed ma back EMF 210 volt huncha. R a bata current push garna 10 volt matra baki huncha, tesaile armature current just 20 ampere.', voice: 'फुल स्पिडमा, ब्याक ई एम एफ टु हन्ड्रेड टेन भोल्ट हुन्छ। आर ए बाट करेन्ट पुस गर्न, टेन भोल्ट मात्र बाँकी हुन्छ। त्यसैले आर्मेचर करेन्ट, जस्ट ट्वेन्टी एम्पियर।' },
-    { say: 'Aba load thapa. Motor ali slow huncha, E b 205 volt ma jharcha, ani current 30 ampere samma badhcha, jasle load lai chahine extra torque dincha.', voice: 'अब, लोड थप। मोटर अलि स्लो हुन्छ, ई बी टु हन्ड्रेड फाइभ भोल्टमा झर्छ। अनि करेन्ट, थर्टी एम्पियर सम्म बढ्छ — जसले लोडलाई चाहिने एक्स्ट्रा टर्क दिन्छ।' },
     {
-      say: 'La, yo answer gara.',
-      voice: 'ल, यो आन्सर गर।',
+      say: 'Load thapda motor ali slow huncha. E b 205 volt ma jharcha, ra current 30 ampere samma badhcha, jasle load lai chahine extra torque dincha.',
+      voice: 'लोड थप्दा, मोटर अलि स्लो हुन्छ। ई बी टु हन्ड्रेड फाइभ भोल्टमा झर्छ, र करेन्ट थर्टी एम्पियरसम्म बढ्छ — जसले लोडलाई चाहिने एक्स्ट्रा टर्क दिन्छ।',
       ask: {
-        q: 'Load thapda current kati samma badhyo?',
-        voice: 'लोड थप्दा करेन्ट कति सम्म बढ्यो?',
-        options: ['205 A', '440 A', '30 A'],
-        answer: 2,
-        why: 'Eb 205 V ma jharyo ani current 30 A samma badhyo, load lai chahine extra torque ko lagi.',
+        q: 'Load thapda armature current kina badhcha?',
+        voice: 'लोड थप्दा, आर्मेचर करेन्ट किन बढ्छ?',
+        options: ['Speed ghatda Eb ghatcha, ra V − Eb badhcha', 'Supply voltage badhcha', 'Armature resistance ghatcha'],
+        answer: 0,
+        why: 'Ia = (V − Eb)/Ra. Load le speed ghataucha, Eb ghatcha, tesaile Ia badhcha.',
       },
     },
-    { say: 'So back EMF le motor lai self-regulating banaucha. Load lai jati current chahincha, exactly tyati nai tancha. Ekdam smart.', voice: 'सो, ब्याक ई एम एफले मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ। लोडलाई जति करेन्ट चाहिन्छ, एक्जाक्ट्ली त्यति नै तान्छ। एकदम स्मार्ट।' },
+    { say: 'Tesaile back EMF le motor lai self-regulating banaucha: load lai jati torque chahincha, tyati current matra tancha.', voice: 'त्यसैले, ब्याक इएमएफले मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ। लोडलाई जति टर्क चाहिन्छ, त्यति करेन्ट मात्र तान्छ।' },
   ],
   draw: (s) => {
     const k = s.beat;
@@ -114,8 +108,8 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
             <Armature x={220} y={110} r={22} label="M" />
             {/* The armature turns: dots on it spin up from rest (beat 3) and
                 speed up to full speed (beat 4); the brushes and the M stay put. */}
-            <g className={k >= 3 ? 'spin-up' : ''} style={{ transformOrigin: '220px 110px', '--ramp': '5.2s', '--per': '2.6s' }}>
-              <g className={k >= 4 ? 'spin-up' : ''} style={{ transformOrigin: '220px 110px', '--ramp': '3.25s', '--per': '1.625s' }}>
+            <g className={k >= 2 ? 'spin-up' : ''} style={{ transformOrigin: '220px 110px', '--ramp': '5.2s', '--per': '2.6s' }}>
+              <g className={k >= 3 ? 'spin-up' : ''} style={{ transformOrigin: '220px 110px', '--ramp': '3.25s', '--per': '1.625s' }}>
                 {[0, 90, 180, 270].map((a) => (
                   <circle key={a} cx={220 + 15 * Math.cos((a * Math.PI) / 180)} cy={110 + 15 * Math.sin((a * Math.PI) / 180)} r={2.4} fill={C.chalk} />
                 ))}
@@ -135,7 +129,7 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
             <circle cx={80} cy={40} r={2.6} fill={C.chalk} />
           </g>
         </g>
-        <g className={s.on(3) + hl(3)}>
+        <g className={s.on(2) + hl(2)}>
           <g className="seq" style={{ '--d': '5600ms' }}>
             <Arrow x1={192} y1={128} x2={192} y2={92} color={C.yellow} w={2.4} />
             <text x={186} y={150} textAnchor="end" fontSize={13} fontWeight={700} fill={C.yellow}>Eb</text>
@@ -153,8 +147,8 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
             <line x1={40} y1={119} x2={40} y2={178} className="flowdash" style={flow} />
           </g>
         )}
-        {/* "Aba load thapa": a load hangs on the motor (beat 5 on). */}
-        <g className={s.on(5)}>
+        {/* "Load thapda": a load hangs on the motor (beat 4 on). */}
+        <g className={s.on(4)}>
           <g className="seq pop">
             <line x1={236} y1={124} x2={249} y2={148} stroke={C.dim} strokeWidth={1.8} />
             <rect x={236} y={148} width={26} height={22} rx={3} fill="#ffe3e3" stroke={C.chalk} strokeWidth={2} />
@@ -162,10 +156,10 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
           </g>
         </g>
         <text x={130} y={204} textAnchor="middle" fontSize={12} fill={C.dim}>N = {n} rpm</text>
-        <Bar x={268} frac={eb / 220} was={`${eb0} V`} at={ebAt} color={C.yellow} label="Eb" value={`${eb} V`} className={hl(3, 4, 5)} />
-        <Bar x={314} frac={ia / 440} was={`${ia0} A`} at={iaAt} color={C.red} label="Ia" value={`${ia} A`} className={hl(1, 3, 4, 5, 7)} />
+        <Bar x={268} frac={eb / 220} was={`${eb0} V`} at={ebAt} color={C.yellow} label="Eb" value={`${eb} V`} className={hl(2, 3, 4)} />
+        <Bar x={314} frac={ia / 440} was={`${ia0} A`} at={iaAt} color={C.red} label="Ia" value={`${ia} A`} className={hl(1, 2, 3, 4, 5)} />
         {/* Full speed: only V − Eb = 10 V is left to push current through Ra. */}
-        <g className={s.on(4, 4)}>
+        <g className={s.on(3, 3)}>
           <g className="seq" style={{ '--d': '2800ms' }}>
             <path d="M266 40 h-4 v7 h4 M262 44 L257 52" fill="none" stroke={C.chalk} strokeWidth={1.2} />
             <text x={262} y={63} textAnchor="end" fontSize={10} fontWeight={700} fill={C.chalk}>10 V</text>
@@ -175,10 +169,10 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
     );
   },
   board: [
-    { at: 1, until: 2, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{V}{R_a} = \dfrac{220}{0.5} = 440\ \text{A}`}</K></> },
-    { at: 4, until: 4, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{220 - 210}{0.5} = 20\ \text{A}`}</K></> },
-    { at: 5, until: 6, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{220 - 205}{0.5} = 30\ \text{A}`}</K></> },
-    { at: 7, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K></> },
+    { at: 1, until: 1, kind: 'eq', node: <><K>{String.raw`\begin{aligned} I_a &= \dfrac{V}{R_a} \\ &= \dfrac{220}{0.5} \\ &= 440\ \text{A} \end{aligned}`}</K></> },
+    { at: 3, until: 3, kind: 'eq', node: <><K>{String.raw`\begin{aligned} I_a &= \dfrac{220 - 210}{0.5} \\ &= 20\ \text{A} \end{aligned}`}</K></> },
+    { at: 4, until: 4, kind: 'eq', node: <><K>{String.raw`\begin{aligned} I_a &= \dfrac{220 - 205}{0.5} \\ &= 30\ \text{A} \end{aligned}`}</K></> },
+    { at: 5, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K></> },
   ],
 });
 
