@@ -46,7 +46,8 @@ await page.waitForTimeout(secs * 1000);
 const all = await page.evaluate(() => window.__anims);
 await browser.close();
 
-const LOOP = /pulse|flow|spin|tipbob|wave|blink|dash|handin|bob/;
+// Loops, and the hand (hidden on screen, rule 39), are not entrances.
+const LOOP = /pulse|flow|spin|tipbob|wave|blink|dash|handin|handtap|bob/;
 const starts = all.filter((a) => a.ev === 'animationstart' && !LOOP.test(a.name));
 const cancels = all.filter((a) => a.ev === 'animationcancel' && !LOOP.test(a.name));
 const by = {};
