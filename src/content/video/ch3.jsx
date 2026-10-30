@@ -69,7 +69,15 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
       </g>
     </>
   ),
-  board: [{ at: 4, kind: 'note', node: <>N muni ko sabai conductor: ⊗ ra tala push. S muni ko sabai: ⊙ ra mathi push. → <b>unidirectional torque</b></> }],
+  // Explanation phase: one line per beat saying what happens and why.
+  board: [
+    { at: 0, kind: 'step', node: <>Field B: N (left) → S (right)</> },
+    { at: 1, kind: 'step', node: <>Commutator: N muni ⊗ (current bhitra), S muni ⊙ (current bahira)</> },
+    { at: 2, kind: 'step', node: <>Fleming LHR: B → right, I ⊗ → <b>F tala</b> (left side)</> },
+    { at: 3, kind: 'step', node: <>S muni I ⊙ → <b>F mathi</b> (right side)</> },
+    { at: 4, kind: 'note', node: <>Left tala + right mathi → eutai tira ghumcha → <b>unidirectional torque</b></> },
+    { at: 5, kind: 'step', node: <>MNA cross garda current reverse → F pani flip → torque ek tira nai</> },
+  ],
 });
 
 // The same video in 3D: the motor turns, current flows along the conductors,

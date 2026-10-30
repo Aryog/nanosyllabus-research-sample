@@ -4,8 +4,8 @@ import { Arrow, C, K, Resistor, Source, video } from './kit.jsx';
   4.1 segment 2, Derivation: every equation the syllabus bullet needs, one video
   each (skill rules 31–34). Each step is one board line that the caption reads:
   a label, then the maths in an aligned block, one "=" per line. A term that is
-  about to be replaced carries an underbrace with what it becomes, in the same
-  colour as on the next line; cancels are struck in red.
+  about to be replaced pulses, then what it becomes drops into its place on the
+  next row, in the same colour (X and R below); cancels are struck in red.
     Back EMF equation → voltage and power equation → torque (force method) → torque (power method)
 */
 
@@ -16,6 +16,11 @@ const GR = C.green; // counts and results
 const VI = C.violet; // time, per path
 
 const tex = (s) => <K>{s}</K>;
+// Term expanding (rule 33c): X marks a term that is about to be replaced (it
+// pulses once the line is written); R is what it becomes on a later row, which
+// drops into place after the pulse (n = order, for two or more).
+const X = (t, c) => String.raw`\htmlClass{xt}{\textcolor{${c}}{${t}}}`;
+const R = (t, c, n = 1) => String.raw`\htmlClass{xr xr${n}}{\textcolor{${c}}{${t}}}`;
 const step = (label, math) => <><span className="lbl">{label}</span>{tex(math)}</>;
 
 export const backEmfDerivation = video('Derivation: back EMF equation', {
@@ -66,18 +71,12 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
     {
       at: 3,
       kind: 'step',
-      node: step(
-        'EMF per conductor (Faraday)',
-        String.raw`\begin{aligned} e &= \dfrac{\underbrace{\textcolor{${BL}}{d\Phi}}_{\textstyle \textcolor{${BL}}{P\phi}}}{\underbrace{\textcolor{${VI}}{dt}}_{\textstyle \textcolor{${VI}}{60/N}}} \\ &= \dfrac{\textcolor{${BL}}{P\phi}}{\textcolor{${VI}}{60/N}} \\ &= \dfrac{P\phi N}{60}\ \text{V} \end{aligned}`,
-      ),
+      node: step('EMF per conductor (Faraday)', String.raw`\begin{aligned} e &= \dfrac{${X(String.raw`d\Phi`, BL)}}{${X('dt', VI)}} \\ &= \dfrac{${R(String.raw`P\phi`, BL, 1)}}{${R('60/N', VI, 2)}} \\ &= \dfrac{P\phi N}{60}\ \text{V} \end{aligned}`),
     },
     {
       at: 4,
       kind: 'step',
-      node: step(
-        'EMF of the machine = EMF of one path',
-        String.raw`\begin{aligned} E_b &= \underbrace{\textcolor{${GR}}{e}}_{\textstyle \textcolor{${GR}}{P\phi N/60}} \times \underbrace{\textcolor{${OR}}{\tfrac{Z}{A}}}_{\textstyle \textcolor{${OR}}{\text{per path}}} \\ &= \textcolor{${GR}}{\dfrac{P\phi N}{60}} \cdot \textcolor{${OR}}{\dfrac{Z}{A}} \end{aligned}`,
-      ),
+      node: step('EMF of the machine = EMF of one path', String.raw`\begin{aligned} E_b &= ${X('e', GR)} \times \textcolor{${OR}}{\dfrac{Z}{A}} \\ &= ${R(String.raw`\dfrac{P\phi N}{60}`, GR, 1)} \cdot \textcolor{${OR}}{\dfrac{Z}{A}} \end{aligned}`),
     },
     { at: 5, kind: 'eq', node: tex(String.raw`E_b = \dfrac{P\phi Z N}{60A}\ \text{V}`) },
     { at: 6, kind: 'step', node: step('Given machine: k = PZ/60A', String.raw`\begin{aligned} E_b &= k\,\phi N \\ \Rightarrow\ E_b &\propto \phi N \end{aligned}`) },
@@ -230,17 +229,17 @@ export const torqueDerivation = video('Derivation: torque equation (force method
     {
       at: 3,
       kind: 'step',
-      node: step('Force on one conductor', String.raw`F = \underbrace{\textcolor{${BL}}{B}}_{\textstyle \textcolor{${BL}}{\frac{P\phi}{2\pi r l}}}\;\underbrace{\textcolor{${OR}}{I_c}}_{\textstyle \textcolor{${OR}}{\frac{I_a}{A}}}\;l`),
+      node: step('Force on one conductor', String.raw`F = ${X('B', BL)}\;${X('I_c', OR)}\;l`),
     },
     {
       at: 4,
       kind: 'step',
-      node: step('Substitute', String.raw`\begin{aligned} F &= \textcolor{${BL}}{\dfrac{P\phi}{2\pi r \cancel{l}}} \cdot \textcolor{${OR}}{\dfrac{I_a}{A}} \cdot \cancel{l} \\ &= \dfrac{P\phi I_a}{2\pi r A} \end{aligned}`),
+      node: step('Substitute', String.raw`\begin{aligned} F &= ${R(String.raw`\dfrac{P\phi}{2\pi r \cancel{l}}`, BL, 1)} \cdot ${R(String.raw`\dfrac{I_a}{A}`, OR, 2)} \cdot \cancel{l} \\ &= \dfrac{P\phi I_a}{2\pi r A} \end{aligned}`),
     },
     {
       at: 5,
       kind: 'step',
-      node: step('Torque of one conductor', String.raw`\begin{aligned} \tau &= \underbrace{F}_{\textstyle \frac{P\phi I_a}{2\pi r A}} \cdot r \\ &= \dfrac{P\phi I_a}{2\pi \cancel{r} A} \cdot \cancel{r} \\ &= \dfrac{P\phi I_a}{2\pi A} \end{aligned}`),
+      node: step('Torque of one conductor', String.raw`\begin{aligned} \tau &= ${X('F', GR)} \cdot r \\ &= ${R(String.raw`\dfrac{P\phi I_a}{2\pi \cancel{r} A}`, GR, 1)} \cdot \cancel{r} \\ &= \dfrac{P\phi I_a}{2\pi A} \end{aligned}`),
     },
     { at: 6, kind: 'step', node: step('All Z conductors', String.raw`\begin{aligned} T_a &= \textcolor{${GR}}{Z}\,\tau \\ &= \dfrac{P\phi \textcolor{${GR}}{Z} I_a}{2\pi A} \end{aligned}`) },
     { at: 7, kind: 'eq', node: tex(String.raw`T_a = 0.159\,\phi Z I_a \left(\tfrac{P}{A}\right)\ \text{N}\cdot\text{m}`) },
@@ -286,12 +285,12 @@ export const torqueFromPower = video('Derivation: torque equation (power method)
     {
       at: 1,
       kind: 'step',
-      node: step('Solve for Ta', String.raw`\begin{aligned} T_a &= \dfrac{E_bI_a}{\underbrace{\textcolor{${VI}}{\omega}}_{\textstyle \textcolor{${VI}}{2\pi N/60}}} \\ &= \dfrac{60\,E_bI_a}{2\pi N} \\ &= 9.55\,\dfrac{E_bI_a}{N}\ \text{N}\cdot\text{m} \end{aligned}`),
+      node: step('Solve for Ta', String.raw`\begin{aligned} T_a &= \dfrac{E_bI_a}{${X(String.raw`\omega`, VI)}} \\ &= \dfrac{E_bI_a}{${R(String.raw`2\pi N/60`, VI, 1)}} \\ &= \dfrac{60\,E_bI_a}{2\pi N} \\ &= 9.55\,\dfrac{E_bI_a}{N}\ \text{N}\cdot\text{m} \end{aligned}`),
     },
     {
       at: 2,
       kind: 'step',
-      node: step('Put Eb = PφZN/60A', String.raw`\begin{aligned} T_a &= \dfrac{60}{2\pi N} \cdot \underbrace{\textcolor{${BL}}{E_b}}_{\textstyle \textcolor{${BL}}{\frac{P\phi ZN}{60A}}} \cdot I_a \\ &= \dfrac{\cancel{60}}{2\pi \cancel{N}} \cdot \textcolor{${BL}}{\dfrac{P\phi Z\cancel{N}}{\cancel{60}A}} \cdot I_a \\ &= \dfrac{P\phi Z I_a}{2\pi A} \end{aligned}`),
+      node: step('Put Eb = PφZN/60A', String.raw`\begin{aligned} T_a &= \dfrac{60}{2\pi N} \cdot ${X('E_b', BL)} \cdot I_a \\ &= \dfrac{\cancel{60}}{2\pi \cancel{N}} \cdot ${R(String.raw`\dfrac{P\phi Z\cancel{N}}{\cancel{60}A}`, BL, 1)} \cdot I_a \\ &= \dfrac{P\phi Z I_a}{2\pi A} \end{aligned}`),
     },
     { at: 3, kind: 'eq', node: tex(String.raw`\begin{aligned} T_a &= 0.159\,\phi Z I_a \left(\tfrac{P}{A}\right) \\ &= 9.55\,\dfrac{E_bI_a}{N} \end{aligned}`) },
     { at: 4, kind: 'step', node: step('Shaft torque', String.raw`\begin{aligned} T_{sh} &= 9.55\,\dfrac{P_{out}}{N} \\ T_a - T_{sh} &= \text{lost torque} \end{aligned}`) },

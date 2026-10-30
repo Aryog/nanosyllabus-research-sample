@@ -997,3 +997,33 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
   background: radial-gradient(ellipse at 25% 15%, rgba(80, 150, 230, 0.22), transparent 60%), linear-gradient(170deg, #0c3a78 0%, #082b5c 60%, #061f44 100%);
 }
 .scene.look-blue.seg-2 .board-line.kind-h { font-weight: 700; letter-spacing: 0; }
+/* No writing hand on screen (skill rule 39): the line still writes itself and
+   the focus ring marks the part; the hand element only carries the pen path. */
+.hand { visibility: hidden !important; }
+/* Terms expanding (skill rule 33c, t41.jsx X/R): once the line is written the
+   term to replace pulses, then its expansion drops into place on the next row.
+   Both run on the scene clock (the player seeks board animations). */
+.board-line .tex .xt, .board-line .tex .xr { display: inline-block; border-radius: 6px; }
+.board-line.hl .tex .xt { animation: xtpulse 0.9s ease-in-out calc(var(--wd, 1.4s) + 0.1s) both; }
+.board-line.hl .tex .xr { animation: xrdrop 0.6s cubic-bezier(0.2, 0.8, 0.3, 1.25) calc(var(--wd, 1.4s) + 0.7s) both; }
+.board-line.hl .tex .xr2 { animation-delay: calc(var(--wd, 1.4s) + 1.2s); }
+.board-line.hl .tex .xr3 { animation-delay: calc(var(--wd, 1.4s) + 1.7s); }
+.board-line.hl .tex .xr svg line { animation-delay: calc(var(--wd, 1.4s) + 2s); }
+@keyframes xtpulse { 40% { transform: scale(1.22); background: rgba(255, 212, 59, 0.3); box-shadow: 0 0 0 4px rgba(255, 212, 59, 0.3); } }
+@keyframes xrdrop { from { opacity: 0; transform: translateY(-0.9em) scale(0.75); } 60% { opacity: 1; background: rgba(255, 212, 59, 0.28); } to { transform: none; } }
+/* Marker underline colour per look (Scene.jsx Marker). */
+.scene { --mark: #e8590c; }
+.scene.look-blue { --mark: #ffd43b; }
+.scene.look-book { --mark: #b8460b; }
+.marker path { stroke: var(--mark); }
+/* One font on the board (skill rule 39): in the blue looks the maths uses the
+   board's own font (Inter for Terms and Big picture, the hand on the
+   Derivation board) instead of KaTeX's serif; big delimiters and radicals
+   keep KaTeX's size fonts. The Book look keeps textbook serif maths. */
+.scene.look-blue .board-line .katex,
+.scene.look-blue .board-line .katex :is(.mathnormal, .mathit, .mathrm, .textrm, .mainrm, .amsrm, .mathbf) { font-family: var(--hand); }
+.scene.look-blue .board-line .katex .mathnormal { font-style: italic; }
+.scene.look-blue .board-line .katex { font-size: 1.12em; letter-spacing: 0.01em; }
+.scene.look-blue .board-line.kind-q .tag { font-family: Inter, sans-serif; font-size: 0.8em; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #ffb3b3; }
+.scene.look-blue .scene-rewatch { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.7); }
+.scene.look-blue .scene-rewatch:hover { background: rgba(255, 255, 255, 0.12); }

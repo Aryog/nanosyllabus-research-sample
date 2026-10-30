@@ -136,10 +136,11 @@ function Marker({ kind, delay }) {
     if (!ink) return;
     const w = ink.offsetWidth;
     const h = ink.offsetHeight;
+    // A thin hand-drawn underline under the line just written (never a band
+    // over it, which hides maths); results get a bolder one. Colour comes from
+    // the look (CSS --mark).
     const result = kind === 'eq' || kind === 'answer';
-    const d = result
-      ? gen.linearPath([[4, h + 3], [w * 0.5, h + 5], [w - 4, h + 2]], { stroke: '#e8590c', strokeWidth: 2.6, roughness: 1.6, bowing: 2 })
-      : gen.line(-2, h * 0.68, w + 2, h * 0.64, { stroke: 'rgba(255, 212, 59, 0.6)', strokeWidth: h * 0.42, roughness: 1.2, bowing: 1.5 });
+    const d = gen.linearPath([[2, h + 3], [w * 0.5, h + (result ? 5 : 4)], [w - 2, h + 2]], { strokeWidth: result ? 2.6 : 1.8, roughness: 1.1, bowing: 1.5 });
     setPaths({ w, h, list: gen.toPaths(d) });
   }, [kind]);
   return (

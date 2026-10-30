@@ -46,7 +46,7 @@ const torqueFigure = (s) => (
       <circle cx={180} cy={135} r={6} {...INK} />
       {leader(214, 196, 236, 214, 'Armature')}
       {leader(104, 96, 80, 62, 'Pole shoe', 'end')}
-      <text x={180} y={266} textAnchor="middle" fontSize={11} fontStyle="italic" fill={C.chalk}>Fig. 1  Force on the armature conductors of a 2-pole DC motor</text>
+      <text x={180} y={266} textAnchor="middle" fontSize={11} fontStyle="italic" fill={C.chalk}>Fig. 1  Forces on the armature conductors</text>
     </g>
     <g className={s.on(1) + s.hl(1)}>
       {[115, 155].map((y) => (
@@ -55,7 +55,7 @@ const torqueFigure = (s) => (
           {head(184, y, 'right')}
         </g>
       ))}
-      <text x={300} y={70} textAnchor="middle" fontSize={11} fill={C.chalk}>Field B (N → S)</text>
+      <text x={300} y={70} textAnchor="middle" fontSize={10.5} fill={C.chalk}>Field B, N → S</text>
     </g>
     <g className={s.on(2) + s.hl(2)}>
       {LEFT_C.map(([x, y]) => cond(x, y, 'in'))}
@@ -72,8 +72,8 @@ const torqueFigure = (s) => (
           {head(x + 16, y - 16, 'up')}
         </g>
       ))}
-      <text x={98} y={238} textAnchor="middle" fontSize={11} fill={C.chalk}>F ↓ (⊗ under N)</text>
-      <text x={268} y={238} textAnchor="middle" fontSize={11} fill={C.chalk}>F ↑ (⊙ under S)</text>
+      <text x={98} y={238} textAnchor="middle" fontSize={10.5} fill={C.chalk}>F ↓ under N</text>
+      <text x={262} y={238} textAnchor="middle" fontSize={10.5} fill={C.chalk}>F ↑ under S</text>
     </g>
     <g className={s.on(3) + s.hl(3) + s.hl(6)}>
       <line x1={180} y1={62} x2={180} y2={212} stroke={C.chalk} strokeWidth={0.9} strokeDasharray="6 3 1.5 3" />
@@ -94,43 +94,46 @@ const torqueFigure = (s) => (
   </>
 );
 
+// Labels are sized for the widest look font (Inter, about 0.6 × font size per
+// character) and kept inside the 360-wide figure.
 const backEmfFigure = (s) => (
   <>
     <g className={s.on(0)}>
       {/* Supply V (cell symbol), Ra (box resistor), armature M with Eb. */}
-      <path d="M50 50 H150 M200 50 H290 V90 M290 150 V190 H50 V128 M50 112 V50" {...INK} />
-      <line x1={38} y1={112} x2={62} y2={112} stroke={C.chalk} strokeWidth={1.6} />
-      <line x1={44} y1={128} x2={56} y2={128} stroke={C.chalk} strokeWidth={3} />
+      <path d="M48 50 H120 M170 50 H250 V92 M250 148 V190 H48 V128 M48 112 V50" {...INK} />
+      <line x1={36} y1={112} x2={60} y2={112} stroke={C.chalk} strokeWidth={1.6} />
+      <line x1={42} y1={128} x2={54} y2={128} stroke={C.chalk} strokeWidth={3} />
       <text x={30} y={110} textAnchor="end" fontSize={11} fill={C.chalk}>+</text>
       <text x={30} y={136} textAnchor="end" fontSize={12} fill={C.chalk}>−</text>
-      <text x={20} y={124} textAnchor="end" fontSize={12} fontStyle="italic" fill={C.chalk}>V</text>
-      <rect x={150} y={42} width={50} height={16} {...INK} />
-      <text x={175} y={36} textAnchor="middle" fontSize={11.5} fontStyle="italic" fill={C.chalk}>Ra</text>
-      <circle cx={290} cy={120} r={30} {...INK} strokeWidth={1.5} />
-      <text x={290} y={125} textAnchor="middle" fontSize={13} fontWeight={700} fill={C.chalk}>M</text>
-      <text x={180} y={214} textAnchor="middle" fontSize={11} fontStyle="italic" fill={C.chalk}>Fig. 2  Armature circuit of a DC motor</text>
+      <text x={18} y={124} textAnchor="end" fontSize={12} fontStyle="italic" fill={C.chalk}>V</text>
+      <rect x={120} y={42} width={50} height={16} {...INK} />
+      <text x={145} y={36} textAnchor="middle" fontSize={11.5} fontStyle="italic" fill={C.chalk}>Ra</text>
+      <circle cx={250} cy={120} r={28} {...INK} strokeWidth={1.5} />
+      <text x={250} y={125} textAnchor="middle" fontSize={13} fontWeight={700} fill={C.chalk}>M</text>
+      <text x={160} y={214} textAnchor="middle" fontSize={11} fontStyle="italic" fill={C.chalk}>Fig. 2  Armature circuit of a DC motor</text>
     </g>
     <g className={s.on(1) + s.hl(1)}>
-      <text x={300} y={84} fontSize={11} fill={C.chalk}>+</text>
-      <text x={300} y={164} fontSize={12} fill={C.chalk}>−</text>
-      <text x={330} y={124} fontSize={12} fontStyle="italic" fill={C.chalk}>Eb</text>
-      <text x={330} y={138} fontSize={9.5} fill={C.chalk}>(opposes V)</text>
+      <text x={258} y={86} fontSize={11} fill={C.chalk}>+</text>
+      <text x={258} y={162} fontSize={12} fill={C.chalk}>−</text>
+      <text x={286} y={118} fontSize={12} fontStyle="italic" fill={C.chalk}>Eb</text>
+      <text x={286} y={132} fontSize={9.5} fill={C.chalk}>opposes V</text>
     </g>
     <g className={s.on(2) + s.hl(2)}>
-      <line x1={92} y1={38} x2={124} y2={38} stroke={C.chalk} strokeWidth={1.1} />
-      {head(126, 38, 'right')}
-      <text x={92} y={32} fontSize={11.5} fontStyle="italic" fill={C.chalk}>Ia</text>
-      <text x={175} y={74} textAnchor="middle" fontSize={10} fill={C.chalk}>IaRa drop</text>
+      <line x1={70} y1={38} x2={102} y2={38} stroke={C.chalk} strokeWidth={1.1} />
+      {head(104, 38, 'right')}
+      <text x={70} y={32} fontSize={11.5} fontStyle="italic" fill={C.chalk}>Ia</text>
+      <text x={145} y={74} textAnchor="middle" fontSize={10} fill={C.chalk}>IaRa drop</text>
     </g>
     <g className={s.on(3, 4) + s.hl(3)}>
-      <text x={155} y={118} textAnchor="middle" fontSize={10} fill={C.chalk}>Load ↑ → N ↓ → Eb ↓ → Ia ↑</text>
+      <text x={135} y={106} textAnchor="middle" fontSize={10} fill={C.chalk}>Load ↑ → N ↓</text>
+      <text x={135} y={122} textAnchor="middle" fontSize={10} fill={C.chalk}>→ Eb ↓ → Ia ↑</text>
     </g>
     <g className={s.on(4, 4) + s.hl(4)}>
-      <text x={155} y={136} textAnchor="middle" fontSize={10} fill={C.chalk}>Pm = Eb·Ia</text>
+      <text x={135} y={146} textAnchor="middle" fontSize={10} fill={C.chalk}>Pm = Eb·Ia</text>
     </g>
     <g className={s.on(5, 5) + s.hl(5)}>
-      <text x={155} y={118} textAnchor="middle" fontSize={10} fill={C.chalk}>At start: N = 0, Eb = 0</text>
-      <text x={155} y={136} textAnchor="middle" fontSize={10} fill={C.chalk}>Ia = V/Ra (very large)</text>
+      <text x={135} y={106} textAnchor="middle" fontSize={10} fill={C.chalk}>Start: N = 0, Eb = 0</text>
+      <text x={135} y={122} textAnchor="middle" fontSize={10} fill={C.chalk}>Ia = V/Ra, very large</text>
     </g>
   </>
 );

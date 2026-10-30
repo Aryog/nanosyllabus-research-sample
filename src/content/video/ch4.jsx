@@ -168,7 +168,14 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
       </>
     );
   },
+  // Explanation phase: each beat also writes what is happening and why, in words.
   board: [
+    { at: 0, until: 0, kind: 'step', node: <>Switch open → circuit pura chaina → <b>I<sub>a</sub> = 0</b></> },
+    { at: 1, until: 1, kind: 'step', node: <>Start ma N = 0 → <b>E<sub>b</sub> = 0</b>. Current lai rokne R<sub>a</sub> matra, jun ekdam sano → current dherai thulo</> },
+    { at: 2, until: 2, kind: 'step', node: <>Speed ↑ → conductor le flux cut garcha → <b>E<sub>b</sub></b> bancha (V ko ulto) → <b>I<sub>a</sub> ↓</b></> },
+    { at: 3, until: 3, kind: 'step', node: <>Full speed: E<sub>b</sub> = 210 V. R<sub>a</sub> ma baki V − E<sub>b</sub> = 10 V matra → I<sub>a</sub> = 20 A</> },
+    { at: 4, until: 4, kind: 'step', node: <>Load ↑ → speed ↓ → E<sub>b</sub> ↓ (205 V) → I<sub>a</sub> ↑ (30 A) → torque ↑</> },
+    { at: 5, kind: 'idea', node: <>Back EMF le current aafai milaucha: motor self-regulating</> },
     { at: 1, until: 1, kind: 'eq', node: <><K>{String.raw`\begin{aligned} I_a &= \dfrac{V}{R_a} \\ &= \dfrac{220}{0.5} \\ &= 440\ \text{A} \end{aligned}`}</K></> },
     { at: 3, until: 3, kind: 'eq', node: <><K>{String.raw`\begin{aligned} I_a &= \dfrac{220 - 210}{0.5} \\ &= 20\ \text{A} \end{aligned}`}</K></> },
     { at: 4, until: 4, kind: 'eq', node: <><K>{String.raw`\begin{aligned} I_a &= \dfrac{220 - 205}{0.5} \\ &= 30\ \text{A} \end{aligned}`}</K></> },

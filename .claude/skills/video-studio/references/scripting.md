@@ -68,9 +68,10 @@ Keep about 90% of screens as videos, and put questions inside videos as `ask` be
 
 ## House rules: script quality (set 2026-10-30)
 
+40. **Terms segment explains in words too.** Every beat of a segment-1 video also writes one short board line saying what happens and why, as a chain ("Start ma N = 0 → E_b = 0 → current dherai thulo"). A line may retire after its beat (`until`) when the picture needs the room; the last beat writes the takeaway as an `idea`.
 31. **What is said is what is shown.** Every beat writes one board line or brings in / highlights one part, and its caption reads that line or names that part, in the same order. Nothing appears that the caption does not name, and the caption never names something that is not on screen ("Derivation segment 2 mai garyau" over a formula is wrong: read the formula). In a model answer the caption is the Nepali reading of that point, no more.
 32. **Professional, no filler.** A teacher's register: state, define, derive, conclude. No hype or exclamations ("dami!", "Ekdam smart", "Simple cha", "Full marks pakka!", "Antya samma hera!", "Yo line box gara!"), no "Yo hera" openers, no lead-in-only beats (rule 11). One everyday analogy per idea is still fine in segment 1 (rule 2). `lint.mjs` flags these words.
-33. **Maths layout.** (a) A chain with more than one "=" is an `aligned` block with one "=" per row, aligned at "=" (`\begin{aligned} F &= … \\ &= … \end{aligned}`); never two "=" on one row. (b) Each derivation step is `step(label, tex)`: a short English label on its own line, the maths under it. (c) **Expansion is shown**: the term about to be replaced carries an `\underbrace{\textcolor{c}{term}}_{\textstyle\textcolor{c}{what it becomes}}`, and the next row uses that expression in the same colour c. (d) One colour per quantity for the whole video (flux/B/E_b blue, current orange, counts and results green, time and per-path violet); cancels are `\cancel{}` (struck in red). (e) Units stay outside: `\text{N}\cdot\text{m}` (never a unicode "·" inside `\text`, KaTeX shows it red).
+33. **Maths layout.** (a) A chain with more than one "=" is an `aligned` block with one "=" per row, aligned at "=" (`\begin{aligned} F &= … \\ &= … \end{aligned}`); never two "=" on one row. (b) Each derivation step is `step(label, tex)`: a short English label on its own line, the maths under it. (c) **Expansion is animated**: wrap the term about to be replaced in `X(term, colour)` and what it becomes on a later row in `R(expr, colour, n)` (helpers in `t41.jsx`, KaTeX `\htmlClass`). Once the line is written the term pulses, then each expansion drops into its place in order (n = 1, 2, …), in the same colour. Never stack an underbrace inside a fraction; keep `\underbrace` only for naming a term ("input", "Cu loss"). (d) One colour per quantity for the whole video (flux/B/E_b blue, current orange, counts and results green, time and per-path violet); cancels are `\cancel{}` (struck in red). (e) Units stay outside: `\text{N}\cdot\text{m}` (never a unicode "·" inside `\text`, KaTeX shows it red).
 34. **Derivation segment is complete and taught like Khan Academy + The Efficient Engineer.** Segment 2 has one video per equation the syllabus bullet needs (4.1: back EMF equation → voltage and power equation → torque by force → torque by power), not one. Each video: name every symbol first (board `note`), one physical step per beat with *why* before *how*, substitute visibly (rule 33c), box the result (`eq`), then one line on what it means for a given machine (proportionality) and, where useful, a second method or a quick numerical `ask`. The board grows like a notebook from the top left and is written as it is said.
 36. **Big picture = every IOE question of the topic.** When the topic has two distinct past IOE questions, the Big picture has two model-answer videos (`answer()`), one per question, each with its real papers and marks from `vault/`. A long answer turns the page with `page: true` on the point where a new part starts (derivation, roles), so the text stays big. The figure is bookish (rule 35).
 
@@ -92,12 +93,11 @@ Question on the beat that taught it (rule 11):
          why: 'N = 0 bhaye Eb = PφZN/60A = 0.' } },
 ```
 
-Derivation step (rule 33): label above, aligned maths, one "=" per row, the term to be replaced under an underbrace in its colour:
+Derivation step (rule 33): label above, aligned maths, one "=" per row, the term that expands marked with `X`, its expansion with `R`:
 ```jsx
-{ at: 3, kind: 'step', node: step('Force on one conductor',
-  String.raw`F = \underbrace{\textcolor{${BL}}{B}}_{\textstyle\textcolor{${BL}}{\frac{P\phi}{2\pi r l}}}\;\underbrace{\textcolor{${OR}}{I_c}}_{\textstyle\textcolor{${OR}}{\frac{I_a}{A}}}\;l`) },
+{ at: 3, kind: 'step', node: step('Force on one conductor', String.raw`F = ${X('B', BL)}\;${X('I_c', OR)}\;l`) },
 { at: 4, kind: 'step', node: step('Substitute',
-  String.raw`\begin{aligned} F &= \textcolor{${BL}}{\dfrac{P\phi}{2\pi r \cancel{l}}} \cdot \textcolor{${OR}}{\dfrac{I_a}{A}} \cdot \cancel{l} \\ &= \dfrac{P\phi I_a}{2\pi r A} \end{aligned}`) },
+  String.raw`\begin{aligned} F &= ${R(String.raw`\dfrac{P\phi}{2\pi r \cancel{l}}`, BL, 1)} \cdot ${R(String.raw`\dfrac{I_a}{A}`, OR, 2)} \cdot \cancel{l} \\ &= \dfrac{P\phi I_a}{2\pi r A} \end{aligned}`) },
 ```
 (`step(label, tex)` and the ink constants are in `src/content/video/t41.jsx`.)
 

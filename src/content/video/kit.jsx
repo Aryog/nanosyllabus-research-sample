@@ -21,7 +21,7 @@ export const M = ({ children }) => <span className="math">{children}</span>;
 
 // LaTeX on the board, typeset by KaTeX: <K>{String.raw`T_a \propto \phi I_a`}</K>.
 export const K = ({ children }) => (
-  <span className="tex" dangerouslySetInnerHTML={{ __html: katex.renderToString(children, { throwOnError: false }) }} />
+  <span className="tex" dangerouslySetInnerHTML={{ __html: katex.renderToString(children, { throwOnError: false, trust: (c) => c.command === '\\htmlClass' }) }} />
 );
 
 // Marker inks on the whiteboard. (Names kept from the chalk version: `chalk`

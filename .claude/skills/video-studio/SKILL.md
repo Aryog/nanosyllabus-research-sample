@@ -38,7 +38,7 @@ clips.
 | MP4 render, the review loop, the frame strip, the final checklist | [references/render-and-qa.md](references/render-and-qa.md) |
 
 Read the reference before touching its area. Rules are numbered: house rules
-1 to 38 (the scripts cite them by number) and motion rules M1 to M15. A rule
+1 to 40 (the scripts cite them by number) and motion rules M1 to M15. A rule
 lives in exactly one reference.
 
 ## Non-negotiables (break none, ever)
@@ -128,3 +128,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-10-29: **video-studio created**: lesson-studio and animation-studio merged into one bundled skill, with references per area (scripting, voice/audio, visuals, animation, player/path, render/QA) and tools (`status.mjs`, `lint.mjs`, `frame-strip.mjs`). Those two skills now point here. The first lint run found one 4.1 practice question that trails off with "…" (EMF derivation, beat 3); fixing it needs a new take.
 - 2026-10-29: Rule 18 and M7 replaced at the user's request ("the part should be more focused, others decreased opacity"). The focused part stays bright with the ring; the rest of the drawing softens to 0.32, and earlier board lines to 0.45 while a new line is written. This is gentler than the old 0.3 spotlight, which dimmed even the focused part's own group.
 - 2026-10-30: 4.1 rewritten to the user's script level: filler and lead-in-only beats removed (rule 11 replaced, rule 32), captions read what is on screen (31), maths one "=" per row with underbraced expansions (33), Derivation now four videos (back EMF, voltage/power, torque by force, torque by power; 34), Big picture two model answers (torque, back EMF) with bookish figures and page turns (35, 36). Reference channels studied → looks per segment with a ◐ selector (30), Up-next list beside the player (37). Unvoiced lines are caption-only (38); nothing recorded. lint.mjs checks rules 11, 32, 33.
+- 2026-10-30: User feedback on 4.1: no hand (rule 39), one font per board with handwritten maths on the Derivation board, thin underline marker instead of the highlighter band, terms expanding as an animation (rule 33c: X pulses, R drops in), figure labels sized for every look, and a what-and-why line on every Terms beat (rule 40).
