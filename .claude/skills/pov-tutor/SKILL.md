@@ -54,7 +54,7 @@ Use each connector at most twice in a video (rule 42).
 
 ## Look and animation
 
-- Same page as the Lecturer (user, 2026-10-30): the textbook form in Poppins, Blue by default or White, board text on the left and the book figure on the right (`src/content/unit4/figs.jsx`). No handwritten font, no navy board, no doodles or emoji.
+- In Derivation, the same page as the Lecturer: the textbook form in Poppins, Blue by default or White, board text on the left and the book figure on the right (`src/content/unit4/figs.jsx`). In Terms (segment 1) the Tutor is playful: 3D objects and real-life examples an 8th-grader knows (rule 7). Never a handwritten font, a navy board, emoji or cartoon faces.
 - Write each video as a `duo()` with the Lecturer: same beats, one figure; parts of the figure come in on the beat that names them. Point-wise lines, one "=" per row, X → R expansions in derivations.
 
 ## Sound

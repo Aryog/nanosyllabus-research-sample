@@ -1,8 +1,10 @@
-import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { cloneElement, lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import rough from 'roughjs';
+import katex from 'katex';
 import { beatText, spoken, videoKey, voiceKey } from './voice.js';
 import { lookCss } from './looks.js';
 import { autoPov, povById, POVS } from '../content/pov.js';
+import { TERMS } from '../content/terms.js';
 
 // The looks' ink repaint (looks.js), added to the page once.
 if (typeof document !== 'undefined' && !document.getElementById('scene-looks')) {
@@ -221,15 +223,31 @@ const clipsReady = fetch(`${BASE}audio/scene/manifest.json`)
 
 // Sparky's recorded Nepali reactions (public/audio/fb-*.mp3), said when an
 // in-video question is answered.
-const REACT = { right: ['fb-correct-1', 'fb-correct-2', 'fb-correct-3'], wrong: ['fb-wrong-1', 'fb-wrong-2'] };
-let sparky = null;
+// After an in-video question: a short, soft tone, not a voice (user,
+// 2026-10-30: the spoken "Sahi ho" felt unprofessional). Correct is a gentle
+// rising two-note chime, wrong a muted falling pair; synthesized, no files.
+let actx = null;
 function react(right) {
-  sparky ??= fetch(`${BASE}audio/manifest.json`).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
-  sparky.then((m) => {
-    const ids = REACT[right ? 'right' : 'wrong'].filter((id) => m[id]);
-    const id = ids[Math.floor(Math.random() * ids.length)];
-    if (id) new Audio(`${BASE}audio/${id}.mp3?v=${m[id]}`).play().catch(() => {});
-  });
+  try {
+    actx ??= new (window.AudioContext || window.webkitAudioContext)();
+  } catch {
+    return;
+  }
+  if (actx.state === 'suspended') actx.resume().catch(() => {});
+  const t0 = actx.currentTime + 0.01;
+  const notes = right ? [[880, 0], [1318.5, 0.1]] : [[311, 0], [233, 0.13]];
+  for (const [f, d] of notes) {
+    const o = actx.createOscillator();
+    const g = actx.createGain();
+    o.type = right ? 'sine' : 'triangle';
+    o.frequency.value = f;
+    g.gain.setValueAtTime(0, t0 + d);
+    g.gain.linearRampToValueAtTime(right ? 0.12 : 0.09, t0 + d + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + d + (right ? 0.45 : 0.3));
+    o.connect(g).connect(actx.destination);
+    o.start(t0 + d);
+    o.stop(t0 + d + 0.5);
+  }
 }
 
 // Keep the next AHEAD lines recorded before they are needed, and no more, so
@@ -337,11 +355,6 @@ const clock = (ms) => {
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
 };
 
-/*
-  The POV wrapper: picks which script plays (the video's own, or its variant
-  for the chosen POV, see src/content/pov.js) and that POV's look. Changing the
-  POV starts the video again from the top in the new telling.
-*/
 // Which telling plays: Big picture is always the Lecturer (rule 44); elsewhere
 // the viewer's choice for the segment, or the video's own (native) teacher.
 const povChoice = (segment) => {
@@ -390,6 +403,176 @@ export function Thumb({ fp, segment, className = '', children }) {
 }
 
 /*
+  What-is-called-what (rule 51): in a one-row boxed equation ('eq' line), each
+  symbol from TERMS gets a small italic label under the box with a curved
+  leader line up to it, the first time the symbol appears in the video. The
+  symbols are tagged in the KaTeX source (\htmlClass) and measured on screen.
+*/
+const TEXTY = new Set(['text', 'mathrm', 'textrm', 'textbf', 'textit', 'operatorname', 'mathbf', 'htmlClass']);
+function termTokens(tex) {
+  const out = [];
+  // End (exclusive) of the {…} group at i, or of the one character there.
+  const group = (i) => {
+    if (tex[i] !== '{') return i + 1;
+    let d = 0;
+    for (let j = i; j < tex.length; j++) {
+      if (tex[j] === '{') d++;
+      else if (tex[j] === '}' && --d === 0) return j + 1;
+    }
+    return tex.length;
+  };
+  let i = 0;
+  while (i < tex.length) {
+    const start = i;
+    let base;
+    if (tex[i] === '\\') {
+      const m = /^\\([A-Za-z]+)/.exec(tex.slice(i));
+      if (!m) {
+        i += 2;
+        continue;
+      }
+      i += m[0].length;
+      if (TEXTY.has(m[1])) {
+        while (tex[i] === ' ') i++;
+        i = group(i);
+        continue;
+      }
+      if (m[1] === 'textcolor') {
+        i = group(i);
+        continue;
+      }
+      base = m[0];
+    } else if (/[A-Za-z]/.test(tex[i])) {
+      base = tex[i++];
+    } else {
+      i++;
+      continue;
+    }
+    let key = base;
+    if (tex[i] === '_') {
+      const e = group(i + 1);
+      key += '_' + tex.slice(i + 1, e).replace(/[{}\s]/g, '');
+      i = e;
+    }
+    out.push({ key, start, end: i });
+  }
+  return out;
+}
+const plainEq = (b) => b.kind === 'eq' && b.node?.type?.isTex && typeof b.node.props.children === 'string' && !/\\begin|&|\\\\/.test(b.node.props.children);
+// The board with its equations' symbols tagged, and the labels per line.
+function withTerms(board) {
+  const notes = {};
+  if (!board) return { board, notes };
+  const seen = new Set();
+  const out = board.map((b, i) => {
+    if (!plainEq(b)) return b;
+    const tex = b.node.props.children;
+    const pick = termTokens(tex)
+      .filter((t) => TERMS[t.key] && !seen.has(t.key))
+      .filter((t, n, all) => all.findIndex((u) => u.key === t.key) === n)
+      .slice(0, 7);
+    if (!pick.length) return b;
+    for (const t of pick) seen.add(t.key);
+    let s = tex;
+    [...pick.entries()].sort((a, c) => c[1].start - a[1].start).forEach(([n, t]) => (s = `${s.slice(0, t.start)}\\htmlClass{tm-${n}}{${s.slice(t.start, t.end)}}${s.slice(t.end)}`));
+    notes[i] = pick.map((t) => ({ name: TERMS[t.key], tex: tex.slice(t.start, t.end) }));
+    return { ...b, node: cloneElement(b.node, {}, s) };
+  });
+  return { board: out, notes };
+}
+
+// The labels under one equation: in a row (two if crowded) under their
+// symbols, each with a leader line drawn up to its symbol.
+function TermNotes({ labels }) {
+  const ref = useRef(null);
+  const [pos, setPos] = useState(null);
+  useLayoutEffect(() => {
+    const box = ref.current;
+    const line = box?.closest('.board-line');
+    if (!line) return;
+    const place = () => {
+      const lr = line.getBoundingClientRect();
+      const k = lr.width / line.offsetWidth || 1;
+      const br = box.getBoundingClientRect();
+      const W = line.offsetWidth;
+      const syms = labels.map((_, n) => line.querySelector(`.tm-${n}`)?.getBoundingClientRect());
+      const tags = [...box.querySelectorAll('.tm-label')].map((el) => el.offsetWidth);
+      if (!lr.width || syms.some((r) => !r)) return;
+      const items = syms.map((r, n) => ({ n, x: (r.left + r.width / 2 - lr.left) / k, y: (r.bottom - br.top) / k, w: tags[n] }));
+      const lay = (rows) => {
+        const ends = Array(rows).fill(-Infinity);
+        return [...items]
+          .sort((a, c) => a.x - c.x)
+          .map((it, j) => {
+            const row = j % rows;
+            const left = Math.max(it.x - it.w / 2, ends[row] + 12, 0);
+            ends[row] = left + it.w;
+            return { ...it, row, left };
+          });
+      };
+      // One row, centred under its symbols (the leader lines fan out to it);
+      // two rows only when one row is wider than the line.
+      // One row, centred under its symbols (the leader lines fan out to it).
+      // Wider than the line (phones, long equations): a "where" list instead.
+      const res = lay(1);
+      const rowL = Math.min(...res.map((r) => r.left));
+      const span = Math.max(...res.map((r) => r.left + r.w)) - rowL;
+      if (span > W) return setPos({ legend: true });
+      const mid = (Math.min(...items.map((r) => r.x)) + Math.max(...items.map((r) => r.x))) / 2;
+      const shift = Math.min(W - span, Math.max(0, mid - span / 2)) - rowL;
+      for (const r of res) r.left += shift;
+      setPos({ items: res, rows: 1 });
+    };
+    place();
+    const ro = new ResizeObserver(place);
+    ro.observe(line);
+    return () => ro.disconnect();
+  }, [labels]);
+  const ROW = 28;
+  const TOP = 20; // room for the leader lines under the box
+  if (pos?.legend)
+    return (
+      <div className="tm-notes tm-legend" ref={ref}>
+        {/* Kept (hidden) so a wider screen can measure them and go back to the row. */}
+        {labels.map((l, n) => (
+          <span key={`m${n}`} className="tm-label" style={{ visibility: 'hidden' }}>
+            {l.name}
+          </span>
+        ))}
+        <span className="tm-where">where</span>
+        {labels.map((l, n) => (
+          <span key={n} className="tm-item" style={{ '--i': n }}>
+            <span className="tex" dangerouslySetInnerHTML={{ __html: katex.renderToString(l.tex, { throwOnError: false }) }} /> {l.name}
+          </span>
+        ))}
+      </div>
+    );
+  return (
+    <div className="tm-notes" ref={ref} style={{ height: TOP + (pos?.rows ?? 1) * ROW }}>
+      {pos && (
+        <svg className="tm-lines" aria-hidden="true">
+          {pos.items.map((it, j) => {
+            const ty = TOP + it.row * ROW + 2;
+            const tx = it.left + it.w / 2;
+            const my = (it.y + ty) / 2;
+            return <path key={it.n} pathLength="1" style={{ '--i': j }} d={`M${it.x} ${it.y + 2} C${it.x} ${my + 4}, ${tx} ${my - 4}, ${tx} ${ty}`} />;
+          })}
+        </svg>
+      )}
+      {labels.map((l, n) => {
+        const j = pos ? pos.items.findIndex((x) => x.n === n) : -1;
+        const it = pos?.items[j];
+        return (
+          <span key={n} className="tm-label" style={{ left: it?.left ?? 0, top: TOP + (it?.row ?? 0) * ROW, visibility: it ? 'visible' : 'hidden', '--i': j }}>
+            {l.name}
+          </span>
+        );
+      })}
+    </div>
+  );
+}
+
+/*
   The POV wrapper: picks which script plays (the video's own, or its variant
   for the chosen POV, see src/content/pov.js) and that POV's look. Changing the
   POV starts the video again from the top in the new telling.
@@ -420,7 +603,8 @@ export function Scene(props) {
   return <SceneCore key={variant ? id : 'main'} {...props} {...(variant ?? {})} chapterBeats={chapterBeats} povId={id} povChoice={choice} povNative={native} povLocked={locked} onPov={pick} theme={theme} onTheme={pickTheme} />;
 }
 
-function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chapter = 0, chapterBeats, onChapter, startAt = 0, onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, variants, povId, povChoice, povNative, povLocked, onPov, theme, onTheme, upcoming = [] }) {
+function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chapters, chapter = 0, chapterBeats, onChapter, startAt = 0, onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, variants, povId, povChoice, povNative, povLocked, onPov, theme, onTheme, upcoming = [] }) {
+  const { board, notes: termNotes } = useMemo(() => withTerms(rawBoard), [rawBoard]);
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [voice, setVoice] = useState(() => !isMuted() && 'speechSynthesis' in window);
@@ -725,9 +909,12 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chap
           fn();
         };
         audio.onerror = fallback(silent);
-        st.play = () => st.ready && !st.spoke && audio.play().catch(fallback(silent));
+        // A line that was left (seek, next beat, next chapter) never starts:
+        // its clip may finish loading after it was stopped (two voices at once).
+        st.play = () => live && st.ready && !st.spoke && audio.play().catch(fallback(silent));
         audio.onloadedmetadata = () => {
           durs[key] ??= audio.duration;
+          if (!live) return;
           // Seeked into the beat: start the clip at the same moment.
           const t = (within.current * speed) / 1000;
           if (t >= audio.duration) {
@@ -742,7 +929,10 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chap
     }
     return () => {
       live = false;
-      if (st.audio) st.audio.pause();
+      if (st.audio) {
+        st.audio.pause();
+        st.audio.onloadedmetadata = st.audio.onended = null;
+      }
       audioRef.current = null;
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     };
@@ -1157,6 +1347,7 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chap
                           {/* Highlight only what matters (results, traps, what to find), never every line (rule 39). */}
                           {beat === b.at && MARKED.has(b.kind) && <Marker kind={b.kind} delay={writeSecs(b.node)} />}
                         </span>
+                        {termNotes[board.indexOf(b)] && <TermNotes labels={termNotes[board.indexOf(b)]} />}
                       </div>
                     ))}
                   </div>
@@ -1202,7 +1393,7 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chap
               )}
               {pick && (
                 <div className="scene-ask-why">
-                  <b>{pick.i === ask.answer ? 'Sahi.' : 'Hmm, yo haina.'}</b> {ask.why}
+                  <b>{pick.i === ask.answer ? 'Correct.' : 'Not quite.'}</b> {ask.why}
                   {pick.i !== ask.answer && (
                     <button className="scene-rewatch" onClick={rewatch}>
                       ↺ Tyo part feri hera

@@ -33,6 +33,8 @@ export const M = ({ children }) => <span className="math">{children}</span>;
 export const K = ({ children }) => (
   <span className="tex" dangerouslySetInnerHTML={{ __html: katex.renderToString(children, { throwOnError: false, trust: (c) => c.command === '\\htmlClass' }) }} />
 );
+// Marks a KaTeX node, so the player can label its symbols (Scene.jsx, rule 51).
+K.isTex = true;
 
 // Marker inks on the whiteboard. (Names kept from the chalk version: `chalk`
 // is the main ink, `yellow` the emphasis colour.)
