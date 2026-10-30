@@ -5,6 +5,7 @@ import { backEmfDerivation, torqueDerivation, torqueFromPower, voltageEquation }
 import './video/roles41.jsx';
 import { charsAnswer42, chars42, equations42, noLoad42, opener42, series42, seriesSolve42, shunt42, types42 } from './unit4/u42.jsx';
 import { eff2074, eff2083, flow43, losses43, maxEff43, opener43 } from './unit4/u43.jsx';
+import { four44, need44, opener44, starterAnswer44, starterR44, three44 } from './unit4/u44.jsx';
 import { backEmf41, backEmfAnswer41, opener41, principle41, torque41, torqueAnswer41 } from './unit4/u41.jsx';
 import { ch1Model, fleming, howBig, whyItMoves } from './video/ch1.jsx';
 import { ch2Model, commutatorAction, crossSection, emfDerivation, emfIoe, lapWave } from './video/ch2.jsx';
@@ -70,30 +71,11 @@ const t43 = topic({
 const t44 = topic({
   num: '4.4',
   title: 'Starting: 3-point ra 4-point starter',
-  intro: [
-    { say: 'Starting: 3-point ra 4-point starter topic suru garau.', voice: 'स्टार्टिङ: थ्री-पोइन्ट र फोर-पोइन्ट स्टार्टर टपिक सुरु गरौं।' },
-    {
-      say: 'Motor start garne bela current kina khatarnak badhcha, tyo herchau.',
-      voice: 'मोटर स्टार्ट गर्ने बेला करेन्ट किन खतरनाक बढ्छ, त्यो हेर्छौं।',
-      lines: [{ kind: 'idea', node: <>Start garda current kina dherai?</> }],
-    },
-    {
-      say: 'Ani starter le motor lai kasari bachaucha, 3-point ra 4-point ma k farak, bujhchau.',
-      voice: 'अनि स्टार्टरले मोटरलाई कसरी बचाउँछ, थ्री-पोइन्ट र फोर-पोइन्टमा के फरक, बुझ्छौं।',
-      lines: [{ kind: 'idea', node: <>Starter le kasari bachaucha?</> }, { kind: 'step', node: <>3-point vs 4-point: k farak?</> }],
-    },
-    {
-      say: 'Ani last ma, IOE ma saat choti aayeko starter question sangai solve garchau. Antya samma hera!',
-      voice: 'अनि लास्टमा, आइओईमा सात चोटि आएको स्टार्टर क्वेस्चन सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
-      lines: [{ kind: 'hook', node: <>★ Last ma: IOE ma 7 choti aayeko question</> }],
-    },
-  ],
-  terms: [vibe44, threePoint, fourPoint],
-  derive: [whyStarter],
-  picture: [
-    starterAnswer,
-  ],
-  extras: [ch7Model],
+  opener: opener44,
+  terms: [three44, four44],
+  derive: [need44, starterR44],
+  picture: [starterAnswer44],
+  extras: [vibe44, threePoint, fourPoint, whyStarter, starterAnswer, ch7Model],
 });
 
 const t45 = topic({
