@@ -60,8 +60,13 @@ Use each connector at most twice in a video (rule 42).
 
 A Senior version always has its own beats (it is a different telling). Example: `backEmfAnswer.variants.senior` in `src/content/video/picture.jsx` (6-mark plan, the Eb < V trap, the RES trick).
 
+## In Big picture (rule 44)
+
+Open with the same IOE question card (`ioeQ(...)`, or a `q` board line with papers and marks), the first caption reading the question and how often it came. The marks plan must name **every** answer point of the Lecturer's model answer. Examples: `backEmfAnswer.variants.senior` (picture.jsx), and `torqueAnswer` senior in `roles41.jsx`.
+
 ## Checklist
 
+- [ ] Same material as the native script (rule 44). `topic.mjs <num> --check` passes, and its "!" warnings have been read.
 - [ ] The count, years and marks match `vault/`.
 - [ ] Every mark has a concrete "write this / draw this".
 - [ ] One trap with an ask that tests it, and one memory trick.

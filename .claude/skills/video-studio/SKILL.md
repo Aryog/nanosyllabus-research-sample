@@ -1,6 +1,6 @@
 ---
 name: video-studio
-description: The complete studio for the DC Motors video course in one skill. It covers scripting (beats, board, questions, Gen-Z Nepali), voice and audio (ElevenLabs whole takes, credits, clip cutting), visuals (2.5D kit, doodles, graphs), animation (scene clock, cues, camera, 3D), the player and unit path, MP4 rendering and QA. Use it for any task that creates, edits, reviews, voices, animates or renders a video or lesson, and keep it updated with every rule the user sets.
+description: The complete studio for the DC Motors video course in one skill. When the user names a topic ("generate 4.3", "make speed control ready", "do topic X"), it builds the whole topic game-ready by following references/topic-recipe.md, with every segment, every video in all four teaching roles (Lecturer, Tutor, Engineer, Senior), a Big picture of real past IOE questions, lint and the topic gate. It also covers scripting (beats, board, questions, Gen-Z Nepali), voice and audio (ElevenLabs whole takes, credits, clip cutting), visuals (2.5D kit, doodles, graphs), animation (scene clock, cues, camera, 3D), the player and unit path, MP4 rendering and QA. Use it for any task that creates, edits, reviews, voices, animates or renders a video or lesson, and keep it updated with every rule the user sets.
 ---
 
 # Video studio
@@ -11,6 +11,15 @@ built from self-playing whiteboard videos with a Devanagari voice, roman
 captions and questions inside the video. This skill is the single home for
 **every** rule and procedure behind those videos. **It is never finished:
 every task ends by updating it (see "Keep this skill alive").**
+
+## "Generate topic X": the one-command path
+
+When the user names a topic, do the whole thing, not a step:
+1. `node .claude/skills/video-studio/scripts/topic.mjs <num>` prints the brief (syllabus, derivations, past questions from `references/topics.json`) and every gap.
+2. Follow **[references/topic-recipe.md](references/topic-recipe.md)** from step 0 to step 7: plan, native scripts, all four roles, visuals, verify, voice (estimate only, record on yes), finish.
+3. It is done only when `topic.mjs <num> --check` exits 0, lint has 0 errors, you have looked at the frame strips (native and per role), and it is committed and pushed. Then report.
+
+The recipe's "Flexibility" table covers partial requests (one segment, one role, with or without audio, a new role, another unit).
 
 ## The pipeline
 
@@ -30,6 +39,7 @@ clips.
 
 | Task | Read |
 |---|---|
+| **Generate a whole topic** (the one-command path) | [references/topic-recipe.md](references/topic-recipe.md) + `scripts/topic.mjs` + [references/topics.json](references/topics.json) |
 | Write or edit a video, a topic, a question, a caption or a voice line | [references/scripting.md](references/scripting.md) |
 | Record voice, credits, clip problems, audio evenness | [references/voice-audio.md](references/voice-audio.md) |
 | Drawings, kit parts, doodles, graphs, board text, 2.5D look | [references/visuals.md](references/visuals.md) |
@@ -38,7 +48,7 @@ clips.
 | MP4 render, the review loop, the frame strip, the final checklist | [references/render-and-qa.md](references/render-and-qa.md) |
 
 Read the reference before touching its area. Rules are numbered: house rules
-1 to 43 (the scripts cite them by number) and motion rules M1 to M15. A rule
+1 to 44 (the scripts cite them by number) and motion rules M1 to M15. A rule
 lives in exactly one reference.
 
 ## POVs: who is teaching (four roles, four skills)
@@ -66,6 +76,7 @@ Registry and voice settings: `src/content/pov.js`. A video sets `pov:` (its nati
 8. **Test on a build** (`vite preview`), never on the dev server (render-and-qa.md).
 9. **Said = shown, no filler.** The caption reads exactly what the beat writes or points at; teacher's register, no hype, no lead-in-only beats (rules 11, 31, 32).
 11. **Exam = textbook answer.** Big-picture answers read like the Indian textbook page students will write: Q., underlined headings, "Let,", numbered equations, ∴, boxed result, "Hence proved" (rule 41, `pov-lecturer`).
+13. **Same material, different explanation; Big picture is always the past questions.** Every role covers the native script's content; every Big-picture video and role version opens with the real IOE question and answers it (rule 44).
 12. **Don't sound repetitive.** Vary connectors from the role's phrase bank; none more than twice per video (rule 42).
 10. **Each segment has its look.** Terms: Blue (Engineering Mindset). Derivation: handwritten navy board (Khan Academy) with Efficient-Engineer maths (one "=" per row, underbraced expansions). Big picture: Book (Science Ready) with textbook figures, one model answer per IOE question (rules 30, 33–36).
 
@@ -93,6 +104,7 @@ Registry and voice settings: `src/content/pov.js`. A video sets `pov:` (its nati
 
 ```bash
 # This skill's tools (run from the repo root; they never spend credits)
+node .claude/skills/video-studio/scripts/topic.mjs 4.2 [--check]            # topic brief, status, game-ready gate
 node .claude/skills/video-studio/scripts/status.mjs [4.1 …] [--videos]   # voice + MP4 state, credits still needed
 node .claude/skills/video-studio/scripts/lint.mjs [4.1 …] [--main]       # house-rule checks on the scripts
 node .claude/skills/video-studio/scripts/frame-strip.mjs <n|title> [--frames 10]   # screenshots + pause test (needs preview)
@@ -148,3 +160,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-10-30: Bug fixed: look/POV changes while paused left board text in the old colour (colour transitions were frozen with the clock); now only non-colour animations follow the clock. Focus ring is green. **POVs added**: Mindset, Board (Khan), Maths (Efficient Engineer), Exam (Science Ready), each with its own skill (`pov-*`), a POV selector replacing the look selector, and 4.1 variants (back EMF derivation [exam], torque force method [efficient], story [khan]). Exam answers rewritten as Indian-textbook answers (rule 41). Connector variety (rule 42) with phrase banks per POV; lint warns past two uses.
 - 2026-10-30: POVs redefined as **roles** at the user's request ("POV is like lecturer, private tutor"): Lecturer (book), Tutor (navy), Engineer (blue), Senior (clean), with skills `pov-lecturer`, `pov-tutor`, `pov-engineer`, `pov-senior` (the channel-named POV skills were replaced). 4.1 variants renamed (backEmfDerivation [lecturer], torqueDerivation [engineer], story [tutor]) and a Senior version of the back EMF answer added (6-mark plan, Eb < V trap, RES trick).
 - 2026-10-30: 4.1 is role-wise: every main video (opener included) now has all four roles, 26 new role versions in `roles41.jsx` (caption-first; voice lines written, nothing recorded). Exam counts from the vault digest; numbers recomputed.
+- 2026-10-30: **Generate-a-topic path** added at the user's request ("whenever I tell you to generate on this topic, make the entire game ready"): `references/topic-recipe.md` (steps 0–7 + flexibility table), `references/topics.json` (syllabus, derivations, past questions per topic from vault/), `scripts/topic.mjs` (brief + `--check` gate: segments, Big-picture question cards in every role, past-question coverage, all four roles, same-material warnings, lint, credits). Rule 44: same material across roles; Big picture always the past IOE questions in every role. 4.1 Big-picture role versions rewritten to open with the question; 4.1 passes the gate. Known gaps for 4.2–4.6 are printed by the gate (4.2 has a non-question video in Big picture; 4.6 has no past question in vault/).

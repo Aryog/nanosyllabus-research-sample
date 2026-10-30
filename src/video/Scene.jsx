@@ -452,7 +452,9 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
       // never zoomed onto one side (that cuts the other side off).
       if (box && !el.classList.contains('split') && !el.querySelector('.board-cols')) {
         const pad = 28;
-        k = Math.max(fit, Math.min(fit * ZOOM_IN, W / (box.r - box.l + 2 * pad), H / (box.b - box.t + 2 * pad)));
+        // A board-only video is never zoomed past the full board: zooming to
+        // the new line cropped the sides of wide lines (the question card).
+        k = Math.max(fit, Math.min(fit * (draw || three ? ZOOM_IN : 1), W / (box.r - box.l + 2 * pad), H / (box.b - box.t + 2 * pad)));
         cx = (box.l + box.r) / 2;
         cy = (box.t + box.b) / 2;
       }

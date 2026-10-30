@@ -64,8 +64,13 @@ Use each connector at most twice in a video (rule 42).
 
 The usual Engineer variant keeps the same beats with a model figure and a compact board (no new voice). Example: `torqueDerivation.variants.engineer` in `src/content/video/t41.jsx` (the `lever` figure).
 
+## In Big picture (rule 44)
+
+Open with the same IOE question card (`ioeQ(...)`), the first caption reading the question. Then cover **every** answer point of the Lecturer's model answer, each shown on a real machine with numbers and units (all recomputed). Example: `roles41.jsx` engineer versions of both answers.
+
 ## Checklist
 
+- [ ] Same material as the native script (rule 44). `topic.mjs <num> --check` passes, and its "!" warnings have been read.
 - [ ] The real object comes first, and every symbol appears on the figure before it is used in the equation.
 - [ ] The figure's colour of each symbol matches its colour in the equation, and units are said.
 - [ ] The board beside the figure has 6 lines or fewer.

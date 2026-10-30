@@ -359,8 +359,8 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
       notes: false,
       beats: [
         {
-          say: 'Senior ko plan: yo question tin choti aayo, 2 plus 4 marks. Six marks ko lagi yati lekhe pugcha.',
-          voice: 'सिनियरको प्लान — यो क्वेस्चन तीन चोटि आयो, टु प्लस फोर मार्क्स। सिक्स मार्क्सको लागि, यति लेखे पुग्छ।',
+          say: 'Senior ko plan: What is back EMF? How does it play an important role in a DC motor? Tin choti aayo, 2 plus 4 marks.',
+          voice: 'सिनियरको प्लान — ह्वाट इज ब्याक इएमएफ? हाउ डज इट प्ले एन इम्पोर्टेन्ट रोल इन अ डीसी मोटर? तीन चोटि आयो, टु प्लस फोर मार्क्स।',
         },
         {
           say: 'Pahila 2 marks: definition duita line ma, ani E b equals P phi Z N over sixty A. Lenz ko law ko naam lina nabirsa.',
@@ -387,8 +387,7 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
         },
       ],
       board: [
-        { at: 0, kind: 'h', node: <>Back EMF: 6 marks kasari paune?</> },
-        { at: 0, kind: 'note', node: <>IOE 2071 Magh · 2078 Poush · 2082 Baishakh (ECM) · [2 + 4]</> },
+        { at: 0, kind: 'q', node: <><span className="tag">IOE 2071 Magh · 2078 Poush · 2082 Baishakh (ECM) · [2 + 4]</span>What is back EMF? How does it play an important role in a DC motor?</> },
         { at: 1, kind: 'step', node: <><b>2 marks:</b> definition (2 lines, “Lenz’s law”) + <K>{String.raw`E_b = \dfrac{P\phi ZN}{60A}`}</K></> },
         { at: 2, kind: 'step', node: <><b>4 marks:</b> Fig. 2 circuit + <K>{String.raw`V = E_b + I_aR_a`}</K> + 3 significance</> },
         { at: 3, kind: 'trap', node: <>Motor ma sadhai <K>{String.raw`E_b < V`}</K>. <K>{String.raw`E_b > V`}</K> lekhe generator bhayo.</> },

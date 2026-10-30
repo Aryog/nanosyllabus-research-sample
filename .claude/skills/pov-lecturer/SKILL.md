@@ -67,8 +67,13 @@ Use each connector at most twice in a video (rule 42).
 
 A Lecturer version of a derivation has its own beats: heading → "Let," list → numbered rows → boxed result with "Hence proved". Example: `backEmfDerivation.variants.lecturer` in `src/content/video/t41.jsx`.
 
+## Same material for the other roles (rule 44)
+
+The Lecturer's model answer is the reference content for the Big picture. Tutor, Engineer and Senior versions must cover every one of its points and open with the same question card, so keep the points explicit (one per beat).
+
 ## Checklist
 
+- [ ] Same material as the native script (rule 44). `topic.mjs <num> --check` passes, and its "!" warnings have been read.
 - [ ] The question, papers and marks match `vault/`.
 - [ ] Headings are underlined, every symbol is in "Let,", and equations are numbered and referred back to.
 - [ ] The result is boxed with ∴, plus "Hence proved" where it applies.

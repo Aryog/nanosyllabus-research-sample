@@ -1,0 +1,75 @@
+{
+  "_about": "What each micro-topic must contain, from vault/ (syllabus + dc-motor-digest.md). topic-brief.mjs and topic-check.mjs read this. Papers are written exactly as in the digest. 'bigPicture' lists the past IOE questions the Big-picture segment must answer (one answer() or solve() video each, every role opening with that question). 'derivations' are the equations segment 2 must derive, one video each. Update this file whenever vault/ is refreshed or the user changes a topic's scope.",
+  "4.1": {
+    "title": "Working principle, back EMF ra torque equation",
+    "syllabus": ["Working principle and Torque equation", "Back EMF"],
+    "derivations": ["Back EMF equation Eb = PφZN/60A", "Voltage and power equation V = Eb + IaRa, Pm = EbIa", "Torque equation by force Ta = 0.159 φZIa (P/A)", "Torque equation by power Ta = 9.55 EbIa/N"],
+    "bigPicture": [
+      { "id": "torque", "kind": "theory", "papers": ["2073 Chaitra", "2069 Bhadra", "2082 Baishakh (ECM)"], "marks": "[4 + 2]", "q": "Explain the working principle of a DC motor and derive the torque equation." },
+      { "id": "backemf", "kind": "theory", "papers": ["2071 Magh", "2078 Poush", "2082 Baishakh (ECM)"], "marks": "[2 + 4]", "q": "What is back EMF? How does it play an important role in a DC motor?" }
+    ],
+    "alsoAsked": [
+      { "papers": ["2079 Jestha"], "q": "How is unidirectional torque produced in a DC machine? What factors affect the torque?", "where": "Terms: torque production (all roles)" },
+      { "papers": ["2079 Jestha", "2068 Magh", "2066 Magh", "2073 Bhadra", "2082 Bhadra (ECM)"], "q": "Why does a DC motor draw a large current at starting?", "where": "Terms: story (Lecturer role) and 4.4" },
+      { "papers": ["2078 Baishakh", "2075 Baishakh", "2071 Bhadra", "2070 Bhadra", "2066 Magh"], "q": "Derive the EMF equation of a DC machine.", "where": "Derivation: back EMF equation" },
+      { "papers": ["2078 Poush Q3(b)", "2070 Bhadra"], "q": "Numerical: EMF equation → speed, lap and wave (digest #18).", "where": "Practice: emfIoe" }
+    ]
+  },
+  "4.2": {
+    "title": "DC motor ka types, characteristics ra applications",
+    "syllabus": ["Method of excitation, Types of DC motor", "Performance Characteristics of D.C. motors"],
+    "derivations": ["Voltage and current equations of shunt, series, long and short compound motors", "Shunt: Ta–Ia, N–Ia, N–Ta from Ta ∝ φIa and N ∝ Eb/φ", "Series: Ta–Ia, N–Ia, N–Ta (φ ∝ Ia before saturation)"],
+    "bigPicture": [
+      { "id": "characteristics", "kind": "theory", "papers": ["2070 Magh"], "marks": "[8]", "q": "Explain the torque–armature current and speed–torque characteristics of DC shunt and DC series motors." },
+      { "id": "noload", "kind": "theory", "papers": ["2067 Mangsir", "2065 Chaitra", "2068 Bhadra"], "marks": "", "q": "Why should a DC series motor never be started without load?" },
+      { "id": "series-current", "kind": "numerical", "papers": ["2069 Bhadra", "2066 Magh"], "marks": "[8]", "q": "220 V series motor, Ra = 0.06 Ω, Rse = 0.04 Ω, 25 A at 1200 rpm. Current at 800 rpm (unsaturated)? (digest #14: I2 ≈ 37.3 A)" }
+    ],
+    "alsoAsked": [
+      { "papers": ["2067 Mangsir"], "q": "Suitability of series, shunt and compound motors for traction, vacuum cleaner, paper making, shearing and punching.", "where": "Terms: applications" },
+      { "papers": ["2071 Magh (New Back) Q4(b)"], "q": "Shunt motor 600 rpm, 60 A from 230 V, Ra = 0.2 Ω, Rsh = 115 Ω. Speed at Ia = 30 A? (digest #11: 615.4 rpm)", "where": "Practice" },
+      { "papers": ["2065 Chaitra"], "q": "Series motor, speed at half torque (digest #15: ≈ 1147 rpm)", "where": "Practice" }
+    ]
+  },
+  "4.3": {
+    "title": "Losses ra efficiency",
+    "syllabus": ["Losses and Efficiency"],
+    "derivations": ["Power flow: input → Cu losses → Pm → iron and friction → output", "Condition for maximum efficiency: variable loss = constant loss"],
+    "bigPicture": [
+      { "id": "eff-2074", "kind": "numerical", "papers": ["2074 Bhadra"], "marks": "", "q": "Shunt machine 30 kW at 200 V, Ra = 0.05 Ω, Rsh = 50 Ω, iron and friction 1000 W: EMF, copper losses, efficiency. (digest #21: 207.7 V, 1985.8 W, 90.9%)" },
+      { "id": "eff-2083", "kind": "numerical", "papers": ["2083 Baishakh (ECM)"], "marks": "[5]", "q": "Shunt machine 96 A at 200 V, Ra = 0.1 Ω, Rsh = 50 Ω, iron and friction 2500 W: EMF and commercial efficiency. (digest #22: 210 V, 81.7%)" }
+    ],
+    "alsoAsked": []
+  },
+  "4.4": {
+    "title": "Starting: 3-point ra 4-point starter",
+    "syllabus": ["Starting of D.C. Motors: 3 point and 4 point starters"],
+    "derivations": ["Why a starter: Ia = (V − Eb)/Ra with Eb = 0 at start", "Starter resistance for a chosen starting current"],
+    "bigPicture": [
+      { "id": "starter", "kind": "theory", "papers": ["2075 Baisakh", "2074 Bhadra", "2073 Bhadra", "2070 Bhadra", "2068 Magh", "2066 Magh", "2083 Baishakh (ECM)"], "marks": "[2 + 6]", "q": "What is the necessity of a starter? Explain the working of a 3-point starter with a neat diagram." }
+    ],
+    "alsoAsked": [
+      { "papers": ["2079 Jestha", "2068 Magh", "2066 Magh", "2073 Bhadra", "2082 Bhadra (ECM)"], "q": "Why does a DC motor draw a large current at starting?", "where": "Derivation: why starter" }
+    ]
+  },
+  "4.5": {
+    "title": "Speed control: series, shunt ra direction reverse",
+    "syllabus": ["Speed control of D.C. motors: Field Control, Armature Control"],
+    "derivations": ["Speed equation N ∝ Eb/φ and the ratio N2/N1 = (Eb2/Eb1)(φ1/φ2)"],
+    "bigPicture": [
+      { "id": "shunt-control", "kind": "theory", "papers": ["2071 Bhadra", "2069 Bhadra", "2065 Chaitra"], "marks": "[8]", "q": "Explain the methods of speed control of a DC shunt motor (armature control and field control)." },
+      { "id": "armature-r", "kind": "numerical", "papers": ["2072 Ashwin"], "marks": "[8]", "q": "200 V shunt motor, constant torque, 50 A at 1000 rpm, Ra = 0.1 Ω, Rsh = 100 Ω. Armature resistance for 800 rpm? (digest #8: ≈ 0.813 Ω)" }
+    ],
+    "alsoAsked": [
+      { "papers": ["2074 Bhadra"], "q": "Series motor speed control (diverter); digest #6", "where": "Terms: series control" },
+      { "papers": ["2075 Baishakh", "2075 Baisakh Q4(b)", "2078 Poush", "2073 Bhadra", "2068 Bhadra", "2071 Magh", "2070 Bhadra", "2081 Ashwin (ECM)"], "q": "Speed-control numericals (digest #2, #4, #5, #7, #9, #10, #12, #16)", "where": "Practice (past.jsx)" }
+    ]
+  },
+  "4.6": {
+    "title": "Testing: Retardation test ra Swinburne’s test",
+    "syllabus": ["Losses and Efficiency (testing to find losses)"],
+    "derivations": ["Swinburne's test: constant losses from no-load input, efficiency at any load", "Retardation test: rotational losses from the slowing-down rate"],
+    "bigPicture": [],
+    "gap": "No Swinburne or retardation question exists in vault/. Do not invent one. Use the closest real past question (4.3 efficiency numericals, 2074 Bhadra or 2083 Baishakh ECM, solved with Swinburne's method), or ask the user for a paper.",
+    "alsoAsked": []
+  }
+}

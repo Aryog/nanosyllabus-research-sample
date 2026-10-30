@@ -67,8 +67,13 @@ Use each connector at most twice in a video (rule 42).
 
 The usual Tutor variant keeps the same beats with a handwritten board (no new voice). Example: `story.variants.tutor` in `src/content/video/ch4.jsx`.
 
+## In Big picture (rule 44)
+
+Open with the same IOE question card (`ioeQ(...)` in `roles<topic>.jsx`), the first caption reading the question ("IOE ko yo question sangai garau: …"). Then cover **every** answer point of the Lecturer's model answer, in the same order, each with the doubt students have at that point. Example: `torqueAnswer` and `backEmfAnswer` tutor versions in `roles41.jsx`.
+
 ## Checklist
 
+- [ ] Same material as the native script (rule 44). `topic.mjs <num> --check` passes, and its "!" warnings have been read.
 - [ ] Every step has a why, and nothing is skipped between rows.
 - [ ] Every substitution uses X → R; two "=" never share a row.
 - [ ] Every ask sits on a teaching beat and checks understanding.
