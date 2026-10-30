@@ -6,6 +6,7 @@ import './video/roles41.jsx';
 import { charsAnswer42, chars42, equations42, noLoad42, opener42, series42, seriesSolve42, shunt42, types42 } from './unit4/u42.jsx';
 import { eff2074, eff2083, flow43, losses43, maxEff43, opener43 } from './unit4/u43.jsx';
 import { four44, need44, opener44, starterAnswer44, starterR44, three44 } from './unit4/u44.jsx';
+import { armature45, armatureR45, field45, knobs45, opener45, seriesRev45, shuntControl45, speedEq45 } from './unit4/u45.jsx';
 import { backEmf41, backEmfAnswer41, opener41, principle41, torque41, torqueAnswer41 } from './unit4/u41.jsx';
 import { ch1Model, fleming, howBig, whyItMoves } from './video/ch1.jsx';
 import { ch2Model, commutatorAction, crossSection, emfDerivation, emfIoe, lapWave } from './video/ch2.jsx';
@@ -81,30 +82,11 @@ const t44 = topic({
 const t45 = topic({
   num: '4.5',
   title: 'Speed control: series, shunt ra direction reverse',
-  intro: [
-    { say: 'Speed control ra direction reverse topic suru garau.', voice: 'स्पिड कन्ट्रोल र डाइरेक्सन रिभर्स टपिक सुरु गरौं।' },
-    {
-      say: 'Motor ko speed kun kun kura le decide garcha, tyo herchau.',
-      voice: 'मोटरको स्पिड कुन कुन कुराले डिसाइड गर्छ, त्यो हेर्छौं।',
-      lines: [{ kind: 'idea', node: <>Speed kun kura le decide garcha?</> }],
-    },
-    {
-      say: 'Ani speed ghataune badhaune ra direction ulto garne tarika sikchau.',
-      voice: 'अनि स्पिड घटाउने बढाउने र डाइरेक्सन उल्टो गर्ने तरिका सिक्छौं।',
-      lines: [{ kind: 'idea', node: <>Speed kasari ghataune, badhaune?</> }, { kind: 'idea', node: <>Direction kasari ulto garne?</> }],
-    },
-    {
-      say: 'Ani last ma, IOE 2075 Baisakh ko series motor speed control question sangai solve garchau. Antya samma hera!',
-      voice: 'अनि लास्टमा, आइओई दुई हजार पचहत्तर वैशाखको सिरिज मोटर स्पिड कन्ट्रोल क्वेस्चन सँगै सल्भ गर्छौं। अन्त्यसम्म हेर!',
-      lines: [{ kind: 'hook', node: <>★ Last ma: IOE 2075 Baisakh ko question</> }],
-    },
-  ],
-  terms: [vibe45, threeKnobs, fieldControl, armatureControl, reversing],
-  derive: [speedDerivation],
-  picture: [
-    seriesControl,
-  ],
-  extras: [solveField, solveArmature, ch8Model, ...pastQuestions],
+  opener: opener45,
+  terms: [knobs45, field45, armature45, seriesRev45],
+  derive: [speedEq45],
+  picture: [shuntControl45, armatureR45],
+  extras: [vibe45, threeKnobs, fieldControl, armatureControl, reversing, speedDerivation, seriesControl, solveField, solveArmature, ch8Model, ...pastQuestions],
 });
 
 const t46 = topic({

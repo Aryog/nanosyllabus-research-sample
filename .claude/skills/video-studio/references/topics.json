@@ -241,7 +241,7 @@
           "2072 Ashwin"
         ],
         "marks": "[8]",
-        "q": "200 V shunt motor, constant torque, 50 A at 1000 rpm, Ra = 0.1 Ω, Rsh = 100 Ω. Armature resistance for 800 rpm? (digest #8: ≈ 0.813 Ω)"
+        "q": "A 200 V shunt motor driving a constant-torque load takes 50 A at 1000 rpm. Ra = 0.1 Ω, Rsh = 100 Ω. Armature resistance for 800 rpm? (digest #8: ≈ 0.813 Ω)"
       }
     ],
     "alsoAsked": [
