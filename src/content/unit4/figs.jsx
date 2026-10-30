@@ -12,7 +12,9 @@ import { C } from '../video/kit.jsx';
 
 const INK = { stroke: C.chalk, strokeWidth: 1.3, fill: 'none' };
 const T = ({ x, y, children, a = 'middle', size = 10.5, i = false, b = false }) => (
-  <text x={x} y={y} textAnchor={a} fontSize={size} fontStyle={i ? 'italic' : 'normal'} fontWeight={b ? 700 : 400} fill={C.chalk}>
+  // Size inline: the player's `.scene-svg text` rule would otherwise set every
+  // label to one size and stack them on top of each other.
+  <text x={x} y={y} textAnchor={a} style={{ fontSize: size }} fontStyle={i ? 'italic' : 'normal'} fontWeight={b ? 700 : 400} fill={C.chalk}>
     {children}
   </text>
 );
@@ -236,8 +238,8 @@ export const curvesFigure = (s) => (
     </g>
     <g className={s.on(6) + s.hl(6)}>
       <circle cx={162} cy={30} r={7} {...INK} strokeWidth={1} strokeDasharray="2 2" />
-      <W d="M170 28 L188 16" w={0.8} />
-      <T x={190} y={14} a="start" size={9.5}>N → very high as Ia → 0</T>
+      <W d="M156 26 L138 12" w={0.8} />
+      <T x={136} y={12} a="end" size={9.5}>no load: N very high</T>
     </g>
   </>
 );
@@ -327,7 +329,7 @@ export const effFigure = (s) => (
   <>
     <g className={s.on(0)}>
       {axes(40, 20, 290, 150, 'Load current IL', 'Losses, η')}
-      <Cap y={214}>Fig. 6  Efficiency and losses vs load</Cap>
+      <Cap y={218}>Fig. 6  Efficiency and losses vs load</Cap>
     </g>
     <g className={s.on(1) + s.hl(1)}>
       <W d="M40 120 H326" w={1.4} />
@@ -344,7 +346,7 @@ export const effFigure = (s) => (
     <g className={s.on(4) + s.hl(4)}>
       <W d="M200 40 V170" w={0.9} dash="3 3" />
       <circle cx={200} cy={120} r={3} fill={C.chalk} />
-      <T x={204} y={186} a="start" size={10}>ηmax where Ia²Ra = Wc</T>
+      <T x={204} y={200} a="start" size={10}>ηmax where Ia²Ra = Wc</T>
     </g>
   </>
 );

@@ -214,7 +214,7 @@ export const flow43 = duo('Derivation: power flow ra efficiency', {
 /* ── Derivation: condition for maximum efficiency ────────────────────── */
 export const maxEff43 = duo('Derivation: maximum efficiency ko condition', {
   draw: effFigure,
-  viewBox: '0 0 360 222',
+  viewBox: '0 0 360 226',
   tutor: [
     {
       say: 'Efficiency output over input. Input V I, ra losses constant W c plus variable I square R a. Shunt motor ma I L lagbhag I a, tesaile I lekhchau.',
