@@ -7,6 +7,7 @@ import { charsAnswer42, chars42, equations42, noLoad42, opener42, series42, seri
 import { eff2074, eff2083, flow43, losses43, maxEff43, opener43 } from './unit4/u43.jsx';
 import { four44, need44, opener44, starterAnswer44, starterR44, three44 } from './unit4/u44.jsx';
 import { armature45, armatureR45, field45, knobs45, opener45, seriesRev45, shuntControl45, speedEq45 } from './unit4/u45.jsx';
+import { opener46, retard46, retardDer46, swin46, swinAnswer46, swinEff46, why46 } from './unit4/u46.jsx';
 import { backEmf41, backEmfAnswer41, opener41, principle41, torque41, torqueAnswer41 } from './unit4/u41.jsx';
 import { ch1Model, fleming, howBig, whyItMoves } from './video/ch1.jsx';
 import { ch2Model, commutatorAction, crossSection, emfDerivation, emfIoe, lapWave } from './video/ch2.jsx';
@@ -92,30 +93,11 @@ const t45 = topic({
 const t46 = topic({
   num: '4.6',
   title: 'Testing: Retardation test ra Swinburne’s test',
-  intro: [
-    { say: "Testing: Swinburne's test ra retardation test topic suru garau.", voice: 'टेस्टिङ: स्विनबर्न्स टेस्ट र रिटार्डेसन टेस्ट टपिक सुरु गरौं।' },
-    {
-      say: 'Thulo motor lai load nalagai efficiency kasari thaha paune, tyo herchau.',
-      voice: 'ठूलो मोटरलाई लोड नलगाई इफिसियन्सी कसरी थाहा पाउने, त्यो हेर्छौं।',
-      lines: [{ kind: 'idea', node: <>Load bina efficiency kasari nikalne?</> }],
-    },
-    {
-      say: "Swinburne's test ra retardation test le k k napcha, bujhchau.",
-      voice: 'स्विनबर्न्स टेस्ट र रिटार्डेसन टेस्टले के के नाप्छ, बुझ्छौं।',
-      lines: [{ kind: 'idea', node: <>Swinburne's test le k napcha?</> }, { kind: 'idea', node: <>Retardation test le k napcha?</> }],
-    },
-    {
-      say: 'Ani last ma, exam ma aaune testing ko model answer sangai lekhchau. Antya samma hera!',
-      voice: 'अनि लास्टमा, एक्जाममा आउने टेस्टिङको मोडल आन्सर सँगै लेख्छौं। अन्त्यसम्म हेर!',
-      lines: [{ kind: 'hook', node: <>★ Last ma: exam-style model answer</> }],
-    },
-  ],
-  terms: [vibe46, testIntro],
-  derive: [swinburne, retardation],
-  picture: [
-    testingAnswer,
-  ],
-  extras: [testingModel],
+  opener: opener46,
+  terms: [why46, swin46, retard46],
+  derive: [swinEff46, retardDer46],
+  picture: [swinAnswer46],
+  extras: [vibe46, testIntro, swinburne, retardation, testingAnswer, testingModel],
 });
 
 export const topics = [t41, t42, t43, t44, t45, t46];

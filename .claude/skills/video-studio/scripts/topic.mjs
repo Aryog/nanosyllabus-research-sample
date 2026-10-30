@@ -68,7 +68,10 @@ ok(picture.length >= Math.max(1, spec.bigPicture.length), `Segment 3 Big picture
 const qLine = (board) => (board ?? []).find((l) => l.kind === 'q' && l.at === 0);
 for (const st of picture) {
   const main = qLine(st.figureProps.board);
-  ok(!!main && /IOE/.test(textOf(main.node)), `Big picture "${st.title}" opens with an IOE question card`);
+  // A topic with no past question in vault/ (topics.json `gap`) may use an
+  // exam-style card instead; it must not claim a paper.
+  const card = spec.gap ? /IOE|Exam-style/ : /IOE/;
+  ok(!!main && card.test(textOf(main.node)), `Big picture "${st.title}" opens with ${spec.gap ? 'an IOE or exam-style' : 'an IOE'} question card`);
   // Big picture is always the Lecturer (rule 44): no role versions there.
   ok(!Object.keys(st.figureProps.variants ?? {}).length, `  taught by the Lecturer only (no role versions)`);
   for (const [r, va] of Object.entries(st.figureProps.variants ?? {})) {
