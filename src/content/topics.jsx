@@ -2,6 +2,7 @@ import { C, extra, overview, segments } from './video/kit.jsx';
 import { Ask, Battery, Crane, Face, Fan, MagnetWire, Note, Paper } from './video/doodles.jsx';
 import { backEmfAnswer, characteristicsAnswer, starterAnswer, testingAnswer, torqueAnswer } from './video/picture.jsx';
 import { backEmfDerivation, torqueDerivation, torqueFromPower, voltageEquation } from './video/t41.jsx';
+import { introRoles41 } from './video/roles41.jsx';
 import { ch1Model, fleming, howBig, whyItMoves } from './video/ch1.jsx';
 import { ch2Model, commutatorAction, crossSection, emfDerivation, emfIoe, lapWave } from './video/ch2.jsx';
 import { ch3Model, torqueFactors, torqueProduction, torqueProduction3d } from './video/ch3.jsx';
@@ -25,11 +26,12 @@ import { retardation, swinburne, testIntro, testingModel } from './video/testing
 */
 
 // Segment 1 opens with the topic's overview (what it's about), then its videos.
-const topic = ({ num, title, intro, introArt, extras = [], ...parts }) => ({
-  num,
-  title,
-  steps: [...segments({ ...parts, terms: [overview(num, title, intro, introArt), ...parts.terms] }), ...extras.map(extra)],
-});
+// `introRoles` gives the opener a version per teaching role (src/content/pov.js).
+const topic = ({ num, title, intro, introArt, introRoles, extras = [], ...parts }) => {
+  const opener = overview(num, title, intro, introArt);
+  if (introRoles) opener.figureProps.variants = introRoles;
+  return { num, title, steps: [...segments({ ...parts, terms: [opener, ...parts.terms] }), ...extras.map(extra)] };
+};
 
 const t41 = topic({
   num: '4.1',
@@ -91,6 +93,7 @@ const t41 = topic({
       </>
     ),
   },
+  introRoles: introRoles41,
   terms: [vibe41, torqueProduction3d, story],
   derive: [backEmfDerivation, voltageEquation, torqueDerivation, torqueFromPower],
   picture: [torqueAnswer, backEmfAnswer],
