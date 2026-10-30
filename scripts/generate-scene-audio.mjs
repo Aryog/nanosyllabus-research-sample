@@ -9,6 +9,7 @@
 //   npm run audio:scenes -- 4.1 --redo     record again even the lines that already have a clip
 //   npm run audio:scenes -- 4.1 --whole    each segment as one continuous take per telling (Tutor and
 //                                          Lecturer), cut into its line clips (skill rule 27)
+//   npm run audio:scenes -- 4.1 --whole --seg 2,3     only those segments (1 Terms, 2 Derivation, 3 Big picture)
 //   npm run audio:scenes -- 4.1 --whole --per-video   the old way: one take per video
 //   npm run audio:scenes                   every topic (asks nothing: estimate first!)
 //
@@ -40,7 +41,9 @@ const perVideo = process.argv.includes('--per-video');
 // Longest text one take may carry (eleven_v3 request limit); a longer segment
 // is split at video boundaries into as few takes as possible.
 const MAX_TAKE = 3000;
-const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const segArg = process.argv.includes('--seg') ? process.argv[process.argv.indexOf('--seg') + 1] : null;
+const segOnly = segArg ? segArg.split(',') : null;
+const only = process.argv.slice(2).filter((a) => !a.startsWith('--') && a !== segArg);
 
 async function loadEnv() {
   const env = {};
@@ -108,7 +111,7 @@ const segTakes = new Map(); // "4.1 · 1/3 · tutor" -> [[lines of video 1], [li
 for (const st of journey.steps) {
   const topic = st.chapter?.split(' · ')[0];
   const fp = st.figureProps;
-  if (!fp?.beats?.length || !st.segment || st.practice || (only.length && !only.includes(topic))) continue;
+  if (!fp?.beats?.length || !st.segment || st.practice || (only.length && !only.includes(topic)) || (segOnly && !segOnly.includes(st.segment[0]))) continue;
   const locked = st.segment.startsWith('3/3');
   const native = locked ? 'lecturer' : fp.pov ?? (st.segment.startsWith('3/3') ? 'lecturer' : 'tutor');
   const tellings = [[native, fp.beats], ...(locked ? [] : Object.entries(fp.variants ?? {}).map(([r, va]) => [r, va.beats]).filter(([, b]) => b?.length))];
