@@ -46,9 +46,9 @@ export const lookCss = Object.entries(INK)
     Object.entries(map)
       .map(([from, to]) =>
         [
-          `.scene.look-${look} :is(.scene-svg,.board-line) [fill="${from}"]{fill:${to}}`,
-          `.scene.look-${look} :is(.scene-svg,.board-line) [stroke="${from}"]{stroke:${to}}`,
-          `.scene.look-${look} .scene-svg [stop-color="${from}"]{stop-color:${to}}`,
+          `:is(.scene,.scene-thumb).look-${look} :is(.scene-svg,.board-line) [fill="${from}"]{fill:${to}}`,
+          `:is(.scene,.scene-thumb).look-${look} :is(.scene-svg,.board-line) [stroke="${from}"]{stroke:${to}}`,
+          `:is(.scene,.scene-thumb).look-${look} .scene-svg [stop-color="${from}"]{stop-color:${to}}`,
           `.scene.look-${look} .board-line [style*="${from}"]{color:${to}!important}`,
         ].join(''),
       )

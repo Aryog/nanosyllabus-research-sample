@@ -342,21 +342,73 @@ const clock = (ms) => {
   for the chosen POV, see src/content/pov.js) and that POV's look. Changing the
   POV starts the video again from the top in the new telling.
 */
+// Which telling plays: Big picture is always the Lecturer (rule 44); elsewhere
+// the viewer's choice for the segment, or the video's own (native) teacher.
+const povChoice = (segment) => {
+  const v = pref(`dcm-pov-${segment?.[0] ?? 0}`, 'auto');
+  return v === 'auto' || povById(v) ? v : 'auto';
+};
+const tellingOf = (p, choice) => {
+  const locked = !!p.segment?.startsWith('3/3');
+  const native = locked ? 'lecturer' : povById(p.pov) ? p.pov : autoPov(p.segment);
+  const id = locked || choice === 'auto' ? native : choice;
+  return { locked, native, id, variant: id !== native ? p.variants?.[id] : null };
+};
+const beatsMs = (bs = [], speed = 1, voice = true) => bs.reduce((t, b) => t + estMs(b, speed, voice), 0);
+
+// Length of a video (ms at 1×, voice on) in the telling the viewer will see.
+export const videoMs = (fp, segment) => {
+  const t = tellingOf({ ...fp, segment }, povChoice(segment));
+  return beatsMs((t.variant ?? fp).beats);
+};
+export { clock, useClipLengths };
+
+/*
+  A still of a video for the playlist: its figure as it stands at the last
+  beat, in the viewer's theme (Blue or White), or its heading when it has no
+  figure.
+*/
+export function Thumb({ fp, segment, className = '', children }) {
+  const t = tellingOf({ ...fp, segment }, povChoice(segment));
+  const v = { ...fp, ...(t.variant ?? {}) };
+  const last = Math.max(0, (v.beats?.length ?? 1) - 1);
+  const s = { beat: last, on: (k, until = Infinity) => (last >= k && last <= until ? 'sc on' : 'sc'), hl: () => '', at: (k) => last >= k };
+  const look = pref('dcm-lecturer-theme', 'blue') === 'white' ? 'book' : 'blue';
+  const head = v.board?.find((l) => l.kind === 'h') ?? v.board?.find((l) => l.kind === 'q');
+  return (
+    <span className={`scene-thumb look-${look} ${className}`} aria-hidden="true">
+      {v.draw ? (
+        <svg viewBox={v.viewBox ?? '0 0 360 220'} className="scene-svg">
+          {v.draw(s)}
+        </svg>
+      ) : (
+        <span className="thumb-text">{textOf(head?.node)}</span>
+      )}
+      {children}
+    </span>
+  );
+}
+
+/*
+  The POV wrapper: picks which script plays (the video's own, or its variant
+  for the chosen POV, see src/content/pov.js) and that POV's look. Changing the
+  POV starts the video again from the top in the new telling.
+  `chapters` (the segment's videos, one after another) makes the bar span the
+  whole segment, YouTube-style; see SceneCore.
+*/
 export function Scene(props) {
   // The choice is kept per segment, so Terms, Derivation and Big picture each
-  // open on their own teacher (Engineer, Tutor, Lecturer) until changed there.
+  // open on their own teacher until changed there.
   const povKey = `dcm-pov-${props.segment?.[0] ?? 0}`;
-  const [choice, setChoice] = useState(() => {
-    const v = pref(povKey, 'auto');
-    return v === 'auto' || povById(v) ? v : 'auto';
-  });
-  // The Lecturer's page is blue (default) or white (Book), the viewer's choice.
+  const [choice, setChoice] = useState(() => povChoice(props.segment));
+  // The page is blue (default) or white (Book), the viewer's choice.
   const [theme, setTheme] = useState(() => (pref('dcm-lecturer-theme', 'blue') === 'white' ? 'white' : 'blue'));
-  // Big picture is always taught by the Lecturer (rule 44): no role switch there.
-  const locked = props.segment?.startsWith('3/3');
-  const native = locked ? 'lecturer' : povById(props.pov) ? props.pov : autoPov(props.segment);
-  const id = locked || choice === 'auto' ? native : choice;
-  const variant = id !== native ? props.variants?.[id] : null;
+  const { locked, native, id, variant } = tellingOf(props, choice);
+  // Every chapter of the segment in the same telling, for the segment's timeline.
+  const chapterBeats = useMemo(
+    () => props.chapters?.map((c) => (tellingOf({ ...c, segment: props.segment }, choice).variant ?? c).beats ?? []),
+    [props.chapters, props.segment, choice],
+  );
   const pick = (v) => {
     setChoice(v);
     keep(povKey, v);
@@ -365,10 +417,10 @@ export function Scene(props) {
     setTheme(t);
     keep('dcm-lecturer-theme', t);
   };
-  return <SceneCore key={variant ? id : 'main'} {...props} {...(variant ?? {})} povId={id} povChoice={choice} povNative={native} povLocked={locked} onPov={pick} theme={theme} onTheme={pickTheme} />;
+  return <SceneCore key={variant ? id : 'main'} {...props} {...(variant ?? {})} chapterBeats={chapterBeats} povId={id} povChoice={choice} povNative={native} povLocked={locked} onPov={pick} theme={theme} onTheme={pickTheme} />;
 }
 
-function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, variants, povId, povChoice, povNative, povLocked, onPov, theme, onTheme, upcoming = [] }) {
+function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chapter = 0, chapterBeats, onChapter, startAt = 0, onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, variants, povId, povChoice, povNative, povLocked, onPov, theme, onTheme, upcoming = [] }) {
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [voice, setVoice] = useState(() => !isMuted() && 'speechSynthesis' in window);
@@ -711,6 +763,32 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
   const est = useMemo(() => beats.map((b) => estMs(b, speed, voice)), [beats, speed, voice, clipsKnown]);
   const starts = useMemo(() => est.reduce((a, m, i) => [...a, a[i] + m], [0]), [est]);
   const total = starts[beats.length];
+  // The segment as one video: this chapter sits between the ones before and
+  // after it, so the bar, the time and the seek run over the whole segment.
+  const allBeats = useMemo(() => (chapterBeats ?? []).flat(), [chapterBeats]);
+  const allKnown = useClipLengths(allBeats);
+  const ci = chapterBeats?.length ? chapter : 0;
+  const lens = useMemo(() => (chapterBeats?.length ? chapterBeats.map((bs, j) => (j === ci ? total : beatsMs(bs, speed, voice))) : [total]), [chapterBeats, ci, total, speed, voice, allKnown]);
+  const offs = useMemo(() => lens.reduce((a, m, i) => [...a, a[i] + m], [0]), [lens]);
+  const before = offs[ci];
+  const segTotal = offs[lens.length];
+  const chapterAt = (T) => {
+    const j = offs.findIndex((o, i) => i > 0 && T < o) - 1;
+    return j < 0 ? lens.length - 1 : j;
+  };
+  // Questions of the whole segment, as dots on the bar.
+  const askDots = useMemo(
+    () =>
+      (chapterBeats?.length ? chapterBeats : [beats]).flatMap((bs, j) => {
+        let t = offs[j];
+        return bs.map((b, k) => {
+          t += j === ci ? est[k] : estMs(b, speed, voice);
+          return b.ask ? { t, j, k } : null;
+        }).filter(Boolean);
+      }),
+    [chapterBeats, beats, offs, ci, est, speed, voice],
+  );
+  const [hover, setHover] = useState(null); // { f, T } under the pointer, for the chapter tip
   // One animation frame runs the clock, ends the beat, and moves the bar, its
   // knob and the time straight (no re-render), so the slider glides.
   const fillRef = useRef(null);
@@ -754,11 +832,11 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
       }
       const a = st?.audio;
       const inBeat = a && a.duration && !st.silent ? (st.spoke ? (a.duration * 1000) / speed + w - st.at : (a.currentTime * 1000) / speed) : w;
-      const pos = drag.current ?? (ended ? total : starts[beat] + Math.min(inBeat, est[beat]));
-      const f = Math.min(1, pos / total);
+      const pos = drag.current ?? before + (ended ? total : starts[beat] + Math.min(inBeat, est[beat]));
+      const f = Math.min(1, pos / segTotal);
       if (fillRef.current) fillRef.current.style.transform = `scaleX(${f})`;
       if (knobRef.current) knobRef.current.style.left = `${f * 100}%`;
-      if (timeRef.current) timeRef.current.textContent = `${clock(pos)} / ${clock(total)}`;
+      if (timeRef.current) timeRef.current.textContent = `${clock(pos)} / ${clock(segTotal)}`;
 
       const scene = sceneRef.current;
       if (scene) {
@@ -801,10 +879,11 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [beat, playing, waiting, ended, scrub, askOpen, speed, voice, est, starts, total]);
+  }, [beat, playing, waiting, ended, scrub, askOpen, speed, voice, est, starts, total, before, segTotal]);
+  // Time under the pointer on the bar, in ms of the whole segment.
   const timeAt = (e) => {
     const r = e.currentTarget.getBoundingClientRect();
-    return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * total;
+    return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * segTotal;
   };
   const beatAt = (t) => {
     const k = est.findIndex((_, i) => t < starts[i + 1]);
@@ -833,6 +912,13 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
     setRun((r) => r + 1);
   };
   const toggle = () => (ended ? jump(0) : setPlaying((p) => !p));
+  // Opened from a seek into this chapter: start where the knob was let go.
+  useEffect(() => {
+    if (!(startAt > 0)) return;
+    const k = beatAt(startAt);
+    jump(k, startAt - starts[k]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // Maths never wider than its line (phones): a KaTeX block that overflows
   // its board line is scaled down to fit (it was cut at the side).
   useEffect(() => {
@@ -904,9 +990,12 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
   };
   // Drag the slider: the scene follows the knob, frame by frame (silently);
   // on release it plays on from that exact moment, or stays paused if it was.
-  const scrubTo = (t) => {
+  // Outside this chapter the knob just follows; the other chapter opens on release.
+  const scrubTo = (T) => {
+    drag.current = T;
+    if (chapterAt(T) !== ci) return;
+    const t = T - before;
     const k = beatAt(t);
-    drag.current = t;
     forget(k, t - starts[k]);
     if (k === beat && scrub) within.current = t - starts[k];
     else {
@@ -922,14 +1011,19 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
     scrubTo(timeAt(e));
   };
   const seekMove = (e) => {
-    if (drag.current != null) scrubTo(timeAt(e));
+    const T = timeAt(e);
+    if (chapters?.length > 1) setHover({ f: T / segTotal, T });
+    if (drag.current != null) scrubTo(T);
   };
   const seekUp = (e) => {
     if (drag.current == null) return;
-    const t = timeAt(e);
-    const k = beatAt(t);
+    const T = timeAt(e);
+    const j = chapterAt(T);
     drag.current = null;
     setScrub(false);
+    if (j !== ci) return onChapter?.(j, T - offs[j]);
+    const t = T - before;
+    const k = beatAt(t);
     jump(k, t - starts[k], resumeAfter.current);
   };
   const seekCancel = () => {
@@ -938,6 +1032,7 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
     setScrub(false);
     jump(beat, within.current, resumeAfter.current);
   };
+  const hoverJ = hover ? chapterAt(hover.T) : ci;
   const fullscreen = () => (document.fullscreenElement ? document.exitFullscreen() : sceneRef.current?.requestFullscreen?.())?.catch?.(() => {});
   const resume = () => {
     setPicked((p) => ({ ...p, [beat]: { ...p[beat], done: true } }));
@@ -1129,19 +1224,35 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
             onPointerMove={seekMove}
             onPointerUp={seekUp}
             onPointerCancel={seekCancel}
+            onPointerLeave={() => setHover(null)}
             role="slider"
             aria-label="Video progress"
             aria-valuemin={0}
-            aria-valuemax={Math.round(total / 1000)}
+            aria-valuemax={Math.round(segTotal / 1000)}
           >
             <div className="sp-fill" ref={fillRef} />
-            {beats.map((b, k) =>
-              b.ask ? <span key={k} className={`sp-ask ${k < beat || ended ? 'done' : ''}`} style={{ left: `${(starts[k + 1] / total) * 100}%` }} title="Question" /> : null,
-            )}
+            {/* Chapter breaks, like a video site's chapters. */}
+            {offs.slice(1, -1).map((o) => (
+              <span key={o} className="sp-chap" style={{ left: `${(o / segTotal) * 100}%` }} />
+            ))}
+            {askDots.map((d) => (
+              <span key={`${d.j}-${d.k}`} className={`sp-ask ${d.j < ci || (d.j === ci && (d.k < beat || ended)) ? 'done' : ''}`} style={{ left: `${(d.t / segTotal) * 100}%` }} title="Question" />
+            ))}
             <span className="sp-knob" ref={knobRef} />
+            {hover && chapters?.[hoverJ] && (
+              <span className="sp-tip" style={{ left: `${Math.min(88, Math.max(12, hover.f * 100))}%` }}>
+                <small>{clock(hover.T)}</small>
+                {chapters[hoverJ].title}
+              </span>
+            )}
           </div>
         )}
         {!(pick && !pick.done) && <span className="scene-time" ref={timeRef} />}
+        {chapters?.length > 1 && !(pick && !pick.done) && (
+          <span className="scene-chap" title={chapters[ci]?.title}>
+            {ci + 1}/{chapters.length} · {chapters[ci]?.title}
+          </span>
+        )}
         <button
           className={`scene-btn ${voice ? 'on' : ''}`}
           onClick={() => {

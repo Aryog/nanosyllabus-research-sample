@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Mascot from './Mascot.jsx';
 import { beatText } from '../video/voice.js';
+import { clock, Thumb, useClipLengths, videoMs } from '../video/Scene.jsx';
 import { INPUTS } from './inputs.jsx';
 import { CORRECT_LINES, WRONG_LINES } from '../content/narration.js';
 
@@ -75,14 +76,6 @@ export function XpCounter({ xp, bump }) {
   );
 }
 
-// A video's running time (mm:ss) from its lines: clip length when recorded is
-// not known here, so ~80 ms per spoken character plus the pause between lines.
-const runTime = (st) => {
-  const beats = st?.figureProps?.beats ?? [];
-  const ms = beats.reduce((t, b) => t + Math.max(2000, beatText(b).length * 80) + 200, 0);
-  const sec = Math.round(ms / 1000);
-  return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
-};
 
 export default function LessonPlayer({ course, lessonIndex, startStep = 0, reachStep = 0, crumbs = [], narrator, xp, addXp, onExit, onComplete, onProgress, onTopicEnd }) {
   const lesson = course.lessons[lessonIndex];
@@ -109,6 +102,8 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
   const [videoEnded, setVideoEnded] = useState(false);
   // Furthest screen reached, so the progress bar can jump back to anything seen.
   const [reach, setReach] = useState(Math.max(startStep, reachStep));
+  // Where to start the next video, ms in: set by a seek into another chapter.
+  const [startAt, setStartAt] = useState(0);
   const scrollRef = useRef(null);
 
   // Playable sequence: lesson steps (minus `retryOf` alternates), with the review
@@ -169,6 +164,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
     setBubbleTone('info');
     setPose(step.pose ?? 'talk');
     narrator.say(step.narration);
+    setStartAt(0);
     scrollRef.current?.scrollTo({ top: 0 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pos, lessonIndex, done, mode]);
@@ -211,12 +207,15 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
 
   const pop = (label, xp) => setToast({ label, xp, key: Date.now() });
   const onVideoEnd = () => {
-    setVideoEnded(true);
+    // A segment is one video: its chapters run straight on into each other.
+    const more = chap && chapIdx < chap.ticks.length - 1;
     const id = `${mode}-${entry.i}`;
-    if (watched.current.has(id)) return;
+    const fresh = !watched.current.has(id);
     watched.current.add(id);
-    gainXp(10);
-    pop('Video complete', 10);
+    if (fresh) gainXp(10);
+    if (more) return next();
+    setVideoEnded(true);
+    if (fresh) pop(chap ? 'Segment complete' : 'Video complete', 10);
   };
   const onCheck = (right, first) => {
     if (!first) return;
@@ -368,6 +367,27 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
         return { seg, ticks, now: seg === step.segment, frac: ks.filter((k) => k < entry.i).length / ks.length };
       });
   }, [lesson, step, entry, sequence, inPractice, done]);
+  // The segment this video is a chapter of, and the chapters as the player needs them.
+  const chap = step.video ? segBars?.find((b) => b.now) : null;
+  const chapIdx = chap ? chap.ticks.findIndex((t) => t.k === entry.i) : -1;
+  const chapters = useMemo(
+    () =>
+      chap?.ticks.map((t) => {
+        const fp = lesson.steps[t.k].figureProps ?? {};
+        return { title: t.title, beats: fp.beats, variants: fp.variants, pov: fp.pov };
+      }),
+    [chap, lesson],
+  );
+  const onChapter = (j, ms) => {
+    const at = chap?.ticks[j]?.at;
+    if (at == null || at < 0) return;
+    narrator.stop();
+    setPos(at);
+    setStartAt(ms);
+  };
+  // Real clip lengths of every video in the topic, so the playlist times match the bar.
+  const topicBeats = useMemo(() => (segBars ?? []).flatMap((b) => b.ticks.flatMap((t) => lesson.steps[t.k].figureProps?.beats ?? [])), [segBars, lesson]);
+  const clipsKnown = useClipLengths(topicBeats);
   const resolved = status === 'correct' || status === 'revealed';
   const complete = isQuestion && inputDef.complete(value, step.input);
   const Figure = step.Figure;
@@ -400,11 +420,15 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
             title: step.title,
             kicker: [step.chapter?.split(' · ')[0], step.segment, step.ioe && 'IOE'].filter(Boolean).join(' · '),
             segment: step.segment,
+            chapters,
+            chapter: chapIdx,
+            onChapter,
+            startAt,
           }
         : {}),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [step, solved, value, status, upcomingLines, streak, nextLabel],
+    [step, solved, value, status, upcomingLines, streak, nextLabel, chapters, chapIdx, startAt],
   );
 
   const glow = status === 'correct' || done ? 'glow-correct' : status === 'wrong' ? 'glow-wrong' : '';
@@ -545,34 +569,58 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
                 </div>
               )}
               {step.video && segBars && (
-                // Up next, like a video site: the topic's videos by segment,
-                // each with its length; open ones can be clicked.
-                <aside className="yt-list" aria-label="Videos in this topic">
+                // Up next, like a video site: one video per segment, its
+                // chapters listed under the one playing (any of them opens).
+                <aside className="yt-list" aria-label="Videos in this topic" data-clips={clipsKnown}>
                   <div className="yt-list-head">
                     <b>{step.chapter}</b>
                   </div>
-                  {segBars.map((b) => (
-                    <section key={b.seg} className="yt-seg">
-                      <h3>{b.seg}</h3>
-                      {b.ticks.map((t) => {
-                        const here = t.k === entry.i;
-                        const open = t.at >= 0 && t.at <= reach && !here;
-                        const seen = t.at >= 0 && t.at < pos;
-                        return (
-                          <button key={t.k} className={`yt-item ${here ? 'now' : ''} ${seen ? 'seen' : ''}`} disabled={!open && !here} onClick={() => open && setPos(t.at)}>
-                            <span className={`yt-thumb seg-${b.seg[0]}`}>
-                              <i>{here ? '▶' : open || seen ? t.n : '🔒'}</i>
-                              <small>{runTime(lesson.steps[t.k])}</small>
-                            </span>
-                            <span className="yt-text">
-                              <b>{t.title}</b>
-                              <small>{here ? 'Ahile herdai' : seen ? '✓ Herisakyau' : open ? 'Click garera hera' : 'Aghi badhepachi khulcha'}</small>
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </section>
-                  ))}
+                  {segBars.map((b) => {
+                    const first = b.ticks[0];
+                    const steps = b.ticks.map((t) => lesson.steps[t.k]);
+                    const lens = steps.map((st) => videoMs(st.figureProps ?? {}, b.seg));
+                    const starts = lens.reduce((a, m, i) => [...a, a[i] + m], [0]);
+                    const open = first.at >= 0 && first.at <= reach;
+                    const seen = b.ticks.every((t) => t.at >= 0 && t.at < pos);
+                    // The still: the first chapter after the opener that has a figure.
+                    const still = steps.find((st, j) => j > 0 && st.figureProps?.draw) ?? steps.find((st) => st.figureProps?.draw) ?? steps[0];
+                    const [num, name] = b.seg.split(' · ');
+                    return (
+                      <section key={b.seg} className="yt-seg">
+                        <button className={`yt-item ${b.now ? 'now' : ''} ${seen ? 'seen' : ''}`} disabled={!open && !b.now} onClick={() => !b.now && open && setPos(first.at)}>
+                          <Thumb fp={still.figureProps ?? {}} segment={b.seg} className="yt-thumb">
+                            {b.now ? <i className="yt-play">▶</i> : !open && <i className="yt-play">🔒</i>}
+                            <small>{clock(starts.at(-1))}</small>
+                          </Thumb>
+                          <span className="yt-text">
+                            <em>{num}</em>
+                            <b>{name}</b>
+                            <small>
+                              {b.ticks.length} chapter{b.ticks.length > 1 ? 's' : ''} · {b.now ? 'Ahile herdai' : seen ? '✓ Herisakyau' : open ? 'Click garera hera' : 'Aghi badhepachi khulcha'}
+                            </small>
+                          </span>
+                        </button>
+                        {b.now && (
+                          <ol className="yt-chaps" aria-label="Chapters">
+                            {b.ticks.map((t, j) => {
+                              const here = t.k === entry.i;
+                              return (
+                                <li key={t.k}>
+                                  <button className={here ? 'now' : ''} disabled={t.at < 0} onClick={() => !here && t.at >= 0 && setPos(t.at)}>
+                                    <Thumb fp={steps[j].figureProps ?? {}} segment={b.seg} className="yt-chap-thumb" />
+                                    <span>
+                                      <b>{t.title}</b>
+                                      <time>{clock(starts[j])}</time>
+                                    </span>
+                                  </button>
+                                </li>
+                              );
+                            })}
+                          </ol>
+                        )}
+                      </section>
+                    );
+                  })}
                 </aside>
               )}
               {step.after}
