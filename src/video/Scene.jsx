@@ -790,6 +790,17 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chap
   );
   const [hover, setHover] = useState(null); // { f, T } under the pointer, for the chapter tip
   const [chapOpen, setChapOpen] = useState(false); // the chapters panel, opened from the bar
+  const chapBtn = useRef(null);
+  const [chapLeft, setChapLeft] = useState(12); // panel's left edge: centred over its button, inside the picture
+  const openChaps = () => {
+    const btn = chapBtn.current?.getBoundingClientRect();
+    const box = sceneRef.current?.querySelector('.scene-screen')?.getBoundingClientRect();
+    if (btn && box) {
+      const w = Math.min(300, box.width - 24);
+      setChapLeft(Math.min(box.width - w - 12, Math.max(12, btn.left + btn.width / 2 - box.left - w / 2)));
+    }
+    setChapOpen((o) => !o);
+  };
   // One animation frame runs the clock, ends the beat, and moves the bar, its
   // knob and the time straight (no re-render), so the slider glides.
   const fillRef = useRef(null);
@@ -1204,8 +1215,8 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chap
         )}
         {chapOpen && chapters?.length > 1 && (
           // The segment's chapters, like a video site's chapter list: a
-          // small panel at the left of the picture; any chapter opens.
-          <div className="scene-chaps" role="dialog" aria-label="Chapters">
+          // small panel right above the bar's chapter button; any chapter opens.
+          <div className="scene-chaps" role="dialog" aria-label="Chapters" style={{ left: chapLeft }}>
             <div className="scene-chaps-head">
               <b>Chapters</b>
               <button onClick={() => setChapOpen(false)} aria-label="Close chapters">✕</button>
@@ -1280,7 +1291,7 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chap
         )}
         {!(pick && !pick.done) && <span className="scene-time" ref={timeRef} />}
         {chapters?.length > 1 && !(pick && !pick.done) && (
-          <button className={`scene-chap ${chapOpen ? 'on' : ''}`} onClick={() => setChapOpen((o) => !o)} title="Chapters" aria-expanded={chapOpen}>
+          <button ref={chapBtn} className={`scene-chap ${chapOpen ? 'on' : ''}`} onClick={openChaps} title="Chapters" aria-expanded={chapOpen}>
             <b>{ci + 1}/{chapters.length}</b>
             <span> · {chapters[ci]?.title}</span>
             <i aria-hidden="true">›</i>

@@ -1005,8 +1005,9 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .scene.look-blue .scene-chap { color: #cfe0f5; }
 .scene.look-blue .scene-chap:hover, .scene.look-blue .scene-chap.on { color: #fff; }
 @media (max-width: 900px) { .scene-chap span { display: none; } }
-/* The chapters panel: inside the picture, at its left, above the bar. */
-.scene-chaps { position: absolute; left: 12px; bottom: 12px; z-index: 6; width: min(300px, calc(100% - 24px)); max-height: calc(100% - 24px); display: flex; flex-direction: column; border-radius: 12px; background: rgba(7, 32, 72, 0.96); color: #fff; box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35); overflow: hidden; animation: capin 0.2s ease; font-family: 'Poppins', Inter, system-ui, sans-serif; }
+/* The chapters panel: inside the picture, right above its button on the bar
+   (left set from the button in Scene.jsx). */
+.scene-chaps { position: absolute; left: 12px; bottom: 8px; z-index: 6; width: min(300px, calc(100% - 24px)); max-height: calc(100% - 24px); display: flex; flex-direction: column; border-radius: 12px; background: rgba(7, 32, 72, 0.96); color: #fff; box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35); overflow: hidden; animation: capin 0.2s ease; font-family: 'Poppins', Inter, system-ui, sans-serif; }
 .scene.look-book .scene-chaps { background: rgba(255, 255, 255, 0.98); color: #111; border: 1px solid #d4d4d4; }
 .scene-chaps-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px 6px; }
 .scene-chaps-head b { font-size: 14px; }
