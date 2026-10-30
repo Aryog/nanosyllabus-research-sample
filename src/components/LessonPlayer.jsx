@@ -374,7 +374,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
     () =>
       chap?.ticks.map((t) => {
         const fp = lesson.steps[t.k].figureProps ?? {};
-        return { title: t.title, beats: fp.beats, variants: fp.variants, pov: fp.pov };
+        return { title: t.title, beats: fp.beats, variants: fp.variants, pov: fp.pov, draw: fp.draw, board: fp.board, viewBox: fp.viewBox };
       }),
     [chap, lesson],
   );
@@ -569,8 +569,8 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
                 </div>
               )}
               {step.video && segBars && (
-                // Up next, like a video site: one video per segment, its
-                // chapters listed under the one playing (any of them opens).
+                // Up next, like a video site: one video per segment (its
+                // chapters are listed inside the player, from the bar).
                 <aside className="yt-list" aria-label="Videos in this topic" data-clips={clipsKnown}>
                   <div className="yt-list-head">
                     <b>{step.chapter}</b>
@@ -600,24 +600,6 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
                             </small>
                           </span>
                         </button>
-                        {b.now && (
-                          <ol className="yt-chaps" aria-label="Chapters">
-                            {b.ticks.map((t, j) => {
-                              const here = t.k === entry.i;
-                              return (
-                                <li key={t.k}>
-                                  <button className={here ? 'now' : ''} disabled={t.at < 0} onClick={() => !here && t.at >= 0 && setPos(t.at)}>
-                                    <Thumb fp={steps[j].figureProps ?? {}} segment={b.seg} className="yt-chap-thumb" />
-                                    <span>
-                                      <b>{t.title}</b>
-                                      <time>{clock(starts[j])}</time>
-                                    </span>
-                                  </button>
-                                </li>
-                              );
-                            })}
-                          </ol>
-                        )}
                       </section>
                     );
                   })}

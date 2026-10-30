@@ -789,6 +789,7 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chap
     [chapterBeats, beats, offs, ci, est, speed, voice],
   );
   const [hover, setHover] = useState(null); // { f, T } under the pointer, for the chapter tip
+  const [chapOpen, setChapOpen] = useState(false); // the chapters panel, opened from the bar
   // One animation frame runs the clock, ends the beat, and moves the bar, its
   // knob and the time straight (no re-render), so the slider glides.
   const fillRef = useRef(null);
@@ -1201,6 +1202,36 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chap
             </div>
           </div>
         )}
+        {chapOpen && chapters?.length > 1 && (
+          // The segment's chapters, like a video site's chapter list: a
+          // small panel at the left of the picture; any chapter opens.
+          <div className="scene-chaps" role="dialog" aria-label="Chapters">
+            <div className="scene-chaps-head">
+              <b>Chapters</b>
+              <button onClick={() => setChapOpen(false)} aria-label="Close chapters">✕</button>
+            </div>
+            <ol>
+              {chapters.map((c, j) => (
+                <li key={j}>
+                  <button
+                    className={j === ci ? 'now' : ''}
+                    onClick={() => {
+                      setChapOpen(false);
+                      if (j === ci) jump(0);
+                      else onChapter?.(j, 0);
+                    }}
+                  >
+                    <Thumb fp={c} segment={segment} className="scene-chaps-thumb" />
+                    <span>
+                      <b>{c.title}</b>
+                      <time>{clock(offs[j])}</time>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
         {cc && (
           <div className="scene-caption" key={`${beat}-${run}`}>
             {cur.say}
@@ -1249,9 +1280,11 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', chapters, chap
         )}
         {!(pick && !pick.done) && <span className="scene-time" ref={timeRef} />}
         {chapters?.length > 1 && !(pick && !pick.done) && (
-          <span className="scene-chap" title={chapters[ci]?.title}>
-            {ci + 1}/{chapters.length} · {chapters[ci]?.title}
-          </span>
+          <button className={`scene-chap ${chapOpen ? 'on' : ''}`} onClick={() => setChapOpen((o) => !o)} title="Chapters" aria-expanded={chapOpen}>
+            <b>{ci + 1}/{chapters.length}</b>
+            <span> · {chapters[ci]?.title}</span>
+            <i aria-hidden="true">›</i>
+          </button>
         )}
         <button
           className={`scene-btn ${voice ? 'on' : ''}`}
