@@ -81,10 +81,10 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
     { at: 5, kind: 'eq', node: tex(String.raw`E_b = \dfrac{P\phi Z N}{60A}\ \text{V}`) },
     { at: 6, kind: 'step', node: step('Given machine: k = PZ/60A', String.raw`\begin{aligned} E_b &= k\,\phi N \\ \Rightarrow\ E_b &\propto \phi N \end{aligned}`) },
   ],
-  pov: 'khan',
-  // Exam POV: the derivation as it is written in the answer sheet (rule 41).
+  pov: 'tutor',
+  // Lecturer: the derivation as it is written in the answer sheet (rule 41).
   variants: {
-    exam: {
+    lecturer: {
       tall: true,
       beats: [
         {
@@ -210,7 +210,7 @@ export const voltageEquation = video('Derivation: voltage ra power equation', {
   ],
 });
 
-// Maths POV (The Efficient Engineer): the symbols live on the figure first.
+// Engineer role (model first, Efficient Engineer style): symbols live on the figure.
 // One conductor on the armature: radius r to it, force F along the rim (the
 // lever arm), length l into the page. Same beats as the main script.
 const lever = (s) => (
@@ -323,11 +323,11 @@ export const torqueDerivation = video('Derivation: torque equation (force method
     { at: 7, kind: 'eq', node: tex(String.raw`T_a = 0.159\,\phi Z I_a \left(\tfrac{P}{A}\right)\ \text{N}\cdot\text{m}`) },
     { at: 8, kind: 'step', node: step('Given machine', String.raw`\textcolor{${GR}}{T_a \propto \phi\, I_a}`) },
   ],
-  pov: 'khan',
-  // POV variants (src/content/pov.js). Maths: the same lines over the lever
-  // figure, with a compact board, so no new voice is needed.
+  pov: 'tutor',
+  // Role variants (src/content/pov.js). Engineer: the same lines over the
+  // lever figure (the model first), with a compact board, so no new voice.
   variants: {
-    efficient: {
+    engineer: {
       tall: true,
       viewBox: '0 0 340 216',
       draw: lever,

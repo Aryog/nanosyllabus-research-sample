@@ -80,11 +80,11 @@ export const extra = (step) => ({ ...step, practice: true });
 /*
   Model answer as a video: the question goes up on the board, then each point
   the marking scheme wants (one beat each, narrated), then the exam tip.
-    answer(title, { papers, marks, q, read: { say, voice }, points: [{ node, say, voice, page? }], tip: { node, say, voice }, draw?, viewBox? })
+    answer(title, { papers, marks, q, read: { say, voice }, points: [{ node, say, voice, page? }], tip: { node, say, voice }, draw?, viewBox?, variants? })
   `draw` adds the diagram or chart the answer needs, beside the notes; beat 0 is
   the question, beat k the k-th point.
 */
-export function answer(title, { papers, marks, q, read, points, tip, draw, viewBox }) {
+export function answer(title, { papers, marks, q, read, points, tip, draw, viewBox, variants }) {
   const src = papers.length ? `IOE ${papers.slice(0, 3).join(' · ')}${papers.length > 3 ? ` +${papers.length - 3}` : ''}` : 'Exam-style';
   const beats = [read, ...points, ...(tip ? [tip] : [])].map(({ say, voice, ask }) => ({ say, voice, ask }));
   // A point with `page: true` turns the page: the points before it leave the
@@ -98,7 +98,7 @@ export function answer(title, { papers, marks, q, read, points, tip, draw, viewB
     ...points.map((p, i) => ({ at: i + 1, until: until(i), kind: 'step', node: p.node })),
     ...(tip ? [{ at: points.length + 1, kind: 'idea', node: <>✍️ {tip.node}</> }] : []),
   ];
-  return { ...video(title, { beats, board, tall: true, draw, viewBox, notes: true }), ioe: papers.length > 0, tag: 'Model answer', tagKind: 'watch' };
+  return { ...video(title, { beats, board, tall: true, draw, viewBox, notes: true, pov: 'lecturer', variants }), ioe: papers.length > 0, tag: 'Model answer', tagKind: 'watch' };
 }
 
 /*

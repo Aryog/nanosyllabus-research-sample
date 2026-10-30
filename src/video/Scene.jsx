@@ -880,9 +880,9 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
           </div>
         )}
         {!RENDER && (
-          <label className="scene-look" title={`POV: ${povById(povId)?.channel} style. ★ = this video has its own script in that POV.`}>
+          <label className="scene-look" title={`${povById(povId)?.role}. ★ = this video has its own version for that role.`}>
             <span aria-hidden="true">POV</span>
-            <select value={povChoice} aria-label="Point of view" onChange={(e) => onPov(e.target.value)}>
+            <select value={povChoice} aria-label="Who teaches (POV)" onChange={(e) => onPov(e.target.value)}>
               <option value="auto">Auto · {povById(povNative)?.name}</option>
               {POVS.map((p) => (
                 <option key={p.id} value={p.id}>

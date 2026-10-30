@@ -181,11 +181,11 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
     { at: 4, until: 4, kind: 'eq', node: <><K>{String.raw`\begin{aligned} I_a &= \dfrac{220 - 205}{0.5} \\ &= 30\ \text{A} \end{aligned}`}</K></> },
     { at: 5, kind: 'eq', node: <><K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K></> },
   ],
-  pov: 'mindset',
-  // Board POV (Khan Academy): the same lines, worked by hand on the board,
-  // one moment per beat, so no new voice is needed.
+  pov: 'engineer',
+  // Tutor role: the same lines, worked by hand on the board, one moment per
+  // beat, so no new voice is needed.
   variants: {
-    khan: {
+    tutor: {
       draw: undefined,
       tall: true,
       board: [

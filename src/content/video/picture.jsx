@@ -351,6 +351,51 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
   papers: ['2071 Magh', '2078 Poush', '2082 Baishakh (ECM)'],
   marks: '[2 + 4]',
   q: 'What is back EMF? How does it play an important role in a DC motor?',
+  // Senior role (pov-senior): the same question as a 6-mark plan from someone
+  // who cleared IOE: what earns each mark, the trap, a memory trick.
+  variants: {
+    senior: {
+      draw: undefined,
+      notes: false,
+      beats: [
+        {
+          say: 'Senior ko plan: yo question tin choti aayo, 2 plus 4 marks. Six marks ko lagi yati lekhe pugcha.',
+          voice: 'सिनियरको प्लान — यो क्वेस्चन तीन चोटि आयो, टु प्लस फोर मार्क्स। सिक्स मार्क्सको लागि, यति लेखे पुग्छ।',
+        },
+        {
+          say: 'Pahila 2 marks: definition duita line ma, ani E b equals P phi Z N over sixty A. Lenz ko law ko naam lina nabirsa.',
+          voice: 'पहिला टु मार्क्स — डेफिनेसन दुईटा लाइनमा, अनि ई बी इक्वल्स पी फाइ जेड एन ओभर सिक्स्टी ए। लेन्जको लको नाम लिन नबिर्स।',
+        },
+        {
+          say: 'Ani 4 marks: Figure 2 ko circuit, V equals E b plus I a R a, ra tin ota significance: self-regulation, energy conversion, starting.',
+          voice: 'अनि फोर मार्क्स — फिगर टुको सर्किट, भी इक्वल्स ई बी प्लस आई ए आर ए, र तीन ओटा सिग्निफिकेन्स: सेल्फ रेगुलेसन, इनर्जी कन्भर्सन, स्टार्टिङ।',
+        },
+        {
+          say: 'Trap: running motor ma E b sadhai V bhanda sano huncha. E b lai V bhanda thulo lekhyo bhane tyo generator ko kura bhayo.',
+          voice: 'ट्र्याप — रनिङ मोटरमा ई बी सधैं भी भन्दा सानो हुन्छ। ई बीलाई भी भन्दा ठूलो लेख्यो भने, त्यो जेनेरेटरको कुरा भयो।',
+          ask: {
+            q: 'Running DC motor ma Eb ra V ko relation k huncha?',
+            voice: 'रनिङ डीसी मोटरमा, ई बी र भीको रिलेसन के हुन्छ?',
+            options: ['Eb < V', 'Eb > V', 'Eb = 0'],
+            answer: 0,
+            why: 'V = Eb + IaRa ra IaRa > 0, tesaile Eb < V. Eb > V bhaye machine generator ko rup ma chalcha.',
+          },
+        },
+        {
+          say: 'Yaad garne tarika: RES, arthat Regulation, Energy conversion ra Starting. Resistance ko RES jastai.',
+          voice: 'याद गर्ने तरिका — आर ई एस, अर्थात रेगुलेसन, इनर्जी कन्भर्सन, र स्टार्टिङ। रेजिस्टेन्सको आर ई एस जस्तै।',
+        },
+      ],
+      board: [
+        { at: 0, kind: 'h', node: <>Back EMF: 6 marks kasari paune?</> },
+        { at: 0, kind: 'note', node: <>IOE 2071 Magh · 2078 Poush · 2082 Baishakh (ECM) · [2 + 4]</> },
+        { at: 1, kind: 'step', node: <><b>2 marks:</b> definition (2 lines, “Lenz’s law”) + <K>{String.raw`E_b = \dfrac{P\phi ZN}{60A}`}</K></> },
+        { at: 2, kind: 'step', node: <><b>4 marks:</b> Fig. 2 circuit + <K>{String.raw`V = E_b + I_aR_a`}</K> + 3 significance</> },
+        { at: 3, kind: 'trap', node: <>Motor ma sadhai <K>{String.raw`E_b < V`}</K>. <K>{String.raw`E_b > V`}</K> lekhe generator bhayo.</> },
+        { at: 4, kind: 'hook', node: <>RES: Regulation · Energy conversion · Starting</> },
+      ],
+    },
+  },
   read: {
     say: 'Arko IOE question, yo pani tin choti sodhiyeko: What is back EMF? How does it play an important role in a DC motor?',
     voice: 'अर्को आइओई क्वेस्चन, यो पनि तीन चोटि सोधिएको — ह्वाट इज ब्याक इएमएफ? हाउ डज इट प्ले एन इम्पोर्टेन्ट रोल इन अ डीसी मोटर?',

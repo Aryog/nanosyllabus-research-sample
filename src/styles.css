@@ -1050,3 +1050,8 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .scene.look-book .board-line .tex:has(.mtable, .boxpad) { display: block; margin: 6px 0 6px 1.2em; }
 .scene.look-book .board-line.kind-q .ink::before { content: 'Q. '; font-weight: 700; }
 .scene.look-book .board-line .katex .boxpad { padding: 0.25em 0.4em; }
+/* Senior's clean page also keeps one font: maths in Inter (rule 39). */
+.scene.look-clean .board-line .katex,
+.scene.look-clean .board-line .katex :is(.mathnormal, .mathit, .mathrm, .textrm, .mainrm, .amsrm, .mathbf) { font-family: var(--hand); }
+.scene.look-clean .board-line .katex .mathnormal { font-style: italic; }
+.scene.look-clean .board-line .katex { font-size: 1.12em; }

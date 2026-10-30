@@ -24,7 +24,7 @@ const BAD_TAG = /dhyan check|ekchin socha/i;
 const HYPE = /\b(dami|ekdam smart|simple cha|pakka|antya samma hera|box gara|yo hera)\b/i;
 const LEAD_IN = /^(la,? yo answer gara|la use garau|euta term baki cha|aba maximum chahiyo)\.?$/i;
 // LaTeX inside a board line (the <K> children), to check rule 33.
-const texOf = (n) => (n == null || typeof n !== 'object' ? '' : Array.isArray(n) ? n.map(texOf).filter(Boolean).join(' \\\\ ') : typeof n.props?.children === 'string' && /\\|[_^=]/.test(n.props.children) && !n.props.className ? n.props.children : texOf(n.props?.children));
+const texOf = (n) => (n == null || typeof n !== 'object' ? '' : Array.isArray(n) ? n.map(texOf).filter(Boolean).join(' \\\\ ') : n.type?.name === 'K' && typeof n.props?.children === 'string' ? n.props.children : texOf(n.props?.children));
 
 const out = [];
 let errors = 0;
