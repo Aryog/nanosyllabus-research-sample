@@ -54,6 +54,7 @@ node .claude/skills/video-studio/scripts/lint.mjs <num> --main           # 0 err
 node .claude/skills/video-studio/scripts/topic.mjs <num> --check         # exit 0 = game-ready; read every "!" warning
 npx vite build && npx vite preview --port 4182
 node .claude/skills/video-studio/scripts/frame-strip.mjs "<title words>" --frames 6   # every changed native video
+node .claude/skills/video-studio/scripts/anim-once.mjs <screen> [--pov <role>]          # nothing animates twice (M16)
 ```
 For role versions, screenshot with `localStorage dcm-pov = "<role>"` (see the `pov.mjs`-style snippet: `page.addInitScript(() => localStorage.setItem('dcm-pov', '"tutor"'))`), at least one video per role and every Big-picture role. Open every PNG and look: nothing overlapping, text readable, the question card on top in Big picture, the green ring on the part.
 

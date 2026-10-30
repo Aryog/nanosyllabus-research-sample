@@ -48,7 +48,7 @@ function Bar({ x, frac, color, label, value, was, at = 0, className = '' }) {
 }
 
 export const story = video('Motor le aafno current aafai kina limit garcha', {
-  viewBox: '0 0 360 220',
+  viewBox: '-28 0 388 220', // room on the left for the "220 V" label
   beats: [
     { say: '220 volt ko DC motor, armature resistance 0.5 ohm. Switch open cha, tesaile current zero cha.', voice: 'टु ट्वेन्टी भोल्टको डीसी मोटर, आर्मेचर रेजिस्टेन्स जिरो पोइन्ट फाइभ ओम। स्विच ओपन छ, त्यसैले करेन्ट जिरो छ।' },
     {

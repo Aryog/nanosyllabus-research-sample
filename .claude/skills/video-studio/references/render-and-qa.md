@@ -36,6 +36,7 @@ It pauses the video, seeks to evenly spaced points, and screenshots `.scene-scre
 - [ ] `npx vite build` passes.
 - [ ] The frame strip looks right: nothing cut off, the board above the caption, text big, labels clear, focus ring on the part being talked about.
 - [ ] The pause test passes and there are no page errors.
+- [ ] `anim-once.mjs <screen>` (and `--pov <role>` for each role version) reports 0 started twice, 0 cancelled (M16).
 - [ ] Every number was recomputed by script; every wrong option is really wrong.
 - [ ] IOE question text, year and count match `vault/`.
 - [ ] The opener's hook count matches the Big-picture video's papers.

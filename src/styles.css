@@ -582,8 +582,13 @@ button:disabled { cursor: default; }
 /* Rough.js marker strokes behind / under the line just written. */
 .board-line .ink { position: relative; }
 .marker { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; z-index: -1; }
-.marker path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: mark 0.55s ease-out var(--md, 1.4s) forwards; }
+.marker { animation: markfade 0.6s ease-in calc(var(--md, 1.4s) + 1.6s) forwards; }
+.marker path { stroke-dasharray: 1; stroke-dashoffset: 1; stroke-opacity: var(--mark-a, 0.42); animation: mark 0.45s ease-out calc(var(--md, 1.4s) + var(--mi, 0s)) forwards; }
 @keyframes mark { to { stroke-dashoffset: 0; } }
+/* iPad-style highlighter: paints, holds ~1 s, then fades away (rule 39). */
+@keyframes markfade { to { opacity: 0; } }
+/* The pen's line is revealed only by the pen (writeLive), never by CSS first. */
+.board-line.pen .ink { animation: none; clip-path: inset(-10px 100% -10px -10px); }
 /* Skip / Next inside the player bar. */
 .scene-next { flex: none; border: 0; border-radius: 99px; padding: 7px 16px; background: #fff; color: var(--chalk); font-weight: 700; font-size: 14px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12); white-space: nowrap; }
 .scene-next:hover { background: #f8f9fa; }
@@ -1011,10 +1016,13 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .board-line.hl .tex .xr svg line { animation-delay: calc(var(--wd, 1.4s) + 2s); }
 @keyframes xtpulse { 40% { transform: scale(1.22); background: rgba(255, 212, 59, 0.3); box-shadow: 0 0 0 4px rgba(255, 212, 59, 0.3); } }
 @keyframes xrdrop { from { opacity: 0; transform: translateY(-0.9em) scale(0.75); } 60% { opacity: 1; background: rgba(255, 212, 59, 0.28); } to { transform: none; } }
-/* Marker underline colour per look (Scene.jsx Marker). */
-.scene { --mark: #e8590c; }
-.scene.look-blue { --mark: #ffd43b; }
-.scene.look-book { --mark: #b8460b; }
+/* Highlighter colour per look (Scene.jsx Marker): yellow ink, multiplied on
+   light pages, plain and softer on the blue boards. */
+.scene { --mark: #ffd43b; --mark-a: 0.5; }
+.scene .marker { mix-blend-mode: multiply; }
+.scene.look-blue { --mark: #ffe066; --mark-a: 0.26; }
+.scene.look-blue .marker { mix-blend-mode: normal; }
+.scene.look-book { --mark: #ffe066; --mark-a: 0.55; }
 .marker path { stroke: var(--mark); }
 /* One font on the board (skill rule 39): in the blue looks the maths uses the
    board's own font (Inter for Terms and Big picture, the hand on the
@@ -1035,7 +1043,7 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 /* Clean look (Efficient Engineer POV): off-white page, crisp sans text,
    KaTeX maths, the palette's own inks. */
 .scene.look-clean {
-  --board: #faf9f6; --hand: Inter, system-ui, sans-serif; --script: Inter, system-ui, sans-serif; --mark: #1c7ed6; --ring: #2f9e44;
+  --board: #faf9f6; --hand: Inter, system-ui, sans-serif; --script: Inter, system-ui, sans-serif; --ring: #2f9e44;
   border-color: #e6e3dc; background: linear-gradient(180deg, #fbfaf7, #f3f1ec);
 }
 .scene.look-clean .board-line.kind-h { font-weight: 800; letter-spacing: -0.01em; font-size: calc(var(--bs) * 1.4); }

@@ -48,7 +48,7 @@ clips.
 | MP4 render, the review loop, the frame strip, the final checklist | [references/render-and-qa.md](references/render-and-qa.md) |
 
 Read the reference before touching its area. Rules are numbered: house rules
-1 to 44 (the scripts cite them by number) and motion rules M1 to M15. A rule
+1 to 44 (the scripts cite them by number) and motion rules M1 to M16. A rule
 lives in exactly one reference.
 
 ## POVs: who is teaching (four roles, four skills)
@@ -108,6 +108,7 @@ node .claude/skills/video-studio/scripts/topic.mjs 4.2 [--check]            # to
 node .claude/skills/video-studio/scripts/status.mjs [4.1 …] [--videos]   # voice + MP4 state, credits still needed
 node .claude/skills/video-studio/scripts/lint.mjs [4.1 …] [--main]       # house-rule checks on the scripts
 node .claude/skills/video-studio/scripts/frame-strip.mjs <n|title> [--frames 10]   # screenshots + pause test (needs preview)
+node .claude/skills/video-studio/scripts/anim-once.mjs <n> [--pov role]            # nothing animates twice (needs preview)
 
 # Repo pipeline
 npx vite build && npx vite preview --port 4182                # what you test on
@@ -161,3 +162,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-10-30: POVs redefined as **roles** at the user's request ("POV is like lecturer, private tutor"): Lecturer (book), Tutor (navy), Engineer (blue), Senior (clean), with skills `pov-lecturer`, `pov-tutor`, `pov-engineer`, `pov-senior` (the channel-named POV skills were replaced). 4.1 variants renamed (backEmfDerivation [lecturer], torqueDerivation [engineer], story [tutor]) and a Senior version of the back EMF answer added (6-mark plan, Eb < V trap, RES trick).
 - 2026-10-30: 4.1 is role-wise: every main video (opener included) now has all four roles, 26 new role versions in `roles41.jsx` (caption-first; voice lines written, nothing recorded). Exam counts from the vault digest; numbers recomputed.
 - 2026-10-30: **Generate-a-topic path** added at the user's request ("whenever I tell you to generate on this topic, make the entire game ready"): `references/topic-recipe.md` (steps 0–7 + flexibility table), `references/topics.json` (syllabus, derivations, past questions per topic from vault/), `scripts/topic.mjs` (brief + `--check` gate: segments, Big-picture question cards in every role, past-question coverage, all four roles, same-material warnings, lint, credits). Rule 44: same material across roles; Big picture always the past IOE questions in every role. 4.1 Big-picture role versions rewritten to open with the question; 4.1 passes the gate. Known gaps for 4.2–4.6 are printed by the gate (4.2 has a non-question video in Big picture; 4.6 has no past question in vault/).
+- 2026-10-30: Animations play once (M16): the board's pen line no longer starts the CSS write first (it was written twice on every beat, 30–80 ms apart); `scripts/anim-once.mjs` checks it. Highlighter replaced: iPad-style stroke that paints behind the rows, holds ~1 s and fades, only on results, traps and "find" lines, never an underline on every line (rule 39). Story video's "220 V" label no longer clipped.

@@ -110,7 +110,7 @@ function writeLive(ink, cam, hand, secs, elapsed) {
       const x = Math.min(row.right, row.left + d);
       const W = r.width / k + 20;
       // Everything above this row, plus the row itself up to the pen.
-      ink.style.clipPath = t < 1 ? `polygon(-10px -10px, ${W}px -10px, ${W}px ${row.top}px, ${x}px ${row.top}px, ${x}px ${row.bottom}px, -10px ${row.bottom}px)` : '';
+      ink.style.clipPath = t < 1 ? `polygon(-10px -10px, ${W}px -10px, ${W}px ${row.top}px, ${x}px ${row.top}px, ${x}px ${row.bottom}px, -10px ${row.bottom}px)` : 'none';
       hand.style.transform = `translate(${(r.left - cr.left) / k + x}px, ${(r.top - cr.top) / k + row.top + (row.bottom - row.top) * 0.78}px)`;
       hand.style.visibility = 'visible';
     }
@@ -118,7 +118,7 @@ function writeLive(ink, cam, hand, secs, elapsed) {
   raf = requestAnimationFrame(step);
   return () => {
     cancelAnimationFrame(raf);
-    ink.style.clipPath = '';
+    ink.style.clipPath = 'none';
   };
 }
 
@@ -129,6 +129,8 @@ const Hand = () => <img className="hand-img" src={`${BASE}img/writing-hand.svg`}
 // Marker strokes drawn with Rough.js once a line is written: a highlighter
 // swipe behind a line, or a scribbled underline under a result.
 const gen = rough.generator();
+const MARKED = new Set(['eq', 'answer', 'trap', 'find']);
+
 function Marker({ kind, delay }) {
   const ref = useRef(null);
   const [paths, setPaths] = useState(null);
@@ -137,17 +139,25 @@ function Marker({ kind, delay }) {
     if (!ink) return;
     const w = ink.offsetWidth;
     const h = ink.offsetHeight;
-    // A thin hand-drawn underline under the line just written (never a band
-    // over it, which hides maths); results get a bolder one. Colour comes from
-    // the look (CSS --mark).
+    // A highlighter stroke behind each row of the line just written, like a
+    // pen on an iPad: it paints left to right, then fades a second later
+    // (CSS .marker), so no line keeps a mark (skill rule 39). Results get a
+    // slightly bolder stroke.
+    const cam = ink.closest('.scene-cam');
+    const k = cam ? cam.getBoundingClientRect().width / cam.offsetWidth || 1 : 1;
+    const rows = rowsOf(ink, ink.getBoundingClientRect(), k);
     const result = kind === 'eq' || kind === 'answer';
-    const d = gen.linearPath([[2, h + 3], [w * 0.5, h + (result ? 5 : 4)], [w - 2, h + 2]], { strokeWidth: result ? 2.6 : 1.8, roughness: 1.1, bowing: 1.5 });
-    setPaths({ w, h, list: gen.toPaths(d) });
+    const list = (rows.length ? rows : [{ left: 0, right: w, top: 0, bottom: h }]).flatMap((r) => {
+      const mid = r.top + (r.bottom - r.top) * 0.55;
+      const sw = Math.max(8, (r.bottom - r.top) * (result ? 0.78 : 0.7));
+      return gen.toPaths(gen.line(r.left - 3, mid + 1, r.right + 3, mid - 1, { strokeWidth: sw, roughness: 0.6, bowing: 0.8, disableMultiStroke: true }));
+    });
+    setPaths({ w, h, list });
   }, [kind]);
   return (
     <svg ref={ref} className="marker" aria-hidden="true" style={paths ? { width: paths.w, height: paths.h, '--md': `${delay}s` } : { display: 'none' }}>
       {paths?.list.map((p, i) => (
-        <path key={i} d={p.d} stroke={p.stroke} strokeWidth={p.strokeWidth} fill="none" strokeLinecap="round" pathLength={1} />
+        <path key={i} d={p.d} strokeWidth={p.strokeWidth} fill="none" strokeLinecap="round" pathLength={1} style={{ '--mi': `${i * 0.18}s` }} />
       ))}
     </svg>
   );
@@ -393,6 +403,9 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
   }, [hand]);
   const wide = useWide();
   const split = wide && (draw || three) && board?.length > 1;
+  // Index of the board line the pen writes this beat (the first new line that
+  // is not a question card), or -1.
+  const penAt = ended || scrub || !board ? -1 : board.findIndex((b) => b.at === beat && b.kind !== 'q');
   // Long derivation: heading across the top, the rest written column by column.
   const head = board && !draw && board[0]?.kind === 'h' ? 1 : 0;
   // Columns are balanced by text length, so long answer points don't pile up on one side.
@@ -919,18 +932,22 @@ function SceneCore({ beats, draw, board, viewBox = '0 0 360 220', onEnded, onChe
               </svg>
             )}
             {board && (
-              <div className={`board ${draw ? '' : 'board-only'} ${cols ? 'board-cols' : ''}`}>
+              // The line the pen writes this beat (see PEN) starts hidden, so
+              // the CSS write animation never runs on it first (it did, and
+              // the pen then rewrote it from the start: a double write).
+              <div className={`board ${draw ? '' : 'board-only'} ${cols ? 'board-cols' : ''}`} data-pen={penAt}>
                 {(cols ? [board.slice(0, head), board.slice(head, cols), board.slice(cols)] : [board]).map((part, c) => (
                   <div key={c} className={cols ? (c ? 'board-col' : 'board-head') : 'board-flow'}>
                     {part.map((b, i) => (
                       <div
                         key={i}
-                        className={`board-line kind-${b.kind ?? 'text'} ${beat >= b.at && (b.until == null || beat <= b.until) ? 'on' : ''} ${beat === b.at ? 'hl' : ''}`}
+                        className={`board-line kind-${b.kind ?? 'text'} ${beat >= b.at && (b.until == null || beat <= b.until) ? 'on' : ''} ${beat === b.at ? 'hl' : ''} ${board.indexOf(b) === penAt ? 'pen' : ''}`}
                         style={{ '--wd': `${writeSecs(b.node)}s` }}
                       >
                         <span className="ink">
                           {b.node}
-                          {beat === b.at && b.kind !== 'q' && b.kind !== 'h' && b.kind !== 'hook' && <Marker kind={b.kind} delay={writeSecs(b.node)} />}
+                          {/* Highlight only what matters (results, traps, what to find), never every line (rule 39). */}
+                          {beat === b.at && MARKED.has(b.kind) && <Marker kind={b.kind} delay={writeSecs(b.node)} />}
                         </span>
                       </div>
                     ))}
