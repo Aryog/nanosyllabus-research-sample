@@ -27,7 +27,7 @@
     induction:   field 0–1 (rotating field arrow), rmf −1…1 (its speed), rmfMs
     sync:        field 0–1 (rotor field arrow), rmf, rmfMs, lamp 0–1
     small:       pulse 0–1 (one field that only grows and shrinks), dfr 0–1 (the two
-                 halves turning opposite ways), step 0,1,2,… (stepper position), arm 0–1
+                 halves turning opposite ways), rot 0–1 (a rotating field: main + auxiliary), step 0,1,2,… (stepper position), arm 0–1
 */
 import { clamp, makeTour, smooth } from './tour3d.js';
 
@@ -817,7 +817,7 @@ export const smallTour = makeTour({
       shots,
       anchors,
       base: ['frame', 'stator', 'main', 'rotorCore', 'cage', 'shaft'],
-      def: { pulse: 0, dfr: 0, step: 0 },
+      def: { pulse: 0, dfr: 0, rot: 0, step: 0 },
       paths,
       links: { stepStator: ['stepCoils'] },
       opacity: (st, name, o) => (name === 'frame' ? o * 0.55 : o),
@@ -835,6 +835,14 @@ export const smallTour = makeTour({
         pulse.scale.set(1, Math.max(0.05, Math.abs(s)), 1);
         pulse.rotation.z = s >= 0 ? 0 : PI;
         pulse.userData.mats.forEach((m) => (m.opacity = pk));
+        // A true rotating field (main + auxiliary winding), shown on the same bar.
+        const rk = mix(pr.rot, st.rot);
+        if (rk > pk) {
+          pulse.visible = rk > 0.02;
+          pulse.scale.set(1, 1, 1);
+          pulse.rotation.z = t / 260;
+          pulse.userData.mats.forEach((m) => (m.opacity = rk));
+        }
         const dk = mix(pr.dfr, st.dfr);
         for (const [h, dir] of [[half1, 1], [half2, -1]]) {
           h.visible = dk > 0.02;

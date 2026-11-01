@@ -25,6 +25,7 @@
     back    0–1, the orange "push back" arrow against the battery's push
     heat    { coil, fieldCoil, armature, brushes, fan }: 0–1 red-hot glow
     spark   0–1, sparks at the brushes
+    ac      true: the battery stands for an AC supply (universal motor): its + and − marks hide
     stud    0–5, the starter handle's stud (0 = off); it glides between beats
     studMs  how slowly the handle glides there (default 500; ~3000 = stud by stud)
     labels  [[text, anchor or [x, y, z]], …], shown on this beat only, each
@@ -476,7 +477,7 @@ export function motorTour(plan) {
           tg.sprite.position.set(...at);
         }),
       );
-      plus.visible = minus.visible = shownOf(st).has('battery');
+      plus.visible = minus.visible = shownOf(st).has('battery') && !st.ac;
       // The lamp glows with the current the generator sends round.
       if (shownOf(st).has('lamp') && flowK > 0.02) {
         lampGlass.material.emissive.setHex(0xffd43b);
