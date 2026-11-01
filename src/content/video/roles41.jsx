@@ -35,9 +35,9 @@ const addRoles = (step, roles) => {
 export const introRoles41 = {
   lecturer: role(
     [
-      b('Aaja hami Unit 4.1 padhchau: working principle, back EMF ra torque equation.', 'आज हामी युनिट फोर पोइन्ट वान पढ्छौं — वर्किङ प्रिन्सिपल, ब्याक इएमएफ, र टर्क इक्वेसन।'),
-      b('Syllabus anusar, principle, back EMF ko expression ra significance, ani torque equation ko derivation garincha.', 'सिलेबस अनुसार — प्रिन्सिपल, ब्याक इएमएफको एक्स्प्रेसन र सिग्निफिकेन्स, अनि टर्क इक्वेसनको डेराइभेसन गरिन्छ।'),
-      b('Antim ma, IOE ka duita question ko model answer: torque equation ra back EMF, dubai tin-tin choti sodhiyeka.', 'अन्तिममा, आइओईका दुईटा क्वेस्चनको मोडेल आन्सर — टर्क इक्वेसन, र ब्याक इएमएफ। दुवै, तीन-तीन चोटि सोधिएका।'),
+      b('Aaja hami Unit 4.1 padhchau: working principle, back EMF ra torque equation.', 'आज हामी युनिट फोर पोइन्ट वान पढ्छौं — वर्किङ प्रिन्सिपल, ब्याक ई एम एफ, र टर्क इक्वेसन।'),
+      b('Syllabus anusar, principle, back EMF ko expression ra significance, ani torque equation ko derivation garincha.', 'सिलेबस अनुसार — प्रिन्सिपल, ब्याक ई एम एफको एक्स्प्रेसन र सिग्निफिकेन्स, अनि टर्क इक्वेसनको डेराइभेसन गरिन्छ।'),
+      b('Antim ma, IOE ka duita question ko model answer: torque equation ra back EMF, dubai tin-tin choti sodhiyeka.', 'अन्तिममा, आई ओ ईका दुईटा क्वेस्चनको मोडेल आन्सर — टर्क इक्वेसन, र ब्याक ई एम एफ। दुवै, तीन-तीन चोटि सोधिएका।'),
     ],
     [
       L(0, 'h', <>Unit 4.1</>),
@@ -49,7 +49,7 @@ export const introRoles41 = {
   tutor: role(
     [
       b('Hami 4.1 sangai garchau. Pahila motor kina ghumcha, tyo bujhchau, ani matra formula.', 'हामी फोर पोइन्ट वान सँगै गर्छौं। पहिला मोटर किन घुम्छ, त्यो बुझ्छौं — अनि मात्र फर्मुला।'),
-      b('Back EMF ma dherai student alamalincha, tesaile yaslai bistarai, number sanga herchau.', 'ब्याक इएमएफमा धेरै स्टुडेन्ट अलमलिन्छन्। त्यसैले यसलाई बिस्तारै, नम्बरसँग हेर्छौं।'),
+      b('Back EMF ma dherai student alamalincha, tesaile yaslai bistarai, number sanga herchau.', 'ब्याक ई एम एफमा धेरै स्टुडेन्ट अलमलिन्छन्। त्यसैले यसलाई बिस्तारै, नम्बरसँग हेर्छौं।'),
       b('Ani torque equation lai step by step board ma derive garchau. Kunai step skip hudaina.', 'अनि टर्क इक्वेसनलाई, स्टेप बाई स्टेप बोर्डमा डेराइभ गर्छौं। कुनै स्टेप स्किप हुँदैन।'),
     ],
     [
@@ -65,10 +65,10 @@ export const introRoles41 = {
 addRoles(vibe41, {
   lecturer: role(
     [
-      b('Definition: DC motor le electrical energy lai mechanical energy ma convert garcha.', 'डेफिनेसन — डीसी मोटरले, इलेक्ट्रिकल इनर्जीलाई मेकानिकल इनर्जीमा कन्भर्ट गर्छ।'),
+      b('Definition: DC motor le electrical energy lai mechanical energy ma convert garcha.', 'डेफिनेसन — डी सी मोटरले, इलेक्ट्रिकल इनर्जीलाई मेकानिकल इनर्जीमा कन्भर्ट गर्छ।'),
       b('Yo motor magnetic field ma current-carrying conductor le force paune principle ma chalcha.', 'यो मोटर, म्याग्नेटिक फिल्डमा करेन्ट क्यारिङ कन्डक्टरले फोर्स पाउने प्रिन्सिपलमा चल्छ।'),
-      b('Ghumda induce hune back EMF le armature current limit garcha. Applications: fan, lift, traction, ra electric vehicle.', 'घुम्दा इन्ड्युस हुने ब्याक इएमएफले, आर्मेचर करेन्ट लिमिट गर्छ। एप्लिकेसन्स — फ्यान, लिफ्ट, ट्र्याक्सन, र इलेक्ट्रिक भेहिकल।',
-        q('DC motor le kun energy lai kun ma convert garcha?', 'डीसी मोटरले कुन इनर्जीलाई कुनमा कन्भर्ट गर्छ?', ['Electrical → mechanical', 'Mechanical → electrical', 'Heat → electrical'], 0, 'Motor: electrical input, mechanical output. Generator ulto.')),
+      b('Ghumda induce hune back EMF le armature current limit garcha. Applications: fan, lift, traction, ra electric vehicle.', 'घुम्दा इन्ड्युस हुने ब्याक ई एम एफले, आर्मेचर करेन्ट लिमिट गर्छ। एप्लिकेसन्स — फ्यान, लिफ्ट, ट्र्याक्सन, र इलेक्ट्रिक भेहिकल।',
+        q('DC motor le kun energy lai kun ma convert garcha?', 'डी सी मोटरले कुन इनर्जीलाई कुनमा कन्भर्ट गर्छ?', ['Electrical → mechanical', 'Mechanical → electrical', 'Heat → electrical'], 0, 'Motor: electrical input, mechanical output. Generator ulto.')),
     ],
     [
       L(0, 'h', <>DC motor</>),
@@ -79,10 +79,10 @@ addRoles(vibe41, {
   ),
   tutor: role(
     [
-      b('Timi ko phone vibrate huda bhitra sano DC motor ghumcha. Electrical energy bata ghumne kaam bancha.', 'तिम्रो फोन भाइब्रेट हुँदा, भित्र सानो डीसी मोटर घुम्छ। इलेक्ट्रिकल इनर्जीबाट, घुम्ने काम बन्छ।'),
+      b('Timi ko phone vibrate huda bhitra sano DC motor ghumcha. Electrical energy bata ghumne kaam bancha.', 'तिम्रो फोन भाइब्रेट हुँदा, भित्र सानो डी सी मोटर घुम्छ। इलेक्ट्रिकल इनर्जीबाट, घुम्ने काम बन्छ।'),
       b('Ghumcha kina? Field bhitra current bokeko taar lai force lagcha. N muni ko conductor tala, S muni ko mathi push huncha.', 'घुम्छ किन? फिल्डभित्र करेन्ट बोकेको तारलाई फोर्स लाग्छ। एन मुनिको कन्डक्टर तल, एस मुनिको माथि पुस हुन्छ।'),
-      b('Ani ghumda motor aafai ulto voltage banaucha, back EMF. Dherai le confuse garchan: yo supply hoina, motor kai bhitra bancha.', 'अनि घुम्दा, मोटर आफैं उल्टो भोल्टेज बनाउँछ — ब्याक इएमएफ। धेरैले कन्फ्युज गर्छन् — यो सप्लाई होइन, मोटरकै भित्र बन्छ।',
-        q('Back EMF kaha bancha?', 'ब्याक इएमएफ कहाँ बन्छ?', ['Ghumne armature bhitra', 'Supply battery ma', 'Field winding ko resistance ma'], 0, 'Armature ghumda conductor le flux cut garchan; tyahi EMF back EMF ho.')),
+      b('Ani ghumda motor aafai ulto voltage banaucha, back EMF. Dherai le confuse garchan: yo supply hoina, motor kai bhitra bancha.', 'अनि घुम्दा, मोटर आफैं उल्टो भोल्टेज बनाउँछ — ब्याक ई एम एफ। धेरैले कन्फ्युज गर्छन् — यो सप्लाई होइन, मोटरकै भित्र बन्छ।',
+        q('Back EMF kaha bancha?', 'ब्याक ई एम एफ कहाँ बन्छ?', ['Ghumne armature bhitra', 'Supply battery ma', 'Field winding ko resistance ma'], 0, 'Armature ghumda conductor le flux cut garchan; tyahi EMF back EMF ho.')),
     ],
     [
       L(0, 'h', <>Motor = electrical → ghumne kaam</>),
@@ -98,7 +98,7 @@ addRoles(torqueProduction3d, {
     [
       b('Production of unidirectional torque, Figure jasto: armature N ra S pole ko bichma huncha.', 'प्रोडक्सन अफ युनिडाइरेक्सनल टर्क — आर्मेचर, एन र एस पोलको बीचमा हुन्छ।'),
       b('N pole muni ka conductor ma current bhitra, S pole muni ka ma bahira. Fleming ko left-hand rule anusar left ma force tala, right ma mathi.', 'एन पोलमुनिका कन्डक्टरमा करेन्ट भित्र, एस पोलमुनिकामा बाहिर। फ्लेमिङको लेफ्ट ह्यान्ड रुल अनुसार, लेफ्टमा फोर्स तल, राइटमा माथि।'),
-      b('Yi forces le eutai direction ma torque dinchan. Coil MNA cross garda commutator le current reverse garcha, yasari torque unidirectional rahancha.', 'यी फोर्सले एउटै डाइरेक्सनमा टर्क दिन्छन्। कोइल एमएनए क्रस गर्दा, कम्युटेटरले करेन्ट रिभर्स गर्छ। यसरी टर्क, युनिडाइरेक्सनल रहन्छ।'),
+      b('Yi forces le eutai direction ma torque dinchan. Coil MNA cross garda commutator le current reverse garcha, yasari torque unidirectional rahancha.', 'यी फोर्सले एउटै डाइरेक्सनमा टर्क दिन्छन्। कोइल एम एन ए क्रस गर्दा, कम्युटेटरले करेन्ट रिभर्स गर्छ। यसरी टर्क, युनिडाइरेक्सनल रहन्छ।'),
       b('Torque lai affect garne factor: flux phi, armature current I a, ra design constant Z, P, A. T a phi I a sanga proportional.', 'टर्कलाई अफेक्ट गर्ने फ्याक्टर — फ्लक्स फाइ, आर्मेचर करेन्ट आई ए, र डिजाइन कन्स्टेन्ट जेड, पी, ए। टी ए, फाइ आई एसँग प्रोपोर्सनल।'),
     ],
     [
@@ -115,7 +115,7 @@ addRoles(torqueProduction3d, {
       b('Right ko conductor ma current bahira, tesaile thumb mathi. Left tala ra right mathi: dubai le eutai tira ghumauchan.', 'राइटको कन्डक्टरमा करेन्ट बाहिर, त्यसैले थम्ब माथि। लेफ्ट तल र राइट माथि — दुवैले एउटै तिर घुमाउँछन्।'),
       b('Dherai le sochchan force cancel huncha. Hudaina, kinaki duita force centre ko duita side ma ulto direction ma chan.', 'धेरैले सोच्छन् — फोर्स क्यान्सिल हुन्छ। हुँदैन, किनकि दुईटा फोर्स, सेन्टरको दुईटा साइडमा, उल्टो डाइरेक्सनमा छन्।',
         q('Left ma force tala ra right ma force mathi bhaye, net torque k huncha?', 'लेफ्टमा फोर्स तल र राइटमा फोर्स माथि भए, नेट टर्क के हुन्छ?', ['Dubai jodincha, eutai tira ghumcha', 'Cancel bhayera zero', 'Armature mathi uthcha'], 0, 'Centre ko duita side ma ulto force = couple. Turning effect jodincha.')),
-      b('Ani conductor N muni bata S muni jada MNA cross garcha. MNA mai commutator le current reverse garcha, force pani flip huncha, ra torque ek tira nai rahancha.', 'अनि कन्डक्टर एन मुनिबाट एस मुनि जाँदा, एमएनए क्रस गर्छ। एमएनएमै कम्युटेटरले करेन्ट रिभर्स गर्छ, फोर्स पनि फ्लिप हुन्छ, र टर्क एकतिर नै रहन्छ।'),
+      b('Ani conductor N muni bata S muni jada MNA cross garcha. MNA mai commutator le current reverse garcha, force pani flip huncha, ra torque ek tira nai rahancha.', 'अनि कन्डक्टर एन मुनिबाट एस मुनि जाँदा, एम एन ए क्रस गर्छ। एम एन एमै कम्युटेटरले करेन्ट रिभर्स गर्छ, फोर्स पनि फ्लिप हुन्छ, र टर्क एकतिर नै रहन्छ।'),
     ],
     [
       L(0, 'h', <>Fleming LHR, hat le</>),
@@ -132,7 +132,7 @@ addRoles(torqueProduction3d, {
 addRoles(story, {
   lecturer: role(
     [
-      b('Question: why does a DC motor draw a large current at starting? Yo IOE ma panch choti sodhiyeko cha.', 'क्वेस्चन — ह्वाई डज अ डीसी मोटर ड्र अ लार्ज करेन्ट एट स्टार्टिङ? यो आइओईमा पाँच चोटि सोधिएको छ।'),
+      b('Question: why does a DC motor draw a large current at starting? Yo IOE ma panch choti sodhiyeko cha.', 'क्वेस्चन — ह्वाई डज अ डी सी मोटर ड्र अ लार्ज करेन्ट एट स्टार्टिङ? यो आई ओ ईमा पाँच चोटि सोधिएको छ।'),
       b('Armature current I a equals V minus E b, over R a, equation ek.', 'आर्मेचर करेन्ट — आई ए इक्वल्स, भी माइनस ई बी, ओभर आर ए, इक्वेसन वान।'),
       b('Start ma N zero, yesko matlab E b zero. Equation ek bata I a equals V over R a, equation dui.', 'स्टार्टमा एन जिरो, यसको मतलब ई बी जिरो। इक्वेसन वानबाट, आई ए इक्वल्स भी ओभर आर ए, इक्वेसन टु।'),
       b('R a ekdam sano huncha, jastai 0.5 ohm, tesaile 220 volt ma 440 ampere. Hence a starter is used to limit the starting current.', 'आर ए एकदम सानो हुन्छ, जस्तै जिरो पोइन्ट फाइभ ओम। त्यसैले टु ट्वेन्टी भोल्टमा, फोर हन्ड्रेड फोर्टी एम्पियर। हेन्स, अ स्टार्टर इज युज्ड।'),
@@ -156,7 +156,7 @@ addRoles(backEmfDerivation, {
 addRoles(voltageEquation, {
   lecturer: role(
     [
-      b('Voltage equation of a DC motor: applied voltage le back EMF ra armature drop dubai overcome garcha.', 'भोल्टेज इक्वेसन अफ अ डीसी मोटर — एप्लाइड भोल्टेजले, ब्याक इएमएफ र आर्मेचर ड्रप, दुवै ओभरकम गर्छ।'),
+      b('Voltage equation of a DC motor: applied voltage le back EMF ra armature drop dubai overcome garcha.', 'भोल्टेज इक्वेसन अफ अ डी सी मोटर — एप्लाइड भोल्टेजले, ब्याक ई एम एफ र आर्मेचर ड्रप, दुवै ओभरकम गर्छ।'),
       b('Yesko matlab V equals E b plus I a R a, equation ek. Yasbata I a equals V minus E b, over R a.', 'यसको मतलब — भी इक्वल्स ई बी प्लस आई ए आर ए, इक्वेसन वान। यसबाट, आई ए इक्वल्स भी माइनस ई बी, ओभर आर ए।'),
       b('Equation ek lai I a le multiply garda V I a equals E b I a plus I a squared R a, equation dui.', 'इक्वेसन वानलाई आई एले मल्टिप्लाई गर्दा — भी आई ए इक्वल्स, ई बी आई ए प्लस आई ए स्क्वायर आर ए, इक्वेसन टु।'),
       b('V I a input, I a squared R a copper loss, ra E b I a gross mechanical power P m ho, equation tin.', 'भी आई ए इनपुट, आई ए स्क्वायर आर ए कपर लस, र ई बी आई ए — ग्रस मेकानिकल पावर पी एम हो, इक्वेसन थ्री।'),
@@ -193,7 +193,7 @@ addRoles(torqueDerivation, {
 addRoles(torqueFromPower, {
   lecturer: role(
     [
-      b('Torque in terms of back EMF: mechanical power P m equals E b I a, ra P m equals T a omega, equation ek.', 'टर्क इन टर्म्स अफ ब्याक इएमएफ — मेकानिकल पावर, पी एम इक्वल्स ई बी आई ए, र पी एम इक्वल्स टी ए ओमेगा, इक्वेसन वान।'),
+      b('Torque in terms of back EMF: mechanical power P m equals E b I a, ra P m equals T a omega, equation ek.', 'टर्क इन टर्म्स अफ ब्याक ई एम एफ — मेकानिकल पावर, पी एम इक्वल्स ई बी आई ए, र पी एम इक्वल्स टी ए ओमेगा, इक्वेसन वान।'),
       b('Omega equals two pi N over sixty, equation dui.', 'ओमेगा इक्वल्स — टु पाइ एन ओभर सिक्स्टी, इक्वेसन टु।'),
       b('Equation ek ra dui bata T a equals 9.55 E b I a over N newton metre, equation tin.', 'इक्वेसन वान र टुबाट — टी ए इक्वल्स नाइन पोइन्ट फाइभ फाइभ, ई बी आई ए ओभर एन न्युटन मिटर, इक्वेसन थ्री।'),
       b('Shaft torque T sh equals 9.55 output over N, equation char. T a minus T sh lost torque ho.', 'साफ्ट टर्क — टी एस एच इक्वल्स, नाइन पोइन्ट फाइभ फाइभ, आउटपुट ओभर एन, इक्वेसन फोर। टी ए माइनस टी एस एच, लस्ट टर्क हो।'),

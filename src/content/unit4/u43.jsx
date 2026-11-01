@@ -35,14 +35,14 @@ export const opener43 = duo('4.3 ma k padhne?', {
     },
     {
       say: 'Antim ma IOE ka duita efficiency numerical: 2074 Bhadra ra 2083 Baishakh.',
-      voice: 'अन्तिममा, आइओईका दुईटा इफिसियन्सी न्युमेरिकल — दुई हजार चौहत्तर भदौ, र दुई हजार त्रियासी वैशाख।',
+      voice: 'अन्तिममा, आई ओ ईका दुईटा इफिसियन्सी न्युमेरिकल — दुई हजार चौहत्तर भदौ, र दुई हजार त्रियासी वैशाख।',
       lines: [['hook', <>IOE: efficiency numericals, 2074 Bhadra · 2083 Baishakh (ECM) [5]</>]],
     },
   ],
   lecturer: [
     {
       say: 'Unit 4.3: losses and efficiency of a DC motor.',
-      voice: 'युनिट फोर पोइन्ट थ्री — लसेस एन्ड इफिसियन्सी अफ अ डीसी मोटर।',
+      voice: 'युनिट फोर पोइन्ट थ्री — लसेस एन्ड इफिसियन्सी अफ अ डी सी मोटर।',
       lines: [['h', <>Unit 4.3</>], ['step', <>Losses and efficiency</>]],
     },
     {
@@ -104,7 +104,7 @@ export const losses43 = duo('DC motor ka losses', {
   lecturer: [
     {
       say: 'DC motor ka losses tin bhag ma bandincha: copper losses, iron losses ra mechanical losses.',
-      voice: 'डीसी मोटरका लसेस तीन भागमा बाँडिन्छ — कपर लसेस, आइरन लसेस, र मेकानिकल लसेस।',
+      voice: 'डी सी मोटरका लसेस तीन भागमा बाँडिन्छ — कपर लसेस, आइरन लसेस, र मेकानिकल लसेस।',
       lines: [['h', <>Classification of losses (Fig. 4)</>], ['step', <><Pts items={[<>Copper losses · iron (core) losses · mechanical losses</>]} /></>]],
     },
     {
@@ -292,7 +292,7 @@ export const eff2074 = answer('IOE 2074 Bhadra: EMF, copper loss ra efficiency',
   q: 'A shunt generator delivers 30 kW at 200 V. Ra = 0.05 Ω, Rsh = 50 Ω, iron and friction losses = 1000 W. Find (i) the EMF, (ii) the copper losses, (iii) the efficiency.',
   read: {
     say: 'IOE 2074 Bhadra: shunt generator 30 kilowatt 200 volt ma dincha. R a 0.05 ohm, R sh 50 ohm, iron ra friction loss 1000 watt. EMF, copper loss ra efficiency nikala.',
-    voice: 'आइओई दुई हजार चौहत्तर भदौ — शन्ट जेनेरेटर, थर्टी किलोवाट, टु हन्ड्रेड भोल्टमा दिन्छ। आर ए जिरो पोइन्ट जिरो फाइभ ओम, आर एस एच फिफ्टी ओम, आइरन र फ्रिक्सन लस थाउजेन्ड वाट। इएमएफ, कपर लस, र इफिसियन्सी निकाल।',
+    voice: 'आई ओ ई दुई हजार चौहत्तर भदौ — शन्ट जेनेरेटर, थर्टी किलोवाट, टु हन्ड्रेड भोल्टमा दिन्छ। आर ए जिरो पोइन्ट जिरो फाइभ ओम, आर एस एच फिफ्टी ओम, आइरन र फ्रिक्सन लस थाउजेन्ड वाट। ई एम एफ, कपर लस, र इफिसियन्सी निकाल।',
   },
   points: [
     {
@@ -303,7 +303,7 @@ export const eff2074 = answer('IOE 2074 Bhadra: EMF, copper loss ra efficiency',
     {
       node: <><H>(i) EMF</H><K>{String.raw`\begin{aligned} I_L &= \dfrac{30000}{200} \\ &= 150\ \text{A} \\ I_{sh} &= \dfrac{200}{50} \\ &= 4\ \text{A} \\ I_a &= 150 + 4 \\ &= 154\ \text{A} \\ E &= 200 + 154(0.05) \\ &= \boxed{207.7\ \text{V}} \end{aligned}`}</K></>,
       say: 'I L 150 ampere, I sh 4 ampere, tesaile I a 154 ampere. EMF E equals 200 plus 154 times 0.05, arthat 207.7 volt.',
-      voice: 'आई एल वान फिफ्टी एम्पियर, आई एस एच फोर एम्पियर, त्यसैले आई ए वान फिफ्टी फोर एम्पियर। इएमएफ — ई इक्वल्स टु हन्ड्रेड प्लस वान फिफ्टी फोर टाइम्स जिरो पोइन्ट जिरो फाइभ, अर्थात टु हन्ड्रेड सेभेन पोइन्ट सेभेन भोल्ट।',
+      voice: 'आई एल वान फिफ्टी एम्पियर, आई एस एच फोर एम्पियर, त्यसैले आई ए वान फिफ्टी फोर एम्पियर। ई एम एफ — ई इक्वल्स टु हन्ड्रेड प्लस वान फिफ्टी फोर टाइम्स जिरो पोइन्ट जिरो फाइभ, अर्थात टु हन्ड्रेड सेभेन पोइन्ट सेभेन भोल्ट।',
     },
     {
       page: true,
@@ -332,13 +332,13 @@ export const eff2083 = answer('IOE 2083 Baishakh: EMF ra commercial efficiency',
   q: 'A shunt generator delivers 96 A at 200 V. Ra = 0.1 Ω, Rsh = 50 Ω, iron and friction losses = 2500 W. Find (a) the EMF, (b) the commercial efficiency.',
   read: {
     say: 'IOE 2083 Baishakh, panch marks: shunt generator 200 volt ma 96 ampere dincha. R a 0.1 ohm, R sh 50 ohm, iron ra friction 2500 watt. EMF ra commercial efficiency.',
-    voice: 'आइओई दुई हजार त्रियासी वैशाख, पाँच मार्क्स — शन्ट जेनेरेटर, टु हन्ड्रेड भोल्टमा नाइन्टी सिक्स एम्पियर दिन्छ। आर ए जिरो पोइन्ट वान ओम, आर एस एच फिफ्टी ओम, आइरन र फ्रिक्सन टु थाउजेन्ड फाइभ हन्ड्रेड वाट। इएमएफ र कमर्सियल इफिसियन्सी।',
+    voice: 'आई ओ ई दुई हजार त्रियासी वैशाख, पाँच मार्क्स — शन्ट जेनेरेटर, टु हन्ड्रेड भोल्टमा नाइन्टी सिक्स एम्पियर दिन्छ। आर ए जिरो पोइन्ट वान ओम, आर एस एच फिफ्टी ओम, आइरन र फ्रिक्सन टु थाउजेन्ड फाइभ हन्ड्रेड वाट। ई एम एफ र कमर्सियल इफिसियन्सी।',
   },
   points: [
     {
       node: <><H>(a) EMF [2]</H><K>{String.raw`\begin{aligned} I_{sh} &= \dfrac{200}{50} \\ &= 4\ \text{A} \\ I_a &= 96 + 4 \\ &= 100\ \text{A} \\ E &= 200 + 100(0.1) \\ &= \boxed{210\ \text{V}} \end{aligned}`}</K></>,
       say: 'I sh 4 ampere, I a 100 ampere. EMF 200 plus 100 times 0.1, arthat 210 volt.',
-      voice: 'आई एस एच फोर एम्पियर, आई ए वान हन्ड्रेड एम्पियर। इएमएफ — टु हन्ड्रेड प्लस वान हन्ड्रेड टाइम्स जिरो पोइन्ट वान, अर्थात टु टेन भोल्ट।',
+      voice: 'आई एस एच फोर एम्पियर, आई ए वान हन्ड्रेड एम्पियर। ई एम एफ — टु हन्ड्रेड प्लस वान हन्ड्रेड टाइम्स जिरो पोइन्ट वान, अर्थात टु टेन भोल्ट।',
     },
     {
       node: <><H>(b) Commercial efficiency [3]</H><K>{String.raw`\begin{aligned} I_a^2R_a &= 100^2(0.1) \\ &= 1000\ \text{W} \\ VI_{sh} &= 800\ \text{W} \\ \text{Losses} &= 1000 + 800 + 2500 \\ &= 4300\ \text{W} \end{aligned}`}</K></>,

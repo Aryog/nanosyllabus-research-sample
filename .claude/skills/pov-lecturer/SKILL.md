@@ -1,6 +1,6 @@
 ---
 name: pov-lecturer
-description: The Lecturer role for the DC Motors videos, a formal college lecturer who teaches the answer as IOE marks it, written like an Indian textbook (Q., underlined headings, "Let, …", numbered equations, ∴, a boxed result, "Hence proved", numbered figures). It owns the script, sound, look (Book), animation, lesson shape and video format for this role, and is the default for 3/3 Big picture. Use it when writing, editing, voicing or reviewing a model answer, a textbook derivation or any video or variant taught by the Lecturer (`pov: 'lecturer'` or `variants.lecturer`). It works inside the video-studio skill.
+description: The Lecturer role for the DC Motors videos, a formal college lecturer who teaches the answer as IOE marks it, written like an Indian textbook (Q., underlined headings, "Let, …", numbered equations, ∴, a boxed result, "Hence proved", numbered figures). It owns the script, sound, look (Book), animation, lesson shape and video format for this role, and is the default for 3/3 Model Answer. Use it when writing, editing, voicing or reviewing a model answer, a textbook derivation or any video or variant taught by the Lecturer (`pov: 'lecturer'` or `variants.lecturer`). It works inside the video-studio skill.
 ---
 
 # Role: Lecturer
@@ -67,7 +67,11 @@ Use each connector at most twice in a video (rule 42).
 
 A Lecturer version of a derivation has its own beats: heading → "Let," list → numbered rows → boxed result with "Hence proved". Example: `backEmfDerivation.variants.lecturer` in `src/content/video/t41.jsx`.
 
-## Big picture belongs to the Lecturer (rule 44)
+## In Basic Understanding (segment 1)
+
+Same beats and plan as the Tutor, still **no maths**, but formal Nepali and the proper names (field winding, excitation, rheostat, rotational losses) instead of everyday ones. Example: Tutor "field coil le aafnai chhuttai bato lincha" → Lecturer "field winding armature sanga parallel ma jodincha". Recipe: video-studio `references/basic-understanding.md`.
+
+## Model Answer (Big picture) belongs to the Lecturer (rule 44)
 
 Every Big-picture video is taught by the Lecturer only; the player locks the role there. The viewer can switch the Lecturer's **theme**: Blue (brand field, the default) or White (`book`), pref `dcm-lecturer-theme`, a switch beside the POV chip. Both keep the textbook form (`.lect`: Poppins, underlined headings, numbered equations, boxed result). Write and check every answer so it reads well in both themes (figures in palette inks only).
 

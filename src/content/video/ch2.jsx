@@ -26,9 +26,9 @@ function Label({ s, k, x, y, tx, ty, text, sub }) {
 export const crossSection = video('DC machine bhitra k cha?', {
   viewBox: '0 0 400 230',
   beats: [
-    { say: 'Yo two-pole DC machine ko cross-section ho. Bahira ko frame chai yoke. Yesle sabai kura hold garcha ra flux lai euta pole bata arko pole samma lancha.', voice: 'यो टु पोल डीसी मेसिनको क्रस सेक्सन हो। बाहिरको फ्रेम चाहिँ योक। यसले सबै कुरा होल्ड गर्छ र फ्लक्सलाई एउटा पोलबाट अर्को पोलसम्म लान्छ।' },
+    { say: 'Yo two-pole DC machine ko cross-section ho. Bahira ko frame chai yoke. Yesle sabai kura hold garcha ra flux lai euta pole bata arko pole samma lancha.', voice: 'यो टु पोल डी सी मेसिनको क्रस सेक्सन हो। बाहिरको फ्रेम चाहिँ योक। यसले सबै कुरा होल्ड गर्छ र फ्लक्सलाई एउटा पोलबाट अर्को पोलसम्म लान्छ।' },
     { say: 'Yoke ma bolt gareko chai poles. Tuppo ko chaudai pole shoe le flux lai armature mathi barabar spread garcha, ra field coils lai support garcha.', voice: 'योकमा बोल्ट गरेको चाहिँ पोल्स। टुप्पोको चौडा पोल सुले फ्लक्सलाई आर्मेचर माथि बराबर स्प्रेड गर्छ, र फिल्ड कोइल्सलाई सपोर्ट गर्छ।' },
-    { say: 'Harek pole ko waripari field winding huncha. Tesma DC current bagda pole magnetise huncha ra flux banaucha, phi per pole.', voice: 'हरेक पोलको वरिपरि फिल्ड वाइन्डिङ हुन्छ। तेसमा डीसी करेन्ट बग्दा पोल म्याग्नेटाइज हुन्छ र फ्लक्स बनाउँछ, फाइ पर पोल।' },
+    { say: 'Harek pole ko waripari field winding huncha. Tesma DC current bagda pole magnetise huncha ra flux banaucha, phi per pole.', voice: 'हरेक पोलको वरिपरि फिल्ड वाइन्डिङ हुन्छ। तेसमा डी सी करेन्ट बग्दा पोल म्याग्नेटाइज हुन्छ र फ्लक्स बनाउँछ, फाइ पर पोल।' },
     { say: 'Bich ma armature core cha, jun part ghumcha. Yo silicon steel ko patala laminations le baneko huncha.', voice: 'बिचमा आर्मेचर कोर छ, जुन पार्ट घुम्छ। यो सिलिकन स्टिलको पातला लेमिनेसन्सले बनेको हुन्छ।' },
     {
       say: 'Tyo duita choice kina ta?',
@@ -228,7 +228,7 @@ export const lapWave = video('Lap ra wave windings', {
       },
     },
     { say: 'Tyahi machine lai wave ma wind gara, A two huncha, so harek conductor ma twenty ampere.', voice: 'त्यही मेसिनलाई वेभमा वाइन्ड गर, ए टु हुन्छ, सो हरेक कन्डक्टरमा ट्वेन्टी एम्पियर।' },
-    { say: 'IOE 2070 Magh ra 2069 Bhadra ma exactly yahi sodheko cha, wave-wound generator ko lagi: harek armature conductor ma current nikala.', voice: 'आइओई टु थाउजेन्ड सेभेन्टी माघ र टु थाउजेन्ड सिक्स्टी नाइन भदौमा एक्ज्याक्ट्ली यही सोधेको छ, वेभ वाउन्ड जेनेरेटरको लागि: हरेक आर्मेचर कन्डक्टरमा करेन्ट निकाल।' },
+    { say: 'IOE 2070 Magh ra 2069 Bhadra ma exactly yahi sodheko cha, wave-wound generator ko lagi: harek armature conductor ma current nikala.', voice: 'आई ओ ई टु थाउजेन्ड सेभेन्टी माघ र टु थाउजेन्ड सिक्स्टी नाइन भदौमा एक्ज्याक्ट्ली यही सोधेको छ, वेभ वाउन्ड जेनेरेटरको लागि: हरेक आर्मेचर कन्डक्टरमा करेन्ट निकाल।' },
   ],
   board: [
     { at: 0, kind: 'h', node: <>Parallel paths, A</> },
@@ -277,7 +277,7 @@ export const emfDerivation = video('Derivation: EMF equation', {
 
 export const emfIoe = video('IOE 2078 Poush Q3(b): EMF equation use garau', {
   beats: [
-    { say: 'Real IOE question. 4-pole, lap-wound machine ma 300 conductors cha, fifty slots of six, ra fifty milliweber per pole. Yesle 260.25 volt generate garnu parcha. Speed nikala.', voice: 'रियल आइओई क्वेस्चन। फोर पोल, ल्याप वाउन्ड मेसिनमा थ्री हन्ड्रेड कन्डक्टर्स छ, फिफ्टी स्लट्स अफ सिक्स, र फिफ्टी मिलिवेबर पर पोल। यसले टु हन्ड्रेड सिक्स्टी पोइन्ट टु फाइभ भोल्ट जेनेरेट गर्नुपर्छ। स्पिड निकाल।' },
+    { say: 'Real IOE question. 4-pole, lap-wound machine ma 300 conductors cha, fifty slots of six, ra fifty milliweber per pole. Yesle 260.25 volt generate garnu parcha. Speed nikala.', voice: 'रियल आई ओ ई क्वेस्चन। फोर पोल, ल्याप वाउन्ड मेसिनमा थ्री हन्ड्रेड कन्डक्टर्स छ, फिफ्टी स्लट्स अफ सिक्स, र फिफ्टी मिलिवेबर पर पोल। यसले टु हन्ड्रेड सिक्स्टी पोइन्ट टु फाइभ भोल्ट जेनेरेट गर्नुपर्छ। स्पिड निकाल।' },
     { say: 'EMF equation lai speed ko lagi rearrange gara: N equals sixty A E over P phi Z.', voice: 'ई एम एफ इक्वेसनलाई स्पिडको लागि रिअरेन्ज गर: एन इक्वल्स सिक्स्टी ए ई ओभर पी फाइ जेड।' },
     {
       say: 'Pahila, paths ko number.',

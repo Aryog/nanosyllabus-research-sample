@@ -50,13 +50,13 @@ function Bar({ x, frac, color, label, value, was, at = 0, className = '' }) {
 export const story = video('Motor le aafno current aafai kina limit garcha', {
   viewBox: '-28 0 388 220', // room on the left for the "220 V" label
   beats: [
-    { say: '220 volt ko DC motor, armature resistance 0.5 ohm. Switch open cha, tesaile current zero cha.', voice: 'टु ट्वेन्टी भोल्टको डीसी मोटर, आर्मेचर रेजिस्टेन्स जिरो पोइन्ट फाइभ ओम। स्विच ओपन छ, त्यसैले करेन्ट जिरो छ।' },
+    { say: '220 volt ko DC motor, armature resistance 0.5 ohm. Switch open cha, tesaile current zero cha.', voice: 'टु ट्वेन्टी भोल्टको डी सी मोटर, आर्मेचर रेजिस्टेन्स जिरो पोइन्ट फाइभ ओम। स्विच ओपन छ, त्यसैले करेन्ट जिरो छ।' },
     {
       say: 'Switch on. Armature ghumeko chaina, tesaile back EMF zero. Current V over R a, arthat 440 ampere.',
-      voice: 'स्विच अन। आर्मेचर घुमेको छैन, त्यसैले ब्याक इएमएफ जिरो। करेन्ट — भी ओभर आर ए, अर्थात फोर हन्ड्रेड फोर्टी एम्पियर।',
+      voice: 'स्विच अन। आर्मेचर घुमेको छैन, त्यसैले ब्याक ई एम एफ जिरो। करेन्ट — भी ओभर आर ए, अर्थात फोर हन्ड्रेड फोर्टी एम्पियर।',
       ask: {
         q: 'Motor start garne instant ma back EMF kati huncha?',
-        voice: 'मोटर स्टार्ट गर्ने इन्स्ट्यान्टमा, ब्याक इएमएफ कति हुन्छ?',
+        voice: 'मोटर स्टार्ट गर्ने इन्स्ट्यान्टमा, ब्याक ई एम एफ कति हुन्छ?',
         options: ['V jati', 'Zero', '440 V'],
         answer: 1,
         why: 'N = 0 bhaye Eb = PφZN/60A = 0, tesaile Ia = V/Ra = 440 A.',
@@ -75,7 +75,7 @@ export const story = video('Motor le aafno current aafai kina limit garcha', {
         why: 'Ia = (V − Eb)/Ra. Load le speed ghataucha, Eb ghatcha, tesaile Ia badhcha.',
       },
     },
-    { say: 'Yesko matlab back EMF le motor lai self-regulating banaucha: load lai jati torque chahincha, tyati current matra tancha.', voice: 'यसको मतलब, ब्याक इएमएफले मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ। लोडलाई जति टर्क चाहिन्छ, त्यति करेन्ट मात्र तान्छ।' },
+    { say: 'Yesko matlab back EMF le motor lai self-regulating banaucha: load lai jati torque chahincha, tyati current matra tancha.', voice: 'यसको मतलब, ब्याक ई एम एफले मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ। लोडलाई जति टर्क चाहिन्छ, त्यति करेन्ट मात्र तान्छ।' },
   ],
   draw: (s) => {
     const k = s.beat;
@@ -288,7 +288,7 @@ export const speedEq = video('Derivation: speed equation', {
         why: 'Ia sano bhaye IaRa drop pani sano, tesaile Eb ≈ V.',
       },
     },
-    { say: 'Eutai motor ko duita operating point ko lagi N 2 over N 1 equals E b 2 over E b 1, times phi 1 over phi 2. Yo euta ratio le dherai jaso IOE speed numerical solve huncha.', voice: 'एउटै मोटरको दुईटा अपरेटिङ पोइन्टको लागि एन टु ओभर एन वान इक्वल्स ई बी टु ओभर ई बी वान, टाइम्स फाइ वान ओभर फाइ टु। यो एउटा रेसियोले धेरैजसो आइओई स्पिड न्युमेरिकल सल्भ हुन्छ।' },
+    { say: 'Eutai motor ko duita operating point ko lagi N 2 over N 1 equals E b 2 over E b 1, times phi 1 over phi 2. Yo euta ratio le dherai jaso IOE speed numerical solve huncha.', voice: 'एउटै मोटरको दुईटा अपरेटिङ पोइन्टको लागि एन टु ओभर एन वान इक्वल्स ई बी टु ओभर ई बी वान, टाइम्स फाइ वान ओभर फाइ टु। यो एउटा रेसियोले धेरैजसो आई ओ ई स्पिड न्युमेरिकल सल्भ हुन्छ।' },
     { say: 'Shunt motor: flux constant huncha, tesaile speed ratio bhaneko back EMF ko ratio matra ho.', voice: 'शन्ट मोटर: फ्लक्स कन्स्टेन्ट हुन्छ, त्यसैले स्पिड रेसियो भनेको ब्याक ई एम एफको रेसियो मात्र हो।' },
     { say: 'Saturation bina ko series motor: flux I a sanga proportional, tesaile I a 1 over I a 2 le pani multiply gara.', voice: 'स्याचुरेसन बिनाको सिरिज मोटर: फ्लक्स आई ए सँग प्रोपोर्सनल, त्यसैले आई ए वान ओभर आई ए टु ले पनि मल्टिप्लाई गर।' },
     {

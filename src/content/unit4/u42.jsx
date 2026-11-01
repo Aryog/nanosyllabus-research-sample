@@ -18,7 +18,7 @@ export const opener42 = duo('4.2 ma k padhne?', {
   tutor: [
     {
       say: 'Unit 4.2: DC motor ka types, characteristics ra applications. Field winding kasari jodincha, tyasle motor ko swabhav nai badlincha.',
-      voice: 'युनिट फोर पोइन्ट टु — डीसी मोटरका टाइप्स, क्यारेक्टरिस्टिक्स र एप्लिकेसन्स। फिल्ड वाइन्डिङ कसरी जोडिन्छ, त्यसले मोटरको स्वभाव नै बदलिन्छ।',
+      voice: 'युनिट फोर पोइन्ट टु — डी सी मोटरका टाइप्स, क्यारेक्टरिस्टिक्स र एप्लिकेसन्स। फिल्ड वाइन्डिङ कसरी जोडिन्छ, त्यसले मोटरको स्वभाव नै बदलिन्छ।',
       lines: [['h', <>4.2</>], ['step', <>Types, characteristics ra applications</>]],
     },
     {
@@ -33,19 +33,19 @@ export const opener42 = duo('4.2 ma k padhne?', {
     },
     {
       say: 'Antim ma, IOE ka tin question: characteristics ko theory, series motor lai load bina kina start nagarne, ra euta series motor numerical.',
-      voice: 'अन्तिममा, आइओईका तीन क्वेस्चन — क्यारेक्टरिस्टिक्सको थ्योरी, सिरिज मोटरलाई लोड बिना किन स्टार्ट नगर्ने, र एउटा सिरिज मोटर न्युमेरिकल।',
+      voice: 'अन्तिममा, आई ओ ईका तीन क्वेस्चन — क्यारेक्टरिस्टिक्सको थ्योरी, सिरिज मोटरलाई लोड बिना किन स्टार्ट नगर्ने, र एउटा सिरिज मोटर न्युमेरिकल।',
       lines: [['hook', <>IOE: characteristics [8] · series motor on no load · series numerical [8]</>]],
     },
   ],
   lecturer: [
     {
       say: 'Unit 4.2: types of DC motor, their performance characteristics and applications.',
-      voice: 'युनिट फोर पोइन्ट टु — टाइप्स अफ डीसी मोटर, देयर परफर्मेन्स क्यारेक्टरिस्टिक्स, एन्ड एप्लिकेसन्स।',
+      voice: 'युनिट फोर पोइन्ट टु — टाइप्स अफ डी सी मोटर, देयर परफर्मेन्स क्यारेक्टरिस्टिक्स, एन्ड एप्लिकेसन्स।',
       lines: [['h', <>Unit 4.2</>], ['step', <>Types, characteristics and applications</>]],
     },
     {
       say: 'Syllabus ko pahilo bhag: method of excitation ra types of DC motor.',
-      voice: 'सिलेबसको पहिलो भाग — मेथड अफ एक्साइटेसन, र टाइप्स अफ डीसी मोटर।',
+      voice: 'सिलेबसको पहिलो भाग — मेथड अफ एक्साइटेसन, र टाइप्स अफ डी सी मोटर।',
       lines: [['step', <><H>1. Method of excitation</H>separately excited, shunt, series, compound</>]],
     },
     {
@@ -102,7 +102,7 @@ export const types42 = duo('Excitation ra DC motor ka types', {
   lecturer: [
     {
       say: 'Excitation: field winding lai current dine tarika. Separately excited motor ma field winding chhuttai DC source V f bata excite huncha.',
-      voice: 'एक्साइटेसन — फिल्ड वाइन्डिङलाई करेन्ट दिने तरिका। सेपरेटली एक्साइटेड मोटरमा, फिल्ड वाइन्डिङ छुट्टै डीसी सोर्स भी एफबाट एक्साइट हुन्छ।',
+      voice: 'एक्साइटेसन — फिल्ड वाइन्डिङलाई करेन्ट दिने तरिका। सेपरेटली एक्साइटेड मोटरमा, फिल्ड वाइन्डिङ छुट्टै डी सी सोर्स भी एफबाट एक्साइट हुन्छ।',
       lines: [['h', <>Methods of excitation (Fig. 2)</>], ['step', <><Pts items={[<>(a) Separately excited: field fed from a separate DC source V<sub>f</sub></>]} /></>]],
     },
     {
@@ -402,7 +402,7 @@ export const charsAnswer42 = answer('Model answer: shunt ra series characteristi
   q: 'Explain the torque–armature current and speed–torque characteristics of DC shunt and DC series motors.',
   read: {
     say: 'IOE 2070 Magh, aath marks: explain the torque–armature current and speed–torque characteristics of DC shunt and DC series motors. Shunt char marks, series char marks.',
-    voice: 'आइओई दुई हजार सत्तरी माघ, आठ मार्क्स — एक्सप्लेन द टर्क आर्मेचर करेन्ट एन्ड स्पिड टर्क क्यारेक्टरिस्टिक्स अफ डीसी शन्ट एन्ड डीसी सिरिज मोटर्स। शन्ट चार मार्क्स, सिरिज चार मार्क्स।',
+    voice: 'आई ओ ई दुई हजार सत्तरी माघ, आठ मार्क्स — एक्सप्लेन द टर्क आर्मेचर करेन्ट एन्ड स्पिड टर्क क्यारेक्टरिस्टिक्स अफ डी सी शन्ट एन्ड डी सी सिरिज मोटर्स। शन्ट चार मार्क्स, सिरिज चार मार्क्स।',
   },
   points: [
     {
@@ -444,7 +444,7 @@ export const noLoad42 = answer('Model answer: series motor lai load bina kina st
   q: 'Why should a DC series motor never be started without load?',
   read: {
     say: 'IOE ma tin choti sodhiyeko: why should a DC series motor never be started without load?',
-    voice: 'आइओईमा तीन चोटि सोधिएको — ह्वाई सुड अ डीसी सिरिज मोटर नेभर बी स्टार्टेड विदाउट लोड?',
+    voice: 'आई ओ ईमा तीन चोटि सोधिएको — ह्वाई सुड अ डी सी सिरिज मोटर नेभर बी स्टार्टेड विदाउट लोड?',
   },
   points: [
     {
@@ -478,7 +478,7 @@ export const seriesSolve42 = answer('IOE 2069 Bhadra: series motor ko current', 
   q: 'A 220 V series motor, Ra = 0.06 Ω, Rse = 0.04 Ω, takes 25 A at 1200 rpm. Find the current at 800 rpm (unsaturated field).',
   read: {
     say: 'IOE 2069 Bhadra ra 2066 Magh, aath marks: 220 volt series motor, R a 0.06 ohm, R se 0.04 ohm, 25 ampere ma 1200 rpm. 800 rpm ma current kati?',
-    voice: 'आइओई दुई हजार उनान्सत्तरी भदौ र दुई हजार छयासठ्ठी माघ, आठ मार्क्स — टु ट्वेन्टी भोल्ट सिरिज मोटर, आर ए जिरो पोइन्ट जिरो सिक्स ओम, आर एस ई जिरो पोइन्ट जिरो फोर ओम, ट्वेन्टी फाइभ एम्पियरमा ट्वेल्भ हन्ड्रेड आर पी एम। एट हन्ड्रेड आर पी एममा करेन्ट कति?',
+    voice: 'आई ओ ई दुई हजार उनान्सत्तरी भदौ र दुई हजार छयासठ्ठी माघ, आठ मार्क्स — टु ट्वेन्टी भोल्ट सिरिज मोटर, आर ए जिरो पोइन्ट जिरो सिक्स ओम, आर एस ई जिरो पोइन्ट जिरो फोर ओम, ट्वेन्टी फाइभ एम्पियरमा ट्वेल्भ हन्ड्रेड आर पी एम। एट हन्ड्रेड आर पी एममा करेन्ट कति?',
   },
   points: [
     {

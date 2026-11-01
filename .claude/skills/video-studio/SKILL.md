@@ -1,14 +1,24 @@
 ---
 name: video-studio
-description: The complete studio for the DC Motors video course in one skill. When the user names a topic ("generate 4.3", "make speed control ready", "do topic X"), it builds the whole topic game-ready by following references/topic-recipe.md, with every segment, every video outside Big picture in both teaching roles (Tutor and Lecturer), a Big picture of real past IOE questions taught by the Lecturer, lint and the topic gate. It also covers scripting (beats, board, questions, Gen-Z Nepali), voice and audio (ElevenLabs whole takes, credits, clip cutting), visuals (2.5D kit, doodles, graphs), animation (scene clock, cues, camera, 3D), the player and unit path, MP4 rendering and QA. Use it for any task that creates, edits, reviews, voices, animates or renders a video or lesson, and keep it updated with every rule the user sets.
+description: The complete studio for the DC Motors video course in one skill. When the user names a topic ("generate 4.3", "make speed control ready", "do topic X"), it builds the whole topic game-ready by following references/topic-recipe.md, with three segments (Basic Understanding: one minute of 3D intuition with no maths, references/basic-understanding.md; Syllabus Content; Model Answer of real past IOE questions taught by the Lecturer), every video outside Model Answer in both teaching roles (Tutor and Lecturer), lint and the topic gate. It also covers scripting (beats, board, questions, Gen-Z Nepali), voice and audio (ElevenLabs whole takes, credits, clip cutting), visuals (2.5D kit, doodles, graphs), animation (scene clock, cues, camera, 3D), the player and unit path, MP4 rendering and QA. Use it for any task that creates, edits, reviews, voices, animates or renders a video or lesson, and keep it updated with every rule the user sets.
 ---
 
 # Video studio
 
 The DC Motors course (IOE Electrical Machines, Unit 4) is one video-first
-journey: six micro-topics, 4.1 to 4.6, of about 5 minutes each. Each topic is
-built from self-playing whiteboard videos with a Devanagari voice, roman
-captions and questions inside the video. This skill is the single home for
+journey: six micro-topics, 4.1 to 4.6. Each topic is three segments of
+self-playing videos with a Devanagari voice, roman captions and questions
+inside the video:
+
+| Segment | Shown as | What | Reference |
+|---|---|---|---|
+| 1/3 | **Basic Understanding** | ONE video, ~60 s (75 s max), 3D motor tour, no maths: what each part is and does, like for a kid | [references/basic-understanding.md](references/basic-understanding.md) |
+| 2/3 | **Syllabus Content** | every syllabus bullet with its maths: definitions and working first, then each derivation | scripting.md |
+| 3/3 | **Model Answer** | the real past IOE questions as textbook answers, Lecturer only | pov-lecturer |
+
+(Segment names: user, 2026-11-01. Older text and code comments may still say
+Terms / Derivation / Big picture for segments 1 / 2 / 3; the code keys are
+`terms`, `derive`, `picture`.) This skill is the single home for
 **every** rule and procedure behind those videos. **It is never finished:
 every task ends by updating it (see "Keep this skill alive").**
 
@@ -16,7 +26,7 @@ every task ends by updating it (see "Keep this skill alive").**
 
 When the user names a topic, do the whole thing, not a step:
 1. `node .claude/skills/video-studio/scripts/topic.mjs <num>` prints the brief (syllabus, derivations, past questions from `references/topics.json`) and every gap.
-2. Follow **[references/topic-recipe.md](references/topic-recipe.md)** from step 0 to step 7: plan, native scripts, both roles (Tutor, Lecturer), visuals, verify, voice (estimate only, record on yes), finish.
+2. Follow **[references/topic-recipe.md](references/topic-recipe.md)** from step 0 to step 7: plan, Basic Understanding ([references/basic-understanding.md](references/basic-understanding.md)), native scripts, both roles (Tutor, Lecturer), visuals, verify, voice (only 4.1 is voiced; estimate, record on yes), finish.
 3. It is done only when `topic.mjs <num> --check` exits 0, lint has 0 errors, you have looked at the frame strips (native and per role), and it is committed and pushed. Then report.
 
 The recipe's "Flexibility" table covers partial requests (one segment, one role, with or without audio, a new role, another unit).
@@ -40,6 +50,7 @@ clips.
 | Task | Read |
 |---|---|
 | **Generate a whole topic** (the one-command path) | [references/topic-recipe.md](references/topic-recipe.md) + `scripts/topic.mjs` + [references/topics.json](references/topics.json) |
+| **Segment 1, Basic Understanding** (the 3D motor tour, kid-level, one minute) | [references/basic-understanding.md](references/basic-understanding.md) |
 | Write or edit a video, a topic, a question, a caption or a voice line | [references/scripting.md](references/scripting.md) |
 | Record voice, credits, clip problems, audio evenness | [references/voice-audio.md](references/voice-audio.md) |
 | Drawings, kit parts, doodles, graphs, board text, 2.5D look | [references/visuals.md](references/visuals.md) |
@@ -67,7 +78,7 @@ Registry and voice settings: `src/content/pov.js`. Write a Terms or Derivation v
 ## Non-negotiables (break none, ever)
 
 1. **Gen-Z Nepali.** Roman Nepali on screen (`say`, board, questions), Devanagari in `voice`. Technical terms, numbers, formulas and real IOE question text stay in English (rule 1).
-2. **Credits are the user's.** Never record without a character estimate and the user's yes. Only approved topics get recorded (so far 4.1 and 4.2). The dev server never records unless `TTS_LIVE=1` is set (rules 25–26).
+2. **Credits are the user's.** Never record without a character estimate and the user's yes. **Only 4.1 is voiced** (user, 2026-11-01: "only 4.1 will have audio, other will not"); every other topic stays caption-only (rule 38). The dev server never records unless `TTS_LIVE=1` is set (rules 25–26).
 3. **One long take per segment and teller** (Terms and Derivation for the Tutor and the Lecturer, Big picture for the Lecturer), never per video or line by line (rule 27).
 4. **One clock.** All motion runs on the scene clock, never on wall time (M1).
 5. **Teach before test.** A question only asks what an earlier beat taught, and it stands on its own (rules 9–10).
@@ -78,7 +89,9 @@ Registry and voice settings: `src/content/pov.js`. Write a Terms or Derivation v
 11. **Exam = textbook answer.** Big-picture answers read like the Indian textbook page students will write: Q., underlined headings, "Let,", numbered equations, ∴, boxed result, "Hence proved" (rule 41, `pov-lecturer`).
 13. **Same material, different explanation; Big picture is always the past questions, taught by the Lecturer.** Every role covers the native script's content; Big picture has no role versions, opens with the real IOE question, and the viewer may only switch the Lecturer's White/Blue theme (rule 44).
 12. **Don't sound repetitive.** Vary connectors from the role's phrase bank; none more than twice per video (rule 42).
-10. **Playful Terms, bookish Derivation and Big picture.** Segment 1 (Terms) is playful: 3D objects and real-life examples an 8th-grader knows (a ceiling fan, a mixer, a bicycle), not a textbook page; rule 7. Segments 2 and 3 are the textbook form: board text left, book figure right, point-wise lines (`Pts`), one "=" per row (rules 30, 33, 35, 48–50). All segments: Poppins, Blue (default) or White, and never emoji or cartoon faces.
+10. **Basic Understanding is one minute of intuition; Syllabus Content and Model Answer are bookish.** Segment 1 is ONE video (~60 s, 75 s max), a 3D tour of the motor (`motorTour` in `unit4/basics3d.js`) told like for a kid: what each part is and does, everyday comparisons, the surprise, **no maths and no symbols** (rule 7, [references/basic-understanding.md](references/basic-understanding.md)). Segments 2 and 3 are the textbook form: board text left, book figure right, point-wise lines (`Pts`), one "=" per row (rules 30, 33, 35, 48–50). All segments: Poppins, Blue (default) or White, and never emoji or cartoon faces.
+14. **Every short form gets its full form** the first time it appears in a video, on the board and in the caption: "EMF (Electro-Motive Force)". The player does it from `src/content/abbr.js` (rule 53); add new short forms there.
+15. **Short forms are spoken letter by letter.** In `voice`, write the letter names apart (`ई एम एफ`, `डी सी`, `एम एन ए`, `एन भी सी`); joined (`इएमएफ`) is read as one word ("imf"). Lint fails the joined spelling (rule 28c).
 
 ## Where things live
 
@@ -87,6 +100,8 @@ Registry and voice settings: `src/content/pov.js`. Write a Terms or Derivation v
 | Topic list, order, openers, extras | `src/content/topics.jsx` (assembled in `src/content/journey.jsx`) |
 | Authoring helpers (`video`, `overview`, `solve`, `answer`, `segments`, `extra`, SVG parts, palette `C`, `K` for KaTeX) | `src/content/video/kit.jsx` |
 | Unit 4 content (duo videos, answers) and book figures | `src/content/unit4/u41–u46.jsx`, `src/content/unit4/figs.jsx` |
+| Segment 1 Basic Understanding (one duo per topic) and its 3D motor tour | `src/content/unit4/basics.jsx`, `src/content/unit4/basics3d.js` (`motorTour(plan)`) |
+| Short forms → full forms + spoken spelling | `src/content/abbr.js` (player: `withAbbr`/`captionsOf` in `Scene.jsx`) |
 | Old doodles (extras only; never in the main path) | `src/content/video/doodles.jsx` |
 | Video bank | `src/content/video/ch1–ch9.jsx`, `vibe.jsx` (openers), `t41.jsx` (4.1 derivations, `step()` helper), `roles41.jsx` (every 4.1 video in every role: `addRoles`, `role()`), `picture.jsx` (big-picture answers, bookish figure helpers), `past.jsx`, `testing.jsx` |
 | POV registry (look, voice settings, auto per segment) | `src/content/pov.js`; skills `.claude/skills/pov-*` |
@@ -173,3 +188,7 @@ Every time the user corrects, prefers or praises something:
 - 2026-10-30: Non-negotiable 10 and rule 7 replaced (user: "the first segment can be playful like the 3d objects … real life examples for 8th grade kid … for segment 1 no need to be bookish"). Rule 51 (term labels under equations, automatic) and rule 52 (a soft tone after a question, no spoken "Sahi") added.
 - 2026-10-30: Rule 37 replaced (user: "each segment will have one video, chunked in the player like YouTube", "show any frame as the thumbnail", Big picture thumbnails blue): segments play as one video with chapters on the bar; playlist of segment cards with real stills.
 - 2026-10-30: Rule 37: chapters moved out of the sidebar into a panel inside the video, opened from the `2/4 ›` button on the bar (user: "only show if clicked … a little modal inside the video").
+- 2026-11-01: **Segments renamed and segment 1 rebuilt** (user feedback on 4.1: "section rename 1. Basic Understanding 2. Syllabus Content 3. Model Answer"; first section 3 min → 1 min, no maths, "like for a kid", explain armature, coil, commutator, starter visually). Every topic 4.1–4.6 now opens with ONE Basic Understanding `duo()` (45–69 s per telling) over `motorTour(plan)` (`unit4/basics3d.js`: one 3D motor whose parts are focused per beat; deterministic on the scene clock). Old Terms videos moved to the front of Syllabus Content, old openers to extras. New reference `references/basic-understanding.md` (the full recipe, parts and plan keys, example plans). Gate: one segment-1 video ≤ 75 s per telling; lint: no maths/symbols in segment 1.
+- 2026-11-01: **Short forms** (user: "DC (Direct Current), EMF (Electro-Motive Force) … MNA bujhiyena"): the player writes the full form the first time per video (rule 53, `src/content/abbr.js`). **Pronunciation** (user: "EMF lai imf bhandaixa"): the voice lines spelled short forms joined (`इएमएफ` ×50, `डीसी` ×43, `आइओई`, `एनभीसी`, `एमएनए`, `ओएलआर`, `आरपीएम`, `केभीएल`, `एसी`), which TTS reads as a word; all 165 rewritten letter by letter (rule 28c, lint error). This re-keys those lines: 4.1's recorded clips with them need a new take.
+- 2026-11-01: **Only 4.1 is voiced** (user). Other topics stay caption-only. fit-check no longer measures playlist thumbnails (false "label cut" on 3D videos).
+

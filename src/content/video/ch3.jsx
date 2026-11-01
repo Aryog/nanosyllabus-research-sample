@@ -87,7 +87,7 @@ export const torqueProduction3d = video(torqueProduction.title, { ...torqueBeats
 
 export const torqueFactors = video('Torque kasle decide garcha?', {
   beats: [
-    { say: 'IOE 2079 Jestha le yo pani sodhcha: produce bhaeko torque lai kun factor le affect garcha? Equation bata sidhai padha.', voice: 'आइओई टु थाउजेन्ड सेभेन्टी नाइन जेठले यो पनि सोध्छ: प्रोड्युस भएको टर्कलाई कुन फ्याक्टरले अफेक्ट गर्छ? इक्वेसनबाट सिधै पढ।' },
+    { say: 'IOE 2079 Jestha le yo pani sodhcha: produce bhaeko torque lai kun factor le affect garcha? Equation bata sidhai padha.', voice: 'आई ओ ई टु थाउजेन्ड सेभेन्टी नाइन जेठले यो पनि सोध्छ: प्रोड्युस भएको टर्कलाई कुन फ्याक्टरले अफेक्ट गर्छ? इक्वेसनबाट सिधै पढ।' },
     { say: 'Flux per pole, phi. Field current badhe flux badhcha, iron saturate nahunjel.', voice: 'फ्लक्स पर पोल, फाइ। फिल्ड करेन्ट बढे फ्लक्स बढ्छ, आइरन स्याचुरेट नहुन्जेल।' },
     { say: 'Armature current, I a. Yo load le set garcha: heavy load le dherai current tancha.', voice: 'आर्मेचर करेन्ट, आई ए। यो लोडले सेट गर्छ: हेभी लोडले धेरै करेन्ट तान्छ।' },
     { say: 'Ani design constant haru: conductor ko number Z, pole P, ra parallel path A. Machine banisakepachi yi fixed hunchan.', voice: 'अनि डिजाइन कन्स्टेन्ट हरु: कन्डक्टरको नम्बर जेड, पोल पी, र प्यारालल पाथ ए। मेसिन बनिसकेपछि यी फिक्स्ड हुन्छन्।' },

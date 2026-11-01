@@ -15,7 +15,7 @@ const smooth = (t) => t * t * (3 - 2 * t);
 const clamp = (t) => Math.max(0, Math.min(1, t));
 
 // Shared kit: materials, a camera-facing label, an arrow, the beat camera.
-function kit(THREE, scene) {
+export function kit(THREE, scene) {
   const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.45, metalness: 0.15, ...o });
   // White text with a dark edge, readable on the blue page and the white one.
   const label = (text, { color = '#ffffff', size = 0.5, italic = false } = {}) => {

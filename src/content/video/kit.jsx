@@ -140,19 +140,22 @@ export function answer(title, { papers, marks, q, read, points, draw, viewBox, v
 }
 
 /*
-  Every micro-topic is three video segments:
-    terms    Terms ra definitions: what the terms and symbols mean, shown with visuals
-    derive   Derivation: each video titled "Derivation: …"
-    picture  Big picture: an old IOE question and its solution (solve() or
+  Every micro-topic is three video segments (names: user, 2026-11-01):
+    terms    Basic Understanding: about one minute of intuition, no maths: what
+             each part is and does, shown in 3D (skill rule 7,
+             references/basic-understanding.md)
+    derive   Syllabus Content: every syllabus bullet with its maths, the
+             definitions and working first, then each "Derivation: …"
+    picture  Model Answer: an old IOE question and its solution (solve() or
              answer() videos, with a diagram or chart where the answer needs one)
   steps: segments({ terms: [...], derive: [...], picture: [...] })
   Each step gets a segment chip; segments 2 and 3 open with a short, silent
   title card. Segment 1 follows straight on from the topic card.
 */
 const SEGMENTS = [
-  ['terms', 'Terms ra definitions', '1/3 · Terms ra definitions'],
-  ['derive', 'Derivation', '2/3 · Derivation', '∫', 'Step by step derivation'],
-  ['picture', 'Big picture', '3/3 · Big picture', '★', 'Purano IOE question ra solution'],
+  ['terms', 'Basic Understanding', '1/3 · Basic Understanding'],
+  ['derive', 'Syllabus Content', '2/3 · Syllabus Content', '∫', 'Syllabus ko content ra derivation'],
+  ['picture', 'Model Answer', '3/3 · Model Answer', '★', 'Purano IOE question ra model answer'],
 ];
 
 export const segments = (parts) =>
@@ -353,7 +356,7 @@ export function Axes({ x = 40, y = 190, w = 290, h = 160, xLabel, yLabel }) {
     read: 'A 240 V DC shunt motor …',            // spoken while the question is read
     question: <>A <D>240 V</D> DC shunt motor …</>, // <D> marks the data to pick out
     paperVoice: 'टु थाउजेन्ड सेभेन्टी थ्री भदौ',   // optional, how the voice says the paper
-    readVoice: 'टु फोर्टी भोल्टको डीसी शन्ट मोटर …', // Devanagari of `read`, spoken
+    readVoice: 'टु फोर्टी भोल्टको डी सी शन्ट मोटर …', // Devanagari of `read`, spoken
     given: [{ node: <>V = 240 V</>, say: 'Supply 240 volt', voice: 'सप्लाई टु फोर्टी भोल्ट' }, …],
     find: { node: <>New speed N₂</>, say: 'Naya speed chahiyo.', voice: 'नयाँ स्पिड चाहियो।' },
     idea: { node: <>φ constant ⟹ N ∝ Eb</>, say: 'Shunt motor, flux fixed…', voice: '…' },
@@ -369,7 +372,7 @@ export const D = ({ children }) => <mark className="wb-data">{children}</mark>;
 export function solve({ title, paper, paperVoice, marks, read, readVoice, question, given, find, idea, steps, answer, trap }) {
   const line = (x) => ({ say: x.say, voice: x.voice });
   const beats = [
-    { say: `IOE ${paper} ko question. Bistarai padhau. ${read}`, voice: `आइओई ${paperVoice ?? paper} को क्वेस्चन। बिस्तारै पढौं। ${readVoice ?? read}` },
+    { say: `IOE ${paper} ko question. Bistarai padhau. ${read}`, voice: `आई ओ ई ${paperVoice ?? paper} को क्वेस्चन। बिस्तारै पढौं। ${readVoice ?? read}` },
     {
       say: `Aba data tipau. ${given.map((g) => g.say).join('. ')}.`,
       voice: `अब डाटा टिपौं। ${given.map((g) => g.voice ?? g.say).join('। ')}।`,

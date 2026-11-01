@@ -22,12 +22,12 @@ export const opener45 = duo('4.5 ma k padhne?', {
   tutor: [
     {
       say: 'Unit 4.5: DC motor ko speed control, ra direction kasari ulto garne.',
-      voice: 'युनिट फोर पोइन्ट फाइभ — डीसी मोटरको स्पिड कन्ट्रोल, र डाइरेक्सन कसरी उल्टो गर्ने।',
+      voice: 'युनिट फोर पोइन्ट फाइभ — डी सी मोटरको स्पिड कन्ट्रोल, र डाइरेक्सन कसरी उल्टो गर्ने।',
       lines: [['h', <>4.5</>], ['step', <>Speed control ra direction reverse</>]],
     },
     {
       say: 'DC motor ko thulo guna yahi ho: speed sajilai ra smooth tarika le milauna sakincha.',
-      voice: 'डीसी मोटरको ठूलो गुण यही हो — स्पिड सजिलै, र स्मुथ तरिकाले मिलाउन सकिन्छ।',
+      voice: 'डी सी मोटरको ठूलो गुण यही हो — स्पिड सजिलै, र स्मुथ तरिकाले मिलाउन सकिन्छ।',
       lines: [['step', <>1. Speed equation: what decides N</>]],
     },
     {
@@ -37,14 +37,14 @@ export const opener45 = duo('4.5 ma k padhne?', {
     },
     {
       say: 'Antim ma IOE ka duita question: shunt motor speed control ko theory, ra armature resistance ko numerical.',
-      voice: 'अन्तिममा, आइओईका दुईटा क्वेस्चन — शन्ट मोटर स्पिड कन्ट्रोलको थ्योरी, र आर्मेचर रेजिस्टेन्सको न्युमेरिकल।',
+      voice: 'अन्तिममा, आई ओ ईका दुईटा क्वेस्चन — शन्ट मोटर स्पिड कन्ट्रोलको थ्योरी, र आर्मेचर रेजिस्टेन्सको न्युमेरिकल।',
       lines: [['hook', <>IOE: shunt motor speed control [8] · armature resistance numerical [8]</>]],
     },
   ],
   lecturer: [
     {
       say: 'Unit 4.5: speed control of DC motors.',
-      voice: 'युनिट फोर पोइन्ट फाइभ — स्पिड कन्ट्रोल अफ डीसी मोटर्स।',
+      voice: 'युनिट फोर पोइन्ट फाइभ — स्पिड कन्ट्रोल अफ डी सी मोटर्स।',
       lines: [['h', <>Unit 4.5</>], ['step', <>Speed control of DC motors</>]],
     },
     {
@@ -72,7 +72,7 @@ export const knobs45 = duo('Speed kun kura le decide garcha', {
   tutor: [
     {
       say: 'Back EMF E b, phi N sanga proportional cha. Tesaile ulto milauda N, E b over phi sanga proportional.',
-      voice: 'ब्याक इएमएफ ई बी, फाइ एनसँग प्रोपोर्सनल छ। त्यसैले उल्टो मिलाउँदा, एन, ई बी ओभर फाइसँग प्रोपोर्सनल।',
+      voice: 'ब्याक ई एम एफ ई बी, फाइ एनसँग प्रोपोर्सनल छ। त्यसैले उल्टो मिलाउँदा, एन, ई बी ओभर फाइसँग प्रोपोर्सनल।',
       lines: [['h', <>What decides the speed</>], ['step', tex(String.raw`\begin{aligned} E_b &\propto \phi N \\ \Rightarrow N &\propto \dfrac{E_b}{\phi} \end{aligned}`)]],
     },
     {
@@ -283,7 +283,7 @@ export const seriesRev45 = duo('Series motor ko speed control ra reversing', {
       lines: [['idea', <>Reversal: reverse armature or field current, not both</>]],
       ask: {
         q: 'Supply ko polarity nai ulto garyo bhane DC shunt motor ko direction ma k huncha?',
-        voice: 'सप्लाईको पोलारिटी नै उल्टो गर्‍यो भने, डीसी शन्ट मोटरको डाइरेक्सनमा के हुन्छ?',
+        voice: 'सप्लाईको पोलारिटी नै उल्टो गर्‍यो भने, डी सी शन्ट मोटरको डाइरेक्सनमा के हुन्छ?',
         options: ['Badlindaina', 'Ulto huncha', 'Motor rokincha'],
         answer: 0,
         why: 'Field ra armature dubai ko current ulto huncha; F ∝ B I ma dubai ulto bhaye direction utti nai.',
@@ -312,7 +312,7 @@ export const seriesRev45 = duo('Series motor ko speed control ra reversing', {
       lines: [['step', <><Pts items={[<>Reversal: reverse either the armature or the field current, not both</>]} /></>]],
       ask: {
         q: 'DC motor ko rotation reverse garna k garnu parcha?',
-        voice: 'डीसी मोटरको रोटेसन रिभर्स गर्न के गर्नुपर्छ?',
+        voice: 'डी सी मोटरको रोटेसन रिभर्स गर्न के गर्नुपर्छ?',
         options: ['Armature wa field madhye euta ko current reverse', 'Dubai ko current reverse', 'Supply voltage ghatau'],
         answer: 0,
         why: 'Euta matra reverse garda force ulto huncha; dubai garda force utti nai.',
@@ -328,7 +328,7 @@ export const speedEq45 = duo('Derivation: speed equation ra speed ratio', {
   tutor: [
     {
       say: 'Back EMF equation bata suru garau: E b equals P phi Z N over sixty A. Yaslai N ko lagi milaunchau.',
-      voice: 'ब्याक इएमएफ इक्वेसनबाट सुरु गरौं — ई बी इक्वल्स पी फाइ जेड एन ओभर सिक्स्टी ए। यसलाई एनको लागि मिलाउँछौं।',
+      voice: 'ब्याक ई एम एफ इक्वेसनबाट सुरु गरौं — ई बी इक्वल्स पी फाइ जेड एन ओभर सिक्स्टी ए। यसलाई एनको लागि मिलाउँछौं।',
       lines: [['h', <>Speed equation</>], ['step', tex(String.raw`\begin{aligned} E_b &= \dfrac{P\phi Z N}{60A} \\ \Rightarrow N &= \dfrac{60A}{PZ} \cdot \dfrac{E_b}{\phi} \end{aligned}`)]],
     },
     {
@@ -357,7 +357,7 @@ export const speedEq45 = duo('Derivation: speed equation ra speed ratio', {
   lecturer: [
     {
       say: 'From the EMF equation, N equals sixty A over P Z, times E b over phi.',
-      voice: 'फ्रम द इएमएफ इक्वेसन — एन इक्वल्स, सिक्स्टी ए ओभर पी जेड, टाइम्स ई बी ओभर फाइ।',
+      voice: 'फ्रम द ई एम एफ इक्वेसन — एन इक्वल्स, सिक्स्टी ए ओभर पी जेड, टाइम्स ई बी ओभर फाइ।',
       lines: [['h', <>Speed equation</>], ['step', <><K>{String.raw`\begin{aligned} E_b &= \dfrac{P\phi Z N}{60A} && \cdots(1) \\ N &= \dfrac{60A}{PZ}\cdot\dfrac{E_b}{\phi} && \cdots(2) \end{aligned}`}</K></>]],
     },
     {
@@ -394,7 +394,7 @@ export const shuntControl45 = answer('Model answer: shunt motor ko speed control
   q: 'Explain the methods of speed control of a DC shunt motor (armature control and field control).',
   read: {
     say: 'IOE ma tin choti sodhiyeko, aath marks: explain the methods of speed control of a DC shunt motor. Field control char marks, armature control char marks.',
-    voice: 'आइओईमा तीन चोटि सोधिएको, आठ मार्क्स — एक्सप्लेन द मेथड्स अफ स्पिड कन्ट्रोल अफ अ डीसी शन्ट मोटर। फिल्ड कन्ट्रोल चार मार्क्स, आर्मेचर कन्ट्रोल चार मार्क्स।',
+    voice: 'आई ओ ईमा तीन चोटि सोधिएको, आठ मार्क्स — एक्सप्लेन द मेथड्स अफ स्पिड कन्ट्रोल अफ अ डी सी शन्ट मोटर। फिल्ड कन्ट्रोल चार मार्क्स, आर्मेचर कन्ट्रोल चार मार्क्स।',
   },
   points: [
     {
@@ -434,7 +434,7 @@ export const armatureR45 = answer('IOE 2072 Ashwin: armature resistance for 800 
   q: 'A 200 V shunt motor driving a constant-torque load takes 50 A at 1000 rpm. Ra = 0.1 Ω, Rsh = 100 Ω. Find the resistance to be added in the armature circuit to reduce the speed to 800 rpm.',
   read: {
     say: 'IOE 2072 Ashwin, aath marks: 200 volt shunt motor, constant torque load, 1000 rpm ma 50 ampere. R a 0.1 ohm, R sh 100 ohm. 800 rpm ko lagi armature ma kati resistance thapne?',
-    voice: 'आइओई दुई हजार बहत्तर असोज, आठ मार्क्स — टु हन्ड्रेड भोल्ट शन्ट मोटर, कन्स्टेन्ट टर्क लोड, थाउजेन्ड आर पी एममा फिफ्टी एम्पियर। आर ए जिरो पोइन्ट वान ओम, आर एस एच वान हन्ड्रेड ओम। एट हन्ड्रेड आर पी एमको लागि, आर्मेचरमा कति रेजिस्टेन्स थप्ने?',
+    voice: 'आई ओ ई दुई हजार बहत्तर असोज, आठ मार्क्स — टु हन्ड्रेड भोल्ट शन्ट मोटर, कन्स्टेन्ट टर्क लोड, थाउजेन्ड आर पी एममा फिफ्टी एम्पियर। आर ए जिरो पोइन्ट वान ओम, आर एस एच वान हन्ड्रेड ओम। एट हन्ड्रेड आर पी एमको लागि, आर्मेचरमा कति रेजिस्टेन्स थप्ने?',
   },
   points: [
     {

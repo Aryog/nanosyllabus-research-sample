@@ -113,11 +113,11 @@ export const fleming = video('Kun tira? Fleming ko left-hand rule', {
     { say: 'Field wa current, euta matra reverse gara, force reverse huncha. Duitai reverse gara bhane force pahila kai direction ma farkincha.', voice: 'फिल्ड वा करेन्ट, एउटा मात्र रिभर्स गर, फोर्स रिभर्स हुन्छ। दुवै रिभर्स गर भने फोर्स पहिलाकै डाइरेक्सनमा फर्किन्छ।' },
     {
       say: 'Yahi idea IOE paper ma exactly sodhincha, bro.',
-      voice: 'यही आइडिया आइओई पेपरमा एक्ज्याक्ट्ली सोधिन्छ, ब्रो।',
+      voice: 'यही आइडिया आई ओ ई पेपरमा एक्ज्याक्ट्ली सोधिन्छ, ब्रो।',
       ask: {
         tag: 'IOE 2073 Chaitra · 2069 Bhadra',
         q: '“Explain the working principle of a DC motor.” Tyo principle kun statement ho?',
-        voice: 'एक्सप्लेन द वर्किङ प्रिन्सिपल अफ अ डीसी मोटर। त्यो प्रिन्सिपल कुन स्टेटमेन्ट हो?',
+        voice: 'एक्सप्लेन द वर्किङ प्रिन्सिपल अफ अ डी सी मोटर। त्यो प्रिन्सिपल कुन स्टेटमेन्ट हो?',
         options: [
           'Magnetic field ma rakheko current-carrying conductor le mechanical force experience garcha',
           'Magnetic field ma chaleko conductor ma EMF induce huncha',

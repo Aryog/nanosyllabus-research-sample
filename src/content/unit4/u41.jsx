@@ -37,12 +37,12 @@ export const opener41 = duo('4.1 ma k padhne?', {
     },
     {
       say: '4.1 ma tin kura: conductor le force kina paucha, tyo force le torque kasari banaucha, ra ghumda banne back EMF.',
-      voice: 'फोर पोइन्ट वानमा तीन कुरा — कन्डक्टरले फोर्स किन पाउँछ, त्यो फोर्सले टर्क कसरी बनाउँछ, र घुम्दा बन्ने ब्याक इएमएफ।',
+      voice: 'फोर पोइन्ट वानमा तीन कुरा — कन्डक्टरले फोर्स किन पाउँछ, त्यो फोर्सले टर्क कसरी बनाउँछ, र घुम्दा बन्ने ब्याक ई एम एफ।',
       lines: [['step', <Pts items={[<>Force: <K>{String.raw`F = BIl`}</K></>, <>Torque: T<sub>a</sub></>, <>Back EMF: E<sub>b</sub></>]} />]],
     },
     {
       say: 'IOE ma torque equation ra back EMF, dubai tin-tin choti sodhiyeka chan. Suru garau.',
-      voice: 'आइओईमा टर्क इक्वेसन र ब्याक इएमएफ, दुवै तीन-तीन चोटि सोधिएका छन्। सुरु गरौं।',
+      voice: 'आई ओ ईमा टर्क इक्वेसन र ब्याक ई एम एफ, दुवै तीन-तीन चोटि सोधिएका छन्। सुरु गरौं।',
       lines: [['hook', <>IOE: torque equation [4 + 2] · back EMF [2 + 4], each asked 3 times</>]],
     },
   ],
@@ -59,7 +59,7 @@ export const opener41 = duo('4.1 ma k padhne?', {
     },
     {
       say: 'Syllabus: working principle, back EMF ko expression ra significance, ani torque equation.',
-      voice: 'सिलेबस — वर्किङ प्रिन्सिपल, ब्याक इएमएफको एक्स्प्रेसन र सिग्निफिकेन्स, अनि टर्क इक्वेसन।',
+      voice: 'सिलेबस — वर्किङ प्रिन्सिपल, ब्याक ई एम एफको एक्स्प्रेसन र सिग्निफिकेन्स, अनि टर्क इक्वेसन।',
       lines: [['step', <Pts items={[<>Working principle</>, <>Back EMF: expression and significance</>, <>Torque equation</>]} />]],
     },
     {
@@ -119,7 +119,7 @@ export const principle41 = duo('Working principle: F = BIl', {
       lines: [['step', <><i>When a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force.</i></>]],
       ask: {
         q: 'DC motor ko working principle kun ho?',
-        voice: 'डीसी मोटरको वर्किङ प्रिन्सिपल कुन हो?',
+        voice: 'डी सी मोटरको वर्किङ प्रिन्सिपल कुन हो?',
         options: ['Field ma current-carrying conductor le force paucha', 'Ghumne conductor ma EMF induce huncha', 'Current le heat banaucha'],
         answer: 0,
         why: 'Motor ma force principle; EMF induce hune principle generator ko ho.',
@@ -186,7 +186,7 @@ export const torque41 = duo('Unidirectional torque ra commutator', {
     },
     {
       say: 'DC supply dida N pole muni ka conductor ma current inward ra S pole muni ka ma outward huncha.',
-      voice: 'डीसी सप्लाई दिँदा, एन पोलमुनिका कन्डक्टरमा करेन्ट इनवार्ड, र एस पोलमुनिकामा आउटवार्ड हुन्छ।',
+      voice: 'डी सी सप्लाई दिँदा, एन पोलमुनिका कन्डक्टरमा करेन्ट इनवार्ड, र एस पोलमुनिकामा आउटवार्ड हुन्छ।',
       lines: [['step', <>Conductors under N carry current inward (⊗), those under S outward (⊙).</>]],
     },
     {
@@ -213,7 +213,7 @@ export const torque41 = duo('Unidirectional torque ra commutator', {
     },
     {
       say: 'Coil MNA cross garda commutator le tesko current reverse garcha. Phalswarup torque unidirectional rahancha.',
-      voice: 'कोइल एमएनए क्रस गर्दा, कम्युटेटरले त्यसको करेन्ट रिभर्स गर्छ। फलस्वरूप, टर्क युनिडाइरेक्सनल रहन्छ।',
+      voice: 'कोइल एम एन ए क्रस गर्दा, कम्युटेटरले त्यसको करेन्ट रिभर्स गर्छ। फलस्वरूप, टर्क युनिडाइरेक्सनल रहन्छ।',
       lines: [['step', <><H>Function of commutator</H>As a coil crosses the MNA its current is reversed by the commutator; hence the torque is unidirectional.</>]],
     },
   ],
@@ -233,11 +233,11 @@ export const backEmf41 = duo('Back EMF ra yesko significance', {
     },
     {
       say: 'Motor ghumna thalepachi aafai sano generator banchha: conductor le flux kaatcha ra EMF induce huncha. Lenz ko law anusar yo V ko ulto huncha: yahi back EMF E b.',
-      voice: 'मोटर घुम्न थालेपछि, आफैं सानो जेनेरेटर बन्छ — कन्डक्टरले फ्लक्स काट्छ, र इएमएफ इन्ड्युस हुन्छ। लेन्जको ल अनुसार, यो भीको उल्टो हुन्छ — यही ब्याक इएमएफ ई बी।',
+      voice: 'मोटर घुम्न थालेपछि, आफैं सानो जेनेरेटर बन्छ — कन्डक्टरले फ्लक्स काट्छ, र ई एम एफ इन्ड्युस हुन्छ। लेन्जको ल अनुसार, यो भीको उल्टो हुन्छ — यही ब्याक ई एम एफ ई बी।',
       lines: [['step', <>Spinning motor = small generator → EMF against V (Lenz) = <b>back EMF E<sub>b</sub></b></>], ['eq', tex(String.raw`E_b = \dfrac{P\phi Z N}{60A}`)]],
       ask: {
         q: 'Back EMF le supply voltage lai k garcha?',
-        voice: 'ब्याक इएमएफले सप्लाई भोल्टेजलाई के गर्छ?',
+        voice: 'ब्याक ई एम एफले सप्लाई भोल्टेजलाई के गर्छ?',
         options: ['Oppose garcha', 'Jodcha (add garcha)', 'Kei pani gardaina'],
         answer: 0,
         why: 'Lenz ko law: induced EMF le aafulai banaune karan (supply bata aayeko current) lai oppose garcha.',
@@ -255,7 +255,7 @@ export const backEmf41 = duo('Back EMF ra yesko significance', {
     },
     {
       say: 'E b times I a nai mechanical power ma badalincha: P m equals E b I a. Back EMF bina electrical power mechanical ma convert hudaina.',
-      voice: 'ई बी टाइम्स आई ए नै मेकानिकल पावरमा बदलिन्छ — पी एम इक्वल्स ई बी आई ए। ब्याक इएमएफ बिना, इलेक्ट्रिकल पावर मेकानिकलमा कन्भर्ट हुँदैन।',
+      voice: 'ई बी टाइम्स आई ए नै मेकानिकल पावरमा बदलिन्छ — पी एम इक्वल्स ई बी आई ए। ब्याक ई एम एफ बिना, इलेक्ट्रिकल पावर मेकानिकलमा कन्भर्ट हुँदैन।',
       lines: [['eq', tex(String.raw`P_m = E_b\,I_a`)]],
     },
     {
@@ -279,11 +279,11 @@ export const backEmf41 = duo('Back EMF ra yesko significance', {
     },
     {
       say: 'Definition: when the armature rotates, an EMF is induced in it which opposes the applied voltage. This EMF is called back EMF.',
-      voice: 'डेफिनेसन — ह्वेन द आर्मेचर रोटेट्स, एन इएमएफ इज इन्ड्युस्ड इन इट, ह्विच अपोजेज द एप्लाइड भोल्टेज। दिस इएमएफ इज कल्ड ब्याक इएमएफ।',
+      voice: 'डेफिनेसन — ह्वेन द आर्मेचर रोटेट्स, एन ई एम एफ इज इन्ड्युस्ड इन इट, ह्विच अपोजेज द एप्लाइड भोल्टेज। दिस ई एम एफ इज कल्ड ब्याक ई एम एफ।',
       lines: [['step', <><i>When the armature rotates, an EMF is induced in it which opposes the applied voltage (Lenz’s law); it is called the back EMF, E<sub>b</sub>.</i></>], ['eq', tex(String.raw`E_b = \dfrac{P\phi Z N}{60A}`)]],
       ask: {
         q: 'Back EMF ko direction kun law le dincha?',
-        voice: 'ब्याक इएमएफको डाइरेक्सन कुन लले दिन्छ?',
+        voice: 'ब्याक ई एम एफको डाइरेक्सन कुन लले दिन्छ?',
         options: ["Lenz's law", "Ohm's law", "Coulomb's law"],
         answer: 0,
         why: 'Lenz ko law: induced EMF le tyo EMF banaune karan lai oppose garcha.',
@@ -310,7 +310,7 @@ export const backEmf41 = duo('Back EMF ra yesko significance', {
       lines: [['step', <>(iv) At starting E<sub>b</sub> = 0, so <K>{String.raw`I_a = V/R_a`}</K> is very large; hence a starter is necessary.</>]],
       ask: {
         q: 'Start ma DC motor le kina dherai current lincha?',
-        voice: 'स्टार्टमा डीसी मोटरले किन धेरै करेन्ट लिन्छ?',
+        voice: 'स्टार्टमा डी सी मोटरले किन धेरै करेन्ट लिन्छ?',
         options: ['E b zero huncha ra R a sano huncha', 'Flux zero huncha', 'Supply voltage badhcha'],
         answer: 0,
         why: 'N = 0 bhayeko le E b = 0; I a = V/R a, R a sano bhayeko le thulo.',
@@ -329,7 +329,7 @@ export const torqueAnswer41 = answer('Model answer: working principle ra torque 
   q: 'Explain the working principle of a DC motor and derive the torque equation.',
   read: {
     say: 'IOE ma tin choti sodhiyeko question: explain the working principle of a DC motor and derive the torque equation. Pahilo bhag char marks, dosro dui marks.',
-    voice: 'आइओईमा तीन चोटि सोधिएको क्वेस्चन — एक्सप्लेन द वर्किङ प्रिन्सिपल अफ अ डीसी मोटर, एन्ड डेराइभ द टर्क इक्वेसन। पहिलो भाग चार मार्क्स, दोस्रो दुई मार्क्स।',
+    voice: 'आई ओ ईमा तीन चोटि सोधिएको क्वेस्चन — एक्सप्लेन द वर्किङ प्रिन्सिपल अफ अ डी सी मोटर, एन्ड डेराइभ द टर्क इक्वेसन। पहिलो भाग चार मार्क्स, दोस्रो दुई मार्क्स।',
   },
   points: [
     {
@@ -345,10 +345,10 @@ export const torqueAnswer41 = answer('Model answer: working principle ra torque 
     {
       node: <><H>Function of commutator</H><Pts items={[<>A coil crossing the MNA has its current reversed</>, <>∴ the torque is unidirectional</>]} /></>,
       say: 'Commutator: coil MNA cross garda tesko current reverse garcha. Tesaile torque unidirectional rahancha.',
-      voice: 'कम्युटेटर — कोइल एमएनए क्रस गर्दा, त्यसको करेन्ट रिभर्स गर्छ। त्यसैले, टर्क युनिडाइरेक्सनल रहन्छ।',
+      voice: 'कम्युटेटर — कोइल एम एन ए क्रस गर्दा, त्यसको करेन्ट रिभर्स गर्छ। त्यसैले, टर्क युनिडाइरेक्सनल रहन्छ।',
       ask: {
         q: 'DC motor ma commutator ko kaam k ho?',
-        voice: 'डीसी मोटरमा कम्युटेटरको काम के हो?',
+        voice: 'डी सी मोटरमा कम्युटेटरको काम के हो?',
         options: ['MNA ma coil ko current reverse garera torque ek tira rakhnu', 'Flux badhaunu', 'Supply voltage ghataunu'],
         answer: 0,
         why: 'MNA cross garda current reverse huncha, tesaile torque unidirectional rahancha.',
@@ -393,13 +393,13 @@ export const backEmfAnswer41 = answer('Model answer: back EMF ra yesko role', {
   q: 'What is back EMF? How does it play an important role in a DC motor?',
   read: {
     say: 'Arko question, yo pani tin choti sodhiyeko: what is back EMF, and how does it play an important role in a DC motor? Pahilo bhag dui marks, dosro char marks.',
-    voice: 'अर्को क्वेस्चन, यो पनि तीन चोटि सोधिएको — ह्वाट इज ब्याक इएमएफ, एन्ड हाउ डज इट प्ले एन इम्पोर्टेन्ट रोल इन अ डीसी मोटर? पहिलो भाग दुई मार्क्स, दोस्रो चार मार्क्स।',
+    voice: 'अर्को क्वेस्चन, यो पनि तीन चोटि सोधिएको — ह्वाट इज ब्याक ई एम एफ, एन्ड हाउ डज इट प्ले एन इम्पोर्टेन्ट रोल इन अ डी सी मोटर? पहिलो भाग दुई मार्क्स, दोस्रो चार मार्क्स।',
   },
   points: [
     {
       node: <><H>(a) Back EMF [2]</H><Pts items={[<>Rotating armature conductors cut the flux → an EMF is induced</>, <>By Lenz’s law it opposes the applied voltage V</>, <>It is called the back (counter) EMF, E<sub>b</sub></>]} /></>,
       say: 'Back EMF: armature ghumda conductor le flux cut garchan ra EMF induce huncha. Lenz ko law anusar yo V lai oppose garcha, tesaile back EMF E b bhanincha.',
-      voice: 'ब्याक इएमएफ — आर्मेचर घुम्दा कन्डक्टरले फ्लक्स कट गर्छन्, र इएमएफ इन्ड्युस हुन्छ। लेन्जको ल अनुसार, यो भीलाई अपोज गर्छ। त्यसैले, ब्याक इएमएफ ई बी भनिन्छ।',
+      voice: 'ब्याक ई एम एफ — आर्मेचर घुम्दा कन्डक्टरले फ्लक्स कट गर्छन्, र ई एम एफ इन्ड्युस हुन्छ। लेन्जको ल अनुसार, यो भीलाई अपोज गर्छ। त्यसैले, ब्याक ई एम एफ ई बी भनिन्छ।',
     },
     {
       node: <><H>Expression (Fig. 2)</H><K>{String.raw`\begin{aligned} E_b &= \dfrac{P\phi Z N}{60A} && \cdots(1) \\ V &= E_b + I_aR_a && \cdots(2) \\ \therefore\ I_a &= \dfrac{V - E_b}{R_a} && \cdots(3) \end{aligned}`}</K></>,
@@ -423,7 +423,7 @@ export const backEmfAnswer41 = answer('Model answer: back EMF ra yesko role', {
       voice: 'रोल थ्री, स्टार्टिङ — एन जिरो भएकोले ई बी जिरो, र आई ए इक्वल्स भी ओभर आर ए, धेरै ठूलो — जस्तै फोर हन्ड्रेड फोर्टी एम्पियर। त्यसैले, स्टार्टर चाहिन्छ।',
       ask: {
         q: 'DC motor lai starter kina chahincha?',
-        voice: 'डीसी मोटरलाई स्टार्टर किन चाहिन्छ?',
+        voice: 'डी सी मोटरलाई स्टार्टर किन चाहिन्छ?',
         options: ['Start ma Eb = 0 bhayera Ia = V/Ra dherai thulo huncha', 'Speed badhauna', 'Flux ghatauna'],
         answer: 0,
         why: 'N = 0 ma Eb = 0, tesaile Ia = V/Ra (220/0.5 = 440 A). Starter resistance le yo current limit garcha.',
@@ -432,7 +432,7 @@ export const backEmfAnswer41 = answer('Model answer: back EMF ra yesko role', {
     {
       node: <><Pts items={[<><b>(iv) Speed:</b> <K>{String.raw`N \propto \dfrac{E_b}{\phi}`}</K> → speed controlled by V, R<sub>a</sub> or φ</>]} /></>,
       say: 'Role char, speed: N, E b over phi sanga proportional. Back EMF le speed tokcha, tesaile V, R a wa phi badlera speed control garincha.',
-      voice: 'रोल फोर, स्पिड — एन, ई बी ओभर फाइसँग प्रोपोर्सनल। ब्याक इएमएफले स्पिड तोक्छ, त्यसैले भी, आर ए, वा फाइ बदलेर स्पिड कन्ट्रोल गरिन्छ।',
+      voice: 'रोल फोर, स्पिड — एन, ई बी ओभर फाइसँग प्रोपोर्सनल। ब्याक ई एम एफले स्पिड तोक्छ, त्यसैले भी, आर ए, वा फाइ बदलेर स्पिड कन्ट्रोल गरिन्छ।',
     },
   ],
 });

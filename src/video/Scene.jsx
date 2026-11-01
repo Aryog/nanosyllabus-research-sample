@@ -5,6 +5,7 @@ import { beatText, spoken, videoKey, voiceKey } from './voice.js';
 import { lookCss } from './looks.js';
 import { autoPov, povById, POVS } from '../content/pov.js';
 import { TERMS } from '../content/terms.js';
+import { expandText } from '../content/abbr.js';
 
 // The looks' ink repaint (looks.js), added to the page once.
 if (typeof document !== 'undefined' && !document.getElementById('scene-looks')) {
@@ -458,6 +459,33 @@ function termTokens(tex) {
   }
   return out;
 }
+/*
+  Full forms (rule 53): the first time a short form (src/content/abbr.js)
+  appears in a video it gets its full form in brackets, once in the captions
+  and once on the board, so "MNA" is never left unexplained. Maths and the
+  question card (the exact IOE wording) are left alone.
+*/
+function expandNode(n, seen) {
+  if (typeof n === 'string') return expandText(n, seen);
+  if (Array.isArray(n)) return n.map((c) => expandNode(c, seen));
+  if (!n || typeof n !== 'object' || !n.props || n.type?.isTex) return n;
+  const p = {};
+  if (n.props.children != null) p.children = expandNode(n.props.children, seen);
+  if (Array.isArray(n.props.items)) p.items = expandNode(n.props.items, seen);
+  return Object.keys(p).length ? cloneElement(n, p) : n;
+}
+function withAbbr(board) {
+  if (!board) return board;
+  const seen = new Set();
+  const order = board.map((b, i) => [b, i]).sort((x, y) => x[0].at - y[0].at || x[1] - y[1]);
+  const out = [...board];
+  for (const [b, i] of order) if (b.kind !== 'q') out[i] = { ...b, node: expandNode(b.node, seen) };
+  return out;
+}
+const captionsOf = (beats = []) => {
+  const seen = new Set();
+  return beats.map((b) => (b.say ? expandText(b.say, seen) : b.say));
+};
 const plainEq = (b) => b.kind === 'eq' && b.node?.type?.isTex && typeof b.node.props.children === 'string' && !/\\begin|&|\\\\/.test(b.node.props.children);
 // The board with its equations' symbols tagged, and the labels per line.
 function withTerms(board) {
@@ -604,7 +632,8 @@ export function Scene(props) {
 }
 
 function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chapters, chapter = 0, chapterBeats, onChapter, startAt = 0, onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, variants, povId, povChoice, povNative, povLocked, onPov, theme, onTheme, upcoming = [] }) {
-  const { board, notes: termNotes } = useMemo(() => withTerms(rawBoard), [rawBoard]);
+  const { board, notes: termNotes } = useMemo(() => withTerms(withAbbr(rawBoard)), [rawBoard]);
+  const captions = useMemo(() => captionsOf(beats), [beats]);
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [voice, setVoice] = useState(() => !isMuted() && 'speechSynthesis' in window);
@@ -1436,7 +1465,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
         )}
         {cc && (
           <div className="scene-caption" key={`${beat}-${run}`}>
-            {cur.say}
+            {captions[beat] ?? cur.say}
           </div>
         )}
       </div>

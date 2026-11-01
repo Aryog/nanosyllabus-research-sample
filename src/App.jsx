@@ -32,7 +32,7 @@ const UNIT = '/electrical-machines/dc-motor';
 // One node per micro-topic, spanning its main-path screens; inside it, where
 // each of its three segments starts and ends (segment 1 starts at the topic
 // card, 2 and 3 at their cards).
-const SEG = ['Terms', 'Derivation', 'Big picture'];
+const SEG = ['Basic Understanding', 'Syllabus Content', 'Model Answer'];
 const topicNodes = breaks.map((b, k) => {
   const end = (breaks[k + 1] ?? path.length) - 1;
   const cuts = [b, ...path.map((st, i) => (st.segmentBreak && i > b && i <= end ? i : -1)).filter((i) => i >= 0)];

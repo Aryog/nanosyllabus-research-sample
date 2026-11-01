@@ -23,7 +23,7 @@ function Rails({ xEnd = 320, gapFrom, gapTo }) {
 export const connections = video('Field le current kasari pauncha', {
   viewBox: '0 0 360 220',
   beats: [
-    { say: 'DC motor ko naam field winding le current kasari pauncha tyo anusar huncha. First, separately excited: field ko aafnai supply huncha, armature bata independent.', voice: 'डीसी मोटरको नाम फिल्ड वाइन्डिङले करेन्ट कसरी पाउँछ त्यो अनुसार हुन्छ। फर्स्ट, सेपरेटली एक्साइटेड: फिल्डको आफ्नै सप्लाई हुन्छ, आर्मेचरबाट इन्डिपेन्डेन्ट।' },
+    { say: 'DC motor ko naam field winding le current kasari pauncha tyo anusar huncha. First, separately excited: field ko aafnai supply huncha, armature bata independent.', voice: 'डी सी मोटरको नाम फिल्ड वाइन्डिङले करेन्ट कसरी पाउँछ त्यो अनुसार हुन्छ। फर्स्ट, सेपरेटली एक्साइटेड: फिल्डको आफ्नै सप्लाई हुन्छ, आर्मेचरबाट इन्डिपेन्डेन्ट।' },
     { say: 'Shunt motor: field armature sanga parallel ma connect huncha, sidhai supply across. Line current I a ra I sh ma split huncha.', voice: 'शन्ट मोटर: फिल्ड आर्मेचरसँग प्यारालल मा कनेक्ट हुन्छ, सिधै सप्लाई एक्रस। लाइन करेन्ट आई ए र आई एस एच मा स्प्लिट हुन्छ।' },
     {
       say: 'Shunt field full supply voltage across baseko huncha.',
@@ -130,7 +130,7 @@ export const connections = video('Field le current kasari pauncha', {
 
 export const equations = video('Euta connection, euta set equation', {
   beats: [
-    { say: 'Harek IOE numerical connection anusar ko sahi current ra voltage equation lekhera start huncha. Yo hera, ek ek type gardai.', voice: 'हरेक आइओई न्युमेरिकल कनेक्सन अनुसारको सही करेन्ट र भोल्टेज इक्वेसन लेखेर स्टार्ट हुन्छ। यो हेर, एक एक टाइप गर्दै।' },
+    { say: 'Harek IOE numerical connection anusar ko sahi current ra voltage equation lekhera start huncha. Yo hera, ek ek type gardai.', voice: 'हरेक आई ओ ई न्युमेरिकल कनेक्सन अनुसारको सही करेन्ट र भोल्टेज इक्वेसन लेखेर स्टार्ट हुन्छ। यो हेर, एक एक टाइप गर्दै।' },
     { say: 'Shunt: field current V over R sh. Line current I a plus I sh. Ani V equals E b plus I a R a.', voice: 'शन्ट: फिल्ड करेन्ट भी ओभर आर एस एच। लाइन करेन्ट आई ए प्लस आई एस एच। अनि भी इक्वल्स ई बी प्लस आई ए आर ए।' },
     { say: 'Series: jata pani eutai current bagcha, tesaile V equals E b plus I a times R a plus R se.', voice: 'सिरिज: जता पनि एउटै करेन्ट बग्छ, त्यसैले भी इक्वल्स ई बी प्लस आई ए टाइम्स आर ए प्लस आर एस ई।' },
     { say: 'Long shunt: series field le I a carry garcha. So V equals E b plus I a times R a plus R se, ani I L equals I a plus I sh.', voice: 'लङ शन्ट: सिरिज फिल्डले आई ए क्यारी गर्छ। सो भी इक्वल्स ई बी प्लस आई ए टाइम्स आर ए प्लस आर एस ई, अनि आई एल इक्वल्स आई ए प्लस आई एस एच।' },
@@ -141,7 +141,7 @@ export const equations = video('Euta connection, euta set equation', {
       ask: {
         tag: 'IOE 2071 Magh Q4(b)',
         q: 'Euta DC shunt motor le 230 V supply bata 60 A lincha. Rsh = 115 Ω. Armature current kati ho?',
-        voice: 'एउटा डीसी शन्ट मोटरले टु थर्टी भोल्ट सप्लाईबाट सिक्स्टी एम्पियर लिन्छ। आर एस एच इक्वल्स वान फिफ्टिन ओम। आर्मेचर करेन्ट कति हो?',
+        voice: 'एउटा डी सी शन्ट मोटरले टु थर्टी भोल्ट सप्लाईबाट सिक्स्टी एम्पियर लिन्छ। आर एस एच इक्वल्स वान फिफ्टिन ओम। आर्मेचर करेन्ट कति हो?',
         options: ['58 A', '60 A', '62 A', '2 A'],
         answer: 0,
         why: 'Ish = 230/115 = 2 A, ani “supply bata liyeko” 60 A chai line current ho, tesaile Ia = 60 − 2 = 58 A.',
@@ -167,7 +167,7 @@ export const shuntLoadSpeed = solve({
   paper: '2075 Baishakh',
   paperVoice: 'टु थाउजेन्ड सेभेन्टी फाइभ बैशाख',
   read: 'Euta 1.25 kilowatt, 250 volt ko DC shunt motor no load ma 1000 rpm ma ghumcha. Armature resistance 0.2 ohm, shunt field 250 ohm. Load halepachi 50 ampere tanda speed kati huncha, nikalnu cha.',
-  readVoice: 'एउटा वान पोइन्ट टु फाइभ किलोवाट, टु हन्ड्रेड फिफ्टी भोल्टको डीसी शन्ट मोटर नो लोडमा थाउजेन्ड आर पी एममा घुम्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट टु ओम, शन्ट फिल्ड टु हन्ड्रेड फिफ्टी ओम। लोड हालेपछि फिफ्टी एम्पियर तान्दा स्पिड कति हुन्छ, निकाल्नु छ।',
+  readVoice: 'एउटा वान पोइन्ट टु फाइभ किलोवाट, टु हन्ड्रेड फिफ्टी भोल्टको डी सी शन्ट मोटर नो लोडमा थाउजेन्ड आर पी एममा घुम्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट टु ओम, शन्ट फिल्ड टु हन्ड्रेड फिफ्टी ओम। लोड हालेपछि फिफ्टी एम्पियर तान्दा स्पिड कति हुन्छ, निकाल्नु छ।',
   question: <>A <D>1.25 kW</D>, <D>250 V</D> DC shunt motor on no load runs at <D>1000 rpm</D>. <D>Ra = 0.2 Ω</D>, <D>Rsh = 250 Ω</D>. Find its speed when loaded and drawing <D>50 A</D>. (The 1.25 kW is read as the no-load input.)</>,
   given: [
     { node: <>V = 250 V, Ra = 0.2 Ω, Rsh = 250 Ω</>, say: 'V 250 volt, Ra 0.2 ohm, Rsh 250 ohm', voice: 'भी टु हन्ड्रेड फिफ्टी भोल्ट, आर ए जिरो पोइन्ट टु ओम, आर एस एच टु हन्ड्रेड फिफ्टी ओम' },

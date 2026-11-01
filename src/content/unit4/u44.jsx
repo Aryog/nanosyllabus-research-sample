@@ -20,7 +20,7 @@ export const opener44 = duo('4.4 ma k padhne?', {
   tutor: [
     {
       say: 'Unit 4.4: DC motor ko starting, ra 3-point ra 4-point starter.',
-      voice: 'युनिट फोर पोइन्ट फोर — डीसी मोटरको स्टार्टिङ, र थ्री पोइन्ट र फोर पोइन्ट स्टार्टर।',
+      voice: 'युनिट फोर पोइन्ट फोर — डी सी मोटरको स्टार्टिङ, र थ्री पोइन्ट र फोर पोइन्ट स्टार्टर।',
       lines: [['h', <>4.4</>], ['step', <>Starting: 3-point ra 4-point starter</>]],
     },
     {
@@ -35,14 +35,14 @@ export const opener44 = duo('4.4 ma k padhne?', {
     },
     {
       say: 'Antim ma IOE ma saat choti aayeko question: necessity of starter ra 3-point starter ko working.',
-      voice: 'अन्तिममा, आइओईमा सात चोटि आएको क्वेस्चन — नेसेसिटी अफ स्टार्टर, र थ्री पोइन्ट स्टार्टरको वर्किङ।',
+      voice: 'अन्तिममा, आई ओ ईमा सात चोटि आएको क्वेस्चन — नेसेसिटी अफ स्टार्टर, र थ्री पोइन्ट स्टार्टरको वर्किङ।',
       lines: [['hook', <>IOE: necessity of starter + 3-point starter [2 + 6], asked 7 times</>]],
     },
   ],
   lecturer: [
     {
       say: 'Unit 4.4: starting of DC motors, three-point and four-point starters.',
-      voice: 'युनिट फोर पोइन्ट फोर — स्टार्टिङ अफ डीसी मोटर्स, थ्री पोइन्ट एन्ड फोर पोइन्ट स्टार्टर्स।',
+      voice: 'युनिट फोर पोइन्ट फोर — स्टार्टिङ अफ डी सी मोटर्स, थ्री पोइन्ट एन्ड फोर पोइन्ट स्टार्टर्स।',
       lines: [['h', <>Unit 4.4</>], ['step', <>Starting of DC motors</>]],
     },
     {
@@ -108,7 +108,7 @@ export const need44 = duo('Derivation: starter kina chahincha', {
       lines: [['step', <><Pts items={[<>At starting N = 0, ∴ E<sub>b</sub> = 0 and <K>{String.raw`I_a = V/R_a`}</K></>]} /></>]],
       ask: {
         q: 'Start ma DC motor le kina dherai current lincha?',
-        voice: 'स्टार्टमा डीसी मोटरले किन धेरै करेन्ट लिन्छ?',
+        voice: 'स्टार्टमा डी सी मोटरले किन धेरै करेन्ट लिन्छ?',
         options: ['E b zero ra R a sano huncha', 'Flux zero huncha', 'Load thulo huncha'],
         answer: 0,
         why: 'N = 0 → E b = 0; R a sano bhayeko le V/R a thulo.',
@@ -348,7 +348,7 @@ export const starterAnswer44 = answer('Model answer: starter ko necessity ra 3-p
   q: 'What is the necessity of a starter? Explain the working of a 3-point starter with a neat diagram.',
   read: {
     say: 'IOE ma saat choti sodhiyeko: what is the necessity of a starter? Explain the working of a 3-point starter with a neat diagram. Necessity dui marks, starter cha marks.',
-    voice: 'आइओईमा सात चोटि सोधिएको — ह्वाट इज द नेसेसिटी अफ अ स्टार्टर? एक्सप्लेन द वर्किङ अफ अ थ्री पोइन्ट स्टार्टर विद अ निट डायग्राम। नेसेसिटी दुई मार्क्स, स्टार्टर छ मार्क्स।',
+    voice: 'आई ओ ईमा सात चोटि सोधिएको — ह्वाट इज द नेसेसिटी अफ अ स्टार्टर? एक्सप्लेन द वर्किङ अफ अ थ्री पोइन्ट स्टार्टर विद अ निट डायग्राम। नेसेसिटी दुई मार्क्स, स्टार्टर छ मार्क्स।',
   },
   points: [
     {

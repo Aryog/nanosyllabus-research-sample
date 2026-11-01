@@ -38,13 +38,13 @@ export const opener46 = duo('4.6 ma k padhne?', {
     {
       say: 'Antim ma Swinburne’s test ko exam-style model answer. Yo test ko past question vault ma chaina, tesaile kunai paper ko naam lindainau.',
       voice: 'अन्तिममा, स्विनबर्न्स टेस्टको एक्जाम स्टाइल मोडल आन्सर। यो टेस्टको पास्ट क्वेस्चन भल्टमा छैन, त्यसैले कुनै पेपरको नाम लिँदैनौं।',
-      lines: [['hook', <>Big picture: exam-style answer on Swinburne’s test (no past paper in the vault)</>]],
+      lines: [['hook', <>Model Answer: exam-style answer on Swinburne’s test (no past paper in the vault)</>]],
     },
   ],
   lecturer: [
     {
       say: 'Unit 4.6: testing of DC machines, Swinburne’s test and retardation test.',
-      voice: 'युनिट फोर पोइन्ट सिक्स — टेस्टिङ अफ डीसी मेसिन्स, स्विनबर्न्स टेस्ट एन्ड रिटार्डेसन टेस्ट।',
+      voice: 'युनिट फोर पोइन्ट सिक्स — टेस्टिङ अफ डी सी मेसिन्स, स्विनबर्न्स टेस्ट एन्ड रिटार्डेसन टेस्ट।',
       lines: [['h', <>Unit 4.6</>], ['step', <>Testing of DC machines</>]],
     },
     {
@@ -58,8 +58,8 @@ export const opener46 = duo('4.6 ma k padhne?', {
       lines: [['step', <><H>2. Tests</H>Swinburne’s (no-load) test, retardation test</>]],
     },
     {
-      say: 'Big picture ma Swinburne’s test ko exam-style answer.',
-      voice: 'बिग पिक्चरमा, स्विनबर्न्स टेस्टको एक्जाम स्टाइल आन्सर।',
+      say: 'Model Answer ma Swinburne’s test ko exam-style answer.',
+      voice: 'मोडल आन्सरमा, स्विनबर्न्स टेस्टको एक्जाम स्टाइल आन्सर।',
       lines: [['hook', <>Exam-style answer: Swinburne’s test</>]],
     },
   ],
@@ -115,7 +115,7 @@ export const why46 = duo('Testing kina: load bina losses', {
       lines: [['step', <><Pts items={[<>Indirect methods: losses are measured, efficiency is calculated</>]} /></>]],
       ask: {
         q: 'Thulo DC machine ko efficiency kun method le nikalincha?',
-        voice: 'ठूलो डीसी मेसिनको इफिसियन्सी कुन मेथडले निकालिन्छ?',
+        voice: 'ठूलो डी सी मेसिनको इफिसियन्सी कुन मेथडले निकालिन्छ?',
         options: ['Indirect method', 'Direct brake test', 'Kunai pani hoina'],
         answer: 0,
         why: 'Thulo machine ma direct test ma power khera jaancha; indirect method le losses matra napcha.',
@@ -394,7 +394,7 @@ export const swinAnswer46 = answer('Model answer: Swinburne’s test', {
   q: 'Describe Swinburne’s test for a DC shunt machine. How is the efficiency found from it? State its advantages and disadvantages.',
   read: {
     say: 'Exam-style question: describe Swinburne’s test for a DC shunt machine, efficiency kasari nikalne, ra advantages ra disadvantages.',
-    voice: 'एक्जाम स्टाइल क्वेस्चन — डिस्क्राइब स्विनबर्न्स टेस्ट फर अ डीसी शन्ट मेसिन, इफिसियन्सी कसरी निकाल्ने, र एडभान्टेजेस र डिसएडभान्टेजेस।',
+    voice: 'एक्जाम स्टाइल क्वेस्चन — डिस्क्राइब स्विनबर्न्स टेस्ट फर अ डी सी शन्ट मेसिन, इफिसियन्सी कसरी निकाल्ने, र एडभान्टेजेस र डिसएडभान्टेजेस।',
   },
   points: [
     {

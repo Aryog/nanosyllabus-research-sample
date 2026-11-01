@@ -55,11 +55,11 @@ export const vibe41 = video('DC motor hamro dherai najik cha', {
     </>
   ),
   beats: [
-    { say: 'Phone vibrate huda bhitra euta sano DC motor ghumcha. Fan, lift ra electric car ma pani yei principle cha.', voice: 'फोन भाइब्रेट हुँदा, भित्र एउटा सानो डीसी मोटर घुम्छ। फ्यान, लिफ्ट, र इलेक्ट्रिक कारमा पनि, यही प्रिन्सिपल छ।' },
+    { say: 'Phone vibrate huda bhitra euta sano DC motor ghumcha. Fan, lift ra electric car ma pani yei principle cha.', voice: 'फोन भाइब्रेट हुँदा, भित्र एउटा सानो डी सी मोटर घुम्छ। फ्यान, लिफ्ट, र इलेक्ट्रिक कारमा पनि, यही प्रिन्सिपल छ।' },
     { say: 'Magnetic field bhitra current bokeko taar rakhyo bhane, taar lai dhakka lagcha. Tyo dhakka nai force ho.', voice: 'म्याग्नेटिक फिल्ड भित्र, करेन्ट बोकेको तार राख्यो भने, तारलाई धक्का लाग्छ। त्यो धक्का नै — फोर्स हो।' },
     {
       say: 'Back EMF treadmill jastai: jati chhito daudincha, teti ulto push badhcha. Motor jati chhito ghumcha, current teti nai ghatcha.',
-      voice: 'ब्याक इएमएफ, ट्रेडमिल जस्तै हो। जति छिटो दौडिन्छ, त्यति उल्टो पुस बढ्छ। मोटर जति छिटो घुम्छ, करेन्ट त्यति नै घट्छ।',
+      voice: 'ब्याक ई एम एफ, ट्रेडमिल जस्तै हो। जति छिटो दौडिन्छ, त्यति उल्टो पुस बढ्छ। मोटर जति छिटो घुम्छ, करेन्ट त्यति नै घट्छ।',
       ask: { q: 'Motor ko speed badhda armature current ma k huncha?', voice: 'मोटरको स्पिड बढ्दा, आर्मेचर करेन्टमा के हुन्छ?', options: ['Ghatcha', 'Badhcha', 'Same rahancha'], answer: 0, why: 'Speed badhda back EMF (ulto push) badhcha, tesaile current ghatcha.' },
     },
   ],
@@ -132,7 +132,7 @@ export const vibe44 = video('Motor lai pani warm-up chahincha', {
   beats: [
     { say: 'Chiso jiu le sidhai sprint garyo bhane chot lagcha. Motor ko pani start ma current dherai thulo huncha.', voice: 'चिसो जिउले सिधै स्प्रिन्ट गर्यो भने चोट लाग्छ। मोटरको पनि स्टार्टमा करेन्ट धेरै ठूलो हुन्छ।' },
     { say: 'Starter le warm-up jastai kaam garcha: resistance bistarai hataudai, speed bistarai badhaucha.', voice: 'स्टार्टरले वार्म अप जस्तै काम गर्छ: रेजिस्टेन्स बिस्तारै हटाउँदै, स्पिड बिस्तारै बढाउँछ।' },
-    { say: 'Supply gayo bhane NVC le handle lai aafai OFF ma pharkaucha, jasle current feri aauda motor jhatka sanga start hudaina.', voice: 'सप्लाई गयो भने एनभीसीले ह्यान्डललाई आफै अफमा फर्काउँछ, जसले करेन्ट फेरि आउँदा मोटर झट्का सँग स्टार्ट हुँदैन।' },
+    { say: 'Supply gayo bhane NVC le handle lai aafai OFF ma pharkaucha, jasle current feri aauda motor jhatka sanga start hudaina.', voice: 'सप्लाई गयो भने एन भी सीले ह्यान्डललाई आफै अफमा फर्काउँछ, जसले करेन्ट फेरि आउँदा मोटर झट्का सँग स्टार्ट हुँदैन।' },
     check('Motor start garda starter le k garcha?', 'मोटर स्टार्ट गर्दा स्टार्टरले के गर्छ?', ['Field off garcha', 'Current lai bistarai badhauna dincha', 'Speed ekdam badhaucha'], 1, 'Starter le current bistarai badhauna dincha, warm-up jastai.'),
   ],
   board: [

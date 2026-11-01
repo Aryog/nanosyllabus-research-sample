@@ -16,7 +16,7 @@ export const pastQuestions = [
     paper: '2070 Bhadra',
     paperVoice: 'टु थाउजेन्ड सेभेन्टी भदौ',
     read: 'Terminal bich 1 ohm bhako DC series motor 250 volt ma 20 ampere lidai 1000 rpm ma ghumcha. Series ma 6 ohm thapda, uhi current lida, speed kati huncha?',
-    readVoice: 'टर्मिनल बीच वान ओम भएको डीसी सिरिज मोटर टु हन्ड्रेड फिफ्टी भोल्टमा ट्वेन्टी एम्पियर लिँदै थाउजेन्ड आर पी एममा घुम्छ। सिरिजमा सिक्स ओम थप्दा, उही करेन्ट लिँदा, स्पिड कति हुन्छ?',
+    readVoice: 'टर्मिनल बीच वान ओम भएको डी सी सिरिज मोटर टु हन्ड्रेड फिफ्टी भोल्टमा ट्वेन्टी एम्पियर लिँदै थाउजेन्ड आर पी एममा घुम्छ। सिरिजमा सिक्स ओम थप्दा, उही करेन्ट लिँदा, स्पिड कति हुन्छ?',
     question: <>A DC series motor of resistance <D>1 Ω</D> between terminals runs at <D>1000 rpm</D> at <D>250 V</D> with a current of <D>20 A</D>. Find its speed when connected in series with a <D>6 Ω</D> resistance, taking the same current.</>,
     given: [
       { node: <>V = 250 V, R = 1 Ω, I = 20 A, N₁ = 1000 rpm</>, say: '250 volt, 1 ohm, 20 ampere, 1000 rpm', voice: 'टु हन्ड्रेड फिफ्टी भोल्ट, वान ओम, ट्वेन्टी एम्पियर, थाउजेन्ड आर पी एम' },
@@ -44,7 +44,7 @@ export const pastQuestions = [
     paperVoice: 'टु थाउजेन्ड सेभेन्टी थ्री भदौ',
     marks: '8 marks',
     read: '240 volt ko DC shunt motor, armature resistance 0.4 ohm, field 120 ohm, 54 ampere tanda 1500 rpm ma ghumcha. Armature sanga series ma 0.1 ohm thapincha ra load torque 20 percent ghatcha. Naya speed nikala.',
-    readVoice: 'टु फोर्टी भोल्टको डीसी शन्ट मोटर, आर्मेचर रेजिस्टेन्स जिरो पोइन्ट फोर ओम, फिल्ड वान ट्वेन्टी ओम, फिफ्टी फोर एम्पियर तान्दा फिफ्टीन हन्ड्रेड आर पी एममा घुम्छ। आर्मेचरसँग सिरिजमा जिरो पोइन्ट वान ओम थपिन्छ र लोड टर्क ट्वेन्टी पर्सेन्ट घट्छ। नयाँ स्पिड निकाल।',
+    readVoice: 'टु फोर्टी भोल्टको डी सी शन्ट मोटर, आर्मेचर रेजिस्टेन्स जिरो पोइन्ट फोर ओम, फिल्ड वान ट्वेन्टी ओम, फिफ्टी फोर एम्पियर तान्दा फिफ्टीन हन्ड्रेड आर पी एममा घुम्छ। आर्मेचरसँग सिरिजमा जिरो पोइन्ट वान ओम थपिन्छ र लोड टर्क ट्वेन्टी पर्सेन्ट घट्छ। नयाँ स्पिड निकाल।',
     question: <>A <D>240 V</D> DC shunt motor has <D>Ra = 0.4 Ω</D> and <D>Rsh = 120 Ω</D>. It runs at <D>1500 rpm</D> drawing <D>54 A</D>. A <D>0.1 Ω</D> resistance is added in series with the armature and the load torque is reduced by <D>20%</D>. Calculate the new speed.</>,
     given: [
       { node: <>V = 240 V, Ra = 0.4 Ω, Rsh = 120 Ω</>, say: '240 volt, Ra 0.4, Rsh 120', voice: 'टु फोर्टी भोल्ट, आर ए जिरो पोइन्ट फोर, आर एस एच वान ट्वेन्टी' },
@@ -162,7 +162,7 @@ export const pastQuestions = [
     paper: '2065 Chaitra',
     paperVoice: 'टु थाउजेन्ड सिक्स्टी फाइभ चैत',
     read: '220 volt ko DC series motor 100 ampere lidai 800 rpm ma ghumcha. Total resistance 0.1 ohm. Saturation chaina bhanera, aadha torque dida kati speed ma ghumcha?',
-    readVoice: 'टु ट्वेन्टी भोल्टको डीसी सिरिज मोटर वान हन्ड्रेड एम्पियर लिँदै एट हन्ड्रेड आर पी एममा घुम्छ। टोटल रेजिस्टेन्स जिरो पोइन्ट वान ओम। स्याचुरेसन छैन भनेर, आधा टर्क दिँदा कति स्पिडमा घुम्छ?',
+    readVoice: 'टु ट्वेन्टी भोल्टको डी सी सिरिज मोटर वान हन्ड्रेड एम्पियर लिँदै एट हन्ड्रेड आर पी एममा घुम्छ। टोटल रेजिस्टेन्स जिरो पोइन्ट वान ओम। स्याचुरेसन छैन भनेर, आधा टर्क दिँदा कति स्पिडमा घुम्छ?',
     question: <>A <D>220 V</D> DC series motor is running at <D>800 rpm</D> and draws <D>100 A</D>. Total resistance is <D>0.1 Ω</D>. Calculate the speed when developing <D>half the torque</D> (unsaturated).</>,
     given: [
       { node: <>V = 220 V, R = 0.1 Ω</>, say: '220 volt, total resistance 0.1 ohm', voice: 'टु ट्वेन्टी भोल्ट, टोटल रेजिस्टेन्स जिरो पोइन्ट वान ओम' },
@@ -245,7 +245,7 @@ export const pastQuestions = [
     paper: '2074 Bhadra',
     paperVoice: 'टु थाउजेन्ड सेभेन्टी फोर भदौ',
     read: '500 volt ko DC series motor 60 ampere lidai 500 rpm ma ghumcha. Field 0.3 ohm, armature 0.2 ohm. Load torque constant ra saturation chaina bhanera, speed 600 rpm puryauna series field across kati diverter resistance chahincha?',
-    readVoice: 'फाइभ हन्ड्रेड भोल्टको डीसी सिरिज मोटर सिक्स्टी एम्पियर लिँदै फाइभ हन्ड्रेड आर पी एममा घुम्छ। फिल्ड जिरो पोइन्ट थ्री ओम, आर्मेचर जिरो पोइन्ट टु ओम। लोड टर्क कन्स्टेन्ट र स्याचुरेसन छैन भनेर, स्पिड सिक्स हन्ड्रेड आर पी एम पुर्‍याउन सिरिज फिल्ड अक्रस कति डाइभर्टर रेजिस्टेन्स चाहिन्छ?',
+    readVoice: 'फाइभ हन्ड्रेड भोल्टको डी सी सिरिज मोटर सिक्स्टी एम्पियर लिँदै फाइभ हन्ड्रेड आर पी एममा घुम्छ। फिल्ड जिरो पोइन्ट थ्री ओम, आर्मेचर जिरो पोइन्ट टु ओम। लोड टर्क कन्स्टेन्ट र स्याचुरेसन छैन भनेर, स्पिड सिक्स हन्ड्रेड आर पी एम पुर्‍याउन सिरिज फिल्ड अक्रस कति डाइभर्टर रेजिस्टेन्स चाहिन्छ?',
     question: <>A <D>500 V</D> DC series motor runs at <D>500 rpm</D> and takes <D>60 A</D>. Field resistance <D>0.3 Ω</D>, armature <D>0.2 Ω</D>. Find the resistance to be shunted across the series field so the speed rises to <D>600 rpm</D>, with <D>load torque constant</D>. Neglect saturation.</>,
     given: [
       { node: <>V = 500 V, Rse = 0.3 Ω, Ra = 0.2 Ω</>, say: '500 volt, field 0.3, armature 0.2', voice: 'फाइभ हन्ड्रेड भोल्ट, फिल्ड जिरो पोइन्ट थ्री, आर्मेचर जिरो पोइन्ट टु' },
@@ -265,7 +265,7 @@ export const pastQuestions = [
       { node: <>Solve garda: k ≈ 0.696, Ia₂ ≈ 71.9 A, Eb₂ ≈ 470.6 V</>, say: 'Numerically solve garda k lagbhag 0.696, ra Ia two lagbhag 71.9 ampere.', voice: 'न्युमेरिकल्ली सल्भ गर्दा के लगभग जिरो पोइन्ट सिक्स नाइन सिक्स, र आई ए टु लगभग सेभेन्टी वान पोइन्ट नाइन एम्पियर।' },
       { node: <>Rd·(1 − k)Ia₂ = 0.3·kIa₂ ⟹ Rd = 0.3k/(1 − k)</>, say: 'Diverter ra field ma uhi voltage huncha, tesbata Rd equals 0.3 k over 1 minus k aaucha.', voice: 'डाइभर्टर र फिल्डमा उही भोल्टेज हुन्छ, त्यसबाट आर डी इक्वल्स जिरो पोइन्ट थ्री के ओभर वान माइनस के आउँछ।' },
     ],
-    answer: { node: <>Rd ≈ 0.69 Ω</>, say: 'Lagbhag 0.69 ohm. IOE le sodheko sabai bhanda gaaro series-motor question yahi ho.', voice: 'लगभग जिरो पोइन्ट सिक्स नाइन ओम। आइओईले सोधेको सबैभन्दा गाह्रो सिरिज मोटर क्वेस्चन यही हो।' },
+    answer: { node: <>Rd ≈ 0.69 Ω</>, say: 'Lagbhag 0.69 ohm. IOE le sodheko sabai bhanda gaaro series-motor question yahi ho.', voice: 'लगभग जिरो पोइन्ट सिक्स नाइन ओम। आई ओ ईले सोधेको सबैभन्दा गाह्रो सिरिज मोटर क्वेस्चन यही हो।' },
     trap: { node: <>Divert pachi current 60 A hoina: torque constant bhaneko kIa² fixed rahancha.</>, say: 'Trap bhaneko current 60 ampere mai rakhnu ho. Torque rakhna current badhnai parcha.', voice: 'ट्र्याप भनेको करेन्ट सिक्स्टी एम्पियरमै राख्नु हो। टर्क राख्न करेन्ट बढ्नै पर्छ।' },
   }),
 ].map((s) => ({ ...s, chapter: 'Past Questions' }));

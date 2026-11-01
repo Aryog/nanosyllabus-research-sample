@@ -9,6 +9,7 @@ import { four44, need44, opener44, starterAnswer44, starterR44, three44 } from '
 import { armature45, armatureR45, field45, knobs45, opener45, seriesRev45, shuntControl45, speedEq45 } from './unit4/u45.jsx';
 import { opener46, retard46, retardDer46, swin46, swinAnswer46, swinEff46, why46 } from './unit4/u46.jsx';
 import { backEmf41, backEmfAnswer41, opener41, principle41, torque41, torqueAnswer41 } from './unit4/u41.jsx';
+import { basics41, basics42, basics43, basics44, basics45, basics46 } from './unit4/basics.jsx';
 import { ch1Model, fleming, howBig, whyItMoves } from './video/ch1.jsx';
 import { ch2Model, commutatorAction, crossSection, emfDerivation, emfIoe, lapWave } from './video/ch2.jsx';
 import { ch3Model, torqueFactors, torqueProduction, torqueProduction3d } from './video/ch3.jsx';
@@ -23,10 +24,12 @@ import { vibe41, vibe42, vibe43, vibe44, vibe45, vibe46 } from './video/vibe.jsx
 import { retardation, swinburne, testIntro, testingModel } from './video/testing.jsx';
 
 /*
-  The six micro-topics of IOE Electrical Machines Unit 4 (DC Motors), each about
-  5 minutes, in three video segments (kit.jsx `segments`): a fun everyday
-  opener (vibe.jsx), terms and definitions with visuals → derivation → big picture with the topic's own old
-  IOE question and its solution (solve or answer videos).
+  The six micro-topics of IOE Electrical Machines Unit 4 (DC Motors) in three
+  video segments (kit.jsx `segments`): Basic Understanding (about a minute of
+  intuition in 3D, no maths; unit4/basics.jsx) → Syllabus Content (the old
+  Terms videos with their maths, then the derivations) → Model Answer (the
+  topic's own old IOE questions, solve or answer videos). The old openers and
+  Terms segments are kept: openers in `extras`, Terms videos in Syllabus Content.
   In-video questions are easy attention checks on what was just said. `extras` stay out of the main path and are
   offered after the course as Extra practice, grouped by topic.
 */
@@ -43,61 +46,61 @@ const topic = ({ num, title, intro, introArt, introRoles, opener: given, extras 
 const t41 = topic({
   num: '4.1',
   title: 'Working principle, back EMF ra torque equation',
-  opener: opener41,
-  terms: [principle41, torque41, backEmf41],
-  derive: [backEmfDerivation, voltageEquation, torqueDerivation, torqueFromPower],
+  opener: basics41,
+  terms: [],
+  derive: [principle41, torque41, backEmf41, backEmfDerivation, voltageEquation, torqueDerivation, torqueFromPower],
   picture: [torqueAnswer41, backEmfAnswer41],
-  extras: [vibe41, torqueProduction3d, story, torqueProduction, ch3Model, whyItMoves, howBig, fleming, ch1Model, crossSection, commutatorAction, lapWave, emfDerivation, emfIoe, ch2Model, torqueFactors, voltagePower, maxPower, speedEq, ch4Model],
+  extras: [opener41, vibe41, torqueProduction3d, story, torqueProduction, ch3Model, whyItMoves, howBig, fleming, ch1Model, crossSection, commutatorAction, lapWave, emfDerivation, emfIoe, ch2Model, torqueFactors, voltagePower, maxPower, speedEq, ch4Model],
 });
 
 const t42 = topic({
   num: '4.2',
   title: 'DC motor ka types, characteristics ra applications',
-  opener: opener42,
-  terms: [types42, chars42],
-  derive: [equations42, shunt42, series42],
+  opener: basics42,
+  terms: [],
+  derive: [types42, chars42, equations42, shunt42, series42],
   picture: [charsAnswer42, noLoad42, seriesSolve42],
-  extras: [vibe42, connections, shunt, series, compound, characteristicsAnswer, ch6Model, equations, shuntLoadSpeed, shuntNumerical, seriesNumerical],
+  extras: [opener42, vibe42, connections, shunt, series, compound, characteristicsAnswer, ch6Model, equations, shuntLoadSpeed, shuntNumerical, seriesNumerical],
 });
 
 const t43 = topic({
   num: '4.3',
   title: 'Losses ra efficiency',
-  opener: opener43,
-  terms: [losses43],
-  derive: [flow43, maxEff43],
+  opener: basics43,
+  terms: [],
+  derive: [losses43, flow43, maxEff43],
   picture: [eff2074, eff2083],
-  extras: [vibe43, losses, maxEff, ioeEff, powerFlow],
+  extras: [opener43, vibe43, losses, maxEff, ioeEff, powerFlow],
 });
 
 const t44 = topic({
   num: '4.4',
   title: 'Starting: 3-point ra 4-point starter',
-  opener: opener44,
-  terms: [three44, four44],
-  derive: [need44, starterR44],
+  opener: basics44,
+  terms: [],
+  derive: [need44, starterR44, three44, four44],
   picture: [starterAnswer44],
-  extras: [vibe44, threePoint, fourPoint, whyStarter, starterAnswer, ch7Model],
+  extras: [opener44, vibe44, threePoint, fourPoint, whyStarter, starterAnswer, ch7Model],
 });
 
 const t45 = topic({
   num: '4.5',
   title: 'Speed control: series, shunt ra direction reverse',
-  opener: opener45,
-  terms: [knobs45, field45, armature45, seriesRev45],
-  derive: [speedEq45],
+  opener: basics45,
+  terms: [],
+  derive: [knobs45, speedEq45, field45, armature45, seriesRev45],
   picture: [shuntControl45, armatureR45],
-  extras: [vibe45, threeKnobs, fieldControl, armatureControl, reversing, speedDerivation, seriesControl, solveField, solveArmature, ch8Model, ...pastQuestions],
+  extras: [opener45, vibe45, threeKnobs, fieldControl, armatureControl, reversing, speedDerivation, seriesControl, solveField, solveArmature, ch8Model, ...pastQuestions],
 });
 
 const t46 = topic({
   num: '4.6',
   title: 'Testing: Retardation test ra Swinburne’s test',
-  opener: opener46,
-  terms: [why46, swin46, retard46],
-  derive: [swinEff46, retardDer46],
+  opener: basics46,
+  terms: [],
+  derive: [why46, swin46, swinEff46, retard46, retardDer46],
   picture: [swinAnswer46],
-  extras: [vibe46, testIntro, swinburne, retardation, testingAnswer, testingModel],
+  extras: [opener46, vibe46, testIntro, swinburne, retardation, testingAnswer, testingModel],
 });
 
 export const topics = [t41, t42, t43, t44, t45, t46];

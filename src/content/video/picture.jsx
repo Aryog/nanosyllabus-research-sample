@@ -265,7 +265,7 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
   q: 'Explain the working principle of a DC motor and derive the torque equation.',
   read: {
     say: 'IOE ma tin choti sodhiyeko question: Explain the working principle of a DC motor and derive the torque equation.',
-    voice: 'आइओईमा तीन चोटि सोधिएको क्वेस्चन — एक्सप्लेन द वर्किङ प्रिन्सिपल अफ अ डीसी मोटर, एन्ड डेराइभ द टर्क इक्वेसन।',
+    voice: 'आई ओ ईमा तीन चोटि सोधिएको क्वेस्चन — एक्सप्लेन द वर्किङ प्रिन्सिपल अफ अ डी सी मोटर, एन्ड डेराइभ द टर्क इक्वेसन।',
   },
   points: [
     {
@@ -284,7 +284,7 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
       voice: 'कम्युटेटर — हरेक कोइलले म्याग्नेटिक न्युट्रल एक्सिस क्रस गर्दा, त्यसको करेन्ट रिभर्स गर्छ। फलस्वरूप, टर्क एउटै डाइरेक्सनमा रहन्छ।',
       ask: {
         q: 'DC motor ma commutator ko kaam k ho?',
-        voice: 'डीसी मोटरमा कम्युटेटरको काम के हो?',
+        voice: 'डी सी मोटरमा कम्युटेटरको काम के हो?',
         options: ['Flux badhaunu', 'MNA ma coil ko current reverse garera torque ek tira rakhnu', 'Supply voltage ghataunu'],
         answer: 1,
         why: 'MNA cross garda current reverse huncha, tesaile torque unidirectional rahancha.',
@@ -293,7 +293,7 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
     {
       node: <><H>Continuous rotation</H>The armature carries many coils spread round its periphery. Every coil is commutated as it crosses the MNA, so the forces of all coils add up and the armature runs continuously with a steady torque. Thus electrical energy is converted into mechanical energy.</>,
       say: 'Continuous rotation: armature ma dherai coil periphery bhari hunchan. Harek coil MNA ma commutate huncha, tesaile sabai ko force jodincha ra armature steady torque le lagatar ghumcha. Yasari electrical energy mechanical energy ma convert huncha.',
-      voice: 'कन्टिन्युअस रोटेसन — आर्मेचरमा धेरै कोइल, पेरिफेरीभरि हुन्छन्। हरेक कोइल एमएनएमा कम्युटेट हुन्छ, त्यसैले सबैको फोर्स जोडिन्छ, र आर्मेचर स्टेडी टर्कले लगातार घुम्छ। यसरी, इलेक्ट्रिकल इनर्जी मेकानिकल इनर्जीमा कन्भर्ट हुन्छ।',
+      voice: 'कन्टिन्युअस रोटेसन — आर्मेचरमा धेरै कोइल, पेरिफेरीभरि हुन्छन्। हरेक कोइल एम एन एमा कम्युटेट हुन्छ, त्यसैले सबैको फोर्स जोडिन्छ, र आर्मेचर स्टेडी टर्कले लगातार घुम्छ। यसरी, इलेक्ट्रिकल इनर्जी मेकानिकल इनर्जीमा कन्भर्ट हुन्छ।',
     },
     {
       page: true,
@@ -329,13 +329,13 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
   q: 'What is back EMF? How does it play an important role in a DC motor?',
   read: {
     say: 'Arko IOE question, yo pani tin choti sodhiyeko: What is back EMF? How does it play an important role in a DC motor?',
-    voice: 'अर्को आइओई क्वेस्चन, यो पनि तीन चोटि सोधिएको — ह्वाट इज ब्याक इएमएफ? हाउ डज इट प्ले एन इम्पोर्टेन्ट रोल इन अ डीसी मोटर?',
+    voice: 'अर्को आई ओ ई क्वेस्चन, यो पनि तीन चोटि सोधिएको — ह्वाट इज ब्याक ई एम एफ? हाउ डज इट प्ले एन इम्पोर्टेन्ट रोल इन अ डी सी मोटर?',
   },
   points: [
     {
       node: <><H>(a) Back EMF [2]</H>When the armature of a DC motor rotates, its conductors cut the magnetic flux and an EMF is induced in them (generator action). By Lenz’s law this EMF opposes the applied voltage V; hence it is called the <b>back EMF</b> or counter EMF, <K>{String.raw`E_b`}</K>.</>,
       say: 'Back EMF: armature ghumda conductor le flux cut garchan ra EMF induce huncha. Lenz ko law anusar yo applied voltage V lai oppose garcha, tesaile yaslai back EMF E b bhanincha.',
-      voice: 'ब्याक इएमएफ — आर्मेचर घुम्दा, कन्डक्टरले फ्लक्स कट गर्छन्, र इएमएफ इन्ड्युस हुन्छ। लेन्जको ल अनुसार, यो एप्लाइड भोल्टेज भीलाई अपोज गर्छ। त्यसैले यसलाई — ब्याक इएमएफ, ई बी भनिन्छ।',
+      voice: 'ब्याक ई एम एफ — आर्मेचर घुम्दा, कन्डक्टरले फ्लक्स कट गर्छन्, र ई एम एफ इन्ड्युस हुन्छ। लेन्जको ल अनुसार, यो एप्लाइड भोल्टेज भीलाई अपोज गर्छ। त्यसैले यसलाई — ब्याक ई एम एफ, ई बी भनिन्छ।',
     },
     {
       node: (
@@ -362,7 +362,7 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
         </>
       ),
       say: 'Significance dui, energy conversion: equation dui lai I a le multiply garda V I a equals E b I a plus I a squared R a. Back EMF ko biruddha liyeko power E b I a nai mechanical power P m ho.',
-      voice: 'सिग्निफिकेन्स टु, इनर्जी कन्भर्सन — इक्वेसन टुलाई आई एले मल्टिप्लाई गर्दा, भी आई ए इक्वल्स ई बी आई ए प्लस आई ए स्क्वायर आर ए। ब्याक इएमएफको बिरुद्ध लिएको पावर, ई बी आई ए नै — मेकानिकल पावर पी एम हो।',
+      voice: 'सिग्निफिकेन्स टु, इनर्जी कन्भर्सन — इक्वेसन टुलाई आई एले मल्टिप्लाई गर्दा, भी आई ए इक्वल्स ई बी आई ए प्लस आई ए स्क्वायर आर ए। ब्याक ई एम एफको बिरुद्ध लिएको पावर, ई बी आई ए नै — मेकानिकल पावर पी एम हो।',
     },
     {
       node: <>(iii) <b>Starting:</b> at start N = 0, <K>{String.raw`\therefore`}</K> <K>{String.raw`E_b = 0`}</K> and from (3) <K>{String.raw`I_a = V/R_a`}</K>, which is very large (220 V, R<sub>a</sub> = 0.5 Ω → 440 A). Hence a starter is necessary.</>,
@@ -370,7 +370,7 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
       voice: 'सिग्निफिकेन्स थ्री, स्टार्टिङ — स्टार्टमा एन जिरो, यसरी ई बी जिरो। अनि इक्वेसन थ्रीबाट, आई ए इक्वल्स भी ओभर आर ए, धेरै ठूलो — जस्तै टु ट्वेन्टी भोल्ट र जिरो पोइन्ट फाइभ ओममा, फोर हन्ड्रेड फोर्टी एम्पियर। यही कारण, स्टार्टर चाहिन्छ।',
       ask: {
         q: 'DC motor lai starter kina chahincha?',
-        voice: 'डीसी मोटरलाई स्टार्टर किन चाहिन्छ?',
+        voice: 'डी सी मोटरलाई स्टार्टर किन चाहिन्छ?',
         options: ['Start ma Eb = 0 bhayera Ia = V/Ra dherai thulo huncha', 'Speed badhauna', 'Flux ghatauna'],
         answer: 0,
         why: 'N = 0 ma Eb = 0, tesaile Ia = V/Ra (220/0.5 = 440 A). Starter resistance le yo current limit garcha.',
@@ -379,7 +379,7 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
     {
       node: <>(iv) <b>Speed:</b> from (1) and (2), <K>{String.raw`N \propto \dfrac{E_b}{\phi} = \dfrac{V - I_aR_a}{\phi}`}</K>. The back EMF fixes the speed, so the speed can be controlled by changing V, R<sub>a</sub> or φ.</>,
       say: 'Significance char, speed: equation ek ra dui bata N, E b over phi sanga proportional, arthat V minus I a R a, over phi. Back EMF le speed decide garcha, tesaile V, R a wa phi badlera speed control garincha.',
-      voice: 'सिग्निफिकेन्स फोर, स्पिड — इक्वेसन वान र टुबाट, एन, ई बी ओभर फाइसँग प्रोपोर्सनल, अर्थात भी माइनस आई ए आर ए, ओभर फाइ। ब्याक इएमएफले स्पिड डिसाइड गर्छ, त्यसैले भी, आर ए, वा फाइ बदलेर स्पिड कन्ट्रोल गरिन्छ।',
+      voice: 'सिग्निफिकेन्स फोर, स्पिड — इक्वेसन वान र टुबाट, एन, ई बी ओभर फाइसँग प्रोपोर्सनल, अर्थात भी माइनस आई ए आर ए, ओभर फाइ। ब्याक ई एम एफले स्पिड डिसाइड गर्छ, त्यसैले भी, आर ए, वा फाइ बदलेर स्पिड कन्ट्रोल गरिन्छ।',
     },
   ],
 });
@@ -392,7 +392,7 @@ export const characteristicsAnswer = answer('Model answer: shunt ra series chara
   q: 'Explain the torque–armature current and speed–torque characteristics of DC shunt and DC series motors.',
   read: {
     say: 'IOE 2070 Magh, 8 marks: shunt ra series motor ko torque–current ra speed–torque characteristics explain gara.',
-    voice: 'आइओई टु थाउजेन्ड सेभेन्टी माघ, एट मार्क्स: शन्ट र सिरिज मोटरको टर्क करेन्ट र स्पिड टर्क क्यारेक्टरिस्टिक्स एक्सप्लेन गर।',
+    voice: 'आई ओ ई टु थाउजेन्ड सेभेन्टी माघ, एट मार्क्स: शन्ट र सिरिज मोटरको टर्क करेन्ट र स्पिड टर्क क्यारेक्टरिस्टिक्स एक्सप्लेन गर।',
   },
   points: [
     {
@@ -437,18 +437,18 @@ export const starterAnswer = answer('Model answer: starter ko necessity ra 3-poi
   q: 'Why is a starter needed for a DC motor? Describe the working of a 3-point starter with a neat diagram.',
   read: {
     say: 'IOE ko all-time hit, saat choti aayo: starter kina chahincha, ani 3-point starter ko working diagram sanga.',
-    voice: 'आइओईको अल टाइम हिट, सात चोटि आयो: स्टार्टर किन चाहिन्छ, अनि थ्री पोइन्ट स्टार्टरको वर्किङ डायग्राम सँग।',
+    voice: 'आई ओ ईको अल टाइम हिट, सात चोटि आयो: स्टार्टर किन चाहिन्छ, अनि थ्री पोइन्ट स्टार्टरको वर्किङ डायग्राम सँग।',
   },
   points: [
     {
       node: <><b>Necessity:</b> at start N = 0, so E<sub>b</sub> = 0 and I<sub>a</sub> = V/R<sub>a</sub> (220/0.5 = 440 A), 15–25× rated: it damages the commutator, brushes and winding.</>,
       say: 'Necessity: start ma back EMF zero, so current V over Ra, rated ko pandhra dekhi pachis guna. Commutator ra winding jalcha.',
-      voice: 'नेसेसिटी: स्टार्टमा ब्याक इएमएफ जिरो, सो करेन्ट भी ओभर आर ए, रेटेडको पन्ध्र देखि पच्चिस गुना। कम्युटेटर र वाइन्डिङ जल्छ।',
+      voice: 'नेसेसिटी: स्टार्टमा ब्याक ई एम एफ जिरो, सो करेन्ट भी ओभर आर ए, रेटेडको पन्ध्र देखि पच्चिस गुना। कम्युटेटर र वाइन्डिङ जल्छ।',
     },
     {
       node: <><b>Diagram:</b> terminals L, F, A; resistance studs; handle with spring; OLR in the line; brass arc → NVC → field.</>,
       say: 'Diagram ma L, F, A terminal, resistance studs, spring bhako handle, OLR ra NVC. Yo diagram nai six marks ho.',
-      voice: 'डायग्राममा एल, एफ, ए टर्मिनल, रेजिस्टेन्स स्टड्स, स्प्रिङ भएको ह्यान्डल, ओएलआर र एनभीसी। यो डायग्राम नै सिक्स मार्क्स हो।',
+      voice: 'डायग्राममा एल, एफ, ए टर्मिनल, रेजिस्टेन्स स्टड्स, स्प्रिङ भएको ह्यान्डल, ओ एल आर र एन भी सी। यो डायग्राम नै सिक्स मार्क्स हो।',
     },
     {
       node: <><b>Starting:</b> handle to stud 1, so full R is in series with the armature and the field gets full voltage; move stud by stud as E<sub>b</sub> rises.</>,
@@ -458,18 +458,18 @@ export const starterAnswer = answer('Model answer: starter ko necessity ra 3-poi
     {
       node: <><b>NVC:</b> in series with the field, holds the handle at RUN; if the supply fails, the spring returns the handle to OFF.</>,
       say: 'NVC field sanga series ma. Supply gayo bhane magnet chhodcha, spring le handle OFF ma pharkaucha.',
-      voice: 'एनभीसी फिल्ड सँग सिरिजमा। सप्लाई गयो भने म्याग्नेट छोड्छ, स्प्रिङले ह्यान्डल अफमा फर्काउँछ।',
-      ask: { q: 'Supply gayo bhane NVC le k garcha?', voice: 'सप्लाई गयो भने एनभीसीले के गर्छ?', options: ['Current badhaucha', 'Kei gardaina', 'Handle OFF ma pharkaucha'], answer: 2, why: 'NVC ko magnet chhodcha, spring le handle OFF ma lancha.' },
+      voice: 'एन भी सी फिल्ड सँग सिरिजमा। सप्लाई गयो भने म्याग्नेट छोड्छ, स्प्रिङले ह्यान्डल अफमा फर्काउँछ।',
+      ask: { q: 'Supply gayo bhane NVC le k garcha?', voice: 'सप्लाई गयो भने एन भी सीले के गर्छ?', options: ['Current badhaucha', 'Kei gardaina', 'Handle OFF ma pharkaucha'], answer: 2, why: 'NVC ko magnet chhodcha, spring le handle OFF ma lancha.' },
     },
     {
       node: <><b>OLR:</b> in series with the line; on overload it shorts the NVC, so the handle goes OFF.</>,
       say: 'OLR line sanga series ma. Overload huda NVC short garcha, ani handle OFF.',
-      voice: 'ओएलआर लाइन सँग सिरिजमा। ओभरलोड हुँदा एनभीसी सर्ट गर्छ, अनि ह्यान्डल अफ।',
+      voice: 'ओ एल आर लाइन सँग सिरिजमा। ओभरलोड हुँदा एन भी सी सर्ट गर्छ, अनि ह्यान्डल अफ।',
     },
     {
       node: <><b>Drawback:</b> field weakening also weakens the NVC, so the handle can release; the 4-point starter fixes this.</>,
       say: 'Drawback: field weaken garda NVC pani kamjor, handle aafai chhodcha. Tesko solution 4-point starter.',
-      voice: 'ड्रब्याक: फिल्ड वीकन गर्दा एनभीसी पनि कमजोर, ह्यान्डल आफै छोड्छ। त्यसको सोलुसन फोर पोइन्ट स्टार्टर।',
+      voice: 'ड्रब्याक: फिल्ड वीकन गर्दा एन भी सी पनि कमजोर, ह्यान्डल आफै छोड्छ। त्यसको सोलुसन फोर पोइन्ट स्टार्टर।',
     },
   ],
 });

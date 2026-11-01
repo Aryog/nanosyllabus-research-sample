@@ -151,7 +151,7 @@ export const series = video('Derivation: series motor ko characteristics', {
     },
     {
       say: 'Yo classic IOE question ho bro.',
-      voice: 'यो क्लासिक आइओई क्वेस्चन हो ब्रो।',
+      voice: 'यो क्लासिक आई ओ ई क्वेस्चन हो ब्रो।',
       ask: {
         q: 'Load hatauda series motor ko speed k huncha?',
         voice: 'लोड हटाउँदा सिरिज मोटरको स्पिड के हुन्छ?',
@@ -218,7 +218,7 @@ export const compound = video('Compound motor ra kun motor kaha use huncha', {
     },
     {
       say: 'Series motor le high starting torque dincha: electric traction, crane ra hoist. AC ma pani chalne sana series motor lai universal motor bhanincha, vacuum cleaner ma use huncha.',
-      voice: 'सिरिज मोटरले हाई स्टार्टिङ टर्क दिन्छ: इलेक्ट्रिक ट्र्याक्सन, क्रेन र होइस्ट। एसी मा पनि चल्ने साना सिरिज मोटरलाई युनिभर्सल मोटर भनिन्छ, भ्याकुम क्लिनरमा युज हुन्छ।',
+      voice: 'सिरिज मोटरले हाई स्टार्टिङ टर्क दिन्छ: इलेक्ट्रिक ट्र्याक्सन, क्रेन र होइस्ट। ए सी मा पनि चल्ने साना सिरिज मोटरलाई युनिभर्सल मोटर भनिन्छ, भ्याकुम क्लिनरमा युज हुन्छ।',
     },
     {
       say: 'Cumulative compound motor le flywheel sanga achanak aaune heavy load handle garcha: shears, punching press, rolling mill ra elevator.',
@@ -265,7 +265,7 @@ export const shuntNumerical = solve({
   paperVoice: 'टु थाउजेन्ड सेभेन्टी वान माघ, क्यू फोर बी',
   marks: '6 marks',
   read: 'Euta DC shunt motor 230 volt supply bata 60 ampere lindai 600 rpm ma chalcha. Armature resistance 0.2 ohm ra field resistance 115 ohm cha. Armature current 30 ampere huda speed nikal.',
-  readVoice: 'एउटा डीसी शन्ट मोटर टु थर्टी भोल्ट सप्लाई बाट सिक्स्टी एम्पियर लिँदै सिक्स हन्ड्रेड आर पी एममा चल्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट टु ओम र फिल्ड रेजिस्टेन्स वान फिफ्टीन ओम छ। आर्मेचर करेन्ट थर्टी एम्पियर हुँदा स्पिड निकाल।',
+  readVoice: 'एउटा डी सी शन्ट मोटर टु थर्टी भोल्ट सप्लाई बाट सिक्स्टी एम्पियर लिँदै सिक्स हन्ड्रेड आर पी एममा चल्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट टु ओम र फिल्ड रेजिस्टेन्स वान फिफ्टीन ओम छ। आर्मेचर करेन्ट थर्टी एम्पियर हुँदा स्पिड निकाल।',
   question: (
     <>
       A DC shunt motor runs at <D>600 rpm</D> taking <D>60 A</D> from a <D>230 V</D> supply. Armature resistance is <D>0.2 Ω</D> and field
@@ -333,7 +333,7 @@ export const seriesNumerical = solve({
   paperVoice: 'टु थाउजेन्ड सिक्स्टी नाइन भदौ र टु थाउजेन्ड सिक्स्टी सिक्स माघ',
   marks: '8 marks',
   read: 'Armature resistance 0.06 ohm ra field resistance 0.04 ohm bhako DC series motor lai 220 volt bata supply gariyeko cha. 1200 rpm ma yesle 25 ampere lincha. 800 rpm ma kati current lincha, nikal.',
-  readVoice: 'आर्मेचर रेजिस्टेन्स जिरो पोइन्ट जिरो सिक्स ओम र फिल्ड रेजिस्टेन्स जिरो पोइन्ट जिरो फोर ओम भएको डीसी सिरिज मोटरलाई टु ट्वेन्टी भोल्ट बाट सप्लाई गरिएको छ। ट्वेल्भ हन्ड्रेड आर पी एममा यसले ट्वेन्टी फाइभ एम्पियर लिन्छ। एट हन्ड्रेड आर पी एममा कति करेन्ट लिन्छ, निकाल।',
+  readVoice: 'आर्मेचर रेजिस्टेन्स जिरो पोइन्ट जिरो सिक्स ओम र फिल्ड रेजिस्टेन्स जिरो पोइन्ट जिरो फोर ओम भएको डी सी सिरिज मोटरलाई टु ट्वेन्टी भोल्ट बाट सप्लाई गरिएको छ। ट्वेल्भ हन्ड्रेड आर पी एममा यसले ट्वेन्टी फाइभ एम्पियर लिन्छ। एट हन्ड्रेड आर पी एममा कति करेन्ट लिन्छ, निकाल।',
   question: (
     <>
       A DC series motor with armature resistance <D>0.06 Ω</D> and field winding resistance <D>0.04 Ω</D> is supplied by a <D>220 V</D> source. If it

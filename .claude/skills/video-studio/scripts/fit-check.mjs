@@ -76,7 +76,7 @@ const inspect = () => {
     return true;
   };
   // Meter numbers cross-fade in place on purpose (.val-in/.val-out).
-  const texts = [...document.querySelectorAll('.scene-svg text:not(.val-in):not(.val-out)')].filter(shown).map((el) => ({ el, r: R(el) })).filter((b) => b.r.width > 1);
+  const texts = [...document.querySelectorAll('.scene-svg text:not(.val-in):not(.val-out)')].filter((el) => !el.closest('.scene-thumb')).filter(shown).map((el) => ({ el, r: R(el) })).filter((b) => b.r.width > 1);
   for (const { el, r } of texts) {
     if (focused(el) && (r.left < stage.left - 2 || r.right > stage.right + 2 || r.top < stage.top - 2 || r.bottom > stage.bottom + 2)) issues.push(`label cut by the frame: "${short(el)}"`);
     if (cap && area(r, cap) > 20) issues.push(`label under the caption: "${short(el)}"`);

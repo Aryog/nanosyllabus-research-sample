@@ -6,7 +6,7 @@ export const losses = video('Power kata jancha?', {
   beats: [
     {
       say: 'Sabai input power shaft power bandaina. DC machine ka losses tin group ma bandincha.',
-      voice: 'सबै इनपुट पावर स्याफ्ट पावर बन्दैन। डीसी मेसिनका लसेस तीन ग्रुपमा बाँडिन्छ।',
+      voice: 'सबै इनपुट पावर स्याफ्ट पावर बन्दैन। डी सी मेसिनका लसेस तीन ग्रुपमा बाँडिन्छ।',
     },
     {
       say: 'Copper losses: armature I a squared R a, shunt field loss, series field loss, ra sano brush contact drop.',
@@ -73,7 +73,7 @@ export const powerFlow = video('DC motor ma power flow', {
   beats: [
     {
       say: 'DC shunt motor bhitra power lai follow gara. Yo supply bata V times line current ko rup ma bhitra pascha.',
-      voice: 'डीसी शन्ट मोटरभित्र पावरलाई फलो गर। यो सप्लाईबाट भी टाइम्स लाइन करेन्टको रूपमा भित्र पस्छ।',
+      voice: 'डी सी शन्ट मोटरभित्र पावरलाई फलो गर। यो सप्लाईबाट भी टाइम्स लाइन करेन्टको रूपमा भित्र पस्छ।',
     },
     {
       say: 'Pahila, ali kati shunt field ma jancha: V times I shunt.',
@@ -134,7 +134,7 @@ export const maxEff = video('Derivation: maximum efficiency ko condition', {
   beats: [
     {
       say: 'DC machine kahile sabai bhanda efficient huncha? La derive garau.',
-      voice: 'डीसी मेसिन कहिले सबैभन्दा इफिसियन्ट हुन्छ? ल डिराइभ गरौं।',
+      voice: 'डी सी मेसिन कहिले सबैभन्दा इफिसियन्ट हुन्छ? ल डिराइभ गरौं।',
     },
     {
       say: 'Input power V I liyau. Losses ma euta constant part, W c, ra euta variable part, I squared R a, huncha.',
@@ -200,7 +200,7 @@ export const ioeEff = solve({
   paper: '2074 Bhadra',
   paperVoice: 'टु थाउजेन्ड सेभेन्टी फोर भदौ',
   read: 'Euta DC shunt generator le 200 volt ma 30 kilowatt full-load output dincha. Armature resistance 0.05 ohm, shunt field 50 ohm, ani iron ra friction losses 1000 watt. Generated EMF, copper losses ra efficiency nikala.',
-  readVoice: 'एउटा डीसी शन्ट जेनेरेटरले टु हन्ड्रेड भोल्टमा थर्टी किलोवाट फुल लोड आउटपुट दिन्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट जिरो फाइभ ओह्म, शन्ट फिल्ड फिफ्टी ओह्म, अनि आइरन र फ्रिक्सन लसेस वान थाउजेन्ड वाट। जेनेरेटेड ई एम एफ, कपर लसेस र इफिसियन्सी निकाल।',
+  readVoice: 'एउटा डी सी शन्ट जेनेरेटरले टु हन्ड्रेड भोल्टमा थर्टी किलोवाट फुल लोड आउटपुट दिन्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट जिरो फाइभ ओह्म, शन्ट फिल्ड फिफ्टी ओह्म, अनि आइरन र फ्रिक्सन लसेस वान थाउजेन्ड वाट। जेनेरेटेड ई एम एफ, कपर लसेस र इफिसियन्सी निकाल।',
   question: (
     <>
       A DC shunt generator gives a full-load output of <D>30 kW</D> at <D>200 V</D>. <D>Ra = 0.05 Ω</D>, <D>Rsh = 50 Ω</D>, and the iron and friction losses are{' '}

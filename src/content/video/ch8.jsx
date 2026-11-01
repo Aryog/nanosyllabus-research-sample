@@ -129,7 +129,7 @@ export const solveField = solve({
   paper: '2075 Baishakh',
   paperVoice: 'टु थाउजेन्ड सेभेन्टी फाइभ बैशाख',
   read: '250 volt ko DC shunt motor le 1500 rpm ma 20 ampere armature current lincha. Armature resistance 0.25 ohm ra field resistance 250 ohm cha. Load torque constant rakhera field sanga series ma 250 ohm resistance thapincha. Naya speed nikala.',
-  readVoice: 'टु फिफ्टी भोल्टको डीसी शन्ट मोटरले फिफ्टीन हन्ड्रेड आर पी एममा ट्वेन्टी एम्पियर आर्मेचर करेन्ट लिन्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट टु फाइभ ओह्म र फिल्ड रेजिस्टेन्स टु फिफ्टी ओह्म छ। लोड टर्क कन्स्ट्यान्ट राखेर फिल्डसँग सिरिजमा टु फिफ्टी ओह्म रेजिस्टेन्स थपिन्छ। नयाँ स्पिड निकाल।',
+  readVoice: 'टु फिफ्टी भोल्टको डी सी शन्ट मोटरले फिफ्टीन हन्ड्रेड आर पी एममा ट्वेन्टी एम्पियर आर्मेचर करेन्ट लिन्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट टु फाइभ ओह्म र फिल्ड रेजिस्टेन्स टु फिफ्टी ओह्म छ। लोड टर्क कन्स्ट्यान्ट राखेर फिल्डसँग सिरिजमा टु फिफ्टी ओह्म रेजिस्टेन्स थपिन्छ। नयाँ स्पिड निकाल।',
   question: (
     <>
       A <D>250 V</D> DC shunt motor (<D>Ra = 0.25 Ω</D>, <D>Rsh = 250 Ω</D>) takes an armature current of <D>20 A</D> at <D>1500 rpm</D>. A{' '}
@@ -229,7 +229,7 @@ export const solveArmature = solve({
   paper: '2072 Ashwin',
   paperVoice: 'टु थाउजेन्ड सेभेन्टी टु आश्विन',
   read: '200 volt ko DC shunt motor le constant-torque load chalaucha. Yasle 1000 rpm ma 50 ampere lincha. Armature resistance 0.1 ohm, field resistance 100 ohm. Armature circuit ma kati resistance rakhda speed 800 rpm ma jharcha?',
-  readVoice: 'टु हन्ड्रेड भोल्टको डीसी शन्ट मोटरले कन्स्ट्यान्ट टर्क लोड चलाउँछ। यसले वान थाउजेन्ड आर पी एममा फिफ्टी एम्पियर लिन्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट वान ओह्म, फिल्ड रेजिस्टेन्स वान हन्ड्रेड ओह्म। आर्मेचर सर्किटमा कति रेजिस्टेन्स राख्दा स्पिड एट हन्ड्रेड आर पी एममा झर्छ?',
+  readVoice: 'टु हन्ड्रेड भोल्टको डी सी शन्ट मोटरले कन्स्ट्यान्ट टर्क लोड चलाउँछ। यसले वान थाउजेन्ड आर पी एममा फिफ्टी एम्पियर लिन्छ। आर्मेचर रेजिस्टेन्स जिरो पोइन्ट वान ओह्म, फिल्ड रेजिस्टेन्स वान हन्ड्रेड ओह्म। आर्मेचर सर्किटमा कति रेजिस्टेन्स राख्दा स्पिड एट हन्ड्रेड आर पी एममा झर्छ?',
   question: (
     <>
       A <D>200 V</D> DC shunt motor drives a <D>constant-torque</D> load. It draws <D>50 A</D> at <D>1000 rpm</D>. <D>Ra = 0.1 Ω</D>, <D>Rsh = 100 Ω</D>.
@@ -275,7 +275,7 @@ export const solveArmature = solve({
   answer: {
     node: <>R ≈ 0.81 Ω</>,
     say: 'Tesaile extra resistance lagbhag 0.81 ohm. IOE 2068 Bhadra ma twist cha, pump ko torque speed squared sanga badhcha: testo bela I a 30.72 ampere ma jharcha ra R lagbhag 1.33 ohm huncha.',
-    voice: 'त्यसैले एक्स्ट्रा रेजिस्टेन्स लगभग जिरो पोइन्ट एट वान ओह्म। आइओई टु थाउजेन्ड सिक्स्टी एट भदौमा ट्विस्ट छ, पम्पको टर्क स्पिड स्क्वायर्डसँग बढ्छ: त्यस्तो बेला आई ए थर्टी पोइन्ट सेभेन टु एम्पियरमा झर्छ र आर लगभग वान पोइन्ट थ्री थ्री ओह्म हुन्छ।',
+    voice: 'त्यसैले एक्स्ट्रा रेजिस्टेन्स लगभग जिरो पोइन्ट एट वान ओह्म। आई ओ ई टु थाउजेन्ड सिक्स्टी एट भदौमा ट्विस्ट छ, पम्पको टर्क स्पिड स्क्वायर्डसँग बढ्छ: त्यस्तो बेला आई ए थर्टी पोइन्ट सेभेन टु एम्पियरमा झर्छ र आर लगभग वान पोइन्ट थ्री थ्री ओह्म हुन्छ।',
   },
   trap: {
     node: <>Trap: Ra ghatauna birsiyo bhane 0.91 Ω aaucha; Ia = 48 A ko satta IL = 50 A use garyo bhane pani answer sarcha.</>,
@@ -301,7 +301,7 @@ export const seriesControl = video('IOE 2075 Baisakh: series motor ko speed cont
     },
     {
       say: 'IOE 2075 Baisakh, 8 marks: 200 volt ko series motor 15 ampere ma 800 rpm ma chalcha, Ra 0.6 ra Rse 0.4 ohm. Same current ma 5 ohm thapda speed kati huncha, nikala.',
-      voice: 'आइओई टु थाउजेन्ड सेभेन्टी फाइभ बैशाख, एट मार्क्स: टु हन्ड्रेड भोल्टको सिरिज मोटर फिफ्टीन एम्पियरमा एट हन्ड्रेड आर पी एममा चल्छ, आर ए जिरो पोइन्ट सिक्स र आर एस ई जिरो पोइन्ट फोर ओह्म। सेम करेन्टमा फाइभ ओह्म थप्दा स्पिड कति हुन्छ, निकाल।',
+      voice: 'आई ओ ई टु थाउजेन्ड सेभेन्टी फाइभ बैशाख, एट मार्क्स: टु हन्ड्रेड भोल्टको सिरिज मोटर फिफ्टीन एम्पियरमा एट हन्ड्रेड आर पी एममा चल्छ, आर ए जिरो पोइन्ट सिक्स र आर एस ई जिरो पोइन्ट फोर ओह्म। सेम करेन्टमा फाइभ ओह्म थप्दा स्पिड कति हुन्छ, निकाल।',
     },
     {
       say: 'Current same cha, tesaile series flux pani same. Speed ratio bhaneko back EMF ratio matra ho.',
@@ -366,7 +366,7 @@ export const speedDerivation = video('Derivation: speed control ko equation', {
       say: 'Armature sanga extra R thapyo bhane drop I a times R a plus R huncha. Aba tinai knob eutai equation ma dekhincha: V, R ra phi.',
       voice: 'आर्मेचरसँग एक्स्ट्रा आर थप्यो भने ड्रप आई ए टाइम्स आर ए प्लस आर हुन्छ। अब तीनै नब एउटै इक्वेसनमा देखिन्छ: भी, आर र फाइ।',
     },
-    { say: 'Eutai motor ko duita operating point ko lagi N 2 over N 1 equals E b 2 over E b 1, times phi 1 over phi 2. Yo euta ratio le dherai jaso IOE speed numerical solve huncha.', voice: 'एउटै मोटरको दुईटा अपरेटिङ पोइन्टको लागि एन टु ओभर एन वान इक्वल्स ई बी टु ओभर ई बी वान, टाइम्स फाइ वान ओभर फाइ टु। यो एउटा रेसियोले धेरैजसो आइओई स्पिड न्युमेरिकल सल्भ हुन्छ।' },
+    { say: 'Eutai motor ko duita operating point ko lagi N 2 over N 1 equals E b 2 over E b 1, times phi 1 over phi 2. Yo euta ratio le dherai jaso IOE speed numerical solve huncha.', voice: 'एउटै मोटरको दुईटा अपरेटिङ पोइन्टको लागि एन टु ओभर एन वान इक्वल्स ई बी टु ओभर ई बी वान, टाइम्स फाइ वान ओभर फाइ टु। यो एउटा रेसियोले धेरैजसो आई ओ ई स्पिड न्युमेरिकल सल्भ हुन्छ।' },
     {
       say: 'Aba load torque ko condition.',
       voice: 'अब लोड टर्कको कन्डिसन।',

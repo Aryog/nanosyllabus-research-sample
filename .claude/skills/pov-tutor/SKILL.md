@@ -1,6 +1,6 @@
 ---
 name: pov-tutor
-description: The Tutor role for the DC Motors videos, a private tutor teaching one student, patiently, with why before how, working each step on the same textbook page as the Lecturer (Poppins, Blue or White). It owns the script, sound, animation, lesson shape and video format for this role, and is the default for 1/3 Terms and 2/3 Derivation. Use it when writing, editing, voicing or reviewing a video or variant taught by the Tutor (`pov: 'tutor'` or `variants.tutor`). It works inside the video-studio skill.
+description: The Tutor role for the DC Motors videos, a private tutor teaching one student, patiently, with why before how, working each step on the same textbook page as the Lecturer (Poppins, Blue or White). It owns the script, sound, animation, lesson shape and video format for this role, and is the default for 1/3 Basic Understanding and 2/3 Syllabus Content. Use it when writing, editing, voicing or reviewing a video or variant taught by the Tutor (`pov: 'tutor'` or `variants.tutor`). It works inside the video-studio skill.
 ---
 
 # Role: Tutor
@@ -54,7 +54,7 @@ Use each connector at most twice in a video (rule 42).
 
 ## Look and animation
 
-- In Derivation, the same page as the Lecturer: the textbook form in Poppins, Blue by default or White, board text on the left and the book figure on the right (`src/content/unit4/figs.jsx`). In Terms (segment 1) the Tutor is playful: 3D objects and real-life examples an 8th-grader knows (rule 7). Never a handwritten font, a navy board, emoji or cartoon faces.
+- In Derivation, the same page as the Lecturer: the textbook form in Poppins, Blue by default or White, board text on the left and the book figure on the right (`src/content/unit4/figs.jsx`). In Basic Understanding (segment 1) the Tutor talks like to a kid over the 3D motor tour: one part per beat, what it is and does, an everyday comparison, no maths (rule 7, video-studio `references/basic-understanding.md`). Never a handwritten font, a navy board, emoji or cartoon faces.
 - Write each video as a `duo()` with the Lecturer: same beats, one figure; parts of the figure come in on the beat that names them. Point-wise lines, one "=" per row, X → R expansions in derivations.
 
 ## Sound

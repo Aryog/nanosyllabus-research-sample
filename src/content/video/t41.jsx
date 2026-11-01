@@ -32,7 +32,7 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
   beats: [
     {
       say: 'Back EMF equation derive garchau. Symbols: P pole, phi flux per pole, Z conductor, A parallel path, ra N speed rpm ma.',
-      voice: 'ब्याक इएमएफ इक्वेसन डेराइभ गर्छौं। सिम्बोल्स — पी पोल, फाइ फ्लक्स पर पोल, जेड कन्डक्टर, ए प्यारालल पाथ, र एन स्पिड, आरपीएममा।',
+      voice: 'ब्याक ई एम एफ इक्वेसन डेराइभ गर्छौं। सिम्बोल्स — पी पोल, फाइ फ्लक्स पर पोल, जेड कन्डक्टर, ए प्यारालल पाथ, र एन स्पिड, आर पी एममा।',
     },
     {
       say: 'Euta revolution ma conductor sabai P pole muni bata pass huncha. Tesaile cut hune flux d Phi equals P phi weber.',
@@ -40,7 +40,7 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
     },
     {
       say: 'Speed N rpm bhaye, euta revolution ko time d t equals sixty over N second.',
-      voice: 'स्पिड एन आरपीएम भए, एउटा रिभोलुसनको टाइम — डी टी इक्वल्स, सिक्स्टी ओभर एन सेकेन्ड।',
+      voice: 'स्पिड एन आर पी एम भए, एउटा रिभोलुसनको टाइम — डी टी इक्वल्स, सिक्स्टी ओभर एन सेकेन्ड।',
     },
     {
       say: 'Faraday ko law: e equals d Phi over d t. d Phi ko thau ma P phi, d t ko thau ma sixty over N halda, e equals P phi N over sixty volt.',
@@ -48,19 +48,19 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
     },
     {
       say: 'Euta parallel path ma Z over A conductor series ma hunchan. Machine ko EMF euta path ko EMF ho, tesaile e lai Z over A le multiply garchau.',
-      voice: 'एउटा प्यारालल पाथमा, जेड ओभर ए कन्डक्टर सिरिजमा हुन्छन्। मेसिनको इएमएफ, एउटा पाथको इएमएफ हो। त्यसैले, ईलाई जेड ओभर एले मल्टिप्लाई गर्छौं।',
+      voice: 'एउटा प्यारालल पाथमा, जेड ओभर ए कन्डक्टर सिरिजमा हुन्छन्। मेसिनको ई एम एफ, एउटा पाथको ई एम एफ हो। त्यसैले, ईलाई जेड ओभर एले मल्टिप्लाई गर्छौं।',
     },
     {
       say: 'Result: E b equals P phi Z N over sixty A. Motor ma yo EMF supply voltage ko ulto huncha, yasari yaslai back EMF bhanincha.',
-      voice: 'रिजल्ट — ई बी इक्वल्स, पी फाइ जेड एन, ओभर सिक्स्टी ए। मोटरमा यो इएमएफ, सप्लाई भोल्टेजको उल्टो हुन्छ। यसरी यसलाई ब्याक इएमएफ भनिन्छ।',
+      voice: 'रिजल्ट — ई बी इक्वल्स, पी फाइ जेड एन, ओभर सिक्स्टी ए। मोटरमा यो ई एम एफ, सप्लाई भोल्टेजको उल्टो हुन्छ। यसरी यसलाई ब्याक ई एम एफ भनिन्छ।',
     },
     {
       say: 'Euta machine ma P, Z ra A fixed hunchan. Yesko matlab E b equals k phi N: back EMF flux ra speed sanga proportional cha.',
-      voice: 'एउटा मेसिनमा, पी, जेड र ए फिक्स्ड हुन्छन्। यसको मतलब, ई बी इक्वल्स — के फाइ एन। ब्याक इएमएफ, फ्लक्स र स्पिडसँग प्रोपोर्सनल छ।',
+      voice: 'एउटा मेसिनमा, पी, जेड र ए फिक्स्ड हुन्छन्। यसको मतलब, ई बी इक्वल्स — के फाइ एन। ब्याक ई एम एफ, फ्लक्स र स्पिडसँग प्रोपोर्सनल छ।',
       ask: {
         tag: 'Quick check',
         q: 'Flux same rakhera motor ko speed aadha garyo. Back EMF kati huncha?',
-        voice: 'फ्लक्स उही राखेर, मोटरको स्पिड आधा गर्यो। ब्याक इएमएफ कति हुन्छ?',
+        voice: 'फ्लक्स उही राखेर, मोटरको स्पिड आधा गर्यो। ब्याक ई एम एफ कति हुन्छ?',
         options: ['Aadha huncha', 'Same rahancha', 'Dui guna huncha'],
         answer: 0,
         why: 'Eb = kφN. φ same ra N aadha bhaye Eb pani aadha.',
@@ -93,7 +93,7 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
       beats: [
         {
           say: 'EMF equation, answer sheet ma lekhne tarika. Let: P pole, phi flux per pole, Z conductor, A parallel path, ra N speed rpm ma.',
-          voice: 'इएमएफ इक्वेसन, आन्सर सिटमा लेख्ने तरिका। लेट — पी पोल, फाइ फ्लक्स पर पोल, जेड कन्डक्टर, ए प्यारालल पाथ, र एन स्पिड आरपीएममा।',
+          voice: 'ई एम एफ इक्वेसन, आन्सर सिटमा लेख्ने तरिका। लेट — पी पोल, फाइ फ्लक्स पर पोल, जेड कन्डक्टर, ए प्यारालल पाथ, र एन स्पिड आर पी एममा।',
         },
         {
           say: 'Euta revolution ma euta conductor le cut garne flux d Phi equals P phi weber, equation ek. Time d t equals sixty over N second, equation dui.',
@@ -101,7 +101,7 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
         },
         {
           say: 'Faraday ko law anusar EMF per conductor e equals d Phi over d t, arthat P phi N over sixty volt, equation tin.',
-          voice: 'फाराडेको ल अनुसार, इएमएफ पर कन्डक्टर — ई इक्वल्स डी फाइ ओभर डी टी, अर्थात पी फाइ एन ओभर सिक्स्टी भोल्ट, इक्वेसन थ्री।',
+          voice: 'फाराडेको ल अनुसार, ई एम एफ पर कन्डक्टर — ई इक्वल्स डी फाइ ओभर डी टी, अर्थात पी फाइ एन ओभर सिक्स्टी भोल्ट, इक्वेसन थ्री।',
         },
         {
           say: 'Euta path ma Z over A conductor series ma hunchan. Yesko matlab E b equals P phi Z N over sixty A, equation char.',
@@ -165,11 +165,11 @@ export const voltageEquation = video('Derivation: voltage ra power equation', {
   beats: [
     {
       say: 'Armature circuit: supply V, armature resistance R a, ra armature bhitra back EMF E b, jun supply ko ulto cha.',
-      voice: 'आर्मेचर सर्किट — सप्लाई भी, आर्मेचर रेजिस्टेन्स आर ए, र आर्मेचर भित्र ब्याक इएमएफ ई बी, जुन सप्लाईको उल्टो छ।',
+      voice: 'आर्मेचर सर्किट — सप्लाई भी, आर्मेचर रेजिस्टेन्स आर ए, र आर्मेचर भित्र ब्याक ई एम एफ ई बी, जुन सप्लाईको उल्टो छ।',
     },
     {
       say: 'Loop ma KVL: supply voltage V, back EMF E b ra R a ko drop I a R a ma baadincha.',
-      voice: 'लुपमा केभीएल — सप्लाई भोल्टेज भी, ब्याक इएमएफ ई बी, र आर ए को ड्रप आई ए आर एमा बाँडिन्छ।',
+      voice: 'लुपमा के भी एल — सप्लाई भोल्टेज भी, ब्याक ई एम एफ ई बी, र आर ए को ड्रप आई ए आर एमा बाँडिन्छ।',
     },
     {
       say: 'Yesbata armature current: I a equals V minus E b, over R a. E b thulo bhaye current sano huncha.',
@@ -356,7 +356,7 @@ export const torqueFromPower = video('Derivation: torque equation (power method)
       ask: {
         tag: 'Quick check',
         q: 'Motor ko Eb = 210 V, Ia = 20 A ra N = 1500 rpm cha. Armature torque kati huncha?',
-        voice: 'मोटरको ई बी टु हन्ड्रेड टेन भोल्ट, आई ए ट्वेन्टी एम्पियर, र एन पन्ध्र सय आरपीएम छ। आर्मेचर टर्क कति हुन्छ?',
+        voice: 'मोटरको ई बी टु हन्ड्रेड टेन भोल्ट, आई ए ट्वेन्टी एम्पियर, र एन पन्ध्र सय आर पी एम छ। आर्मेचर टर्क कति हुन्छ?',
         options: ['≈ 26.7 N·m', '≈ 2.8 N·m', '≈ 267 N·m'],
         answer: 0,
         why: 'Ta = 9.55 × 210 × 20 / 1500 ≈ 26.7 N·m. (2.8 N·m le 9.55 birsancha.)',

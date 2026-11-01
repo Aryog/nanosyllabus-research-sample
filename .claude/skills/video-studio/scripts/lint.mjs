@@ -7,6 +7,10 @@
 // Exit code 1 when any error is found.
 
 import { loadCourse, topicsFrom, wanted } from './journey.mjs';
+import { pathToFileURL } from 'node:url';
+import path from 'node:path';
+
+const { JOINED } = await import(pathToFileURL(path.join(process.cwd(), 'src/content/abbr.js')).href);
 
 const args = process.argv.slice(2);
 const topics = topicsFrom(args);
@@ -28,6 +32,11 @@ const POINT_NOWHERE = /\b(yaha|yahi|tyaha|tyahi)\s*bata\s+aau/i;
 const POINT = /\b(yaha|tyaha|hera)\b/i;
 const LEAD_IN = /^(la,? yo answer gara|la use garau|euta term baki cha|aba maximum chahiyo)\.?$/i;
 // LaTeX inside a board line (the <K> children), to check rule 33.
+// Basic Understanding (segment 1, rule 7) is intuition only: no maths, no
+// symbols. Converted topics have a segment-1 video titled "<num> · Basic understanding…".
+const textOf = (n) => (n == null || typeof n === 'boolean' ? '' : typeof n !== 'object' ? String(n) : Array.isArray(n) ? n.map(textOf).join('') : [textOf(n.props?.children), textOf(n.props?.items)].join(' '));
+const hasTex = (n) => (n == null || typeof n !== 'object' ? false : Array.isArray(n) ? n.some(hasTex) : !!n.type?.isTex || hasTex(n.props?.children) || hasTex(n.props?.items));
+const SYMBOL = /\b(E ?b|I ?a|R ?a|T ?a|Eb|Ia|Ra|Ta|Ish|Rsh|IL|Pm|BIl)\b|[φΦ∝ηωτ=≈]/;
 const texOf = (n) => (n == null || typeof n !== 'object' ? '' : Array.isArray(n) ? n.map(texOf).filter(Boolean).join(' \\\\ ') : n.type?.name === 'K' && typeof n.props?.children === 'string' ? n.props.children : texOf(n.props?.children));
 
 const out = [];
@@ -47,6 +56,8 @@ for (const v of videos) {
     if (say && !b.voice) report('error', v, k, 'has `say` but no Devanagari `voice` (rule 1)');
     if (b.voice && !DEVANAGARI.test(b.voice)) report('error', v, k, '`voice` is not Devanagari (rule 1)');
     if (b.voice && /…|\.\.\./.test(b.voice)) report('error', v, k, '`voice` contains "…" (rule 28b: sounds hesitant)');
+    // Rule 28c: a short form in a voice line is spelled letter by letter.
+    for (const t of [b.voice, b.ask?.voice]) if (t && JOINED.test(t)) report('error', v, k, `voice spells "${t.match(JOINED)[0]}" joined; write the letter names apart, e.g. "ई एम एफ" (rule 28c, src/content/abbr.js)`);
     if (/\byo topic\b/i.test(say)) report('error', v, k, 'says "yo topic"; name the topic (rule 5)');
     if (FILLER.test(say)) report('error', v, k, `filler lead-in "${say.match(FILLER)[0]}"; use "La, yo answer gara." (rule 11)`);
     if (HYPE.test(say)) report('error', v, k, `filler "${say.match(HYPE)[0]}" (rule 32)`);
@@ -74,6 +85,16 @@ for (const v of videos) {
     if (!a.why) report('warn', v, k, 'question has no `why`');
   });
 
+  // Rule 7: Basic Understanding has no maths and no symbols.
+  if (v.step.segment?.startsWith('1/3') && /Basic understanding/i.test(v.step.title ?? '')) {
+    v.beats.forEach((b, k) => {
+      if (SYMBOL.test(b.say ?? '')) report('error', v, k, `Basic Understanding caption has maths or a symbol ("${(b.say ?? '').match(SYMBOL)[0]}"); say it in words (rule 7)`);
+    });
+    for (const l of v.board) {
+      if (l.kind === 'eq' || hasTex(l.node)) report('error', v, l.at, 'Basic Understanding board has an equation; no maths in segment 1 (rule 7)');
+      else if (SYMBOL.test(textOf(l.node))) report('error', v, l.at, `Basic Understanding board has a symbol ("${textOf(l.node).match(SYMBOL)[0]}"); name it in words (rule 7)`);
+    }
+  }
   // Rule 42: no connector more than twice per video.
   const counts = {};
   for (const b of v.beats) for (const m of (b.say ?? '').toLowerCase().matchAll(/\b(tesaile|yasari|yesko matlab|phalswarup|yahi karan)\b/g)) counts[m[1]] = (counts[m[1]] ?? 0) + 1;

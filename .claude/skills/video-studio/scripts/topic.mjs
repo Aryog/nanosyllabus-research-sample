@@ -48,21 +48,31 @@ if (!spec) {
   process.exit(gate ? 1 : 0);
 }
 console.log(`Syllabus: ${spec.syllabus.join(' · ')}`);
-console.log('Derivations (segment 2, one video each):');
+console.log('Derivations (segment 2 Syllabus Content, one video each):');
 for (const d of spec.derivations) console.log(`  - ${d}`);
-console.log('Big picture (segment 3, one video per question, every role opens with it):');
+console.log('Model Answer (segment 3, one video per past question, taught by the Lecturer):');
 for (const q of spec.bigPicture) console.log(`  - [${q.kind}] ${q.papers.join(' · ')} ${q.marks}: ${q.q}`);
 if (spec.gap) console.log(`  ⚠ ${spec.gap}`);
 if (spec.alsoAsked?.length) {
-  console.log('Also asked (use inside Terms/Derivation or practice):');
+  console.log('Also asked (use inside Syllabus Content or practice):');
   for (const q of spec.alsoAsked) console.log(`  - ${q.papers.join(' · ')}: ${q.q} → ${q.where}`);
 }
 
 // ── Status: what the course has, and is it game-ready? ───────────────────
 const [terms, derive, picture] = ['1/3', '2/3', '3/3'].map(seg);
-ok(terms.length >= 2 && / ma k padhne\?$/.test(terms[0]?.title ?? ''), `Segment 1 Terms: opener + ${Math.max(0, terms.length - 1)} video(s)`);
-ok(derive.length >= spec.derivations.length, `Segment 2 Derivation: ${derive.length} video(s) for ${spec.derivations.length} equation(s)`);
-ok(picture.length >= Math.max(1, spec.bigPicture.length), `Segment 3 Big picture: ${picture.length} video(s) for ${spec.bigPicture.length} past question(s)`, !spec.bigPicture.length);
+// Segment 1, Basic Understanding (rule 7): one "<num> · Basic understanding…"
+// video, about a minute in each telling (the timeline's guess: 300 ms + 80 ms
+// per spoken character; 75 s at most), no maths (lint.mjs checks that).
+const estS = (beats) => beats.reduce((t, b) => t + 300 + 80 * voice.spoken(voice.beatText(b)).length, 0) / 1000;
+const basics = terms[0];
+ok(terms.length === 1 && new RegExp(`^${num.replace('.', '\\.')} · Basic understanding`).test(basics?.title ?? ''), `Segment 1 Basic Understanding: ${terms.length} video(s)${basics ? ` ("${basics.title}")` : ''}`);
+if (basics)
+  for (const [r, beats] of [[basics.figureProps.pov ?? 'tutor', basics.figureProps.beats], ...Object.entries(basics.figureProps.variants ?? {}).map(([k, va]) => [k, va.beats ?? basics.figureProps.beats])]) {
+    const sec = estS(beats);
+    ok(sec <= 75, `  [${r}] ${Math.round(sec)} s (about a minute; 75 s at most)`);
+  }
+ok(derive.length >= spec.derivations.length, `Segment 2 Syllabus Content: ${derive.length} video(s) for ${spec.derivations.length} equation(s)`);
+ok(picture.length >= Math.max(1, spec.bigPicture.length), `Segment 3 Model Answer: ${picture.length} video(s) for ${spec.bigPicture.length} past question(s)`, !spec.bigPicture.length);
 
 // Big picture: every video and every role version opens with an IOE question.
 const qLine = (board) => (board ?? []).find((l) => l.kind === 'q' && l.at === 0);
@@ -71,7 +81,7 @@ for (const st of picture) {
   // A topic with no past question in vault/ (topics.json `gap`) may use an
   // exam-style card instead; it must not claim a paper.
   const card = spec.gap ? /IOE|Exam-style/ : /IOE/;
-  ok(!!main && card.test(textOf(main.node)), `Big picture "${st.title}" opens with ${spec.gap ? 'an IOE or exam-style' : 'an IOE'} question card`);
+  ok(!!main && card.test(textOf(main.node)), `Model Answer "${st.title}" opens with ${spec.gap ? 'an IOE or exam-style' : 'an IOE'} question card`);
   // Big picture is always the Lecturer (rule 44): no role versions there.
   ok(!Object.keys(st.figureProps.variants ?? {}).length, `  taught by the Lecturer only (no role versions)`);
   for (const [r, va] of Object.entries(st.figureProps.variants ?? {})) {
@@ -87,7 +97,7 @@ for (const q of spec.bigPicture) {
   // Matched on the question text (papers are shared between questions).
   const key = q.q.replace(/\(digest.*$/, '').slice(0, 40);
   const hit = picture.find((st) => textOf(qLine(st.figureProps.board)?.node).includes(key));
-  ok(!!hit, `Past question ${q.id} (${q.papers[0]}…) is answered in Big picture${hit ? `: "${hit.title}"` : ''}`);
+  ok(!!hit, `Past question ${q.id} (${q.papers[0]}…) is answered in Model Answer${hit ? `: "${hit.title}"` : ''}`);
 }
 
 // Roles: every main video outside Big picture in both roles (Tutor, Lecturer).

@@ -17,16 +17,17 @@ A short table per segment:
 
 | Segment | Videos | Native role | Notes |
 |---|---|---|---|
-| 1/3 Terms | opener + 2–4 | Tutor (+ Lecturer) | one idea per video, `duo()` over a book figure (rules 40, 46, 48) |
-| 2/3 Derivation | one per item in `derivations` | Tutor | rule 33 maths; X → R expansion; boxed result; meaning |
-| 3/3 Big picture | one per item in `bigPicture` | Lecturer | `answer()` for theory, `solve()` for numericals; textbook form (rule 41) |
+| 1/3 Basic Understanding | exactly 1, ~60 s | Tutor + Lecturer (`duo`) | 3D `motorTour`, one part per beat, no maths ([basic-understanding.md](basic-understanding.md), rule 7) |
+| 2/3 Syllabus Content | definition/working videos + one per item in `derivations` | Tutor + Lecturer (`duo`) | `duo()` over a book figure (rules 40, 46, 48); rule 33 maths; X → R expansion; boxed result; meaning |
+| 3/3 Model Answer | one per item in `bigPicture` | Lecturer | `answer()` for theory, `solve()` for numericals; textbook form (rule 41) |
 
 Reuse existing videos that already meet the rules (check them against this recipe). Rewrite the rest. Surplus videos go to `extras`, never deleted (rule 8).
 
 ## 2. Write the native scripts
 
+- **Segment 1 first**: write the Basic Understanding duo and its plan in `src/content/unit4/basics.jsx` by [basic-understanding.md](basic-understanding.md) §6, and wire it as `opener` with `terms: []`.
+
 - Files: derivations in `src/content/video/t<topic>.jsx` (4.1: `t41.jsx`), model answers in `picture.jsx`, terms videos where they live (or a new `t<topic>.jsx` section). Wire them in `src/content/topics.jsx` (`terms`, `derive`, `picture`, `introRoles`).
-- Opener (rules 4–6): the topic name, 2–3 question beats, and the hook naming the Big-picture questions with their real counts.
 - Every beat: `say` (roman Gen-Z Nepali) + `voice` (Devanagari with resting points, rule 28b). Caption = screen (rule 31). No filler (rule 32). Vary connectors (rule 42). Asks sit on the teaching beat (rule 11) and stand alone (rule 10).
 - Numbers: compute every value with a quick `python3 -c` or `node -e` and keep the command's output in your notes. Every wrong option must really be wrong.
 
@@ -56,6 +57,8 @@ node .claude/skills/video-studio/scripts/fit-check.mjs <num>                    
 For role versions, screenshot with `localStorage dcm-pov-<segment> = "<role>"` (one key per segment, 1–3: `page.addInitScript(() => localStorage.setItem('dcm-pov-2', '"tutor"'))`), at least one video per role, and every Big-picture video in both Lecturer themes (`localStorage dcm-lecturer-theme = "blue"`). Open every PNG and look: nothing overlapping, text readable, the question card on top in Big picture, the green ring on the part.
 
 ## 6. Voice and render (only with the user's yes)
+
+**Only 4.1 is voiced** (user, 2026-11-01). For every other topic stop after step 5 and say it is caption-only.
 
 `topic.mjs` prints the characters for every unrecorded line, role versions included. Give the user that number. Record only after they say yes (rule 25), as whole takes (rule 27). Role versions need the recorder to support `variants` and each role's `voice` settings. Until then, say they are caption-only. Render MP4s after the voice (rule 29).
 
