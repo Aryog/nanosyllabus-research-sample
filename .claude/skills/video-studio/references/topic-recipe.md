@@ -79,7 +79,8 @@ For role versions, screenshot with `localStorage dcm-pov-<segment> = "<role>"` (
 | "with audio" | steps 1–5, then the estimate and **ask** before recording (never skip the yes) |
 | "no audio" / "captions only" | stop after step 5 (rule 38) |
 | "add a role, e.g. Classmate" | add it to `src/content/pov.js` (id, name, role, ref, look, voice), create `.claude/skills/pov-<id>/SKILL.md` from an existing role skill, then add that role to every finished topic (it becomes required by `topic.mjs`) |
-| "a topic outside Unit 4" | add the unit's topics to `topics.json` from `vault/` first. The recipe is the same |
+| "a topic outside Unit 4" | the recipe is the same. Topics 1.1–7.4 are already in `topics.json` and built in `src/content/units/u<N>.jsx` (a unit file exports `{ topics, summary }`, wired in `units/index.jsx` with its route slug). Segment 1 uses that unit's 3D tour ([basic-understanding.md](basic-understanding.md) §8); figures sit at the top of the unit file (visuals.md "Book figures outside Unit 4"). Frame strips: title words search every unit; a screen number needs `--unit <slug>` |
+| "generate the whole subject" / "all units" | unit by unit, in syllabus order; for each unit: topics.json → figures → basics → syllabus duos → answers → `eqsplit.py` → lint → gate for each topic → build → frame strips of every Basic Understanding and one derivation per unit → commit and push that unit before starting the next |
 | "redo 4.x in a new style" | change the role skills or rules first, then regenerate. The gate keeps the structure |
 
 If `vault/` has no past question for a topic (`topics.json` `gap`), do not invent one. Use the closest real past question that the topic's method answers, say so in the video's board tag, and tell the user.

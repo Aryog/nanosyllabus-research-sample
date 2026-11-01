@@ -5,8 +5,10 @@ description: The complete studio for the DC Motors video course in one skill. Wh
 
 # Video studio
 
-The DC Motors course (IOE Electrical Machines, Unit 4) is one video-first
-journey: six micro-topics, 4.1 to 4.6. Each topic is three segments of
+The course is the whole IOE **Electrical Machines** subject: seven units,
+one video-first journey per unit, 30 micro-topics (1.1–1.3, 2.1–2.5,
+3.1–3.4, 4.1–4.6, 5.1–5.4, 6.1–6.4, 7.1–7.4). Unit 4 (DC Motor) was the
+first and is the reference implementation. Each topic is three segments of
 self-playing videos with a Devanagari voice, roman captions and questions
 inside the video:
 
@@ -21,6 +23,20 @@ Terms / Derivation / Big picture for segments 1 / 2 / 3; the code keys are
 `terms`, `derive`, `picture`.) This skill is the single home for
 **every** rule and procedure behind those videos. **It is never finished:
 every task ends by updating it (see "Keep this skill alive").**
+
+## The units
+
+| Unit | Route slug | Content file | Segment-1 3D tour |
+|---|---|---|---|
+| 1 Magnetic Circuits and Induction | `magnetic-circuits` | `src/content/units/u1.jsx` | `magnetTour` |
+| 2 Transformer | `transformer` | `src/content/units/u2.jsx` | `transformerTour` |
+| 3 DC Generator | `dc-generator` | `src/content/units/u3.jsx` | `motorTour` + `engine`, `lamp` |
+| 4 DC Motor | `dc-motor` | `src/content/topics.jsx`, `unit4/u41–u46.jsx` | `motorTour` |
+| 5 Three Phase Induction Machines | `induction-machines` | `src/content/units/u5.jsx` | `inductionTour` |
+| 6 Three Phase Synchronous Machines | `synchronous-machines` | `src/content/units/u6.jsx` | `syncTour` |
+| 7 Fractional Kilowatt Motors | `fractional-kw-motors` | `src/content/units/u7.jsx` | `smallTour`; 7.3 `motorTour` + `ac` |
+
+All units are assembled in `src/content/units/index.jsx` (`units`: slug, title, topics, journey); the app routes `/electrical-machines/<slug>[/lesson/<n>]` and keeps one progress record per unit (`em-progress-v3`). Every topic number is unique across the subject, so `lint.mjs 2.3`, `topic.mjs 5.4` work unchanged.
 
 ## "Generate topic X": the one-command path
 
@@ -97,9 +113,11 @@ Registry and voice settings: `src/content/pov.js`. Write a Terms or Derivation v
 
 | What | File |
 |---|---|
-| Topic list, order, openers, extras | `src/content/topics.jsx` (assembled in `src/content/journey.jsx`) |
+| Topic list, order, openers, extras (Unit 4) | `src/content/topics.jsx` (assembled in `src/content/journey.jsx`); `topic()` lives in `kit.jsx` |
 | Authoring helpers (`video`, `overview`, `solve`, `answer`, `segments`, `extra`, SVG parts, palette `C`, `K` for KaTeX) | `src/content/video/kit.jsx` |
-| Unit 4 content (duo videos, answers) and book figures | `src/content/unit4/u41–u46.jsx`, `src/content/unit4/figs.jsx` |
+| Unit 4 content (duo videos, answers) and book figures | `src/content/unit4/u41–u46.jsx`, `src/content/unit4/figs.jsx` (also exports the shared ink for every unit) |
+| Units 1–3, 5–7 (figures, basics, syllabus duos, answers, summary) | `src/content/units/u1.jsx` … `u7.jsx`; assembled with Unit 4 in `src/content/units/index.jsx` |
+| 3D machines for the other units | engine `src/content/machines/tour3d.js` (`makeTour`), models `src/content/machines/models3d.js` (basic-understanding.md §8) |
 | Segment 1 Basic Understanding (one duo per topic) and its 3D motor tour | `src/content/unit4/basics.jsx`, `src/content/unit4/basics3d.js` (`motorTour(plan)`) |
 | Short forms → full forms + spoken spelling | `src/content/abbr.js` (player: `withAbbr`/`captionsOf` in `Scene.jsx`) |
 | Old doodles (extras only; never in the main path) | `src/content/video/doodles.jsx` |
@@ -123,8 +141,9 @@ Registry and voice settings: `src/content/pov.js`. Write a Terms or Derivation v
 node .claude/skills/video-studio/scripts/topic.mjs 4.2 [--check]            # topic brief, status, game-ready gate
 node .claude/skills/video-studio/scripts/status.mjs [4.1 …] [--videos]   # voice + MP4 state, credits still needed
 node .claude/skills/video-studio/scripts/lint.mjs [4.1 …] [--main]       # house-rule checks on the scripts
-node .claude/skills/video-studio/scripts/frame-strip.mjs <n|title> [--frames 10]   # screenshots + pause test (needs preview)
-node .claude/skills/video-studio/scripts/anim-once.mjs <n> [--pov role]            # nothing animates twice (needs preview)
+node .claude/skills/video-studio/scripts/frame-strip.mjs <title words | n --unit slug> [--frames 10]   # screenshots + pause test (needs preview)
+node .claude/skills/video-studio/scripts/anim-once.mjs <n> [--unit slug] [--pov role]          # nothing animates twice (needs preview)
+python3 .claude/skills/video-studio/scripts/eqsplit.py src/content/units/u5.jsx             # rule 33/55: split "a = b = c" maths rows
 node .claude/skills/video-studio/scripts/fit-check.mjs 4.1 [--sizes 390x844]        # layout: nothing cut or overlapping, every beat × role × size
 
 # Repo pipeline
@@ -191,4 +210,5 @@ Every time the user corrects, prefers or praises something:
 - 2026-11-01: **Segments renamed and segment 1 rebuilt** (user feedback on 4.1: "section rename 1. Basic Understanding 2. Syllabus Content 3. Model Answer"; first section 3 min → 1 min, no maths, "like for a kid", explain armature, coil, commutator, starter visually). Every topic 4.1–4.6 now opens with ONE Basic Understanding `duo()` (45–69 s per telling) over `motorTour(plan)` (`unit4/basics3d.js`: one 3D motor whose parts are focused per beat; deterministic on the scene clock). Old Terms videos moved to the front of Syllabus Content, old openers to extras. New reference `references/basic-understanding.md` (the full recipe, parts and plan keys, example plans). Gate: one segment-1 video ≤ 75 s per telling; lint: no maths/symbols in segment 1.
 - 2026-11-01: **Short forms** (user: "DC (Direct Current), EMF (Electro-Motive Force) … MNA bujhiyena"): the player writes the full form the first time per video (rule 53, `src/content/abbr.js`). **Pronunciation** (user: "EMF lai imf bhandaixa"): the voice lines spelled short forms joined (`इएमएफ` ×50, `डीसी` ×43, `आइओई`, `एनभीसी`, `एमएनए`, `ओएलआर`, `आरपीएम`, `केभीएल`, `एसी`), which TTS reads as a word; all 165 rewritten letter by letter (rule 28c, lint error). This re-keys those lines: 4.1's recorded clips with them need a new take.
 - 2026-11-01: **Only 4.1 is voiced** (user). Other topics stay caption-only. fit-check no longer measures playlist thumbnails (false "label cut" on 3D videos).
+- 2026-11-01: **Whole subject generated** (user: "generate content for all units and its submodules … make good use of what we have in vault"). Units 1–3 and 5–7 (24 topics) built in the 4.1 pattern, caption-only: a 3D Basic Understanding per topic on a new engine (`machines/tour3d.js`) with one model per unit (`models3d.js`: magnetic core, transformer, induction, synchronous, single-phase/stepper; the DC machine gained `engine`, `lamp`, `ac`), Tutor + Lecturer Syllabus Content over one book figure per topic, and Model Answers for 38 real past questions from the vault Question Bank (topics.json). Multi-unit routes and per-unit progress in `App.jsx`; scripts load every unit. New rules 54–58 (numbers vs short forms in voice, row width, words on segment-1 boards, the topic shape, vault numericals) and M17–M18; `eqsplit.py`; lint warns on wide maths rows. New short forms MMF, AT, OC, SC, CT, PT, LV, HV, RMF, kVA, pf.
 

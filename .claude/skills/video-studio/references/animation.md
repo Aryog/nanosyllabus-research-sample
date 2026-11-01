@@ -80,3 +80,6 @@ Follow `motor3d.js`: a header comment listing what each beat shows, `SHOTS` per 
 3. Build and preview (never the dev server), then run `frame-strip.mjs` before and after. Its pause test must pass.
 4. Never change `say`/`voice` during a motion pass (that costs credits). Board lines, drawings and CSS are free.
 5. Re-render affected MP4s (`npm run render:videos -- <topic> --force`) if they are voiced.
+
+M17. **3D labels and light panels stay clear of the camera.** A label anchor sits inside the frame for every shot it is used with (pull it toward the centre rather than let it clip; e.g. the stator `winding` anchor), and a light-coloured part (panels, rheostat boxes) never sits between a shot's camera and the machine: place it beside the frame, or it shows as a white slab (5.1 slip-ring rheostat, 2026-11-01).
+M18. **One engine, many machines.** Basic Understanding outside Unit 4 uses `machines/tour3d.js` `makeTour(model)`: the engine owns the camera glide, focus fade (0.22), heat glow, labels, flow dots and spins, all as functions of (beat, ms); a model in `machines/models3d.js` only builds parts and says how its own keys look (`update`, `pathOn`, `opacity`). A new machine is a new model there, never a one-off scene in a topic file; a new effect on an existing machine is a new plan key on its model (documented in the header comment).

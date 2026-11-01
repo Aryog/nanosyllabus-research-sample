@@ -195,3 +195,29 @@ The player adds full forms by itself: the first time `DC`, `EMF`, `MNA`, `GNA`, 
 | 4.4 starters | switch on suddenly? → no push back, flood of current → heat + spark → starter = slow door → studs → No-Volt Coil (ask) → Overload Release → 3- vs 4-point | `flow: 1`, `heat`, `spark`, `stud` 1 → 5 → 0 |
 | 4.5 speed control | three knobs → speed settles where push back ≈ battery → weak magnet = faster (ask) → field control → armature control → voltage → reversing | `field`, `spin`, `back`, `spin: -0.5` |
 | 4.6 testing | full-load test is costly → no load: all input = losses → Swinburne → constant losses → retardation: cut supply → coasts down (ask) → both give efficiency | `heat`, `spin: 0` + `spinMs: 6500` |
+
+## 8. Machines outside Unit 4 (the whole subject)
+
+Every unit has its own 3D machine, built once in `src/content/machines/models3d.js` on the engine `machines/tour3d.js` (`makeTour(model)`, motion rule M18). A topic still writes only a plan; the engine keys (`shot`, `focus`, `show`, `spin`, `spinMs`, `flow`, `heat`, `labels`, `gap`) work in every model, and each model adds its own.
+
+| Unit | Tour | Parts (`show` / `focus` / label anchors) | Model keys | Shots |
+|---|---|---|---|---|
+| 1 Magnetic circuits | `magnetTour` | `core` (+`bridge` = the piece that fills the air gap), `coil`, `battery`, `domains`, `eddy`, `sheets`, `coil2`, `lamp`, `magnet`, `loop`, `meter`, `poles`, `rod`; anchors also `flux`, `gap`, `force` | `flux` 0–1, `air` 0–1 (gap opens), `align` 0–1 (domains line up), `eddy` 0–1, `lamp` 0–1, `move` 0–1 (bar magnet in-out, meter swings), `push` 0–1 (rod kicked) | `whole`, `core`, `coil`, `gap`, `top`, `battery`, `sheets`, `right`, `wide` |
+| 2 Transformer | `transformerTour` | `core`, `primary`, `secondary`, `source` (AC dial), `lamp`, `leak`, `tank`, `bushings`, `tap`, `core3`, `coils3` (R Y B) | `flux`, `flow` (primary), `flow2` (secondary + lamp glow), `leak` 0–1, `tap` 0–1 | `whole`, `core`, `primary`, `secondary`, `source`, `load`, `tank`, `top` |
+| 3 DC generator | `motorTour` (unit4) | the DC machine + `engine` (prime mover) and `lamp` (load, in place of `battery`; glows with `flow`) | all motorTour keys | motorTour shots + `engine` |
+| 5 Induction | `inductionTour` | `frame`, `stator`, `winding` (R Y B, each phase glows as the field passes it), `rotorCore`, `cage` or `slip` (+`rheo`), `shaft`, `supply`, `capacitor`, `engine`; anchor `field` | `field` 0–1 (rotating field arrow), `rmf` −1…1 (its speed), `rmfMs`; `spin` is the rotor, so `rmf 0.7, spin 0.65` shows slip | `whole`, `front`, `inside`, `side`, `supply`, `slip`, `back`, `wide` |
+| 6 Synchronous | `syncTour` | stator parts + `salient` + `fieldCoil` or `round`, `damper`, `sliprings` (+`brushes`), `exciter`, `turbine`, `lamps`, `supply` | `field` (rotor field arrow), `rmf` (stator field, shown with `supply`), `lamp` | `whole`, `front`, `inside`, `rotor`, `exciter`, `back`, `lamps`, `supply`, `wide` |
+| 7 FKW motors | `smallTour` | `frame`, `stator`, `main`, `aux`, `capacitor`, `rotorCore`, `cage`, `switch` (centrifugal: weights fly out with speed), `shaft`, `supply`; stepper `stepStator` (+`stepCoils`), `stepRotor`, `arm`, `sensor` | `pulse` 0–1 (field that only grows and shrinks), `dfr` 0–1 (two halves turning opposite ways), `rot` 0–1 (true rotating field), `step` 0,1,2,… (stepper position; the lit coil follows) | `whole`, `front`, `inside`, `cap`, `switch`, `side` |
+| 7.3 universal | `motorTour` with `ac: true` | the DC machine wired `series`; the battery stands for the AC supply (its + − marks hide) | | |
+
+Every unit's segment-1 plans live in that unit's file (`src/content/units/u<N>.jsx`, `basics<N><k>`); the worked examples there are the patterns to copy:
+
+| Topic | The story in 8 beats | Key plan moves |
+|---|---|---|
+| 1.1 magnetic circuit | frame + coil → current makes flux → iron is the road → more turns more push → cut a gap → tiny gap blocks most (ask) → series/parallel → takeaway | `flux`, `air: 1` with `focus: ['core', 'bridge']` |
+| 1.2 hysteresis | jumbled small magnets → line up → all lined up (saturation) → some stay (residual, ask) → back-and-forth heats → whirlpools (eddy) → thin sheets → takeaway | `align` 0 → 1 → 0.65, `heat.core`, `eddy`, `show: [... 'sheets']` |
+| 2.1 transformer | charger → core → primary on AC → flux → secondary lights the lamp without touching (ask) → turns decide voltage → tank, oil, bushings | `flux`, `flow`, `flow2` |
+| 5.1 RMF | pump/lift → stator still → R Y B coils on 3 phases → field turns though nothing moves (ask) → cage → rotor chases → slip ring + rheostat | `field: 1, rmf: 0.6`, then `spin` with `spinMs: 3000` |
+| 6.4 synchronous motor | stator field turns → rotor DC magnet → too fast to catch (ask) → damper bars start it → lock at the same speed → weak field lagging → strong field leading | `rmf`, `spin: 0` then `0.5/0.6`, `field` 0.5 → 1 |
+| 7.1 single phase | home appliances → one winding → field only pulses (ask) → rotor stays → two halves turning opposite → push it → the forward half wins | `pulse: 1` → `dfr: 1`, `spin` small then `0.7` |
+| 7.4 stepper | printer → four poles → magnet rotor → next coil on → one step (ask) → count pulses → servo sensor | `step` 0 → 1 → 2 → 4, `show: [... 'arm', 'sensor']` |

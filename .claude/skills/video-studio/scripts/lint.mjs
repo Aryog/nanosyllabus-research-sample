@@ -56,6 +56,7 @@ for (const v of videos) {
     if (say && !b.voice) report('error', v, k, 'has `say` but no Devanagari `voice` (rule 1)');
     if (b.voice && !DEVANAGARI.test(b.voice)) report('error', v, k, '`voice` is not Devanagari (rule 1)');
     if (b.voice && /…|\.\.\./.test(b.voice)) report('error', v, k, '`voice` contains "…" (rule 28b: sounds hesitant)');
+    if (/(…|\.\.\.)\s*$/.test(say)) report('error', v, k, 'caption trails off with "…"; finish the sentence (rules 10, 32)');
     // Rule 28c: a short form in a voice line is spelled letter by letter.
     for (const t of [b.voice, b.ask?.voice]) if (t && JOINED.test(t)) report('error', v, k, `voice spells "${t.match(JOINED)[0]}" joined; write the letter names apart, e.g. "ई एम एफ" (rule 28c, src/content/abbr.js)`);
     if (/\byo topic\b/i.test(say)) report('error', v, k, 'says "yo topic"; name the topic (rule 5)');
@@ -115,6 +116,11 @@ for (const v of videos) {
       if (eqs > 1 && !/\\q?quad|,\\q/.test(row)) report('warn', v, l.at, `board maths has ${eqs} "=" on one row; break it into an aligned block (rule 33)`);
     }
     if (/\\text\{[^}]*·/.test(tex)) report('error', v, l.at, 'unicode "·" inside \\text renders red; use \\text{N}\\cdot\\text{m} (rule 33)');
+    // Rule 55: a row of maths fits the board (about 30 visible characters).
+    for (const row of tex.replace(/\\(begin|end)\{aligned\}/g, '').split(/\\\\/)) {
+      const visible = row.replace(/\\(underbrace|overbrace)\{([^]*?)\}_\{[^]*?\}/g, '$2').replace(/\\[a-zA-Z]+/g, 'x').replace(/[{}&_^\s]/g, '');
+      if (visible.length > 44) report('warn', v, l.at, `board maths row is ~${visible.length} characters wide; split it into aligned rows (rule 55)`);
+    }
   }
   // Every board line must appear on a beat that exists.
   for (const l of v.board) if (l.at >= v.beats.length) report('error', v, l.at, `board line at beat ${l.at} but the video has ${v.beats.length} beats`);

@@ -1011,8 +1011,8 @@ export const basics74 = duo('7.4 · Basic understanding: printer ko motor thik t
       lines: [['step', <>Magnet rotor + char pole ma coil</>]],
     },
     {
-      say: 'Euta coil on garyo, rotor tyo pole tira pharkincha ra rokincha. Arko coil on garyo bhane...',
-      voice: 'एउटा कोइल अन गर्‍यो, रोटर त्यो पोलतिर फर्किन्छ र रोकिन्छ। अर्को कोइल अन गर्‍यो भने',
+      say: 'Euta coil on garyo, rotor tyo pole tira pharkincha ra rokincha. Aba arko coil on garau.',
+      voice: 'एउटा कोइल अन गर्‍यो, रोटर त्यो पोलतिर फर्किन्छ र रोकिन्छ। अब अर्को कोइल अन गरौं।',
       lines: [['step', <>Coil on → rotor tyo pole tira</>]],
     },
     {

@@ -1377,7 +1377,7 @@ export const eff24 = duo('Derivation: efficiency ra maximum efficiency', {
     {
       say: 'All-day efficiency: din bhari ko output kilowatt-hour over input kilowatt-hour. Distribution transformer ma iron loss sano rakhne.',
       voice: 'अल डे इफिसियन्सी — दिनभरिको आउटपुट किलोवाट आवर ओभर इनपुट किलोवाट आवर। डिस्ट्रिब्युसन ट्रान्सफर्मरमा आइरन लस सानो राख्ने।',
-      lines: [['eq', tex(String.raw`x_{\eta\,max} = \sqrt{\dfrac{P_i}{P_{cu,fl}}}, \quad \eta_{all\,day} = \dfrac{\text{output kWh (24 h)}}{\text{input kWh (24 h)}}`)]],
+      lines: [['eq', tex(String.raw`\begin{aligned} x_{\eta\,max} &= \sqrt{\dfrac{P_i}{P_{cu,fl}}} \\ \eta_{all\,day} &= \dfrac{\text{output kWh}}{\text{input kWh}}\ (24\ \text{h}) \end{aligned}`)]],
     },
   ],
   lecturer: [
@@ -1411,7 +1411,7 @@ export const eff24 = duo('Derivation: efficiency ra maximum efficiency', {
     {
       say: 'The load for maximum efficiency is root of P i over P cu full load; all-day efficiency is the ratio of energies over 24 hours.',
       voice: 'द लोड फर म्याक्सिमम इफिसियन्सी इज रुट अफ पी आई ओभर पी सी यु फुल लोड, अल डे इफिसियन्सी इज द रेसियो अफ इनर्जिज ओभर ट्वेन्टी फोर आवर्स।',
-      lines: [['eq', tex(String.raw`x_{\eta\,max} = \sqrt{\dfrac{P_i}{P_{cu,fl}}}, \quad \eta_{all\,day} = \dfrac{\text{output kWh (24 h)}}{\text{input kWh (24 h)}}`)]],
+      lines: [['eq', tex(String.raw`\begin{aligned} x_{\eta\,max} &= \sqrt{\dfrac{P_i}{P_{cu,fl}}} \\ \eta_{all\,day} &= \dfrac{\text{output kWh}}{\text{input kWh}}\ (24\ \text{h}) \end{aligned}`)]],
     },
   ],
 });
