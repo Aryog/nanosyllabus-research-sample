@@ -508,7 +508,7 @@ export const inductionTour = makeTour({
     const anchors = {
       frame: [0, 3.0, 0.6],
       stator: [-1.95, 2.3, 1.4],
-      winding: [1.5, -1.8, 1.6],
+      winding: [0.6, -2.1, 1.6],
       field: [0, 1.6, 1.8],
       rotorCore: [0, -0.55, 1.6],
       cage: [0.9, 0.9, 1.7],
@@ -636,7 +636,7 @@ export const syncTour = makeTour({
     const anchors = {
       frame: [0, 3.0, 0.6],
       stator: [-1.95, 2.3, 1.4],
-      winding: [1.5, -1.8, 1.6],
+      winding: [0.6, -2.1, 1.6],
       salient: [0, -0.6, 1.6],
       round: [0, -0.6, 1.7],
       fieldCoil: [0.9, 0.9, 1.6],
