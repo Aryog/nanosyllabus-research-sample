@@ -3,7 +3,7 @@
 // more than once, or was cancelled and restarted (the old double write).
 // Loops (pulse, flow, spin) are ignored. Needs `vite preview` on :4182.
 //
-//   node .claude/skills/video-studio/scripts/anim-once.mjs <screen n> [--pov tutor] [--secs 40] [--url http://localhost:4182/]
+//   node .claude/skills/video-studio/scripts/anim-once.mjs <screen n> [--unit dc-motor] [--pov tutor] [--secs 40] [--url http://localhost:4182/]
 //
 // Exit code 1 when anything animates twice.
 
@@ -41,7 +41,7 @@ await page.addInitScript((role) => {
       window.__anims.push({ ev: e.type, el: ids.get(e.target), name: e.animationName, cls: String(e.target.getAttribute?.('class') ?? e.target.tagName).slice(0, 60), beat: document.querySelector('.scene')?.className.match(/beat-(\d+)/)?.[1] });
     }, true);
 }, pov);
-await page.goto(`${base}electrical-machines/dc-motor/lesson/${n}`, { waitUntil: 'networkidle' });
+await page.goto(`${base}electrical-machines/${process.argv.includes('--unit') ? process.argv[process.argv.indexOf('--unit') + 1] : 'dc-motor'}/lesson/${n}`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(secs * 1000);
 const all = await page.evaluate(() => window.__anims);
 await browser.close();

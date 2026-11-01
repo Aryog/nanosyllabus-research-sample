@@ -1,4 +1,4 @@
-import { C, extra, overview, segments } from './video/kit.jsx';
+import { C, extra, overview, segments, topic } from './video/kit.jsx';
 import { Ask, Battery, Crane, Face, Fan, MagnetWire, Note, Paper } from './video/doodles.jsx';
 import { backEmfAnswer, characteristicsAnswer, starterAnswer, testingAnswer, torqueAnswer } from './video/picture.jsx';
 import { backEmfDerivation, torqueDerivation, torqueFromPower, voltageEquation } from './video/t41.jsx';
@@ -33,15 +33,6 @@ import { retardation, swinburne, testIntro, testingModel } from './video/testing
   In-video questions are easy attention checks on what was just said. `extras` stay out of the main path and are
   offered after the course as Extra practice, grouped by topic.
 */
-
-// Segment 1 opens with the topic's overview (what it's about), then its videos.
-// `introRoles` gives the opener a version per teaching role (src/content/pov.js).
-// `opener` is a ready duo() video (Tutor + Lecturer); older topics pass `intro`.
-const topic = ({ num, title, intro, introArt, introRoles, opener: given, extras = [], ...parts }) => {
-  const opener = given ?? overview(num, title, intro, introArt);
-  if (introRoles) opener.figureProps.variants = introRoles;
-  return { num, title, steps: [...segments({ ...parts, terms: [opener, ...parts.terms] }), ...extras.map(extra)] };
-};
 
 const t41 = topic({
   num: '4.1',

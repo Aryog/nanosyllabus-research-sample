@@ -164,6 +164,16 @@ export const segments = (parts) =>
     ...parts[key].map((s) => ({ ...s, segment: chip })),
   ]);
 
+// A micro-topic: its three segments, then its extras (off the main path).
+// `opener` is the topic's one Basic Understanding duo() (segment 1); older
+// topics pass `intro` for an overview instead. `introRoles` gives that
+// overview a version per teaching role (src/content/pov.js).
+export const topic = ({ num, title, intro, introArt, introRoles, opener: given, extras = [], terms = [], ...parts }) => {
+  const opener = given ?? overview(num, title, intro, introArt);
+  if (introRoles) opener.figureProps.variants = introRoles;
+  return { num, title, steps: [...segments({ ...parts, terms: [opener, ...terms] }), ...extras.map(extra)] };
+};
+
 /* ── SVG primitives (use inside draw) ─────────────────────────────── */
 
 // Straight arrow with a filled head. Add className 'draw' to animate the shaft.

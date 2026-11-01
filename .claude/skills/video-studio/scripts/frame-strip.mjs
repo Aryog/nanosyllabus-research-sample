@@ -16,18 +16,20 @@ const opt = (name, def) => {
   const i = args.indexOf(`--${name}`);
   return i >= 0 ? args[i + 1] : def;
 };
-const optVals = new Set(['--frames', '--url', '--out', '--width'].flatMap((f) => [args.indexOf(f) + 1]).filter((i) => i > 0));
+const optVals = new Set(['--frames', '--url', '--out', '--width', '--unit'].flatMap((f) => [args.indexOf(f) + 1]).filter((i) => i > 0));
 const target = args.filter((a, i) => !a.startsWith('--') && !optVals.has(i)).join(' ');
 const frames = Number(opt('frames', 10));
 const base = opt('url', 'http://localhost:4182/').replace(/\/?$/, '/');
 const width = Number(opt('width', 1280));
 if (!target) {
-  console.error('usage: frame-strip.mjs <screen n | title words> [--frames 10] [--url …] [--out dir]');
+  console.error('usage: frame-strip.mjs <screen n | title words> [--unit slug] [--frames 10] [--url …] [--out dir]');
   process.exit(2);
 }
 
 const { videos } = await loadCourse();
-const main = videos.filter((v) => !v.practice);
+// A screen number is per unit: `--unit <slug>` (default dc-motor); title words search every unit.
+const unit = opt('unit', /^\d+$/.test(target) ? 'dc-motor' : null);
+const main = videos.filter((v) => !v.practice && (!unit || v.slug === unit));
 const v = /^\d+$/.test(target) ? main.find((x) => x.n === Number(target)) : main.find((x) => x.title.toLowerCase().includes(target.toLowerCase()));
 if (!v) {
   console.error(`no main-path video matches "${target}". Some: ${main.slice(0, 8).map((x) => `#${x.n} ${x.title}`).join(' · ')}`);
@@ -48,7 +50,7 @@ const browser = await chromium.launch({ executablePath: await chrome(), args: ['
 const page = await browser.newPage({ viewport: { width, height: Math.round(width * 0.67) } });
 const errors = [];
 page.on('pageerror', (e) => errors.push(e.message));
-await page.goto(`${base}electrical-machines/dc-motor/lesson/${v.n}`, { waitUntil: 'networkidle' });
+await page.goto(`${base}electrical-machines/${v.slug}/lesson/${v.n}`, { waitUntil: 'networkidle' });
 const screen = page.locator('.scene-screen');
 await screen.waitFor({ timeout: 15000 });
 await page.waitForTimeout(1200);

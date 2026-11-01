@@ -22,6 +22,17 @@ export const ABBR = {
   OLR: { full: 'Overload Release', voice: 'ओ एल आर', joined: 'ओएलआर' },
   KVL: { full: 'Kirchhoff’s Voltage Law', voice: 'के भी एल', joined: 'केभीएल' },
   rpm: { full: 'revolutions per minute', voice: 'आर पी एम', joined: 'आरपीएम' },
+  MMF: { full: 'Magneto-Motive Force', voice: 'एम एम एफ', joined: 'एमएमएफ' },
+  AT: { full: 'Ampere-Turns', voice: 'ए टी', joined: 'एटी' },
+  OC: { full: 'Open Circuit', voice: 'ओ सी', joined: 'ओसी' },
+  SC: { full: 'Short Circuit', voice: 'एस सी', joined: 'एससी' },
+  CT: { full: 'Current Transformer', voice: 'सी टी', joined: 'सीटी' },
+  PT: { full: 'Potential Transformer', voice: 'पी टी', joined: 'पीटी' },
+  LV: { full: 'Low Voltage', voice: 'एल भी', joined: 'एलभी' },
+  HV: { full: 'High Voltage', voice: 'एच भी', joined: 'एचभी' },
+  RMF: { full: 'Rotating Magnetic Field', voice: 'आर एम एफ', joined: 'आरएमएफ' },
+  kVA: { full: 'kilo-Volt-Ampere', voice: 'के भी ए', joined: 'केभीए' },
+  pf: { full: 'power factor', voice: 'पी एफ', joined: 'पीएफ' },
 };
 
 // Also joined in voice lines, though not expanded on screen.

@@ -3,47 +3,51 @@ import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import LessonPlayer, { XpCounter } from './components/LessonPlayer.jsx';
 import Mascot from './components/Mascot.jsx';
 import { useNarrator } from './components/useNarrator.js';
-import { course } from './content/course.jsx';
 import { syllabus } from './content/syllabus.js';
 
-// v2: the video course. Positions saved by the older course don't map onto it,
-// so only the XP carries over.
-const KEY = 'dcm-progress-v2';
+import { units } from './content/units/index.jsx';
+
+// v3: one record per unit ({ done, pos, max }) and one XP total. The v2
+// record (the DC motor course alone) becomes Unit 4's.
+const KEY = 'em-progress-v3';
 function load() {
   try {
     const saved = JSON.parse(localStorage.getItem(KEY));
-    if (saved) return { done: [], xp: 0, pos: 0, ...saved };
-    return { done: [], xp: JSON.parse(localStorage.getItem('dcm-progress'))?.xp ?? 0, pos: 0 };
+    if (saved) return { xp: 0, units: {}, ...saved };
+    const v2 = JSON.parse(localStorage.getItem('dcm-progress-v2'));
+    if (v2) return { xp: v2.xp ?? 0, units: { 'dc-motor': { done: v2.done ?? [], pos: v2.pos ?? 0, max: v2.max ?? 0 } } };
+    return { xp: JSON.parse(localStorage.getItem('dcm-progress'))?.xp ?? 0, units: {} };
   } catch {
-    return { done: [], xp: 0, pos: 0 };
+    return { xp: 0, units: {} };
   }
 }
 
-const journey = course.lessons[0];
-const steps = journey.steps;
-// Screens of the main path, as the player counts them (saved positions index this).
-const path = steps.filter((st) => !st.practice && !st.retryOf);
-// Micro-topic cards only; segment cards inside a topic don't start a row.
-const breaks = path.map((st, i) => (st.interstitial && !st.segmentBreak ? i : -1)).filter((i) => i >= 0);
-// Routes: / (syllabus) · /electrical-machines/dc-motor (unit path) ·
-// /electrical-machines/dc-motor/lesson/:n (player at main-path screen n).
-const UNIT = '/electrical-machines/dc-motor';
-
-// One node per micro-topic, spanning its main-path screens; inside it, where
-// each of its three segments starts and ends (segment 1 starts at the topic
-// card, 2 and 3 at their cards).
+// Routes: / (syllabus) · /electrical-machines/<unit> (unit path) ·
+// /electrical-machines/<unit>/lesson/:n (player at main-path screen n).
+const ROOT = '/electrical-machines';
 const SEG = ['Basic Understanding', 'Syllabus Content', 'Model Answer'];
-const topicNodes = breaks.map((b, k) => {
-  const end = (breaks[k + 1] ?? path.length) - 1;
-  const cuts = [b, ...path.map((st, i) => (st.segmentBreak && i > b && i <= end ? i : -1)).filter((i) => i >= 0)];
-  return {
-    num: journey.nums[k],
-    title: journey.chapters[k],
-    start: b,
-    end,
-    segs: cuts.map((start, j) => ({ start, end: (cuts[j + 1] ?? end + 1) - 1, label: SEG[j] })),
-  };
-});
+
+// Per unit: its main path, and one node per micro-topic spanning its screens;
+// inside it, where each of its three segments starts and ends.
+const plans = Object.fromEntries(
+  units.map((u) => {
+    const journey = u.journey;
+    const path = journey.steps.filter((st) => !st.practice && !st.retryOf);
+    const breaks = path.map((st, i) => (st.interstitial && !st.segmentBreak ? i : -1)).filter((i) => i >= 0);
+    const topicNodes = breaks.map((b, k) => {
+      const end = (breaks[k + 1] ?? path.length) - 1;
+      const cuts = [b, ...path.map((st, i) => (st.segmentBreak && i > b && i <= end ? i : -1)).filter((i) => i >= 0)];
+      return {
+        num: journey.nums[k],
+        title: journey.chapters[k],
+        start: b,
+        end,
+        segs: cuts.map((start, j) => ({ start, end: (cuts[j + 1] ?? end + 1) - 1, label: SEG[j] })),
+      };
+    });
+    return [u.slug, { unit: u, journey, path, topicNodes, course: { id: journey.id, title: u.title, lessons: [journey] } }];
+  }),
+);
 
 export default function App() {
   const [progress, setProgress] = useState(load);
@@ -52,10 +56,14 @@ export default function App() {
   // The URL is the state, so Back works and a reload stays put.
   const { pathname, state } = useLocation();
   const navigate = useNavigate();
-  const lesson = matchPath(`${UNIT}/lesson/:n`, pathname);
-  const view = lesson || matchPath(UNIT, pathname) ? 'unit' : 'syllabus';
-  const active = dev?.has('s') ? Number(dev.get('s')) : lesson ? Number(lesson.params.n) : null;
-  const setView = (v) => navigate(v === 'unit' ? UNIT : '/');
+  const lesson = matchPath(`${ROOT}/:unit/lesson/:n`, pathname);
+  const unitMatch = lesson ?? matchPath(`${ROOT}/:unit`, pathname);
+  const plan = plans[unitMatch?.params.unit] ?? null;
+  const slug = plan?.unit.slug ?? 'dc-motor';
+  const UNIT = `${ROOT}/${slug}`;
+  const view = plan ? 'unit' : 'syllabus';
+  const active = plan && (dev?.has('s') ? Number(dev.get('s')) : lesson ? Number(lesson.params.n) : null);
+  const setView = (v, to = slug) => navigate(v === 'unit' ? `${ROOT}/${to}` : '/');
   const setActive = (n) => navigate(n == null ? UNIT : `${UNIT}/lesson/${n}`);
   // Opening the unit lands on the lesson node you're at, not the top of the path.
   useEffect(() => {
@@ -97,18 +105,26 @@ export default function App() {
   }, [progress]);
 
   const addXp = (n) => setProgress((p) => ({ ...p, xp: p.xp + n }));
-  const complete = (id) => setProgress((p) => ({ ...p, pos: 0, max: 0, done: p.done.includes(id) ? p.done : [...p.done, id] }));
+  const rec = (p, s = slug) => ({ done: [], pos: 0, max: 0, ...(p.units[s] ?? {}) });
+  const setRec = (f) => setProgress((p) => ({ ...p, units: { ...p.units, [slug]: f(rec(p)) } }));
+  const complete = (id) => setRec((r) => ({ ...r, pos: 0, max: 0, done: r.done.includes(id) ? r.done : [...r.done, id] }));
   // `pos` is the screen last shown; `max` the furthest reached, so going back to
   // an earlier topic never loses the place to continue from.
-  const saveSpot = (pos) => setProgress((p) => (p.pos === pos ? p : { ...p, pos, max: Math.max(p.max ?? p.pos, pos) }));
-  const finished = progress.done.includes(journey.id);
-  const furthest = Math.max(progress.max ?? 0, progress.pos);
-  const started = furthest > 0;
+  const saveSpot = (pos) => setRec((r) => (r.pos === pos ? r : { ...r, pos, max: Math.max(r.max ?? r.pos, pos) }));
+  const statusOf = (s) => {
+    const r = rec(progress, s);
+    const { journey, path } = plans[s];
+    const finished = r.done.includes(journey.id);
+    const furthest = Math.max(r.max ?? 0, r.pos);
+    return { finished, furthest, started: furthest > 0, pct: finished ? 100 : path.length ? Math.round((furthest / path.length) * 100) : 0 };
+  };
+  const { finished, furthest, started, pct } = statusOf(slug);
+  const { journey, path, topicNodes, course, unit } = plan ?? plans['dc-motor'];
 
-  if (active !== null) {
+  if (active !== null && active !== false) {
     return (
       <LessonPlayer
-        key={active}
+        key={`${slug}-${active}`}
         course={course}
         lessonIndex={0}
         startStep={active}
@@ -124,7 +140,7 @@ export default function App() {
         }}
         crumbs={[
           { label: syllabus.subject, onClick: () => { narrator.stop(); setView('syllabus'); } },
-          { label: 'DC Motor', onClick: () => { narrator.stop(); setActive(null); } },
+          { label: unit.title, onClick: () => { narrator.stop(); setActive(null); } },
         ]}
         onExit={() => {
           narrator.stop();
@@ -134,7 +150,6 @@ export default function App() {
     );
   }
 
-  const pct = finished ? 100 : Math.round((furthest / path.length) * 100);
   const open = (k) => setActive(k);
 
   if (view === 'syllabus') {
@@ -149,17 +164,20 @@ export default function App() {
         <main className="syl">
           <h1 className="syl-title">{syllabus.subject}</h1>
           <ol className="syl-units">
-            {syllabus.units.map((u) => (
+            {syllabus.units.map((u) => {
+              const live = units.find((x) => x.num === u.num && x.topics.length);
+              const st = live && statusOf(live.slug);
+              return (
               <li key={u.num}>
-                {u.live ? (
-                  <button className="syl-unit live" onClick={() => setView('unit')}>
+                {live ? (
+                  <button className="syl-unit live" onClick={() => setView('unit', live.slug)}>
                     <span className="syl-icon">{u.icon}</span>
                     <span className="syl-body">
-                      <span className="syl-kicker">Unit {u.num}</span>
+                      <span className="syl-kicker">Unit {u.num} · {live.topics.length} topics</span>
                       <b>{u.title}</b>
-                      <span className="syl-bar"><span style={{ width: `${Math.max(pct, 3)}%` }} /></span>
+                      <span className="syl-bar"><span style={{ width: `${Math.max(st.pct, 3)}%` }} /></span>
                     </span>
-                    <span className="syl-go">{started ? 'Continue' : 'Start'} →</span>
+                    <span className="syl-go">{st.started ? 'Continue' : 'Start'} →</span>
                   </button>
                 ) : (
                   <div className="syl-unit locked">
@@ -173,14 +191,15 @@ export default function App() {
                   </div>
                 )}
               </li>
-            ))}
+              );
+            })}
           </ol>
         </main>
       </div>
     );
   }
 
-  // Unit 4 as a Duolingo-style path: each micro-topic is a section of three
+  // The unit as a Duolingo-style path: each micro-topic is a section of three
   // lesson nodes (terms, derivation, big picture) winding down the page.
   const nodeState = (start, end) => (finished || furthest > end ? 'done' : furthest >= start ? 'now' : 'locked');
   return (
@@ -192,8 +211,8 @@ export default function App() {
       <main className="unit">
         <div className="unit-banner">
           <div>
-            <span>Unit 4</span>
-            <h1>DC Motor</h1>
+            <span>Unit {unit.num}</span>
+            <h1>{unit.title}</h1>
           </div>
           <span className="unit-pct">{pct}%</span>
         </div>

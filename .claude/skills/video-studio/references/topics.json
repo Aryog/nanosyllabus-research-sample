@@ -280,5 +280,957 @@
     "bigPicture": [],
     "gap": "No Swinburne or retardation question exists in vault/. Do not invent one. Use the closest real past question (4.3 efficiency numericals, 2074 Bhadra or 2083 Baishakh ECM, solved with Swinburne's method), or ask the user for a paper.",
     "alsoAsked": []
+  },
+  "1.1": {
+    "title": "Magnetic circuit, reluctance ra air gap",
+    "syllabus": [
+      "Magnetic Circuits",
+      "Ohm's Law for Magnetic Circuits",
+      "Series and Parallel magnetic circuits",
+      "Core with air gap"
+    ],
+    "derivations": [
+      "Ohm's law for magnetic circuit Φ = MMF/S, S = l/(μ0μrA)",
+      "Series circuit with air gap NI = Hi li + Hg lg"
+    ],
+    "bigPicture": [
+      {
+        "id": "ohm",
+        "kind": "theory",
+        "papers": [
+          "2073 Bhadra"
+        ],
+        "marks": "",
+        "q": "Define Magnetic Circuit and hence list out the similarities between Magnetic and Electric Circuits. Deduce Ohm's law for magnetic circuit."
+      },
+      {
+        "id": "gap",
+        "kind": "numerical",
+        "papers": [
+          "2069 Bhadra"
+        ],
+        "marks": "",
+        "q": "A magnetic circuit consists of a circular iron core having mean length of 10 cm and cross-sectional area of 100 mm². The air gap is 2 mm and the core has 600 turns of winding."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2073 Chaitra"
+        ],
+        "q": "What are reluctance and permeance in the magnetic circuits? Derive their expressions.",
+        "where": "Syllabus Content: Ohm's law"
+      },
+      {
+        "papers": [
+          "2072 Ashwin",
+          "2070 Magh",
+          "2075 Baishakh",
+          "2071 Bhadra",
+          "2067 Mangsir",
+          "2065 Chaitra",
+          "2068 Magh",
+          "2082 Bhadra (ECM)"
+        ],
+        "q": "Ring/core with saw cut: exciting current, flux, inductance (numericals).",
+        "where": "Model Answer: 2069 Bhadra method"
+      }
+    ]
+  },
+  "1.2": {
+    "title": "B-H curve, hysteresis ra eddy current loss",
+    "syllabus": [
+      "B-H relationship (Magnetization Characteristics)",
+      "Hysteresis with DC and AC excitation",
+      "Hysteresis Loss and Eddy Current Loss"
+    ],
+    "derivations": [
+      "Energy per cycle per unit volume = area of the B-H loop",
+      "Steinmetz Ph = ηBmax^1.6 fV and eddy loss Pe = ke Bm² f² t² V"
+    ],
+    "bigPicture": [
+      {
+        "id": "loop",
+        "kind": "theory",
+        "papers": [
+          "2065 Chaitra"
+        ],
+        "marks": "",
+        "q": "Explain the magnetic hysteresis and show that energy spent per cycle per unit volume is equal to the area of hysteresis loop."
+      },
+      {
+        "id": "reduce",
+        "kind": "theory",
+        "papers": [
+          "2067 Mangsir"
+        ],
+        "marks": "",
+        "q": "What are hysteresis and eddy current losses? What are their significance in the operation of electric machine? Write down different methods to reduce them."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2079 Jestha"
+        ],
+        "q": "Explain the significance of hysteresis loop for ferromagnetic materials. Justify that hysteresis power loss depends on the volume of core material.",
+        "where": "Model Answer: loop (W/V = loop area)"
+      },
+      {
+        "papers": [
+          "2071 Bhadra"
+        ],
+        "q": "Hysteresis and eddy current losses depend on the frequency of supply (reason).",
+        "where": "Syllabus Content: loss derivation"
+      }
+    ]
+  },
+  "1.3": {
+    "title": "Faraday's law, induced EMF ra force on conductor",
+    "syllabus": [
+      "Faraday's Law of Electromagnetic Induction, Statically and Dynamically Induced EMF",
+      "Force on Current Carrying Conductor"
+    ],
+    "derivations": [
+      "e = −N dΦ/dt (Faraday + Lenz)",
+      "Dynamically induced e = Blv sinθ; force F = BIl sinθ"
+    ],
+    "bigPicture": [
+      {
+        "id": "faraday",
+        "kind": "theory",
+        "papers": [
+          "2071 Magh"
+        ],
+        "marks": "",
+        "q": "State Faraday's laws of electromagnetic induction. Distinguish between statically induced emf and dynamically induced emf."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2071 (Old Back)"
+        ],
+        "q": "Why soft magnetic material is used for cores? State Faraday's laws. Describe different processes of EMF induced in a coil.",
+        "where": "Syllabus Content: Faraday's laws"
+      }
+    ]
+  },
+  "2.1": {
+    "title": "Transformer: construction, principle ra EMF equation",
+    "syllabus": [
+      "Constructional Details, recent trends",
+      "Working principle and EMF equation"
+    ],
+    "derivations": [
+      "EMF equation E = 4.44 f N Φm",
+      "Turns ratio E1/E2 = N1/N2 = K"
+    ],
+    "bigPicture": [
+      {
+        "id": "emf",
+        "kind": "theory",
+        "papers": [
+          "2072 Ashwin"
+        ],
+        "marks": "",
+        "q": "Explain the operating principle of an ideal transformer and derive the emf equation."
+      }
+    ]
+  },
+  "2.2": {
+    "title": "Ideal transformer, no-load ra load operation",
+    "syllabus": [
+      "Ideal Transformer",
+      "No load and load Operation",
+      "Operation of Transformer with load"
+    ],
+    "derivations": [
+      "No-load current I0 = Iw + Iμ",
+      "On load N1 I1′ = N2 I2: the flux stays constant"
+    ],
+    "bigPicture": [
+      {
+        "id": "flux",
+        "kind": "theory",
+        "papers": [
+          "2073 Bhadra",
+          "2069 Bhadra",
+          "2071 Chaitra",
+          "2081 Ashwin (ECM)"
+        ],
+        "marks": "",
+        "q": "Explain no-load and loaded operation of single phase transformer. Prove that the magnetic flux in the core at no load and load conditions remains same."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2070 Bhadra"
+        ],
+        "q": "The flux in transformer remains practically constant from no load to full load. Justify the statement.",
+        "where": "Model Answer: flux"
+      },
+      {
+        "papers": [
+          "2071 Magh",
+          "2070 Magh"
+        ],
+        "q": "Ideal transformer under no-load and loaded conditions; voltage and current ratios.",
+        "where": "Syllabus Content"
+      }
+    ]
+  },
+  "2.3": {
+    "title": "Equivalent circuit, phasor ra OC/SC tests",
+    "syllabus": [
+      "Equivalent Circuits and Phasor Diagram",
+      "Tests: Polarity Test, Open Circuit test, Short Circuit test and Equivalent Circuit Parameters"
+    ],
+    "derivations": [
+      "Referring to primary R01 = R1 + R2/K², X01 = X1 + X2/K²",
+      "OC test R0 = V1/Iw, X0 = V1/Iμ; SC test R01 = Psc/Isc², Z01 = Vsc/Isc"
+    ],
+    "bigPicture": [
+      {
+        "id": "refer",
+        "kind": "theory",
+        "papers": [
+          "2074 Bhadra"
+        ],
+        "marks": "",
+        "q": "Draw the equivalent circuit of a transformer with their parameters as it is in primary side and secondary side. How all parameters can be transferred to primary side"
+      },
+      {
+        "id": "ocsc",
+        "kind": "numerical",
+        "papers": [
+          "2073 Bhadra"
+        ],
+        "marks": "",
+        "q": "The data obtained from the test of a 10 kVA, 250/1000 V single phase transformer are given below"
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2075 Baishakh",
+          "2072 Ashwin",
+          "2071 Magh",
+          "2070 Magh",
+          "2068 Magh",
+          "2068 Bhadra",
+          "2065 Chaitra",
+          "2079 Jestha",
+          "2082 Baishakh (ECM)"
+        ],
+        "q": "OC/SC test numericals: equivalent circuit parameters, efficiency, regulation.",
+        "where": "Model Answer: 2073 Bhadra method"
+      }
+    ]
+  },
+  "2.4": {
+    "title": "Voltage regulation, losses ra efficiency",
+    "syllabus": [
+      "Voltage Regulation",
+      "Losses in a transformer",
+      "Efficiency, condition for maximum efficiency and all day efficiency"
+    ],
+    "derivations": [
+      "Regulation ≈ (I2R02 cosφ ± I2X02 sinφ)/V2",
+      "Efficiency and condition for maximum efficiency Pcu = Pi"
+    ],
+    "bigPicture": [
+      {
+        "id": "losses",
+        "kind": "theory",
+        "papers": [
+          "2075 Baishakh",
+          "2071 Bhadra",
+          "2066 Magh",
+          "2068 Bhadra"
+        ],
+        "marks": "[5 + 3]",
+        "q": "Describe different types of losses on the transformer. Derive the expression for the maximum efficiency also."
+      },
+      {
+        "id": "eff",
+        "kind": "numerical",
+        "papers": [
+          "2073 Bhadra"
+        ],
+        "marks": "",
+        "q": "A transformer is rated at 100 kVA. At full load its copper loss is 1200 W and its iron loss is 960 W."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2075 Baishakh"
+        ],
+        "q": "Define voltage regulation and derive its expression for an inductive load.",
+        "where": "Syllabus Content: regulation"
+      },
+      {
+        "papers": [
+          "2079 Jestha",
+          "2082 Bhadra (ECM)"
+        ],
+        "q": "150 kVA transformer, 25% overload efficiency.",
+        "where": "practice"
+      }
+    ]
+  },
+  "2.5": {
+    "title": "Auto, instrument ra three-phase transformers",
+    "syllabus": [
+      "Instrument Transformers: Potential Transformer (PT) and Current Transformer (CT)",
+      "Auto transformer: construction, working principle and Cu saving",
+      "Three phase Transformers"
+    ],
+    "derivations": [
+      "Auto transformer copper saving W_auto = (1 − K) W_two-winding"
+    ],
+    "bigPicture": [
+      {
+        "id": "auto",
+        "kind": "theory",
+        "papers": [
+          "2073 Chaitra",
+          "2070 Bhadra",
+          "2079 Jestha"
+        ],
+        "marks": "",
+        "q": "What is an auto transformer? State its merits and demerits over a two winding transformer. Derive an expression of Cu-saving in auto transformer."
+      },
+      {
+        "id": "ct",
+        "kind": "theory",
+        "papers": [
+          "2079 Jestha",
+          "2068 Bhadra"
+        ],
+        "marks": "",
+        "q": "Why secondary of CT should not be left open?"
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2075 Baishakh"
+        ],
+        "q": "Explain the different three phase transformer connections with neat sketch.",
+        "where": "Syllabus Content: three-phase"
+      },
+      {
+        "papers": [
+          "2067 Mangsir"
+        ],
+        "q": "What is an instrument transformer? How does it differ from a power transformer?",
+        "where": "Syllabus Content"
+      }
+    ]
+  },
+  "3.1": {
+    "title": "DC generator: construction, working ra commutator",
+    "syllabus": [
+      "Constructional Details and Armature Winding",
+      "Working principle and Commutator Action"
+    ],
+    "derivations": [
+      "Generator action e = Blv and commutator rectification"
+    ],
+    "bigPicture": [
+      {
+        "id": "construction",
+        "kind": "theory",
+        "papers": [
+          "2071 Bhadra",
+          "2072 Ashwin",
+          "2071 Magh"
+        ],
+        "marks": "",
+        "q": "Describe the construction and working principle of a dc generator with neat diagram."
+      },
+      {
+        "id": "winding",
+        "kind": "theory",
+        "papers": [
+          "2071 (Old Back)"
+        ],
+        "marks": "",
+        "q": "Discuss the types of armature winding in dc machine in brief."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2071 Chaitra",
+          "2082 Bhadra (ECM)"
+        ],
+        "q": "Explain the functions of commutator and carbon brushes.",
+        "where": "Syllabus Content"
+      }
+    ]
+  },
+  "3.2": {
+    "title": "DC generator ko EMF equation",
+    "syllabus": [
+      "EMF equation"
+    ],
+    "derivations": [
+      "E = PφZN/60A"
+    ],
+    "bigPicture": [
+      {
+        "id": "emf",
+        "kind": "theory",
+        "papers": [
+          "2070 Bhadra",
+          "2078 Baishakh",
+          "2071 Bhadra",
+          "2068 Bhadra",
+          "2066 Magh"
+        ],
+        "marks": "",
+        "q": "Derive an emf equation for a dc generator."
+      },
+      {
+        "id": "speed",
+        "kind": "numerical",
+        "papers": [
+          "2070 Bhadra"
+        ],
+        "marks": "",
+        "q": "A 4 pole, 250 V long shunt dc compound generator supplies a load of 10 kW at the rated voltage."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2078 Poush"
+        ],
+        "q": "Long shunt compound generator: speed with lap and wave winding.",
+        "where": "practice"
+      }
+    ]
+  },
+  "3.3": {
+    "title": "Excitation, types, voltage build-up ra characteristics",
+    "syllabus": [
+      "Method of excitation: separately and self excited, Types of DC Generator",
+      "Characteristics of series, shunt and compound generator"
+    ],
+    "derivations": [
+      "Current and voltage equations of shunt, series and compound generators",
+      "Voltage build-up and critical resistance from the OCC"
+    ],
+    "bigPicture": [
+      {
+        "id": "buildup",
+        "kind": "theory",
+        "papers": [
+          "2073 Bhadra",
+          "2074 Bhadra",
+          "2065 Chaitra",
+          "2071 Chaitra"
+        ],
+        "marks": "[4 + 2 + 2]",
+        "q": "Explain voltage build up process in a dc shunt generator and define its critical resistance and critical speed."
+      },
+      {
+        "id": "shortshunt",
+        "kind": "numerical",
+        "papers": [
+          "2071 Magh"
+        ],
+        "marks": "",
+        "q": "A short shunt compound generator supplies a load current of 100 A at 250 V."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2075 Baishakh",
+          "2071 (Old Back)"
+        ],
+        "q": "Describe the methods of excitation and types of DC generator.",
+        "where": "Syllabus Content"
+      },
+      {
+        "papers": [
+          "2070 Bhadra",
+          "2071 Chaitra"
+        ],
+        "q": "DC shunt generator should be started without load; series generator not at no load (justify).",
+        "where": "Syllabus Content: build-up"
+      }
+    ]
+  },
+  "3.4": {
+    "title": "DC generator: losses, efficiency ra voltage regulation",
+    "syllabus": [
+      "Losses in DC generators",
+      "Efficiency and Voltage Regulation"
+    ],
+    "derivations": [
+      "Mechanical, electrical, commercial efficiency; maximum when variable loss = constant loss"
+    ],
+    "bigPicture": [
+      {
+        "id": "eff",
+        "kind": "numerical",
+        "papers": [
+          "2074 Bhadra",
+          "2065 Chaitra"
+        ],
+        "marks": "",
+        "q": "A dc shunt generator gives full load output of 30 kW at a terminal voltage of 200 V."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2083 Baishakh (ECM)"
+        ],
+        "q": "Shunt generator 96 A at 200 V: emf and commercial efficiency.",
+        "where": "4.3 Model Answer"
+      }
+    ]
+  },
+  "5.1": {
+    "title": "Construction, types ra rotating magnetic field",
+    "syllabus": [
+      "Three Phase Induction Motor: Constructional Details and Types",
+      "Operating Principle, Rotating Magnetic Field, Synchronous Speed"
+    ],
+    "derivations": [
+      "Rotating magnetic field of constant magnitude 1.5Φm at Ns = 120f/P"
+    ],
+    "bigPicture": [
+      {
+        "id": "rmf",
+        "kind": "theory",
+        "papers": [
+          "2071 Bhadra"
+        ],
+        "marks": "",
+        "q": "Explain with necessary vector diagram how rotating magnetic field is produced in a three phase induction motor. Also explain how this rotating magnetic field helps the motor to rotate."
+      }
+    ]
+  },
+  "5.2": {
+    "title": "Slip, rotor frequency ra rotor EMF",
+    "syllabus": [
+      "Slip, Induced EMF, Rotor Current and its frequency"
+    ],
+    "derivations": [
+      "Slip s = (Ns − N)/Ns and rotor frequency f2 = sf",
+      "Rotor EMF sE2, reactance sX2 and current I2"
+    ],
+    "bigPicture": [
+      {
+        "id": "speed",
+        "kind": "theory",
+        "papers": [
+          "2075 Baishakh"
+        ],
+        "marks": "[2 + 3 + 3]",
+        "q": "Define synchronous speed of three phase induction motor. Why does the rotor of a three phase induction motor rotate in the same direction as the rotating magnetic field? Why rotor can never reach the speed of stator field."
+      },
+      {
+        "id": "rotor",
+        "kind": "numerical",
+        "papers": [
+          "2071 Magh"
+        ],
+        "marks": "",
+        "q": "A 3-phase delta connected 440 volts, 50 Hz, 4-pole induction motor has a rotor stand-still emf per phase of 130 volts."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2068 Magh",
+          "2083 Baishakh (ECM)",
+          "2071 (Old Back)"
+        ],
+        "q": "Slip, rotor frequency numericals.",
+        "where": "practice"
+      }
+    ]
+  },
+  "5.3": {
+    "title": "Torque equation ra torque-slip characteristics",
+    "syllabus": [
+      "Torque Equation",
+      "Torque-Slip characteristics"
+    ],
+    "derivations": [
+      "Torque T = k sE2²R2/(R2² + (sX2)²)",
+      "Maximum torque at s = R2/X2, Tmax = kE2²/2X2"
+    ],
+    "bigPicture": [
+      {
+        "id": "torque",
+        "kind": "theory",
+        "papers": [
+          "2074 Bhadra",
+          "2071 Magh",
+          "2070 Magh",
+          "2070 Bhadra"
+        ],
+        "marks": "",
+        "q": "Derive the relationship for torque developed by a 3-phase induction motor. Draw a typical torque-slip characteristic and deduce the condition for maximum torque."
+      },
+      {
+        "id": "tmax",
+        "kind": "numerical",
+        "papers": [
+          "2072 Ashwin",
+          "2070 Magh",
+          "2068 Bhadra"
+        ],
+        "marks": "",
+        "q": "A 4-pole, 50 Hz, 3 phase induction motor develops a starting torque of 50 N-m."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2071 Bhadra",
+          "2073 Chaitra"
+        ],
+        "q": "Why does the induction motor operate only in the linear portion of the torque-slip characteristic?",
+        "where": "Syllabus Content"
+      },
+      {
+        "papers": [
+          "2072 Ashwin",
+          "2068 Bhadra",
+          "2065 Chaitra"
+        ],
+        "q": "Effect of rotor resistance on the T-S characteristic.",
+        "where": "Syllabus Content"
+      }
+    ]
+  },
+  "5.4": {
+    "title": "Induction generator ra power stages",
+    "syllabus": [
+      "Three Phase Induction Generator: Working Principle, voltage build up in an Induction Generator",
+      "Power Stages"
+    ],
+    "derivations": [
+      "Power stages P2 : Pcu2 : Pm = 1 : s : (1 − s)"
+    ],
+    "bigPicture": [
+      {
+        "id": "gen",
+        "kind": "theory",
+        "papers": [
+          "2073 Bhadra",
+          "2079 Jestha",
+          "2071 (Old Back)"
+        ],
+        "marks": "",
+        "q": "Explain how an induction motor can be used as induction generator. Explain the procedure to determine the value of excitation capacitor required for voltage build up in the generator."
+      },
+      {
+        "id": "stages",
+        "kind": "numerical",
+        "papers": [
+          "2078 Poush"
+        ],
+        "marks": "",
+        "q": "The power input to a 500 V, 50 Hz, 6-pole, 3-phase induction motor running at 975 rpm is 40 kW."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2066 Magh"
+        ],
+        "q": "Rotor loss and overall efficiency numerical.",
+        "where": "practice"
+      }
+    ]
+  },
+  "6.1": {
+    "title": "Alternator: construction, rotor types ra working",
+    "syllabus": [
+      "Three Phase Synchronous Generator: Constructional Details, Armature Windings, Types of Rotor, Exciter",
+      "Working Principle"
+    ],
+    "derivations": [
+      "Frequency f = PN/120"
+    ],
+    "bigPicture": [
+      {
+        "id": "rotating",
+        "kind": "theory",
+        "papers": [
+          "2071 Magh"
+        ],
+        "marks": "",
+        "q": "What are the advantages of rotating magnetic system and stationary armature system in ac machine?"
+      },
+      {
+        "id": "salient",
+        "kind": "theory",
+        "papers": [
+          "2067 Mangsir"
+        ],
+        "marks": "",
+        "q": "Salient pole alternators are suitable for low speed whereas cylindrical pole alternators for high speed."
+      }
+    ]
+  },
+  "6.2": {
+    "title": "Alternator EMF equation, pitch ra distribution factor",
+    "syllabus": [
+      "EMF equation, distribution factor, pitch factor"
+    ],
+    "derivations": [
+      "E = 4.44 Kp Kd f Φ T",
+      "Kp = cos(α/2), Kd = sin(mβ/2)/(m sin(β/2))"
+    ],
+    "bigPicture": [
+      {
+        "id": "emf",
+        "kind": "theory",
+        "papers": [
+          "2078 Baishakh"
+        ],
+        "marks": "",
+        "q": "Derive emf equation of an alternator."
+      }
+    ]
+  },
+  "6.3": {
+    "title": "Armature reaction ra alternator on load",
+    "syllabus": [
+      "Armature Reaction and its effects",
+      "Alternator with load and its phasor diagram"
+    ],
+    "derivations": [
+      "E = V + I(Ra + jXs) and regulation (E − V)/V"
+    ],
+    "bigPicture": [
+      {
+        "id": "ar",
+        "kind": "theory",
+        "papers": [
+          "2069 Bhadra",
+          "2073 Chaitra",
+          "2078 Poush"
+        ],
+        "marks": "",
+        "q": "Explain the armature reaction in a synchronous generator for resistive, inductive and capacitive loading with necessary diagram"
+      },
+      {
+        "id": "load",
+        "kind": "numerical",
+        "papers": [
+          "2073 Chaitra",
+          "2070 Bhadra",
+          "2079 Jestha"
+        ],
+        "marks": "",
+        "q": "A 1200 kVA, 6600 V, 3-phase star connected stator of a synchronous generator has a armature resistance of 0.4 Ω/phase"
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2075 Baishakh",
+          "2066 Magh"
+        ],
+        "q": "Alternator regulation numericals.",
+        "where": "practice"
+      }
+    ]
+  },
+  "6.4": {
+    "title": "Synchronous motor: principle, starting ra excitation",
+    "syllabus": [
+      "Three Phase Synchronous Motor: Principle of operation",
+      "Starting methods",
+      "No load and Load operation, Phasor Diagram",
+      "Effect of Excitation and power factor control"
+    ],
+    "derivations": [
+      "Motor phasor V = E + I(Ra + jXs); V-curves"
+    ],
+    "bigPicture": [
+      {
+        "id": "start",
+        "kind": "theory",
+        "papers": [
+          "2070 Magh",
+          "2068 Magh",
+          "2065 Chaitra"
+        ],
+        "marks": "",
+        "q": "Explain why synchronous motor is not self starting? Explain the starting method using damper winding."
+      },
+      {
+        "id": "excitation",
+        "kind": "theory",
+        "papers": [
+          "2070 Bhadra",
+          "2072 Ashwin",
+          "2075 Baishakh",
+          "2071 Chaitra"
+        ],
+        "marks": "",
+        "q": "With the help of phasor diagrams, explain the effect of excitation in a 3-phase synchronous motor."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2071 Magh"
+        ],
+        "q": "What do you mean by V-curve and inverted V-curve for a synchronous motor?",
+        "where": "Syllabus Content"
+      },
+      {
+        "papers": [
+          "2078 Poush"
+        ],
+        "q": "What is hunting in synchronous motor?",
+        "where": "Syllabus Content"
+      }
+    ]
+  },
+  "7.1": {
+    "title": "Single phase induction motor ra double field revolving theory",
+    "syllabus": [
+      "Single phase Induction Motors: Construction and Characteristics",
+      "Double Field Revolving Theory"
+    ],
+    "derivations": [
+      "Φm cos ωt = two fields Φm/2 rotating opposite; slips s and 2 − s"
+    ],
+    "bigPicture": [
+      {
+        "id": "dfr",
+        "kind": "theory",
+        "papers": [
+          "2072 Ashwin",
+          "2070 Magh",
+          "2078 Poush",
+          "2078 Baishakh",
+          "2069 Bhadra"
+        ],
+        "marks": "",
+        "q": "What do you understand by double field revolving theory? Explain it with the help of a neat diagram."
+      }
+    ]
+  },
+  "7.2": {
+    "title": "Split phase, capacitor ra reluctance start motors",
+    "syllabus": [
+      "Split phase Induction Motor",
+      "Capacitor start and run motor",
+      "Reluctance start motor"
+    ],
+    "derivations": [
+      "Starting torque T ∝ Im Ia sin α"
+    ],
+    "bigPicture": [
+      {
+        "id": "start",
+        "kind": "theory",
+        "papers": [
+          "2068 Bhadra",
+          "2071 Chaitra",
+          "2078 Baishakh"
+        ],
+        "marks": "",
+        "q": "Why single phase induction motor are not self starting? Explain any two starting methods for single phase induction motor."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2073 Chaitra",
+          "2068 Magh"
+        ],
+        "q": "Short note: capacitor start and run motor.",
+        "where": "Syllabus Content"
+      }
+    ]
+  },
+  "7.3": {
+    "title": "AC series motor ra universal motor",
+    "syllabus": [
+      "Alternating Current Series motor and Universal motor"
+    ],
+    "derivations": [
+      "Torque T ∝ φI: average torque on AC"
+    ],
+    "bigPicture": [
+      {
+        "id": "universal",
+        "kind": "theory",
+        "papers": [
+          "2079 Jestha",
+          "2073 Chaitra",
+          "2071 Magh"
+        ],
+        "marks": "",
+        "q": "What is universal motor? Explain its operation and applications."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2071 Bhadra"
+        ],
+        "q": "DC series motor can also be operated from ac supply (reason).",
+        "where": "Syllabus Content"
+      }
+    ]
+  },
+  "7.4": {
+    "title": "Stepper, Schrage ra servo motor",
+    "syllabus": [
+      "Special Purpose Machines: Stepper motor, Schrage motor and Servo motor"
+    ],
+    "derivations": [
+      "Step angle β = 360°/(m Nr)"
+    ],
+    "bigPicture": [
+      {
+        "id": "stepper",
+        "kind": "theory",
+        "papers": [
+          "2068 Bhadra",
+          "2075 Baishakh",
+          "2069 Bhadra"
+        ],
+        "marks": "",
+        "q": "Explain the operating principle of stepper motor and servo motor."
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2071 Bhadra"
+        ],
+        "q": "Servo motor has longer length and smaller diameter (reason).",
+        "where": "Syllabus Content"
+      },
+      {
+        "papers": [
+          "2071 Chaitra",
+          "2071 Magh"
+        ],
+        "q": "Construction and working of servo motor; AC servo motor.",
+        "where": "Syllabus Content"
+      }
+    ]
   }
 }

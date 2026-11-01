@@ -616,3 +616,6 @@ export const retardFigure = (s) => (
     </g>
   </>
 );
+
+// The same ink for every unit's book figures (src/content/units/figs*.jsx).
+export { INK, T, Cap, W, head, cond, ResH, ResV, CoilH, CoilV, Arm, Term, Meter, Cur };

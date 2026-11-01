@@ -32,7 +32,8 @@
 
   Parts: yoke, poles (north, south), fieldCoil, field, armature, coil,
   commutator, brushes, shaft, fan, battery, wires, starter (studs, handle,
-  nvc, olr). Anchors for labels are the part names plus north/south/nvc/olr.
+  nvc, olr), and for the DC generator (Unit 3) lamp (the load, in place of the
+  battery; it glows with `flow`) and engine (the prime mover behind the shaft). Anchors for labels are the part names plus north/south/nvc/olr.
   Every motion runs on the scene clock (M1): pause, seek and the MP4 match.
 */
 import { kit } from './scenes41.js';
@@ -50,6 +51,7 @@ export const SHOTS = {
   wiring: [[-0.6, 2.6, 10.6], [-1.6, -0.6, 0.8]],
   starter: [[-3.6, 1.6, 8.0], [-4.3, 0.5, 0.8]],
   back: [[3.2, 2.4, -7.6], [0, 0, -1.6]],
+  engine: [[4.2, 2.4, -8.6], [0, 0, -3.6]],
 };
 
 const ANCHORS = {
@@ -66,6 +68,8 @@ const ANCHORS = {
   shaft: [0.6, -0.55, 3.3],
   fan: [0, 1.6, -3.4],
   battery: [-3.5, -3.0, 1.6],
+  lamp: [-3.5, -0.9, 1.6],
+  engine: [0, 1.3, -5.0],
   wires: [-1.9, -1.9, 1.9],
   starter: [-4.6, 2.15, 1.2],
   studs: [-4.6, 1.75, 1.3],
@@ -281,6 +285,19 @@ export function motorTour(plan) {
     const supplyPush = pushOf(COL.force, -3.5, -1.15, 1);
     const backPush = pushOf(COL.back, -3.5, -1.6, -1);
 
+    // ── Generator (Unit 3): a lamp in place of the battery, an engine at the back ──
+    part('lamp');
+    const lampGlass = mesh('lamp', new THREE.SphereGeometry(0.5, 24, 18), 0xfff3bf, { roughness: 0.2 });
+    lampGlass.position.set(-3.5, -1.85, 1.6);
+    const lampCap = mesh('lamp', new THREE.CylinderGeometry(0.22, 0.22, 0.36, 18), 0x868e96, { metalness: 0.6 });
+    lampCap.position.set(-3.5, -2.5, 1.6);
+    part('engine');
+    const engine = mesh('engine', new THREE.BoxGeometry(2.0, 1.8, 1.4), 0x2b8a3e, { roughness: 0.6 });
+    engine.position.set(0, 0, -5.0);
+    const pulley = mesh('engine', new THREE.CylinderGeometry(0.5, 0.5, 0.3, 24), 0x495057, { metalness: 0.5 });
+    pulley.rotation.x = Math.PI / 2;
+    pulley.position.set(0, 0, -4.15);
+
     // ── The starter: a panel, an arc of studs, the handle, NVC and OLR ──
     part('starter');
     const ST = P(-4.6, 0.3, 1.0); // handle pivot, left of the motor
@@ -347,7 +364,7 @@ export function motorTour(plan) {
       const shown = new Set([...(st.show ?? MOTOR), ...(st.focus ?? [])]);
       if (shown.has('starter')) shown.add('nvc').add('olr');
       if (shown.has('poles')) shown.add('field');
-      if (shown.has('battery')) shown.add('wires');
+      if (shown.has('battery') || shown.has('lamp')) shown.add('wires');
       return shown;
     };
     // How visible a part is in a state: 1 focused (or no focus), 0.22 shown, 0 hidden.
@@ -361,7 +378,8 @@ export function motorTour(plan) {
       return name === 'yoke' ? o * (1 - 0.86 * st.open) : o;
     };
     const USE = { main: ['mainPlus', 'mainMinus'], shunt: ['mainPlus', 'mainMinus', 'shunt'], series: ['series', 'mainMinus'], compound: ['series', 'mainMinus', 'shunt'] };
-    const wireOf = (st, key) => (shownOf(st).has('battery') && (USE[st.wiring] ?? []).includes(key) ? 1 : 0);
+    const powered = (st) => shownOf(st).has('battery') || shownOf(st).has('lamp');
+    const wireOf = (st, key) => (powered(st) && (USE[st.wiring] ?? []).includes(key) ? 1 : 0);
     const V = (a) => new THREE.Vector3(...a);
     let angle = 0;
 
@@ -418,7 +436,7 @@ export function motorTour(plan) {
       }
 
       // Wires and current.
-      const wiredOf = (x) => (shownOf(x).has('battery') ? 1 : 0);
+      const wiredOf = (x) => (powered(x) ? 1 : 0);
       const flowK = mix(wiredOf(pr) * pr.flow, wiredOf(st) * st.flow);
       for (const [key, wm] of Object.entries(wireMeshes)) {
         const w = mix(wireOf(pr, key), wireOf(st, key));
@@ -458,7 +476,12 @@ export function motorTour(plan) {
           tg.sprite.position.set(...at);
         }),
       );
-      plus.visible = minus.visible = wiredOf(st) > 0;
+      plus.visible = minus.visible = shownOf(st).has('battery');
+      // The lamp glows with the current the generator sends round.
+      if (shownOf(st).has('lamp') && flowK > 0.02) {
+        lampGlass.material.emissive.setHex(0xffd43b);
+        lampGlass.material.emissiveIntensity += flowK * (1.1 + 0.1 * Math.sin(t / 90));
+      }
     };
   };
 }

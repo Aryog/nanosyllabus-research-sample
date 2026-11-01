@@ -28,7 +28,8 @@ const only = opt('screens', '') ? opt('screens', '').split(',').map(Number) : nu
 
 const { videos } = await loadCourse();
 const screens = [...new Set(videos.filter((v) => v.topic === topic && v.n != null && !v.pov).map((v) => v.n))].filter((n) => !only || only.includes(n));
-const titleOf = Object.fromEntries(videos.filter((v) => v.n != null && !v.pov).map((v) => [v.n, v.title]));
+const slugOf = videos.find((v) => v.topic === topic)?.slug ?? 'dc-motor';
+const titleOf = Object.fromEntries(videos.filter((v) => v.n != null && !v.pov && v.slug === slugOf).map((v) => [v.n, v.title]));
 
 const cache = path.join(os.homedir(), '.cache/ms-playwright');
 let chrome;
@@ -110,7 +111,7 @@ await Promise.all(
           for (const n of [1, 2, 3]) localStorage.setItem(`dcm-pov-${n}`, JSON.stringify(r));
           localStorage.setItem('dcm-lecturer-theme', JSON.stringify(t));
         }, [role, theme]);
-        await page.goto(`${base}electrical-machines/dc-motor/lesson/${n}`, { waitUntil: 'networkidle' });
+        await page.goto(`${base}electrical-machines/${slugOf}/lesson/${n}`, { waitUntil: 'networkidle' });
         await page.waitForFunction(() => window.__scene, null, { timeout: 15000 }).catch(() => null);
         const beats = await page.evaluate(() => window.__scene?.beats ?? 0);
         for (let k = 0; k < beats; k++) {
