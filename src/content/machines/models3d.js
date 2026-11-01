@@ -466,10 +466,10 @@ export const inductionTour = makeTour({
     }
     part('rheo');
     const box = mesh('rheo', new THREE.BoxGeometry(1.3, 1.1, 0.6), COL.panel, { roughness: 0.7 });
-    box.position.set(2.6, 2.4, 2.4);
+    box.position.set(3.9, 1.4, 0.4);
     for (let i = 0; i < 3; i++) {
       const c = mesh('rheo', new THREE.TorusGeometry(0.14, 0.04, 8, 16), 0x868e96);
-      c.position.set(2.2 + i * 0.4, 2.4, 2.75);
+      c.position.set(3.5 + i * 0.4, 1.4, 0.75);
     }
     part('shaft', rotor);
     const shaft = mesh('shaft', new THREE.CylinderGeometry(0.14, 0.14, 7.0, 20), 0xced4da, { metalness: 0.7 });
@@ -501,7 +501,7 @@ export const inductionTour = makeTour({
       inside: [[2.6, 1.8, 7.6], [0, 0, 0.6]],
       side: [[8.0, 2.0, 2.4], [0, 0, 0]],
       supply: [[-3.2, 1.6, 8.0], [-2.6, 0, 0.5]],
-      slip: [[3.6, 1.8, 7.0], [0.6, 0.6, 2.0]],
+      slip: [[4.2, 1.8, 8.2], [1.4, 0.6, 1.4]],
       back: [[3.2, 2.4, -8.2], [0, 0, -2.4]],
       wide: [[3.4, 3.0, 12.4], [0.2, 0, 0]],
     };
@@ -513,7 +513,7 @@ export const inductionTour = makeTour({
       rotorCore: [0, -0.55, 1.6],
       cage: [0.9, 0.9, 1.7],
       slip: [0.4, -0.7, 2.8],
-      rheo: [2.6, 3.2, 2.4],
+      rheo: [3.9, 2.3, 0.4],
       shaft: [0.5, -0.4, 3.4],
       supply: [-4.4, 1.2, 0.6],
       capacitor: [4.2, -1.5, 1.2],
