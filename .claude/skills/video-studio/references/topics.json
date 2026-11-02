@@ -651,14 +651,11 @@
     ]
   },
   "3.1": {
-    "title": "DC generator: construction, working ra commutator",
+    "title": "Constructional Details and Armature Winding",
     "syllabus": [
-      "Constructional Details and Armature Winding",
-      "Working principle and Commutator Action"
+      "Constructional Details and Armature Winding"
     ],
-    "derivations": [
-      "Generator action e = Blv and commutator rectification"
-    ],
+    "derivations": [],
     "bigPicture": [
       {
         "id": "construction",
@@ -681,6 +678,29 @@
         "q": "Discuss the types of armature winding in dc machine in brief."
       }
     ],
+    "alsoAsked": []
+  },
+  "3.2": {
+    "title": "Working principle and Commutator Action",
+    "syllabus": [
+      "Working principle and Commutator Action"
+    ],
+    "derivations": [
+      "Generator action e = Blv and commutator rectification"
+    ],
+    "bigPicture": [
+      {
+        "id": "commutator",
+        "kind": "theory",
+        "papers": [
+          "2071 Chaitra",
+          "2072 Ashwin",
+          "2082 Bhadra (ECM)"
+        ],
+        "marks": "",
+        "q": "Explain the functions of commutator and carbon brushes."
+      }
+    ],
     "alsoAsked": [
       {
         "papers": [
@@ -692,8 +712,8 @@
       }
     ]
   },
-  "3.2": {
-    "title": "DC generator ko EMF equation",
+  "3.3": {
+    "title": "EMF equation",
     "syllabus": [
       "EMF equation"
     ],
@@ -734,14 +754,33 @@
       }
     ]
   },
-  "3.3": {
-    "title": "Excitation, types, voltage build-up ra characteristics",
+  "3.4": {
+    "title": "Method of excitation: separately and self excited, Types of DC Generator",
     "syllabus": [
-      "Method of excitation: separately and self excited, Types of DC Generator",
+      "Method of excitation: separately and self excited, Types of DC Generator"
+    ],
+    "derivations": [
+      "Current and voltage equations of shunt, series and compound generators"
+    ],
+    "bigPicture": [
+      {
+        "id": "shortshunt",
+        "kind": "numerical",
+        "papers": [
+          "2071 Magh"
+        ],
+        "marks": "",
+        "q": "A short shunt compound generator supplies a load current of 100 A at 250 V."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "3.5": {
+    "title": "Characteristics of series, shunt and compound generator",
+    "syllabus": [
       "Characteristics of series, shunt and compound generator"
     ],
     "derivations": [
-      "Current and voltage equations of shunt, series and compound generators",
       "Voltage build-up and critical resistance from the OCC"
     ],
     "bigPicture": [
@@ -756,15 +795,6 @@
         ],
         "marks": "[4 + 2 + 2]",
         "q": "Explain voltage build up process in a dc shunt generator and define its critical resistance and critical speed."
-      },
-      {
-        "id": "shortshunt",
-        "kind": "numerical",
-        "papers": [
-          "2071 Magh"
-        ],
-        "marks": "",
-        "q": "A short shunt compound generator supplies a load current of 100 A at 250 V."
       }
     ],
     "alsoAsked": [
@@ -786,10 +816,30 @@
       }
     ]
   },
-  "3.4": {
-    "title": "DC generator: losses, efficiency ra voltage regulation",
+  "3.6": {
+    "title": "Losses in DC generators",
     "syllabus": [
-      "Losses in DC generators",
+      "Losses in DC generators"
+    ],
+    "derivations": [
+      "Copper, iron and mechanical losses; constant and variable losses"
+    ],
+    "bigPicture": [
+      {
+        "id": "losses",
+        "kind": "theory",
+        "papers": [
+          "2071 Chaitra"
+        ],
+        "marks": "",
+        "q": "Describe different types of losses in a DC generator. Explain how they are calculated. Derive the condition for maximum efficiency."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "3.7": {
+    "title": "Efficiency and Voltage Regulation",
+    "syllabus": [
       "Efficiency and Voltage Regulation"
     ],
     "derivations": [

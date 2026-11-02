@@ -327,7 +327,7 @@ const box = (x, y, w, h, label, sub) => (
     {sub && <T x={x} y={y + 12} size={9} i>{sub}</T>}
   </g>
 );
-export const lossFigure = (s) => (
+export const lossFigure = (s, cap = 'Fig. 4  Losses in a DC motor') => (
   <>
     <g className={s.on(0)}>
       {box(180, 20, 110, 22, 'Total losses')}
@@ -335,7 +335,7 @@ export const lossFigure = (s) => (
       {box(62, 68, 104, 28, 'Copper losses', 'variable')}
       {box(180, 68, 104, 28, 'Iron (core) losses', 'constant')}
       {box(298, 68, 104, 28, 'Mechanical losses', 'constant')}
-      <Cap y={222}>Fig. 4  Losses in a DC motor</Cap>
+      <Cap y={222}>{cap}</Cap>
     </g>
     <g className={s.on(1) + s.hl(1)}>
       <W d="M62 82 V96" />
@@ -693,3 +693,5 @@ export const retardFigure = (s) => (
 
 // The same ink for every unit's book figures (src/content/units/figs*.jsx).
 export { INK, T, Cap, W, head, cond, ResH, ResV, CoilH, CoilV, Arm, Term, Meter, Cur };
+// The same loss tree with another caption (the DC generator, Unit 3).
+export const lossFigureFor = (cap) => (s) => lossFigure(s, cap);

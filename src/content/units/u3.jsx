@@ -1,14 +1,17 @@
 import { C, K, Pts, answer, duo, solve, topic } from '../video/kit.jsx';
-import { chain, part } from '../video/kit.jsx';
-import { Cap, T, W, head } from '../unit4/figs.jsx';
+import { br, chain, figAt, part, rem } from '../video/kit.jsx';
+import { Cap, T, W, head, lossFigureFor } from '../unit4/figs.jsx';
 import { motorTour } from '../unit4/basics3d.js';
 
 /*
-  Unit 3 DC Generator (IOE syllabus).
-    3.1 construction, armature winding, working principle, commutator action
-    3.2 EMF equation
-    3.3 excitation, types, voltage build-up, characteristics
-    3.4 losses, efficiency, voltage regulation
+  Unit 3 DC Generator (IOE syllabus), one topic per bullet (rule 68):
+    3.1 Constructional Details and Armature Winding
+    3.2 Working principle and Commutator Action
+    3.3 EMF equation
+    3.4 Method of excitation: separately and self excited, Types of DC Generator
+    3.5 Characteristics of series, shunt and compound generator
+    3.6 Losses in DC generators
+    3.7 Efficiency and Voltage Regulation
   Segment 1 uses the DC machine of Unit 4 (unit4/basics3d.js) with its
   generator parts: `engine` (prime mover) and `lamp` (load) in place of the battery.
   Recomputed: 2070 Bhadra IL 40 A, Ish 1 A, Ia 41 A, E = 250 + 41 × 0.25 =
@@ -163,7 +166,7 @@ export const genFlowFigure = (s) => (
 );
 
 /* ── 3.1 Construction, working, commutator ──────────────────────────── */
-export const basics31 = duo('3.1 · Basic understanding: how does rotation make electricity?', {
+export const basics31 = duo('3.2 · Basic understanding: how does rotation make electricity?', {
   three: motorTour([
     { shot: 'engine', show: GEN, spin: 0.5, open: 0.6, focus: ['engine', 'shaft'], labels: [['engine le ghumaucha', 'engine']] },
     { shot: 'inside', open: 1, field: 1, spin: 0.4, focus: ['poles', 'field'], labels: [['N pole', 'north'], ['S pole', 'south']] },
@@ -178,7 +181,7 @@ export const basics31 = duo('3.1 · Basic understanding: how does rotation make 
     {
       say: 'Hydropower ma pani le turbine ghumaucha; cycle ko dynamo ma chakka le. Generator ma engine le shaft ghumaucha.',
       voice: 'हाइड्रोपावरमा पानीले टर्बाइन घुमाउँछ, साइकलको डाइनामोमा चक्काले। जेनेरेटरमा इन्जिनले सफ्ट घुमाउँछ।',
-      lines: [['h', <>3.1 · Ghumaye bijuli kasari banchha?</>], ['step', <>Engine (prime mover) le shaft ghumaucha</>]],
+      lines: [['h', <>3.2 · Ghumaye bijuli kasari banchha?</>], ['step', <>Engine (prime mover) le shaft ghumaucha</>]],
     },
     {
       say: 'Bhitra motor jastai duita magnet: N ra S, ra bich ma nadekhine field.',
@@ -227,7 +230,7 @@ export const basics31 = duo('3.1 · Basic understanding: how does rotation make 
     {
       say: 'DC generator le prime mover ko mechanical energy lai DC electrical energy ma convert garcha.',
       voice: 'डी सी जेनेरेटरले प्राइम मुभरको मेकानिकल इनर्जीलाई डी सी इलेक्ट्रिकल इनर्जीमा कन्भर्ट गर्छ।',
-      lines: [['h', <>3.1 · The DC generator</>], chain(<>Prime mover → mechanical input</>)],
+      lines: [['h', <>3.2 · The DC generator</>], chain(<>Prime mover → mechanical input</>)],
     },
     {
       say: 'Field system le poles bich ma magnetic field dincha.',
@@ -576,7 +579,7 @@ export const windingAnswer31 = answer('Model answer: types of armature winding',
 });
 
 /* ── 3.2 EMF equation ────────────────────────────────────────────────── */
-export const basics32 = duo('3.2 · Basic understanding: what sets a generator’s voltage?', {
+export const basics32 = duo('3.3 · Basic understanding: what sets a generator’s voltage?', {
   three: motorTour([
     { shot: 'wiring', show: GEN, open: 0.6, spin: 0.3, field: 0.7, flow: 0.3, focus: ['lamp'], labels: [['bistarai: madhuro', 'lamp']] },
     { spin: 0.9, flow: 0.9, focus: ['lamp', 'armature'], labels: [['chito: ujyalo', 'lamp']] },
@@ -591,7 +594,7 @@ export const basics32 = duo('3.2 · Basic understanding: what sets a generator�
     {
       say: 'Cycle ko dynamo: bistarai chalaye batti madhuro, chito chalaye ujyalo. Generator ma pani tyastai.',
       voice: 'साइकलको डाइनामो — बिस्तारै चलाए बत्ती मधुरो, छिटो चलाए उज्यालो। जेनेरेटरमा पनि त्यस्तै।',
-      lines: [['h', <>3.2 · Voltage kasle badhaucha?</>], chain(<>Bistarai → madhuro</>)],
+      lines: [['h', <>3.3 · Voltage kasle badhaucha?</>], chain(<>Bistarai → madhuro</>)],
     },
     {
       say: 'Chito ghumaye coil le eksekend ma dherai field kaatcha, ra voltage badhcha.',
@@ -640,7 +643,7 @@ export const basics32 = duo('3.2 · Basic understanding: what sets a generator�
     {
       say: 'Kam speed ma generator ko terminal voltage kam huncha.',
       voice: 'कम स्पिडमा जेनेरेटरको टर्मिनल भोल्टेज कम हुन्छ।',
-      lines: [['h', <>3.2 · What decides the generated EMF</>], chain(<>Low speed → low EMF</>)],
+      lines: [['h', <>3.3 · What decides the generated EMF</>], chain(<>Low speed → low EMF</>)],
     },
     {
       say: 'Speed badhda flux cutting ko rate badhcha ra EMF badhcha.',
@@ -843,7 +846,7 @@ export const speedSolve32 = solve({
 });
 
 /* ── 3.3 Excitation, types, build-up, characteristics ───────────────── */
-export const basics33 = duo('3.3 · Basic understanding: how does a generator excite its own field?', {
+export const basics33 = duo('3.4 · Basic understanding: how does a generator excite its own field?', {
   three: motorTour([
     { shot: 'wiring', show: [...GEN.filter((p) => p !== 'lamp'), 'battery'], open: 0.7, spin: 0.6, field: 0.8, wiring: 'shunt', flow: 0.5, focus: ['battery', 'fieldCoil'], labels: [['chhuttai battery', 'battery']] },
     { show: GEN, wiring: 'shunt', field: 0.8, flow: 0.6, focus: ['fieldCoil', 'wires'], labels: [['aafno bijuli aafai', 'fieldCoil']] },
@@ -858,7 +861,7 @@ export const basics33 = duo('3.3 · Basic understanding: how does a generator ex
     {
       say: 'Generator ko magnet field coil ho, jaslai current chahincha. Chhuttai battery bata diye separately excited.',
       voice: 'जेनेरेटरको म्याग्नेट फिल्ड कोइल हो, जसलाई करेन्ट चाहिन्छ। छुट्टै ब्याट्रीबाट दिए सेपरेट्ली एक्साइटेड।',
-      lines: [['h', <>3.3 · Aafno magnet aafai?</>], chain(<>Chhuttai battery bata field: separately excited</>)],
+      lines: [['h', <>3.4 · Aafno magnet aafai?</>], chain(<>Chhuttai battery bata field: separately excited</>)],
     },
     {
       say: 'Tara generator le aafai bijuli banaucha, tesaile aafno field coil lai aafai bijuli dina sakcha: self-excited.',
@@ -907,7 +910,7 @@ export const basics33 = duo('3.3 · Basic understanding: how does a generator ex
     {
       say: 'Field winding lai external DC source bata excite garincha bhane separately excited generator.',
       voice: 'फिल्ड वाइन्डिङलाई एक्सटर्नल डी सी सोर्सबाट एक्साइट गरिन्छ भने सेपरेट्ली एक्साइटेड जेनेरेटर।',
-      lines: [['h', <>3.3 · Excitation</>], part(<>Separately excited</>, <>field from an external source</>)],
+      lines: [['h', <>3.4 · Excitation</>], part(<>Separately excited</>, <>field from an external source</>)],
     },
     {
       say: 'Self-excited generator ma aafnai output le field excite garcha: shunt, series wa compound.',
@@ -1184,7 +1187,7 @@ export const shortShuntSolve33 = solve({
 });
 
 /* ── 3.4 Losses, efficiency, regulation ──────────────────────────────── */
-export const basics34 = duo('3.4 · Basic understanding: does all the engine’s power reach the load?', {
+export const basics34 = duo('3.6 · Basic understanding: does all the engine’s power reach the load?', {
   three: motorTour([
     { shot: 'engine', show: GEN, open: 0.6, spin: 0.7, field: 0.8, flow: 0.7, focus: ['engine'], labels: [['engine ko power', 'engine']] },
     { shot: 'side', heat: { fan: 0 }, focus: ['shaft', 'brushes'], labels: [['ghasai ra hawa', 'brushes']] },
@@ -1199,7 +1202,7 @@ export const basics34 = duo('3.4 · Basic understanding: does all the engine’s
     {
       say: 'Engine le shaft ma power dincha. Tara sabai power bulb samma pugdaina.',
       voice: 'इन्जिनले सफ्टमा पावर दिन्छ। तर सबै पावर बल्बसम्म पुग्दैन।',
-      lines: [['h', <>3.4 · Engine ko power sabai bulb ma?</>], chain(<>Engine ko power → kehi bato mai harauncha</>)],
+      lines: [['h', <>3.6 · Engine ko power sabai bulb ma?</>], chain(<>Engine ko power → kehi bato mai harauncha</>)],
     },
     {
       say: 'Bearing ra brush ko ghasai, ani ghumda hawa sanga ko ladai: yo mechanical loss.',
@@ -1248,7 +1251,7 @@ export const basics34 = duo('3.4 · Basic understanding: does all the engine’s
     {
       say: 'Prime mover le mechanical input dincha, tara sabai electrical output ma badlindaina.',
       voice: 'प्राइम मुभरले मेकानिकल इनपुट दिन्छ, तर सबै इलेक्ट्रिकल आउटपुटमा बदलिँदैन।',
-      lines: [['h', <>3.4 · Losses and efficiency</>], ['step', <>Mechanical input; part of it is lost</>]],
+      lines: [['h', <>3.6 · Losses and efficiency</>], ['step', <>Mechanical input; part of it is lost</>]],
     },
     {
       say: 'Mechanical losses: bearing friction, brush friction ra windage.',
@@ -1413,13 +1416,480 @@ export const effSolve34 = solve({
   trap: { node: <>Trap: the field current comes from the armature: I<sub>a</sub> = I<sub>L</sub> + I<sub>sh</sub>, not I<sub>L</sub>.</>, say: 'Trap: generator ma I a equals I L plus I sh.', voice: 'ट्र्याप — जेनेरेटरमा आई ए इक्वल्स आई एल प्लस आई एस एच।' },
 });
 
-const t31 = topic({ num: '3.1', title: 'Constructional Details and Armature Winding · Working principle and Commutator Action', opener: basics31, derive: [construction31, working31, winding31], picture: [constructionAnswer31, windingAnswer31] });
-const t32 = topic({ num: '3.2', title: 'EMF equation', opener: basics32, derive: [emf32], picture: [emfAnswer32, speedSolve32] });
-const t33 = topic({ num: '3.3', title: 'Method of excitation: separately and self excited, Types of DC Generator · Characteristics of series, shunt and compound generator', opener: basics33, derive: [types33, buildup33], picture: [buildupAnswer33, shortShuntSolve33] });
-const t34 = topic({ num: '3.4', title: 'Losses in DC generators · Efficiency and Voltage Regulation', opener: basics34, derive: [eff34], picture: [effSolve34] });
+
+/* ── 3.1 Constructional details: the parts of a DC generator ────────── */
+export const basicsCons31 = duo('3.1 · Basic understanding: what is a DC generator made of?', {
+  three: motorTour([
+    { shot: 'whole', show: GEN, open: 0, spin: 0.3, focus: ['yoke'], labels: [['yoke', 'yoke']] },
+    { shot: 'inside', open: 1, field: 0.8, focus: ['poles', 'fieldCoil'], labels: [['pole', 'north'], ['field coil', 'fieldCoil']] },
+    { field: 0.3, focus: ['armature'], labels: [['armature core', 'armature']] },
+    { focus: ['coil'], labels: [['armature winding', 'coil']] },
+    { shot: 'commutator', focus: ['commutator'], labels: [['commutator', 'commutator']] },
+    { focus: ['brushes'], labels: [['brush', 'brushes']] },
+    { shot: 'whole', open: 0.4, spin: 0.5, focus: ['shaft', 'engine'], labels: [['shaft', 'shaft']] },
+  ]),
+  tutor: [
+    {
+      say: 'DC generator ko bahira ko moto falam ko frame lai yoke bhanchan. Yasle bhitra ka sabai bhag thamcha ra magnet ko bato pani dincha.',
+      voice: 'डी सी जेनेरेटरको बाहिरको मोटो फलामको फ्रेमलाई योक भन्छन्। यसले भित्रका सबै भाग थाम्छ, र म्याग्नेटको बाटो पनि दिन्छ।',
+      lines: [['h', <>3.1 · DC generator ka bhag</>], part(<>Yoke</>, <>bahiri frame, magnet ko bato</>)],
+    },
+    {
+      say: 'Yoke bhitra pole hunchan, ra pole ma field coil bereko huncha. Current bagda pole magnet banchha.',
+      voice: 'योकभित्र पोल हुन्छन्, र पोलमा फिल्ड कोइल बेरेको हुन्छ। करेन्ट बग्दा पोल म्याग्नेट बन्छ।',
+      lines: [part(<>Pole + field coil</>, <>magnetic field banauncha</>)],
+    },
+    {
+      say: 'Bich ma ghumne armature core cha. Yo patla patla falam ka pata jodera baneko huncha, jasle taato kam garcha.',
+      voice: 'बीचमा घुम्ने आर्मेचर कोर छ। यो पातला पातला फलामका पाता जोडेर बनेको हुन्छ, जसले तातो कम गर्छ।',
+      lines: [part(<>Armature core</>, <>patla pata jodeko ghumne drum</>)],
+    },
+    {
+      say: 'Core ka khalda ma tama ko armature winding rakhincha. Voltage yahi winding ma banchha.',
+      voice: 'कोरका खाल्डामा तामाको आर्मेचर वाइन्डिङ राखिन्छ। भोल्टेज यही वाइन्डिङमा बन्छ।',
+      lines: [part(<>Winding</>, <>slot ma tama ko tar; voltage yahi banchha</>)],
+    },
+    {
+      say: 'Agadi tama ka tukra jodeko commutator huncha. Yasle coil ko ulta-pulta current lai eutai disha ma pathaucha.',
+      voice: 'अगाडि तामाका टुक्रा जोडेको कम्युटेटर हुन्छ। यसले कोइलको उल्टापुल्टा करेन्टलाई एउटै दिशामा पठाउँछ।',
+      lines: [part(<>Commutator</>, <>current lai eutai disha</>)],
+    },
+    {
+      say: 'Commutator ma carbon ko brush dabiyeko huncha. Brush bata current bahira load samma jancha.',
+      voice: 'कम्युटेटरमा कार्बनको ब्रस दबिएको हुन्छ। ब्रसबाट करेन्ट बाहिर लोडसम्म जान्छ।',
+      lines: [part(<>Brush</>, <>current bahira load samma</>)],
+    },
+    {
+      say: 'Saransh: yoke ra pole le magnet, armature ra winding ma voltage, ra commutator ra brush bata DC bahira.',
+      voice: 'सारांश — योक र पोलले म्याग्नेट, आर्मेचर र वाइन्डिङमा भोल्टेज, र कम्युटेटर र ब्रसबाट डी सी बाहिर।',
+      lines: [['idea', <>Yoke + poles → field · armature + winding → voltage · commutator + brush → DC out</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Yoke DC machine ko outer frame ho; yasle mechanical support ra magnetic flux ko return path dincha.',
+      voice: 'योक डी सी मेसिनको आउटर फ्रेम हो। यसले मेकानिकल सपोर्ट र म्याग्नेटिक फ्लक्सको रिटर्न पाथ दिन्छ।',
+      lines: [['h', <>3.1 · Constructional details</>], part(<>Yoke</>, <>support and return path of flux</>)],
+    },
+    {
+      say: 'Field poles ma field winding huncha; excite garda yinle magnetic flux banauchan. Pole shoe le flux lai airgap ma failaucha.',
+      voice: 'फिल्ड पोल्समा फिल्ड वाइन्डिङ हुन्छ। एक्साइट गर्दा यिनले म्याग्नेटिक फ्लक्स बनाउँछन्। पोल सुले फ्लक्सलाई एयरग्यापमा फैलाउँछ।',
+      lines: [part(<>Poles and field winding</>, <>produce the flux; pole shoe spreads it</>)],
+    },
+    {
+      say: 'Armature core laminated silicon steel ko huncha, jasle eddy current loss ghataucha.',
+      voice: 'आर्मेचर कोर ल्यामिनेटेड सिलिकन स्टिलको हुन्छ, जसले एडी करेन्ट लस घटाउँछ।',
+      lines: [part(<>Armature core</>, <>laminated silicon steel (low eddy loss)</>)],
+    },
+    {
+      say: 'Armature winding core ka slot ma rakhincha; lap wa wave winding huncha, ra yasmai EMF induce huncha.',
+      voice: 'आर्मेचर वाइन्डिङ कोरका स्लटमा राखिन्छ। ल्याप वा वेभ वाइन्डिङ हुन्छ, र यसमै ई एम एफ इन्ड्युस हुन्छ।',
+      lines: [part(<>Armature winding</>, <>lap or wave, in the slots; EMF is induced here</>)],
+    },
+    {
+      say: 'Commutator copper segment le baneko huncha, bich ma mica insulation; yasle alternating EMF lai unidirectional banaucha.',
+      voice: 'कम्युटेटर कपर सेग्मेन्टले बनेको हुन्छ, बीचमा माइका इन्सुलेसन। यसले अल्टरनेटिङ ई एम एफलाई युनिडाइरेक्सनल बनाउँछ।',
+      lines: [part(<>Commutator</>, <>copper segments with mica; AC → DC</>)],
+    },
+    {
+      say: 'Carbon brush commutator ma spring le dabincha ra current external circuit ma lancha.',
+      voice: 'कार्बन ब्रस कम्युटेटरमा स्प्रिङले दबिन्छ, र करेन्ट एक्स्टर्नल सर्किटमा लान्छ।',
+      lines: [part(<>Brushes</>, <>carbon, collect the current</>)],
+    },
+    {
+      say: 'Saransh: field system, armature, commutator ra brush milera DC generator banchha.',
+      voice: 'सारांश — फिल्ड सिस्टम, आर्मेचर, कम्युटेटर र ब्रस मिलेर डी सी जेनेरेटर बन्छ।',
+      lines: [['idea', <>Field system · armature · commutator · brushes</>]],
+    },
+  ],
+});
+
+/* ── 3.5 Characteristics of series, shunt and compound generators ────── */
+export const basicsChars35 = duo('3.5 · Basic understanding: how does the voltage change with load?', {
+  three: motorTour([
+    { shot: 'wiring', show: GEN, open: 0.6, spin: 0.6, wiring: 'shunt', field: 0.8, flow: 0.4, focus: ['lamp'], labels: [['load: bulb', 'lamp']] },
+    { flow: 0.8, field: 0.65, focus: ['lamp', 'wires'], labels: [['shunt: voltage alik jharyo', 'lamp']] },
+    { wiring: 'series', field: 0.2, flow: 0.2, focus: ['fieldCoil', 'wires'], labels: [['series: load kam, voltage kam', [0.2, 3.4, 1.4]]] },
+    { field: 0.9, flow: 0.9, focus: ['fieldCoil', 'lamp'], labels: [['load badhyo, voltage badhyo', 'lamp']] },
+    { wiring: 'compound', field: 0.8, flow: 0.7, focus: ['fieldCoil', 'wires'], labels: [['compound: dubai coil', [0.2, 3.4, 1.0]]] },
+    { flow: 0.9, focus: ['lamp'], labels: [['voltage lagbhag ustai', 'lamp']] },
+    { shot: 'whole', open: 0.4, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Generator ko characteristic bhaneko load badhaudai jada terminal voltage kasari badalcha bhanne kura. Pahila shunt generator.',
+      voice: 'जेनेरेटरको क्यारेक्टरिस्टिक भनेको, लोड बढाउँदै जाँदा टर्मिनल भोल्टेज कसरी बदलिन्छ भन्ने कुरा। पहिला शन्ट जेनेरेटर।',
+      lines: [['h', <>3.5 · Load anusar voltage</>], part(<>Characteristic</>, <>load anusar terminal voltage</>)],
+    },
+    {
+      say: 'Shunt generator ma load badhda tar ma drop badhcha ra field pani alik kamjor huncha, tesaile voltage alik jharcha.',
+      voice: 'शन्ट जेनेरेटरमा लोड बढ्दा तारमा ड्रप बढ्छ, र फिल्ड पनि अलि कमजोर हुन्छ, त्यसैले भोल्टेज अलि झर्छ।',
+      lines: [chain(<>Shunt: load badhyo → drop badhyo → voltage alik jharyo</>)],
+    },
+    {
+      say: 'Series generator ma load ko current nai field ma bagcha. Load kam bhaye magnet kamjor ra voltage pani kam.',
+      voice: 'सिरिज जेनेरेटरमा लोडको करेन्ट नै फिल्डमा बग्छ। लोड कम भए म्याग्नेट कमजोर, र भोल्टेज पनि कम।',
+      lines: [chain(<>Series: load kam → field kamjor → voltage kam</>)],
+    },
+    {
+      say: 'Load badhda field balio huncha ra voltage badhcha. Yesaile series generator lai booster jasto prayog garincha.',
+      voice: 'लोड बढ्दा फिल्ड बलियो हुन्छ, र भोल्टेज बढ्छ। यसैले सिरिज जेनेरेटरलाई बुस्टर जस्तो प्रयोग गरिन्छ।',
+      lines: [chain(<>Load badhyo → field balio → voltage badhyo (booster)</>)],
+      ask: {
+        q: 'Series generator ma load badhda terminal voltage lai k huncha?',
+        voice: 'सिरिज जेनेरेटरमा लोड बढ्दा टर्मिनल भोल्टेजलाई के हुन्छ?',
+        options: ['Badhcha', 'Ghatcha', 'Zero huncha'],
+        answer: 0,
+        why: 'Load current nai field current ho; load badhda field balio bhayera voltage badhcha (saturation samma).',
+      },
+    },
+    {
+      say: 'Compound generator ma dubai coil huncha: shunt ra series. Series coil le shunt ko voltage jharne kura lai pura garcha.',
+      voice: 'कम्पाउन्ड जेनेरेटरमा दुवै कोइल हुन्छ — शन्ट र सिरिज। सिरिज कोइलले शन्टको भोल्टेज झर्ने कुरालाई पूरा गर्छ।',
+      lines: [part(<>Compound</>, <>series coil le shunt ko jharai pura garcha</>)],
+    },
+    {
+      say: 'Ramro sanga milaye load jati badhe pani voltage lagbhag ustai rahancha: flat compound.',
+      voice: 'राम्रोसँग मिलाए लोड जति बढे पनि भोल्टेज लगभग उस्तै रहन्छ — फ्ल्याट कम्पाउन्ड।',
+      lines: [chain(<>Milaye → voltage lagbhag ustai (flat compound)</>)],
+    },
+    {
+      say: 'Saransh: shunt ma voltage alik jharcha, series ma load sanga badhcha, compound ma lagbhag ustai.',
+      voice: 'सारांश — शन्टमा भोल्टेज अलि झर्छ, सिरिजमा लोडसँग बढ्छ, कम्पाउन्डमा लगभग उस्तै।',
+      lines: [['idea', <>Shunt: alik jharcha · series: badhcha · compound: lagbhag ustai</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Generator ko load characteristic le load current anusar terminal voltage dekhaucha. Suru ma shunt generator.',
+      voice: 'जेनेरेटरको लोड क्यारेक्टरिस्टिकले, लोड करेन्ट अनुसार टर्मिनल भोल्टेज देखाउँछ। सुरुमा शन्ट जेनेरेटर।',
+      lines: [['h', <>3.5 · Characteristics of DC generators</>], part(<>Load characteristic</>, <>terminal voltage against load current</>)],
+    },
+    {
+      say: 'Shunt generator ma armature drop, armature reaction ra field current ghatne karan voltage load sanga jharcha.',
+      voice: 'शन्ट जेनेरेटरमा आर्मेचर ड्रप, आर्मेचर रियाक्सन, र फिल्ड करेन्ट घट्ने कारण भोल्टेज लोडसँग झर्छ।',
+      lines: [chain(<>Shunt: drop + armature reaction + weaker field → voltage falls</>)],
+    },
+    {
+      say: 'Series generator ma field current nai load current ho, tesaile no load ma voltage lagbhag zero.',
+      voice: 'सिरिज जेनेरेटरमा फिल्ड करेन्ट नै लोड करेन्ट हो, त्यसैले नो लोडमा भोल्टेज लगभग जिरो।',
+      lines: [chain(<>Series: field current is the load current → near zero voltage on no load</>)],
+    },
+    {
+      say: 'Load badhda flux ra voltage badhchan; yesaile series generator booster ko rupma prayog huncha.',
+      voice: 'लोड बढ्दा फ्लक्स र भोल्टेज बढ्छन्। यसैले सिरिज जेनेरेटर बुस्टरको रूपमा प्रयोग हुन्छ।',
+      lines: [chain(<>Load up → flux up → voltage up (booster)</>)],
+      ask: {
+        q: 'Series generator lai kun kaam ma prayog garincha?',
+        voice: 'सिरिज जेनेरेटरलाई कुन काममा प्रयोग गरिन्छ?',
+        options: ['Booster', 'Constant voltage supply', 'Battery charging at no load'],
+        answer: 0,
+        why: 'Load sanga voltage badhne bhayeko le line drop pura garna booster ko rupma.',
+      },
+    },
+    {
+      say: 'Compound generator ma series field le shunt field ko flux ma thap garcha.',
+      voice: 'कम्पाउन्ड जेनेरेटरमा सिरिज फिल्डले शन्ट फिल्डको फ्लक्समा थप गर्छ।',
+      lines: [part(<>Cumulative compound</>, <>series flux adds to shunt flux</>)],
+    },
+    {
+      say: 'Series turns anusar over compound, flat compound ra under compound characteristic prapta huncha.',
+      voice: 'सिरिज टर्न्स अनुसार ओभर कम्पाउन्ड, फ्ल्याट कम्पाउन्ड, र अन्डर कम्पाउन्ड क्यारेक्टरिस्टिक प्राप्त हुन्छ।',
+      lines: [chain(<>Series turns → over, flat or under compound</>)],
+    },
+    {
+      say: 'Saransh: shunt ma voltage jharcha, series ma load sanga badhcha, ra compound ma series turns anusar.',
+      voice: 'सारांश — शन्टमा भोल्टेज झर्छ, सिरिजमा लोडसँग बढ्छ, र कम्पाउन्डमा सिरिज टर्न्स अनुसार।',
+      lines: [['idea', <>Shunt: falls · series: rises · compound: set by the series turns</>]],
+    },
+  ],
+});
+
+/* ── 3.6 Losses in DC generators: the notes video ────────────────────── */
+// lossFigure (unit4/figs.jsx): 0 total + groups · 1 copper · 2 iron · 3 mechanical · 4 constant/variable
+export const losses36 = duo('Losses in a DC generator', {
+  draw: lossFigureFor('Fig. 3.5  Losses in a DC generator'),
+  viewBox: '0 0 360 230',
+  tutor: [
+    {
+      say: 'Yaad garau: input power ko sabai output ma pugdaina; bachi rahane bhag heat ma loss huncha. DC generator ka loss tin samuha ma chan.',
+      voice: 'याद गरौं — इनपुट पावरको सबै आउटपुटमा पुग्दैन, बाँकी रहने भाग हिटमा लस हुन्छ। डी सी जेनेरेटरका लस तीन समूहमा छन्।',
+      lines: [['h', <>Losses in a DC generator</>], rem(<>Input = output + losses</>), ['step', <>Three groups: copper, iron (core), mechanical</>]],
+    },
+    {
+      say: 'Pahilo, copper loss: winding ko resistance ma current bagda I squared R heat. Armature ma I a squared R a, shunt field ma I sh squared R sh, ra series field ma.',
+      voice: 'पहिलो, कपर लस — वाइन्डिङको रेजिस्टेन्समा करेन्ट बग्दा, आई स्क्वायर आर हिट। आर्मेचरमा आई ए स्क्वायर आर ए, शन्ट फिल्डमा आई एस एच स्क्वायर आर एस एच, र सिरिज फिल्डमा।',
+      lines: [['step', <Pts items={[<>Armature: <K>{String.raw`I_a^2R_a`}</K></>, <>Shunt field: <K>{String.raw`I_{sh}^2R_{sh}`}</K> · series field: <K>{String.raw`I_a^2R_{se}`}</K></>, <>Brush contact drop</>]} />, undefined, { carry: <>Copper: <K>{String.raw`I^2R`}</K> (varies with load)</> }]],
+    },
+    {
+      say: 'Dosro, iron loss: ghumne core ma magnet ulta-pulta hunda hysteresis loss, ra core ma bagne sano current le eddy current loss.',
+      voice: 'दोस्रो, आइरन लस — घुम्ने कोरमा म्याग्नेट उल्टापुल्टा हुँदा हिस्टेरेसिस लस, र कोरमा बग्ने सानो करेन्टले एडी करेन्ट लस।',
+      lines: [['step', <Pts items={[<>Hysteresis: <K>{String.raw`W_h = \eta B_{max}^{1.6} f V`}</K></>, <>Eddy current: reduced by laminating the core</>]} />, undefined, { carry: <>Iron: hysteresis + eddy (constant)</> }]],
+    },
+    {
+      say: 'Hysteresis ra eddy kina constant? Yi dubai flux ra speed ma bhar parchan, ra shunt generator ma flux ra speed lagbhag constant.',
+      voice: 'हिस्टेरेसिस र एडी किन कन्स्टेन्ट? यी दुवै फ्लक्स र स्पिडमा भर पर्छन्, र शन्ट जेनेरेटरमा फ्लक्स र स्पिड लगभग कन्स्टेन्ट।',
+      lines: [br('Why are iron losses constant?', <Pts items={[<>They depend on flux density and frequency (speed)</>, <>Shunt generator: φ and N ≈ constant</>, <>So iron loss hardly changes with load</>]} />)],
+    },
+    {
+      say: 'Main line ma farkau. Tesro, mechanical loss: bearing ra brush ko ghasai, ra ghumda hawa ko rokawat, arthat windage.',
+      voice: 'मेन लाइनमा फर्कौं। तेस्रो, मेकानिकल लस — बेयरिङ र ब्रसको घर्षण, र घुम्दा हावाको रोकावट, अर्थात विन्डेज।',
+      lines: [['step', <>Mechanical: bearing friction · brush friction · windage</>]],
+    },
+    {
+      say: 'Constant loss: iron, mechanical ra shunt field copper loss, jun load sanga badalidaina. Variable loss: armature copper loss, jun I a squared sanga badhcha.',
+      voice: 'कन्स्टेन्ट लस — आइरन, मेकानिकल, र शन्ट फिल्ड कपर लस, जुन लोडसँग बदलिँदैन। भेरिएबल लस — आर्मेचर कपर लस, जुन आई ए स्क्वायरसँग बढ्छ।',
+      lines: [['step', <K>{String.raw`\begin{aligned} W_c &= \text{iron} + \text{mechanical} + I_{sh}^2R_{sh} \\ \text{Variable} &= I_a^2R_a \end{aligned}`}</K>]],
+      ask: {
+        q: 'DC shunt generator ma kun loss load sanga badhcha?',
+        voice: 'डी सी शन्ट जेनेरेटरमा कुन लस लोडसँग बढ्छ?',
+        options: ['Armature copper loss', 'Hysteresis loss', 'Bearing friction'],
+        answer: 0,
+        why: 'Ia²Ra load current sanga square ma badhcha; iron ra mechanical loss lagbhag constant.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: input equals output plus losses. DC generator ka loss copper, iron ra mechanical gari tin prakar ka chan.',
+      voice: 'स्मरण — इनपुट इक्वल्स आउटपुट प्लस लसेस। डी सी जेनेरेटरका लस कपर, आइरन र मेकानिकल गरी तीन प्रकारका छन्।',
+      lines: [['h', <>Losses in a DC generator (Fig. 3.5)</>], rem(<>Input = output + losses</>), ['step', <>Losses: (i) copper (ii) iron or core (iii) mechanical</>]],
+    },
+    {
+      say: 'Copper losses: armature I a squared R a, shunt field I sh squared R sh, series field I a squared R se, ra brush contact loss.',
+      voice: 'कपर लसेस — आर्मेचर आई ए स्क्वायर आर ए, शन्ट फिल्ड आई एस एच स्क्वायर आर एस एच, सिरिज फिल्ड आई ए स्क्वायर आर एस ई, र ब्रस कन्ट्याक्ट लस।',
+      lines: [['step', <><H>(i) Copper losses</H><Pts items={[<><K>{String.raw`I_a^2R_a`}</K> (armature) · <K>{String.raw`I_{sh}^2R_{sh}`}</K> (shunt field)</>, <><K>{String.raw`I_a^2R_{se}`}</K> (series field) · brush contact loss</>]} /></>, undefined, { carry: <>(i) copper <K>{String.raw`I^2R`}</K></> }]],
+    },
+    {
+      say: 'Iron losses: hysteresis loss W h equals eta B max power 1.6 f V, ra eddy current loss, jun lamination le ghataincha.',
+      voice: 'आइरन लसेस — हिस्टेरेसिस लस, डब्लु एच इक्वल्स इटा बी म्याक्स पावर वान पोइन्ट सिक्स, एफ भी, र एडी करेन्ट लस, जुन ल्यामिनेसनले घटाइन्छ।',
+      lines: [['step', <><H>(ii) Iron (core) losses</H><Pts items={[<>Hysteresis: <K>{String.raw`W_h = \eta B_{max}^{1.6} f V`}</K></>, <>Eddy current: <K>{String.raw`W_e \propto B_{max}^2 f^2 t^2`}</K>; laminations reduce it</>]} /></>, undefined, { carry: <>(ii) iron: hysteresis + eddy</> }]],
+    },
+    {
+      say: 'Yahan eta Steinmetz coefficient, B max maximum flux density, f frequency, V core ko volume, ra t lamination ko thickness.',
+      voice: 'यहाँ इटा स्टाइनमेट्ज कोएफिसिएन्ट, बी म्याक्स म्याक्सिमम फ्लक्स डेन्सिटी, एफ फ्रिक्वेन्सी, भी कोरको भोल्युम, र टी ल्यामिनेसनको थिकनेस।',
+      lines: [br('Symbols', <Pts items={[<>η: Steinmetz coefficient · B<sub>max</sub>: peak flux density</>, <>f: frequency of reversal · V: core volume (m³)</>, <>t: lamination thickness</>]} />)],
+    },
+    {
+      say: 'Mechanical losses: bearing friction, brush friction ra windage.',
+      voice: 'मेकानिकल लसेस — बेयरिङ फ्रिक्सन, ब्रस फ्रिक्सन, र विन्डेज।',
+      lines: [['step', <><H>(iii) Mechanical losses</H>bearing friction, brush friction, windage</>]],
+    },
+    {
+      say: 'Iron, mechanical ra shunt field copper loss constant loss W c hun; armature copper loss variable loss ho.',
+      voice: 'आइरन, मेकानिकल र शन्ट फिल्ड कपर लस, कन्स्टेन्ट लस डब्लु सी हुन्। आर्मेचर कपर लस भेरिएबल लस हो।',
+      lines: [['step', <K>{String.raw`\begin{aligned} W_c &= \text{iron} + \text{mech.} + I_{sh}^2R_{sh} \\ \text{Variable loss} &= I_a^2R_a \end{aligned}`}</K>]],
+      ask: {
+        q: 'Shunt generator ko constant loss ma kun loss pardaina?',
+        voice: 'शन्ट जेनेरेटरको कन्स्टेन्ट लसमा कुन लस पर्दैन?',
+        options: ['Armature copper loss', 'Iron loss', 'Shunt field copper loss'],
+        answer: 0,
+        why: 'Ia²Ra load sanga badalcha, tesaile yo variable loss ho.',
+      },
+    },
+  ],
+});
+
+/* ── 3.7 Efficiency and voltage regulation ───────────────────────────── */
+export const basicsEff37 = duo('3.7 · Basic understanding: how good is a generator, and how steady is its voltage?', {
+  three: motorTour([
+    { shot: 'engine', show: GEN, open: 0.6, spin: 0.7, field: 0.8, flow: 0.6, focus: ['engine'], labels: [['engine ko power', 'engine']] },
+    { shot: 'wiring', focus: ['lamp'], labels: [['bulb samma pugeko', 'lamp']] },
+    { heat: { coil: 0.5, armature: 0.4 }, focus: ['coil', 'armature'], labels: [['bich ma harayeko', 'coil']] },
+    { heat: {}, flow: 0.3, focus: ['lamp'], labels: [['no load: voltage dherai', 'lamp']] },
+    { flow: 1, focus: ['lamp'], labels: [['full load: voltage alik kam', 'lamp']] },
+    { flow: 0.8, heat: { coil: 0.5 }, focus: ['coil', 'lamp'], labels: [['best: dui loss barabar', [0.2, 3.4, 1.0]]] },
+    { shot: 'whole', open: 0.4, heat: {}, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Engine le generator lai power dincha. Kati bhag load samma pugcha, tyo nai efficiency ho.',
+      voice: 'इन्जिनले जेनेरेटरलाई पावर दिन्छ। कति भाग लोडसम्म पुग्छ, त्यो नै इफिसियन्सी हो।',
+      lines: [['h', <>3.7 · Efficiency ra regulation</>], part(<>Efficiency</>, <>load samma pugne bhag</>)],
+    },
+    {
+      say: 'Jastai engine le sau unit diyo ra bulb samma nabbe pugyo bhane efficiency nabbe percent.',
+      voice: 'जस्तै, इन्जिनले सय युनिट दियो र बल्बसम्म नब्बे पुग्यो भने, इफिसियन्सी नब्बे प्रतिशत।',
+      lines: [chain(<>100 diyo → 90 pugyo → 90 percent efficiency</>)],
+    },
+    {
+      say: 'Bachi rahane das unit generator bhitra taato bhayera harauncha: tar, falam ra ghasai ma.',
+      voice: 'बाँकी रहने दस युनिट जेनेरेटरभित्र तातो भएर हराउँछ — तार, फलाम र घर्षणमा।',
+      lines: [chain(<>Harayeko bhag → tar, falam, ghasai ma taato</>)],
+    },
+    {
+      say: 'Aba voltage herau. Load nabhaye bulb ma voltage dherai huncha.',
+      voice: 'अब भोल्टेज हेरौं। लोड नभए बल्बमा भोल्टेज धेरै हुन्छ।',
+      lines: [part(<>No load</>, <>voltage sabai bhanda dherai</>)],
+    },
+    {
+      say: 'Pura load ma voltage alik jharcha. Kati jharyo bhanne kura nai voltage regulation ho; jati sano, utti steady.',
+      voice: 'पूरा लोडमा भोल्टेज अलि झर्छ। कति झर्‍यो भन्ने कुरा नै भोल्टेज रेगुलेसन हो — जति सानो, उत्ति स्टेडी।',
+      lines: [chain(<>No load → full load: voltage jharyo, yahi regulation (sano ramro)</>)],
+      ask: {
+        q: 'Ramro generator ko voltage regulation kasto huncha?',
+        voice: 'राम्रो जेनेरेटरको भोल्टेज रेगुलेसन कस्तो हुन्छ?',
+        options: ['Sano', 'Thulo', 'Sadhai zero bhanda dherai'],
+        answer: 0,
+        why: 'Regulation sano bhaye load badhda voltage thorai matra jharcha.',
+      },
+    },
+    {
+      say: 'Efficiency sabai bhanda badhi tyo bela huncha, jaba load sanga badhne loss ra sadhai ustai rahane loss barabar hunchan.',
+      voice: 'इफिसियन्सी सबैभन्दा बढी त्यो बेला हुन्छ, जब लोडसँग बढ्ने लस र सधैं उस्तै रहने लस बराबर हुन्छन्।',
+      lines: [chain(<>Badhne loss ra ustai loss barabar → efficiency sabai bhanda badhi</>)],
+    },
+    {
+      say: 'Saransh: efficiency le kati power pugyo, regulation le voltage kati steady bhanera dekhaucha.',
+      voice: 'सारांश — इफिसियन्सीले कति पावर पुग्यो, रेगुलेसनले भोल्टेज कति स्टेडी भनेर देखाउँछ।',
+      lines: [['idea', <>Efficiency: kati pugyo · regulation: voltage kati steady</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Efficiency bhaneko output power ra input power ko anupat ho.',
+      voice: 'इफिसियन्सी भनेको आउटपुट पावर र इनपुट पावरको अनुपात हो।',
+      lines: [['h', <>3.7 · Efficiency and voltage regulation</>], part(<>Efficiency</>, <>output ÷ input</>)],
+    },
+    {
+      say: 'Mechanical input bata electrical output samma pugda kehi power harauncha.',
+      voice: 'मेकानिकल इनपुटबाट इलेक्ट्रिकल आउटपुटसम्म पुग्दा केही पावर हराउँछ।',
+      lines: [chain(<>Mechanical input → losses → electrical output</>)],
+    },
+    {
+      say: 'Yo harayeko power copper, iron ra mechanical loss ho.',
+      voice: 'यो हराएको पावर कपर, आइरन र मेकानिकल लस हो।',
+      lines: [chain(<>Lost power: copper, iron and mechanical losses</>)],
+    },
+    {
+      say: 'No load ma terminal voltage sabai bhanda badhi huncha.',
+      voice: 'नो लोडमा टर्मिनल भोल्टेज सबैभन्दा बढी हुन्छ।',
+      lines: [part(<>No-load voltage</>, <>highest terminal voltage</>)],
+    },
+    {
+      say: 'No load bata full load samma voltage ko parivartan, full load voltage ko pratishat ma, voltage regulation ho.',
+      voice: 'नो लोडबाट फुल लोडसम्म भोल्टेजको परिवर्तन, फुल लोड भोल्टेजको प्रतिशतमा, भोल्टेज रेगुलेसन हो।',
+      lines: [chain(<>Fall from no load to full load, as a percent of full-load voltage: the regulation</>)],
+      ask: {
+        q: 'Voltage regulation kun voltage ko percent ma lekhincha?',
+        voice: 'भोल्टेज रेगुलेसन कुन भोल्टेजको प्रतिशतमा लेखिन्छ?',
+        options: ['Full-load voltage', 'No-load voltage matra', 'Generated EMF matra'],
+        answer: 0,
+        why: 'Regulation = (no-load − full-load) ÷ full-load voltage × 100 %.',
+      },
+    },
+    {
+      say: 'Variable loss constant loss barabar hunda efficiency maximum huncha.',
+      voice: 'भेरिएबल लस, कन्स्टेन्ट लस बराबर हुँदा, इफिसियन्सी म्याक्सिमम हुन्छ।',
+      lines: [chain(<>Variable loss equal to constant loss → maximum efficiency</>)],
+    },
+    {
+      say: 'Saransh: efficiency le energy conversion ko gunastar, regulation le voltage ko sthirata dekhaucha.',
+      voice: 'सारांश — इफिसियन्सीले इनर्जी कन्भर्सनको गुणस्तर, रेगुलेसनले भोल्टेजको स्थिरता देखाउँछ।',
+      lines: [['idea', <>Efficiency: quality of conversion · regulation: steadiness of voltage</>]],
+    },
+  ],
+});
+
+/* ── 3.2 Model answer: functions of commutator and brushes ───────────── */
+// 2071 Chaitra (Question Bank part 3: "Explain the functions of commutator
+// and carbon brushes"); also 2072 Ashwin and ECM 2082 Bhadra (digest).
+export const commAnswer32 = answer('Model answer: functions of the commutator and carbon brushes', {
+  draw: figAt(genFigure, { 0: 0, 2: 1, 3: 1, 4: 3 }),
+  viewBox: '0 0 360 220',
+  papers: ['2071 Chaitra', '2072 Ashwin', '2082 Bhadra (ECM)'],
+  marks: '',
+  q: 'Explain the functions of commutator and carbon brushes.',
+  read: {
+    say: 'IOE ma tin choti sodhiyeko question: explain the functions of commutator and carbon brushes.',
+    voice: 'आई ओ ईमा तीन चोटि सोधिएको क्वेस्चन — एक्सप्लेन द फङ्सन्स अफ कम्युटेटर एन्ड कार्बन ब्रसेस।',
+  },
+  points: [
+    {
+      carry: <>(a) Commutator: AC in the coils → DC outside</>,
+      node: <><H>(a) Functions of the commutator</H><Pts items={[<>The EMF induced in each armature coil is alternating</>, <>The commutator reverses each coil’s connection to the brushes as the coil crosses the MNA</>, <>Hence the external current is unidirectional (DC)</>]} /></>,
+      say: 'Commutator: armature coil ma induce hune EMF alternating huncha. Coil MNA cross garda commutator le tesko connection brush sanga ulto gardincha, tesaile bahira ko current unidirectional, arthat DC huncha.',
+      voice: 'कम्युटेटर — आर्मेचर कोइलमा इन्ड्युस हुने ई एम एफ अल्टरनेटिङ हुन्छ। कोइल एम एन ए क्रस गर्दा, कम्युटेटरले त्यसको कनेक्सन ब्रससँग उल्टो गर्दिन्छ, त्यसैले बाहिरको करेन्ट युनिडाइरेक्सनल, अर्थात डी सी हुन्छ।',
+    },
+    {
+      node: <><Pts items={[<>Construction: hard-drawn copper segments insulated by mica, keyed to the shaft</>, <>In a motor it reverses the coil current at the MNA, so the torque is unidirectional</>]} /></>,
+      say: 'Commutator hard-drawn copper segment ra mica insulation le baneko huncha. Motor ma yasle MNA ma coil ko current ulto garera torque unidirectional rakhcha.',
+      voice: 'कम्युटेटर हार्ड ड्रन कपर सेग्मेन्ट र माइका इन्सुलेसनले बनेको हुन्छ। मोटरमा यसले एम एन एमा कोइलको करेन्ट उल्टो गरेर टर्क युनिडाइरेक्सनल राख्छ।',
+    },
+    {
+      page: true,
+      node: <><H>(b) Functions of the carbon brushes</H><Pts items={[<>Collect the current from the rotating commutator and pass it to the stationary external circuit</>, <>Carbon: low friction, self-lubricating, and its contact resistance helps commutation (less sparking)</>, <>Held on the commutator by spring pressure in brush holders</>]} /></>,
+      say: 'Carbon brush: ghumne commutator bata current sankalan garera sthir external circuit ma pathaucha. Carbon ko ghasai kam, aafai lubricating, ra contact resistance le commutation ma sparking ghataucha. Spring le brush holder ma dabincha.',
+      voice: 'कार्बन ब्रस — घुम्ने कम्युटेटरबाट करेन्ट सङ्कलन गरेर स्थिर एक्स्टर्नल सर्किटमा पठाउँछ। कार्बनको घर्षण कम, आफैं लुब्रिकेटिङ, र कन्ट्याक्ट रेजिस्टेन्सले कम्युटेसनमा स्पार्किङ घटाउँछ। स्प्रिङले ब्रस होल्डरमा दबिन्छ।',
+      ask: {
+        q: 'DC machine ma carbon brush ko mukhya kaam k ho?',
+        voice: 'डी सी मेसिनमा कार्बन ब्रसको मुख्य काम के हो?',
+        options: ['Ghumne commutator bata external circuit ma current lanu', 'Flux banaunu', 'Armature lai cool garnu'],
+        answer: 0,
+        why: 'Brush le rotating commutator ra stationary circuit bich sliding contact dincha.',
+      },
+    },
+  ],
+});
+
+/* ── 3.6 Model answer: losses in a DC generator ─────────────────────── */
+// 2071 Chaitra (Question Bank part 3, OCR restored): "Describe different
+// types of losses in d.c. generator. Explain how they are calculated? Derive
+// the condition for maximum efficiency." Marks not legible.
+export const lossAnswer36 = answer('Model answer: losses in a DC generator and maximum efficiency', {
+  draw: lossFigureFor('Fig. 1  Losses in a DC generator'),
+  viewBox: '0 0 360 230',
+  papers: ['2071 Chaitra'],
+  marks: '',
+  q: 'Describe different types of losses in a DC generator. Explain how they are calculated. Derive the condition for maximum efficiency.',
+  read: {
+    say: 'IOE 2071 Chaitra: DC generator ka losses describe gara, kasari calculate garincha bhana, ra maximum efficiency ko condition derive gara.',
+    voice: 'आई ओ ई दुई हजार एकहत्तर चैत — डी सी जेनेरेटरका लसेस डिस्क्राइब गर, कसरी क्याल्कुलेट गरिन्छ भन, र म्याक्सिमम इफिसियन्सीको कन्डिसन डेराइभ गर।',
+  },
+  points: [
+    {
+      carry: <>(a) Losses: copper (variable) + iron + mechanical (constant)</>,
+      node: <><H>(a) Types of losses (Fig. 1)</H><Pts items={[<><b>Copper:</b> <K>{String.raw`I_a^2R_a`}</K>, <K>{String.raw`I_{sh}^2R_{sh}`}</K>, <K>{String.raw`I_a^2R_{se}`}</K>, brush contact (≈ 2 V × I<sub>a</sub>)</>, <><b>Iron:</b> hysteresis <K>{String.raw`\eta B_{max}^{1.6} f V`}</K>, eddy <K>{String.raw`\propto B_{max}^2 f^2 t^2`}</K></>, <><b>Mechanical:</b> bearing and brush friction, windage</>]} /></>,
+      say: 'Losses tin prakar ka: copper loss I squared R le calculate garincha, iron loss hysteresis ra eddy, ra mechanical loss friction ra windage. Iron ra mechanical loss no-load test bata nikalincha.',
+      voice: 'लसेस तीन प्रकारका — कपर लस आई स्क्वायर आरले क्याल्कुलेट गरिन्छ, आइरन लस हिस्टेरेसिस र एडी, र मेकानिकल लस फ्रिक्सन र विन्डेज। आइरन र मेकानिकल लस नो लोड टेस्टबाट निकालिन्छ।',
+    },
+    {
+      node: <><Pts items={[<>Constant losses W<sub>c</sub> = iron + mechanical + shunt field copper (from a no-load test)</>, <>Variable loss = <K>{String.raw`I_a^2R_a`}</K> ≈ <K>{String.raw`I_L^2R_a`}</K></>]} /></>,
+      say: 'Iron, mechanical ra shunt field copper loss milera constant loss W c; armature copper loss I L squared R a variable loss.',
+      voice: 'आइरन, मेकानिकल र शन्ट फिल्ड कपर लस मिलेर कन्स्टेन्ट लस डब्लु सी। आर्मेचर कपर लस, आई एल स्क्वायर आर ए, भेरिएबल लस।',
+    },
+    {
+      page: true,
+      node: <><H>(b) Condition for maximum efficiency</H><K>{String.raw`\begin{aligned} \eta &= \dfrac{VI_L}{VI_L + I_L^2R_a + W_c} && \cdots(1) \\ &= \dfrac{V}{V + I_LR_a + \dfrac{W_c}{I_L}} && \cdots(2) \end{aligned}`}</K></>,
+      say: 'Efficiency eta equals V I L over V I L plus I L squared R a plus W c. I L le bhag garda eta equals V over V plus I L R a plus W c over I L.',
+      voice: 'इफिसियन्सी — इटा इक्वल्स, भी आई एल ओभर, भी आई एल प्लस आई एल स्क्वायर आर ए प्लस डब्लु सी। आई एलले भाग गर्दा, इटा इक्वल्स भी ओभर, भी प्लस आई एल आर ए प्लस डब्लु सी ओभर आई एल।',
+    },
+    {
+      node: <><K>{String.raw`\begin{aligned} \dfrac{d}{dI_L}\Big(I_LR_a + \dfrac{W_c}{I_L}\Big) &= 0 && \\ R_a - \dfrac{W_c}{I_L^2} &= 0 && \\ \therefore\ I_L^2R_a &= W_c && \cdots(3) \end{aligned}`}</K><Pts items={[<>η is maximum when the denominator is minimum: <b>variable loss = constant loss</b>. Hence proved.</>]} /></>,
+      say: 'Eta maximum huna denominator minimum hunu parcha. Derivative zero rakhda R a minus W c over I L squared equals zero, arthat I L squared R a equals W c: variable loss constant loss barabar. Hence proved.',
+      voice: 'इटा म्याक्सिमम हुन डिनोमिनेटर मिनिमम हुनुपर्छ। डेरिभेटिभ जिरो राख्दा, आर ए माइनस डब्लु सी ओभर आई एल स्क्वायर इक्वल्स जिरो — अर्थात आई एल स्क्वायर आर ए इक्वल्स डब्लु सी। भेरिएबल लस, कन्स्टेन्ट लस बराबर। हेन्स प्रुभ्ड।',
+      ask: {
+        q: 'DC generator ko efficiency kahile maximum huncha?',
+        voice: 'डी सी जेनेरेटरको इफिसियन्सी कहिले म्याक्सिमम हुन्छ?',
+        options: ['Variable loss = constant loss', 'Copper loss zero huda', 'Iron loss maximum huda'],
+        answer: 0,
+        why: 'd/dIL (ILRa + Wc/IL) = 0 bata IL²Ra = Wc.',
+      },
+    },
+  ],
+});
+
+// One topic per IOE syllabus bullet of Unit 3 (rule 68), in syllabus order.
+const t31 = topic({ num: '3.1', title: 'Constructional Details and Armature Winding', opener: basicsCons31, derive: [construction31, winding31], picture: [constructionAnswer31, windingAnswer31] });
+const t32 = topic({ num: '3.2', title: 'Working principle and Commutator Action', opener: basics31, derive: [working31], picture: [commAnswer32] });
+const t33 = topic({ num: '3.3', title: 'EMF equation', opener: basics32, derive: [emf32], picture: [emfAnswer32, speedSolve32] });
+const t34 = topic({ num: '3.4', title: 'Method of excitation: separately and self excited, Types of DC Generator', opener: basics33, derive: [types33], picture: [shortShuntSolve33] });
+const t35 = topic({ num: '3.5', title: 'Characteristics of series, shunt and compound generator', opener: basicsChars35, derive: [buildup33], picture: [buildupAnswer33] });
+const t36 = topic({ num: '3.6', title: 'Losses in DC generators', opener: basics34, derive: [losses36], picture: [lossAnswer36] });
+const t37 = topic({ num: '3.7', title: 'Efficiency and Voltage Regulation', opener: basicsEff37, derive: [eff34], picture: [effSolve34] });
 
 export const unit3 = {
-  topics: [t31, t32, t33, t34],
+  topics: [t31, t32, t33, t34, t35, t36, t37],
   summary: [
     <>Generator: conductor le flux kaatcha, e = Blv sinθ; commutator le armature ko AC lai DC banaucha.</>,
     <>E = PφZN/60A; lap A = P, wave A = 2; E ∝ φN.</>,
