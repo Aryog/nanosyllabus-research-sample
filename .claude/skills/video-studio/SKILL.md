@@ -76,7 +76,7 @@ clips.
 | MP4 render, the review loop, the frame strip, the final checklist | [references/render-and-qa.md](references/render-and-qa.md) |
 
 Read the reference before touching its area. Rules are numbered: house rules
-1 to 67 (the scripts cite them by number) and motion rules M1 to M20. A rule
+1 to 71 (the scripts cite them by number) and motion rules M1 to M20. A rule
 lives in exactly one reference.
 
 ## POVs: who is teaching (two roles, two skills)
@@ -226,3 +226,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-11-02: Unit 2 split from 5 to 13 topics (2.1–2.13, numbers 2.10–2.13 are exact strings): eight new Basic Understanding tours, seven new notes (construction with `coreShellFigure` Fig. 2.6, ideal transformer, load phasors, polarity test, losses, all-day efficiency, three-phase connections with `threePhaseFigure` Fig. 2.7), new model answers 2.3 (2071 Magh), 2.5 (2068 Magh), 2.8 (2071 Chaitra), 2.13 (2075 Baisakh) and 2.1 exam-style (no construction question in any vault bank; gap). **All 57 IOE subtopics are now their own topics, every gate passes.**
 - 2026-11-02: "Why" explanations moved from a card over the figure into the notes (rule 63, M20); "Main line ma farkau" removed from 44 lines; `Let` component: one symbol per line (10 definition lines converted).
 - 2026-11-02: carried results as a list, one per line (6 carries converted; Scene renders `.carry-row`).
+- 2026-11-02: all open 3D wires are 90° cabling by default (magnet, transformer, lamp leads rerouted terminal → coil end); 65 long 3D labels cut to ≤ 3 words with lint rule 69; 1.3 Basic Understanding moved to 3D on a new three-limb core (`core3`, shot `shell`); 1.3 Model Answer replaced by a fully solved parallel-circuit numerical from the vault notes (MMF = 77.09 AT); rules 69–71.

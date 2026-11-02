@@ -33,7 +33,9 @@ export const smooth = (t) => t * t * (3 - 2 * t);
 export const clamp = (t) => Math.max(0, Math.min(1, t));
 const FULL = 0.0042; // full spin, rad per ms
 
-export const makeTour = (model) => (plan) =>
+// The plan rides on the build function so lint can check its labels.
+export const makeTour = (model) => (plan) => Object.assign(buildOf(model, plan), { plan });
+const buildOf = (model, plan) =>
   function build(THREE, scene) {
     const { label, show: showLabel } = kit(THREE, scene);
     const parts = {};
@@ -90,11 +92,14 @@ export const makeTour = (model) => (plan) =>
       // sharp 90° elbows); open wires get rounded caps (user, 2026-11-02).
       // `wire: true` paths are cabling with 90° bends; the rest (windings,
       // flux loops) stay smooth curves.
-      curves[k] = p.wire ? orthoWire(THREE, p.pts, { r: p.bend ?? 0.2 }) : new THREE.CatmullRomCurve3(p.pts, !!p.loop, 'centripetal');
+      // Every open wire is cabling with 90° bends (user, 2026-11-02: "in all
+      // sections"); only closed loops (flux) and `curve: true` stay smooth.
+      const cable = !p.loop && !p.curve;
+      curves[k] = cable ? orthoWire(THREE, p.pts, { r: p.bend ?? 0.2 }) : new THREE.CatmullRomCurve3(p.pts, !!p.loop, 'centripetal');
       if (p.tube !== false) {
         const m = new THREE.MeshStandardMaterial({ color: p.color ?? 0xe8590c, roughness: 0.5, transparent: true });
         const r = p.r ?? 0.05;
-        tubes[k] = new THREE.Mesh(new THREE.TubeGeometry(curves[k], p.wire ? 400 : 200, r, 14, !!p.loop), m);
+        tubes[k] = new THREE.Mesh(new THREE.TubeGeometry(curves[k], cable ? 400 : 200, r, 14, !!p.loop), m);
         if (!p.loop)
           for (const t of [0, 1]) {
             const cap = new THREE.Mesh(new THREE.SphereGeometry(r, 14, 10), m);

@@ -171,8 +171,8 @@ export const stagesFigure = (s) => (
 export const basics51 = duo('5.1 · Basic understanding: what is inside an induction motor?', {
   three: inductionTour([
     { shot: 'whole', show: IM, spin: 0.25, labels: [['induction motor', 'frame']] },
-    { shot: 'inside', spin: 0, focus: ['stator'], labels: [['stator: chal dai na', 'stator']] },
-    { show: FED, shot: 'supply', flow: 0.6, focus: ['winding', 'supply'], labels: [['tin phase', 'supply'], ['R Y B coil', 'winding']] },
+    { shot: 'inside', spin: 0, focus: ['stator'], labels: [['stator: sthir', 'stator']] },
+    { show: FED, shot: 'supply', flow: 0.6, focus: ['winding', 'supply'], labels: [['tin phase', 'supply'], ['RYB coil', 'winding']] },
     { shot: 'front', field: 1, rmf: 0.6, flow: 0.6, focus: ['winding'], labels: [['ghumne magnet', 'field']] },
     { field: 1, rmf: 0.6, focus: ['cage', 'rotorCore'], labels: [['cage rotor', 'cage']] },
     { shot: 'inside', field: 1, rmf: 0.6, spin: 0.55, spinMs: 3000, focus: ['cage', 'rotorCore'], labels: [['rotor pachhi lagcha', 'rotorCore']] },
@@ -474,7 +474,7 @@ export const rmfAnswer51 = answer('Model answer: production of the RMF and why t
 /* ── 5.2 Slip, rotor frequency, rotor EMF and current ────────────────── */
 export const basics52 = duo('5.2 · Basic understanding: why does the rotor turn, and never reach synchronous speed?', {
   three: inductionTour([
-    { shot: 'front', show: FED, field: 1, rmf: 0.7, spin: 0, flow: 0.6, focus: ['winding'], labels: [['magnet ko speed fixed', 'field']] },
+    { shot: 'front', show: FED, field: 1, rmf: 0.7, spin: 0, flow: 0.6, focus: ['winding'], labels: [['speed fixed', 'field']] },
     { spin: 0.65, spinMs: 3500, focus: ['cage', 'rotorCore'], labels: [['rotor ali pachhi', 'cage']] },
     { spin: 0.7, rmf: 0.7, heat: {}, focus: ['cage'], labels: [['barabar: kei kaatdaina', 'cage']] },
     { spin: 0.65, focus: ['cage', 'rotorCore'], labels: [['farak: slip', 'rotorCore']] },
@@ -813,11 +813,11 @@ export const basics53 = duo('5.3 · Basic understanding: why high current but lo
   three: inductionTour([
     { shot: 'front', show: FED, field: 1, rmf: 0.7, spin: 0, flow: 1, heat: { cage: 0.9 }, focus: ['cage'], labels: [['start: thulo current', 'cage']] },
     { spin: 0.08, focus: ['cage', 'rotorCore'], labels: [['tara dhakka kam', 'rotorCore']] },
-    { spin: 0.4, spinMs: 2500, heat: { cage: 0.6 }, focus: ['cage'], labels: [['speed badhyo: dhakka badhyo', 'cage']] },
-    { spin: 0.55, heat: { cage: 0.5 }, focus: ['cage', 'shaft'], labels: [['sabai bhanda thulo dhakka', 'shaft']] },
+    { spin: 0.4, spinMs: 2500, heat: { cage: 0.6 }, focus: ['cage'], labels: [['badhi dhakka', 'cage']] },
+    { spin: 0.55, heat: { cage: 0.5 }, focus: ['cage', 'shaft'], labels: [['maximum dhakka', 'shaft']] },
     { spin: 0.67, heat: { cage: 0.2 }, focus: ['cage'], labels: [['najik pugda ghatyo', 'cage']] },
     { spin: 0.65, focus: ['shaft'], labels: [['sadharan chalne thau', 'shaft']] },
-    { shot: 'slip', show: [...FED.filter((p) => p !== 'cage'), 'slip', 'rheo'], spin: 0.2, spinMs: 1500, heat: { rheo: 0.6 }, focus: ['rheo', 'slip'], labels: [['resistance thapyo: start ma dhakka', 'rheo']] },
+    { shot: 'slip', show: [...FED.filter((p) => p !== 'cage'), 'slip', 'rheo'], spin: 0.2, spinMs: 1500, heat: { rheo: 0.6 }, focus: ['rheo', 'slip'], labels: [['resistance thapyo', 'rheo']] },
     { shot: 'whole', show: FED, spin: 0.65, spinMs: 2500, heat: {}, focus: null },
   ]),
   tutor: [
@@ -1159,8 +1159,8 @@ export const basics54 = duo('5.4 · Basic understanding: what if the motor is dr
   three: inductionTour([
     { shot: 'supply', show: FED, field: 1, rmf: 0.7, spin: 0.65, flow: 0.7, focus: ['supply', 'winding'], labels: [['power bhitra', 'supply']] },
     { shot: 'inside', heat: { stator: 0.4, winding: 0.5 }, focus: ['stator', 'winding'], labels: [['stator ma taato', 'winding']] },
-    { heat: { stator: 0.4, winding: 0.5 }, focus: ['rotorCore'], labels: [['hawa ko gap pari', 'rotorCore']] },
-    { heat: { stator: 0.4, winding: 0.5, cage: 0.4 }, focus: ['cage'], labels: [['slip jati rotor ma taato', 'cage']] },
+    { heat: { stator: 0.4, winding: 0.5 }, focus: ['rotorCore'], labels: [['air gap pari', 'rotorCore']] },
+    { heat: { stator: 0.4, winding: 0.5, cage: 0.4 }, focus: ['cage'], labels: [['rotor ma taato', 'cage']] },
     { shot: 'side', heat: {}, focus: ['shaft'], labels: [['baki: shaft ma', 'shaft']] },
     { shot: 'back', show: [...FED, 'engine'], spin: 0.8, spinMs: 2500, focus: ['engine', 'shaft'], labels: [['engine le chito', 'engine']] },
     { shot: 'whole', show: [...IM, 'engine', 'capacitor'], spin: 0.8, flow: 0, focus: ['capacitor'], labels: [['capacitor', 'capacitor']] },
@@ -1580,8 +1580,8 @@ export const basicsStages55 = duo('5.5 · Basic understanding: where does an ind
   three: inductionTour([
     { shot: 'supply', show: FED, field: 1, rmf: 0.7, spin: 0.65, flow: 0.7, focus: ['supply', 'winding'], labels: [['power bhitra', 'supply']] },
     { shot: 'inside', heat: { stator: 0.4, winding: 0.5 }, focus: ['stator', 'winding'], labels: [['stator ma taato', 'winding']] },
-    { heat: { stator: 0.4, winding: 0.5 }, focus: ['rotorCore'], labels: [['hawa ko gap pari', 'rotorCore']] },
-    { heat: { stator: 0.4, winding: 0.5, cage: 0.4 }, focus: ['cage'], labels: [['slip jati rotor ma taato', 'cage']] },
+    { heat: { stator: 0.4, winding: 0.5 }, focus: ['rotorCore'], labels: [['air gap pari', 'rotorCore']] },
+    { heat: { stator: 0.4, winding: 0.5, cage: 0.4 }, focus: ['cage'], labels: [['rotor ma taato', 'cage']] },
     { shot: 'side', heat: {}, focus: ['shaft'], labels: [['baki: shaft ma', 'shaft']] },
     { shot: 'whole', spin: 0.6, focus: null },
   ]),

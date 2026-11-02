@@ -20,7 +20,8 @@
   `lamp` and `engine` parts.
 
   Model keys (besides the engine's shot, focus, show, spin, flow, heat, labels):
-    magnet:      flux 0–1 (flux dots round the core), air 0–1 (air gap opens),
+    magnet:      flux 0–1 (flux dots round the core), flux3 0–1 (flux in the three-limb
+                 core `core3`, shot 'shell'), air 0–1 (air gap opens),
                  align 0–1 (domains line up), eddy 0–1, lamp 0–1, move 0–1
                  (bar magnet in and out; the meter swings), push 0–1 (force on rod)
     transformer: flux, flow2 0–1 (current in the secondary and lamp), leak 0–1, tap 0–1
@@ -204,6 +205,16 @@ export const magnetTour = makeTour({
     rod.position.set(5.0, 0, 0);
     const force = api.arrow(COL.force, 1.1, 0.07);
     force.rotation.z = -PI / 2;
+    // A three-limb (parallel) core below the main one, for series/parallel
+    // circuits (topic 1.3): coil on the centre limb, flux splits Φ → Φ/2 + Φ/2.
+    part('core3');
+    const Y3 = -6.5;
+    for (const [x, y, w, h] of [[0, Y3 + 1.2, 4.4, 0.6], [0, Y3 - 1.2, 4.4, 0.6], [-1.9, Y3, 0.6, 3.0], [1.9, Y3, 0.6, 3.0], [0, Y3, 0.6, 1.8]]) {
+      const b = mesh('core3', new THREE.BoxGeometry(w, h, 0.8), COL.iron, { metalness: 0.4 });
+      b.position.set(x, y, 0);
+    }
+    part('coil3');
+    turns(api, 'coil3', { x: 0, y: Y3, n: 6, from: -0.55, to: 0.55, r: 0.5 });
 
     const shots = {
       whole: [[-0.4, 1.6, 10.8], [-0.8, -0.2, 0]],
@@ -215,6 +226,7 @@ export const magnetTour = makeTour({
       sheets: [[-3.2, 2.4, 4.6], [-4.5, 1.5, 0]],
       right: [[5.6, 1.6, 6.8], [4.8, 0.4, 0]],
       wide: [[1.6, 2.2, 13.5], [1.2, 0.2, 0]],
+      shell: [[0.8, -4.6, 9.0], [0, -6.5, 0]],
     };
     const anchors = {
       core: [0, -2.15, 0.6],
@@ -234,24 +246,32 @@ export const magnetTour = makeTour({
       poles: [6.3, 1.1, 0.8],
       rod: [5.0, -0.35, 1.6],
       force: [6.4, 0.3, 0.8],
+      core3: [0, -8.3, 0.6],
+      coil3: [0, -4.8, 0.8],
+      left3: [-2.7, -6.5, 0.6],
+      right3: [2.7, -6.5, 0.6],
     };
     const paths = {
-      current: { pts: [V(-3.6, -1.6, 0.6), V(-3.0, -0.6, 0.9), V(-2.5, 0.75, 0.6), V(-1.85, 0.75, 0.62), V(-1.3, 0, 0.62), V(-1.85, -0.75, 0.62), V(-2.6, -1.2, 0.8), V(-3.8, -2.4, 0.8), V(-5.0, -1.6, 0.6)], color: 0xe8590c },
+      // + terminal → up → top turn of the coil · bottom turn → down, under the cell → − terminal
+      current: { pts: [V(-3.65, -1.6, 0.6), V(-3.0, -1.6, 0.6), V(-3.0, 0.75, 0.6), V(-2.4, 0.75, 0.6), V(-2.4, 0.75, 0), V(-2.4, -0.75, 0), V(-2.4, -0.75, 0.6), V(-2.4, -2.4, 0.6), V(-5.35, -2.4, 0.6), V(-5.35, -1.6, 0.6), V(-4.95, -1.6, 0.6)], bend: 0.12, color: 0xe8590c },
       flux: { pts: F.loop, loop: true, tube: false, dot: COL.field, dotR: 0.09, dots: 14, flowKey: 'flux', speed: 0.00016 },
-      lampWire: { pts: [V(-0.4, 1.75, 0.45), V(-0.5, 2.4, 0.4), V(0, 2.6, 0.4), V(0.5, 2.4, 0.4), V(0.4, 1.75, 0.45)], color: COL.copper2, r: 0.035, dots: 6, flowKey: 'lamp' },
+      lampWire: { pts: [V(-0.4, 1.75, 0.45), V(-0.4, 2.5, 0.45), V(0.4, 2.5, 0.45), V(0.4, 1.75, 0.45)], bend: 0.12, color: COL.copper2, r: 0.035, dots: 6, flowKey: 'lamp' },
       rodCurrent: { pts: [V(5.0, 0, 1.3), V(5.0, 0, -1.3)], tube: false, dots: 6, flowKey: 'push' },
+      // Parallel core: up the centre limb, then half each way round a side limb.
+      flux3L: { pts: [V(0, -7.4, 0.45), V(0, -5.6, 0.45), V(-1.9, -5.3, 0.45), V(-1.9, -7.7, 0.45)], loop: true, tube: false, dot: COL.field, dotR: 0.08, dots: 8, flowKey: 'flux3', speed: 0.00016 },
+      flux3R: { pts: [V(0, -7.4, 0.45), V(0, -5.6, 0.45), V(1.9, -5.3, 0.45), V(1.9, -7.7, 0.45)], loop: true, tube: false, dot: COL.field, dotR: 0.08, dots: 8, flowKey: 'flux3', speed: 0.00016 },
     };
     let ph = 0;
     return {
       shots,
       anchors,
       base: ['core', 'coil'],
-      def: { flux: 0, air: 0, align: 0, eddy: 0, lamp: 0, move: 0, push: 0 },
+      def: { flux: 0, air: 0, align: 0, eddy: 0, lamp: 0, move: 0, push: 0, flux3: 0 },
       paths,
       links: { core: ['bridge'] },
       opacity: (st, name, o) => (name === 'bridge' ? o * (1 - st.air) : o),
       pathOn: (st, key, shown) =>
-        key === 'current' ? +shown.has('battery') : key === 'flux' ? +shown.has('core') : key === 'lampWire' ? +shown.has('lamp') : +shown.has('rod'),
+        key === 'current' ? +shown.has('battery') : key === 'flux' ? +shown.has('core') : key === 'lampWire' ? +shown.has('lamp') : key.startsWith('flux3') ? +shown.has('core3') : +shown.has('rod'),
       update({ st, pr, mix, t, shown }) {
         signs.forEach((s) => (s.visible = shown.has('battery')));
         const al = mix(pr.align, st.align);
@@ -353,8 +373,8 @@ export const transformerTour = makeTour({
       coils3: [0, 2.2, 0.6],
     };
     const paths = {
-      pri: { pts: [V(-4.6, 0.55, 0.6), V(-3.4, 1.2, 0.7), V(-2.4, 0.8, 0.62), V(-1.3, 0, 0.62), V(-2.4, -0.8, 0.62), V(-3.4, -1.2, 0.7), V(-4.6, -0.55, 0.6)], color: 0xe8590c },
-      sec: { pts: [V(2.4, 0.9, 0.62), V(3.6, 1.1, 0.6), V(4.7, 0.6, 0.5), V(4.7, -0.5, 0.5), V(3.6, -1.1, 0.6), V(2.4, -0.9, 0.62)], color: COL.copper2, r: 0.04, flowKey: 'flow2' },
+      pri: { pts: [V(-4.6, 0.55, 0.6), V(-3.4, 0.55, 0.6), V(-3.4, 1.2, 0.62), V(-1.3, 1.2, 0.62), V(-1.3, -1.2, 0.62), V(-3.4, -1.2, 0.62), V(-3.4, -0.55, 0.6), V(-4.6, -0.55, 0.6)], bend: 0.15, color: 0xe8590c },
+      sec: { pts: [V(2.4, 0.9, 0.62), V(4.7, 0.9, 0.62), V(4.7, -0.9, 0.62), V(2.4, -0.9, 0.62)], bend: 0.15, color: COL.copper2, r: 0.04, flowKey: 'flow2' },
       flux: { pts: F.loop, loop: true, tube: false, dot: COL.field, dotR: 0.09, dots: 14, flowKey: 'flux', speed: 0.00016 },
     };
     return {

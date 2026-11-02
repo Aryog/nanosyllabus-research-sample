@@ -26,7 +26,7 @@ export const basics41 = duo('4.1 · Basic understanding: how does a DC motor tur
     { field: 1, push: 1, spin: 0.5, focus: ['coil', 'poles'], labels: [['tala dhakka', [-2.0, -0.9, 1.8]], ['mathi dhakka', [2.0, 1.3, 1.8]]] },
     { shot: 'commutator', push: 0, spin: 0.25, focus: ['commutator', 'brushes'], labels: [['commutator', 'commutator'], ['brush', 'brushes']] },
     { spin: 0.6, focus: ['commutator', 'brushes', 'coil'] },
-    { shot: 'inside', open: 1, field: 1, push: 1, spin: 0.7, focus: ['coil', 'armature'], labels: [['dherai coil, dherai dhakka', [0, 2.9, 1.4]]] },
+    { shot: 'inside', open: 1, field: 1, push: 1, spin: 0.7, focus: ['coil', 'armature'], labels: [['dherai coil', [0, 2.9, 1.4]]] },
     { shot: 'whole', open: 0, push: 0, field: 0.4, spin: 0.8, focus: null },
   ]),
   tutor: [
@@ -259,7 +259,7 @@ export const basics43 = duo('4.7 · Basic understanding: where does the energy g
     { field: 0.6, focus: ['armature'], heat: { armature: 1 }, labels: [['iron loss', 'armature']] },
     { shot: 'commutator', field: 0, focus: ['brushes', 'shaft', 'fan'], heat: { brushes: 0.8 }, labels: [['ghasrine thau', 'brushes'], ['hawa', [1.8, 1.4, -1.6]]] },
     { shot: 'inside', focus: null, heat: { coil: 1, fieldCoil: 0.7, armature: 0.5, brushes: 0.5 }, labels: [['load sanga badhcha', 'coil'], ['ustai rahancha', 'armature']] },
-    { shot: 'whole', open: 0, spin: 0.8, heat: {}, labels: [['kaam ma pugne bhag', 'fan']] },
+    { shot: 'whole', open: 0, spin: 0.8, heat: {}, labels: [['kaam ma pugyo', 'fan']] },
     { shot: 'inside', open: 1, heat: { coil: 0.6, fieldCoil: 0.4, armature: 0.6, brushes: 0.4 } },
   ]),
   tutor: [
@@ -569,7 +569,7 @@ export const basics45 = duo('4.6 · Basic understanding: how is the speed change
 export const basics46 = duo('Basic understanding: how is a motor tested without load?', {
   three: motorTour([
     { shot: 'whole', spin: 0.5 },
-    { shot: 'wiring', show: WIRED, open: 0.6, flow: 0.5, focus: ['battery', 'wires', 'armature', 'brushes'], heat: { armature: 0.6, brushes: 0.5, coil: 0.3 }, labels: [['sabai power → losses', [-1.0, 2.9, 1.4]]] },
+    { shot: 'wiring', show: WIRED, open: 0.6, flow: 0.5, focus: ['battery', 'wires', 'armature', 'brushes'], heat: { armature: 0.6, brushes: 0.5, coil: 0.3 }, labels: [['sabai loss', [-1.0, 2.9, 1.4]]] },
     { focus: ['battery'], labels: [['input napne', 'battery']] },
     { shot: 'inside', open: 1, focus: ['armature', 'brushes', 'fan'], heat: { armature: 0.8, brushes: 0.6 }, labels: [['nabadhne losses', 'armature']] },
     { shot: 'whole', open: 0, show: MOTOR, focus: null, heat: {}, spin: 0.9, labels: [['supply kaat', [0, 3.1, 0.6]]] },
@@ -783,10 +783,10 @@ export const basicsChars = duo('4.4 · Basic understanding: how do speed and tor
   three: motorTour([
     { shot: 'wiring', show: WIRED, open: 0.6, wiring: 'shunt', flow: 0.4, field: 0.7, spin: 0.7, focus: ['fieldCoil', 'wires'], labels: [['shunt motor', [0.2, 3.4, 0.4]]] },
     { flow: 0.7, push: 0.6, spin: 0.62, spinMs: 2000, focus: ['armature', 'fan'], labels: [['speed thorai ghatyo', 'fan']] },
-    { push: 0.9, flow: 0.9, focus: ['coil'], labels: [['current badhyo, dhakka badhyo', [0, 2.9, 1.4]]] },
+    { push: 0.9, flow: 0.9, focus: ['coil'], labels: [['badhi dhakka', [0, 2.9, 1.4]]] },
     { wiring: 'series', field: 0.4, push: 0.4, spin: 0.5, flow: 0.5, focus: ['fieldCoil', 'wires'], labels: [['series motor', [0.2, 3.4, 1.4]]] },
-    { field: 1, push: 1, spin: 0.25, spinMs: 2000, flow: 1, focus: ['poles', 'coil'], labels: [['dherai load: thulo dhakka', [0, 2.9, 1.4]]] },
-    { field: 0.15, push: 0.1, spin: 1, spinMs: 2500, flow: 0.15, focus: ['armature', 'fan'], labels: [['load kam: dherai speed', 'fan']] },
+    { field: 1, push: 1, spin: 0.25, spinMs: 2000, flow: 1, focus: ['poles', 'coil'], labels: [['thulo dhakka', [0, 2.9, 1.4]]] },
+    { field: 0.15, push: 0.1, spin: 1, spinMs: 2500, flow: 0.15, focus: ['armature', 'fan'], labels: [['dherai speed', 'fan']] },
     { wiring: 'compound', field: 0.7, push: 0.6, spin: 0.55, flow: 0.6, focus: ['fieldCoil', 'wires'], labels: [['compound: bich ko', [0.2, 3.4, 1.0]]] },
     { shot: 'whole', show: MOTOR, push: 0, spin: 0.6, focus: null },
   ]),

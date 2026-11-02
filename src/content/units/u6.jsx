@@ -156,7 +156,7 @@ export const basics61 = duo('6.1 · Basic understanding: what is inside a power-
     { shot: 'front', spin: 0.2, field: 1, lamp: 0.6, focus: ['salient', 'fieldCoil'], labels: [['rotor: magnet', 'salient']] },
     { spin: 0.35, focus: ['winding', 'stator'], labels: [['stator: nachalne coil', 'winding']] },
     { shot: 'lamps', spin: 0.4, lamp: 1, focus: ['winding', 'lamps'], labels: [['tin phase bijuli', 'lamps']] },
-    { shot: 'exciter', focus: ['sliprings', 'brushes'], labels: [['slip ring: sano DC', 'sliprings']] },
+    { shot: 'exciter', focus: ['sliprings', 'brushes'], labels: [['slip ring', 'sliprings']] },
     { focus: ['exciter'], labels: [['exciter', 'exciter']] },
     { shot: 'front', show: [...ROUND, 'turbine', 'lamps'], spin: 0.9, field: 1, lamp: 1, focus: ['round'], labels: [['chito: round rotor', 'round']] },
     { shot: 'wide', show: GENSET, spin: 0.35, focus: null },
@@ -480,13 +480,13 @@ export const salientAnswer61 = answer('Model answer: suitability of salient-pole
 /* ── 6.2 EMF equation, pitch and distribution factors ───────────────── */
 export const basics62 = duo('6.3 · Basic understanding: why does a distributed winding give slightly less voltage?', {
   three: syncTour([
-    { shot: 'front', show: [...SM, 'lamps'], spin: 0.35, field: 1, lamp: 0.8, focus: ['salient', 'winding'], labels: [['magnet coil ko agadi', 'winding']] },
+    { shot: 'front', show: [...SM, 'lamps'], spin: 0.35, field: 1, lamp: 0.8, focus: ['salient', 'winding'], labels: [['coil ko agadi', 'winding']] },
     { spin: 0.8, lamp: 1, focus: ['salient'], labels: [['chito: dherai cycle', 'salient']] },
-    { spin: 0.4, focus: ['fieldCoil'], labels: [['balio magnet: dherai voltage', 'fieldCoil']] },
-    { focus: ['winding'], labels: [['dherai pheri: dherai voltage', 'winding']] },
+    { spin: 0.4, focus: ['fieldCoil'], labels: [['badhi voltage', 'fieldCoil']] },
+    { focus: ['winding'], labels: [['dherai pheri', 'winding']] },
     { shot: 'inside', focus: ['winding', 'stator'], labels: [['coil chhariyeka', 'winding']] },
     { focus: ['winding'], labels: [['dhakka ek-sathai hoina', 'winding']] },
-    { focus: ['winding', 'salient'], labels: [['chhoto coil: chikno wave', 'winding']] },
+    { focus: ['winding', 'salient'], labels: [['chikno wave', 'winding']] },
     { shot: 'front', spin: 0.4, focus: null },
   ]),
   tutor: [
@@ -780,8 +780,8 @@ export const emfAnswer62 = answer('Model answer: EMF equation of the alternator'
 export const basics63 = duo('6.5 · Basic understanding: why does the alternator voltage change with load?', {
   three: syncTour([
     { shot: 'lamps', show: GENSET, spin: 0.4, field: 1, lamp: 0, focus: ['lamps'], labels: [['no load', 'lamps']] },
-    { lamp: 1, focus: ['winding', 'lamps'], labels: [['load: stator ma current', 'winding']] },
-    { shot: 'front', focus: ['winding'], labels: [['stator ko aafnai magnet', 'winding']] },
+    { lamp: 1, focus: ['winding', 'lamps'], labels: [['stator current', 'winding']] },
+    { shot: 'front', focus: ['winding'], labels: [['stator ko magnet', 'winding']] },
     { focus: ['winding', 'salient'], labels: [['bulb: chheu bata', 'salient']] },
     { field: 0.55, lamp: 0.6, focus: ['salient', 'fieldCoil'], labels: [['motor: kamjor banaucha', 'fieldCoil']] },
     { field: 1, lamp: 1, focus: ['salient', 'fieldCoil'], labels: [['capacitor: balio banaucha', 'fieldCoil']] },
@@ -1131,7 +1131,7 @@ export const basics64 = duo('6.6 · Basic understanding: why is a synchronous mo
   three: syncTour([
     { shot: 'front', show: MOTOR, field: 1, rmf: 0.6, spin: 0, flow: 0.7, focus: ['winding', 'supply'], labels: [['stator: ghumne magnet', 'winding']] },
     { focus: ['salient', 'fieldCoil'], labels: [['rotor: DC magnet', 'salient']] },
-    { spin: 0, focus: ['salient'], labels: [['dherai chito: samatna sakdaina', 'salient']] },
+    { spin: 0, focus: ['salient'], labels: [['samatna sakdaina', 'salient']] },
     { show: [...MOTOR, 'damper'], spin: 0.5, spinMs: 3500, focus: ['damper'], labels: [['damper bar', 'damper']] },
     { spin: 0.6, rmf: 0.6, focus: ['salient', 'winding'], labels: [['lock: eutai speed', 'salient']] },
     { shot: 'exciter', spin: 0.6, field: 0.5, focus: ['sliprings', 'fieldCoil'], labels: [['kam field: lagging', 'fieldCoil']] },
@@ -1506,7 +1506,7 @@ export const basicsWork62 = duo('6.2 · Basic understanding: how does a spinning
   three: syncTour([
     { shot: 'back', show: GENSET, spin: 0.35, field: 0.8, lamp: 0.4, focus: ['turbine', 'shaft'], labels: [['turbine le ghumaucha', 'turbine']] },
     { shot: 'front', field: 1, focus: ['salient', 'fieldCoil'], labels: [['ghumne magnet', 'salient']] },
-    { spin: 0.5, focus: ['winding'], labels: [['stator coil le flux kaatcha', 'winding']] },
+    { spin: 0.5, focus: ['winding'], labels: [['flux kaatcha', 'winding']] },
     { shot: 'lamps', lamp: 1, focus: ['lamps'], labels: [['bulb balyo', 'lamps']] },
     { spin: 0.8, lamp: 1, focus: ['salient', 'lamps'], labels: [['chito: badhi frequency', 'lamps']] },
     { shot: 'wide', spin: 0.5, focus: null },
@@ -1596,7 +1596,7 @@ export const basicsAr64 = duo('6.4 · Basic understanding: how does the load cur
   three: syncTour([
     { shot: 'front', show: GENSET, spin: 0.4, field: 1, lamp: 0.2, focus: ['salient'], labels: [['rotor ko magnet', 'salient']] },
     { lamp: 1, focus: ['winding', 'lamps'], labels: [['load ko current', 'winding']] },
-    { field: 1, focus: ['winding', 'stator'], labels: [['stator pani magnet banyo', 'stator']] },
+    { field: 1, focus: ['winding', 'stator'], labels: [['stator magnet', 'stator']] },
     { field: 0.6, focus: ['salient', 'winding'], labels: [['lagging: magnet kamjor', 'salient']] },
     { field: 1.0, focus: ['salient', 'winding'], labels: [['leading: magnet balio', 'salient']] },
     { shot: 'wide', field: 0.9, focus: null },
@@ -1758,8 +1758,8 @@ export const principle66 = duo('Principle of operation of the synchronous motor'
 /* ── 6.7 Starting methods ───────────────────────────────────────────── */
 export const basicsStart67 = duo('6.7 · Basic understanding: how do we get a synchronous motor up to speed?', {
   three: syncTour([
-    { shot: 'front', show: MOTOR, field: 0, rmf: 0.6, spin: 0, flow: 0.7, focus: ['winding'], labels: [['ghumne field: dherai chito', 'winding']] },
-    { show: [...MOTOR, 'damper'], spin: 0.5, spinMs: 3500, focus: ['damper'], labels: [['damper bar: induction jastai', 'damper']] },
+    { shot: 'front', show: MOTOR, field: 0, rmf: 0.6, spin: 0, flow: 0.7, focus: ['winding'], labels: [['chito field', 'winding']] },
+    { show: [...MOTOR, 'damper'], spin: 0.5, spinMs: 3500, focus: ['damper'], labels: [['damper bar', 'damper']] },
     { spin: 0.58, focus: ['salient'], labels: [['najik pugyo', 'salient']] },
     { shot: 'exciter', field: 1, spin: 0.6, focus: ['sliprings', 'fieldCoil'], labels: [['DC on: lock', 'fieldCoil']] },
     { shot: 'wide', spin: 0.6, focus: null },
@@ -1837,8 +1837,8 @@ export const basicsStart67 = duo('6.7 · Basic understanding: how do we get a sy
 /* ── 6.8 No load and load operation, phasor diagram ────────────────── */
 export const basicsLoad68 = duo('6.8 · Basic understanding: what happens inside a synchronous motor when you load it?', {
   three: syncTour([
-    { shot: 'front', show: MOTOR, field: 1, rmf: 0.6, spin: 0.6, flow: 0.4, focus: ['salient', 'winding'], labels: [['no load: sano current', 'winding']] },
-    { flow: 0.8, focus: ['salient'], labels: [['load: rotor alik pachhi', 'salient']] },
+    { shot: 'front', show: MOTOR, field: 1, rmf: 0.6, spin: 0.6, flow: 0.4, focus: ['salient', 'winding'], labels: [['sano current', 'winding']] },
+    { flow: 0.8, focus: ['salient'], labels: [['rotor pachhi', 'salient']] },
     { spin: 0.6, focus: ['shaft'], labels: [['speed ustai', 'shaft']] },
     { flow: 1, focus: ['winding', 'supply'], labels: [['badhi current', 'supply']] },
     { shot: 'wide', focus: null },

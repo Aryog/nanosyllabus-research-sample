@@ -88,6 +88,9 @@ const COMM_Z = 1.75; // commutator along the shaft (front)
 const FULL = 0.0042; // full spin, rad per ms
 
 export function motorTour(plan) {
+  return Object.assign(motorBuild(plan), { plan });
+}
+function motorBuild(plan) {
   return function build(THREE, scene) {
     const { label, show: showLabel } = kit(THREE, scene);
     const parts = {}; // name → { group, mats }

@@ -824,9 +824,9 @@ export const basics13 = duo('1.8 · Basic understanding: how does a moving magne
     { shot: 'right', show: ['magnet', 'loop', 'meter'], move: 0, focus: ['magnet', 'loop'], labels: [['magnet', 'magnet'], ['tar ko loop', 'loop']] },
     { move: 0, focus: ['meter'], labels: [['meter: shant', 'meter']] },
     { move: 1, focus: ['magnet', 'meter'], labels: [['chalaayo: sui hallyo', 'meter']] },
-    { move: 1, focus: ['meter'], labels: [['bhitra ra bahira: ulto', 'meter']] },
+    { move: 1, focus: ['meter'], labels: [['ulto disha', 'meter']] },
     { shot: 'top', show: [...WIRED, 'coil2', 'lamp'], flow: 0.8, flux: 0.9, lamp: 1, focus: ['coil2', 'lamp'], labels: [['nachhoi bijuli', 'lamp']] },
-    { shot: 'right', show: ['poles', 'rod'], flow: 0, flux: 0, lamp: 0, push: 0, focus: ['rod', 'poles'], labels: [['magnet ko bich ma rod', 'rod']] },
+    { shot: 'right', show: ['poles', 'rod'], flow: 0, flux: 0, lamp: 0, push: 0, focus: ['rod', 'poles'], labels: [['rod', 'rod']] },
     { push: 1, focus: ['rod'], labels: [['current: dhakka', 'force']] },
     { shot: 'wide', show: [...WIRED, 'coil2', 'lamp', 'magnet', 'loop', 'meter'], flow: 0.6, flux: 0.8, lamp: 1, move: 1, push: 0, focus: null },
   ]),
@@ -1160,8 +1160,8 @@ export const parallelFigure = (s) => (
 /* ── 1.2 Ohm's law for magnetic circuits ─────────────────────────────── */
 export const basicsOhm12 = duo("1.2 · Basic understanding: what pushes flux, and what holds it back?", {
   three: magnetTour([
-    { shot: 'core', show: WIRED, flow: 0.4, flux: 0.4, focus: ['coil', 'battery'], labels: [['dhakka: turns × current', 'coil']] },
-    { flow: 1, flux: 0.9, focus: ['coil'], labels: [['dherai dhakka, dherai flux', 'flux']] },
+    { shot: 'core', show: WIRED, flow: 0.4, flux: 0.4, focus: ['coil', 'battery'], labels: [['turns × current', 'coil']] },
+    { flow: 1, flux: 0.9, focus: ['coil'], labels: [['dherai flux', 'flux']] },
     { focus: ['core'], labels: [['falam: sajilo bato', 'core']] },
     { shot: 'gap', air: 1, flux: 0.35, focus: ['core', 'bridge'], labels: [['hawa: thulo rokawat', 'gap']] },
     { shot: 'whole', air: 0, flux: 0.9, focus: null },
@@ -1323,8 +1323,13 @@ export const reluctance12 = duo("Ohm's law for magnetic circuits: reluctance and
 
 /* ── 1.3 Series and parallel magnetic circuits ───────────────────────── */
 export const basicsSeries13 = duo('1.3 · Basic understanding: what if flux has one path, or two?', {
-  draw: parallelFigure,
-  viewBox: '0 0 360 236',
+  three: magnetTour([
+    { shot: 'core', show: WIRED, flow: 0.6, flux: 0.9, focus: ['core'], labels: [['eutai bato', 'flux']] },
+    { shot: 'shell', show: ['core3', 'coil3'], flux3: 1, focus: ['coil3'], labels: [['bich ko coil', 'coil3']] },
+    { flux3: 1, focus: ['core3'], labels: [['aadha', 'left3'], ['aadha', 'right3']] },
+    { flux3: 1, focus: ['core3', 'coil3'], labels: [['dui bato: parallel', 'core3']] },
+    { flux3: 1, focus: null },
+  ]),
   tutor: [
     {
       say: 'Flux ko bato eutai bhaye, falam ra hawa sabai ek pachhi arko parcha. Yaslai series bhanchan, jastai eutai tar ma lagatar bulb.',
@@ -1471,7 +1476,7 @@ export const series13 = duo('Series and parallel magnetic circuits', {
 /* ── 1.4 Core with air gap ─────────────────────────────────────────── */
 export const basicsGap14 = duo('1.4 · Basic understanding: why does a tiny air gap matter so much?', {
   three: magnetTour([
-    { shot: 'core', show: WIRED, flow: 0.6, flux: 0.9, focus: ['core'], labels: [['pura falam: dherai flux', 'flux']] },
+    { shot: 'core', show: WIRED, flow: 0.6, flux: 0.9, focus: ['core'], labels: [['dherai flux', 'flux']] },
     { shot: 'gap', air: 1, flux: 0.3, focus: ['bridge', 'core'], labels: [['sano gap', 'gap']] },
     { flux: 0.3, focus: ['core'], labels: [['flux dherai ghatyo', 'flux']] },
     { shot: 'coil', flow: 1, flux: 0.8, focus: ['coil', 'battery'], labels: [['dherai current chahiyo', 'coil']] },
@@ -1630,9 +1635,9 @@ export const basicsBh15 = duo('1.5 · Basic understanding: why does iron stop ge
 export const basicsHyst16 = duo('1.6 · Basic understanding: why does iron remember its magnetism?', {
   three: magnetTour([
     { shot: 'core', show: [...WIRED, 'domains'], flow: 1, flux: 1, align: 1, focus: ['domains'], labels: [['DC: sabai milyo', 'domains']] },
-    { flow: 0, flux: 0.25, align: 0.65, focus: ['domains'], labels: [['current hatayo: kehi baki', 'domains']] },
+    { flow: 0, flux: 0.25, align: 0.65, focus: ['domains'], labels: [['kehi baki', 'domains']] },
     { flow: 0.8, flux: 0.8, align: 1, heat: { core: 0.4 }, focus: ['domains', 'coil'], labels: [['AC: ulto-sulto', 'coil']] },
-    { heat: { core: 0.8 }, focus: ['core'], labels: [['har chakkar ma taato', 'core']] },
+    { heat: { core: 0.8 }, focus: ['core'], labels: [['taato', 'core']] },
     { shot: 'whole', heat: {}, focus: null },
   ]),
   tutor: [
@@ -1791,10 +1796,10 @@ export const hyst16 = duo('Hysteresis with DC and AC excitation', {
 /* ── 1.9 Force on a current-carrying conductor ─────────────────────── */
 export const basicsForce19 = duo('1.9 · Basic understanding: why does a wire jump in a magnet?', {
   three: magnetTour([
-    { shot: 'right', show: ['poles', 'rod'], push: 0, focus: ['rod', 'poles'], labels: [['magnet ko bich ma rod', 'rod']] },
+    { shot: 'right', show: ['poles', 'rod'], push: 0, focus: ['rod', 'poles'], labels: [['rod', 'rod']] },
     { push: 1, focus: ['rod'], labels: [['current: dhakka', 'force']] },
-    { push: 1, focus: ['poles'], labels: [['balio magnet: badhi dhakka', 'poles']] },
-    { push: 1, focus: ['rod'], labels: [['badhi current: badhi dhakka', 'rod']] },
+    { push: 1, focus: ['poles'], labels: [['balio magnet', 'poles']] },
+    { push: 1, focus: ['rod'], labels: [['badhi current', 'rod']] },
     { shot: 'wide', push: 1, focus: null },
   ]),
   tutor: [
@@ -1906,44 +1911,63 @@ export const relAnswer12 = answer('Model answer: reluctance and permeance', {
   ],
 });
 
-/* ── 1.3 Model answer: parallel circuit (2073 Chaitra Q1b, method) ─── */
-// The paper's figure (limb lengths and areas) is not in vault/; the answer
-// gives the method the question asks for, without inventing dimensions.
-export const parAnswer13 = answer('Model answer: ampere-turns for a parallel magnetic circuit (method)', {
-  draw: parallelFigure,
-  viewBox: '0 0 360 236',
-  papers: ['2073 Chaitra'],
+/* ── 1.3 Numerical: parallel magnetic circuit (vault notes, 2070 / 2075) ─ */
+// KBT Insights on EM (vault Notes part 4, problem 5, tagged 2075 and 2070).
+// Data read from the notes' figure and solution: outer limbs 4 cm × 6 cm
+// (24 cm²), centre limb 6 cm × 6 cm (36 cm²), an air gap of 0.02 cm in the
+// centre limb and in each outer limb, μr = 5000.
+// S_outer = 0.5/(μ0·5000·24e-4) = 33 157.3, its gap 0.02e-2/(μ0·24e-4) = 66 314.6
+// → 99 471.8 per outer path, two in parallel → 49 735.9;
+// S_centre = 0.2/(μ0·5000·36e-4) = 8 841.9, its gap 0.02e-2/(μ0·36e-4) = 44 209.7;
+// S_total = 102 787.6 AT/Wb; MMF = 0.75e-3 × 102 787.6 = 77.09 AT.
+export const parSolve13 = solve({
+  title: 'IOE numerical: MMF for a parallel magnetic circuit with air gaps',
+  paper: '2070 / 2075 (vault notes)',
+  paperVoice: 'दुई हजार सत्तरी र पचहत्तर',
   marks: '',
-  q: 'For the magnetic circuit shown, calculate the ampere-turns (MMF) required to establish a flux of 0.75 Wb in the central limb, given μr = 4000 for the iron core.',
-  read: {
-    say: 'IOE 2073 Chaitra: central limb ma 0.75 weber flux banauna kati AT chahincha, mu r 4000. Paper ko figure ko dimension vault ma chaina, tesaile method lekhchhau.',
-    voice: 'आई ओ ई दुई हजार त्रिहत्तर चैत — सेन्ट्रल लिम्बमा जिरो पोइन्ट सेभेन फाइभ वेबर फ्लक्स बनाउन कति ए टी चाहिन्छ, म्यु आर चार हजार। पेपरको फिगरको डाइमेन्सन भल्टमा छैन, त्यसैले मेथड लेख्छौं।',
-  },
-  points: [
+  question: 'The magnetic circuit of a cast steel core has the following dimensions: mean length from A to B through either outer limb = 0.5 m; mean length from A to B through the central limb = 0.2 m. Each outer limb is 4 cm × 6 cm and the central limb 6 cm × 6 cm in section, and each limb has an air gap of 0.02 cm. Determine the mmf required to establish a flux of 0.75 mWb in the air gap of the central limb. Take μr = 5000.',
+  read: 'Outer limb 0.5 meter, centre limb 0.2 meter, area 24 ra 36 cm square, har limb ma 0.02 cm gap, centre ma 0.75 milliweber, mu r 5000. MMF kati?',
+  readVoice: 'आउटर लिम्ब जिरो पोइन्ट फाइभ मिटर, सेन्टर लिम्ब जिरो पोइन्ट टु मिटर, एरिया चौबीस र छत्तीस सेन्टिमिटर स्क्वायर, हरेक लिम्बमा जिरो पोइन्ट जिरो टु सेन्टिमिटर ग्याप, सेन्टरमा जिरो पोइन्ट सेभेन फाइभ मिलिवेबर, म्यु आर पाँच हजार। एम एम एफ कति?',
+  given: [
+    { node: <>Outer limbs: l<sub>o</sub> = 0.5 m, A<sub>o</sub> = 24 × 10⁻⁴ m² · centre: l<sub>c</sub> = 0.2 m, A<sub>c</sub> = 36 × 10⁻⁴ m²</>, say: 'Outer limb 0.5 meter ra 24 cm square; centre limb 0.2 meter ra 36 cm square', voice: 'आउटर लिम्ब जिरो पोइन्ट फाइभ मिटर र चौबीस सेन्टिमिटर स्क्वायर, सेन्टर लिम्ब जिरो पोइन्ट टु मिटर र छत्तीस सेन्टिमिटर स्क्वायर' },
+    { node: <>l<sub>g</sub> = 0.02 cm in every limb · μ<sub>r</sub> = 5000 · φ = 0.75 mWb in the centre</>, say: 'Har limb ma gap 0.02 cm, mu r 5000, centre ma flux 0.75 milliweber', voice: 'हरेक लिम्बमा ग्याप जिरो पोइन्ट जिरो टु सेन्टिमिटर, म्यु आर पाँच हजार, सेन्टरमा फ्लक्स जिरो पोइन्ट सेभेन फाइभ मिलिवेबर' },
+  ],
+  find: { node: <>MMF (NI) of the exciting coil</>, say: 'Nikalnu parne: exciting coil ko MMF.', voice: 'निकाल्नु पर्ने — एक्साइटिङ कोइलको एम एम एफ।' },
+  idea: { node: <>Reluctance of each path; the two outer paths in parallel, in series with the centre (Fig. 1.4): <K>{String.raw`\text{MMF} = \phi\,S_{total}`}</K></>, say: 'Method: har bato ko reluctance; dui outer limb parallel, ani centre sanga series. MMF equals phi times total S.', voice: 'मेथड — हरेक बाटोको रिलक्टेन्स। दुई आउटर लिम्ब प्यारालल, अनि सेन्टरसँग सिरिज। एम एम एफ इक्वल्स फाइ टाइम्स टोटल एस।' },
+  steps: [
     {
-      carry: [<>Centre: φ</>, <>each side: φ/2</>],
-      node: <><H>Step 1: fluxes (Fig. 1.4)</H><Pts items={[<>Centre limb carries φ = 0.75 Wb; each side limb carries φ/2 (symmetrical)</>, <><K>{String.raw`B_c = \phi/A_c`}</K>, <K>{String.raw`B_s = \phi/(2A_s)`}</K></>]} /></>,
-      say: 'Pahilo: centre limb ma phi, har side limb ma phi over two. B c equals phi over A c, ra B s equals phi over two A s.',
-      voice: 'पहिलो — सेन्टर लिम्बमा फाइ, हरेक साइड लिम्बमा फाइ ओभर टु। बी सी इक्वल्स फाइ ओभर ए सी, र बी एस इक्वल्स फाइ ओभर टु ए एस।',
+      carry: <><K>{String.raw`S_{outer} = 99\,471.8`}</K> per path</>,
+      node: <K>{String.raw`\begin{aligned} S_o &= \dfrac{0.5}{5000\,\mu_0 (24\times10^{-4})} = 33\,157.3 \\ S_{go} &= \dfrac{0.02\times10^{-2}}{\mu_0 (24\times10^{-4})} = 66\,314.6 \\ S_{outer} &= 99\,471.8\ \text{AT/Wb} \end{aligned}`}</K>,
+      say: 'Euta outer path: iron ko S o 33,157.3, gap ko 66,314.6, jamma 99,471.8 AT per weber.',
+      voice: 'एउटा आउटर पाथ — आइरनको एस ओ तेत्तीस हजार एक सय सन्ताउन्न दशमलव तीन, ग्यापको छयासठ्ठी हजार तीन सय चौध दशमलव छ, जम्मा उनान्सय हजार चार सय एकहत्तर दशमलव आठ ए टी पर वेबर।',
     },
     {
-      node: <><H>Step 2: H in each part</H><K>{String.raw`\begin{aligned} H_c &= \dfrac{B_c}{\mu_0\mu_r} \\ H_s &= \dfrac{B_s}{\mu_0\mu_r} \end{aligned}`}</K></>,
-      say: 'Dosro: H c equals B c over mu zero mu r, ra H s equals B s over mu zero mu r, mu r 4000.',
-      voice: 'दोस्रो — एच सी इक्वल्स बी सी ओभर म्यु जिरो म्यु आर, र एच एस इक्वल्स बी एस ओभर म्यु जिरो म्यु आर, म्यु आर चार हजार।',
-    },
-    {
-      node: <><H>Step 3: total ampere-turns</H><K>{String.raw`\boxed{NI = H_c l_c + H_s l_s}`}</K><Pts items={[<>The two side limbs are in parallel (equal MMF), so only one is counted</>, <>Put l<sub>c</sub>, l<sub>s</sub>, A<sub>c</sub>, A<sub>s</sub> from the figure</>]} /></>,
-      say: 'Tesro: jamma AT equals H c l c plus H s l s. Dui side limb parallel ma bhayeko le euta matra ganincha. Figure bata l c, l s, A c ra A s rakhnu parcha.',
-      voice: 'तेस्रो — जम्मा ए टी इक्वल्स, एच सी एल सी प्लस एच एस एल एस। दुई साइड लिम्ब प्याराललमा भएकोले एउटा मात्र गनिन्छ। फिगरबाट एल सी, एल एस, ए सी र ए एस राख्नुपर्छ।',
+      carry: <><K>{String.raw`S_{\parallel} = 49\,735.9`}</K></>,
+      node: <K>{String.raw`\begin{aligned} S_{\parallel} &= \dfrac{S_{outer}}{2} \\ &= 49\,735.9\ \text{AT/Wb} \end{aligned}`}</K>,
+      say: 'Dui outer path ustai ra parallel ma, tesaile S parallel equals aadha, 49,735.9.',
+      voice: 'दुई आउटर पाथ उस्तै र प्याराललमा, त्यसैले एस प्यारालल इक्वल्स आधा, उनन्चास हजार सात सय पैंतीस दशमलव नौ।',
       ask: {
-        q: 'Symmetrical parallel circuit ma total AT nikalda kati ota side limb ganincha?',
-        voice: 'सिमेट्रिकल प्यारालल सर्किटमा टोटल ए टी निकाल्दा कति ओटा साइड लिम्ब गनिन्छ?',
-        options: ['Euta', 'Dui ota', 'Kunai pani hoina'],
+        q: 'Dui barabar reluctance parallel ma hunda equivalent reluctance kati huncha?',
+        voice: 'दुई बराबर रिलक्टेन्स प्याराललमा हुँदा, इक्विभ्यालेन्ट रिलक्टेन्स कति हुन्छ?',
+        options: ['Aadha', 'Dui guna', 'Ustai'],
         answer: 0,
-        why: 'Parallel limbs ma MMF barabar; loop centre + euta side ho.',
+        why: 'Parallel resistor jastai: S∥ = S·S/(S + S) = S/2.',
       },
     },
+    {
+      carry: <><K>{String.raw`S_{centre} = 53\,051.6`}</K></>,
+      node: <K>{String.raw`\begin{aligned} S_c &= \dfrac{0.2}{5000\,\mu_0 (36\times10^{-4})} = 8\,841.9 \\ S_{gc} &= \dfrac{0.02\times10^{-2}}{\mu_0 (36\times10^{-4})} = 44\,209.7 \\ S_{centre} &= 53\,051.6\ \text{AT/Wb} \end{aligned}`}</K>,
+      say: 'Centre limb: iron 8,841.9 ra gap 44,209.7, jamma 53,051.6.',
+      voice: 'सेन्टर लिम्ब — आइरन आठ हजार आठ सय एकचालीस दशमलव नौ, र ग्याप चवालीस हजार दुई सय नौ दशमलव सात, जम्मा त्रिपन्न हजार एकाउन्न दशमलव छ।',
+    },
+    {
+      node: <K>{String.raw`\begin{aligned} S_{total} &= 49\,735.9 + 53\,051.6 \\ &= 102\,787.6\ \text{AT/Wb} \\ \text{MMF} &= 0.75\times10^{-3}\times102\,787.6 \end{aligned}`}</K>,
+      say: 'Total S equals 49,735.9 plus 53,051.6, arthat 102,787.6. MMF equals 0.75 into 10 to the minus 3, times 102,787.6.',
+      voice: 'टोटल एस इक्वल्स उनन्चास हजार सात सय पैंतीस दशमलव नौ प्लस त्रिपन्न हजार एकाउन्न दशमलव छ, अर्थात एक लाख दुई हजार सात सय सतासी दशमलव छ। एम एम एफ इक्वल्स जिरो पोइन्ट सेभेन फाइभ इन्टु टेन टु द माइनस थ्री, टाइम्स एक लाख दुई हजार सात सय सतासी दशमलव छ।',
+    },
   ],
+  answer: { node: <K>{String.raw`\boxed{\text{MMF} = 77.09\ \text{AT}}`}</K>, say: 'Answer: MMF equals 77.09 ampere-turn.', voice: 'आन्सर — एम एम एफ इक्वल्स सतहत्तर दशमलव जिरो नौ एम्पियर टर्न।' },
+  trap: { node: <>Trap: the centre flux splits, so each outer limb carries φ/2; count the parallel pair as S/2, not 2S.</>, say: 'Trap: outer limb ma phi over two; parallel pair S over two, dui S hoina.', voice: 'ट्र्याप — आउटर लिम्बमा फाइ ओभर टु। प्यारालल पेयर एस ओभर टु, दुई एस होइन।' },
 });
 
 /* ── 1.5 Numerical: ring with air gap from magnetization data ──────── */
@@ -2042,7 +2066,7 @@ export const forceAnswer19 = answer('Model answer: torque from the force on curr
 // One topic per IOE syllabus bullet of Unit 1 (rule 68).
 const t11 = topic({ num: '1.1', title: 'Magnetic Circuits', opener: basics11, derive: [ohm11], picture: [ohmAnswer11] });
 const t12 = topic({ num: '1.2', title: "Ohm's Law for Magnetic Circuits", opener: basicsOhm12, derive: [reluctance12], picture: [relAnswer12] });
-const t13 = topic({ num: '1.3', title: 'Series and Parallel magnetic circuits', opener: basicsSeries13, derive: [series13], picture: [parAnswer13] });
+const t13 = topic({ num: '1.3', title: 'Series and Parallel magnetic circuits', opener: basicsSeries13, derive: [series13], picture: [parSolve13] });
 const t14 = topic({ num: '1.4', title: 'Core with air gap', opener: basicsGap14, derive: [gap11], picture: [gapSolve11] });
 const t15 = topic({ num: '1.5', title: 'B-H relationship (Magnetization Characteristics)', opener: basicsBh15, derive: [bh12], picture: [bhSolve15] });
 const t16 = topic({ num: '1.6', title: 'Hysteresis with DC and AC excitation', opener: basicsHyst16, derive: [hyst16], picture: [loopAnswer12] });

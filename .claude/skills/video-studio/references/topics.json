@@ -351,16 +351,15 @@
     "bigPicture": [
       {
         "id": "parallel",
-        "kind": "theory",
+        "kind": "numerical",
         "papers": [
-          "2073 Chaitra"
+          "2070 / 2075 (vault notes)"
         ],
         "marks": "",
-        "q": "For the magnetic circuit shown, calculate the ampere-turns (MMF) required to establish a flux of 0.75 Wb in the central limb, given μr = 4000 for the iron core."
+        "q": "The magnetic circuit of a cast steel core has the following dimensions: mean length from A to B through either outer limb = 0.5 m"
       }
     ],
-    "alsoAsked": [],
-    "gap": "The 2073 Chaitra figure (limb dimensions) is not in vault/; the method is answered without inventing data."
+    "alsoAsked": []
   },
   "1.4": {
     "title": "Core with air gap",

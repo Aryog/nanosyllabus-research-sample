@@ -519,7 +519,7 @@ export const emfAnswer21 = answer('Model answer: principle and EMF equation of a
 /* ── 2.2 Ideal transformer, no load and load ─────────────────────────── */
 export const basics22 = duo('2.4 · Basic understanding: what happens when a transformer is loaded?', {
   three: transformerTour([
-    { shot: 'whole', show: FED, focus: ['core', 'primary', 'secondary'], labels: [['ideal: kei loss chaina', [0, 2.3, 0.6]]] },
+    { shot: 'whole', show: FED, focus: ['core', 'primary', 'secondary'], labels: [['loss chaina', [0, 2.3, 0.6]]] },
     { shot: 'source', flow: 0.2, flux: 1, focus: ['primary', 'source'], labels: [['sano current', 'primary']] },
     { shot: 'core', flux: 1, focus: ['core'], labels: [['flux banaune matra', 'flux']] },
     { shot: 'load', show: LOADED, flow: 0.2, flux: 1, flow2: 1, focus: ['secondary', 'lamp'], labels: [['load ma current', 'lamp']] },
@@ -1171,7 +1171,7 @@ export const basics24 = duo('2.10 · Basic understanding: how efficient is a tra
     { shot: 'load', show: LOADED, flux: 1, flow: 0.4, flow2: 0.4, focus: ['lamp'], labels: [['halka load', 'lamp']] },
     { flow: 1, flow2: 1, focus: ['lamp', 'secondary'], labels: [['voltage ali jharyo', 'lamp']] },
     { shot: 'core', heat: { core: 0.6 }, focus: ['core'], labels: [['core: sadhai eutai', 'core']] },
-    { shot: 'whole', heat: { core: 0.6, primary: 0.8, secondary: 0.8 }, focus: ['primary', 'secondary'], labels: [['tar: load sanga badhcha', 'secondary']] },
+    { shot: 'whole', heat: { core: 0.6, primary: 0.8, secondary: 0.8 }, focus: ['primary', 'secondary'], labels: [['tar ko loss', 'secondary']] },
     { shot: 'whole', focus: null, labels: [['aaune vs jane', [0, 2.3, 0.6]]] },
     { heat: { core: 0.6, primary: 0.6, secondary: 0.6 }, focus: ['core', 'primary'], labels: [['dubai barabar: best', [0, 2.3, 0.6]]] },
     { shot: 'tank', show: [...LOADED, 'tank', 'bushings'], flow: 0.3, flow2: 0.3, heat: { core: 0.6 }, focus: ['tank'], labels: [['24 ghanta on', 'tank']] },
@@ -1518,7 +1518,7 @@ export const basics25 = duo('2.12 · Basic understanding: auto, instrument and t
     { tap: 0.5, focus: ['primary'], labels: [['tama bachyo', 'primary']] },
     { shot: 'whole', show: LOADED, flow: 1, flow2: 0.3, tap: 0.5, focus: ['primary', 'source'], labels: [['thulo current', 'primary'], ['sano naap', 'lamp']] },
     { focus: ['secondary'], flow2: 0.3, labels: [['kahile khulla nachhoda', 'secondary']] },
-    { focus: ['secondary', 'lamp'], flow: 0.6, flow2: 0.6, labels: [['thulo voltage → sano', 'lamp']] },
+    { focus: ['secondary', 'lamp'], flow: 0.6, flow2: 0.6, labels: [['voltage ghatyo', 'lamp']] },
     { shot: 'core', show: ['core3', 'coils3'], flux: 0, flow: 0, flow2: 0, focus: ['core3', 'coils3'], labels: [['tin khutta', 'core3'], ['R Y B', 'coils3']] },
     { shot: 'whole', show: ['core3', 'coils3'], focus: null },
   ]),
@@ -1897,8 +1897,8 @@ export const threePhaseFigure = (s) => (
 export const basicsCons21 = duo('2.1 · Basic understanding: what is a transformer made of?', {
   three: transformerTour([
     { shot: 'whole', show: BASE, labels: [['transformer', [0, 2.3, 0.6]]] },
-    { shot: 'core', focus: ['core'], labels: [['patla pata ko core', 'core']] },
-    { shot: 'whole', focus: ['primary', 'secondary'], labels: [['LV ra HV winding', 'primary']] },
+    { shot: 'core', focus: ['core'], labels: [['patla pata', 'core']] },
+    { shot: 'whole', focus: ['primary', 'secondary'], labels: [['LV, HV winding', 'primary']] },
     { shot: 'tank', show: [...BASE, 'tank', 'bushings'], focus: ['tank', 'bushings'], labels: [['tel ko tank', 'tank'], ['bushing', 'bushings']] },
     { shot: 'whole', show: [...BASE, 'tank', 'bushings'], focus: null },
   ]),
@@ -2026,7 +2026,7 @@ export const basicsLoad25 = duo('2.5 · Basic understanding: how does the primar
   three: transformerTour([
     { shot: 'load', show: LOADED, flux: 1, flow2: 0.4, focus: ['lamp'], labels: [['bulb: resistive', 'lamp']] },
     { flow2: 1, focus: ['secondary'], labels: [['load current', 'secondary']] },
-    { flux: 1, flow: 1, focus: ['primary', 'source'], labels: [['primary le badhi lincha', 'primary']] },
+    { flux: 1, flow: 1, focus: ['primary', 'source'], labels: [['primary badhi lincha', 'primary']] },
     { flux: 1, focus: ['core'], labels: [['flux ustai', 'flux']] },
     { shot: 'whole', focus: null },
   ]),
@@ -2090,8 +2090,8 @@ export const basicsEq26 = duo('2.6 · Basic understanding: how can a whole trans
   three: transformerTour([
     { shot: 'whole', show: LOADED, flux: 0.9, flow2: 0.8, focus: ['primary'], labels: [['tar ko resistance', 'primary']] },
     { leak: 1, focus: ['primary', 'secondary'], labels: [['leakage flux', 'secondary']] },
-    { leak: 0, flux: 1, focus: ['core'], labels: [['core ma magnet banaune current', 'core']] },
-    { focus: ['primary', 'secondary', 'core'], labels: [['sabai lai sano circuit ma', [0, 2.3, 0.6]]] },
+    { leak: 0, flux: 1, focus: ['core'], labels: [['magnetising current', 'core']] },
+    { focus: ['primary', 'secondary', 'core'], labels: [['euta sano circuit', [0, 2.3, 0.6]]] },
     { shot: 'whole', focus: null },
   ]),
   tutor: [
@@ -2216,8 +2216,8 @@ export const basicsTests27 = duo('2.7 · Basic understanding: how do we test a b
 
 export const basicsReg28 = duo('2.8 · Basic understanding: why does the voltage drop when the load comes on?', {
   three: transformerTour([
-    { shot: 'load', show: LOADED, flux: 1, flow2: 0.2, focus: ['lamp'], labels: [['no load: voltage dherai', 'lamp']] },
-    { flow2: 1, focus: ['lamp', 'secondary'], labels: [['full load: alik jharyo', 'lamp']] },
+    { shot: 'load', show: LOADED, flux: 1, flow2: 0.2, focus: ['lamp'], labels: [['no load', 'lamp']] },
+    { flow2: 1, focus: ['lamp', 'secondary'], labels: [['full load', 'lamp']] },
     { leak: 1, focus: ['secondary'], labels: [['bhitra ko drop', 'secondary']] },
     { leak: 0, focus: ['lamp'], labels: [['sano regulation: ramro', 'lamp']] },
     { shot: 'whole', focus: null },
@@ -2280,7 +2280,7 @@ export const basicsReg28 = duo('2.8 · Basic understanding: why does the voltage
 
 export const basicsInst211 = duo('2.11 · Basic understanding: how do we measure thousands of volts safely?', {
   three: transformerTour([
-    { shot: 'whole', show: LOADED, flux: 0.8, flow2: 0.6, focus: ['primary'], labels: [['thulo voltage, thulo current', 'primary']] },
+    { shot: 'whole', show: LOADED, flux: 0.8, flow2: 0.6, focus: ['primary'], labels: [['thulo V, I', 'primary']] },
     { focus: ['secondary', 'lamp'], labels: [['sano, surakshit meter', 'lamp']] },
     { flow2: 1, focus: ['secondary'], labels: [['CT: current ghataucha', 'secondary']] },
     { flow2: 0.3, focus: ['secondary'], labels: [['PT: voltage ghataucha', 'secondary']] },
@@ -2344,10 +2344,10 @@ export const basicsInst211 = duo('2.11 · Basic understanding: how do we measure
 
 export const basicsThree213 = duo('2.13 · Basic understanding: how does a transformer handle three phases?', {
   three: transformerTour([
-    { shot: 'whole', show: LOADED, flux: 1, flow2: 0.8, focus: ['primary', 'secondary'], labels: [['tin phase: tin jodi coil', [0, 2.3, 0.6]]] },
+    { shot: 'whole', show: LOADED, flux: 1, flow2: 0.8, focus: ['primary', 'secondary'], labels: [['tin jodi coil', [0, 2.3, 0.6]]] },
     { focus: ['primary'], labels: [['star: euta bindu', 'primary']] },
     { focus: ['secondary'], labels: [['delta: triangle', 'secondary']] },
-    { focus: ['primary', 'secondary'], labels: [['jodne tarika anusar kaam', 'secondary']] },
+    { focus: ['primary', 'secondary'], labels: [['jodne tarika', 'secondary']] },
     { shot: 'whole', focus: null },
   ]),
   tutor: [

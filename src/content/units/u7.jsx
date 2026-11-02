@@ -793,7 +793,7 @@ export const basics73 = duo('7.6 · Basic understanding: why does a mixer motor 
     { shot: 'inside', open: 1, push: 1, field: 1, spin: 0.9, focus: ['poles', 'coil'], labels: [['dubai sangai ulto', 'coil']] },
     { push: 1, focus: ['coil'], labels: [['dhakka eutai disha', [2.0, 1.3, 1.8]]] },
     { shot: 'commutator', push: 0, spin: 1, spark: 0.6, focus: ['commutator', 'brushes'], labels: [['brush ma spark', 'brushes']] },
-    { spin: 1, spark: 0, focus: ['fan'], labels: [['halka load: dherai chito', 'fan']] },
+    { spin: 1, spark: 0, focus: ['fan'], labels: [['dherai chito', 'fan']] },
     { shot: 'whole', open: 0.4, spin: 0.9, focus: null },
   ]),
   tutor: [
@@ -1587,10 +1587,10 @@ export const capacitor74 = duo('Capacitor start and capacitor run motors', {
 /* ── 7.5 Reluctance start motor ─────────────────────────────────────── */
 export const basicsRel75 = duo('7.5 · Basic understanding: how can a motor start with no extra winding?', {
   three: smallTour([
-    { shot: 'front', show: SPF, flow: 0.6, pulse: 1, focus: ['stator', 'main'], labels: [['asaman hawa ko gap', 'stator']] },
+    { shot: 'front', show: SPF, flow: 0.6, pulse: 1, focus: ['stator', 'main'], labels: [['asaman gap', 'stator']] },
     { pulse: 0.6, rot: 0.35, focus: ['main'], labels: [['field bistarai sarcha', 'field']] },
     { rot: 0.35, spin: 0.3, spinMs: 3000, focus: ['cage'], labels: [['sano dhakka', 'cage']] },
-    { spin: 0.6, focus: ['shaft'], labels: [['halka kaam: ghadi, timer', 'shaft']] },
+    { spin: 0.6, focus: ['shaft'], labels: [['ghadi, timer', 'shaft']] },
     { shot: 'whole', rot: 0.35, spin: 0.6, focus: null },
   ]),
   tutor: [

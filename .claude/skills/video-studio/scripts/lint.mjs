@@ -117,6 +117,9 @@ for (const v of videos) {
     if ((l.until ?? l.at) >= v.beats.length - 1) report('warn', v, l.at, 'branch scene on the last beat: come back to the main line after it (rule 63)');
   }
 
+  // Rule 69: a 3D label is at most three words (user: "the texts are like lots").
+  for (const l of (v.step.figureProps?.three?.plan ?? [])) for (const [txt] of l.labels ?? []) if (String(txt).split(/\s+/).length > 3) report('error', v, 0, `3D label "${txt}" is longer than three words (rule 69)`);
+
   // Rule 42: no connector more than twice per video.
   const counts = {};
   for (const b of v.beats) for (const m of (b.say ?? '').toLowerCase().matchAll(/\b(tesaile|yasari|yesko matlab|phalswarup|yahi karan)\b/g)) counts[m[1]] = (counts[m[1]] ?? 0) + 1;
