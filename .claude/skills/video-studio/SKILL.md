@@ -7,7 +7,7 @@ description: The complete studio for the DC Motors video course in one skill. Wh
 
 The course is the whole IOE **Electrical Machines** subject: seven units,
 one video-first journey per unit, one micro-topic per IOE syllabus bullet
-(56 in all: Unit 1 8, Unit 2 13, Unit 3 7, Unit 4 7, Unit 5 5, Unit 6 9,
+(57 in all: Unit 1 9, Unit 2 13, Unit 3 7, Unit 4 7, Unit 5 5, Unit 6 9,
 Unit 7 7; vault/…/Syllabus). Never merge two bullets into one topic (rule 68). Unit 4 (DC Motor) was the
 first and is the reference implementation. Each topic is three segments of
 self-playing videos with a Devanagari voice, roman captions and questions
@@ -221,3 +221,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-11-02: Unit 3 split from 4 to 7 topics (one per IOE bullet): new Basic Understanding for 3.1 construction, 3.5 characteristics, 3.7 efficiency and regulation; new notes video 3.6 losses (`lossFigureFor`); new model answers 3.2 commutator and brushes (2071 Chaitra, 2072 Ashwin, ECM 2082 Bhadra) and 3.6 losses with maximum efficiency (2071 Chaitra).
 - 2026-11-02: Unit 5 split from 4 to 5 topics: 5.1 construction and types (new model answer 2067 Mangsir, stator connection of a slip-ring motor: the closest real question, `gap` noted), 5.2 the long IOE bullet (principle … torque equation), 5.3 torque-slip, 5.4 induction generator, 5.5 power stages (new Basic Understanding).
 - 2026-11-02: Unit 7 split from 4 to 7 topics: new Basic Understanding 7.1 construction, 7.4 capacitor, 7.5 reluctance start; new notes video 7.4 capacitor start/run (split72 trimmed to split phase); reluctance figure Fig. 7.5 (`relFigure`, replacing the borrowed split-phase figure); new model answers 7.1 (2068 Magh [5+3]), 7.4 (2073 Chaitra, 2068 Magh short note), 7.5 (starting-methods question, closest real one; gap noted).
+- 2026-11-02: Unit 1 split from 3 to 9 topics: new Basic Understanding 1.2 Ohm's law, 1.3 series/parallel (2D book figure: the magnet model has no three-limb core), 1.4 air gap, 1.5 B-H, 1.6 hysteresis DC/AC, 1.9 force; new notes 1.2 reluctance and permeance, 1.3 series and parallel circuits (`parallelFigure`, Fig. 1.4), 1.6 hysteresis with DC and AC; new model answers 1.2 (2073 Chaitra), 1.3 (2073 Chaitra method; figure data not in vault), 1.5 numerical (2068 Magh, I = 2.71 A), 1.9 (2079 Jestha, closest real question).

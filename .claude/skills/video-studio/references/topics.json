@@ -301,17 +301,11 @@
     "alsoAsked": []
   },
   "1.1": {
-    "title": "Magnetic circuit, reluctance ra air gap",
+    "title": "Magnetic Circuits",
     "syllabus": [
-      "Magnetic Circuits",
-      "Ohm's Law for Magnetic Circuits",
-      "Series and Parallel magnetic circuits",
-      "Core with air gap"
+      "Magnetic Circuits"
     ],
-    "derivations": [
-      "Ohm's law for magnetic circuit Φ = MMF/S, S = l/(μ0μrA)",
-      "Series circuit with air gap NI = Hi li + Hg lg"
-    ],
+    "derivations": [],
     "bigPicture": [
       {
         "id": "ohm",
@@ -321,7 +315,62 @@
         ],
         "marks": "",
         "q": "Define Magnetic Circuit and hence list out the similarities between Magnetic and Electric Circuits. Deduce Ohm's law for magnetic circuit."
-      },
+      }
+    ],
+    "alsoAsked": []
+  },
+  "1.2": {
+    "title": "Ohm's Law for Magnetic Circuits",
+    "syllabus": [
+      "Ohm's Law for Magnetic Circuits"
+    ],
+    "derivations": [
+      "Ohm's law for magnetic circuit Φ = MMF/S, S = l/(μ0μrA)"
+    ],
+    "bigPicture": [
+      {
+        "id": "reluctance",
+        "kind": "theory",
+        "papers": [
+          "2073 Chaitra"
+        ],
+        "marks": "",
+        "q": "What are reluctance and permeance in the magnetic circuits? Derive their expressions in any type of magnetic circuits."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "1.3": {
+    "title": "Series and Parallel magnetic circuits",
+    "syllabus": [
+      "Series and Parallel magnetic circuits"
+    ],
+    "derivations": [
+      "Series: S = ΣS, NI = ΣHl; parallel: φ divides, NI = Hc lc + Hs ls"
+    ],
+    "bigPicture": [
+      {
+        "id": "parallel",
+        "kind": "theory",
+        "papers": [
+          "2073 Chaitra"
+        ],
+        "marks": "",
+        "q": "For the magnetic circuit shown, calculate the ampere-turns (MMF) required to establish a flux of 0.75 Wb in the central limb, given μr = 4000 for the iron core."
+      }
+    ],
+    "alsoAsked": [],
+    "gap": "The 2073 Chaitra figure (limb dimensions) is not in vault/; the method is answered without inventing data."
+  },
+  "1.4": {
+    "title": "Core with air gap",
+    "syllabus": [
+      "Core with air gap"
+    ],
+    "derivations": [
+      "Series circuit with air gap NI = Hi li + Hg lg"
+    ],
+    "bigPicture": [
       {
         "id": "gap",
         "kind": "numerical",
@@ -356,16 +405,32 @@
       }
     ]
   },
-  "1.2": {
-    "title": "B-H curve, hysteresis ra eddy current loss",
+  "1.5": {
+    "title": "B-H relationship (Magnetization Characteristics)",
     "syllabus": [
-      "B-H relationship (Magnetization Characteristics)",
-      "Hysteresis with DC and AC excitation",
-      "Hysteresis Loss and Eddy Current Loss"
+      "B-H relationship (Magnetization Characteristics)"
+    ],
+    "derivations": [],
+    "bigPicture": [
+      {
+        "id": "bh",
+        "kind": "numerical",
+        "papers": [
+          "2068 Magh"
+        ],
+        "marks": "[8]",
+        "q": "A cast steel ring has a circular cross section of 3 cm in diameter and mean circumference of 80 cm."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "1.6": {
+    "title": "Hysteresis with DC and AC excitation",
+    "syllabus": [
+      "Hysteresis with DC and AC excitation"
     ],
     "derivations": [
-      "Energy per cycle per unit volume = area of the B-H loop",
-      "Steinmetz Ph = ηBmax^1.6 fV and eddy loss Pe = ke Bm² f² t² V"
+      "Energy per cycle per unit volume = area of the B-H loop"
     ],
     "bigPicture": [
       {
@@ -376,7 +441,27 @@
         ],
         "marks": "",
         "q": "Explain the magnetic hysteresis and show that energy spent per cycle per unit volume is equal to the area of hysteresis loop."
-      },
+      }
+    ],
+    "alsoAsked": [
+      {
+        "papers": [
+          "2079 Jestha"
+        ],
+        "q": "Explain the significance of hysteresis loop for ferromagnetic materials. Justify that hysteresis power loss depends on the volume of core material.",
+        "where": "Model Answer: loop (W/V = loop area)"
+      }
+    ]
+  },
+  "1.7": {
+    "title": "Hysteresis Loss and Eddy Current Loss",
+    "syllabus": [
+      "Hysteresis Loss and Eddy Current Loss"
+    ],
+    "derivations": [
+      "Steinmetz Ph = ηBmax^1.6 fV and eddy loss Pe = ke Bm² f² t² V"
+    ],
+    "bigPicture": [
       {
         "id": "reduce",
         "kind": "theory",
@@ -390,13 +475,6 @@
     "alsoAsked": [
       {
         "papers": [
-          "2079 Jestha"
-        ],
-        "q": "Explain the significance of hysteresis loop for ferromagnetic materials. Justify that hysteresis power loss depends on the volume of core material.",
-        "where": "Model Answer: loop (W/V = loop area)"
-      },
-      {
-        "papers": [
           "2071 Bhadra"
         ],
         "q": "Hysteresis and eddy current losses depend on the frequency of supply (reason).",
@@ -404,15 +482,13 @@
       }
     ]
   },
-  "1.3": {
-    "title": "Faraday's law, induced EMF ra force on conductor",
+  "1.8": {
+    "title": "Faraday's Law of Electromagnetic Induction, Statically and Dynamically Induced EMF",
     "syllabus": [
-      "Faraday's Law of Electromagnetic Induction, Statically and Dynamically Induced EMF",
-      "Force on Current Carrying Conductor"
+      "Faraday's Law of Electromagnetic Induction, Statically and Dynamically Induced EMF"
     ],
     "derivations": [
-      "e = −N dΦ/dt (Faraday + Lenz)",
-      "Dynamically induced e = Blv sinθ; force F = BIl sinθ"
+      "e = −N dΦ/dt (Faraday + Lenz)"
     ],
     "bigPicture": [
       {
@@ -434,6 +510,28 @@
         "where": "Syllabus Content: Faraday's laws"
       }
     ]
+  },
+  "1.9": {
+    "title": "Force on Current Carrying Conductor",
+    "syllabus": [
+      "Force on Current Carrying Conductor"
+    ],
+    "derivations": [
+      "Dynamically induced e = Blv sinθ; force F = BIl sinθ"
+    ],
+    "bigPicture": [
+      {
+        "id": "force",
+        "kind": "theory",
+        "papers": [
+          "2079 Jestha"
+        ],
+        "marks": "",
+        "q": "How is unidirectional torque produced in a DC machine when the armature is supplied from DC and the field by DC current? What factors affect the torque?"
+      }
+    ],
+    "alsoAsked": [],
+    "gap": "No question on force on a conductor alone in vault/; the closest real one (2079 Jestha, torque from conductor forces) is used."
   },
   "2.1": {
     "title": "Transformer: construction, principle ra EMF equation",
