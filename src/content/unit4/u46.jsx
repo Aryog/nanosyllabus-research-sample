@@ -16,7 +16,7 @@ const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
 // swinburneFigure: 0 circuit · 1 meters · 2 constant losses.
 // retardFigure: 0 axes · 1 slowing alone · 2 tangent dN/dt · 3 with W′.
 
-export const opener46 = duo('4.6 ma k padhne?', {
+export const opener46 = duo('4.6 · Overview', {
   draw: figAt(swinburneFigure, { 0: 0, 1: 2 }),
   viewBox: '0 0 360 214',
   tutor: [
@@ -66,7 +66,7 @@ export const opener46 = duo('4.6 ma k padhne?', {
 });
 
 /* ── Terms: why indirect testing ─────────────────────────────────────── */
-export const why46 = duo('Testing kina: load bina losses', {
+export const why46 = duo('Why testing: losses without load', {
   draw: figAt(swinburneFigure, { 0: 0 }),
   viewBox: '0 0 360 214',
   tutor: [
@@ -243,8 +243,8 @@ export const retard46 = duo('Retardation test', {
       lines: [['step', <><Pts items={[<>Slope dN/dt is read at rated speed from the N–t curve</>]} /></>]],
     },
     {
-      say: 'Moment of inertia I aagyat bhaye, known load W prime sanga test repeat garincha.',
-      voice: 'मोमेन्ट अफ इनर्सिया आई अज्ञात भए, नोन लोड डब्लु प्राइमसँग टेस्ट रिपिट गरिन्छ।',
+      say: 'Moment of inertia J aagyat bhaye, known load W prime sanga test repeat garincha.',
+      voice: 'मोमेन्ट अफ इनर्सिया जे अज्ञात भए, नोन लोड डब्लु प्राइमसँग टेस्ट रिपिट गरिन्छ।',
       lines: [['step', <><Pts items={[<>If I is unknown, the test is repeated with a known extra load W′</>]} /></>]],
       ask: {
         q: 'Retardation test le kun losses napcha?',
@@ -258,7 +258,7 @@ export const retard46 = duo('Retardation test', {
 });
 
 /* ── Derivation: efficiency from Swinburne's test ────────────────────── */
-export const swinEff46 = duo('Derivation: Swinburne bata efficiency', {
+export const swinEff46 = duo('Derivation: efficiency by Swinburne’s test', {
   draw: figAt(swinburneFigure, { 0: 0, 1: 0, 2: 1 }),
   viewBox: '0 0 360 220',
   tutor: [
@@ -322,19 +322,19 @@ export const swinEff46 = duo('Derivation: Swinburne bata efficiency', {
 });
 
 /* ── Derivation: the retardation test formula ────────────────────────── */
-export const retardDer46 = duo('Derivation: retardation test ko formula', {
+export const retardDer46 = duo('Derivation: retardation test formula', {
   draw: retardFigure,
   viewBox: '0 0 360 214',
   tutor: [
     {
-      say: 'Ghumne armature ko kinetic energy half I omega square. Rotational loss W yahi energy ghatne dar ho.',
-      voice: 'घुम्ने आर्मेचरको काइनेटिक इनर्जी — हाफ आई ओमेगा स्क्वायर। रोटेसनल लस डब्लु, यही इनर्जी घट्ने दर हो।',
-      lines: [['h', <>Retardation test formula</>], ['step', tex(String.raw`\begin{aligned} KE &= \tfrac{1}{2} I\omega^2 \\ W &= \dfrac{d}{dt}\left(\tfrac{1}{2}I\omega^2\right) \end{aligned}`)]],
+      say: 'Ghumne armature ko kinetic energy half J omega square. Rotational loss W yahi energy ghatne dar ho.',
+      voice: 'घुम्ने आर्मेचरको काइनेटिक इनर्जी — हाफ जे ओमेगा स्क्वायर। रोटेसनल लस डब्लु, यही इनर्जी घट्ने दर हो।',
+      lines: [['h', <>Retardation test formula</>], ['note', <>J = moment of inertia of the armature (kg·m²) · ω = angular speed (rad/s) · W = rotational loss (watt)</>], ['step', tex(String.raw`\begin{aligned} KE &= \tfrac{1}{2} J\omega^2 \\ W &= \dfrac{d}{dt}\left(\tfrac{1}{2}J\omega^2\right) \end{aligned}`)]],
     },
     {
-      say: 'Differentiate garda W equals I omega d omega by d t. Omega equals two pi N over sixty rakhda, W equals two pi over sixty square, I N d N by d t.',
-      voice: 'डिफरेन्सिएट गर्दा — डब्लु इक्वल्स आई ओमेगा डी ओमेगा बाई डी टी। ओमेगा इक्वल्स टु पाइ एन ओभर सिक्स्टी राख्दा — डब्लु इक्वल्स, टु पाइ ओभर सिक्स्टी स्क्वायर, आई एन डी एन बाई डी टी।',
-      lines: [['eq', tex(String.raw`\begin{aligned} W &= I\omega\,\dfrac{d\omega}{dt} \\ &= \left(\dfrac{2\pi}{60}\right)^2 I\,N\,\dfrac{dN}{dt} \end{aligned}`)]],
+      say: 'Differentiate garda W equals J omega d omega by d t. Omega equals two pi N over sixty rakhda, W equals two pi over sixty square, J N d N by d t.',
+      voice: 'डिफरेन्सिएट गर्दा — डब्लु इक्वल्स जे ओमेगा डी ओमेगा बाई डी टी। ओमेगा इक्वल्स टु पाइ एन ओभर सिक्स्टी राख्दा — डब्लु इक्वल्स, टु पाइ ओभर सिक्स्टी स्क्वायर, जे एन डी एन बाई डी टी।',
+      lines: [['eq', tex(String.raw`\begin{aligned} W &= J\omega\,\dfrac{d\omega}{dt} \\ &= \left(\dfrac{2\pi}{60}\right)^2 J\,N\,\dfrac{dN}{dt} \end{aligned}`)]],
     },
     {
       say: 'I thaha chaina bhane known load W prime jodera dosro test. Eutai speed range jharna pahilo ma t ek ra dosro ma t dui second lagcha.',
@@ -356,14 +356,14 @@ export const retardDer46 = duo('Derivation: retardation test ko formula', {
   ],
   lecturer: [
     {
-      say: 'Rotational loss W equals rate of loss of kinetic energy, half I omega square.',
-      voice: 'रोटेसनल लस डब्लु इक्वल्स, रेट अफ लस अफ काइनेटिक इनर्जी, हाफ आई ओमेगा स्क्वायर।',
-      lines: [['h', <>Retardation test: rotational losses</>], ['step', <><K>{String.raw`\begin{aligned} W &= \dfrac{d}{dt}\left(\tfrac{1}{2}I\omega^2\right) && \\ &= I\omega\,\dfrac{d\omega}{dt} && \cdots(1) \end{aligned}`}</K></>]],
+      say: 'Rotational loss W equals rate of loss of kinetic energy, half J omega square.',
+      voice: 'रोटेसनल लस डब्लु इक्वल्स, रेट अफ लस अफ काइनेटिक इनर्जी, हाफ जे ओमेगा स्क्वायर।',
+      lines: [['h', <>Retardation test: rotational losses</>], ['note', <>Let J = moment of inertia of the armature (kg·m²); ω = angular speed (rad/s); W = rotational loss (watt).</>], ['step', <><K>{String.raw`\begin{aligned} W &= \dfrac{d}{dt}\left(\tfrac{1}{2}J\omega^2\right) && \\ &= J\omega\,\dfrac{d\omega}{dt} && \cdots(1) \end{aligned}`}</K></>]],
     },
     {
-      say: 'Omega equals two pi N over sixty rakhda, W equals two pi over sixty square, I N d N by d t.',
-      voice: 'ओमेगा इक्वल्स टु पाइ एन ओभर सिक्स्टी राख्दा — डब्लु इक्वल्स, टु पाइ ओभर सिक्स्टी स्क्वायर, आई एन डी एन बाई डी टी।',
-      lines: [['step', <><K>{String.raw`W = \left(\dfrac{2\pi}{60}\right)^2 I\,N\,\dfrac{dN}{dt} \qquad \cdots(2)`}</K></>]],
+      say: 'Omega equals two pi N over sixty rakhda, W equals two pi over sixty square, J N d N by d t.',
+      voice: 'ओमेगा इक्वल्स टु पाइ एन ओभर सिक्स्टी राख्दा — डब्लु इक्वल्स, टु पाइ ओभर सिक्स्टी स्क्वायर, जे एन डी एन बाई डी टी।',
+      lines: [['step', <><K>{String.raw`W = \left(\dfrac{2\pi}{60}\right)^2 J\,N\,\dfrac{dN}{dt} \qquad \cdots(2)`}</K></>]],
     },
     {
       say: 'With a known extra load W prime, W over W plus W prime equals t dui over t ek.',

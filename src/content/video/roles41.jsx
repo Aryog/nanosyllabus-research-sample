@@ -80,13 +80,13 @@ addRoles(vibe41, {
   tutor: role(
     [
       b('Timi ko phone vibrate huda bhitra sano DC motor ghumcha. Electrical energy bata ghumne kaam bancha.', 'तिम्रो फोन भाइब्रेट हुँदा, भित्र सानो डी सी मोटर घुम्छ। इलेक्ट्रिकल इनर्जीबाट, घुम्ने काम बन्छ।'),
-      b('Ghumcha kina? Field bhitra current bokeko taar lai force lagcha. N muni ko conductor tala, S muni ko mathi push huncha.', 'घुम्छ किन? फिल्डभित्र करेन्ट बोकेको तारलाई फोर्स लाग्छ। एन मुनिको कन्डक्टर तल, एस मुनिको माथि पुस हुन्छ।'),
+      b('Ghumcha kina? Field bhitra current bokeko taar lai force lagcha. N pole ko prabhav ma ko conductor tala, S pole ko prabhav ma ko mathi push huncha.', 'घुम्छ किन? फिल्डभित्र करेन्ट बोकेको तारलाई फोर्स लाग्छ। एन पोलको प्रभावमा रहने कन्डक्टर तल, एस पोलको प्रभावमा रहने माथि पुस हुन्छ।'),
       b('Ani ghumda motor aafai ulto voltage banaucha, back EMF. Dherai le confuse garchan: yo supply hoina, motor kai bhitra bancha.', 'अनि घुम्दा, मोटर आफैं उल्टो भोल्टेज बनाउँछ — ब्याक ई एम एफ। धेरैले कन्फ्युज गर्छन् — यो सप्लाई होइन, मोटरकै भित्र बन्छ।',
         q('Back EMF kaha bancha?', 'ब्याक ई एम एफ कहाँ बन्छ?', ['Ghumne armature bhitra', 'Supply battery ma', 'Field winding ko resistance ma'], 0, 'Armature ghumda conductor le flux cut garchan; tyahi EMF back EMF ho.')),
     ],
     [
       L(0, 'h', <>Motor = electrical → ghumne kaam</>),
-      L(1, 'step', <>Key line: field + current bokeko taar → <b>force</b> (N muni tala, S muni mathi)</>),
+      L(1, 'step', <>Key line: field + current bokeko taar → <b>force</b> (N pole ko prabhav ma tala, S pole ko prabhav ma mathi)</>),
       L(2, 'step', <>Ghumda: motor bhitra ulto voltage = <b>back EMF</b> (supply hoina!)</>),
     ],
   ),
@@ -97,7 +97,7 @@ addRoles(torqueProduction3d, {
   lecturer: role(
     [
       b('Production of unidirectional torque, Figure jasto: armature N ra S pole ko bichma huncha.', 'प्रोडक्सन अफ युनिडाइरेक्सनल टर्क — आर्मेचर, एन र एस पोलको बीचमा हुन्छ।'),
-      b('N pole muni ka conductor ma current bhitra, S pole muni ka ma bahira. Fleming ko left-hand rule anusar left ma force tala, right ma mathi.', 'एन पोलमुनिका कन्डक्टरमा करेन्ट भित्र, एस पोलमुनिकामा बाहिर। फ्लेमिङको लेफ्ट ह्यान्ड रुल अनुसार, लेफ्टमा फोर्स तल, राइटमा माथि।'),
+      b('N pole ko prabhav ma ka conductor ma current bhitra, S pole ko prabhav ma ka ma bahira. Fleming ko left-hand rule anusar left ma force tala, right ma mathi.', 'एन पोलको प्रभावमा रहने कन्डक्टरमा करेन्ट भित्र, एस पोलको प्रभावमा रहनेमा बाहिर। फ्लेमिङको लेफ्ट ह्यान्ड रुल अनुसार, लेफ्टमा फोर्स तल, राइटमा माथि।'),
       b('Yi forces le eutai direction ma torque dinchan. Coil MNA cross garda commutator le current reverse garcha, yasari torque unidirectional rahancha.', 'यी फोर्सले एउटै डाइरेक्सनमा टर्क दिन्छन्। कोइल एम एन ए क्रस गर्दा, कम्युटेटरले करेन्ट रिभर्स गर्छ। यसरी टर्क, युनिडाइरेक्सनल रहन्छ।'),
       b('Torque lai affect garne factor: flux phi, armature current I a, ra design constant Z, P, A. T a phi I a sanga proportional.', 'टर्कलाई अफेक्ट गर्ने फ्याक्टर — फ्लक्स फाइ, आर्मेचर करेन्ट आई ए, र डिजाइन कन्स्टेन्ट जेड, पी, ए। टी ए, फाइ आई एसँग प्रोपोर्सनल।'),
     ],
@@ -115,7 +115,7 @@ addRoles(torqueProduction3d, {
       b('Right ko conductor ma current bahira, tesaile thumb mathi. Left tala ra right mathi: dubai le eutai tira ghumauchan.', 'राइटको कन्डक्टरमा करेन्ट बाहिर, त्यसैले थम्ब माथि। लेफ्ट तल र राइट माथि — दुवैले एउटै तिर घुमाउँछन्।'),
       b('Dherai le sochchan force cancel huncha. Hudaina, kinaki duita force centre ko duita side ma ulto direction ma chan.', 'धेरैले सोच्छन् — फोर्स क्यान्सिल हुन्छ। हुँदैन, किनकि दुईटा फोर्स, सेन्टरको दुईटा साइडमा, उल्टो डाइरेक्सनमा छन्।',
         q('Left ma force tala ra right ma force mathi bhaye, net torque k huncha?', 'लेफ्टमा फोर्स तल र राइटमा फोर्स माथि भए, नेट टर्क के हुन्छ?', ['Dubai jodincha, eutai tira ghumcha', 'Cancel bhayera zero', 'Armature mathi uthcha'], 0, 'Centre ko duita side ma ulto force = couple. Turning effect jodincha.')),
-      b('Ani conductor N muni bata S muni jada MNA cross garcha. MNA mai commutator le current reverse garcha, force pani flip huncha, ra torque ek tira nai rahancha.', 'अनि कन्डक्टर एन मुनिबाट एस मुनि जाँदा, एम एन ए क्रस गर्छ। एम एन एमै कम्युटेटरले करेन्ट रिभर्स गर्छ, फोर्स पनि फ्लिप हुन्छ, र टर्क एकतिर नै रहन्छ।'),
+      b('Ani conductor N pole ko prabhav ma bata S pole ko prabhav ma jada MNA cross garcha. MNA mai commutator le current reverse garcha, force pani flip huncha, ra torque ek tira nai rahancha.', 'अनि कन्डक्टर एन पोलको प्रभावबाट एस पोलको प्रभावमा जाँदा, एम एन ए क्रस गर्छ। एम एन एमै कम्युटेटरले करेन्ट रिभर्स गर्छ, फोर्स पनि फ्लिप हुन्छ, र टर्क एकतिर नै रहन्छ।'),
     ],
     [
       L(0, 'h', <>Fleming LHR, hat le</>),
@@ -184,7 +184,7 @@ addRoles(torqueDerivation, {
       L(0, 'step', <>Let, P = poles; φ = flux/pole; Z = conductors; A = paths; I<sub>a</sub> = armature current; r = radius; l = length.</>),
       L(1, 'step', tex(String.raw`\begin{aligned} I_c &= \dfrac{I_a}{A} && \cdots(1) \\ B &= \dfrac{P\phi}{2\pi r l} && \cdots(2) \end{aligned}`)),
       L(2, 'step', tex(String.raw`\begin{aligned} F &= B\,I_c\,l && \\ &= \dfrac{P\phi I_a}{2\pi r A} && \cdots(3) \\ \tau &= F\,r && \cdots(4) \end{aligned}`)),
-      L(3, 'step', <>{tex(String.raw`\therefore\ \boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\ \text{N}\cdot\text{m}} \qquad \cdots(5)`)}<b>Hence proved.</b></>),
+      L(3, 'step', <>{tex(String.raw`\therefore\ \boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\unit{newton-metre}} \qquad \cdots(5)`)}<b>Hence proved.</b></>),
     ],
   ),
 });
@@ -202,7 +202,7 @@ addRoles(torqueFromPower, {
       L(0, 'h', <>Armature torque in terms of E<sub>b</sub></>),
       L(0, 'step', tex(String.raw`P_m = E_bI_a = T_a\,\omega \qquad \cdots(1)`)),
       L(1, 'step', tex(String.raw`\omega = \dfrac{2\pi N}{60} \qquad \cdots(2)`)),
-      L(2, 'step', <>From (1) and (2),{tex(String.raw`\boxed{T_a = 9.55\,\dfrac{E_bI_a}{N}\ \text{N}\cdot\text{m}} \qquad \cdots(3)`)}</>),
+      L(2, 'step', <>From (1) and (2),{tex(String.raw`\boxed{T_a = 9.55\,\dfrac{E_bI_a}{N}\unit{newton-metre}} \qquad \cdots(3)`)}</>),
       L(3, 'step', <>{tex(String.raw`T_{sh} = 9.55\,\dfrac{P_{out}}{N} \qquad \cdots(4)`)}T<sub>a</sub> − T<sub>sh</sub> = lost torque.</>),
     ],
   ),

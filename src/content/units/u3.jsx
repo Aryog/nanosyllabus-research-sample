@@ -162,7 +162,7 @@ export const genFlowFigure = (s) => (
 );
 
 /* ── 3.1 Construction, working, commutator ──────────────────────────── */
-export const basics31 = duo('3.1 · Basic understanding: ghumaye bijuli kasari banchha?', {
+export const basics31 = duo('3.1 · Basic understanding: how does rotation make electricity?', {
   three: motorTour([
     { shot: 'engine', show: GEN, spin: 0.5, open: 0.6, focus: ['engine', 'shaft'], labels: [['engine le ghumaucha', 'engine']] },
     { shot: 'inside', open: 1, field: 1, spin: 0.4, focus: ['poles', 'field'], labels: [['N pole', 'north'], ['S pole', 'south']] },
@@ -273,7 +273,7 @@ export const basics31 = duo('3.1 · Basic understanding: ghumaye bijuli kasari b
   ],
 });
 
-export const construction31 = duo('DC generator ko construction', {
+export const construction31 = duo('Construction of a DC generator', {
   draw: genFigure,
   viewBox: '0 0 360 220',
   tutor: [
@@ -346,7 +346,7 @@ export const construction31 = duo('DC generator ko construction', {
   ],
 });
 
-export const working31 = duo('Working principle ra commutator action', {
+export const working31 = duo('Working principle and commutator action', {
   draw: genFigure,
   viewBox: '0 0 360 220',
   tutor: [
@@ -419,7 +419,7 @@ export const working31 = duo('Working principle ra commutator action', {
   ],
 });
 
-export const winding31 = duo('Armature winding: lap ra wave', {
+export const winding31 = duo('Armature winding: lap and wave', {
   draw: emfGenFigure,
   viewBox: '0 0 360 225',
   tutor: [
@@ -492,7 +492,7 @@ export const winding31 = duo('Armature winding: lap ra wave', {
   ],
 });
 
-export const constructionAnswer31 = answer('Model answer: DC generator ko construction ra working', {
+export const constructionAnswer31 = answer('Model answer: construction and working of a DC generator', {
   draw: genFigure,
   viewBox: '0 0 360 220',
   papers: ['2071 Bhadra', '2072 Ashwin', '2071 Magh'],
@@ -533,7 +533,7 @@ export const constructionAnswer31 = answer('Model answer: DC generator ko constr
   ],
 });
 
-export const windingAnswer31 = answer('Model answer: armature winding ka types', {
+export const windingAnswer31 = answer('Model answer: types of armature winding', {
   draw: emfGenFigure,
   viewBox: '0 0 360 225',
   papers: ['2071 (Old Back)'],
@@ -575,7 +575,7 @@ export const windingAnswer31 = answer('Model answer: armature winding ka types',
 });
 
 /* ── 3.2 EMF equation ────────────────────────────────────────────────── */
-export const basics32 = duo('3.2 · Basic understanding: generator ko voltage kasle badhaucha?', {
+export const basics32 = duo('3.2 · Basic understanding: what sets a generator’s voltage?', {
   three: motorTour([
     { shot: 'wiring', show: GEN, open: 0.6, spin: 0.3, field: 0.7, flow: 0.3, focus: ['lamp'], labels: [['bistarai: madhuro', 'lamp']] },
     { spin: 0.9, flow: 0.9, focus: ['lamp', 'armature'], labels: [['chito: ujyalo', 'lamp']] },
@@ -686,7 +686,7 @@ export const basics32 = duo('3.2 · Basic understanding: generator ko voltage ka
   ],
 });
 
-export const emf32 = duo('Derivation: DC generator ko EMF equation', {
+export const emf32 = duo('Derivation: EMF equation of a DC generator', {
   draw: emfGenFigure,
   viewBox: '0 0 360 225',
   tutor: [
@@ -759,7 +759,7 @@ export const emf32 = duo('Derivation: DC generator ko EMF equation', {
   ],
 });
 
-export const emfAnswer32 = answer('Model answer: DC generator ko EMF equation', {
+export const emfAnswer32 = answer('Model answer: EMF equation of a DC generator', {
   draw: emfGenFigure,
   viewBox: '0 0 360 225',
   papers: ['2070 Bhadra', '2078 Baishakh', '2071 Bhadra', '2068 Bhadra', '2066 Magh'],
@@ -781,7 +781,7 @@ export const emfAnswer32 = answer('Model answer: DC generator ko EMF equation', 
     },
     {
       page: true,
-      node: <><Pts items={[<>Conductors in series per path = Z/A; the generated EMF is the EMF of one path</>]} /><K>{String.raw`\begin{aligned} E &= \dfrac{P\phi N}{60}\times\dfrac{Z}{A} \\ \therefore\ E &= \boxed{\dfrac{P\phi ZN}{60A}\ \text{volt}} \end{aligned}`}</K></>,
+      node: <><Pts items={[<>Conductors in series per path = Z/A; the generated EMF is the EMF of one path</>]} /><K>{String.raw`\begin{aligned} E &= \dfrac{P\phi N}{60}\times\dfrac{Z}{A} \\ \therefore\ E &= \boxed{\dfrac{P\phi ZN}{60A}\unit{volt}} \end{aligned}`}</K></>,
       say: 'Each path has Z over A conductors in series. Therefore E equals P phi Z N over 60 A volt.',
       voice: 'इच पाथ ह्याज जेड ओभर ए कन्डक्टर्स इन सिरिज। देयरफोर ई इक्वल्स पी फाइ जेड एन ओभर सिक्स्टी ए भोल्ट।',
     },
@@ -801,7 +801,7 @@ export const emfAnswer32 = answer('Model answer: DC generator ko EMF equation', 
 });
 
 export const speedSolve32 = solve({
-  title: 'IOE 2070 Bhadra: long shunt generator ko speed',
+  title: 'IOE 2070 Bhadra: speed of a long-shunt generator',
   paper: '2070 Bhadra',
   paperVoice: 'दुई हजार सत्तरी भदौ',
   question: 'A 4 pole, 250 V long shunt dc compound generator supplies a load of 10 kW at the rated voltage. The armature, series and shunt field resistances are 0.1 Ω, 0.15 Ω and 250 Ω respectively. The armature is lap wound with 300 conductors. If the flux per pole is 50 mWb, calculate the speed of the generator.',
@@ -842,7 +842,7 @@ export const speedSolve32 = solve({
 });
 
 /* ── 3.3 Excitation, types, build-up, characteristics ───────────────── */
-export const basics33 = duo('3.3 · Basic understanding: generator aafno magnet aafai kasari banaucha?', {
+export const basics33 = duo('3.3 · Basic understanding: how does a generator excite its own field?', {
   three: motorTour([
     { shot: 'wiring', show: [...GEN.filter((p) => p !== 'lamp'), 'battery'], open: 0.7, spin: 0.6, field: 0.8, wiring: 'shunt', flow: 0.5, focus: ['battery', 'fieldCoil'], labels: [['chhuttai battery', 'battery']] },
     { show: GEN, wiring: 'shunt', field: 0.8, flow: 0.6, focus: ['fieldCoil', 'wires'], labels: [['aafno bijuli aafai', 'fieldCoil']] },
@@ -953,7 +953,7 @@ export const basics33 = duo('3.3 · Basic understanding: generator aafno magnet 
   ],
 });
 
-export const types33 = duo('Excitation ra types: current ra voltage equations', {
+export const types33 = duo('Excitation and types: current and voltage equations', {
   draw: occFigure,
   viewBox: '0 0 360 232',
   tutor: [
@@ -1026,7 +1026,7 @@ export const types33 = duo('Excitation ra types: current ra voltage equations', 
   ],
 });
 
-export const buildup33 = duo('Derivation: voltage build-up, critical resistance ra characteristics', {
+export const buildup33 = duo('Derivation: voltage build-up, critical resistance and characteristics', {
   draw: occFigure,
   viewBox: '0 0 360 232',
   tutor: [
@@ -1099,7 +1099,7 @@ export const buildup33 = duo('Derivation: voltage build-up, critical resistance 
   ],
 });
 
-export const buildupAnswer33 = answer('Model answer: shunt generator ma voltage build-up', {
+export const buildupAnswer33 = answer('Model answer: voltage build-up in a shunt generator', {
   draw: occFigure,
   viewBox: '0 0 360 232',
   papers: ['2073 Bhadra', '2074 Bhadra', '2065 Chaitra', '2071 Chaitra'],
@@ -1142,7 +1142,7 @@ export const buildupAnswer33 = answer('Model answer: shunt generator ma voltage 
 });
 
 export const shortShuntSolve33 = solve({
-  title: 'IOE 2071 Magh: short shunt compound ko EMF',
+  title: 'IOE 2071 Magh: EMF of a short-shunt compound generator',
   paper: '2071 Magh',
   paperVoice: 'दुई हजार एकहत्तर माघ',
   question: 'A short shunt compound generator supplies a load current of 100 A at 250 V. The generator has the following winding resistances: shunt field 130 Ω, armature 0.1 Ω and the series field 0.1 Ω. Find the emf generated and the armature current, if the brush drop is 1 V per brush.',
@@ -1183,7 +1183,7 @@ export const shortShuntSolve33 = solve({
 });
 
 /* ── 3.4 Losses, efficiency, regulation ──────────────────────────────── */
-export const basics34 = duo('3.4 · Basic understanding: engine ko power sabai bulb ma pugcha?', {
+export const basics34 = duo('3.4 · Basic understanding: does all the engine’s power reach the load?', {
   three: motorTour([
     { shot: 'engine', show: GEN, open: 0.6, spin: 0.7, field: 0.8, flow: 0.7, focus: ['engine'], labels: [['engine ko power', 'engine']] },
     { shot: 'side', heat: { fan: 0 }, focus: ['shaft', 'brushes'], labels: [['ghasai ra hawa', 'brushes']] },
@@ -1294,7 +1294,7 @@ export const basics34 = duo('3.4 · Basic understanding: engine ko power sabai b
   ],
 });
 
-export const eff34 = duo('Derivation: power stages, efficiency ra regulation', {
+export const eff34 = duo('Derivation: power stages, efficiency and regulation', {
   draw: genFlowFigure,
   viewBox: '0 0 360 225',
   tutor: [
@@ -1368,7 +1368,7 @@ export const eff34 = duo('Derivation: power stages, efficiency ra regulation', {
 });
 
 export const effSolve34 = solve({
-  title: 'IOE 2074 Bhadra: shunt generator ko efficiency',
+  title: 'IOE 2074 Bhadra: efficiency of a shunt generator',
   paper: '2074 Bhadra',
   paperVoice: 'दुई हजार चौहत्तर भदौ',
   question: 'A dc shunt generator gives full load output of 30 kW at a terminal voltage of 200 V. The armature and shunt field resistances are 0.05 ohm and 50 ohm respectively. The iron and friction losses are 1000 W. Calculate: (i) generated emf; (ii) copper losses; (iii) efficiency.',
@@ -1412,10 +1412,10 @@ export const effSolve34 = solve({
   trap: { node: <>Trap: the field current comes from the armature: I<sub>a</sub> = I<sub>L</sub> + I<sub>sh</sub>, not I<sub>L</sub>.</>, say: 'Trap: generator ma I a equals I L plus I sh.', voice: 'ट्र्याप — जेनेरेटरमा आई ए इक्वल्स आई एल प्लस आई एस एच।' },
 });
 
-const t31 = topic({ num: '3.1', title: 'DC generator: construction, working ra commutator', opener: basics31, derive: [construction31, working31, winding31], picture: [constructionAnswer31, windingAnswer31] });
-const t32 = topic({ num: '3.2', title: 'DC generator ko EMF equation', opener: basics32, derive: [emf32], picture: [emfAnswer32, speedSolve32] });
-const t33 = topic({ num: '3.3', title: 'Excitation, types, voltage build-up ra characteristics', opener: basics33, derive: [types33, buildup33], picture: [buildupAnswer33, shortShuntSolve33] });
-const t34 = topic({ num: '3.4', title: 'DC generator: losses, efficiency ra voltage regulation', opener: basics34, derive: [eff34], picture: [effSolve34] });
+const t31 = topic({ num: '3.1', title: 'Constructional Details and Armature Winding · Working principle and Commutator Action', opener: basics31, derive: [construction31, working31, winding31], picture: [constructionAnswer31, windingAnswer31] });
+const t32 = topic({ num: '3.2', title: 'EMF equation', opener: basics32, derive: [emf32], picture: [emfAnswer32, speedSolve32] });
+const t33 = topic({ num: '3.3', title: 'Method of excitation: separately and self excited, Types of DC Generator · Characteristics of series, shunt and compound generator', opener: basics33, derive: [types33, buildup33], picture: [buildupAnswer33, shortShuntSolve33] });
+const t34 = topic({ num: '3.4', title: 'Losses in DC generators · Efficiency and Voltage Regulation', opener: basics34, derive: [eff34], picture: [effSolve34] });
 
 export const unit3 = {
   topics: [t31, t32, t33, t34],

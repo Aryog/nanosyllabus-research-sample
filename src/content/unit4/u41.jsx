@@ -22,7 +22,7 @@ const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
   the picture has made the idea click. Same scene for the Tutor and the
   Lecturer; same beat count, because the scene follows the beats.
 */
-export const opener41 = duo('4.1 ma k padhne?', {
+export const opener41 = duo('4.1 · Overview', {
   three: fan41,
   tutor: [
     {
@@ -99,7 +99,7 @@ export const principle41 = duo('Working principle: F = BIl', {
     {
       say: 'Force kati? F equals B I l newton, jaha l dandi ko field bhitra ko length. Direction Fleming ko left-hand rule le dincha: first finger field, second finger current, thumb force.',
       voice: 'फोर्स कति? एफ इक्वल्स बी आई एल न्युटन — जहाँ एल, डन्डीको फिल्डभित्रको लेन्थ। डाइरेक्सन, फ्लेमिङको लेफ्ट ह्यान्ड रुलले दिन्छ — फर्स्ट फिंगर फिल्ड, सेकेन्ड फिंगर करेन्ट, थम्ब फोर्स।',
-      lines: [['eq', tex(String.raw`F = B\,I\,l\ \ \text{N}`)], ['note', <>Fleming’s left-hand rule: first finger B · second finger I · thumb F</>]],
+      lines: [['eq', tex(String.raw`F = B\,I\,l\unit{newton}`)], ['note', <>Fleming’s left-hand rule: first finger B · second finger I · thumb F</>]],
     },
   ],
   lecturer: [
@@ -128,7 +128,7 @@ export const principle41 = duo('Working principle: F = BIl', {
     {
       say: 'Force ko magnitude F equals B I l newton. Direction Fleming ko left-hand rule le dincha.',
       voice: 'फोर्सको म्याग्निच्युड — एफ इक्वल्स बी आई एल न्युटन। डाइरेक्सन, फ्लेमिङको लेफ्ट ह्यान्ड रुलले दिन्छ।',
-      lines: [['eq', tex(String.raw`F = B\,I\,l\ \ \text{N}`)], ['note', <>Direction: Fleming’s left-hand rule.</>]],
+      lines: [['eq', tex(String.raw`F = B\,I\,l\unit{newton}`)], ['note', <>Direction: Fleming’s left-hand rule.</>]],
     },
   ],
 });
@@ -137,7 +137,7 @@ export const principle41 = duo('Working principle: F = BIl', {
 // The 3D armature's beats (motor3d.js): 0 armature, N, S, field · 1 currents
 // under N then S · 2 force down on the left · 3 force up on the right ·
 // 4 it turns, torque arc Ta · 5 neutral zone, currents flip.
-export const torque41 = duo('Unidirectional torque ra commutator', {
+export const torque41 = duo('Unidirectional torque and the commutator', {
   three: torqueScene41,
   tutor: [
     {
@@ -185,18 +185,18 @@ export const torque41 = duo('Unidirectional torque ra commutator', {
       lines: [['h', <>Production of unidirectional torque</>], ['step', <>The armature, with many conductors, lies between the N and S poles.</>]],
     },
     {
-      say: 'DC supply dida N pole muni ka conductor ma current inward ra S pole muni ka ma outward huncha.',
-      voice: 'डी सी सप्लाई दिँदा, एन पोलमुनिका कन्डक्टरमा करेन्ट इनवार्ड, र एस पोलमुनिकामा आउटवार्ड हुन्छ।',
+      say: 'DC supply dida N pole ko prabhav ma ka conductor ma current inward ra S pole ko prabhav ma ka ma outward huncha.',
+      voice: 'डी सी सप्लाई दिँदा, एन पोलको प्रभावमा रहने कन्डक्टरमा करेन्ट इनवार्ड, र एस पोलको प्रभावमा रहनेमा आउटवार्ड हुन्छ।',
       lines: [['step', <>Conductors under N carry current inward (⊗), those under S outward (⊙).</>]],
     },
     {
-      say: 'Fleming ko left-hand rule anusar N pole muni ka conductor ma force downward huncha.',
-      voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुल अनुसार, एन पोलमुनिका कन्डक्टरमा फोर्स डाउनवार्ड हुन्छ।',
+      say: 'Fleming ko left-hand rule anusar N pole ko prabhav ma ka conductor ma force downward huncha.',
+      voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुल अनुसार, एन पोलको प्रभावमा रहने कन्डक्टरमा फोर्स डाउनवार्ड हुन्छ।',
       lines: [['step', <>By Fleming’s left-hand rule, the force is downward under N,</>]],
     },
     {
-      say: 'Ra S pole muni ka conductor ma force upward.',
-      voice: 'र एस पोलमुनिका कन्डक्टरमा फोर्स अपवार्ड।',
+      say: 'Ra S pole ko prabhav ma ka conductor ma force upward.',
+      voice: 'र एस पोलको प्रभावमा रहने कन्डक्टरमा फोर्स अपवार्ड।',
       lines: [['step', <>and upward under S.</>]],
       ask: {
         q: 'Fleming ko left-hand rule ma thumb le k dekhaucha?',
@@ -223,7 +223,7 @@ export const torque41 = duo('Unidirectional torque ra commutator', {
 // The 3D scene's beats (scenes41.js): 0 cell, ammeter, motor · 1 it runs,
 // Eb grows against V · 2 the needle settles low · 3 a brake (load) ·
 // 4 load held · 5 a fresh start: the needle jumps to the red.
-export const backEmf41 = duo('Back EMF ra yesko significance', {
+export const backEmf41 = duo('Back EMF and its significance', {
   three: backEmfScene41,
   tutor: [
     {
@@ -321,7 +321,7 @@ export const backEmf41 = duo('Back EMF ra yesko significance', {
 
 /* ── Big picture: the two past questions, answered by the Lecturer ─────── */
 // Point-wise, each part given space by its marks: about one point per mark.
-export const torqueAnswer41 = answer('Model answer: working principle ra torque equation', {
+export const torqueAnswer41 = answer('Model answer: working principle and torque equation', {
   draw: figAt(torqueFigure, { 0: 0, 1: 1, 2: 2, 3: 3, 4: 5, 5: 6 }),
   viewBox: '0 0 360 276',
   papers: ['2073 Chaitra', '2069 Bhadra', '2082 Baishakh (ECM)'],
@@ -334,18 +334,20 @@ export const torqueAnswer41 = answer('Model answer: working principle ra torque 
   points: [
     {
       node: <><H>(a) Working principle [4]</H><Pts items={[<>A current-carrying conductor in a magnetic field experiences a force.</>, <><K>{String.raw`F = BIl`}</K> newton</>, <>Direction: Fleming’s left-hand rule</>]} /></>,
+      carry: <>(a) principle: <K>{String.raw`F = BIl`}</K>, Fleming’s left-hand rule</>,
       say: 'Working principle: magnetic field ma current-carrying conductor le force paucha. F equals B I l newton, direction Fleming ko left-hand rule le.',
       voice: 'वर्किङ प्रिन्सिपल — म्याग्नेटिक फिल्डमा करेन्ट क्यारिङ कन्डक्टरले फोर्स पाउँछ। एफ इक्वल्स बी आई एल न्युटन, डाइरेक्सन फ्लेमिङको लेफ्ट ह्यान्ड रुलले।',
     },
     {
-      node: <><H>Working (Fig. 1)</H><Pts items={[<>Under N: current inward (⊗) → F downward</>, <>Under S: current outward (⊙) → F upward</>, <>The forces form a couple → armature turns anticlockwise</>]} /></>,
-      say: 'Figure 1 ma: N muni current inward ra force downward, S muni current outward ra force upward. Yi forces le couple banaucha, ra armature anticlockwise ghumcha.',
-      voice: 'फिगर वानमा — एन मुनि करेन्ट इनवार्ड र फोर्स डाउनवार्ड, एस मुनि करेन्ट आउटवार्ड र फोर्स अपवार्ड। यी फोर्सले कपल बनाउँछ, र आर्मेचर एन्टिक्लकवाइज घुम्छ।',
+      node: <><H>Working (Fig. 1)</H><Pts items={[<>Under the N pole: current inward (⊗) → F downward</>, <>Under the S pole: current outward (⊙) → F upward</>, <>The forces form a couple → armature turns anticlockwise</>]} /></>,
+      say: 'Figure 1 ma: N pole ko prabhav ma current inward ra force downward, S pole ko prabhav ma current outward ra force upward. Yi forces le couple banaucha, ra armature anticlockwise ghumcha.',
+      voice: 'फिगर वानमा — एन पोलको प्रभावमा करेन्ट इनवार्ड र फोर्स डाउनवार्ड, एस पोलको प्रभावमा करेन्ट आउटवार्ड र फोर्स अपवार्ड। यी फोर्सले कपल बनाउँछ, र आर्मेचर एन्टिक्लकवाइज घुम्छ।',
     },
     {
       node: <><H>Function of commutator</H><Pts items={[<>A coil crossing the MNA has its current reversed</>, <>∴ the torque is unidirectional</>]} /></>,
-      say: 'Commutator: coil MNA cross garda tesko current reverse garcha. Tesaile torque unidirectional rahancha.',
-      voice: 'कम्युटेटर — कोइल एम एन ए क्रस गर्दा, त्यसको करेन्ट रिभर्स गर्छ। त्यसैले, टर्क युनिडाइरेक्सनल रहन्छ।',
+      carry: <>(a) commutator → unidirectional torque</>,
+      say: 'Commutator: coil MNA cross garda tesko current reverse garcha. Phalswarup torque unidirectional rahancha.',
+      voice: 'कम्युटेटर — कोइल एम एन ए क्रस गर्दा, त्यसको करेन्ट रिभर्स गर्छ। फलस्वरूप, टर्क युनिडाइरेक्सनल रहन्छ।',
       ask: {
         q: 'DC motor ma commutator ko kaam k ho?',
         voice: 'डी सी मोटरमा कम्युटेटरको काम के हो?',
@@ -368,14 +370,14 @@ export const torqueAnswer41 = answer('Model answer: working principle ra torque 
           <K>{String.raw`\begin{aligned} I_c &= \dfrac{I_a}{A} && \cdots(1) \\ B &= \dfrac{P\phi}{2\pi r l} && \cdots(2) \\ F &= B\,I_c\,l && \\ &= \dfrac{P\phi I_a}{2\pi r A} && \cdots(3) \end{aligned}`}</K>
         </>
       ),
-      say: 'Torque equation. Let gareko symbols sanga: I c equals I a over A, B equals P phi over two pi r l, ra F equals P phi I a over two pi r A.',
-      voice: 'टर्क इक्वेसन। लेट गरेको सिम्बोलसँग — आई सी इक्वल्स आई ए ओभर ए, बी इक्वल्स पी फाइ ओभर टु पाइ आर एल, र एफ इक्वल्स पी फाइ आई ए, ओभर टु पाइ आर ए।',
+      say: 'Torque equation. Mathi define gareka symbols prayog garda: I c equals I a over A, B equals P phi over two pi r l, ra F equals P phi I a over two pi r A.',
+      voice: 'टर्क इक्वेसन। माथि डिफाइन गरेका सिम्बोल प्रयोग गर्दा — आई सी इक्वल्स आई ए ओभर ए, बी इक्वल्स पी फाइ ओभर टु पाइ आर एल, र एफ इक्वल्स पी फाइ आई ए, ओभर टु पाइ आर ए।',
     },
     {
       node: (
         <>
           <K>{String.raw`\begin{aligned} T_a &= Z\,F\,r && \\ &= \dfrac{P\phi Z I_a}{2\pi A} && \cdots(4) \end{aligned}`}</K>
-          <K>{String.raw`\boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\ \text{N}\cdot\text{m}} \qquad \cdots(5)`}</K>
+          <K>{String.raw`\boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\unit{newton-metre}} \qquad \cdots(5)`}</K>
           <Pts items={[<>For a given machine, <K>{String.raw`T_a \propto \phi\, I_a`}</K>. <b>Hence proved.</b></>]} />
         </>
       ),
@@ -385,7 +387,7 @@ export const torqueAnswer41 = answer('Model answer: working principle ra torque 
   ],
 });
 
-export const backEmfAnswer41 = answer('Model answer: back EMF ra yesko role', {
+export const backEmfAnswer41 = answer('Model answer: back EMF and its role', {
   draw: backEmfFigure,
   viewBox: '0 0 360 222',
   papers: ['2071 Magh', '2078 Poush', '2082 Baishakh (ECM)'],
@@ -403,6 +405,7 @@ export const backEmfAnswer41 = answer('Model answer: back EMF ra yesko role', {
     },
     {
       node: <><H>Expression (Fig. 2)</H><K>{String.raw`\begin{aligned} E_b &= \dfrac{P\phi Z N}{60A} && \cdots(1) \\ V &= E_b + I_aR_a && \cdots(2) \\ \therefore\ I_a &= \dfrac{V - E_b}{R_a} && \cdots(3) \end{aligned}`}</K></>,
+      carry: <><K>{String.raw`E_b = \dfrac{P\phi ZN}{60A}\ (1)`}</K> · <K>{String.raw`V = E_b + I_aR_a\ (2)`}</K></>,
       say: 'Expression: E b equals P phi Z N over sixty A. Voltage equation V equals E b plus I a R a. Yasari I a equals V minus E b, over R a.',
       voice: 'एक्स्प्रेसन — ई बी इक्वल्स, पी फाइ जेड एन ओभर सिक्स्टी ए। भोल्टेज इक्वेसन — भी इक्वल्स ई बी प्लस आई ए आर ए। यसरी, आई ए इक्वल्स भी माइनस ई बी, ओभर आर ए।',
     },

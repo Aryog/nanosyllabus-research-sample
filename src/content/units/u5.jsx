@@ -166,7 +166,7 @@ export const stagesFigure = (s) => (
 );
 
 /* ── 5.1 Construction, types, RMF ─────────────────────────────────────── */
-export const basics51 = duo('5.1 · Basic understanding: kehi naghumi magnet kasari ghumcha?', {
+export const basics51 = duo('5.1 · Basic understanding: how does a field rotate with nothing turning?', {
   three: inductionTour([
     { shot: 'whole', show: IM, spin: 0.25, labels: [['induction motor', 'frame']] },
     { shot: 'inside', spin: 0, focus: ['stator'], labels: [['stator: chal dai na', 'stator']] },
@@ -277,7 +277,7 @@ export const basics51 = duo('5.1 · Basic understanding: kehi naghumi magnet kas
   ],
 });
 
-export const construction51 = duo('Construction ra types: squirrel cage ra slip ring', {
+export const construction51 = duo('Construction and types: squirrel cage and slip ring', {
   draw: rmfFigure,
   viewBox: '0 0 360 225',
   tutor: [
@@ -384,7 +384,7 @@ export const rmf51 = duo('Derivation: rotating magnetic field 1.5 Φm', {
     {
       say: 'Ek cycle ma 2 pole ko field ek ghumai. P poles ma, speed N s equals 120 f over P.',
       voice: 'एक साइकलमा टु पोलको फिल्ड एक घुमाइ। पी पोल्समा, स्पिड एन एस इक्वल्स वान ट्वेन्टी एफ ओभर पी।',
-      lines: [['eq', tex(String.raw`\boxed{N_s = \dfrac{120 f}{P}}\ \text{rpm}`)]],
+      lines: [['eq', tex(String.raw`\boxed{N_s = \dfrac{120 f}{P}}\unit{rpm}`)]],
     },
   ],
   lecturer: [
@@ -418,12 +418,12 @@ export const rmf51 = duo('Derivation: rotating magnetic field 1.5 Φm', {
     {
       say: 'It rotates at the synchronous speed N s equals 120 f over P.',
       voice: 'इट रोटेट्स एट द सिन्क्रोनस स्पिड एन एस इक्वल्स वान ट्वेन्टी एफ ओभर पी।',
-      lines: [['eq', tex(String.raw`\boxed{N_s = \dfrac{120 f}{P}}\ \text{rpm}`)]],
+      lines: [['eq', tex(String.raw`\boxed{N_s = \dfrac{120 f}{P}}\unit{rpm}`)]],
     },
   ],
 });
 
-export const rmfAnswer51 = answer('Model answer: RMF kasari banchha ra rotor kina ghumcha', {
+export const rmfAnswer51 = answer('Model answer: production of the RMF and why the rotor turns', {
   draw: rmfFigure,
   viewBox: '0 0 360 225',
   papers: ['2071 Bhadra'],
@@ -470,7 +470,7 @@ export const rmfAnswer51 = answer('Model answer: RMF kasari banchha ra rotor kin
 });
 
 /* ── 5.2 Slip, rotor frequency, rotor EMF and current ────────────────── */
-export const basics52 = duo('5.2 · Basic understanding: rotor kahile magnet ko barabar kina pugdaina?', {
+export const basics52 = duo('5.2 · Basic understanding: why does the rotor never reach synchronous speed?', {
   three: inductionTour([
     { shot: 'front', show: FED, field: 1, rmf: 0.7, spin: 0, flow: 0.6, focus: ['winding'], labels: [['magnet ko speed fixed', 'field']] },
     { spin: 0.65, spinMs: 3500, focus: ['cage', 'rotorCore'], labels: [['rotor ali pachhi', 'cage']] },
@@ -581,7 +581,7 @@ export const basics52 = duo('5.2 · Basic understanding: rotor kahile magnet ko 
   ],
 });
 
-export const slip52 = duo('Derivation: slip ra rotor frequency', {
+export const slip52 = duo('Derivation: slip and rotor frequency', {
   draw: slipFigure,
   viewBox: '0 0 360 222',
   tutor: [
@@ -654,7 +654,7 @@ export const slip52 = duo('Derivation: slip ra rotor frequency', {
   ],
 });
 
-export const rotor52 = duo('Derivation: rotor EMF, reactance ra current', {
+export const rotor52 = duo('Derivation: rotor EMF, reactance and current', {
   draw: slipFigure,
   viewBox: '0 0 360 222',
   tutor: [
@@ -727,7 +727,7 @@ export const rotor52 = duo('Derivation: rotor EMF, reactance ra current', {
   ],
 });
 
-export const speedAnswer52 = answer('Model answer: synchronous speed ra rotor kina pachhi', {
+export const speedAnswer52 = answer('Model answer: synchronous speed and why the rotor lags', {
   draw: slipFigure,
   viewBox: '0 0 360 222',
   papers: ['2075 Baishakh'],
@@ -739,7 +739,7 @@ export const speedAnswer52 = answer('Model answer: synchronous speed ra rotor ki
   },
   points: [
     {
-      node: <><H>(a) Synchronous speed [2]</H><Pts items={[<>The speed at which the rotating magnetic field of the stator rotates</>]} /><K>{String.raw`\boxed{N_s = \dfrac{120 f}{P}}\ \text{rpm}`}</K></>,
+      node: <><H>(a) Synchronous speed [2]</H><Pts items={[<>The speed at which the rotating magnetic field of the stator rotates</>]} /><K>{String.raw`\boxed{N_s = \dfrac{120 f}{P}}\unit{rpm}`}</K></>,
       say: 'Synchronous speed: the speed of the stator’s rotating magnetic field, N s equals 120 f over P.',
       voice: 'सिन्क्रोनस स्पिड — द स्पिड अफ द स्टेटर्स रोटेटिङ म्याग्नेटिक फिल्ड, एन एस इक्वल्स वान ट्वेन्टी एफ ओभर पी।',
     },
@@ -766,7 +766,7 @@ export const speedAnswer52 = answer('Model answer: synchronous speed ra rotor ki
 });
 
 export const rotorSolve52 = solve({
-  title: 'IOE 2071 Magh: slip, rotor frequency ra EMF',
+  title: 'IOE 2071 Magh: slip, rotor frequency and EMF',
   paper: '2071 Magh',
   paperVoice: 'दुई हजार एकहत्तर माघ',
   question: 'A 3-phase delta connected 440 volts, 50 Hz, 4-pole induction motor has a rotor stand-still emf per phase of 130 volts. If the motor is running at 1,440 RPM, calculate for this speed: (i) the slip, (ii) the frequency of rotor induced emf, (iii) the value of the rotor induced emf per phase, and (iv) stator to rotor turn ratio.',
@@ -807,7 +807,7 @@ export const rotorSolve52 = solve({
 });
 
 /* ── 5.3 Torque equation, T-s ──────────────────────────────────────── */
-export const basics53 = duo('5.3 · Basic understanding: start ma dherai current, tara kam dhakka kina?', {
+export const basics53 = duo('5.3 · Basic understanding: why high current but low torque at start?', {
   three: inductionTour([
     { shot: 'front', show: FED, field: 1, rmf: 0.7, spin: 0, flow: 1, heat: { cage: 0.9 }, focus: ['cage'], labels: [['start: thulo current', 'cage']] },
     { spin: 0.08, focus: ['cage', 'rotorCore'], labels: [['tara dhakka kam', 'rotorCore']] },
@@ -918,7 +918,7 @@ export const basics53 = duo('5.3 · Basic understanding: start ma dherai current
   ],
 });
 
-export const torque53 = duo('Derivation: induction motor ko torque equation', {
+export const torque53 = duo('Derivation: torque equation of the induction motor', {
   draw: tsFigure,
   viewBox: '0 0 360 232',
   tutor: [
@@ -991,7 +991,7 @@ export const torque53 = duo('Derivation: induction motor ko torque equation', {
   ],
 });
 
-export const tmax53 = duo('Derivation: maximum torque ra torque-slip characteristics', {
+export const tmax53 = duo('Derivation: maximum torque and torque-slip characteristics', {
   draw: tsFigure,
   viewBox: '0 0 360 232',
   tutor: [
@@ -1064,7 +1064,7 @@ export const tmax53 = duo('Derivation: maximum torque ra torque-slip characteris
   ],
 });
 
-export const torqueAnswer53 = answer('Model answer: torque equation, T-s curve ra maximum torque', {
+export const torqueAnswer53 = answer('Model answer: torque equation, T-s curve and maximum torque', {
   draw: tsFigure,
   viewBox: '0 0 360 232',
   papers: ['2074 Bhadra', '2071 Magh', '2070 Magh', '2070 Bhadra'],
@@ -1112,7 +1112,7 @@ export const torqueAnswer53 = answer('Model answer: torque equation, T-s curve r
 });
 
 export const tmaxSolve53 = solve({
-  title: 'IOE 2072 Ashwin: maximum torque ra tyasko speed',
+  title: 'IOE 2072 Ashwin: maximum torque and its speed',
   paper: '2072 Ashwin',
   paperVoice: 'दुई हजार बहत्तर असोज',
   question: 'A 4-pole, 50 Hz, 3 phase induction motor develops a starting torque of 50 N-m. The rotor winding has an impedance of (0.8 + j2) Ω per phase at stand still. At what speed the motor will develop maximum torque and calculate magnitude of the maximum torque.',
@@ -1153,7 +1153,7 @@ export const tmaxSolve53 = solve({
 });
 
 /* ── 5.4 Induction generator, power stages ──────────────────────────── */
-export const basics54 = duo('5.4 · Basic understanding: motor lai chito ghumaye k huncha?', {
+export const basics54 = duo('5.4 · Basic understanding: what if the motor is driven faster than synchronous speed?', {
   three: inductionTour([
     { shot: 'supply', show: FED, field: 1, rmf: 0.7, spin: 0.65, flow: 0.7, focus: ['supply', 'winding'], labels: [['power bhitra', 'supply']] },
     { shot: 'inside', heat: { stator: 0.4, winding: 0.5 }, focus: ['stator', 'winding'], labels: [['stator ma taato', 'winding']] },
@@ -1337,7 +1337,7 @@ export const stages54 = duo('Derivation: power stages, P2 : Pcu2 : Pm = 1 : s : 
   ],
 });
 
-export const gen54 = duo('Induction generator ra voltage build-up', {
+export const gen54 = duo('Induction generator and voltage build-up', {
   draw: tsFigure,
   viewBox: '0 0 360 232',
   tutor: [
@@ -1410,7 +1410,7 @@ export const gen54 = duo('Induction generator ra voltage build-up', {
   ],
 });
 
-export const genAnswer54 = answer('Model answer: induction generator ra excitation capacitor', {
+export const genAnswer54 = answer('Model answer: induction generator and excitation capacitor', {
   draw: tsFigure,
   viewBox: '0 0 360 232',
   papers: ['2073 Bhadra', '2079 Jestha', '2071 (Old Back)'],
@@ -1452,7 +1452,7 @@ export const genAnswer54 = answer('Model answer: induction generator ra excitati
 });
 
 export const stagesSolve54 = solve({
-  title: 'IOE 2078 Poush: power stages bata slip ra efficiency',
+  title: 'IOE 2078 Poush: slip and efficiency from the power stages',
   paper: '2078 Poush',
   paperVoice: 'दुई हजार अठहत्तर पुस',
   question: 'The power input to a 500 V, 50 Hz, 6-pole, 3-phase induction motor running at 975 rpm is 40 kW. The stator losses are 1 kW and friction loss is 2 kW. Calculate: (a) slip (b) Rotor copper loss (c) output hp (d) efficiency.',
@@ -1497,10 +1497,10 @@ export const stagesSolve54 = solve({
   trap: { node: <>Trap: rotor Cu loss is s × P<sub>2</sub> (air-gap power), not s × input.</>, say: 'Trap: s times P 2, s times input hoina.', voice: 'ट्र्याप — एस टाइम्स पी टु, एस टाइम्स इनपुट होइन।' },
 });
 
-const t51 = topic({ num: '5.1', title: 'Construction, types ra rotating magnetic field', opener: basics51, derive: [construction51, rmf51], picture: [rmfAnswer51] });
-const t52 = topic({ num: '5.2', title: 'Slip, rotor frequency ra rotor EMF', opener: basics52, derive: [slip52, rotor52], picture: [speedAnswer52, rotorSolve52] });
-const t53 = topic({ num: '5.3', title: 'Torque equation ra torque-slip characteristics', opener: basics53, derive: [torque53, tmax53], picture: [torqueAnswer53, tmaxSolve53] });
-const t54 = topic({ num: '5.4', title: 'Induction generator ra power stages', opener: basics54, derive: [stages54, gen54], picture: [genAnswer54, stagesSolve54] });
+const t51 = topic({ num: '5.1', title: 'Three Phase Induction Motor: Constructional Details and Types · Operating Principle, Rotating Magnetic Field, Synchronous Speed', opener: basics51, derive: [construction51, rmf51], picture: [rmfAnswer51] });
+const t52 = topic({ num: '5.2', title: 'Slip, Induced EMF, Rotor Current and its frequency', opener: basics52, derive: [slip52, rotor52], picture: [speedAnswer52, rotorSolve52] });
+const t53 = topic({ num: '5.3', title: 'Torque Equation · Torque-Slip characteristics', opener: basics53, derive: [torque53, tmax53], picture: [torqueAnswer53, tmaxSolve53] });
+const t54 = topic({ num: '5.4', title: 'Three Phase Induction Generator: Working Principle, voltage build up in an Induction Generator · Power Stages', opener: basics54, derive: [stages54, gen54], picture: [genAnswer54, stagesSolve54] });
 
 export const unit5 = {
   topics: [t51, t52, t53, t54],

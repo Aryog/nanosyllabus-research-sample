@@ -16,7 +16,7 @@ const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
 // speedCurvesFigure: 0 axes + normal line · 1 field control · 2 armature control.
 // seriesCtrlFigure: 0 series motor · 1 diverter · 2 series R · 3 reversal.
 
-export const opener45 = duo('4.5 ma k padhne?', {
+export const opener45 = duo('4.5 · Overview', {
   draw: figAt(speedCtrlFigure, { 0: 0, 3: 2 }),
   viewBox: '0 0 360 214',
   tutor: [
@@ -66,7 +66,7 @@ export const opener45 = duo('4.5 ma k padhne?', {
 });
 
 /* ── Terms: what decides the speed ───────────────────────────────────── */
-export const knobs45 = duo('Speed kun kura le decide garcha', {
+export const knobs45 = duo('What decides the speed', {
   draw: figAt(speedCtrlFigure, { 0: 0, 3: 1, 1: 2, 2: 3 }),
   viewBox: '0 0 360 214',
   tutor: [
@@ -258,7 +258,7 @@ export const armature45 = duo('Armature (rheostatic) control', {
 });
 
 /* ── Terms: series motors and reversal ───────────────────────────────── */
-export const seriesRev45 = duo('Series motor ko speed control ra reversing', {
+export const seriesRev45 = duo('Speed control and reversal of a series motor', {
   draw: seriesCtrlFigure,
   viewBox: '0 0 360 214',
   tutor: [
@@ -322,7 +322,7 @@ export const seriesRev45 = duo('Series motor ko speed control ra reversing', {
 });
 
 /* ── Derivation: speed equation and speed ratio ──────────────────────── */
-export const speedEq45 = duo('Derivation: speed equation ra speed ratio', {
+export const speedEq45 = duo('Derivation: speed equation and speed ratio', {
   draw: figAt(speedCtrlFigure, { 0: 0, 3: 1 }),
   viewBox: '0 0 360 214',
   tutor: [
@@ -386,7 +386,7 @@ export const speedEq45 = duo('Derivation: speed equation ra speed ratio', {
 });
 
 /* ── Big picture ─────────────────────────────────────────────────────── */
-export const shuntControl45 = answer('Model answer: shunt motor ko speed control', {
+export const shuntControl45 = answer('Model answer: speed control of a shunt motor', {
   draw: speedCtrlFigure,
   viewBox: '0 0 360 214',
   papers: ['2071 Bhadra', '2069 Bhadra', '2065 Chaitra'],

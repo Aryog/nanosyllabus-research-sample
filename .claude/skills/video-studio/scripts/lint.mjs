@@ -96,13 +96,34 @@ for (const v of videos) {
       else if (SYMBOL.test(textOf(l.node))) report('error', v, l.at, `Basic Understanding board has a symbol ("${textOf(l.node).match(SYMBOL)[0]}"); name it in words (rule 7)`);
     }
   }
+  // Rule 59: "under N" is "N pole ko prabhav ma", never "N muni".
+  v.beats.forEach((b, k) => {
+    for (const t of [b.say, b.voice, b.ask?.q, b.ask?.voice]) if (t && /\bmuni|मुनि/.test(t)) report('error', v, k, '"muni" for "under a pole": say "N pole ko prabhav ma" (rule 59)');
+  });
+  // Rule 60: titles are plain English (only the content is roman Nepali).
+  const NEP = /\b(ra|ko|ka|ki|bata|kina|ho|ma|lai|garau|nagarne|padhne|kasari|kati|cha|bhitra|yesko|tyasko|sanga|matra|garne|huncha|kun|ani)\b/i;
+  if (NEP.test(v.title)) report('error', v, 0, `title "${v.title}" has roman Nepali ("${v.title.match(NEP)[0]}"); titles are plain English (rule 60)`);
+  // Rule 61: the unit of a formula is \unit{full name}, apart from the formula.
+  for (const l of v.board) {
+    const tex = texOf(l.node);
+    const m = tex && tex.match(/[A-Za-z})]\s*(\\[ ,;:]|\\quad)*\s*\\text\{(V|A|W|Wb|s|N|T|rpm|volt|watt|newton|weber)\}/);
+    if (m) report('error', v, l.at, `unit "${m[2]}" right after a symbol reads as part of the formula; write \\unit{${m[2]}} in full (rule 61)`);
+  }
+  // Rule 62: Syllabus Content and Model Answer are bookish: no 3D scenes.
+  if (/^[23]\/3/.test(v.step.segment ?? '') && v.step.figureProps?.three) report('error', v, 0, 'a 3D scene outside Basic Understanding; use the book figure (rule 62)');
+  // Rule 63: a branch scene returns to the main line on a later beat.
+  for (const l of v.board.filter((x) => x.kind === 'branch')) {
+    if (!l.title) report('error', v, l.at, 'branch scene has no title (rule 63)');
+    if ((l.until ?? l.at) >= v.beats.length - 1) report('warn', v, l.at, 'branch scene on the last beat: come back to the main line after it (rule 63)');
+  }
+
   // Rule 42: no connector more than twice per video.
   const counts = {};
   for (const b of v.beats) for (const m of (b.say ?? '').toLowerCase().matchAll(/\b(tesaile|yasari|yesko matlab|phalswarup|yahi karan)\b/g)) counts[m[1]] = (counts[m[1]] ?? 0) + 1;
   for (const [w, n] of Object.entries(counts)) if (n > 2) report('warn', v, 0, `"${w}" used ${n} times; vary it from the POV phrase bank (rule 42)`);
 
   // Topic opener (rules 4–6): number heading, hook line on the last beat.
-  if (/ ma k padhne\?$/.test(v.title)) {
+  if (/ ma k padhne\?$| · Overview$/.test(v.title)) {
     const last = v.beats.length - 1;
     if (!v.board.some((l) => l.kind === 'hook' && l.at === last)) report('error', v, last, 'opener has no `hook` board line on its last beat (rule 6)');
     if (v.board[0]?.kind !== 'h') report('error', v, 0, 'opener must start with the topic number as an `h` line (rule 4)');

@@ -2,7 +2,7 @@ import { C, Coil, K, model, Resistor, video } from './kit.jsx';
 
 /* Chapter 7 · Starting: 3-point & 4-point starters (Syllabus Unit 4: Starting of DC motors). */
 
-export const whyStarter = video('Derivation: starting current ra starter resistance', {
+export const whyStarter = video('Derivation: starting current and starter resistance', {
   beats: [
     { say: 'DC motor lai starter kina chahincha? Armature current hera.', voice: 'डी सी मोटरलाई स्टार्टर किन चाहिन्छ? आर्मेचर करेन्ट हेर।' },
     { say: 'Armature current bhaneko supply voltage minus back EMF, divide by armature resistance.', voice: 'आर्मेचर करेन्ट भनेको सप्लाई भोल्टेज माइनस ब्याक ई एम एफ, डिभाइड बाई आर्मेचर रेजिस्टेन्स।' },

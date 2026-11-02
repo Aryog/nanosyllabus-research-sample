@@ -28,6 +28,7 @@ Reuse existing videos that already meet the rules (check them against this recip
 - **Segment 1 first**: write the Basic Understanding duo and its plan in `src/content/unit4/basics.jsx` by [basic-understanding.md](basic-understanding.md) §6, and wire it as `opener` with `terms: []`.
 
 - Files: derivations in `src/content/video/t<topic>.jsx` (4.1: `t41.jsx`), model answers in `picture.jsx`, terms videos where they live (or a new `t<topic>.jsx` section). Wire them in `src/content/topics.jsx` (`terms`, `derive`, `picture`, `introRoles`).
+- **Syllabus Content follows the canvas plan (scripting.md rule 63)**, modelled on `src/content/unit4/s41.jsx`: Remember card first, main line left, book figure right, a branch scene for every intermediate term, planned page turns with carried results, no 3D (rule 62), content from the vault notes, symbols from `sym.jsx` (rule 64).
 - Every beat: `say` (roman Gen-Z Nepali) + `voice` (Devanagari with resting points, rule 28b). Caption = screen (rule 31). No filler (rule 32). Vary connectors (rule 42). Asks sit on the teaching beat (rule 11) and stand alone (rule 10).
 - Numbers: compute every value with a quick `python3 -c` or `node -e` and keep the command's output in your notes. Every wrong option must really be wrong.
 

@@ -1,3 +1,4 @@
+import { sym, symTree } from '../content/sym.jsx';
 import { cloneElement, lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import rough from 'roughjs';
 import katex from 'katex';
@@ -294,6 +295,7 @@ const MIN_BEAT = 800; // shortest a beat can be, ms
 // Closest the camera gets to one part: at most 10% past showing the whole
 // board, so the rest of the drawing stays in view.
 const ZOOM_IN = 1.1;
+const SKIP = 5000; // ms the arrow keys skip
 // Smallest camera scale a board may be shown at before the board is wiped
 // for a new page (see `page`).
 const PAGE_K = 0.86;
@@ -393,7 +395,7 @@ export function Thumb({ fp, segment, className = '', children }) {
     <span className={`scene-thumb look-${look} ${className}`} aria-hidden="true">
       {v.draw ? (
         <svg viewBox={v.viewBox ?? '0 0 360 220'} className="scene-svg">
-          {v.draw(s)}
+          {symTree(v.draw(s), true)}
         </svg>
       ) : (
         <span className="thumb-text">{textOf(head?.node)}</span>
@@ -409,7 +411,7 @@ export function Thumb({ fp, segment, className = '', children }) {
   leader line up to it, the first time the symbol appears in the video. The
   symbols are tagged in the KaTeX source (\htmlClass) and measured on screen.
 */
-const TEXTY = new Set(['text', 'mathrm', 'textrm', 'textbf', 'textit', 'operatorname', 'mathbf', 'htmlClass']);
+const TEXTY = new Set(['text', 'mathrm', 'textrm', 'textbf', 'textit', 'operatorname', 'mathbf', 'htmlClass', 'unit']);
 function termTokens(tex) {
   const out = [];
   // End (exclusive) of the {…} group at i, or of the one character there.
@@ -479,7 +481,7 @@ function withAbbr(board) {
   const seen = new Set();
   const order = board.map((b, i) => [b, i]).sort((x, y) => x[0].at - y[0].at || x[1] - y[1]);
   const out = [...board];
-  for (const [b, i] of order) if (b.kind !== 'q') out[i] = { ...b, node: expandNode(b.node, seen) };
+  for (const [b, i] of order) out[i] = { ...b, node: symTree(b.kind === 'q' ? b.node : expandNode(b.node, seen)), carry: b.carry && symTree(b.carry) };
   return out;
 }
 const captionsOf = (beats = []) => {
@@ -632,7 +634,13 @@ export function Scene(props) {
 }
 
 function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chapters, chapter = 0, chapterBeats, onChapter, startAt = 0, onEnded, onCheck, onNext, nextLabel, three, tall, notes, title, kicker, segment, variants, povId, povChoice, povNative, povLocked, onPov, theme, onTheme, upcoming = [] }) {
-  const { board, notes: termNotes } = useMemo(() => withTerms(withAbbr(rawBoard)), [rawBoard]);
+  // Branch scenes (kind 'branch') live in the figure zone, not in the board's flow.
+  const { board, notes: termNotes, branches } = useMemo(() => {
+    const all = withAbbr(rawBoard);
+    return { ...withTerms(all?.filter((b) => b.kind !== 'branch')), branches: all?.filter((b) => b.kind === 'branch') ?? [] };
+  }, [rawBoard]);
+  // Planned pages: a beat with `page: true` starts a new page (kit.jsx).
+  const planned = useMemo(() => beats.reduce((a, b, i) => [...a, b.page ? i : (a[i - 1] ?? 0)], []), [beats]);
   const captions = useMemo(() => captionsOf(beats), [beats]);
   const [beat, setBeat] = useState(0);
   const [playing, setPlaying] = useState(true);
@@ -714,13 +722,15 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
   const [page, setPage] = useState(0);
   const pages = useRef({});
   useLayoutEffect(() => {
-    if (!wide || !board) return;
+    if (!board) return;
+    // Phones: no measured pages, but the planned page turns still apply.
+    if (!wide) return void (page !== (planned[beat] ?? 0) && setPage(planned[beat] ?? 0));
     const known = pages.current[beat];
     if (known != null) {
       if (known !== page) setPage(known);
       return;
     }
-    const start = Math.min(beat, pages.current[beat - 1] ?? 0);
+    const start = Math.max(planned[beat] ?? 0, Math.min(beat, pages.current[beat - 1] ?? 0));
     if (start !== page) return setPage(start);
     const stage = stageRef.current;
     const el = camRef.current;
@@ -728,12 +738,18 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
     const cap = stage.parentElement?.querySelector('.scene-caption')?.getBoundingClientRect();
     const H = stage.clientHeight - (cap ? Math.max(0, stage.getBoundingClientRect().bottom - cap.top + 8) : 0);
     const over = el.offsetHeight * PAGE_K > H || el.offsetWidth * PAGE_K > stage.clientWidth;
-    const p = over && page < beat ? beat : page;
+    // Only a beat that writes on the board may start a page (a branch beat
+    // writes in the figure zone, so it never wipes the board).
+    const p = over && page < beat && board.some((b) => b.at === beat) ? beat : page;
     pages.current[beat] = p;
     if (p !== page) setPage(p);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [beat, page, wide]);
   const shownAt = (b) => beat >= b.at && (b.until == null || beat <= b.until) && (b.at >= page || KEEP.has(b.kind));
+  // A line that has left (its `until`, or an earlier page) but carries a
+  // result stays as that short result, so later steps can use it.
+  const carriedAt = (b) => b.carry && beat > b.at && !shownAt(b) && !ended;
+  const branch = ended ? null : branches.find((b) => beat >= b.at && beat <= (b.until ?? b.at));
 
   // Camera, like an explainer video: zoom onto what this beat explains (the
   // board line being written, and the parts of the drawing it reveals or
@@ -747,7 +763,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
     if (!stage || !el) return;
     const LINE = '.board-line.hl .ink';
     const PEN = '.board-line.hl:not(.kind-q) .ink';
-    const FIG = 'svg .hl, svg .now';
+    const FIG = 'svg .hl, svg .now, .branch-card.now';
     const join = (a, b) => (a && b ? { l: Math.min(a.l, b.l), t: Math.min(a.t, b.t), r: Math.max(a.r, b.r), b: Math.max(a.b, b.b) } : a || b);
     // Box of the parts in camera-local px, measured against the transform on
     // screen now (it may be mid-move).
@@ -1187,12 +1203,21 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
       },
     };
   });
-  // Space plays and pauses, like a video player (not while typing).
+  // Space plays and pauses, like a video player (not while typing); the left
+  // and right arrows skip 5 s back and ahead (user, 2026-11-02), across
+  // chapters too.
   const toggleRef = useRef(toggle);
+  const skipRef = useRef(null);
   const tap = useRef(null); // where a press on the picture started
   useEffect(() => {
-    const isSpace = (e) => e.code === 'Space' && !e.ctrlKey && !e.metaKey && !e.altKey && !e.target.closest?.('input, textarea, select, [contenteditable]');
+    const plain = (e) => !e.ctrlKey && !e.metaKey && !e.altKey && !e.shiftKey && !e.target.closest?.('input, textarea, select, [contenteditable]');
+    const isSpace = (e) => e.code === 'Space' && plain(e);
     const down = (e) => {
+      if ((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && plain(e)) {
+        e.preventDefault();
+        skipRef.current?.(e.key === 'ArrowLeft' ? -SKIP : SKIP);
+        return;
+      }
       if (!isSpace(e)) return;
       // Also keeps a focused button from being clicked, and the page from scrolling.
       e.preventDefault();
@@ -1256,6 +1281,17 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
     const t = T - before;
     const k = beatAt(t);
     jump(k, t - starts[k], resumeAfter.current);
+  };
+  // Arrow keys: 5 s back or ahead of where the segment is now.
+  skipRef.current = (d) => {
+    if (askOpen && !picked[beat]) return;
+    const now = before + (ended ? total : starts[beat] + Math.min(within.current, est[beat]));
+    const T = Math.max(0, Math.min(segTotal - 1, now + d));
+    const j = chapterAt(T);
+    if (j !== ci) return onChapter?.(j, T - offs[j]);
+    const t = T - before;
+    const k = beatAt(t);
+    jump(k, t - starts[k], playing || ended);
   };
   const seekCancel = () => {
     if (drag.current == null) return;
@@ -1347,7 +1383,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
             toggleRef.current();
           }}
         >
-          <div className={`scene-cam ${split ? 'split' : ''} ${split && notes ? 'notes' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
+          <div className={`scene-cam ${split ? 'split' : ''} ${split && notes ? 'notes' : ''} ${branch ? 'branching' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
             {three && (
               <Suspense fallback={<div className="stage3d" />}>
                 <Stage3D build={three} beat={beat} clock={within} />
@@ -1355,8 +1391,19 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
             )}
             {draw && (
               <svg viewBox={viewBox} className="scene-svg" role="img">
-                {draw(s)}
+                {symTree(draw(s), true)}
               </svg>
+            )}
+            {branch && (
+              // The side scene: it takes the figure's place for its beats,
+              // then the figure (and the main line) come back.
+              <div className="branch-zone">
+                <div key={branch.at} className={`branch-card ${beat === branch.at ? 'now' : ''}`}>
+                  <span className="branch-title">↳ {branch.title}</span>
+                  <div className="branch-body">{branch.node}</div>
+                  {beat === (branch.until ?? branch.at) && <span className="branch-back">↩ back to the main line</span>}
+                </div>
+              </div>
             )}
             {board && (
               // The line the pen writes this beat (see PEN) starts hidden, so
@@ -1368,11 +1415,11 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
                     {part.map((b, i) => (
                       <div
                         key={i}
-                        className={`board-line kind-${b.kind ?? 'text'} ${shownAt(b) ? 'on' : ''} ${beat === b.at ? 'hl' : ''} ${board.indexOf(b) === penAt ? 'pen' : ''}`}
+                        className={`board-line kind-${b.kind ?? 'text'} ${shownAt(b) || carriedAt(b) ? 'on' : ''} ${carriedAt(b) ? 'carried' : ''} ${beat === b.at ? 'hl' : ''} ${board.indexOf(b) === penAt ? 'pen' : ''}`}
                         style={{ '--wd': `${writeSecs(b.node)}s` }}
                       >
                         <span className="ink">
-                          {b.node}
+                          {carriedAt(b) ? b.carry : b.node}
                           {/* Highlight only what matters (results, traps, what to find), never every line (rule 39). */}
                           {beat === b.at && MARKED.has(b.kind) && <Marker kind={b.kind} delay={writeSecs(b.node)} />}
                         </span>
@@ -1402,7 +1449,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
           <div className="scene-ask">
             <div className="scene-ask-card">
               {ask.tag && <span className="scene-ask-tag">{ask.tag}</span>}
-              <p className="scene-ask-q">{ask.q}</p>
+              <p className="scene-ask-q">{sym(ask.q)}</p>
               <div className="scene-ask-options">
                 {ask.options.map((o, i) => (
                   <button
@@ -1410,7 +1457,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
                     className={`scene-opt ${pick ? (i === ask.answer ? 'right' : pick.i === i ? 'wrong' : 'dim') : ''}`}
                     onClick={() => choose(i)}
                   >
-                    {o}
+                    {sym(o)}
                   </button>
                 ))}
               </div>
@@ -1422,7 +1469,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
               )}
               {pick && (
                 <div className="scene-ask-why">
-                  <b>{pick.i === ask.answer ? 'Correct.' : 'Not quite.'}</b> {ask.why}
+                  <b>{pick.i === ask.answer ? 'Correct.' : 'Not quite.'}</b> {sym(ask.why)}
                   {pick.i !== ask.answer && (
                     <button className="scene-rewatch" onClick={rewatch}>
                       ↺ Tyo part feri hera
@@ -1465,7 +1512,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
         )}
         {cc && (
           <div className="scene-caption" key={`${beat}-${run}`}>
-            {captions[beat] ?? cur.say}
+            {sym(captions[beat] ?? cur.say)}
           </div>
         )}
       </div>

@@ -35,8 +35,8 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
       voice: 'ब्याक ई एम एफ इक्वेसन डेराइभ गर्छौं। सिम्बोल्स — पी पोल, फाइ फ्लक्स पर पोल, जेड कन्डक्टर, ए प्यारालल पाथ, र एन स्पिड, आर पी एममा।',
     },
     {
-      say: 'Euta revolution ma conductor sabai P pole muni bata pass huncha. Tesaile cut hune flux d Phi equals P phi weber.',
-      voice: 'एउटा रिभोलुसनमा, कन्डक्टर सबै पी पोलमुनिबाट पास हुन्छ। त्यसैले कट हुने फ्लक्स — डी फाइ इक्वल्स, पी फाइ वेबर।',
+      say: 'Euta revolution ma conductor sabai P pole ko prabhav ma bata pass huncha. Tesaile cut hune flux d Phi equals P phi weber.',
+      voice: 'एउटा रिभोलुसनमा, कन्डक्टर सबै पी पोलको प्रभावबाट पास हुन्छ। त्यसैले कट हुने फ्लक्स — डी फाइ इक्वल्स, पी फाइ वेबर।',
     },
     {
       say: 'Speed N rpm bhaye, euta revolution ko time d t equals sixty over N second.',
@@ -70,19 +70,19 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
   board: [
     { at: 0, kind: 'h', node: <>Back EMF equation</> },
     { at: 0, kind: 'note', node: <>P poles · φ Wb/pole · Z conductors · A parallel paths · N rpm</> },
-    { at: 1, kind: 'step', node: step('Flux cut in one revolution', String.raw`\textcolor{${BL}}{d\Phi} = P\phi\ \text{Wb}`) },
-    { at: 2, kind: 'step', node: step('Time of one revolution', String.raw`\textcolor{${VI}}{dt} = \dfrac{60}{N}\ \text{s}`) },
+    { at: 1, kind: 'step', node: step('Flux cut in one revolution', String.raw`\textcolor{${BL}}{d\Phi} = P\phi\unit{weber}`) },
+    { at: 2, kind: 'step', node: step('Time of one revolution', String.raw`\textcolor{${VI}}{dt} = \dfrac{60}{N}\unit{second}`) },
     {
       at: 3,
       kind: 'step',
-      node: step('EMF per conductor (Faraday)', String.raw`\begin{aligned} e &= \dfrac{${X(String.raw`d\Phi`, BL)}}{${X('dt', VI)}} \\ &= \dfrac{${R(String.raw`P\phi`, BL, 1)}}{${R('60/N', VI, 2)}} \\ &= \dfrac{P\phi N}{60}\ \text{V} \end{aligned}`),
+      node: step('EMF per conductor (Faraday)', String.raw`\begin{aligned} e &= \dfrac{${X(String.raw`d\Phi`, BL)}}{${X('dt', VI)}} \\ &= \dfrac{${R(String.raw`P\phi`, BL, 1)}}{${R('60/N', VI, 2)}} \\ &= \dfrac{P\phi N}{60}\unit{volt} \end{aligned}`),
     },
     {
       at: 4,
       kind: 'step',
       node: step('EMF of the machine = EMF of one path', String.raw`\begin{aligned} E_b &= ${X('e', GR)} \times \textcolor{${OR}}{\dfrac{Z}{A}} \\ &= ${R(String.raw`\dfrac{P\phi N}{60}`, GR, 1)} \cdot \textcolor{${OR}}{\dfrac{Z}{A}} \end{aligned}`),
     },
-    { at: 5, kind: 'eq', node: tex(String.raw`E_b = \dfrac{P\phi Z N}{60A}\ \text{V}`) },
+    { at: 5, kind: 'eq', node: tex(String.raw`E_b = \dfrac{P\phi Z N}{60A}\unit{volt}`) },
     { at: 6, kind: 'step', node: step('Given machine: k = PZ/60A', String.raw`\begin{aligned} E_b &= k\,\phi N \\ \Rightarrow\ E_b &\propto \phi N \end{aligned}`) },
   ],
   pov: 'tutor',
@@ -115,9 +115,9 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
       board: [
         { at: 0, kind: 'h', node: <>EMF equation of a DC machine</> },
         { at: 0, kind: 'step', node: <>Let,&nbsp; P = number of poles; φ = flux per pole (Wb); Z = total armature conductors; A = number of parallel paths; N = speed (rpm).</> },
-        { at: 1, kind: 'step', node: <>In one revolution, flux cut by one conductor and the time taken:{tex(String.raw`\begin{aligned} d\Phi &= P\phi\ \text{Wb} && \cdots(1) \\ dt &= \dfrac{60}{N}\ \text{s} && \cdots(2) \end{aligned}`)}</> },
-        { at: 2, kind: 'step', node: <>By Faraday’s law, EMF per conductor,{tex(String.raw`\begin{aligned} e &= \dfrac{d\Phi}{dt} && \\ &= \dfrac{P\phi N}{60}\ \text{V} && \cdots(3) \end{aligned}`)}</> },
-        { at: 3, kind: 'step', node: <>With Z/A conductors in series per path, {tex(String.raw`\therefore\ \boxed{E_b = \dfrac{P\phi Z N}{60A}\ \text{V}} \qquad \cdots(4)`)}</> },
+        { at: 1, kind: 'step', node: <>In one revolution, flux cut by one conductor and the time taken:{tex(String.raw`\begin{aligned} d\Phi &= P\phi\unit{weber} && \cdots(1) \\ dt &= \dfrac{60}{N}\unit{second} && \cdots(2) \end{aligned}`)}</> },
+        { at: 2, kind: 'step', node: <>By Faraday’s law, EMF per conductor,{tex(String.raw`\begin{aligned} e &= \dfrac{d\Phi}{dt} && \\ &= \dfrac{P\phi N}{60}\unit{volt} && \cdots(3) \end{aligned}`)}</> },
+        { at: 3, kind: 'step', node: <>With Z/A conductors in series per path, {tex(String.raw`\therefore\ \boxed{E_b = \dfrac{P\phi Z N}{60A}\unit{volt}} \qquad \cdots(4)`)}</> },
         { at: 4, kind: 'step', node: <>For a given machine, <K>{String.raw`E_b = k\phi N`}</K> <K>{String.raw`\therefore`}</K> <K>{String.raw`E_b \propto \phi N`}</K>. <b>Hence proved.</b></> },
       ],
     },
@@ -326,7 +326,7 @@ export const torqueDerivation = video('Derivation: torque equation (force method
       node: step('Torque of one conductor', String.raw`\begin{aligned} \tau &= ${X('F', GR)} \cdot r \\ &= ${R(String.raw`\dfrac{P\phi I_a}{2\pi \cancel{r} A}`, GR, 1)} \cdot \cancel{r} \\ &= \dfrac{P\phi I_a}{2\pi A} \end{aligned}`),
     },
     { at: 6, kind: 'step', node: step('All Z conductors', String.raw`\begin{aligned} T_a &= \textcolor{${GR}}{Z}\,\tau \\ &= \dfrac{P\phi \textcolor{${GR}}{Z} I_a}{2\pi A} \end{aligned}`) },
-    { at: 7, kind: 'eq', node: tex(String.raw`T_a = 0.159\,\phi Z I_a \left(\tfrac{P}{A}\right)\ \text{N}\cdot\text{m}`) },
+    { at: 7, kind: 'eq', node: tex(String.raw`T_a = 0.159\,\phi Z I_a \left(\tfrac{P}{A}\right)\unit{newton-metre}`) },
     { at: 8, kind: 'step', node: step('Given machine', String.raw`\textcolor{${GR}}{T_a \propto \phi\, I_a}`) },
   ],
   pov: 'tutor',
@@ -373,7 +373,7 @@ export const torqueFromPower = video('Derivation: torque equation (power method)
     {
       at: 1,
       kind: 'step',
-      node: step('Solve for Ta', String.raw`\begin{aligned} T_a &= \dfrac{E_bI_a}{${X(String.raw`\omega`, VI)}} \\ &= \dfrac{E_bI_a}{${R(String.raw`2\pi N/60`, VI, 1)}} \\ &= \dfrac{60\,E_bI_a}{2\pi N} \\ &= 9.55\,\dfrac{E_bI_a}{N}\ \text{N}\cdot\text{m} \end{aligned}`),
+      node: step('Solve for Ta', String.raw`\begin{aligned} T_a &= \dfrac{E_bI_a}{${X(String.raw`\omega`, VI)}} \\ &= \dfrac{E_bI_a}{${R(String.raw`2\pi N/60`, VI, 1)}} \\ &= \dfrac{60\,E_bI_a}{2\pi N} \\ &= 9.55\,\dfrac{E_bI_a}{N}\unit{newton-metre} \end{aligned}`),
     },
     {
       at: 2,

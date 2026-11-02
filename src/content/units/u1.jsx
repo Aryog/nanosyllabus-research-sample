@@ -128,7 +128,7 @@ export const inductionFigure = (s) => (
 );
 
 /* ── 1.1 Magnetic circuit ────────────────────────────────────────────── */
-export const basics11 = duo('1.1 · Basic understanding: magnet ko pani circuit huncha?', {
+export const basics11 = duo('1.1 · Basic understanding: does magnetism have a circuit?', {
   three: magnetTour([
     { shot: 'whole', show: CORE, labels: [['falam ko frame', 'core'], ['tar ko coil', 'coil']] },
     { shot: 'core', show: WIRED, flow: 0.6, flux: 0.7, focus: ['coil', 'battery'], labels: [['current', 'coil'], ['flux', 'flux']] },
@@ -239,7 +239,7 @@ export const basics11 = duo('1.1 · Basic understanding: magnet ko pani circuit 
   ],
 });
 
-export const ohm11 = duo("Magnetic circuit ra Ohm's law for magnetic circuit", {
+export const ohm11 = duo("Magnetic circuit and Ohm's law for magnetic circuits", {
   draw: magCircuitFigure,
   viewBox: '0 0 360 230',
   tutor: [
@@ -385,7 +385,7 @@ export const gap11 = duo('Derivation: series magnetic circuit with air gap', {
   ],
 });
 
-export const ohmAnswer11 = answer("Model answer: magnetic circuit ra Ohm's law", {
+export const ohmAnswer11 = answer("Model answer: magnetic circuit and Ohm's law", {
   draw: figAt(magCircuitFigure, { 0: 1, 1: 2, 2: 2, 4: 4 }),
   viewBox: '0 0 360 230',
   papers: ['2073 Bhadra'],
@@ -432,7 +432,7 @@ export const ohmAnswer11 = answer("Model answer: magnetic circuit ra Ohm's law",
 });
 
 export const gapSolve11 = solve({
-  title: 'IOE 2069 Bhadra: air gap ko current',
+  title: 'IOE 2069 Bhadra: current needed with an air gap',
   paper: '2069 Bhadra',
   paperVoice: 'दुई हजार उनान्सत्तरी भदौ',
   question: 'A magnetic circuit consists of a circular iron core having mean length of 10 cm and cross-sectional area of 100 mm². The air gap is 2 mm and the core has 600 turns of winding. Calculate the magnitude of current to be passed through the winding to produce air gap flux of 1 Tesla. Given μr = 4000.',
@@ -473,7 +473,7 @@ export const gapSolve11 = solve({
 });
 
 /* ── 1.2 B-H curve, hysteresis, eddy current ─────────────────────────── */
-export const basics12 = duo('1.2 · Basic understanding: falam kina taato huncha?', {
+export const basics12 = duo('1.2 · Basic understanding: why does the iron core heat up?', {
   three: magnetTour([
     { shot: 'core', show: [...CORE, 'domains'], align: 0, focus: ['domains'], labels: [['sano-sano magnet', 'domains']] },
     { show: [...WIRED, 'domains'], flow: 0.6, flux: 0.5, align: 0.6, focus: ['domains', 'coil'], labels: [['lain lagdai', 'domains']] },
@@ -584,7 +584,7 @@ export const basics12 = duo('1.2 · Basic understanding: falam kina taato huncha
   ],
 });
 
-export const bh12 = duo('B-H curve ra hysteresis loop', {
+export const bh12 = duo('B-H curve and hysteresis loop', {
   draw: bhFigure,
   viewBox: '0 0 360 235',
   tutor: [
@@ -657,7 +657,7 @@ export const bh12 = duo('B-H curve ra hysteresis loop', {
   ],
 });
 
-export const loss12 = duo('Derivation: hysteresis loss ra eddy current loss', {
+export const loss12 = duo('Derivation: hysteresis loss and eddy current loss', {
   draw: bhFigure,
   viewBox: '0 0 360 235',
   tutor: [
@@ -686,7 +686,7 @@ export const loss12 = duo('Derivation: hysteresis loss ra eddy current loss', {
     {
       say: 'Second ma f cycle hunchan. Steinmetz le loop area lai eta B max ko 1.6 power bhane: P h equals eta B max 1.6 f V.',
       voice: 'सेकेन्डमा एफ साइकल हुन्छन्। स्टाइनमेट्जले लुप एरियालाई इटा बी म्याक्सको वान पोइन्ट सिक्स पावर भने — पी एच इक्वल्स इटा बी म्याक्स वान पोइन्ट सिक्स एफ भी।',
-      lines: [['eq', tex(String.raw`\boxed{P_h = \eta\, B_{max}^{1.6} f\, V \ \text{watt}}`)]],
+      lines: [['eq', tex(String.raw`\boxed{P_h = \eta\, B_{max}^{1.6} f\, V\unit{watt}}`)]],
     },
     {
       say: 'Eddy current loss lamination ko motai t ko square sanga badhcha: P e equals k e B m square f square t square V. Tesaile patla pata.',
@@ -720,7 +720,7 @@ export const loss12 = duo('Derivation: hysteresis loss ra eddy current loss', {
     {
       say: "Steinmetz's empirical law: P h equals eta B max to the 1.6, f V, where eta is the hysteresis coefficient.",
       voice: 'स्टाइनमेट्जस इम्पिरिकल ल — पी एच इक्वल्स इटा बी म्याक्स टु द वान पोइन्ट सिक्स, एफ भी, ह्वेयर इटा इज द हिस्टेरेसिस कोएफिसियन्ट।',
-      lines: [['eq', tex(String.raw`\boxed{P_h = \eta\, B_{max}^{1.6} f\, V \ \text{watt}}`)]],
+      lines: [['eq', tex(String.raw`\boxed{P_h = \eta\, B_{max}^{1.6} f\, V\unit{watt}}`)]],
     },
     {
       say: 'Eddy current loss: P e equals k e B m square f square t square V; it is reduced by thin laminations.',
@@ -730,7 +730,7 @@ export const loss12 = duo('Derivation: hysteresis loss ra eddy current loss', {
   ],
 });
 
-export const loopAnswer12 = answer('Model answer: hysteresis ra loop ko area', {
+export const loopAnswer12 = answer('Model answer: hysteresis and the area of the loop', {
   draw: bhFigure,
   viewBox: '0 0 360 235',
   papers: ['2065 Chaitra'],
@@ -776,7 +776,7 @@ export const loopAnswer12 = answer('Model answer: hysteresis ra loop ko area', {
   ],
 });
 
-export const reduceAnswer12 = answer('Model answer: hysteresis ra eddy current loss ghataune upaya', {
+export const reduceAnswer12 = answer('Model answer: reducing hysteresis and eddy current losses', {
   papers: ['2067 Mangsir'],
   q: 'What are hysteresis and eddy current losses? What are their significance in the operation of electric machine? Write down different methods to reduce them.',
   read: {
@@ -816,7 +816,7 @@ export const reduceAnswer12 = answer('Model answer: hysteresis ra eddy current l
 });
 
 /* ── 1.3 Faraday's law, induced EMF, force on conductor ──────────────── */
-export const basics13 = duo('1.3 · Basic understanding: magnet chalaye bijuli kasari aaucha?', {
+export const basics13 = duo('1.3 · Basic understanding: how does a moving magnet make electricity?', {
   three: magnetTour([
     { shot: 'right', show: ['magnet', 'loop', 'meter'], move: 0, focus: ['magnet', 'loop'], labels: [['magnet', 'magnet'], ['tar ko loop', 'loop']] },
     { move: 0, focus: ['meter'], labels: [['meter: shant', 'meter']] },
@@ -927,7 +927,7 @@ export const basics13 = duo('1.3 · Basic understanding: magnet chalaye bijuli k
   ],
 });
 
-export const faraday13 = duo("Faraday's laws ra statically/dynamically induced EMF", {
+export const faraday13 = duo("Faraday's laws and statically/dynamically induced EMF", {
   draw: inductionFigure,
   viewBox: '0 0 370 225',
   tutor: [
@@ -1000,7 +1000,7 @@ export const faraday13 = duo("Faraday's laws ra statically/dynamically induced E
   ],
 });
 
-export const blv13 = duo('Derivation: e = Blv sinθ ra F = BIl sinθ', {
+export const blv13 = duo('Derivation: e = Blv sinθ and F = BIl sinθ', {
   draw: inductionFigure,
   viewBox: '0 0 370 225',
   tutor: [
@@ -1034,7 +1034,7 @@ export const blv13 = duo('Derivation: e = Blv sinθ ra F = BIl sinθ', {
     {
       say: 'Ulto: current I bokeko conductor field ma rakhda force F equals B I l sin theta. Direction Fleming ko left hand rule le.',
       voice: 'उल्टो — करेन्ट आई बोकेको कन्डक्टर फिल्डमा राख्दा फोर्स एफ इक्वल्स बी आई एल साइन थिटा। डाइरेक्सन फ्लेमिङको लेफ्ट ह्यान्ड रुलले।',
-      lines: [['eq', tex(String.raw`\boxed{F = BIl\sin\theta \ \text{newton}}`)]],
+      lines: [['eq', tex(String.raw`\boxed{F = BIl\sin\theta\unit{newton}}`)]],
     },
   ],
   lecturer: [
@@ -1068,12 +1068,12 @@ export const blv13 = duo('Derivation: e = Blv sinθ ra F = BIl sinθ', {
     {
       say: 'A conductor carrying current I in the field experiences force F equals B I l sin theta; direction by Fleming’s left-hand rule.',
       voice: 'अ कन्डक्टर क्यारिङ करेन्ट आई इन द फिल्ड एक्सपिरियन्सेज फोर्स एफ इक्वल्स बी आई एल साइन थिटा, डाइरेक्सन बाइ फ्लेमिङ्स लेफ्ट ह्यान्ड रुल।',
-      lines: [['eq', tex(String.raw`\boxed{F = BIl\sin\theta \ \text{newton}}`)]],
+      lines: [['eq', tex(String.raw`\boxed{F = BIl\sin\theta\unit{newton}}`)]],
     },
   ],
 });
 
-export const faradayAnswer13 = answer("Model answer: Faraday's laws ra induced EMF ka type", {
+export const faradayAnswer13 = answer("Model answer: Faraday's laws and types of induced EMF", {
   draw: inductionFigure,
   viewBox: '0 0 370 225',
   papers: ['2071 Magh'],
@@ -1114,9 +1114,9 @@ export const faradayAnswer13 = answer("Model answer: Faraday's laws ra induced E
   ],
 });
 
-const t11 = topic({ num: '1.1', title: 'Magnetic circuit, reluctance ra air gap', opener: basics11, derive: [ohm11, gap11], picture: [ohmAnswer11, gapSolve11] });
-const t12 = topic({ num: '1.2', title: 'B-H curve, hysteresis ra eddy current loss', opener: basics12, derive: [bh12, loss12], picture: [loopAnswer12, reduceAnswer12] });
-const t13 = topic({ num: '1.3', title: "Faraday's law, induced EMF ra force on conductor", opener: basics13, derive: [faraday13, blv13], picture: [faradayAnswer13] });
+const t11 = topic({ num: '1.1', title: 'Magnetic Circuits · Ohm’s Law for Magnetic Circuits · Series and Parallel magnetic circuits · Core with air gap', opener: basics11, derive: [ohm11, gap11], picture: [ohmAnswer11, gapSolve11] });
+const t12 = topic({ num: '1.2', title: 'B-H relationship (Magnetization Characteristics) · Hysteresis with DC and AC excitation · Hysteresis Loss and Eddy Current Loss', opener: basics12, derive: [bh12, loss12], picture: [loopAnswer12, reduceAnswer12] });
+const t13 = topic({ num: '1.3', title: 'Faraday’s Law of Electromagnetic Induction, Statically and Dynamically Induced EMF · Force on Current Carrying Conductor', opener: basics13, derive: [faraday13, blv13], picture: [faradayAnswer13] });
 
 export const unit1 = {
   topics: [t11, t12, t13],

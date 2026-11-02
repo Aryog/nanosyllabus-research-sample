@@ -275,8 +275,8 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
     },
     {
       node: <><H>Working (Fig. 1)</H>When the armature is supplied from DC, the conductors under the N-pole carry current inward (⊗) and those under the S-pole outward (⊙). Hence the force is downward on the left and upward on the right, and all conductors turn the armature anticlockwise.</>,
-      say: 'Working, Figure 1 ma: N pole muni ka conductor ma current bhitra, S pole muni ka ma bahira. Yasari left ma force tala ra right ma mathi, ani sabai le armature lai anticlockwise ghumauchan.',
-      voice: 'वर्किङ, फिगर वानमा — एन पोलमुनिका कन्डक्टरमा करेन्ट भित्र, एस पोलमुनिकामा बाहिर। यसरी, लेफ्टमा फोर्स तल र राइटमा माथि। अनि सबैले, आर्मेचरलाई एन्टिक्लकवाइज घुमाउँछन्।',
+      say: 'Working, Figure 1 ma: N pole ko prabhav ma ka conductor ma current bhitra, S pole ko prabhav ma ka ma bahira. Yasari left ma force tala ra right ma mathi, ani sabai le armature lai anticlockwise ghumauchan.',
+      voice: 'वर्किङ, फिगर वानमा — एन पोलको प्रभावमा रहने कन्डक्टरमा करेन्ट भित्र, एस पोलको प्रभावमा रहनेमा बाहिर। यसरी, लेफ्टमा फोर्स तल र राइटमा माथि। अनि सबैले, आर्मेचरलाई एन्टिक्लकवाइज घुमाउँछन्।',
     },
     {
       node: <><H>Function of commutator</H>As each coil crosses the magnetic neutral axis (MNA), the commutator reverses its current, so the torque remains unidirectional.</>,
@@ -311,7 +311,7 @@ export const torqueAnswer = answer('Model answer: working principle ra torque eq
       node: (
         <>
           Torque of Z conductors, <K>{String.raw`T_a = Z\,F\,r = \dfrac{P\phi Z I_a}{2\pi A}`}</K>,
-          <K>{String.raw`\boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\ \text{N}\cdot\text{m}} \qquad \cdots(3)`}</K>
+          <K>{String.raw`\boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\unit{newton-metre}} \qquad \cdots(3)`}</K>
           For a given machine, <K>{String.raw`T_a \propto \phi\, I_a`}</K>. <b>Hence proved.</b>
         </>
       ),
@@ -384,7 +384,7 @@ export const backEmfAnswer = answer('Model answer: back EMF ra yesko role', {
   ],
 });
 
-export const characteristicsAnswer = answer('Model answer: shunt ra series characteristics', {
+export const characteristicsAnswer = answer('Model answer: shunt and series motor characteristics', {
   draw: curvesFigure,
   viewBox: '0 0 320 340',
   papers: ['2070 Magh'],
@@ -429,7 +429,7 @@ export const characteristicsAnswer = answer('Model answer: shunt ra series chara
   ],
 });
 
-export const starterAnswer = answer('Model answer: starter ko necessity ra 3-point starter', {
+export const starterAnswer = answer('Model answer: necessity of a starter and the 3-point starter', {
   draw: starterFigure,
   viewBox: '0 0 340 285',
   papers: ['2075 Baisakh', '2074 Bhadra', '2073 Bhadra', '2070 Bhadra', '2068 Magh', '2066 Magh', '2083 Baishakh (ECM)'],

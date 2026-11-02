@@ -130,7 +130,7 @@ export const powerFlow = video('DC motor ma power flow', {
   ],
 });
 
-export const maxEff = video('Derivation: maximum efficiency ko condition', {
+export const maxEff = video('Derivation: condition for maximum efficiency', {
   beats: [
     {
       say: 'DC machine kahile sabai bhanda efficient huncha? La derive garau.',

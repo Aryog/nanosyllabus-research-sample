@@ -253,9 +253,16 @@ export function motorTour(plan) {
     const curves = {};
     const wireMeshes = {};
     for (const [k, pts] of Object.entries(paths)) {
-      curves[k] = new THREE.CatmullRomCurve3(pts, false, 'catmullrom', 0.3);
+      // Smooth bends, rounded ends: no sharp elbows (user, 2026-11-02).
+      curves[k] = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
       const m = mat('wires', k === 'shunt' ? 0x9775fa : 0xe8590c, { roughness: 0.5 });
-      wireMeshes[k] = new THREE.Mesh(new THREE.TubeGeometry(curves[k], 90, k === 'shunt' ? 0.035 : 0.055, 8, false), m);
+      const r = k === 'shunt' ? 0.035 : 0.055;
+      wireMeshes[k] = new THREE.Mesh(new THREE.TubeGeometry(curves[k], 200, r, 14, false), m);
+      for (const t of [0, 1]) {
+        const cap = new THREE.Mesh(new THREE.SphereGeometry(r, 14, 10), m);
+        cap.position.copy(curves[k].getPoint(t));
+        wireMeshes[k].add(cap);
+      }
       parts.wires.group.add(wireMeshes[k]);
     }
     const DOTS = 9;

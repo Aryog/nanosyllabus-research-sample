@@ -16,7 +16,7 @@ const WIRED = [...MOTOR, 'battery'];
 const STARTER = [...WIRED, 'starter'];
 
 /* ── 4.1 Working principle, back EMF, torque: what is inside a motor ──── */
-export const basics41 = duo('4.1 · Basic understanding: motor bhitra k cha?', {
+export const basics41 = duo('4.1 · Basic understanding: what is inside a DC motor?', {
   three: motorTour([
     { shot: 'whole', spin: 0.35, labels: [['DC motor', [0, 3.1, 0.6]]] },
     { shot: 'inside', open: 1, spin: 0.2, field: 1, focus: ['poles', 'field'], labels: [['N pole', 'north'], ['S pole', 'south']] },
@@ -114,15 +114,15 @@ export const basics41 = duo('4.1 · Basic understanding: motor bhitra k cha?', {
       lines: [['step', <>Commutator: tama ka segment · brush: carbon</>]],
     },
     {
-      say: 'Coil euta pole bata arko pole muni pugda commutator le tesko current ulto garcha. Phalswarup armature ek tira matra ghumcha.',
-      voice: 'कोइल एउटा पोलबाट अर्को पोलमुनि पुग्दा, कम्युटेटरले त्यसको करेन्ट उल्टो गर्छ। फलस्वरूप, आर्मेचर एकतिर मात्र घुम्छ।',
+      say: 'Coil euta pole bata arko pole ko prabhav ma pugda commutator le tesko current ulto garcha. Phalswarup armature ek tira matra ghumcha.',
+      voice: 'कोइल एउटा पोलबाट अर्को पोलको प्रभावमा पुग्दा, कम्युटेटरले त्यसको करेन्ट उल्टो गर्छ। फलस्वरूप, आर्मेचर एकतिर मात्र घुम्छ।',
       lines: [['step', <>Pole badalda current ulto → ek tira ghumai</>]],
       ask: {
         q: 'DC motor ma commutator ko kaam k ho?',
         voice: 'डी सी मोटरमा कम्युटेटरको काम के हो?',
         options: ['Coil ko current ulto garera ek tira ghumai rakhnu', 'Magnet balio banaunu', 'Supply voltage badhaunu'],
         answer: 0,
-        why: 'Coil arko pole muni pugda current ulto bhayena bhane dhakka ulto huncha; commutator le ghumai ek tira rakhcha.',
+        why: 'Coil arko pole ko prabhav ma pugda current ulto bhayena bhane dhakka ulto huncha; commutator le ghumai ek tira rakhcha.',
       },
     },
     {
@@ -139,7 +139,7 @@ export const basics41 = duo('4.1 · Basic understanding: motor bhitra k cha?', {
 });
 
 /* ── 4.2 Types: how the field coil is connected ──────────────────────── */
-export const basics42 = duo('4.2 · Basic understanding: field coil kasari jodne?', {
+export const basics42 = duo('4.2 · Basic understanding: how is the field winding connected?', {
   three: motorTour([
     { shot: 'inside', open: 1, spin: 0.3, field: 0.6, focus: ['fieldCoil', 'poles'], labels: [['field coil', 'fieldCoil']] },
     { shot: 'wiring', show: WIRED, open: 0.7, wiring: 'main', flow: 0.5, focus: ['battery', 'wires'], labels: [['armature ko bato', 'wires']] },
@@ -352,7 +352,7 @@ export const basics43 = duo('4.3 · Basic understanding: energy kaha harauncha?'
 });
 
 /* ── 4.4 Starters: why a motor needs a gentle start ──────────────────── */
-export const basics44 = duo('4.4 · Basic understanding: starter kina chahincha?', {
+export const basics44 = duo('4.4 · Basic understanding: why does a motor need a starter?', {
   three: motorTour([
     { shot: 'wiring', show: WIRED, open: 0.7, spin: 0, flow: 0 },
     { flow: 1, focus: ['wires', 'battery', 'coil'], labels: [['dherai current', 'wires']] },
@@ -464,7 +464,7 @@ export const basics44 = duo('4.4 · Basic understanding: starter kina chahincha?
 });
 
 /* ── 4.5 Speed control: three knobs, and turning it the other way ────── */
-export const basics45 = duo('4.5 · Basic understanding: speed kasari badalne?', {
+export const basics45 = duo('4.5 · Basic understanding: how is the speed changed?', {
   three: motorTour([
     { shot: 'whole', show: WIRED, spin: 0.5, flow: 0.4, labels: [['voltage', 'battery'], ['magnet', 'north'], ['resistance', 'wires']], gap: 1200 },
     { shot: 'wiring', back: 1, focus: ['battery', 'wires', 'armature'], labels: [['battery ko dhakka', [-3.5, -0.6, 2.0]], ['ulto dhakka', [-3.5, -2.1, 2.0]]] },
@@ -565,7 +565,7 @@ export const basics45 = duo('4.5 · Basic understanding: speed kasari badalne?',
 });
 
 /* ── 4.6 Testing: finding the losses without loading the motor ──────── */
-export const basics46 = duo('4.6 · Basic understanding: load bina motor kasari jachne?', {
+export const basics46 = duo('4.6 · Basic understanding: how is a motor tested without load?', {
   three: motorTour([
     { shot: 'whole', spin: 0.5 },
     { shot: 'wiring', show: WIRED, open: 0.6, flow: 0.5, focus: ['battery', 'wires', 'armature', 'brushes'], heat: { armature: 0.6, brushes: 0.5, coil: 0.3 }, labels: [['sabai power → losses', [-1.0, 2.9, 1.4]]] },

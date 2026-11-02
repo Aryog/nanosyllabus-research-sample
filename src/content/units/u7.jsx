@@ -168,7 +168,7 @@ export const stepperFigure = (s) => (
 );
 
 /* ── 7.1 Single-phase IM, DFR theory ──────────────────────────────────── */
-export const basics71 = duo('7.1 · Basic understanding: ghar ko fan aafai kina ghumna sakdaina?', {
+export const basics71 = duo('7.1 · Basic understanding: why can’t a single-phase motor start by itself?', {
   three: smallTour([
     { shot: 'whole', show: SPF, spin: 0.4, flow: 0.5, labels: [['single phase motor', 'frame']] },
     { shot: 'front', spin: 0, flow: 0.6, pulse: 1, focus: ['main', 'supply'], labels: [['main winding', 'main']] },
@@ -279,7 +279,7 @@ export const basics71 = duo('7.1 · Basic understanding: ghar ko fan aafai kina 
   ],
 });
 
-export const construction71 = duo('Single-phase induction motor: construction ra not self-starting', {
+export const construction71 = duo('Single-phase induction motor: construction, not self-starting', {
   draw: dfrFigure,
   viewBox: '0 0 360 225',
   tutor: [
@@ -467,7 +467,7 @@ export const dfrAnswer71 = answer('Model answer: double field revolving theory',
 });
 
 /* ── 7.2 Split phase, capacitor, reluctance start ────────────────────── */
-export const basics72 = duo('7.2 · Basic understanding: fan lai kasari aafai start garaune?', {
+export const basics72 = duo('7.2 · Basic understanding: how is a single-phase motor made self-starting?', {
   three: smallTour([
     { shot: 'front', show: [...SPF, 'aux'], flow: 0.6, focus: ['aux'], labels: [['dosro coil: aux', 'aux']] },
     { pulse: 0, rot: 1, focus: ['main', 'aux'], labels: [['field ghumyo!', 'field']] },
@@ -578,7 +578,7 @@ export const basics72 = duo('7.2 · Basic understanding: fan lai kasari aafai st
   ],
 });
 
-export const split72 = duo('Split-phase ra capacitor start/run motors', {
+export const split72 = duo('Split-phase and capacitor start/run motors', {
   draw: splitFigure,
   viewBox: '0 0 360 222',
   tutor: [
@@ -724,7 +724,7 @@ export const reluctance72 = duo('Reluctance start motor', {
   ],
 });
 
-export const startAnswer72 = answer('Model answer: single-phase IM self-starting kina hudaina ra starting methods', {
+export const startAnswer72 = answer('Model answer: why a single-phase IM is not self-starting, and starting methods', {
   draw: splitFigure,
   viewBox: '0 0 360 222',
   papers: ['2068 Bhadra', '2071 Chaitra', '2078 Baishakh'],
@@ -762,7 +762,7 @@ export const startAnswer72 = answer('Model answer: single-phase IM self-starting
 });
 
 /* ── 7.3 AC series motor, universal motor ───────────────────────────── */
-export const basics73 = duo('7.3 · Basic understanding: mixie kina yati chito ghumcha?', {
+export const basics73 = duo('7.3 · Basic understanding: why does a mixer motor run so fast?', {
   three: motorTour([
     { shot: 'whole', show: SERIES, ac: true, open: 0.6, spin: 0.9, wiring: 'series', flow: 0.8, field: 0.8, labels: [['mixie ko motor', [0, 3.1, 0.6]]] },
     { shot: 'wiring', ac: true, focus: ['fieldCoil', 'wires', 'armature'], labels: [['eutai line', 'wires']] },
@@ -873,7 +873,7 @@ export const basics73 = duo('7.3 · Basic understanding: mixie kina yati chito g
   ],
 });
 
-export const series73 = duo('AC series motor ra universal motor ko operation', {
+export const series73 = duo('Operation of the AC series motor and universal motor', {
   draw: universalFigure,
   viewBox: '0 0 360 222',
   tutor: [
@@ -946,7 +946,7 @@ export const series73 = duo('AC series motor ra universal motor ko operation', {
   ],
 });
 
-export const universalAnswer73 = answer('Model answer: universal motor ko operation ra applications', {
+export const universalAnswer73 = answer('Model answer: operation and applications of the universal motor', {
   draw: universalFigure,
   viewBox: '0 0 360 222',
   papers: ['2079 Jestha', '2073 Chaitra', '2071 Magh'],
@@ -988,7 +988,7 @@ export const universalAnswer73 = answer('Model answer: universal motor ko operat
 });
 
 /* ── 7.4 Stepper, Schrage, servo ──────────────────────────────────────── */
-export const basics74 = duo('7.4 · Basic understanding: printer ko motor thik thau ma kasari rokincha?', {
+export const basics74 = duo('7.4 · Basic understanding: how does a printer motor stop at an exact position?', {
   three: smallTour([
     { shot: 'front', show: STEP, step: 0, focus: ['stepStator', 'stepCoils'], labels: [['char pole', 'stepStator']] },
     { step: 0, focus: ['stepRotor'], labels: [['magnet rotor', 'stepRotor']] },
@@ -1099,7 +1099,7 @@ export const basics74 = duo('7.4 · Basic understanding: printer ko motor thik t
   ],
 });
 
-export const stepper74 = duo('Stepper motor: construction, working ra step angle', {
+export const stepper74 = duo('Stepper motor: construction, working and step angle', {
   draw: stepperFigure,
   viewBox: '0 0 360 225',
   tutor: [
@@ -1172,7 +1172,7 @@ export const stepper74 = duo('Stepper motor: construction, working ra step angle
   ],
 });
 
-export const servo74 = duo('Servo motor ra Schrage motor', {
+export const servo74 = duo('Servo motor and Schrage motor', {
   draw: stepperFigure,
   viewBox: '0 0 360 225',
   tutor: [
@@ -1245,7 +1245,7 @@ export const servo74 = duo('Servo motor ra Schrage motor', {
   ],
 });
 
-export const stepperAnswer74 = answer('Model answer: stepper motor ra servo motor ko principle', {
+export const stepperAnswer74 = answer('Model answer: principle of the stepper motor and servo motor', {
   draw: stepperFigure,
   viewBox: '0 0 360 225',
   papers: ['2068 Bhadra', '2075 Baishakh', '2069 Bhadra'],
@@ -1286,10 +1286,10 @@ export const stepperAnswer74 = answer('Model answer: stepper motor ra servo moto
   ],
 });
 
-const t71 = topic({ num: '7.1', title: 'Single phase induction motor ra double field revolving theory', opener: basics71, derive: [construction71, dfr71], picture: [dfrAnswer71] });
-const t72 = topic({ num: '7.2', title: 'Split phase, capacitor ra reluctance start motors', opener: basics72, derive: [split72, reluctance72], picture: [startAnswer72] });
-const t73 = topic({ num: '7.3', title: 'AC series motor ra universal motor', opener: basics73, derive: [series73], picture: [universalAnswer73] });
-const t74 = topic({ num: '7.4', title: 'Stepper, Schrage ra servo motor', opener: basics74, derive: [stepper74, servo74], picture: [stepperAnswer74] });
+const t71 = topic({ num: '7.1', title: 'Single phase Induction Motors: Construction and Characteristics · Double Field Revolving Theory', opener: basics71, derive: [construction71, dfr71], picture: [dfrAnswer71] });
+const t72 = topic({ num: '7.2', title: 'Split phase Induction Motor · Capacitor start and run motor · Reluctance start motor', opener: basics72, derive: [split72, reluctance72], picture: [startAnswer72] });
+const t73 = topic({ num: '7.3', title: 'Alternating Current Series motor and Universal motor', opener: basics73, derive: [series73], picture: [universalAnswer73] });
+const t74 = topic({ num: '7.4', title: 'Special Purpose Machines: Stepper motor, Schrage motor and Servo motor', opener: basics74, derive: [stepper74, servo74], picture: [stepperAnswer74] });
 
 export const unit7 = {
   topics: [t71, t72, t73, t74],

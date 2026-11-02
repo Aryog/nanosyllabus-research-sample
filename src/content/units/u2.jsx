@@ -206,7 +206,7 @@ export const autoFigure = (s) => (
 );
 
 /* ── 2.1 Construction, principle, EMF equation ───────────────────────── */
-export const basics21 = duo('2.1 · Basic understanding: transformer le voltage kasari badalcha?', {
+export const basics21 = duo('2.1 · Basic understanding: how does a transformer change voltage?', {
   three: transformerTour([
     { shot: 'whole', show: BASE, labels: [['transformer', [0, 2.3, 0.6]]] },
     { shot: 'core', focus: ['core'], labels: [['falam ko core', 'core']] },
@@ -317,7 +317,7 @@ export const basics21 = duo('2.1 · Basic understanding: transformer le voltage 
   ],
 });
 
-export const principle21 = duo('Transformer ko construction ra working principle', {
+export const principle21 = duo('Construction and working principle of a transformer', {
   draw: xfmrFigure,
   viewBox: '0 0 360 220',
   tutor: [
@@ -390,7 +390,7 @@ export const principle21 = duo('Transformer ko construction ra working principle
   ],
 });
 
-export const emf21 = duo('Derivation: transformer ko EMF equation', {
+export const emf21 = duo('Derivation: EMF equation of a transformer', {
   draw: xfmrFigure,
   viewBox: '0 0 360 220',
   tutor: [
@@ -463,7 +463,7 @@ export const emf21 = duo('Derivation: transformer ko EMF equation', {
   ],
 });
 
-export const emfAnswer21 = answer('Model answer: ideal transformer ko principle ra EMF equation', {
+export const emfAnswer21 = answer('Model answer: principle and EMF equation of an ideal transformer', {
   draw: xfmrFigure,
   viewBox: '0 0 360 220',
   papers: ['2072 Ashwin'],
@@ -510,7 +510,7 @@ export const emfAnswer21 = answer('Model answer: ideal transformer ko principle 
 });
 
 /* ── 2.2 Ideal transformer, no load and load ─────────────────────────── */
-export const basics22 = duo('2.2 · Basic understanding: load lagauda transformer ma k huncha?', {
+export const basics22 = duo('2.2 · Basic understanding: what happens when a transformer is loaded?', {
   three: transformerTour([
     { shot: 'whole', show: FED, focus: ['core', 'primary', 'secondary'], labels: [['ideal: kei loss chaina', [0, 2.3, 0.6]]] },
     { shot: 'source', flow: 0.2, flux: 1, focus: ['primary', 'source'], labels: [['sano current', 'primary']] },
@@ -621,7 +621,7 @@ export const basics22 = duo('2.2 · Basic understanding: load lagauda transforme
   ],
 });
 
-export const noLoad22 = duo('Ideal transformer ra no-load operation', {
+export const noLoad22 = duo('Ideal transformer and no-load operation', {
   draw: noLoadFigure,
   viewBox: '0 0 360 232',
   tutor: [
@@ -694,7 +694,7 @@ export const noLoad22 = duo('Ideal transformer ra no-load operation', {
   ],
 });
 
-export const onLoad22 = duo('Derivation: load ma pani flux constant', {
+export const onLoad22 = duo('Derivation: flux stays constant on load', {
   draw: noLoadFigure,
   viewBox: '0 0 360 232',
   tutor: [
@@ -767,7 +767,7 @@ export const onLoad22 = duo('Derivation: load ma pani flux constant', {
   ],
 });
 
-export const fluxAnswer22 = answer('Model answer: no-load ra load operation, flux constant', {
+export const fluxAnswer22 = answer('Model answer: no-load and load operation, constant flux', {
   draw: noLoadFigure,
   viewBox: '0 0 360 232',
   papers: ['2073 Bhadra', '2069 Bhadra', '2071 Chaitra', '2081 Ashwin (ECM)'],
@@ -814,7 +814,7 @@ export const fluxAnswer22 = answer('Model answer: no-load ra load operation, flu
 });
 
 /* ── 2.3 Equivalent circuit, OC/SC tests ─────────────────────────────── */
-export const basics23 = duo('2.3 · Basic understanding: real transformer ma k-k harauncha?', {
+export const basics23 = duo('2.3 · Basic understanding: what does a real transformer lose?', {
   three: transformerTour([
     { shot: 'whole', show: LOADED, flow: 0.7, flow2: 0.8, flux: 1, focus: null, labels: [['real transformer', [0, 2.3, 0.6]]] },
     { shot: 'primary', heat: { primary: 0.7 }, focus: ['primary'], labels: [['tar taato', 'primary']] },
@@ -925,7 +925,7 @@ export const basics23 = duo('2.3 · Basic understanding: real transformer ma k-k
   ],
 });
 
-export const eqCircuit23 = duo('Equivalent circuit ra referring to primary', {
+export const eqCircuit23 = duo('Equivalent circuit and referring to the primary', {
   draw: eqFigure,
   viewBox: '0 0 360 220',
   tutor: [
@@ -998,7 +998,7 @@ export const eqCircuit23 = duo('Equivalent circuit ra referring to primary', {
   ],
 });
 
-export const tests23 = duo('Derivation: OC ra SC test bata parameters', {
+export const tests23 = duo('Derivation: parameters from the OC and SC tests', {
   draw: eqFigure,
   viewBox: '0 0 360 220',
   tutor: [
@@ -1071,7 +1071,7 @@ export const tests23 = duo('Derivation: OC ra SC test bata parameters', {
   ],
 });
 
-export const referAnswer23 = answer('Model answer: equivalent circuit ra referring to primary', {
+export const referAnswer23 = answer('Model answer: equivalent circuit and referring to the primary', {
   draw: eqFigure,
   viewBox: '0 0 360 220',
   papers: ['2074 Bhadra'],
@@ -1113,7 +1113,7 @@ export const referAnswer23 = answer('Model answer: equivalent circuit ra referri
 });
 
 export const ocscSolve23 = solve({
-  title: 'IOE 2073 Bhadra: OC/SC bata equivalent circuit',
+  title: 'IOE 2073 Bhadra: equivalent circuit from OC/SC tests',
   paper: '2073 Bhadra',
   paperVoice: 'दुई हजार त्रिहत्तर भदौ',
   question: 'The data obtained from the test of a 10 kVA, 250/1000 V single phase transformer are given below. No-load test (on LV side): 250 V, 0.8 A, 80 W. Short circuit test (on HV side): 80 V, 10 A, 120 W. Calculate the equivalent circuit parameters refer to primary side and draw the equivalent circuit.',
@@ -1159,7 +1159,7 @@ export const ocscSolve23 = solve({
 });
 
 /* ── 2.4 Regulation, losses, efficiency ──────────────────────────────── */
-export const basics24 = duo('2.4 · Basic understanding: transformer kati ramro kaam garcha?', {
+export const basics24 = duo('2.4 · Basic understanding: how efficient is a transformer?', {
   three: transformerTour([
     { shot: 'load', show: LOADED, flux: 1, flow: 0.4, flow2: 0.4, focus: ['lamp'], labels: [['halka load', 'lamp']] },
     { flow: 1, flow2: 1, focus: ['lamp', 'secondary'], labels: [['voltage ali jharyo', 'lamp']] },
@@ -1343,7 +1343,7 @@ export const reg24 = duo('Voltage regulation', {
   ],
 });
 
-export const eff24 = duo('Derivation: efficiency ra maximum efficiency', {
+export const eff24 = duo('Derivation: efficiency and maximum efficiency', {
   draw: effCurveFigure,
   viewBox: '0 0 360 232',
   tutor: [
@@ -1416,7 +1416,7 @@ export const eff24 = duo('Derivation: efficiency ra maximum efficiency', {
   ],
 });
 
-export const lossAnswer24 = answer('Model answer: transformer ka losses ra maximum efficiency', {
+export const lossAnswer24 = answer('Model answer: transformer losses and maximum efficiency', {
   draw: figAt(effCurveFigure, { 0: 1, 1: 1, 2: 2, 3: 3, 4: 5 }),
   viewBox: '0 0 360 232',
   papers: ['2075 Baishakh', '2071 Bhadra', '2066 Magh', '2068 Bhadra'],
@@ -1464,7 +1464,7 @@ export const lossAnswer24 = answer('Model answer: transformer ka losses ra maxim
 });
 
 export const effSolve24 = solve({
-  title: 'IOE 2073 Bhadra: 100 kVA ko efficiency',
+  title: 'IOE 2073 Bhadra: efficiency of a 100 kVA transformer',
   paper: '2073 Bhadra',
   paperVoice: 'दुई हजार त्रिहत्तर भदौ',
   question: 'A transformer is rated at 100 kVA. At full load its copper loss is 1200 W and its iron loss is 960 W. Calculate: (i) Efficiency at full load, unity power factor (ii) Efficiency at half load, 0.8 power factor.',
@@ -1504,7 +1504,7 @@ export const effSolve24 = solve({
 });
 
 /* ── 2.5 Auto, instrument and three-phase transformers ───────────────── */
-export const basics25 = duo('2.5 · Basic understanding: euta coil ko transformer, CT ra tin phase', {
+export const basics25 = duo('2.5 · Basic understanding: auto, instrument and three-phase transformers', {
   three: transformerTour([
     { shot: 'primary', show: ['core', 'primary', 'source', 'tap'], flow: 0.6, flux: 1, tap: 0.5, focus: ['primary', 'tap'], labels: [['euta coil', 'primary'], ['tap', 'tap']] },
     { tap: 0.9, tapMs: 2000, focus: ['tap'], labels: [['tap sarauda voltage', 'tap']] },
@@ -1615,7 +1615,7 @@ export const basics25 = duo('2.5 · Basic understanding: euta coil ko transforme
   ],
 });
 
-export const auto25 = duo('Derivation: auto transformer ko copper saving', {
+export const auto25 = duo('Derivation: copper saving in an auto transformer', {
   draw: autoFigure,
   viewBox: '0 0 360 220',
   tutor: [
@@ -1688,7 +1688,7 @@ export const auto25 = duo('Derivation: auto transformer ko copper saving', {
   ],
 });
 
-export const special25 = duo('Instrument transformers ra three-phase transformers', {
+export const special25 = duo('Instrument transformers and three-phase transformers', {
   draw: autoFigure,
   viewBox: '0 0 360 220',
   tutor: [
@@ -1761,7 +1761,7 @@ export const special25 = duo('Instrument transformers ra three-phase transformer
   ],
 });
 
-export const autoAnswer25 = answer('Model answer: auto transformer ra Cu saving', {
+export const autoAnswer25 = answer('Model answer: auto transformer and Cu saving', {
   draw: autoFigure,
   viewBox: '0 0 360 220',
   papers: ['2073 Chaitra', '2070 Bhadra', '2079 Jestha'],
@@ -1807,7 +1807,7 @@ export const autoAnswer25 = answer('Model answer: auto transformer ra Cu saving'
   ],
 });
 
-export const ctAnswer25 = answer('Model answer: CT ko secondary kina open nagarne', {
+export const ctAnswer25 = answer('Model answer: why the CT secondary must not be opened', {
   papers: ['2079 Jestha', '2068 Bhadra'],
   q: 'Why secondary of CT should not be left open?',
   read: {
@@ -1840,11 +1840,11 @@ export const ctAnswer25 = answer('Model answer: CT ko secondary kina open nagarn
   ],
 });
 
-const t21 = topic({ num: '2.1', title: 'Transformer: construction, principle ra EMF equation', opener: basics21, derive: [principle21, emf21], picture: [emfAnswer21] });
-const t22 = topic({ num: '2.2', title: 'Ideal transformer, no-load ra load operation', opener: basics22, derive: [noLoad22, onLoad22], picture: [fluxAnswer22] });
-const t23 = topic({ num: '2.3', title: 'Equivalent circuit, phasor ra OC/SC tests', opener: basics23, derive: [eqCircuit23, tests23], picture: [referAnswer23, ocscSolve23] });
-const t24 = topic({ num: '2.4', title: 'Voltage regulation, losses ra efficiency', opener: basics24, derive: [reg24, eff24], picture: [lossAnswer24, effSolve24] });
-const t25 = topic({ num: '2.5', title: 'Auto, instrument ra three-phase transformers', opener: basics25, derive: [auto25, special25], picture: [autoAnswer25, ctAnswer25] });
+const t21 = topic({ num: '2.1', title: 'Constructional Details, recent trends · Working principle and EMF equation', opener: basics21, derive: [principle21, emf21], picture: [emfAnswer21] });
+const t22 = topic({ num: '2.2', title: 'Ideal Transformer · No load and load Operation · Operation of Transformer with load', opener: basics22, derive: [noLoad22, onLoad22], picture: [fluxAnswer22] });
+const t23 = topic({ num: '2.3', title: 'Equivalent Circuits and Phasor Diagram · Tests: Polarity Test, Open Circuit test, Short Circuit test and Equivalent Circuit Parameters', opener: basics23, derive: [eqCircuit23, tests23], picture: [referAnswer23, ocscSolve23] });
+const t24 = topic({ num: '2.4', title: 'Voltage Regulation · Losses in a transformer · Efficiency, condition for maximum efficiency and all day efficiency', opener: basics24, derive: [reg24, eff24], picture: [lossAnswer24, effSolve24] });
+const t25 = topic({ num: '2.5', title: 'Instrument Transformers: Potential Transformer (PT) and Current Transformer (CT) · Auto transformer: construction, working principle and Cu saving · Three phase Transformers', opener: basics25, derive: [auto25, special25], picture: [autoAnswer25, ctAnswer25] });
 
 export const unit2 = {
   topics: [t21, t22, t23, t24, t25],

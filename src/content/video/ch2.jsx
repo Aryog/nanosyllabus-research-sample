@@ -244,7 +244,7 @@ export const emfDerivation = video('Derivation: EMF equation', {
   tall: true,
   beats: [
     { say: 'La EMF equation derive garau. P poles, phi weber per pole, Z armature conductors, A parallel paths, ra speed N r p m ma.', voice: 'ल ई एम एफ इक्वेसन डिराइभ गरौं। पी पोल्स, फाइ वेबर पर पोल, जेड आर्मेचर कन्डक्टर्स, ए प्यारालल पाथ्स, र स्पिड एन आर पी एममा।' },
-    { say: 'Euta revolution ma conductor sabai P poles muni bata pass huncha, so total P phi weber flux cut garcha.', voice: 'एउटा रिभोलुसनमा कन्डक्टर सबै पी पोल्स मुनिबाट पास हुन्छ, सो टोटल पी फाइ वेबर फ्लक्स कट गर्छ।' },
+    { say: 'Euta revolution ma conductor sabai P poles ko prabhav bata pass huncha, so total P phi weber flux cut garcha.', voice: 'एउटा रिभोलुसनमा कन्डक्टर सबै पी पोल्सको प्रभावबाट पास हुन्छ, सो टोटल पी फाइ वेबर फ्लक्स कट गर्छ।' },
     { say: 'Euta revolution lai sixty over N second lagcha.', voice: 'एउटा रिभोलुसनलाई सिक्स्टी ओभर एन सेकेन्ड लाग्छ।' },
     {
       say: 'Aba Faraday ko law lagau: EMF equals flux cut divided by time.',
@@ -322,7 +322,7 @@ export const ch2Model = model({
   marks: '3–5 marks',
   points: [
     <><b>Commutator, construction:</b> hard-drawn copper segments ko cylinder, ek arka bata patalo mica le insulated, shaft ma mount gareko. Harek segment armature coils ko end sanga jodieko huncha.</>,
-    <><b>Motor ma commutator:</b> coil neutral zone pass garda tyo coil ko current reverse garcha, so euta pole muni ka conductors ma sadhai same direction ma current bagcha ra torque unidirectional rahancha.</>,
+    <><b>Motor ma commutator:</b> coil neutral zone pass garda tyo coil ko current reverse garcha, so euta pole ko prabhav ma rahne conductors ma sadhai same direction ma current bagcha ra torque unidirectional rahancha.</>,
     <><b>Generator ma commutator:</b> coils ma induce bhako alternating EMF lai brushes ma unidirectional (DC) voltage ma convert garcha. Exam ma lekha: “a mechanical rectifier”.</>,
     <><b>Brushes:</b> brush holder ko spring le commutator ma thicheko stationary contacts. Yinle ghumne armature ra external circuit ko bich ma current bokchan.</>,
     <><b>Carbon kina:</b> yo self-lubricating ra copper bhanda naram huncha, so commutator ko satta brush khiyincha, ani yesko contact resistance le sparkless commutation ma help garcha.</>,

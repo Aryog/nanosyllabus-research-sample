@@ -75,7 +75,7 @@ clips.
 | MP4 render, the review loop, the frame strip, the final checklist | [references/render-and-qa.md](references/render-and-qa.md) |
 
 Read the reference before touching its area. Rules are numbered: house rules
-1 to 44 (the scripts cite them by number) and motion rules M1 to M16. A rule
+1 to 65 (the scripts cite them by number) and motion rules M1 to M20. A rule
 lives in exactly one reference.
 
 ## POVs: who is teaching (two roles, two skills)
@@ -118,6 +118,8 @@ Registry and voice settings: `src/content/pov.js`. Write a Terms or Derivation v
 | Unit 4 content (duo videos, answers) and book figures | `src/content/unit4/u41–u46.jsx`, `src/content/unit4/figs.jsx` (also exports the shared ink for every unit) |
 | Units 1–3, 5–7 (figures, basics, syllabus duos, answers, summary) | `src/content/units/u1.jsx` … `u7.jsx`; assembled with Unit 4 in `src/content/units/index.jsx` |
 | 3D machines for the other units | engine `src/content/machines/tour3d.js` (`makeTour`), models `src/content/machines/models3d.js` (basic-understanding.md §8) |
+| 4.1 Syllabus Content (the canvas-plan reference: Remember, branches, carry) | `src/content/unit4/s41.jsx` |
+| Symbol table and subscripts (captions, questions, board, figure labels) | `src/content/sym.jsx` |
 | Segment 1 Basic Understanding (one duo per topic) and its 3D motor tour | `src/content/unit4/basics.jsx`, `src/content/unit4/basics3d.js` (`motorTour(plan)`) |
 | Short forms → full forms + spoken spelling | `src/content/abbr.js` (player: `withAbbr`/`captionsOf` in `Scene.jsx`) |
 | Old doodles (extras only; never in the main path) | `src/content/video/doodles.jsx` |
@@ -212,3 +214,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-11-01: **Only 4.1 is voiced** (user). Other topics stay caption-only. fit-check no longer measures playlist thumbnails (false "label cut" on 3D videos).
 - 2026-11-01: **Whole subject generated** (user: "generate content for all units and its submodules … make good use of what we have in vault"). Units 1–3 and 5–7 (24 topics) built in the 4.1 pattern, caption-only: a 3D Basic Understanding per topic on a new engine (`machines/tour3d.js`) with one model per unit (`models3d.js`: magnetic core, transformer, induction, synchronous, single-phase/stepper; the DC machine gained `engine`, `lamp`, `ac`), Tutor + Lecturer Syllabus Content over one book figure per topic, and Model Answers for 38 real past questions from the vault Question Bank (topics.json). Multi-unit routes and per-unit progress in `App.jsx`; scripts load every unit. New rules 54–58 (numbers vs short forms in voice, row width, words on segment-1 boards, the topic shape, vault numericals) and M17–M18; `eqsplit.py`; lint warns on wide maths rows. New short forms MMF, AT, OC, SC, CT, PT, LV, HV, RMF, kVA, pf.
 
+- 2026-11-02: **4.1 Syllabus Content rebuilt as bookish notes with a planned canvas** (user review: script ≠ animation, "dt = 60/N comes from nowhere", symbols messy, no subscripts, units read as part of formulas, "N ko muni", merged Nepali titles, 3D in the mid section, cramped content). Seven new duos in `unit4/s41.jsx` from the vault notes (working principle, commutator Fig (a)/(b), back EMF and four significances, EMF equation, voltage/power, torque by force, torque by power), each with a Remember card, branch scenes and carried results (rules 59–65, M19–M20). Old 3D versions moved to extras. Player: ←/→ skip 5 s, branch zone, `recall` kind, planned pages, carried lines; `sym.jsx` subscripts everywhere; `\unit{}` macro (24 formulas converted); topic titles = IOE syllabus bullets, 131 video titles in English; "muni" replaced course-wide; 4.2 excitation figure with long- and short-shunt panels; 4.6 inertia J (not I); 3D wires smooth with caps. Lint rules 59–63. Nothing recorded: the 4.1 clips whose lines changed need new takes when the user asks (user: no audio during the revamp).

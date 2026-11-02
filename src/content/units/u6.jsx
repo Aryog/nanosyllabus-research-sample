@@ -149,7 +149,7 @@ export const vCurveFigure = (s) => (
 );
 
 /* ── 6.1 Construction, rotor types, working ─────────────────────────── */
-export const basics61 = duo('6.1 · Basic understanding: powerhouse ko generator bhitra k cha?', {
+export const basics61 = duo('6.1 · Basic understanding: what is inside a power-station alternator?', {
   three: syncTour([
     { shot: 'back', show: GENSET, spin: 0.35, field: 0.8, lamp: 0.8, focus: ['turbine', 'shaft'], labels: [['pani le turbine', 'turbine']] },
     { shot: 'front', spin: 0.2, field: 1, lamp: 0.6, focus: ['salient', 'fieldCoil'], labels: [['rotor: magnet', 'salient']] },
@@ -260,7 +260,7 @@ export const basics61 = duo('6.1 · Basic understanding: powerhouse ko generator
   ],
 });
 
-export const construction61 = duo('Alternator ko construction ra rotor ka types', {
+export const construction61 = duo('Construction of the alternator and types of rotor', {
   draw: rotorFigure,
   viewBox: '0 0 360 222',
   tutor: [
@@ -333,7 +333,7 @@ export const construction61 = duo('Alternator ko construction ra rotor ka types'
   ],
 });
 
-export const working61 = duo('Alternator ko working principle ra exciter', {
+export const working61 = duo('Working principle of the alternator and the exciter', {
   draw: rotorFigure,
   viewBox: '0 0 360 222',
   tutor: [
@@ -406,7 +406,7 @@ export const working61 = duo('Alternator ko working principle ra exciter', {
   ],
 });
 
-export const rotatingAnswer61 = answer('Model answer: rotating field ra stationary armature ka phaida', {
+export const rotatingAnswer61 = answer('Model answer: advantages of a rotating field and stationary armature', {
   draw: rotorFigure,
   viewBox: '0 0 360 222',
   papers: ['2071 Magh'],
@@ -441,7 +441,7 @@ export const rotatingAnswer61 = answer('Model answer: rotating field ra stationa
   ],
 });
 
-export const salientAnswer61 = answer('Model answer: salient pole ra cylindrical rotor ko suitability', {
+export const salientAnswer61 = answer('Model answer: suitability of salient-pole and cylindrical rotors', {
   draw: rotorFigure,
   viewBox: '0 0 360 222',
   papers: ['2067 Mangsir'],
@@ -477,7 +477,7 @@ export const salientAnswer61 = answer('Model answer: salient pole ra cylindrical
 });
 
 /* ── 6.2 EMF equation, pitch and distribution factors ───────────────── */
-export const basics62 = duo('6.2 · Basic understanding: coil chhariyera rakhda voltage kina ali ghatcha?', {
+export const basics62 = duo('6.2 · Basic understanding: why does a distributed winding give slightly less voltage?', {
   three: syncTour([
     { shot: 'front', show: [...SM, 'lamps'], spin: 0.35, field: 1, lamp: 0.8, focus: ['salient', 'winding'], labels: [['magnet coil ko agadi', 'winding']] },
     { spin: 0.8, lamp: 1, focus: ['salient'], labels: [['chito: dherai cycle', 'salient']] },
@@ -588,7 +588,7 @@ export const basics62 = duo('6.2 · Basic understanding: coil chhariyera rakhda 
   ],
 });
 
-export const factors62 = duo('Pitch factor ra distribution factor', {
+export const factors62 = duo('Pitch factor and distribution factor', {
   draw: factorFigure,
   viewBox: '0 0 360 222',
   tutor: [
@@ -661,7 +661,7 @@ export const factors62 = duo('Pitch factor ra distribution factor', {
   ],
 });
 
-export const emf62 = duo('Derivation: alternator ko EMF equation', {
+export const emf62 = duo('Derivation: EMF equation of the alternator', {
   draw: factorFigure,
   viewBox: '0 0 360 222',
   tutor: [
@@ -734,7 +734,7 @@ export const emf62 = duo('Derivation: alternator ko EMF equation', {
   ],
 });
 
-export const emfAnswer62 = answer('Model answer: alternator ko EMF equation', {
+export const emfAnswer62 = answer('Model answer: EMF equation of the alternator', {
   draw: factorFigure,
   viewBox: '0 0 360 222',
   papers: ['2078 Baishakh'],
@@ -776,7 +776,7 @@ export const emfAnswer62 = answer('Model answer: alternator ko EMF equation', {
 });
 
 /* ── 6.3 Armature reaction, alternator on load ───────────────────────── */
-export const basics63 = duo('6.3 · Basic understanding: load anusar alternator ko voltage kina badlincha?', {
+export const basics63 = duo('6.3 · Basic understanding: why does the alternator voltage change with load?', {
   three: syncTour([
     { shot: 'lamps', show: GENSET, spin: 0.4, field: 1, lamp: 0, focus: ['lamps'], labels: [['no load', 'lamps']] },
     { lamp: 1, focus: ['winding', 'lamps'], labels: [['load: stator ma current', 'winding']] },
@@ -887,7 +887,7 @@ export const basics63 = duo('6.3 · Basic understanding: load anusar alternator 
   ],
 });
 
-export const ar63 = duo('Armature reaction: unity, lagging ra leading pf', {
+export const ar63 = duo('Armature reaction: unity, lagging and leading pf', {
   draw: altPhasorFigure,
   viewBox: '0 0 360 222',
   tutor: [
@@ -960,7 +960,7 @@ export const ar63 = duo('Armature reaction: unity, lagging ra leading pf', {
   ],
 });
 
-export const load63 = duo('Derivation: alternator on load ko phasor ra regulation', {
+export const load63 = duo('Derivation: alternator on load, phasor diagram and regulation', {
   draw: altPhasorFigure,
   viewBox: '0 0 360 222',
   tutor: [
@@ -1033,7 +1033,7 @@ export const load63 = duo('Derivation: alternator on load ko phasor ra regulatio
   ],
 });
 
-export const arAnswer63 = answer('Model answer: synchronous generator ma armature reaction', {
+export const arAnswer63 = answer('Model answer: armature reaction in a synchronous generator', {
   draw: altPhasorFigure,
   viewBox: '0 0 360 222',
   papers: ['2069 Bhadra', '2073 Chaitra', '2078 Poush'],
@@ -1080,7 +1080,7 @@ export const arAnswer63 = answer('Model answer: synchronous generator ma armatur
 });
 
 export const loadSolve63 = solve({
-  title: 'IOE 2073 Chaitra: same excitation ma leading pf ko voltage',
+  title: 'IOE 2073 Chaitra: voltage at leading pf with the same excitation',
   paper: '2073 Chaitra',
   paperVoice: 'दुई हजार त्रिहत्तर चैत',
   question: 'A 1200 kVA, 6600 V, 3-phase star connected stator of a synchronous generator has a armature resistance of 0.4 Ω/phase and synchronous reactance of 6 Ω/phase. The generator delivers full load current at pf of 0.8 lagging at normal rated voltage. Calculate the terminal voltage for the same excitation and load current at 0.8 pf leading.',
@@ -1126,7 +1126,7 @@ export const loadSolve63 = solve({
 });
 
 /* ── 6.4 Synchronous motor ────────────────────────────────────────────── */
-export const basics64 = duo('6.4 · Basic understanding: synchronous motor aafai kina start hudaina?', {
+export const basics64 = duo('6.4 · Basic understanding: why is a synchronous motor not self-starting?', {
   three: syncTour([
     { shot: 'front', show: MOTOR, field: 1, rmf: 0.6, spin: 0, flow: 0.7, focus: ['winding', 'supply'], labels: [['stator: ghumne magnet', 'winding']] },
     { focus: ['salient', 'fieldCoil'], labels: [['rotor: DC magnet', 'salient']] },
@@ -1237,7 +1237,7 @@ export const basics64 = duo('6.4 · Basic understanding: synchronous motor aafai
   ],
 });
 
-export const start64 = duo('Synchronous motor ko principle ra starting methods', {
+export const start64 = duo('Principle and starting methods of the synchronous motor', {
   draw: vCurveFigure,
   viewBox: '0 0 360 232',
   tutor: [
@@ -1310,7 +1310,7 @@ export const start64 = duo('Synchronous motor ko principle ra starting methods',
   ],
 });
 
-export const excitation64 = duo('Derivation: excitation ko asar, V-curves ra hunting', {
+export const excitation64 = duo('Derivation: effect of excitation, V-curves and hunting', {
   draw: vCurveFigure,
   viewBox: '0 0 360 232',
   tutor: [
@@ -1383,7 +1383,7 @@ export const excitation64 = duo('Derivation: excitation ko asar, V-curves ra hun
   ],
 });
 
-export const startAnswer64 = answer('Model answer: synchronous motor self-starting kina hudaina ra damper starting', {
+export const startAnswer64 = answer('Model answer: why a synchronous motor is not self-starting, and damper starting', {
   draw: vCurveFigure,
   viewBox: '0 0 360 232',
   papers: ['2070 Magh', '2068 Magh', '2065 Chaitra'],
@@ -1424,7 +1424,7 @@ export const startAnswer64 = answer('Model answer: synchronous motor self-starti
   ],
 });
 
-export const excitationAnswer64 = answer('Model answer: synchronous motor ma excitation ko asar', {
+export const excitationAnswer64 = answer('Model answer: effect of excitation on a synchronous motor', {
   draw: vCurveFigure,
   viewBox: '0 0 360 232',
   papers: ['2070 Bhadra', '2072 Ashwin', '2075 Baishakh', '2071 Chaitra'],
@@ -1465,10 +1465,10 @@ export const excitationAnswer64 = answer('Model answer: synchronous motor ma exc
   ],
 });
 
-const t61 = topic({ num: '6.1', title: 'Alternator: construction, rotor types ra working', opener: basics61, derive: [construction61, working61], picture: [rotatingAnswer61, salientAnswer61] });
-const t62 = topic({ num: '6.2', title: 'Alternator EMF equation, pitch ra distribution factor', opener: basics62, derive: [factors62, emf62], picture: [emfAnswer62] });
-const t63 = topic({ num: '6.3', title: 'Armature reaction ra alternator on load', opener: basics63, derive: [ar63, load63], picture: [arAnswer63, loadSolve63] });
-const t64 = topic({ num: '6.4', title: 'Synchronous motor: principle, starting ra excitation', opener: basics64, derive: [start64, excitation64], picture: [startAnswer64, excitationAnswer64] });
+const t61 = topic({ num: '6.1', title: 'Three Phase Synchronous Generator: Constructional Details, Armature Windings, Types of Rotor, Exciter · Working Principle', opener: basics61, derive: [construction61, working61], picture: [rotatingAnswer61, salientAnswer61] });
+const t62 = topic({ num: '6.2', title: 'EMF equation, distribution factor, pitch factor', opener: basics62, derive: [factors62, emf62], picture: [emfAnswer62] });
+const t63 = topic({ num: '6.3', title: 'Armature Reaction and its effects · Alternator with load and its phasor diagram', opener: basics63, derive: [ar63, load63], picture: [arAnswer63, loadSolve63] });
+const t64 = topic({ num: '6.4', title: 'Three Phase Synchronous Motor: Principle of operation · Starting methods · No load and Load operation, Phasor Diagram · Effect of Excitation and power factor control', opener: basics64, derive: [start64, excitation64], picture: [startAnswer64, excitationAnswer64] });
 
 export const unit6 = {
   topics: [t61, t62, t63, t64],

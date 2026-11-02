@@ -14,7 +14,7 @@ const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
 // threePointFigure / fourPointFigure: 0 starter · 1 handle on stud 1 ·
 // 2 handle at run, held · 3 NVC · 4 OLR contacts.
 
-export const opener44 = duo('4.4 ma k padhne?', {
+export const opener44 = duo('4.4 · Overview', {
   draw: startFigure,
   viewBox: '0 0 360 206',
   tutor: [
@@ -64,7 +64,7 @@ export const opener44 = duo('4.4 ma k padhne?', {
 });
 
 /* ── Terms: why a starter ────────────────────────────────────────────── */
-export const need44 = duo('Derivation: starter kina chahincha', {
+export const need44 = duo('Derivation: why a starter is needed', {
   draw: startFigure,
   viewBox: '0 0 360 206',
   tutor: [
@@ -266,7 +266,7 @@ export const four44 = duo('4-point starter', {
 });
 
 /* ── Derivation: starting current and starter resistance ─────────────── */
-export const starterR44 = duo('Derivation: starting current ra starter resistance', {
+export const starterR44 = duo('Derivation: starting current and starter resistance', {
   draw: startFigure,
   viewBox: '0 0 360 206',
   tutor: [
@@ -340,7 +340,7 @@ export const starterR44 = duo('Derivation: starting current ra starter resistanc
 });
 
 /* ── Big picture: necessity of a starter and the 3-point starter ─────── */
-export const starterAnswer44 = answer('Model answer: starter ko necessity ra 3-point starter', {
+export const starterAnswer44 = answer('Model answer: necessity of a starter and the 3-point starter', {
   draw: figAt(threePointFigure, { 0: 0, 1: 3, 2: 4, 3: 5, 4: 6 }),
   viewBox: '0 0 370 280',
   papers: ['2075 Baisakh', '2074 Bhadra', '2073 Bhadra', '2070 Bhadra', '2068 Magh', '2066 Magh', '2083 Baishakh (ECM)'],

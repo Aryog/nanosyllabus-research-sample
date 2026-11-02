@@ -31,4 +31,5 @@ export const TERMS = {
   F: 'force',
   r: 'radius',
   '\\tau': 'torque',
+  J: 'moment of inertia',
 };

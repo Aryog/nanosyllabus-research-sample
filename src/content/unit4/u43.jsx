@@ -14,7 +14,7 @@ import { effFigure, flowFigure, lossFigure } from './figs.jsx';
 const tex = (s) => <K>{s}</K>;
 const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
 
-export const opener43 = duo('4.3 ma k padhne?', {
+export const opener43 = duo('4.3 · Overview', {
   draw: lossFigure,
   viewBox: '0 0 360 230',
   tutor: [
@@ -64,7 +64,7 @@ export const opener43 = duo('4.3 ma k padhne?', {
 });
 
 /* ── Terms: losses ───────────────────────────────────────────────────── */
-export const losses43 = duo('DC motor ka losses', {
+export const losses43 = duo('Losses in a DC motor', {
   draw: lossFigure,
   viewBox: '0 0 360 230',
   tutor: [
@@ -138,7 +138,7 @@ export const losses43 = duo('DC motor ka losses', {
 });
 
 /* ── Terms: power flow and efficiency ────────────────────────────────── */
-export const flow43 = duo('Derivation: power flow ra efficiency', {
+export const flow43 = duo('Derivation: power flow and efficiency', {
   draw: flowFigure,
   viewBox: '0 0 360 180',
   tutor: [
@@ -212,7 +212,7 @@ export const flow43 = duo('Derivation: power flow ra efficiency', {
 });
 
 /* ── Derivation: condition for maximum efficiency ────────────────────── */
-export const maxEff43 = duo('Derivation: maximum efficiency ko condition', {
+export const maxEff43 = duo('Derivation: condition for maximum efficiency', {
   draw: effFigure,
   viewBox: '0 0 360 226',
   tutor: [
@@ -286,7 +286,7 @@ export const maxEff43 = duo('Derivation: maximum efficiency ko condition', {
 });
 
 /* ── Big picture: the two numericals ─────────────────────────────────── */
-export const eff2074 = answer('IOE 2074 Bhadra: EMF, copper loss ra efficiency', {
+export const eff2074 = answer('IOE 2074 Bhadra: EMF, copper loss and efficiency', {
   papers: ['2074 Bhadra'],
   marks: '',
   q: 'A shunt generator delivers 30 kW at 200 V. Ra = 0.05 Ω, Rsh = 50 Ω, iron and friction losses = 1000 W. Find (i) the EMF, (ii) the copper losses, (iii) the efficiency.',
@@ -326,7 +326,7 @@ export const eff2074 = answer('IOE 2074 Bhadra: EMF, copper loss ra efficiency',
   ],
 });
 
-export const eff2083 = answer('IOE 2083 Baishakh: EMF ra commercial efficiency', {
+export const eff2083 = answer('IOE 2083 Baishakh: EMF and commercial efficiency', {
   papers: ['2083 Baishakh (ECM)'],
   marks: '[5]',
   q: 'A shunt generator delivers 96 A at 200 V. Ra = 0.1 Ω, Rsh = 50 Ω, iron and friction losses = 2500 W. Find (a) the EMF, (b) the commercial efficiency.',

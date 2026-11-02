@@ -1,3 +1,4 @@
+import { backEmfS41, commS41, emfS41, principleS41, torqueForceS41, torquePowerS41, voltageS41 } from './unit4/s41.jsx';
 import { C, extra, overview, segments, topic } from './video/kit.jsx';
 import { Ask, Battery, Crane, Face, Fan, MagnetWire, Note, Paper } from './video/doodles.jsx';
 import { backEmfAnswer, characteristicsAnswer, starterAnswer, testingAnswer, torqueAnswer } from './video/picture.jsx';
@@ -36,17 +37,17 @@ import { retardation, swinburne, testIntro, testingModel } from './video/testing
 
 const t41 = topic({
   num: '4.1',
-  title: 'Working principle, back EMF ra torque equation',
+  title: 'Working principle and Torque equation · Back EMF',
   opener: basics41,
   terms: [],
-  derive: [principle41, torque41, backEmf41, backEmfDerivation, voltageEquation, torqueDerivation, torqueFromPower],
+  derive: [principleS41, commS41, backEmfS41, emfS41, voltageS41, torqueForceS41, torquePowerS41],
   picture: [torqueAnswer41, backEmfAnswer41],
-  extras: [opener41, vibe41, torqueProduction3d, story, torqueProduction, ch3Model, whyItMoves, howBig, fleming, ch1Model, crossSection, commutatorAction, lapWave, emfDerivation, emfIoe, ch2Model, torqueFactors, voltagePower, maxPower, speedEq, ch4Model],
+  extras: [principle41, torque41, backEmf41, backEmfDerivation, voltageEquation, torqueDerivation, torqueFromPower, opener41, vibe41, torqueProduction3d, story, torqueProduction, ch3Model, whyItMoves, howBig, fleming, ch1Model, crossSection, commutatorAction, lapWave, emfDerivation, emfIoe, ch2Model, torqueFactors, voltagePower, maxPower, speedEq, ch4Model],
 });
 
 const t42 = topic({
   num: '4.2',
-  title: 'DC motor ka types, characteristics ra applications',
+  title: 'Method of excitation, Types of DC motor · Performance Characteristics of D.C. motors',
   opener: basics42,
   terms: [],
   derive: [types42, chars42, equations42, shunt42, series42],
@@ -56,7 +57,7 @@ const t42 = topic({
 
 const t43 = topic({
   num: '4.3',
-  title: 'Losses ra efficiency',
+  title: 'Losses and Efficiency',
   opener: basics43,
   terms: [],
   derive: [losses43, flow43, maxEff43],
@@ -66,7 +67,7 @@ const t43 = topic({
 
 const t44 = topic({
   num: '4.4',
-  title: 'Starting: 3-point ra 4-point starter',
+  title: 'Starting of D.C. Motors: 3 point and 4 point starters',
   opener: basics44,
   terms: [],
   derive: [need44, starterR44, three44, four44],
@@ -76,7 +77,7 @@ const t44 = topic({
 
 const t45 = topic({
   num: '4.5',
-  title: 'Speed control: series, shunt ra direction reverse',
+  title: 'Speed control of D.C. motors: Field Control, Armature Control',
   opener: basics45,
   terms: [],
   derive: [knobs45, speedEq45, field45, armature45, seriesRev45],
@@ -86,7 +87,7 @@ const t45 = topic({
 
 const t46 = topic({
   num: '4.6',
-  title: 'Testing: Retardation test ra Swinburne’s test',
+  title: 'Losses and Efficiency: testing to find the losses (Swinburne’s and retardation tests)',
   opener: basics46,
   terms: [],
   derive: [why46, swin46, swinEff46, retard46, retardDer46],

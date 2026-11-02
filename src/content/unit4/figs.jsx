@@ -1,4 +1,5 @@
 import { C } from '../video/kit.jsx';
+import { symTree } from '../sym.jsx';
 
 /*
   Textbook figures for Unit 4 (skill rules 35, 46): thin single-ink outlines,
@@ -15,7 +16,7 @@ const T = ({ x, y, children, a = 'middle', size = 10.5, i = false, b = false }) 
   // Size inline: the player's `.scene-svg text` rule would otherwise set every
   // label to one size and stack them on top of each other.
   <text x={x} y={y} textAnchor={a} style={{ fontSize: size }} fontStyle={i ? 'italic' : 'normal'} fontWeight={b ? 700 : 400} fill={C.chalk}>
-    {children}
+    {symTree(children, true)}
   </text>
 );
 const Cap = ({ x = 180, y, children }) => <T x={x} y={y} i size={10.5}>{children}</T>;
@@ -131,14 +132,84 @@ export const forceFigure = (s) => (
   </>
 );
 
+/* ── 4.1: action of the commutator (notes: Fig (a), Fig (b) after 180°) ── */
+// 0 poles, field, coil a–a′, commutator and brushes · 1 currents in (a) ·
+// 2 forces and torque in (a) · 3 (b) after 180°: the commutator has reversed
+// the coil current, the forces and torque keep their direction · 4 MNA.
+const commPanel = (s, cx, after) => {
+  const L = after ? 'a′' : 'a';
+  const R = after ? 'a' : 'a′';
+  return (
+    <>
+      <g className={after ? s.on(3) + s.hl(3) : s.on(0)}>
+        <W d={`M${cx - 80} 52 H${cx - 58} V132 H${cx - 80} Z`} />
+        <W d={`M${cx + 58} 52 H${cx + 80} V132 H${cx + 58} Z`} />
+        <T x={cx - 69} y={97} b size={13}>N</T>
+        <T x={cx + 69} y={97} b size={13}>S</T>
+        {[62, 122].map((y) => (
+          <g key={y}>
+            <W d={`M${cx - 58} ${y} H${cx + 58}`} w={0.8} dash="4 3" />
+            {head(cx + 4, y, 'right', 5)}
+          </g>
+        ))}
+        <path d={`M${cx - 34} 84 Q${cx} 30 ${cx + 34} 84`} {...INK} strokeWidth={0.9} strokeDasharray="3 2" />
+        <circle cx={cx - 34} cy={92} r={8} fill={C.board} stroke={C.chalk} strokeWidth={1.2} />
+        <circle cx={cx + 34} cy={92} r={8} fill={C.board} stroke={C.chalk} strokeWidth={1.2} />
+        <T x={cx - 34} y={113} i size={10}>{L}</T>
+        <T x={cx + 34} y={113} i size={10}>{R}</T>
+        <W d={`M${cx - 34} 100 L${cx - 11} 166 M${cx + 34} 100 L${cx + 11} 166`} w={0.8} />
+        <path d={`M${cx - 2} 164 A11 11 0 0 0 ${cx - 2} 186`} {...INK} strokeWidth={1.6} />
+        <path d={`M${cx + 2} 164 A11 11 0 0 1 ${cx + 2} 186`} {...INK} strokeWidth={1.6} />
+        <rect x={cx - 23} y={170} width={8} height={10} {...INK} />
+        <rect x={cx + 15} y={170} width={8} height={10} {...INK} />
+        <T x={cx - 29} y={179} a="end" size={11}>+</T>
+        <T x={cx + 29} y={179} a="start" size={11}>−</T>
+        <T x={cx} y={206} i size={10}>{after ? '(b) after 180° rotation' : '(a)'}</T>
+      </g>
+      <g className={after ? s.on(3) : s.on(1) + s.hl(1)}>
+        {cond(cx - 34, 92, 'in', 8)}
+        {cond(cx + 34, 92, 'out', 8)}
+      </g>
+      <g className={after ? s.on(3) : s.on(2) + s.hl(2)}>
+        <W d={`M${cx - 19} 82 V106`} w={1.3} />
+        {head(cx - 19, 112, 'down', 6)}
+        <W d={`M${cx + 19} 102 V78`} w={1.3} />
+        {head(cx + 19, 72, 'up', 6)}
+        <path d={`M${cx - 30} 138 A44 44 0 0 0 ${cx + 26} 140`} {...INK} strokeWidth={1.2} />
+        {head(cx + 31, 137, 'right', 6)}
+        <T x={cx} y={156} i size={10.5}>Ta</T>
+      </g>
+      <g className={s.on(4) + s.hl(4)}>
+        <W d={`M${cx} 40 V150`} w={0.8} dash="6 3 1.5 3" />
+        <T x={cx + 3} y={37} size={9} a="start">MNA</T>
+      </g>
+    </>
+  );
+};
+export const commFigure = (s) => (
+  <>
+    {commPanel(s, 95, false)}
+    {commPanel(s, 265, true)}
+    <g className={s.on(0)}>
+      <Cap y={236}>Fig. 2  Action of the commutator</Cap>
+    </g>
+  </>
+);
+
 /* ── 4.2: methods of excitation (Fig. 2) ──────────────────────────────── */
-// One panel per type: 0 separately excited · 1 shunt · 2 series · 3 compound.
+// One panel per type: 0 separately excited · 1 shunt · 2 series ·
+// 3 long-shunt compound (shunt across armature + series field) ·
+// 4 short-shunt compound (shunt across the armature only).
 const panel = (ox, oy, kind, cap) => {
   const top = oy + 18;
   const bot = oy + 92;
   const ax = ox + 140;
-  const shunt = kind === 'shunt' || kind === 'compound';
-  const series = kind === 'series' || kind === 'compound';
+  const shunt = kind === 'shunt' || kind === 'long' || kind === 'short';
+  const series = kind === 'series' || kind === 'long' || kind === 'short';
+  // Long shunt: series coil next to the armature, shunt tapped before it.
+  // Short shunt: series coil next to the supply, shunt tapped after it.
+  const [s1, s2] = kind === 'short' ? [ox + 30, ox + 58] : [ox + 96, ox + 124];
+  const tap = kind === 'short' ? ox + 100 : ox + 70;
   return (
     <g>
       <Term x={ox + 16} y={top} sign="+" />
@@ -146,9 +217,9 @@ const panel = (ox, oy, kind, cap) => {
       <T x={ox + 6} y={(top + bot) / 2 + 4} a="end" i>V</T>
       {series ? (
         <>
-          <W d={`M${ox + 19} ${top} H${ox + 96}`} />
-          <CoilH x1={ox + 96} x2={ox + 124} y={top} label="Rse" ly={-8} />
-          <W d={`M${ox + 124} ${top} H${ax}`} />
+          <W d={`M${ox + 19} ${top} H${s1}`} />
+          <CoilH x1={s1} x2={s2} y={top} label="Rse" ly={-8} />
+          <W d={`M${s2} ${top} H${ax}`} />
         </>
       ) : (
         <W d={`M${ox + 19} ${top} H${ax}`} />
@@ -157,8 +228,10 @@ const panel = (ox, oy, kind, cap) => {
       <Arm x={ax} y={(top + bot) / 2} />
       {shunt && (
         <>
-          <W d={`M${ox + 70} ${top} V${top + 14} M${ox + 70} ${bot - 14} V${bot}`} />
-          <CoilV x={ox + 70} y1={top + 14} y2={bot - 14} label="Rsh" lx={-8} a="end" />
+          <circle cx={tap} cy={top} r={1.8} fill={C.chalk} />
+          <circle cx={tap} cy={bot} r={1.8} fill={C.chalk} />
+          <W d={`M${tap} ${top} V${top + 14} M${tap} ${bot - 14} V${bot}`} />
+          <CoilV x={tap} y1={top + 14} y2={bot - 14} label="Rsh" lx={-8} a="end" />
         </>
       )}
       {kind === 'separate' && (
@@ -170,7 +243,7 @@ const panel = (ox, oy, kind, cap) => {
           <T x={ox + 52} y={(top + bot) / 2 + 12} a="end" i>Vf</T>
         </>
       )}
-      <Cur x={ox + 40} y={top} label="IL" ly={-6} />
+      <Cur x={kind === 'short' ? ox + 26 : ox + 40} y={top} label="IL" ly={-6} />
       <Cur x={ax} y={top + 12} dir="down" label="Ia" lx={14} ly={4} />
       <Cap x={ox + 80} y={oy + 112}>{cap}</Cap>
     </g>
@@ -178,11 +251,12 @@ const panel = (ox, oy, kind, cap) => {
 };
 export const typesFigure = (s) => (
   <>
-    <g className={s.on(0) + s.hl(0)}>{panel(20, 0, 'separate', '(a) Separately excited')}</g>
+    <g className={s.on(0) + s.hl(0)}>{panel(14, 0, 'separate', '(a) Separately excited')}</g>
     <g className={s.on(1) + s.hl(1)}>{panel(190, 0, 'shunt', '(b) Shunt')}</g>
-    <g className={s.on(2) + s.hl(2)}>{panel(20, 124, 'series', '(c) Series')}</g>
-    <g className={s.on(3) + s.hl(3)}>{panel(190, 124, 'compound', '(d) Compound (long shunt)')}</g>
-    <Cap y={262}>Fig. 2  Methods of excitation</Cap>
+    <g className={s.on(2) + s.hl(2)}>{panel(366, 0, 'series', '(c) Series')}</g>
+    <g className={s.on(3) + s.hl(3)}>{panel(102, 128, 'long', '(d) Long-shunt compound')}</g>
+    <g className={s.on(4) + s.hl(4)}>{panel(278, 128, 'short', '(e) Short-shunt compound')}</g>
+    <Cap x={270} y={268}>Fig. 2  Methods of excitation of a DC motor</Cap>
   </>
 );
 

@@ -1162,3 +1162,40 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .tm-legend .tm-item { white-space: nowrap; opacity: 0; }
 .tm-legend .tm-item .tex { font-style: normal; color: var(--chalk); }
 .board-line.on .tm-legend .tm-item { animation: tmin 0.4s ease-out calc(var(--wd, 1s) + 0.3s + var(--i, 0) * 0.12s) both; }
+
+/* ── Layout kit (user, 2026-11-02: plan the canvas ahead) ─────────────────
+   Zones: heading/question on top, main board left, figure right. A branch
+   scene takes the figure's place for its beats; a "Remember" card opens the
+   board; results carried to a new page stay as short lines. */
+.scene-cam.split > .board { grid-column: 1; grid-row: 1; }
+.scene-cam.split > .scene-svg, .scene-cam.split > .stage3d, .scene-cam.split > .branch-zone { grid-column: 2; grid-row: 1; }
+.scene-cam.split > .branch-zone { z-index: 2; align-self: center; }
+.scene-cam > .scene-svg, .scene-cam > .stage3d { transition: opacity 0.35s ease; }
+.scene-cam.branching.split > .scene-svg, .scene-cam.branching.split > .stage3d { opacity: 0.07; }
+.scene-cam.branching:not(.split) > .scene-svg { display: none; }
+.branch-zone { padding: 4px; }
+.branch-card { border: 1.5px dashed var(--c-violet); border-radius: 12px; padding: 10px 14px 12px; background: color-mix(in srgb, var(--c-violet) 6%, transparent); font-size: calc(var(--bs) * 0.9); line-height: 1.45; color: var(--chalk); }
+.branch-card.now { animation: branchin 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes branchin { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+.branch-title { display: block; font-weight: 700; font-size: 0.8em; letter-spacing: 0.02em; color: var(--c-violet); margin-bottom: 6px; }
+.branch-body .pts { margin: 0; }
+.branch-body svg { display: block; width: 100%; max-height: 9em; margin: 4px 0; }
+.branch-body svg text { fill: currentColor; }
+.branch-back { display: block; margin-top: 8px; font-size: 0.72em; font-weight: 600; color: var(--c-violet); opacity: 0.85; }
+.board-line.kind-recall { border-left: 3px solid var(--c-violet); padding: 4px 10px !important; margin: 2px 0 8px; background: color-mix(in srgb, var(--c-violet) 6%, transparent); border-radius: 0 8px 8px 0; font-size: calc(var(--bs) * 0.86); }
+.board-line.kind-recall .ink::before { content: 'Remember'; display: block; font-size: 0.72em; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-violet); }
+.board-line.carried { font-size: calc(var(--bs) * 0.74); opacity: 0.85 !important; padding: 0 !important; }
+.board-line.carried .ink::before { content: '✓ '; color: var(--c-green); font-weight: 700; }
+.board-line.carried .lbl { display: inline; margin: 0 4px 0 0; }
+.tex .unit { font-size: 0.78em; opacity: 0.75; }
+.sym sub, .scene-caption sub, .scene-ask sub { font-size: 0.72em; line-height: 0; }
+/* An inline ink with a block label is clipped to its first row by the write
+   animation; the Remember card's ink is a block. Branch maths in Poppins. */
+.board-line.kind-recall .ink { display: block; }
+.branch-card .katex,
+.branch-card .katex :is(.mathnormal, .mathit, .mathrm, .textrm, .mainrm, .amsrm, .mathbf) { font-family: var(--hand); }
+.branch-card .katex .mathnormal { font-style: italic; }
+.branch-card .katex { font-size: 1.02em; color: inherit; }
+.scene.look-blue .branch-card { background: rgba(9, 50, 110, 0.94); }
+.scene.look-book .branch-card { background: #fbfaff; }
+.board-line.kind-recall .ink { animation-duration: 0.8s !important; }

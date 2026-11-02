@@ -326,8 +326,14 @@ export function backEmf41(THREE, scene) {
   scene.add(meter);
   // Wires: cell + → meter → motor → back to cell −.
   const wire = (pts) => {
-    const curve = new THREE.CatmullRomCurve3(pts.map((p) => new THREE.Vector3(...p)));
-    const m = new THREE.Mesh(new THREE.TubeGeometry(curve, 40, 0.035, 8), mat(0xd9480f, { roughness: 0.5 }));
+    const curve = new THREE.CatmullRomCurve3(pts.map((p) => new THREE.Vector3(...p)), false, 'centripetal');
+    const wm = mat(0xd9480f, { roughness: 0.5 });
+    const m = new THREE.Mesh(new THREE.TubeGeometry(curve, 160, 0.035, 12), wm);
+    for (const t of [0, 1]) {
+      const cap = new THREE.Mesh(new THREE.SphereGeometry(0.035, 12, 8), wm);
+      cap.position.copy(curve.getPoint(t));
+      m.add(cap);
+    }
     scene.add(m);
     return m;
   };

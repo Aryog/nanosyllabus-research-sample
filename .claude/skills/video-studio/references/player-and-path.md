@@ -27,3 +27,5 @@ Extra practice (`extras`) is offered after the course, grouped by topic.
 
 - **POV is kept per segment** (`dcm-pov-1`, `dcm-pov-2`, `dcm-pov-3`): Terms and Derivation open on the **Tutor**, Big picture on the Lecturer (locked), until the viewer changes that segment. The Lecturer's theme defaults to **Blue** (`dcm-lecturer-theme`, White on request).
 
+
+- **Keyboard** (user, 2026-11-02): Space plays/pauses; ← and → skip 5 s back and ahead (`SKIP` in `Scene.jsx`), across chapters of the segment; not while a question waits for an answer.

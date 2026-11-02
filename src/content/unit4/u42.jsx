@@ -1,4 +1,5 @@
 import { K, Pts, answer, duo, figAt } from '../video/kit.jsx';
+import { br, rem } from '../video/kit.jsx';
 import { curvesFigure, typesFigure } from './figs.jsx';
 
 /*
@@ -12,7 +13,7 @@ import { curvesFigure, typesFigure } from './figs.jsx';
 const tex = (s) => <K>{s}</K>;
 const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
 
-export const opener42 = duo('4.2 ma k padhne?', {
+export const opener42 = duo('4.2 · Overview', {
   draw: typesFigure,
   viewBox: '0 0 360 270',
   tutor: [
@@ -62,19 +63,19 @@ export const opener42 = duo('4.2 ma k padhne?', {
 });
 
 /* ── Terms: methods of excitation and types ──────────────────────────── */
-export const types42 = duo('Excitation ra DC motor ka types', {
+export const types42 = duo('Method of excitation and types of DC motor', {
   draw: typesFigure,
-  viewBox: '0 0 360 270',
+  viewBox: '0 0 540 276',
   tutor: [
     {
-      say: 'Field winding lai current dinu nai excitation ho. Separately excited motor ma field lai chhuttai supply V f bata current aaucha.',
-      voice: 'फिल्ड वाइन्डिङलाई करेन्ट दिनु नै एक्साइटेसन हो। सेपरेटली एक्साइटेड मोटरमा, फिल्डलाई छुट्टै सप्लाई भी एफबाट करेन्ट आउँछ।',
-      lines: [['h', <>Methods of excitation</>], ['step', <>(a) Separately excited: field from its own supply V<sub>f</sub></>]],
+      say: 'Yaad garau: shunt bhaneko parallel, series bhaneko ekai bato ma. Field winding lai current dinu nai excitation ho. Separately excited motor ma field lai chhuttai supply V f bata current aaucha.',
+      voice: 'याद गरौं — शन्ट भनेको प्यारालल, सिरिज भनेको एकै बाटोमा। फिल्ड वाइन्डिङलाई करेन्ट दिनु नै एक्साइटेसन हो। सेपरेटली एक्साइटेड मोटरमा, फिल्डलाई छुट्टै सप्लाई भी एफबाट करेन्ट आउँछ।',
+      lines: [['h', <>Methods of excitation</>], rem(<>Shunt = in parallel · series = in the same path</>), ['step', <>(a) Separately excited: field from its own supply V<sub>f</sub></>]],
     },
     {
-      say: 'Shunt motor ma field armature sanga parallel ma jodincha. Field ma pura V lagcha, tesaile flux lagbhag constant rahancha.',
-      voice: 'शन्ट मोटरमा, फिल्ड आर्मेचरसँग प्याराललमा जोडिन्छ। फिल्डमा पूरा भी लाग्छ, त्यसैले फ्लक्स लगभग कन्स्टेन्ट रहन्छ।',
-      lines: [['step', <>(b) Shunt: field across the supply → φ ≈ constant</>]],
+      say: 'Shunt motor ma field armature sanga parallel ma jodincha. Field ma pura V lagcha, tesaile flux lagbhag constant rahancha. Line current dui bhag huncha: I L equals I a plus I sh.',
+      voice: 'शन्ट मोटरमा, फिल्ड आर्मेचरसँग प्याराललमा जोडिन्छ। फिल्डमा पूरा भी लाग्छ, त्यसैले फ्लक्स लगभग कन्स्टेन्ट रहन्छ। लाइन करेन्ट दुई भाग हुन्छ — आई एल इक्वल्स आई ए प्लस आई एस एच।',
+      lines: [['step', <>(b) Shunt: field across the supply → φ ≈ constant; <K>{String.raw`I_L = I_a + I_{sh}`}</K></>]],
       ask: {
         q: 'Shunt motor ma field winding armature sanga kasari jodiyeko huncha?',
         voice: 'शन्ट मोटरमा, फिल्ड वाइन्डिङ आर्मेचरसँग कसरी जोडिएको हुन्छ?',
@@ -84,30 +85,47 @@ export const types42 = duo('Excitation ra DC motor ka types', {
       },
     },
     {
-      say: 'Series motor ma field armature sanga series ma huncha, tesaile sampurna armature current field bata bagcha. Flux armature current sanga badhcha.',
-      voice: 'सिरिज मोटरमा, फिल्ड आर्मेचरसँग सिरिजमा हुन्छ, त्यसैले सम्पूर्ण आर्मेचर करेन्ट फिल्डबाट बग्छ। फ्लक्स, आर्मेचर करेन्टसँग बढ्छ।',
-      lines: [['step', <>(c) Series: field in series → <K>{String.raw`\phi \propto I_a`}</K> (before saturation)</>]],
+      say: 'Series motor ma field armature sanga series ma huncha, arthat sampurna armature current field bata bagcha. Flux armature current sanga badhcha.',
+      voice: 'सिरिज मोटरमा, फिल्ड आर्मेचरसँग सिरिजमा हुन्छ — अर्थात सम्पूर्ण आर्मेचर करेन्ट फिल्डबाट बग्छ। फ्लक्स, आर्मेचर करेन्टसँग बढ्छ।',
+      lines: [['step', <>(c) Series: field in series → <K>{String.raw`I_L = I_a = I_{se}`}</K>, <K>{String.raw`\phi \propto I_a`}</K> (before saturation)</>]],
     },
     {
-      say: 'Compound motor ma dubai field hunchan: shunt ra series. Figure ma long shunt cha, jasma shunt field series field ra armature dubai ko parallel ma cha.',
-      voice: 'कम्पाउन्ड मोटरमा दुवै फिल्ड हुन्छन् — शन्ट र सिरिज। फिगरमा लङ शन्ट छ, जसमा शन्ट फिल्ड, सिरिज फिल्ड र आर्मेचर दुवैको प्याराललमा छ।',
-      lines: [['step', <>(d) Compound: shunt + series field (long shunt shown)</>]],
+      say: 'Compound motor ma dubai field hunchan, shunt ra series. Long shunt ma shunt field armature ra series field dubai ko across huncha, tesaile series field ma I a nai bagcha.',
+      voice: 'कम्पाउन्ड मोटरमा दुवै फिल्ड हुन्छन् — शन्ट र सिरिज। लङ शन्टमा, शन्ट फिल्ड आर्मेचर र सिरिज फिल्ड दुवैको अक्रस हुन्छ, त्यसैले सिरिज फिल्डमा आई ए नै बग्छ।',
+      lines: [['step', <>(d) Long shunt: shunt field across (armature + series field) → series field carries I<sub>a</sub></>]],
     },
     {
-      say: 'Short shunt ma bhane shunt field armature ko matra parallel ma huncha. Dubai field ko flux jodiye cumulative, ghatiye differential compound.',
-      voice: 'सर्ट शन्टमा भने, शन्ट फिल्ड आर्मेचरको मात्र प्याराललमा हुन्छ। दुवै फिल्डको फ्लक्स जोडिए क्युमुलेटिभ, घटिए डिफरेन्सियल कम्पाउन्ड।',
-      lines: [['step', <>Short shunt: shunt field across the armature only · cumulative (fluxes add) or differential (oppose)</>]],
+      say: 'Short shunt ma shunt field armature ko matra across huncha. Yasari series field ma pura line current I L bagcha.',
+      voice: 'सर्ट शन्टमा, शन्ट फिल्ड आर्मेचरको मात्र अक्रस हुन्छ। यसरी सिरिज फिल्डमा पूरा लाइन करेन्ट आई एल बग्छ।',
+      lines: [['step', <>(e) Short shunt: shunt field across the armature only → series field carries I<sub>L</sub></>]],
+    },
+    {
+      say: 'Kun ho kasari chinne? Shunt field kaha bata tap gareko cha, tyo hernu parcha. Series field bhanda pahila supply tira bhaye long shunt, series field pachhi armature tira bhaye short shunt.',
+      voice: 'कुन हो कसरी चिन्ने? शन्ट फिल्ड कहाँबाट ट्याप गरेको छ, त्यो हेर्नुपर्छ। सिरिज फिल्डभन्दा पहिला सप्लाईतिर भए लङ शन्ट, सिरिज फिल्डपछि आर्मेचरतिर भए सर्ट शन्ट।',
+      lines: [br('Long or short shunt?', <Pts items={[<>Find where the shunt field is tapped</>, <>Before the series field (at the supply): <b>long</b> shunt, I<sub>se</sub> = I<sub>a</sub></>, <>After it (at the armature): <b>short</b> shunt, I<sub>se</sub> = I<sub>L</sub></>]} />)],
+    },
+    {
+      say: 'Main kura ma farkau. Dubai field ko flux ek arka lai sahayog gare cumulative compound, ek arka ko ulto bhaye differential compound.',
+      voice: 'मेन कुरामा फर्कौं। दुवै फिल्डको फ्लक्स एक अर्कालाई सहयोग गरे क्युमुलेटिभ कम्पाउन्ड, एक अर्काको उल्टो भए डिफरेन्सियल कम्पाउन्ड।',
+      lines: [['step', <K>{String.raw`\begin{aligned} \text{Cumulative: } \phi &= \phi_{sh} + \phi_{se} \\ \text{Differential: } \phi &= \phi_{sh} - \phi_{se} \end{aligned}`}</K>]],
+      ask: {
+        q: 'Short-shunt compound motor ma series field ma kun current bagcha?',
+        voice: 'सर्ट शन्ट कम्पाउन्ड मोटरमा, सिरिज फिल्डमा कुन करेन्ट बग्छ?',
+        options: ['Line current IL', 'Armature current Ia matra', 'Shunt current Ish'],
+        answer: 0,
+        why: 'Short shunt ma shunt field armature ko matra across; series field supply sanga series ma, tesaile IL bagcha.',
+      },
     },
   ],
   lecturer: [
     {
-      say: 'Excitation: field winding lai current dine tarika. Separately excited motor ma field winding chhuttai DC source V f bata excite huncha.',
-      voice: 'एक्साइटेसन — फिल्ड वाइन्डिङलाई करेन्ट दिने तरिका। सेपरेटली एक्साइटेड मोटरमा, फिल्ड वाइन्डिङ छुट्टै डी सी सोर्स भी एफबाट एक्साइट हुन्छ।',
-      lines: [['h', <>Methods of excitation (Fig. 2)</>], ['step', <><Pts items={[<>(a) Separately excited: field fed from a separate DC source V<sub>f</sub></>]} /></>]],
+      say: 'Smaran: shunt arthat parallel, series arthat eutai path. Excitation bhaneko field winding lai current dine tarika. Separately excited motor ma field chhuttai DC source V f bata excite huncha.',
+      voice: 'स्मरण — शन्ट अर्थात प्यारालल, सिरिज अर्थात एउटै पाथ। एक्साइटेसन भनेको फिल्ड वाइन्डिङलाई करेन्ट दिने तरिका। सेपरेटली एक्साइटेड मोटरमा, फिल्ड छुट्टै डी सी सोर्स भी एफबाट एक्साइट हुन्छ।',
+      lines: [['h', <>Methods of excitation (Fig. 2)</>], rem(<>Shunt: parallel · series: same path</>), ['step', <>(a) Separately excited: field fed from a separate DC source V<sub>f</sub></>]],
     },
     {
       say: 'Self-excited, shunt: field winding armature ko parallel ma, supply ko across. Shunt field ma dherai turns ra high resistance huncha.',
-      voice: 'सेल्फ एक्साइटेड, शन्ट — फिल्ड वाइन्डिङ आर्मेचरको प्यारालालमा, सप्लाईको अक्रस। शन्ट फिल्डमा धेरै टर्न्स र हाई रेजिस्टेन्स हुन्छ।',
+      voice: 'सेल्फ एक्साइटेड, शन्ट — फिल्ड वाइन्डिङ आर्मेचरको प्याराललमा, सप्लाईको अक्रस। शन्ट फिल्डमा धेरै टर्न्स र हाई रेजिस्टेन्स हुन्छ।',
       lines: [['step', <><Pts items={[<>(b) Shunt: field in parallel with the armature; many turns, high R<sub>sh</sub></>, <><K>{String.raw`I_L = I_a + I_{sh}`}</K></>]} /></>]],
       ask: {
         q: 'Shunt motor ma line current kati huncha?',
@@ -123,14 +141,31 @@ export const types42 = duo('Excitation ra DC motor ka types', {
       lines: [['step', <><Pts items={[<>(c) Series: field in series; few turns, thick wire, low R<sub>se</sub></>, <><K>{String.raw`I_L = I_a = I_{se}`}</K></>]} /></>]],
     },
     {
-      say: 'Compound: shunt ra series dubai field. Long shunt ma shunt field armature ra series field dubai ko across huncha.',
-      voice: 'कम्पाउन्ड — शन्ट र सिरिज दुवै फिल्ड। लङ शन्टमा, शन्ट फिल्ड आर्मेचर र सिरिज फिल्ड दुवैको अक्रस हुन्छ।',
-      lines: [['step', <><Pts items={[<>(d) Compound: both fields; long shunt: shunt field across armature + series field</>]} /></>]],
+      say: 'Compound, long shunt: shunt field armature ra series field dubai ko across; series field ma armature current I a bagcha.',
+      voice: 'कम्पाउन्ड, लङ शन्ट — शन्ट फिल्ड आर्मेचर र सिरिज फिल्ड दुवैको अक्रस। सिरिज फिल्डमा आर्मेचर करेन्ट आई ए बग्छ।',
+      lines: [['step', <><Pts items={[<>(d) Long-shunt compound: shunt field across armature + series field; I<sub>se</sub> = I<sub>a</sub></>]} /></>]],
     },
     {
-      say: 'Short shunt ma shunt field armature ko matra across huncha. Fluxes aiding bhaye cumulative compound, opposing bhaye differential compound.',
-      voice: 'सर्ट शन्टमा, शन्ट फिल्ड आर्मेचरको मात्र अक्रस हुन्छ। फ्लक्सेस एडिङ भए क्युमुलेटिभ कम्पाउन्ड, अपोजिङ भए डिफरेन्सियल कम्पाउन्ड।',
-      lines: [['step', <><Pts items={[<>Short shunt: shunt field across the armature only</>, <>Cumulative: fluxes aid · differential: fluxes oppose</>]} /></>]],
+      say: 'Short shunt: shunt field armature ko matra across; series field ma line current I L bagcha.',
+      voice: 'सर्ट शन्ट — शन्ट फिल्ड आर्मेचरको मात्र अक्रस। सिरिज फिल्डमा लाइन करेन्ट आई एल बग्छ।',
+      lines: [['step', <><Pts items={[<>(e) Short-shunt compound: shunt field across the armature only; I<sub>se</sub> = I<sub>L</sub></>]} /></>]],
+    },
+    {
+      say: 'Long ra short shunt chinna shunt field ko tapping point hernu parcha: series field bhanda supply tira long, armature tira short.',
+      voice: 'लङ र सर्ट शन्ट चिन्न, शन्ट फिल्डको ट्यापिङ पोइन्ट हेर्नुपर्छ — सिरिज फिल्डभन्दा सप्लाईतिर लङ, आर्मेचरतिर सर्ट।',
+      lines: [br('Identifying the connection', <Pts items={[<>Shunt tapped at the supply side of R<sub>se</sub>: long shunt</>, <>Shunt tapped at the armature side of R<sub>se</sub>: short shunt</>]} />)],
+    },
+    {
+      say: 'Fluxes aiding bhaye cumulative compound, opposing bhaye differential compound.',
+      voice: 'फ्लक्सेस एडिङ भए क्युमुलेटिभ कम्पाउन्ड, अपोजिङ भए डिफरेन्सियल कम्पाउन्ड।',
+      lines: [['step', <K>{String.raw`\begin{aligned} \text{Cumulative: } \phi &= \phi_{sh} + \phi_{se} \\ \text{Differential: } \phi &= \phi_{sh} - \phi_{se} \end{aligned}`}</K>]],
+      ask: {
+        q: 'Cumulative compound motor ma dubai field ko flux kasto huncha?',
+        voice: 'क्युमुलेटिभ कम्पाउन्ड मोटरमा, दुवै फिल्डको फ्लक्स कस्तो हुन्छ?',
+        options: ['Ek arka lai aid garcha', 'Ek arka lai oppose garcha', 'Shunt ko matra flux huncha'],
+        answer: 0,
+        why: 'Cumulative ma φ = φsh + φse; differential ma φ = φsh − φse.',
+      },
     },
   ],
 });
@@ -138,7 +173,7 @@ export const types42 = duo('Excitation ra DC motor ka types', {
 /* ── Terms: what a characteristic is ─────────────────────────────────── */
 // curvesFigure: 0 axes · 1 shunt Ta–Ia · 2 series Ta–Ia · 3 shunt N–Ia ·
 // 4 series N–Ia · 5 shunt N–Ta · 6 no-load mark · 7 series N–Ta.
-export const chars42 = duo('Characteristics k ho: Ta–Ia, N–Ia, N–Ta', {
+export const chars42 = duo('Performance characteristics: Ta–Ia, N–Ia, N–Ta', {
   draw: figAt(curvesFigure, { 0: 0 }),
   viewBox: '0 0 360 180',
   tutor: [
@@ -202,9 +237,9 @@ export const chars42 = duo('Characteristics k ho: Ta–Ia, N–Ia, N–Ta', {
 });
 
 /* ── Derivation: voltage and current equations ───────────────────────── */
-export const equations42 = duo('Derivation: voltage ra current equations', {
-  draw: figAt(typesFigure, { 1: 0, 2: 1, 3: 2 }),
-  viewBox: '0 0 360 270',
+export const equations42 = duo('Derivation: voltage and current equations', {
+  draw: figAt(typesFigure, { 1: 0, 2: 1, 3: 3, 4: 4 }),
+  viewBox: '0 0 540 276',
   tutor: [
     {
       say: 'Shunt motor bata suru garau. Line current dui bata bandincha: armature tira I a ra field tira I sh.',
@@ -226,7 +261,7 @@ export const equations42 = duo('Derivation: voltage ra current equations', {
     {
       say: 'Long shunt compound ma armature current series field bata pani jaancha. Tesaile drop I a times R a plus R se, ra I sh equals V over R sh.',
       voice: 'लङ शन्ट कम्पाउन्डमा, आर्मेचर करेन्ट सिरिज फिल्डबाट पनि जान्छ। त्यसैले ड्रप — आई ए टाइम्स आर ए प्लस आर एस ई, र आई एस एच इक्वल्स भी ओभर आर एस एच।',
-      lines: [['step', tex(String.raw`\begin{aligned} I_L &= I_a + I_{sh},\quad I_{sh} \\ &= \tfrac{V}{R_{sh}} \\ V &= E_b + I_a(R_a + R_{se}) \end{aligned}`)]],
+      lines: [['step', tex(String.raw`\begin{aligned} I_L &= I_a + I_{sh} \\ I_{sh} &= \tfrac{V}{R_{sh}} \\ V &= E_b + I_a(R_a + R_{se}) \end{aligned}`)]],
     },
     {
       say: 'Short shunt ma series field bata pura line current I L bagcha. Tesaile series drop I L R se, ra armature drop I a R a.',
@@ -394,7 +429,7 @@ export const series42 = duo('Derivation: series motor characteristics', {
 });
 
 /* ── Big picture (Lecturer only, point-wise, space by marks) ───────────── */
-export const charsAnswer42 = answer('Model answer: shunt ra series characteristics', {
+export const charsAnswer42 = answer('Model answer: shunt and series motor characteristics', {
   draw: figAt(curvesFigure, { 0: 0, 1: 1, 5: 2, 2: 3, 7: 4, 4: 4, 6: 4 }),
   viewBox: '0 0 360 180',
   papers: ['2070 Magh'],
@@ -436,7 +471,7 @@ export const charsAnswer42 = answer('Model answer: shunt ra series characteristi
   ],
 });
 
-export const noLoad42 = answer('Model answer: series motor lai load bina kina start nagarne', {
+export const noLoad42 = answer('Model answer: why a series motor must not start without load', {
   draw: figAt(curvesFigure, { 0: 0, 4: 2, 6: 3 }),
   viewBox: '0 0 360 180',
   papers: ['2067 Mangsir', '2065 Chaitra', '2068 Bhadra'],
@@ -472,7 +507,7 @@ export const noLoad42 = answer('Model answer: series motor lai load bina kina st
   ],
 });
 
-export const seriesSolve42 = answer('IOE 2069 Bhadra: series motor ko current', {
+export const seriesSolve42 = answer('IOE 2069 Bhadra: current of a series motor', {
   papers: ['2069 Bhadra', '2066 Magh'],
   marks: '[8]',
   q: 'A 220 V series motor, Ra = 0.06 Ω, Rse = 0.04 Ω, takes 25 A at 1200 rpm. Find the current at 800 rpm (unsaturated field).',

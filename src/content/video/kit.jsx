@@ -30,8 +30,12 @@ export const Pts = ({ items }) => (
 export const M = ({ children }) => <span className="math">{children}</span>;
 
 // LaTeX on the board, typeset by KaTeX: <K>{String.raw`T_a \propto \phi I_a`}</K>.
+// \unit{weber}: the SI unit of a formula, written apart from it, in full, in
+// brackets and italics (user, 2026-11-02: "Wb sounds like part of the
+// formula"). Numbers keep the short unit (40 A).
+export const MACROS = { '\\unit': '\\quad\\htmlClass{unit}{\\textit{(#1)}}' };
 export const K = ({ children }) => (
-  <span className="tex" dangerouslySetInnerHTML={{ __html: katex.renderToString(children, { throwOnError: false, trust: (c) => c.command === '\\htmlClass' }) }} />
+  <span className="tex" dangerouslySetInnerHTML={{ __html: katex.renderToString(children, { throwOnError: false, macros: { ...MACROS }, trust: (c) => c.command === '\\htmlClass' }) }} />
 );
 // Marks a KaTeX node, so the player can label its symbols (Scene.jsx, rule 51).
 K.isTex = true;
@@ -96,10 +100,32 @@ export const extra = (step) => ({ ...step, practice: true });
   the same beat in both. A beat is { say, voice, ask?, lines: [[kind, node, until?]] }.
     duo(title, { draw?, viewBox?, tutor: [beat…], lecturer: [beat…] })
 */
+// A beat's lines are [kind, node, until?, { carry?, title? }?]. `page: true`
+// on a beat starts a planned new page there (the layout is planned, not left
+// to overflow); `carry` is the short result that stays on the next pages.
 const split = (bs) => ({
-  beats: bs.map(({ say, voice, ask }) => (ask ? { say, voice, ask } : { say, voice })),
-  board: bs.flatMap((b, i) => (b.lines ?? []).map(([kind, node, until]) => ({ at: i, kind, node, ...(until != null ? { until } : {}) }))),
+  beats: bs.map(({ say, voice, ask, page }) => ({ say, voice, ...(ask ? { ask } : {}), ...(page ? { page } : {}) })),
+  board: bs.flatMap((b, i) => (b.lines ?? []).map(([kind, node, until, opt]) => ({ at: i, kind, node, ...(until != null ? { until } : {}), ...(opt ?? {}) }))),
 });
+
+/*
+  Layout kit for Syllabus Content and Model Answer (user, 2026-11-02: "think
+  ahead of time … how to manage the content in the canvas"). The frame has
+  fixed zones: heading or question on top, the main board on the left, the
+  figure on the right. Three line kinds use them:
+    recall  "Remember" card: what the viewer must already know, written
+            before the first new idea of the video.
+    branch  a side scene that answers a "where did this come from?" in about
+            five seconds (dt = 60/N, why I_c = I_a/A …). It takes the figure's
+            place for its beats, then gives the figure back, and the main
+            line goes on from where it stopped.
+    carry   (an option on any line) the short result that stays, small, on
+            later pages, so step (b) still sees what step (a) found.
+  rem(…)    → ['recall', node]
+  br(title, node, until) → ['branch', node, until, { title }]
+*/
+export const rem = (...items) => ['recall', items.length > 1 ? <Pts items={items} /> : items[0]];
+export const br = (title, node, until) => ['branch', node, until, { title }];
 export const duo = (title, { tutor, lecturer, ...rest }) => {
   if (tutor.length !== lecturer.length) throw new Error(`duo "${title}": the Tutor has ${tutor.length} beats, the Lecturer ${lecturer.length}`);
   return video(title, { tall: true, ...rest, ...split(tutor), pov: 'tutor', variants: { lecturer: split(lecturer) } });
@@ -134,7 +160,7 @@ export function answer(title, { papers, marks, q, read, points, draw, viewBox, v
   };
   const board = [
     { at: 0, kind: 'q', node: <><span className="tag">{src}{marks ? ` · ${marks}` : ''}</span>{q}</> },
-    ...points.map((p, i) => ({ at: i + 1, until: until(i), kind: 'step', node: p.node })),
+    ...points.map((p, i) => ({ at: i + 1, until: until(i), kind: 'step', node: p.node, ...(p.carry ? { carry: p.carry } : {}) })),
   ];
   return { ...video(title, { beats, board, tall: true, draw, viewBox, notes: true, pov: 'lecturer', variants }), ioe: papers.length > 0, tag: 'Model answer', tagKind: 'watch' };
 }
@@ -399,7 +425,7 @@ export function solve({ title, paper, paperVoice, marks, read, readVoice, questi
     ...given.map((g) => ({ at: 1, kind: 'given', node: g.node })),
     { at: 2, kind: 'find', node: <>Nikalnu parne: {find.node}</> },
     { at: 3, kind: 'idea', node: <><b>Method.</b> {idea.node}</> },
-    ...steps.map((st, i) => ({ at: first + i, kind: 'step', node: st.node })),
+    ...steps.map((st, i) => ({ at: first + i, kind: 'step', node: st.node, ...(st.carry ? { carry: st.carry } : {}) })),
     { at: first + steps.length, kind: 'answer', node: answer.node },
     ...(trap ? [{ at: first + steps.length + 1, kind: 'trap', node: trap.node }] : []),
   ];

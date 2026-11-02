@@ -271,7 +271,7 @@ export const pastQuestions = [
 ].map((s) => ({ ...s, chapter: 'Past Questions' }));
 
 /* Recap video: every chapter's key idea, quizzed once more. */
-export const recap = video('Pura DC motor 3 minute ma', {
+export const recap = video('The whole DC motor in 3 minutes', {
   beats: [
     { say: 'Last ekchoti sabai kura feri herau, wire ko push dekhi efficiency samma.', voice: 'लास्ट एकचोटि सबै कुरा फेरि हेरौं, वायरको पुश देखि इफिसियन्सीसम्म।' },
     { say: 'Field ma rakheko current-carrying conductor le F equals B I l force feel garcha, direction left-hand rule le.', voice: 'फिल्डमा राखेको करेन्ट क्यारिङ कन्डक्टरले एफ इक्वल्स बी आई एल फोर्स फिल गर्छ, डाइरेक्सन लेफ्ट ह्यान्ड रुलले।' },

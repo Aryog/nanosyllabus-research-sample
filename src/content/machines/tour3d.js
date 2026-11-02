@@ -85,10 +85,19 @@ export const makeTour = (model) => (plan) =>
     const tubes = {};
     const dots = {};
     for (const [k, p] of Object.entries(paths)) {
-      curves[k] = new THREE.CatmullRomCurve3(p.pts, !!p.loop, 'catmullrom', 0.3);
+      // Centripetal curves bend smoothly through every point (no kinks or
+      // sharp 90° elbows); open wires get rounded caps (user, 2026-11-02).
+      curves[k] = new THREE.CatmullRomCurve3(p.pts, !!p.loop, 'centripetal');
       if (p.tube !== false) {
         const m = new THREE.MeshStandardMaterial({ color: p.color ?? 0xe8590c, roughness: 0.5, transparent: true });
-        tubes[k] = new THREE.Mesh(new THREE.TubeGeometry(curves[k], 100, p.r ?? 0.05, 8, !!p.loop), m);
+        const r = p.r ?? 0.05;
+        tubes[k] = new THREE.Mesh(new THREE.TubeGeometry(curves[k], 200, r, 14, !!p.loop), m);
+        if (!p.loop)
+          for (const t of [0, 1]) {
+            const cap = new THREE.Mesh(new THREE.SphereGeometry(r, 14, 10), m);
+            cap.position.copy(curves[k].getPoint(t));
+            tubes[k].add(cap);
+          }
         scene.add(tubes[k]);
       }
       dots[k] = Array.from({ length: p.dots ?? 9 }, () => {

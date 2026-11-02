@@ -14,21 +14,21 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
   viewBox: '0 0 360 224',
   beats: [
     { say: 'Armature: left ma north pole ra right ma south pole ko bichma. Field yeslai left bata right tira cross garcha.', voice: 'आर्मेचर — लेफ्टमा नर्थ पोल, र राइटमा साउथ पोलको बीचमा। फिल्ड चाहिँ, यसलाई लेफ्टबाट राइटतिर क्रस गर्छ।' },
-    { say: 'Commutator le ensure garcha ki N pole muni ko harek conductor ma current screen bhitra jancha, cross le dekhaeko, ra S muni ko harek conductor ma current bahira aaucha, dot le dekhaeko.', voice: 'कम्युटेटरले यो इन्स्योर गर्छ — एन पोलमुनिको हरेक कन्डक्टरमा, करेन्ट स्क्रिन भित्र जान्छ, क्रसले देखाएको। अनि एस पोलमुनिको हरेक कन्डक्टरमा, करेन्ट बाहिर आउँछ, डटले देखाएको।' },
+    { say: 'Commutator le ensure garcha ki N pole ko prabhav ma ko harek conductor ma current screen bhitra jancha, cross le dekhaeko, ra S pole ko prabhav ma ko harek conductor ma current bahira aaucha, dot le dekhaeko.', voice: 'कम्युटेटरले यो इन्स्योर गर्छ — एन पोलको प्रभावमा रहने हरेक कन्डक्टरमा, करेन्ट स्क्रिन भित्र जान्छ, क्रसले देखाएको। अनि एस पोलको प्रभावमा रहने हरेक कन्डक्टरमा, करेन्ट बाहिर आउँछ, डटले देखाएको।' },
     { say: 'Fleming ko left-hand rule: field right tira ra current screen bhitra bhaye force tala tira huncha. So left ko harek conductor tala push huncha.', voice: 'फ्लेमिङको लेफ्ट ह्यान्ड रुल — फिल्ड राइटतिर, र करेन्ट स्क्रिन भित्र भए, फोर्स तलतिर हुन्छ। सो, लेफ्टको हरेक कन्डक्टर तल पुस हुन्छ।' },
     { say: 'Right tira current bahira aaucha, tesaile force mathi tira huncha.', voice: 'राइटतिर करेन्ट बाहिर आउँछ, त्यसैले फोर्स, माथितिर हुन्छ।' },
     {
       say: 'Left ma tala, right ma mathi: sabai force le armature lai eutai tira ghumaucha, counter-clockwise. Yinko turning effect jodda armature torque bancha.',
       voice: 'लेफ्टमा तल, राइटमा माथि। सबै फोर्सले आर्मेचरलाई एउटै तिर घुमाउँछ — काउन्टर क्लकवाइज। यिनको टर्निङ इफेक्ट जोड्दा, आर्मेचर टर्क बन्छ।',
       ask: {
-        q: 'N muni ko conductor tala ra S muni ko conductor mathi push bhaye, armature kata ghumcha?',
-        voice: 'एन मुनिको कन्डक्टर तल, र एस मुनिको कन्डक्टर माथि पुस भए, आर्मेचर कता घुम्छ?',
+        q: 'N pole ko prabhav ma ko conductor tala ra S pole ko prabhav ma ko conductor mathi push bhaye, armature kata ghumcha?',
+        voice: 'एन पोलको प्रभावमा रहने कन्डक्टर तल, र एस पोलको प्रभावमा रहने कन्डक्टर माथि पुस भए, आर्मेचर कता घुम्छ?',
         options: ['Ghumdaina, force cancel huncha', 'Eutai tira, counter-clockwise', 'Clockwise ra counter-clockwise palo palo'],
         answer: 1,
         why: 'Left ma tala ra right ma mathi: dubai le eutai tira, counter-clockwise turning effect dinchan.',
       },
     },
-    { say: 'Conductor N muni bata S muni jada commutator le tesko current reverse garcha, tesaile force pani flip huncha, ra tyo rotation ko eutai direction ma push garirahancha.', voice: 'कन्डक्टर एन मुनिबाट एस मुनि जाँदा, कम्युटेटरले यसको करेन्ट रिभर्स गर्छ। त्यसैले फोर्स पनि फ्लिप हुन्छ, र त्यो, रोटेसनको एउटै डाइरेक्सनमा पुस गरिरहन्छ।' },
+    { say: 'Conductor N pole ko prabhav ma bata S pole ko prabhav ma jada commutator le tesko current reverse garcha, tesaile force pani flip huncha, ra tyo rotation ko eutai direction ma push garirahancha.', voice: 'कन्डक्टर एन पोलको प्रभावबाट एस पोलको प्रभावमा जाँदा, कम्युटेटरले यसको करेन्ट रिभर्स गर्छ। त्यसैले फोर्स पनि फ्लिप हुन्छ, र त्यो, रोटेसनको एउटै डाइरेक्सनमा पुस गरिरहन्छ।' },
   ],
   draw: (s) => (
     <>
@@ -72,9 +72,9 @@ export const torqueProduction = video('Armature le torque kasari banaucha', {
   // Explanation phase: one line per beat saying what happens and why.
   board: [
     { at: 0, kind: 'step', node: <>Field B: N (left) → S (right)</> },
-    { at: 1, kind: 'step', node: <>Commutator: N muni ⊗ (current bhitra), S muni ⊙ (current bahira)</> },
+    { at: 1, kind: 'step', node: <>Commutator: N pole ko prabhav ma ⊗ (current bhitra), S pole ko prabhav ma ⊙ (current bahira)</> },
     { at: 2, kind: 'step', node: <>Fleming LHR: B → right, I ⊗ → <b>F tala</b> (left side)</> },
-    { at: 3, kind: 'step', node: <>S muni I ⊙ → <b>F mathi</b> (right side)</> },
+    { at: 3, kind: 'step', node: <>S pole ko prabhav ma I ⊙ → <b>F mathi</b> (right side)</> },
     { at: 4, kind: 'note', node: <>Left tala + right mathi → eutai tira ghumcha → <b>unidirectional torque</b></> },
     { at: 5, kind: 'step', node: <>MNA cross garda current reverse → F pani flip → torque ek tira nai</> },
   ],
@@ -133,7 +133,7 @@ export const ch3Model = model({
   marks: 'ECM 2082 Baishakh [4 + 2]',
   points: [
     <><b>Principle:</b> Exam ma exactly yo lekha: “When a current-carrying conductor is placed in a magnetic field, it experiences a mechanical force F = BIl”, ani yesko direction Fleming ko left-hand rule le dincha.</>,
-    <><b>Working:</b> field winding le flux banaucha; armature lai brush ra commutator bata feed garincha. N muni ka conductor ma current euta tira ra S muni ka ma arko tira bagcha, tesaile sabai force eutai rotational sense ma lagchan ra torque produce garchan.</>,
+    <><b>Working:</b> field winding le flux banaucha; armature lai brush ra commutator bata feed garincha. N pole ko prabhav ma ka conductor ma current euta tira ra S pole ko prabhav ma ka ma arko tira bagcha, tesaile sabai force eutai rotational sense ma lagchan ra torque produce garchan.</>,
     <><b>Commutator ko role:</b> harek coil le neutral zone pass garda tesko current reverse garcha, ani torque lai unidirectional rakhcha.</>,
     <><b>Derivation:</b> I<sub>c</sub> = I<sub>a</sub>/A; B = Pφ/(2πrl); F = BI<sub>c</sub>l = PφI<sub>a</sub>/(2πrA); euta conductor ko torque = F·r = PφI<sub>a</sub>/(2πA).</>,
     <><b>Result:</b> T<sub>a</sub> = PφZI<sub>a</sub>/(2πA) = 0.159 φZI<sub>a</sub>(P/A) N·m, tesaile T<sub>a</sub> ∝ φI<sub>a</sub>.</>,
