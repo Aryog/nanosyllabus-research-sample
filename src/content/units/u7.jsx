@@ -1,20 +1,24 @@
 import { C, K, Pts, answer, duo, topic } from '../video/kit.jsx';
-import { chain, part } from '../video/kit.jsx';
+import { br, chain, figAt, part, rem } from '../video/kit.jsx';
 import { Cap, CoilH, T, W, head } from '../unit4/figs.jsx';
 import { smallTour } from '../machines/models3d.js';
 import { motorTour } from '../unit4/basics3d.js';
 
 /*
-  Unit 7 Fractional Kilowatt Motors (IOE syllabus).
-    7.1 single-phase induction motor, double field revolving theory
-    7.2 split-phase, capacitor start and run, reluctance start motors
-    7.3 AC series motor and universal motor
-    7.4 stepper, Schrage and servo motors
+  Unit 7 Fractional Kilowatt Motors (IOE syllabus), one topic per bullet (rule 68):
+    7.1 Single phase Induction Motors: Construction and Characteristics
+    7.2 Double Field Revolving Theory
+    7.3 Split phase Induction Motor
+    7.4 Capacitor start and run motor
+    7.5 Reluctance start motor
+    7.6 Alternating Current Series motor and Universal motor
+    7.7 Special Purpose Machines: Stepper, Schrage and Servo motor
   Segment 1 walks machines/models3d.js smallTour (single-phase and stepper);
-  7.3 uses the DC machine of Unit 4 (unit4/basics3d.js) with `ac: true`.
+  7.6 uses the DC machine of Unit 4 (unit4/basics3d.js) with `ac: true`.
 */
 
 const tex = (s) => <K>{s}</K>;
+const step = (label, math) => <><span className="lbl">{label}</span><K>{math}</K></>;
 const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
 const SP = ['frame', 'stator', 'main', 'rotorCore', 'cage', 'shaft'];
 const SPF = [...SP, 'supply'];
@@ -98,6 +102,34 @@ export const splitFigure = (s) => (
   </>
 );
 
+// Fig. 7.5: 0 salient poles with a non-uniform air gap, rotor · 1 wide and
+// narrow gap fluxes · 2 the field shifting towards the narrow gap
+export const relFigure = (s) => (
+  <>
+    <g className={s.on(0) + s.hl(0)}>
+      <circle cx={180} cy={112} r={48} fill="none" stroke={C.chalk} strokeWidth={1.4} />
+      <circle cx={180} cy={112} r={4} fill="none" stroke={C.chalk} strokeWidth={1.1} />
+      <W d="M120 20 H240 V40 Q240 56 222 62 Q180 62 138 50 Q120 46 120 40 Z" />
+      <W d="M120 204 H240 V184 Q240 168 222 162 Q180 162 138 174 Q120 178 120 184 Z" />
+      <T x={180} y={34} b size={12}>N</T>
+      <T x={180} y={198} b size={12}>S</T>
+      <T x={80} y={112} i size={10} a="end">rotor (cage)</T>
+      <Cap y={232}>Fig. 7.5  Reluctance start: non-uniform air gap</Cap>
+    </g>
+    <g className={s.on(1) + s.hl(1)}>
+      <W d="M136 52 L136 70" w={0.8} />
+      <T x={110} y={80} size={9.5} a="end">wide gap: flux lags less</T>
+      <W d="M224 62 L224 68" w={0.8} />
+      <T x={250} y={80} size={9.5} a="start">narrow gap: lags more</T>
+    </g>
+    <g className={s.on(2) + s.hl(2)}>
+      <path d="M150 88 A40 40 0 0 1 212 92" fill="none" stroke={C.chalk} strokeWidth={1.3} />
+      {head(214, 95, 'right', 6)}
+      <T x={182} y={112} i size={10}>field shifts →</T>
+    </g>
+  </>
+);
+
 // Fig. 7.3: 0 series circuit on AC · 1 i and φ in phase · 2 torque always positive · 3 compensating winding note
 export const universalFigure = (s) => (
   <>
@@ -169,7 +201,7 @@ export const stepperFigure = (s) => (
 );
 
 /* ── 7.1 Single-phase IM, DFR theory ──────────────────────────────────── */
-export const basics71 = duo('7.1 · Basic understanding: why can’t a single-phase motor start by itself?', {
+export const basics71 = duo('7.2 · Basic understanding: why can’t a single-phase motor start by itself?', {
   three: smallTour([
     { shot: 'whole', show: SPF, spin: 0.4, flow: 0.5, labels: [['single phase motor', 'frame']] },
     { shot: 'front', spin: 0, flow: 0.6, pulse: 1, focus: ['main', 'supply'], labels: [['main winding', 'main']] },
@@ -184,7 +216,7 @@ export const basics71 = duo('7.1 · Basic understanding: why can’t a single-ph
     {
       say: 'Ghar ko fan, mixie, fridge: sabai ghar ko single phase bijuli ma chalne sana motor.',
       voice: 'घरको फ्यान, मिक्सी, फ्रिज — सबै घरको सिङ्गल फेज बिजुलीमा चल्ने साना मोटर।',
-      lines: [['h', <>7.1 · Fan aafai kina ghumdaina?</>], ['step', <>Fan, mixie, fridge: single phase motor</>]],
+      lines: [['h', <>7.2 · Fan aafai kina ghumdaina?</>], ['step', <>Fan, mixie, fridge: single phase motor</>]],
     },
     {
       say: 'Stator ma euta main winding, single phase supply ma.',
@@ -233,7 +265,7 @@ export const basics71 = duo('7.1 · Basic understanding: why can’t a single-ph
     {
       say: 'Ghar ka sana appliances ma single-phase induction motor prayog hunchha.',
       voice: 'घरका साना एप्लायन्सेसमा सिङ्गल फेज इन्डक्सन मोटर प्रयोग हुन्छ।',
-      lines: [['h', <>7.1 · Single-phase induction motor</>], part(<>Domestic appliances</>, <>fans, mixers, compressors</>)],
+      lines: [['h', <>7.2 · Single-phase induction motor</>], part(<>Domestic appliances</>, <>fans, mixers, compressors</>)],
     },
     {
       say: 'Stator ma single-phase main winding ra cage rotor hunchha.',
@@ -468,7 +500,7 @@ export const dfrAnswer71 = answer('Model answer: double field revolving theory',
 });
 
 /* ── 7.2 Split phase, capacitor, reluctance start ────────────────────── */
-export const basics72 = duo('7.2 · Basic understanding: how is a single-phase motor made self-starting?', {
+export const basics72 = duo('7.3 · Basic understanding: how is a single-phase motor made self-starting?', {
   three: smallTour([
     { shot: 'front', show: [...SPF, 'aux'], flow: 0.6, focus: ['aux'], labels: [['dosro coil: aux', 'aux']] },
     { pulse: 0, rot: 1, focus: ['main', 'aux'], labels: [['field ghumyo!', 'field']] },
@@ -483,7 +515,7 @@ export const basics72 = duo('7.2 · Basic understanding: how is a single-phase m
     {
       say: 'Upaya: main coil sanga 90 degree ma dosro coil, auxiliary winding, jodne.',
       voice: 'उपाय — मेन कोइलसँग नाइन्टी डिग्रीमा दोस्रो कोइल, अक्जिलरी वाइन्डिङ, जोड्ने।',
-      lines: [['h', <>7.2 · Aafai kasari start garaune?</>], ['step', <>Dosro coil (auxiliary) 90° ma</>]],
+      lines: [['h', <>7.3 · Aafai kasari start garaune?</>], ['step', <>Dosro coil (auxiliary) 90° ma</>]],
     },
     {
       say: 'Dui coil ko current ali farak samaya ma thulo bhaye magnet ghumna thalcha, tin phase jastai.',
@@ -532,7 +564,7 @@ export const basics72 = duo('7.2 · Basic understanding: how is a single-phase m
     {
       say: 'Main winding sanga 90 electrical degree displaced auxiliary winding rakhincha.',
       voice: 'मेन वाइन्डिङसँग नाइन्टी इलेक्ट्रिकल डिग्री डिस्प्लेस्ड अक्जिलरी वाइन्डिङ राखिन्छ।',
-      lines: [['h', <>7.2 · Starting methods</>], ['step', <>Auxiliary winding displaced 90° electrical</>]],
+      lines: [['h', <>7.3 · Starting methods</>], ['step', <>Auxiliary winding displaced 90° electrical</>]],
     },
     {
       say: 'Dui winding ko current ma time-phase difference bhaye rotating field banchha.',
@@ -579,14 +611,14 @@ export const basics72 = duo('7.2 · Basic understanding: how is a single-phase m
   ],
 });
 
-export const split72 = duo('Split-phase and capacitor start/run motors', {
+export const split72 = duo('Split-phase induction motor', {
   draw: splitFigure,
   viewBox: '0 0 360 222',
   tutor: [
     {
       say: 'Figure 7.2: main winding ra auxiliary winding dubai V ma parallel. Aux ma centrifugal switch S.',
       voice: 'फिगर सेभेन पोइन्ट टु — मेन वाइन्डिङ र अक्जिलरी वाइन्डिङ दुवै भीमा प्यारालल। अक्समा सेन्ट्रिफ्युगल स्विच एस।',
-      lines: [['h', <>Split-phase and capacitor motors</>], ['step', <>Main ∥ auxiliary across V; switch S in the auxiliary</>]],
+      lines: [['h', <>Split-phase induction motor</>], ['step', <>Main ∥ auxiliary across V; switch S in the auxiliary</>]],
     },
     {
       say: 'Split-phase: aux ma badhi R, kam X, tesaile I a kam lag garcha. I m ra I a bich angle alpha 25 dekhi 30 degree.',
@@ -606,21 +638,16 @@ export const split72 = duo('Split-phase and capacitor start/run motors', {
       },
     },
     {
-      say: 'Capacitor-start: aux ma capacitor, I a V lai lead garcha, alpha lagbhag 90: thulo starting torque. Compressor, pump ma.',
-      voice: 'क्यापासिटर स्टार्ट — अक्समा क्यापासिटर, आई ए भीलाई लिड गर्छ, अल्फा लगभग नाइन्टी — ठूलो स्टार्टिङ टर्क। कम्प्रेसर, पम्पमा।',
-      lines: [['step', <>Capacitor-start: α ≈ 90°, high starting torque (compressors, pumps)</>]],
-    },
-    {
-      say: 'Capacitor-start capacitor-run: start ma thulo C, run ma sano C rahancha: ramro pf, chup ra smooth. Fan ma permanent-split capacitor.',
-      voice: 'क्यापासिटर स्टार्ट क्यापासिटर रन — स्टार्टमा ठूलो सी, रनमा सानो सी रहन्छ — राम्रो पी एफ, चुप र स्मुथ। फ्यानमा पर्मानेन्ट स्प्लिट क्यापासिटर।',
-      lines: [['idea', <>Capacitor-start-run: large C to start, small C to run (better pf, quiet) · ceiling fan: permanent split capacitor</>]],
+      say: 'Split-phase motor ko starting torque madhyam huncha, tesaile fan, blower ra washing machine jasta halka load ma prayog garincha.',
+      voice: 'स्प्लिट फेज मोटरको स्टार्टिङ टर्क मध्यम हुन्छ, त्यसैले फ्यान, ब्लोअर र वासिङ मेसिन जस्ता हल्का लोडमा प्रयोग गरिन्छ।',
+      lines: [['idea', <>Split-phase: moderate starting torque → fans, blowers, washing machines</>]],
     },
   ],
   lecturer: [
     {
       say: 'The main and auxiliary windings are in parallel across V, with a centrifugal switch in the auxiliary, Figure 7.2.',
       voice: 'द मेन एन्ड अक्जिलरी वाइन्डिङ्स आर इन प्यारालल एक्रस भी, विद अ सेन्ट्रिफ्युगल स्विच इन द अक्जिलरी, फिगर सेभेन पोइन्ट टु।',
-      lines: [['h', <>Split-phase and capacitor motors</>], ['step', <>Main ∥ auxiliary; centrifugal switch</>]],
+      lines: [['h', <>Split-phase induction motor</>], ['step', <>Main ∥ auxiliary; centrifugal switch</>]],
     },
     {
       say: 'Split-phase motor: a high-resistance auxiliary gives a phase difference of about 25 to 30 degrees.',
@@ -640,21 +667,16 @@ export const split72 = duo('Split-phase and capacitor start/run motors', {
       },
     },
     {
-      say: 'Capacitor-start motor: a capacitor in the auxiliary makes alpha nearly 90 degrees, giving high starting torque.',
-      voice: 'क्यापासिटर स्टार्ट मोटर — अ क्यापासिटर इन द अक्जिलरी मेक्स अल्फा नियर्ली नाइन्टी डिग्रिज, गिभिङ हाई स्टार्टिङ टर्क।',
-      lines: [['step', <>Capacitor-start: α ≈ 90°</>]],
-    },
-    {
-      say: 'Capacitor-start capacitor-run motor uses two capacitors; the run capacitor stays in circuit for better power factor and quiet running.',
-      voice: 'क्यापासिटर स्टार्ट क्यापासिटर रन मोटर युजेज टु क्यापासिटर्स, द रन क्यापासिटर स्टेज इन सर्किट फर बेटर पावर फ्याक्टर एन्ड क्वाइट रनिङ।',
-      lines: [['step', <>Capacitor-start-run: better pf and efficiency, quiet</>]],
+      say: 'Split-phase motor ko starting torque moderate huncha; yo fan, blower ra washing machine ma prayog huncha.',
+      voice: 'स्प्लिट फेज मोटरको स्टार्टिङ टर्क मोडरेट हुन्छ। यो फ्यान, ब्लोअर र वासिङ मेसिनमा प्रयोग हुन्छ।',
+      lines: [['idea', <>Moderate starting torque: fans, blowers, washing machines</>]],
     },
   ],
 });
 
 export const reluctance72 = duo('Reluctance start motor', {
-  draw: splitFigure,
-  viewBox: '0 0 360 222',
+  draw: relFigure,
+  viewBox: '0 0 360 240',
   tutor: [
     {
       say: 'Reluctance start motor ma auxiliary winding nai chaina; salient stator pole ko air gap barabar chaina.',
@@ -763,7 +785,7 @@ export const startAnswer72 = answer('Model answer: why a single-phase IM is not 
 });
 
 /* ── 7.3 AC series motor, universal motor ───────────────────────────── */
-export const basics73 = duo('7.3 · Basic understanding: why does a mixer motor run so fast?', {
+export const basics73 = duo('7.6 · Basic understanding: why does a mixer motor run so fast?', {
   three: motorTour([
     { shot: 'whole', show: SERIES, ac: true, open: 0.6, spin: 0.9, wiring: 'series', flow: 0.8, field: 0.8, labels: [['mixie ko motor', [0, 3.1, 0.6]]] },
     { shot: 'wiring', ac: true, focus: ['fieldCoil', 'wires', 'armature'], labels: [['eutai line', 'wires']] },
@@ -778,7 +800,7 @@ export const basics73 = duo('7.3 · Basic understanding: why does a mixer motor 
     {
       say: 'Mixie, drill, vacuum cleaner: yi motor hajarau rpm ma ghumchan. Bhitra herda DC motor jasto: commutator ra brush!',
       voice: 'मिक्सी, ड्रिल, भ्याकुम क्लिनर — यी मोटर हजारौं आर पी एममा घुम्छन्। भित्र हेर्दा डी सी मोटर जस्तो — कम्युटेटर र ब्रस!',
-      lines: [['h', <>7.3 · Mixie kina yati chito?</>], ['step', <>Mixie, drill: commutator + brush bhayeko motor</>]],
+      lines: [['h', <>7.6 · Mixie kina yati chito?</>], ['step', <>Mixie, drill: commutator + brush bhayeko motor</>]],
     },
     {
       say: 'Field coil ra armature eutai line ma: series motor.',
@@ -827,7 +849,7 @@ export const basics73 = duo('7.3 · Basic understanding: why does a mixer motor 
     {
       say: 'Mixers, drills ra vacuum cleaners ma commutator bhayeko high-speed motor hunchha.',
       voice: 'मिक्सर्स, ड्रिल्स, र भ्याकुम क्लिनर्समा कम्युटेटर भएको हाई स्पिड मोटर हुन्छ।',
-      lines: [['h', <>7.3 · AC series and universal motor</>], ['step', <>High-speed commutator motors</>]],
+      lines: [['h', <>7.6 · AC series and universal motor</>], ['step', <>High-speed commutator motors</>]],
     },
     {
       say: 'Field winding armature sanga series ma huncha.',
@@ -989,7 +1011,7 @@ export const universalAnswer73 = answer('Model answer: operation and application
 });
 
 /* ── 7.4 Stepper, Schrage, servo ──────────────────────────────────────── */
-export const basics74 = duo('7.4 · Basic understanding: how does a printer motor stop at an exact position?', {
+export const basics74 = duo('7.7 · Basic understanding: how does a printer motor stop at an exact position?', {
   three: smallTour([
     { shot: 'front', show: STEP, step: 0, focus: ['stepStator', 'stepCoils'], labels: [['char pole', 'stepStator']] },
     { step: 0, focus: ['stepRotor'], labels: [['magnet rotor', 'stepRotor']] },
@@ -1004,7 +1026,7 @@ export const basics74 = duo('7.4 · Basic understanding: how does a printer moto
     {
       say: 'Printer, 3D printer, CNC: yi machine haru millimeter-millimeter sarnu parcha. Yaslai stepper motor chahincha.',
       voice: 'प्रिन्टर, थ्री डी प्रिन्टर, सी एन सी — यी मेसिनहरू मिलिमिटर मिलिमिटर सर्नु पर्छ। यसलाई स्टेपर मोटर चाहिन्छ।',
-      lines: [['h', <>7.4 · Thik thau ma kasari rokincha?</>], ['step', <>Printer, 3D printer: stepper motor</>]],
+      lines: [['h', <>7.7 · Thik thau ma kasari rokincha?</>], ['step', <>Printer, 3D printer: stepper motor</>]],
     },
     {
       say: 'Bich ma magnet rotor. Stator ka char pole ma coil.',
@@ -1053,7 +1075,7 @@ export const basics74 = duo('7.4 · Basic understanding: how does a printer moto
     {
       say: 'Precise positioning chahine machines ma stepper motor prayog hunchha.',
       voice: 'प्रिसाइज पोजिसनिङ चाहिने मेसिन्समा स्टेपर मोटर प्रयोग हुन्छ।',
-      lines: [['h', <>7.4 · Special purpose machines</>], part(<>Stepper motor</>, <>precise positioning</>)],
+      lines: [['h', <>7.7 · Special purpose machines</>], part(<>Stepper motor</>, <>precise positioning</>)],
     },
     {
       say: 'Stator ma phase windings bhayeka poles ra rotor ma permanent magnet wa soft iron.',
@@ -1287,13 +1309,488 @@ export const stepperAnswer74 = answer('Model answer: principle of the stepper mo
   ],
 });
 
-const t71 = topic({ num: '7.1', title: 'Single phase Induction Motors: Construction and Characteristics · Double Field Revolving Theory', opener: basics71, derive: [construction71, dfr71], picture: [dfrAnswer71] });
-const t72 = topic({ num: '7.2', title: 'Split phase Induction Motor · Capacitor start and run motor · Reluctance start motor', opener: basics72, derive: [split72, reluctance72], picture: [startAnswer72] });
-const t73 = topic({ num: '7.3', title: 'Alternating Current Series motor and Universal motor', opener: basics73, derive: [series73], picture: [universalAnswer73] });
-const t74 = topic({ num: '7.4', title: 'Special Purpose Machines: Stepper motor, Schrage motor and Servo motor', opener: basics74, derive: [stepper74, servo74], picture: [stepperAnswer74] });
+/* ── 7.1 Construction and characteristics: what is inside, how it runs ─ */
+export const basicsCons71 = duo('7.1 · Basic understanding: what is inside a single-phase induction motor?', {
+  three: smallTour([
+    { shot: 'whole', show: SPF, spin: 0.3, focus: ['frame'], labels: [['frame', 'frame']] },
+    { shot: 'front', focus: ['stator'], labels: [['stator', 'stator']] },
+    { flow: 0.6, focus: ['main', 'supply'], labels: [['main winding', 'main']] },
+    { focus: ['cage', 'rotorCore'], labels: [['cage rotor', 'cage']] },
+    { show: [...SPF, 'aux'], focus: ['aux'], labels: [['aux winding', 'aux']] },
+    { show: SPF, spin: 0.75, spinMs: 2500, focus: ['cage', 'shaft'], labels: [['speed lagbhag ustai', 'shaft']] },
+    { shot: 'whole', spin: 0.75, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Ghar ko fan, pump ra fridge ma single-phase induction motor huncha. Bahira falam ko frame cha.',
+      voice: 'घरको फ्यान, पम्प र फ्रिजमा सिंगल फेज इन्डक्सन मोटर हुन्छ। बाहिर फलामको फ्रेम छ।',
+      lines: [['h', <>7.1 · Single-phase motor bhitra k cha?</>], part(<>Frame</>, <>bahiri khol</>)],
+    },
+    {
+      say: 'Frame bhitra patla pata jodeko stator cha, jasko khalda ma winding rakhincha.',
+      voice: 'फ्रेमभित्र पातला पाता जोडेको स्टेटर छ, जसको खाल्डामा वाइन्डिङ राखिन्छ।',
+      lines: [part(<>Stator</>, <>patla pata jodeko, khalda ma winding</>)],
+    },
+    {
+      say: 'Stator ma main winding huncha, jun ghar ko single-phase supply ma jodincha.',
+      voice: 'स्टेटरमा मेन वाइन्डिङ हुन्छ, जुन घरको सिंगल फेज सप्लाईमा जोडिन्छ।',
+      lines: [part(<>Main winding</>, <>single-phase supply ma jodincha</>)],
+    },
+    {
+      say: 'Bich ma cage rotor cha: falam ko drum ma aluminium ka dandi, dubai chheu ring le jodeko.',
+      voice: 'बीचमा केज रोटर छ — फलामको ड्रममा एल्युमिनियमका डन्डी, दुवै छेउ रिङले जोडेको।',
+      lines: [part(<>Cage rotor</>, <>dandi ra ring, tar le najodeko</>)],
+    },
+    {
+      say: 'Start garna dosro aux winding pani huncha. Yasko kaam arko topic ma herchau.',
+      voice: 'स्टार्ट गर्न दोस्रो अक्स वाइन्डिङ पनि हुन्छ। यसको काम अर्को टपिकमा हेर्छौं।',
+      lines: [part(<>Aux winding</>, <>start garna sahayog</>)],
+    },
+    {
+      say: 'Chalisakepachi load badhda pani speed thorai matra ghatcha. Tara power factor ra efficiency three-phase motor bhanda kam huncha.',
+      voice: 'चलिसकेपछि लोड बढ्दा पनि स्पिड थोरै मात्र घट्छ। तर पावर फ्याक्टर र इफिसियन्सी, थ्री फेज मोटरभन्दा कम हुन्छ।',
+      lines: [chain(<>Load badhyo → speed thorai ghatyo · pf ra efficiency kam</>)],
+      ask: {
+        q: 'Single-phase induction motor ko speed load sanga kasto huncha?',
+        voice: 'सिंगल फेज इन्डक्सन मोटरको स्पिड लोडसँग कस्तो हुन्छ?',
+        options: ['Lagbhag constant, thorai ghatcha', 'Dherai badhcha', 'Zero huncha'],
+        answer: 0,
+        why: 'Induction motor jastai slip sano huncha, tesaile speed lagbhag constant.',
+      },
+    },
+    {
+      say: 'Saransh: frame, stator, main winding, cage rotor ra aux winding; speed lagbhag ustai, tara pf ra efficiency kam.',
+      voice: 'सारांश — फ्रेम, स्टेटर, मेन वाइन्डिङ, केज रोटर र अक्स वाइन्डिङ। स्पिड लगभग उस्तै, तर पी एफ र इफिसियन्सी कम।',
+      lines: [['idea', <>Frame · stator · main winding · cage rotor · aux winding</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Single-phase induction motor fractional kilowatt range ma ghar ra office ma prayog huncha; outer frame le support dincha.',
+      voice: 'सिंगल फेज इन्डक्सन मोटर, फ्र्याक्सनल किलोवाट रेन्जमा घर र अफिसमा प्रयोग हुन्छ। आउटर फ्रेमले सपोर्ट दिन्छ।',
+      lines: [['h', <>7.1 · Construction</>], part(<>Frame</>, <>mechanical support</>)],
+    },
+    {
+      say: 'Stator laminated huncha ra slot ma winding rakhincha.',
+      voice: 'स्टेटर ल्यामिनेटेड हुन्छ, र स्लटमा वाइन्डिङ राखिन्छ।',
+      lines: [part(<>Stator</>, <>laminated, slotted</>)],
+    },
+    {
+      say: 'Main winding single-phase supply ma jodincha ra pulsating flux banauncha.',
+      voice: 'मेन वाइन्डिङ सिंगल फेज सप्लाईमा जोडिन्छ, र पल्सेटिङ फ्लक्स बनाउँछ।',
+      lines: [part(<>Main (running) winding</>, <>connected to the supply</>)],
+    },
+    {
+      say: 'Rotor squirrel cage type ko huncha.',
+      voice: 'रोटर स्क्विरल केज टाइपको हुन्छ।',
+      lines: [part(<>Rotor</>, <>squirrel cage</>)],
+    },
+    {
+      say: 'Starting ko lagi auxiliary winding huncha, jun main winding sanga space ma 90 degree farak ma rakhincha.',
+      voice: 'स्टार्टिङको लागि अक्जिलरी वाइन्डिङ हुन्छ, जुन मेन वाइन्डिङसँग स्पेसमा नब्बे डिग्री फरकमा राखिन्छ।',
+      lines: [part(<>Auxiliary winding</>, <>for starting, 90° in space from the main</>)],
+    },
+    {
+      say: 'Characteristic: speed lagbhag constant, tara power factor, efficiency ra starting torque three-phase motor bhanda kam.',
+      voice: 'क्यारेक्टरिस्टिक — स्पिड लगभग कन्स्टेन्ट, तर पावर फ्याक्टर, इफिसियन्सी र स्टार्टिङ टर्क, थ्री फेज मोटरभन्दा कम।',
+      lines: [chain(<>Nearly constant speed · lower pf, efficiency and starting torque</>)],
+      ask: {
+        q: 'Single-phase induction motor ko power factor three-phase motor bhanda kasto huncha?',
+        voice: 'सिंगल फेज इन्डक्सन मोटरको पावर फ्याक्टर, थ्री फेज मोटरभन्दा कस्तो हुन्छ?',
+        options: ['Kam', 'Badhi', 'Barabar'],
+        answer: 0,
+        why: 'Pulsating flux ra backward field le magnetising current ra losses badhauchan.',
+      },
+    },
+    {
+      say: 'Saransh: frame, laminated stator, main ra auxiliary winding, ra cage rotor.',
+      voice: 'सारांश — फ्रेम, ल्यामिनेटेड स्टेटर, मेन र अक्जिलरी वाइन्डिङ, र केज रोटर।',
+      lines: [['idea', <>Frame · stator · main + auxiliary windings · cage rotor</>]],
+    },
+  ],
+});
+
+/* ── 7.4 Capacitor start and run motor ──────────────────────────────── */
+export const basicsCap74 = duo('7.4 · Basic understanding: what does the capacitor do in a fan motor?', {
+  three: smallTour([
+    { shot: 'front', show: [...SPF, 'aux'], flow: 0.6, focus: ['aux'], labels: [['aux winding', 'aux']] },
+    { shot: 'cap', show: [...SPF, 'aux', 'capacitor'], rot: 1, focus: ['capacitor'], labels: [['capacitor', 'capacitor']] },
+    { rot: 1, spin: 0.5, spinMs: 2500, focus: ['cage'], labels: [['balio suru', 'cage']] },
+    { shot: 'switch', spin: 0.8, focus: ['switch'], labels: [['start capacitor hatyo', 'switch']] },
+    { shot: 'front', rot: 1, spin: 0.8, focus: ['capacitor', 'aux'], labels: [['run capacitor sadhai', 'capacitor']] },
+    { shot: 'whole', rot: 1, spin: 0.8, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Aux winding ma capacitor jodiyo bhane tesko current main winding bhanda aghi pugcha.',
+      voice: 'अक्स वाइन्डिङमा क्यापासिटर जोडियो भने, त्यसको करेन्ट मेन वाइन्डिङभन्दा अघि पुग्छ।',
+      lines: [['h', <>7.4 · Capacitor ko kaam</>], part(<>Capacitor</>, <>aux ko current aghi pathaucha</>)],
+    },
+    {
+      say: 'Dui winding ko current ma lagbhag aadha chakkar ko aadha jati farak hunda field ramro sanga ghumcha.',
+      voice: 'दुई वाइन्डिङको करेन्टमा ठूलो समय फरक हुँदा, फिल्ड राम्रोसँग घुम्छ।',
+      lines: [chain(<>Current ma thulo farak → field ramro ghumcha</>)],
+    },
+    {
+      say: 'Yesaile capacitor-start motor ko suru ko dhakka dherai balio huncha: pump ra compressor ma.',
+      voice: 'यसैले क्यापासिटर स्टार्ट मोटरको सुरुको धक्का धेरै बलियो हुन्छ — पम्प र कम्प्रेसरमा।',
+      lines: [chain(<>Balio suru ko dhakka → pump, compressor</>)],
+    },
+    {
+      say: 'Speed pugepachi centrifugal switch le start capacitor hatauncha.',
+      voice: 'स्पिड पुगेपछि सेन्ट्रिफ्युगल स्विचले स्टार्ट क्यापासिटर हटाउँछ।',
+      lines: [part(<>Centrifugal switch</>, <>speed pugepachi start capacitor hatauncha</>)],
+    },
+    {
+      say: 'Capacitor-run motor ma sano capacitor sadhai jodiyeko rahancha: chup, smooth ra ramro power factor. Ceiling fan ma yahi.',
+      voice: 'क्यापासिटर रन मोटरमा सानो क्यापासिटर सधैं जोडिएको रहन्छ — चुप, स्मुथ, र राम्रो पावर फ्याक्टर। सिलिङ फ्यानमा यही।',
+      lines: [chain(<>Run capacitor sadhai → chup, smooth, ramro pf (ceiling fan)</>)],
+      ask: {
+        q: 'Ceiling fan ma capacitor kina sadhai jodiyeko huncha?',
+        voice: 'सिलिङ फ्यानमा क्यापासिटर किन सधैं जोडिएको हुन्छ?',
+        options: ['Smooth chalai ra ramro power factor ko lagi', 'Speed zero garna', 'Voltage badhauna'],
+        answer: 0,
+        why: 'Run capacitor le field lagatar ghumirakhcha, tesaile smooth ra ramro pf.',
+      },
+    },
+    {
+      say: 'Saransh: start capacitor le balio suru, run capacitor le smooth chalai.',
+      voice: 'सारांश — स्टार्ट क्यापासिटरले बलियो सुरु, रन क्यापासिटरले स्मुथ चलाइ।',
+      lines: [['idea', <>Start capacitor: strong start · run capacitor: smooth running</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Auxiliary winding sanga series ma capacitor jodda auxiliary current supply voltage lai lead garcha.',
+      voice: 'अक्जिलरी वाइन्डिङसँग सिरिजमा क्यापासिटर जोड्दा, अक्जिलरी करेन्ट सप्लाई भोल्टेजलाई लिड गर्छ।',
+      lines: [['h', <>7.4 · Capacitor motors</>], part(<>Capacitor</>, <>makes the auxiliary current lead</>)],
+    },
+    {
+      say: 'Main ra auxiliary current bich phase difference lagbhag 90 degree hunchha, ra rotating field ramro banchha.',
+      voice: 'मेन र अक्जिलरी करेन्टबीच फेज डिफरेन्स लगभग नब्बे डिग्री हुन्छ, र रोटेटिङ फिल्ड राम्रो बन्छ।',
+      lines: [chain(<>Phase difference near 90° → good rotating field</>)],
+    },
+    {
+      say: 'Phalswarup capacitor-start motor ko starting torque ucho huncha.',
+      voice: 'फलस्वरूप क्यापासिटर स्टार्ट मोटरको स्टार्टिङ टर्क उच्च हुन्छ।',
+      lines: [chain(<>High starting torque: pumps, compressors</>)],
+    },
+    {
+      say: 'Rated speed ko lagbhag 75 percent ma centrifugal switch le start capacitor disconnect garcha.',
+      voice: 'रेटेड स्पिडको लगभग पचहत्तर प्रतिशतमा, सेन्ट्रिफ्युगल स्विचले स्टार्ट क्यापासिटर डिस्कनेक्ट गर्छ।',
+      lines: [part(<>Centrifugal switch</>, <>opens near 75 % of rated speed</>)],
+    },
+    {
+      say: 'Capacitor-start capacitor-run motor ma run capacitor circuit mai rahancha, jasle power factor ra efficiency sudharcha.',
+      voice: 'क्यापासिटर स्टार्ट क्यापासिटर रन मोटरमा, रन क्यापासिटर सर्किटमै रहन्छ, जसले पावर फ्याक्टर र इफिसियन्सी सुधार्छ।',
+      lines: [chain(<>Run capacitor stays → better pf and efficiency, quiet</>)],
+      ask: {
+        q: 'Capacitor-start motor ma centrifugal switch ko kaam k ho?',
+        voice: 'क्यापासिटर स्टार्ट मोटरमा सेन्ट्रिफ्युगल स्विचको काम के हो?',
+        options: ['Speed pugepachi start capacitor ra auxiliary hataunu', 'Main winding hataunu', 'Speed badhaunu'],
+        answer: 0,
+        why: 'Starting pachi auxiliary circuit chahidaina, tesaile switch le khuldincha.',
+      },
+    },
+    {
+      say: 'Saransh: start capacitor le starting torque, run capacitor le running performance sudharcha.',
+      voice: 'सारांश — स्टार्ट क्यापासिटरले स्टार्टिङ टर्क, रन क्यापासिटरले रनिङ पर्फर्मेन्स सुधार्छ।',
+      lines: [['idea', <>Start capacitor: starting torque · run capacitor: running performance</>]],
+    },
+  ],
+});
+
+// splitFigure: 0 main · 1 auxiliary + switch · 2 capacitor · 3 phasors · 4 T ∝ Im Ia sin α
+export const capacitor74 = duo('Capacitor start and capacitor run motors', {
+  draw: figAt(splitFigure, { 0: 0, 1: 0, 2: 1, 3: 2, 4: 3 }),
+  viewBox: '0 0 360 222',
+  tutor: [
+    {
+      say: 'Yaad garau: starting torque T st, I m I a sin alpha sanga proportional, jaha alpha dui current bich ko phase difference.',
+      voice: 'याद गरौं — स्टार्टिङ टर्क टी एस टी, आई एम आई ए साइन अल्फासँग प्रोपोर्सनल, जहाँ अल्फा दुई करेन्टबीचको फेज डिफरेन्स।',
+      lines: [['h', <>Capacitor start and run motors</>], rem(<K>{String.raw`T_{st} \propto I_m I_a \sin\alpha`}</K>, <>Split-phase: α ≈ 25–30° only</>)],
+    },
+    {
+      say: 'Capacitor-start motor ma auxiliary winding sanga series ma capacitor jodincha. Capacitor le I a lai V bhanda aghi lead garaucha.',
+      voice: 'क्यापासिटर स्टार्ट मोटरमा अक्जिलरी वाइन्डिङसँग सिरिजमा क्यापासिटर जोडिन्छ। क्यापासिटरले आई एलाई भीभन्दा अघि लिड गराउँछ।',
+      lines: [['step', <>Capacitor C in series with the auxiliary → I<sub>a</sub> leads V</>]],
+    },
+    {
+      say: 'I m V bhanda pachhi lag garcha, I a aghi lead garcha, tesaile alpha lagbhag 90 degree. Sin 90 equals one, tesaile starting torque maximum.',
+      voice: 'आई एम भीभन्दा पछि ल्याग गर्छ, आई ए अघि लिड गर्छ, त्यसैले अल्फा लगभग नब्बे डिग्री। साइन नाइन्टी इक्वल्स वान, यसरी स्टार्टिङ टर्क म्याक्सिमम।',
+      lines: [['step', step('Phase difference', String.raw`\begin{aligned} \alpha &\approx 90^\circ \\ \sin\alpha &\approx 1 \end{aligned}`)]],
+    },
+    {
+      say: 'Kina capacitor le current lead garaucha? Capacitor ma voltage bhanda pahila current pugcha: charge bharna current pahila bagnu parcha.',
+      voice: 'किन क्यापासिटरले करेन्ट लिड गराउँछ? क्यापासिटरमा भोल्टेजभन्दा पहिला करेन्ट पुग्छ — चार्ज भर्न करेन्ट पहिला बग्नुपर्छ।',
+      lines: [br('Why does a capacitor make the current lead?', <Pts items={[<>Current must flow first to put charge on the plates</>, <>The voltage builds up after the charge</>, <>So in a capacitor the current leads the voltage (up to 90°)</>]} />)],
+    },
+    {
+      say: 'Main line ma farkau. Rated speed ko lagbhag 75 percent ma centrifugal switch khulcha, ra motor main winding le matra chalcha.',
+      voice: 'मेन लाइनमा फर्कौं। रेटेड स्पिडको लगभग पचहत्तर प्रतिशतमा सेन्ट्रिफ्युगल स्विच खुल्छ, र मोटर मेन वाइन्डिङले मात्र चल्छ।',
+      lines: [['step', <>At ≈ 75 % speed the centrifugal switch opens; the motor runs on the main winding</>]],
+    },
+    {
+      say: 'Capacitor-start capacitor-run motor ma dui capacitor: thulo electrolytic start ko lagi, sano oil-filled run ko lagi, jun sadhai rahancha.',
+      voice: 'क्यापासिटर स्टार्ट क्यापासिटर रन मोटरमा दुई क्यापासिटर — ठूलो इलेक्ट्रोलाइटिक स्टार्टको लागि, सानो अयल फिल्ड रनको लागि, जुन सधैं रहन्छ।',
+      lines: [['step', <Pts items={[<>C<sub>s</sub> (large, electrolytic): starting only</>, <>C<sub>r</sub> (small, oil-filled): stays in circuit</>, <>Better pf and efficiency, quiet: compressors, fans, refrigerators</>]} />]],
+      ask: {
+        q: 'Capacitor-start motor ko starting torque split-phase bhanda kina badhi huncha?',
+        voice: 'क्यापासिटर स्टार्ट मोटरको स्टार्टिङ टर्क, स्प्लिट फेजभन्दा किन बढी हुन्छ?',
+        options: ['α lagbhag 90° huncha', 'Main winding hatcha', 'Supply voltage badhcha'],
+        answer: 0,
+        why: 'Tst ∝ Im Ia sin α; α ≈ 90° ma sin α ≈ 1, split-phase ma 25–30° matra.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: T st proportional to I m I a sin alpha; split-phase ma alpha 25 dekhi 30 degree matra.',
+      voice: 'स्मरण — टी एस टी, प्रोपोर्सनल टु आई एम आई ए साइन अल्फा। स्प्लिट फेजमा अल्फा पच्चीस देखि तीस डिग्री मात्र।',
+      lines: [['h', <>Capacitor start and run motors (Fig. 7.2)</>], rem(<K>{String.raw`T_{st} \propto I_m I_a \sin\alpha`}</K>)],
+    },
+    {
+      say: 'Capacitor-start motor: auxiliary winding sanga series ma capacitor, ra centrifugal switch.',
+      voice: 'क्यापासिटर स्टार्ट मोटर — अक्जिलरी वाइन्डिङसँग सिरिजमा क्यापासिटर, र सेन्ट्रिफ्युगल स्विच।',
+      lines: [['step', <>A capacitor C and centrifugal switch in series with the auxiliary winding.</>]],
+    },
+    {
+      say: 'I a V lai lead garcha ra I m lag garcha, tesaile alpha lagbhag 90 degree ra starting torque ucho.',
+      voice: 'आई ए भीलाई लिड गर्छ, र आई एम ल्याग गर्छ, त्यसैले अल्फा लगभग नब्बे डिग्री, र स्टार्टिङ टर्क उच्च।',
+      lines: [['step', <>I<sub>a</sub> leads V, I<sub>m</sub> lags: <K>{String.raw`\alpha \approx 90^\circ`}</K>, hence high starting torque.</>]],
+    },
+    {
+      say: 'Capacitor ma current voltage lai lead garcha, kinaki plates charge huna pahila current bagnu parcha.',
+      voice: 'क्यापासिटरमा करेन्ट भोल्टेजलाई लिड गर्छ, किनकि प्लेट्स चार्ज हुनुपहिला करेन्ट बग्नुपर्छ।',
+      lines: [br('Leading current in C', <Pts items={[<>Charge (current) comes before voltage</>, <>Ideal capacitor: current leads by 90°</>]} />)],
+    },
+    {
+      say: 'Lagbhag 75 percent speed ma centrifugal switch le auxiliary circuit disconnect garcha.',
+      voice: 'लगभग पचहत्तर प्रतिशत स्पिडमा, सेन्ट्रिफ्युगल स्विचले अक्जिलरी सर्किट डिस्कनेक्ट गर्छ।',
+      lines: [['step', <>At about 75 % of synchronous speed the switch disconnects the auxiliary.</>]],
+    },
+    {
+      say: 'Capacitor-start capacitor-run motor ma C s start ko lagi ra C r sadhai circuit ma; power factor, efficiency ra quiet running sudharchan.',
+      voice: 'क्यापासिटर स्टार्ट क्यापासिटर रन मोटरमा, सी एस स्टार्टको लागि, र सी आर सधैं सर्किटमा। पावर फ्याक्टर, इफिसियन्सी र क्वाइट रनिङ सुधारिन्छन्।',
+      lines: [['step', <Pts items={[<>C<sub>s</sub> for starting, C<sub>r</sub> permanently connected</>, <>Improved pf and efficiency; quiet running</>]} />]],
+      ask: {
+        q: 'Capacitor-run motor ma run capacitor le k sudharcha?',
+        voice: 'क्यापासिटर रन मोटरमा रन क्यापासिटरले के सुधार्छ?',
+        options: ['Power factor ra efficiency', 'Starting current badhaucha', 'Speed zero garcha'],
+        answer: 0,
+        why: 'Run capacitor le running ma pani rotating field balio rakhcha.',
+      },
+    },
+  ],
+});
+
+/* ── 7.5 Reluctance start motor ─────────────────────────────────────── */
+export const basicsRel75 = duo('7.5 · Basic understanding: how can a motor start with no extra winding?', {
+  three: smallTour([
+    { shot: 'front', show: SPF, flow: 0.6, pulse: 1, focus: ['stator', 'main'], labels: [['asaman hawa ko gap', 'stator']] },
+    { pulse: 0.6, rot: 0.35, focus: ['main'], labels: [['field bistarai sarcha', 'field']] },
+    { rot: 0.35, spin: 0.3, spinMs: 3000, focus: ['cage'], labels: [['sano dhakka', 'cage']] },
+    { spin: 0.6, focus: ['shaft'], labels: [['halka kaam: ghadi, timer', 'shaft']] },
+    { shot: 'whole', rot: 0.35, spin: 0.6, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Reluctance start motor ma aux winding nai hudaina. Pole ra rotor bich ko hawa ko gap euta chheu ma sano, arko chheu ma thulo huncha.',
+      voice: 'रिलक्टेन्स स्टार्ट मोटरमा अक्स वाइन्डिङ नै हुँदैन। पोल र रोटरबीचको हावाको ग्याप एउटा छेउमा सानो, अर्को छेउमा ठूलो हुन्छ।',
+      lines: [['h', <>7.5 · Extra coil bina start?</>], part(<>Asaman gap</>, <>euta chheu sano, arko thulo</>)],
+    },
+    {
+      say: 'Gap farak bhayeko le magnet ko bal ek chheu bata arko chheu tira bistarai sarcha.',
+      voice: 'ग्याप फरक भएकोले, म्याग्नेटको बल एक छेउबाट अर्को छेउतिर बिस्तारै सर्छ।',
+      lines: [chain(<>Gap farak → field sano gap tira sarcha</>)],
+    },
+    {
+      say: 'Sarne field le rotor lai sano dhakka dincha, ra rotor ghumna thalcha.',
+      voice: 'सर्ने फिल्डले रोटरलाई सानो धक्का दिन्छ, र रोटर घुम्न थाल्छ।',
+      lines: [chain(<>Sarne field → sano dhakka → rotor ghumyo</>)],
+      ask: {
+        q: 'Reluctance start motor ma field kun tira sarcha?',
+        voice: 'रिलक्टेन्स स्टार्ट मोटरमा फिल्ड कुनतिर सर्छ?',
+        options: ['Sano gap tira', 'Thulo gap tira', 'Sardaina'],
+        answer: 0,
+        why: 'Sano gap tira ko flux dherai lag garcha, tesaile field tyatai sarcha.',
+      },
+    },
+    {
+      say: 'Dhakka kamjor bhayeko le yo motor ghadi, timer ra khelauna jasta dherai halka kaam ma matra prayog huncha.',
+      voice: 'धक्का कमजोर भएकोले यो मोटर घडी, टाइमर र खेलौना जस्ता धेरै हल्का काममा मात्र प्रयोग हुन्छ।',
+      lines: [chain(<>Kamjor dhakka → ghadi, timer, khelauna</>)],
+    },
+    {
+      say: 'Saransh: asaman gap le field sarcha, sano dhakka dincha, ra sasto ra sajilo motor banchha.',
+      voice: 'सारांश — असमान ग्यापले फिल्ड सर्छ, सानो धक्का दिन्छ, र सस्तो र सजिलो मोटर बन्छ।',
+      lines: [['idea', <>Asaman gap → field sarcha → sano dhakka · sasto, sajilo</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Reluctance start motor ma auxiliary winding hudaina; stator pole ko air gap non-uniform huncha.',
+      voice: 'रिलक्टेन्स स्टार्ट मोटरमा अक्जिलरी वाइन्डिङ हुँदैन। स्टेटर पोलको एयर ग्याप नन युनिफर्म हुन्छ।',
+      lines: [['h', <>7.5 · Reluctance start motor</>], part(<>Non-uniform gap</>, <>no auxiliary winding</>)],
+    },
+    {
+      say: 'Thulo gap bhaeko bhag ko flux kam lag garcha, sano gap ko bhag ko flux badhi.',
+      voice: 'ठूलो ग्याप भएको भागको फ्लक्स कम ल्याग गर्छ, सानो ग्यापको भागको फ्लक्स बढी।',
+      lines: [chain(<>Phase difference between the two fluxes → field shifts to the small gap</>)],
+    },
+    {
+      say: 'Yo sarne field le kamjor starting torque dincha.',
+      voice: 'यो सर्ने फिल्डले कमजोर स्टार्टिङ टर्क दिन्छ।',
+      lines: [chain(<>Shifting field → weak starting torque</>)],
+      ask: {
+        q: 'Reluctance start motor ko starting torque kasto huncha?',
+        voice: 'रिलक्टेन्स स्टार्ट मोटरको स्टार्टिङ टर्क कस्तो हुन्छ?',
+        options: ['Dherai kam', 'Dherai ucho', 'Capacitor-start barabar'],
+        answer: 0,
+        why: 'Dui flux bich ko phase difference sano bhayeko le torque kam.',
+      },
+    },
+    {
+      say: 'Yasko efficiency kam huncha ra yo clock, timer ra toy ma prayog huncha.',
+      voice: 'यसको इफिसियन्सी कम हुन्छ, र यो क्लक, टाइमर र टोयमा प्रयोग हुन्छ।',
+      lines: [chain(<>Low efficiency → clocks, timers, toys</>)],
+    },
+    {
+      say: 'Saransh: non-uniform air gap bata starting, ati sano power ko lagi.',
+      voice: 'सारांश — नन युनिफर्म एयर ग्यापबाट स्टार्टिङ, अति सानो पावरको लागि।',
+      lines: [['idea', <>Starting from a non-uniform air gap; very small ratings</>]],
+    },
+  ],
+});
+
+/* ── 7.1 Model answer: working principle and the effect of the air gap ─ */
+// 2068 Magh Q1(a) [5+3] (Question Bank part 11).
+export const consAnswer71 = answer('Model answer: working principle of a single-phase induction motor and the air gap', {
+  draw: dfrFigure,
+  viewBox: '0 0 360 225',
+  papers: ['2068 Magh'],
+  marks: '[5 + 3]',
+  q: 'Explain the working principle of a single phase induction motor. What is the effect of air gap in the magnetic circuit?',
+  read: {
+    say: 'IOE 2068 Magh: single phase induction motor ko working principle explain gara, ra magnetic circuit ma air gap ko asar k huncha. Pahilo bhag panch, dosro tin marks.',
+    voice: 'आई ओ ई दुई हजार अठसट्ठी माघ — सिंगल फेज इन्डक्सन मोटरको वर्किङ प्रिन्सिपल एक्सप्लेन गर, र म्याग्नेटिक सर्किटमा एयर ग्यापको असर के हुन्छ। पहिलो भाग पाँच, दोस्रो तीन मार्क्स।',
+  },
+  points: [
+    {
+      carry: <>(a) Pulsating flux = two halves Φ<sub>m</sub>/2 rotating opposite ways</>,
+      node: <><H>(a) Working principle [5]</H><Pts items={[<>Single-phase supply to the main winding gives a pulsating (not rotating) flux <K>{String.raw`\Phi_m\cos\omega t`}</K></>, <>By double field revolving theory it equals two fluxes Φ<sub>m</sub>/2 rotating in opposite directions at N<sub>s</sub> (Fig. 7.1)</>]} /></>,
+      say: 'Main winding ma single-phase supply dida pulsating flux phi m cos omega t banchha, rotating hoina. Double field revolving theory anusar yo dui phi m by two ka flux ho, jun ulto disha ma N s ma ghumchan.',
+      voice: 'मेन वाइन्डिङमा सिंगल फेज सप्लाई दिँदा पल्सेटिङ फ्लक्स, फाइ एम कस ओमेगा टी बन्छ, रोटेटिङ होइन। डबल फिल्ड रिभल्भिङ थ्योरी अनुसार, यो दुई फाइ एम बाइ टु का फ्लक्स हो, जुन उल्टो दिशामा एन एसमा घुम्छन्।',
+    },
+    {
+      node: <><Pts items={[<>At standstill the two torques T<sub>f</sub> and T<sub>b</sub> are equal and opposite: net starting torque is zero, so the motor is not self-starting</>, <>Once started in either direction, the torque of that field becomes larger and the motor keeps running; an auxiliary winding is used to start it</>]} /></>,
+      say: 'Standstill ma forward ra backward torque barabar ra ulto, net starting torque zero, tesaile motor self-starting hudaina. Euta disha ma suru garepachi tyo field ko torque thulo hunchha ra motor chalirahancha; start garna auxiliary winding prayog garincha.',
+      voice: 'स्ट्यान्डस्टिलमा फरवार्ड र ब्याकवार्ड टर्क बराबर र उल्टो, नेट स्टार्टिङ टर्क जिरो, त्यसैले मोटर सेल्फ स्टार्टिङ हुँदैन। एउटा दिशामा सुरु गरेपछि त्यो फिल्डको टर्क ठूलो हुन्छ, र मोटर चलिरहन्छ। स्टार्ट गर्न अक्जिलरी वाइन्डिङ प्रयोग गरिन्छ।',
+    },
+    {
+      page: true,
+      node: <><H>(b) Effect of the air gap [3]</H><Pts items={[<>The air gap has a very high reluctance: <K>{String.raw`S_g = \dfrac{l_g}{\mu_0 A}`}</K></>, <>A larger gap needs a larger magnetising current → lower power factor and efficiency</>, <>So the gap is kept as small as mechanically possible (≈ 0.25–0.5 mm)</>]} /></>,
+      say: 'Air gap ko reluctance dherai ucho huncha: S g equals l g over mu zero A. Gap thulo bhaye magnetising current badhi chahincha, ra power factor ra efficiency ghatchan. Tesaile gap mechanical rupma sambhav bhaye samma sano rakhincha.',
+      voice: 'एयर ग्यापको रिलक्टेन्स धेरै उच्च हुन्छ — एस जी इक्वल्स, एल जी ओभर म्यु जिरो ए। ग्याप ठूलो भए म्याग्नेटाइजिङ करेन्ट बढी चाहिन्छ, र पावर फ्याक्टर र इफिसियन्सी घट्छन्। त्यसैले ग्याप मेकानिकल रूपमा सम्भव भएसम्म सानो राखिन्छ।',
+      ask: {
+        q: 'Induction motor ma air gap badhaye power factor lai k huncha?',
+        voice: 'इन्डक्सन मोटरमा एयर ग्याप बढाए पावर फ्याक्टरलाई के हुन्छ?',
+        options: ['Ghatcha', 'Badhcha', 'Farak pardaina'],
+        answer: 0,
+        why: 'Thulo gap ma badhi magnetising current chahincha, jun reactive current ho.',
+      },
+    },
+  ],
+});
+
+/* ── 7.4 Model answer: short note on the capacitor start and run motor ─ */
+// 2073 Chaitra Q(b)(i) short note; 2068 Magh Q6(a) "Capacitor starting of
+// 1φ induction motor" (Question Bank parts 2 and 11). Marks per note not shown.
+export const capAnswer74 = answer('Model answer: capacitor start and run motor (short note)', {
+  draw: splitFigure,
+  viewBox: '0 0 360 222',
+  papers: ['2073 Chaitra', '2068 Magh'],
+  marks: '',
+  q: 'Write short notes on: Capacitor start and run motor.',
+  read: {
+    say: 'IOE 2073 Chaitra ra 2068 Magh: capacitor start and run motor ma short note lekha.',
+    voice: 'आई ओ ई दुई हजार त्रिहत्तर चैत र दुई हजार अठसट्ठी माघ — क्यापासिटर स्टार्ट एन्ड रन मोटरमा सर्ट नोट लेख।',
+  },
+  points: [
+    {
+      carry: <>Capacitor in the auxiliary → α ≈ 90°</>,
+      node: <><H>Capacitor start motor (Fig. 7.2)</H><Pts items={[<>A capacitor and a centrifugal switch in series with the auxiliary winding</>, <>I<sub>a</sub> leads V, I<sub>m</sub> lags: α ≈ 90°, so <K>{String.raw`T_{st} \propto I_mI_a\sin\alpha`}</K> is high</>, <>Switch opens at about 75 % speed</>]} /></>,
+      say: 'Capacitor start motor: auxiliary winding sanga series ma capacitor ra centrifugal switch. I a lead ra I m lag garda alpha lagbhag 90 degree, tesaile starting torque ucho. Lagbhag 75 percent speed ma switch khulcha.',
+      voice: 'क्यापासिटर स्टार्ट मोटर — अक्जिलरी वाइन्डिङसँग सिरिजमा क्यापासिटर र सेन्ट्रिफ्युगल स्विच। आई ए लिड र आई एम ल्याग गर्दा, अल्फा लगभग नब्बे डिग्री, त्यसैले स्टार्टिङ टर्क उच्च। लगभग पचहत्तर प्रतिशत स्पिडमा स्विच खुल्छ।',
+    },
+    {
+      node: <><H>Capacitor start capacitor run motor</H><Pts items={[<>Two capacitors: C<sub>s</sub> (large, electrolytic) for starting, C<sub>r</sub> (small, oil-filled) always connected</>, <>Better power factor and efficiency, quiet and smooth running</>, <>Uses: compressors, refrigerators, air conditioners, pumps; ceiling fans use one permanent capacitor</>]} /></>,
+      say: 'Capacitor start capacitor run motor ma dui capacitor: C s thulo starting ko lagi, C r sano sadhai jodiyeko. Power factor ra efficiency ramro, ra chalai chup ra smooth. Compressor, fridge, AC ra pump ma prayog huncha.',
+      voice: 'क्यापासिटर स्टार्ट क्यापासिटर रन मोटरमा दुई क्यापासिटर — सी एस ठूलो स्टार्टिङको लागि, सी आर सानो सधैं जोडिएको। पावर फ्याक्टर र इफिसियन्सी राम्रो, र चलाइ चुप र स्मुथ। कम्प्रेसर, फ्रिज, एयर कन्डिसनर र पम्पमा प्रयोग हुन्छ।',
+      ask: {
+        q: 'Capacitor start capacitor run motor ma kati capacitor hunchan?',
+        voice: 'क्यापासिटर स्टार्ट क्यापासिटर रन मोटरमा कति क्यापासिटर हुन्छन्?',
+        options: ['Dui', 'Euta', 'Tin'],
+        answer: 0,
+        why: 'Starting ko lagi Cs ra running ko lagi Cr.',
+      },
+    },
+  ],
+});
+
+/* ── 7.5 Model answer: starting methods, reluctance start ───────────── */
+// No reluctance-start question in vault/; the closest real question is the
+// starting-methods one (2068 Bhadra, 2071 Chaitra, 2078 Baishakh), answered
+// here with the reluctance start and resistance split-phase methods.
+export const relAnswer75 = answer('Model answer: starting methods (reluctance start and split phase)', {
+  draw: relFigure,
+  viewBox: '0 0 360 240',
+  papers: ['2068 Bhadra', '2071 Chaitra', '2078 Baishakh'],
+  marks: '',
+  q: 'Why single phase induction motor are not self starting? Explain any two starting methods for single phase induction motor.',
+  read: {
+    say: 'IOE ko question: single phase induction motor kina self starting hudaina, ra kunai dui starting method explain gara. Yaha reluctance start ra split phase method lekhchhau.',
+    voice: 'आई ओ ईको क्वेस्चन — सिंगल फेज इन्डक्सन मोटर किन सेल्फ स्टार्टिङ हुँदैन, र कुनै दुई स्टार्टिङ मेथड एक्सप्लेन गर। यहाँ रिलक्टेन्स स्टार्ट र स्प्लिट फेज मेथड लेख्छौं।',
+  },
+  points: [
+    {
+      carry: <>(a) Pulsating flux → T<sub>f</sub> = T<sub>b</sub> at rest → no starting torque</>,
+      node: <><H>(a) Not self-starting</H><Pts items={[<>A single winding gives a pulsating flux, equal to two halves rotating opposite ways (double field revolving theory)</>, <>At standstill their torques are equal and opposite: net torque zero</>]} /></>,
+      say: 'Euta winding le pulsating flux dincha, jun ulto disha ma ghumne dui half ho. Standstill ma tinka torque barabar ra ulto, net torque zero.',
+      voice: 'एउटा वाइन्डिङले पल्सेटिङ फ्लक्स दिन्छ, जुन उल्टो दिशामा घुम्ने दुई हाफ हो। स्ट्यान्डस्टिलमा तिनका टर्क बराबर र उल्टो, नेट टर्क जिरो।',
+    },
+    {
+      page: true,
+      node: <><H>(b)(i) Reluctance start (Fig. 7.5)</H><Pts items={[<>Salient stator poles with a non-uniform air gap; no auxiliary winding</>, <>The flux of the wide-gap part lags less than that of the narrow-gap part → the field shifts towards the narrow gap → small starting torque</>, <>Low torque and efficiency: clocks, timers, toys</>]} /></>,
+      say: 'Reluctance start: salient pole ma non-uniform air gap, auxiliary winding chaina. Thulo gap ko flux kam lag garcha, field sano gap tira sarcha, ra sano starting torque aaucha. Clock, timer ra toy ma.',
+      voice: 'रिलक्टेन्स स्टार्ट — सेलियन्ट पोलमा नन युनिफर्म एयर ग्याप, अक्जिलरी वाइन्डिङ छैन। ठूलो ग्यापको फ्लक्स कम ल्याग गर्छ, फिल्ड सानो ग्यापतिर सर्छ, र सानो स्टार्टिङ टर्क आउँछ। क्लक, टाइमर र टोयमा।',
+    },
+    {
+      node: <><H>(b)(ii) Split phase (resistance start)</H><Pts items={[<>High-resistance auxiliary winding 90° in space from the main, with a centrifugal switch</>, <>I<sub>a</sub> nearly in phase with V, I<sub>m</sub> lags: α ≈ 25–30°, so <K>{String.raw`T_{st} \propto I_mI_a\sin\alpha`}</K> is moderate</>, <>Fans, blowers, washing machines</>]} /></>,
+      say: 'Split phase: high resistance auxiliary winding main sanga space ma 90 degree, centrifugal switch sahit. Alpha 25 dekhi 30 degree, tesaile starting torque madhyam. Fan, blower ra washing machine ma.',
+      voice: 'स्प्लिट फेज — हाई रेजिस्टेन्स अक्जिलरी वाइन्डिङ, मेनसँग स्पेसमा नब्बे डिग्री, सेन्ट्रिफ्युगल स्विचसहित। अल्फा पच्चीस देखि तीस डिग्री, त्यसैले स्टार्टिङ टर्क मध्यम। फ्यान, ब्लोअर र वासिङ मेसिनमा।',
+      ask: {
+        q: 'Reluctance start motor ma field kun tira sarcha?',
+        voice: 'रिलक्टेन्स स्टार्ट मोटरमा फिल्ड कुनतिर सर्छ?',
+        options: ['Narrow (sano) gap tira', 'Wide (thulo) gap tira', 'Kunai pani tira sardaina'],
+        answer: 0,
+        why: 'Narrow gap ko flux badhi lag garcha, tesaile field tyatira sarcha.',
+      },
+    },
+  ],
+});
+
+// One topic per IOE syllabus bullet of Unit 7 (rule 68).
+const t71 = topic({ num: '7.1', title: 'Single phase Induction Motors: Construction and Characteristics', opener: basicsCons71, derive: [construction71], picture: [consAnswer71] });
+const t72 = topic({ num: '7.2', title: 'Double Field Revolving Theory', opener: basics71, derive: [dfr71], picture: [dfrAnswer71] });
+const t73 = topic({ num: '7.3', title: 'Split phase Induction Motor', opener: basics72, derive: [split72], picture: [startAnswer72] });
+const t74 = topic({ num: '7.4', title: 'Capacitor start and run motor', opener: basicsCap74, derive: [capacitor74], picture: [capAnswer74] });
+const t75 = topic({ num: '7.5', title: 'Reluctance start motor', opener: basicsRel75, derive: [reluctance72], picture: [relAnswer75] });
+const t76 = topic({ num: '7.6', title: 'Alternating Current Series motor and Universal motor', opener: basics73, derive: [series73], picture: [universalAnswer73] });
+const t77 = topic({ num: '7.7', title: 'Special Purpose Machines: Stepper motor, Schrage motor and Servo motor', opener: basics74, derive: [stepper74, servo74], picture: [stepperAnswer74] });
 
 export const unit7 = {
-  topics: [t71, t72, t73, t74],
+  topics: [t71, t72, t73, t74, t75, t76, t77],
   summary: [
     <>Single-phase IM: pulsating field Φ<sub>m</sub> cos ωt = two Φ<sub>m</sub>/2 fields ulto ghumne; standstill ma T<sub>f</sub> = T<sub>b</sub>, not self-starting.</>,
     <>Starting: auxiliary winding 90° ma; T ∝ I<sub>m</sub>I<sub>a</sub> sin α; split-phase α ≈ 30°, capacitor-start α ≈ 90°; centrifugal switch.</>,

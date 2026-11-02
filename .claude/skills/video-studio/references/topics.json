@@ -1191,9 +1191,27 @@
     ]
   },
   "7.1": {
-    "title": "Single phase induction motor ra double field revolving theory",
+    "title": "Single phase Induction Motors: Construction and Characteristics",
     "syllabus": [
-      "Single phase Induction Motors: Construction and Characteristics",
+      "Single phase Induction Motors: Construction and Characteristics"
+    ],
+    "derivations": [],
+    "bigPicture": [
+      {
+        "id": "principle",
+        "kind": "theory",
+        "papers": [
+          "2068 Magh"
+        ],
+        "marks": "[5 + 3]",
+        "q": "Explain the working principle of a single phase induction motor. What is the effect of air gap in the magnetic circuit?"
+      }
+    ],
+    "alsoAsked": []
+  },
+  "7.2": {
+    "title": "Double Field Revolving Theory",
+    "syllabus": [
       "Double Field Revolving Theory"
     ],
     "derivations": [
@@ -1213,14 +1231,13 @@
         "marks": "",
         "q": "What do you understand by double field revolving theory? Explain it with the help of a neat diagram."
       }
-    ]
+    ],
+    "alsoAsked": []
   },
-  "7.2": {
-    "title": "Split phase, capacitor ra reluctance start motors",
+  "7.3": {
+    "title": "Split phase Induction Motor",
     "syllabus": [
-      "Split phase Induction Motor",
-      "Capacitor start and run motor",
-      "Reluctance start motor"
+      "Split phase Induction Motor"
     ],
     "derivations": [
       "Starting torque T ∝ Im Ia sin α"
@@ -1249,7 +1266,51 @@
       }
     ]
   },
-  "7.3": {
+  "7.4": {
+    "title": "Capacitor start and run motor",
+    "syllabus": [
+      "Capacitor start and run motor"
+    ],
+    "derivations": [
+      "Starting torque Tst ∝ Im Ia sin α with α ≈ 90° from the capacitor"
+    ],
+    "bigPicture": [
+      {
+        "id": "capacitor",
+        "kind": "theory",
+        "papers": [
+          "2073 Chaitra",
+          "2068 Magh"
+        ],
+        "marks": "",
+        "q": "Write short notes on: Capacitor start and run motor."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "7.5": {
+    "title": "Reluctance start motor",
+    "syllabus": [
+      "Reluctance start motor"
+    ],
+    "derivations": [],
+    "bigPicture": [
+      {
+        "id": "start-rel",
+        "kind": "theory",
+        "papers": [
+          "2068 Bhadra",
+          "2071 Chaitra",
+          "2078 Baishakh"
+        ],
+        "marks": "",
+        "q": "Why single phase induction motor are not self starting? Explain any two starting methods for single phase induction motor."
+      }
+    ],
+    "alsoAsked": [],
+    "gap": "No reluctance-start question in vault/; the starting-methods question is answered with reluctance start and split phase."
+  },
+  "7.6": {
     "title": "AC series motor ra universal motor",
     "syllabus": [
       "Alternating Current Series motor and Universal motor"
@@ -1280,7 +1341,7 @@
       }
     ]
   },
-  "7.4": {
+  "7.7": {
     "title": "Stepper, Schrage ra servo motor",
     "syllabus": [
       "Special Purpose Machines: Stepper motor, Schrage motor and Servo motor"
