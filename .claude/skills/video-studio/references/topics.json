@@ -868,13 +868,35 @@
     ]
   },
   "5.1": {
-    "title": "Construction, types ra rotating magnetic field",
+    "title": "Three Phase Induction Motor: Constructional Details and Types",
     "syllabus": [
-      "Three Phase Induction Motor: Constructional Details and Types",
-      "Operating Principle, Rotating Magnetic Field, Synchronous Speed"
+      "Three Phase Induction Motor: Constructional Details and Types"
+    ],
+    "derivations": [],
+    "bigPicture": [
+      {
+        "id": "connection",
+        "kind": "theory",
+        "papers": [
+          "2067 Mangsir"
+        ],
+        "marks": "",
+        "q": "Explain the effect of type of connection of stator winding of slip ring induction motor."
+      }
+    ],
+    "alsoAsked": [],
+    "gap": "No construction/types question in vault/; the closest real one (2067 Mangsir, stator connection of a slip-ring motor) is used."
+  },
+  "5.2": {
+    "title": "Operating Principle, Rotating Magnetic Field, Synchronous Speed, Slip, Induced EMF, Rotor Current and its frequency, Torque Equation",
+    "syllabus": [
+      "Operating Principle, Rotating Magnetic Field, Synchronous Speed, Slip, Induced EMF, Rotor Current and its frequency, Torque Equation"
     ],
     "derivations": [
-      "Rotating magnetic field of constant magnitude 1.5Φm at Ns = 120f/P"
+      "Rotating magnetic field of constant magnitude 1.5Φm at Ns = 120f/P",
+      "Slip s = (Ns − N)/Ns and rotor frequency f2 = sf",
+      "Rotor EMF sE2, reactance sX2 and current I2",
+      "Torque T = k sE2²R2/(R2² + (sX2)²)"
     ],
     "bigPicture": [
       {
@@ -885,19 +907,7 @@
         ],
         "marks": "",
         "q": "Explain with necessary vector diagram how rotating magnetic field is produced in a three phase induction motor. Also explain how this rotating magnetic field helps the motor to rotate."
-      }
-    ]
-  },
-  "5.2": {
-    "title": "Slip, rotor frequency ra rotor EMF",
-    "syllabus": [
-      "Slip, Induced EMF, Rotor Current and its frequency"
-    ],
-    "derivations": [
-      "Slip s = (Ns − N)/Ns and rotor frequency f2 = sf",
-      "Rotor EMF sE2, reactance sX2 and current I2"
-    ],
-    "bigPicture": [
+      },
       {
         "id": "speed",
         "kind": "theory",
@@ -930,13 +940,11 @@
     ]
   },
   "5.3": {
-    "title": "Torque equation ra torque-slip characteristics",
+    "title": "Torque-Slip characteristics",
     "syllabus": [
-      "Torque Equation",
       "Torque-Slip characteristics"
     ],
     "derivations": [
-      "Torque T = k sE2²R2/(R2² + (sX2)²)",
       "Maximum torque at s = R2/X2, Tmax = kE2²/2X2"
     ],
     "bigPicture": [
@@ -985,14 +993,11 @@
     ]
   },
   "5.4": {
-    "title": "Induction generator ra power stages",
+    "title": "Three Phase Induction Generator: Working Principle, voltage build up in an Induction Generator",
     "syllabus": [
-      "Three Phase Induction Generator: Working Principle, voltage build up in an Induction Generator",
-      "Power Stages"
+      "Three Phase Induction Generator: Working Principle, voltage build up in an Induction Generator"
     ],
-    "derivations": [
-      "Power stages P2 : Pcu2 : Pm = 1 : s : (1 − s)"
-    ],
+    "derivations": [],
     "bigPicture": [
       {
         "id": "gen",
@@ -1004,7 +1009,19 @@
         ],
         "marks": "",
         "q": "Explain how an induction motor can be used as induction generator. Explain the procedure to determine the value of excitation capacitor required for voltage build up in the generator."
-      },
+      }
+    ],
+    "alsoAsked": []
+  },
+  "5.5": {
+    "title": "Power Stages",
+    "syllabus": [
+      "Power Stages"
+    ],
+    "derivations": [
+      "Power stages P2 : Pcu2 : Pm = 1 : s : (1 − s)"
+    ],
+    "bigPicture": [
       {
         "id": "stages",
         "kind": "numerical",

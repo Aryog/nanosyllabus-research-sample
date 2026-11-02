@@ -4,11 +4,12 @@ import { Cap, T, W, head } from '../unit4/figs.jsx';
 import { inductionTour } from '../machines/models3d.js';
 
 /*
-  Unit 5 Three Phase Induction Machines (IOE syllabus).
-    5.1 construction, types, rotating magnetic field
-    5.2 synchronous speed, slip, rotor EMF, rotor current and frequency
-    5.3 torque equation, torque-slip characteristics
-    5.4 induction generator, power stages
+  Unit 5 Three Phase Induction Machines (IOE syllabus), one topic per bullet (rule 68):
+    5.1 Constructional Details and Types
+    5.2 Operating Principle, RMF, Synchronous Speed, Slip, Induced EMF, Rotor Current and its frequency, Torque Equation
+    5.3 Torque-Slip characteristics
+    5.4 Induction Generator: Working Principle, voltage build up
+    5.5 Power Stages
   Segment 1 walks the 3D induction machine (machines/models3d.js inductionTour).
   Recomputed: 2071 Magh Ns 1500, s 0.04, f2 2 Hz, E2r 5.2 V, K 440/130 = 3.385.
   2072 Ashwin sm = 0.8/2 = 0.4, N = 900 rpm, Tst/Tmax = 2sm/(1+sm²) = 0.6897,
@@ -167,7 +168,7 @@ export const stagesFigure = (s) => (
 );
 
 /* ── 5.1 Construction, types, RMF ─────────────────────────────────────── */
-export const basics51 = duo('5.1 · Basic understanding: how does a field rotate with nothing turning?', {
+export const basics51 = duo('5.1 · Basic understanding: what is inside an induction motor?', {
   three: inductionTour([
     { shot: 'whole', show: IM, spin: 0.25, labels: [['induction motor', 'frame']] },
     { shot: 'inside', spin: 0, focus: ['stator'], labels: [['stator: chal dai na', 'stator']] },
@@ -471,7 +472,7 @@ export const rmfAnswer51 = answer('Model answer: production of the RMF and why t
 });
 
 /* ── 5.2 Slip, rotor frequency, rotor EMF and current ────────────────── */
-export const basics52 = duo('5.2 · Basic understanding: why does the rotor never reach synchronous speed?', {
+export const basics52 = duo('5.2 · Basic understanding: why does the rotor turn, and never reach synchronous speed?', {
   three: inductionTour([
     { shot: 'front', show: FED, field: 1, rmf: 0.7, spin: 0, flow: 0.6, focus: ['winding'], labels: [['magnet ko speed fixed', 'field']] },
     { spin: 0.65, spinMs: 3500, focus: ['cage', 'rotorCore'], labels: [['rotor ali pachhi', 'cage']] },
@@ -1498,13 +1499,182 @@ export const stagesSolve54 = solve({
   trap: { node: <>Trap: rotor Cu loss is s × P<sub>2</sub> (air-gap power), not s × input.</>, say: 'Trap: s times P 2, s times input hoina.', voice: 'ट्र्याप — एस टाइम्स पी टु, एस टाइम्स इनपुट होइन।' },
 });
 
-const t51 = topic({ num: '5.1', title: 'Three Phase Induction Motor: Constructional Details and Types · Operating Principle, Rotating Magnetic Field, Synchronous Speed', opener: basics51, derive: [construction51, rmf51], picture: [rmfAnswer51] });
-const t52 = topic({ num: '5.2', title: 'Slip, Induced EMF, Rotor Current and its frequency', opener: basics52, derive: [slip52, rotor52], picture: [speedAnswer52, rotorSolve52] });
-const t53 = topic({ num: '5.3', title: 'Torque Equation · Torque-Slip characteristics', opener: basics53, derive: [torque53, tmax53], picture: [torqueAnswer53, tmaxSolve53] });
-const t54 = topic({ num: '5.4', title: 'Three Phase Induction Generator: Working Principle, voltage build up in an Induction Generator · Power Stages', opener: basics54, derive: [stages54, gen54], picture: [genAnswer54, stagesSolve54] });
+/* ── 5.1 Model answer: stator connection of a slip-ring induction motor ─ */
+// 2067 Mangsir (Question Bank part 12, OCR "tlpe" = type): "Explain the effect
+// of type of connection of stator winding of slip ring induction motor."
+// Marks not legible. The closest real question for Constructional Details and
+// Types: no other construction question exists in vault/.
+// Fig. 1: 0 star stator · 1 delta stator · 2 star rotor, slip rings, rheostat
+const connFigure51 = (s) => {
+  const star = (cx, cy) => [0, 120, 240].map((a) => {
+    const r = ((a - 90) * Math.PI) / 180;
+    return [cx + 34 * Math.cos(r), cy + 34 * Math.sin(r)];
+  });
+  const coil = (x1, y1, x2, y2) => <W d={`M${x1} ${y1} L${x2} ${y2}`} w={1.4} />;
+  const S = star(80, 70);
+  const D = [[260, 34], [222, 100], [298, 100]];
+  const R = star(120, 182);
+  return (
+    <>
+      <g className={s.on(0) + s.hl(0)}>
+        {S.map(([x, y], k) => <g key={k}>{coil(80, 70, x, y)}<circle cx={x} cy={y} r={2.4} fill={C.chalk} /></g>)}
+        <circle cx={80} cy={70} r={2} fill={C.chalk} />
+        <T x={80} y={122} i size={10}>(a) Star: phase voltage VL/√3</T>
+      </g>
+      <g className={s.on(1) + s.hl(1)}>
+        <W d={`M${D[0][0]} ${D[0][1]} L${D[1][0]} ${D[1][1]} L${D[2][0]} ${D[2][1]} Z`} w={1.4} />
+        {D.map(([x, y], k) => <circle key={k} cx={x} cy={y} r={2.4} fill={C.chalk} />)}
+        <T x={260} y={122} i size={10}>(b) Delta: phase voltage VL</T>
+      </g>
+      <g className={s.on(2) + s.hl(2)}>
+        {R.map(([x, y], k) => <g key={k}>{coil(120, 182, x, y)}<W d={`M${x} ${y} H${210 + k * 16}`} w={0.9} /><circle cx={210 + k * 16} cy={y} r={3.2} fill="none" stroke={C.chalk} strokeWidth={1.1} /></g>)}
+        <rect x={262} y={150} width={44} height={58} fill="none" stroke={C.chalk} strokeWidth={1.1} />
+        <T x={284} y={184} size={9}>R (ext.)</T>
+        <T x={180} y={236} i size={10}>(c) Rotor: star, three ends to slip rings → external R</T>
+      </g>
+      <Cap y={256}>Fig. 1  Stator and rotor connections</Cap>
+    </>
+  );
+};
+export const connAnswer51 = answer('Model answer: effect of the stator connection of a slip-ring induction motor', {
+  draw: connFigure51,
+  viewBox: '0 0 360 264',
+  papers: ['2067 Mangsir'],
+  marks: '',
+  q: 'Explain the effect of type of connection of stator winding of slip ring induction motor.',
+  read: {
+    say: 'IOE 2067 Mangsir: slip ring induction motor ko stator winding ko connection ko prakar le k asar parcha, explain gara.',
+    voice: 'आई ओ ई दुई हजार सतसट्ठी मंसिर — स्लिप रिङ इन्डक्सन मोटरको स्टेटर वाइन्डिङको कनेक्सनको प्रकारले के असर पर्छ, एक्सप्लेन गर।',
+  },
+  points: [
+    {
+      carry: <>(a) Star: phase voltage V<sub>L</sub>/√3</>,
+      node: <><H>(a) Star-connected stator (Fig. 1a)</H><Pts items={[<>Phase voltage <K>{String.raw`V_{ph} = V_L/\sqrt{3}`}</K>, phase current = line current</>, <>Less insulation per phase; a neutral point is available</>]} /></>,
+      say: 'Star connection ma phase voltage V L over root three huncha, ra phase current line current barabar. Phase ma kam voltage bhayeko le insulation kam chahincha, ra neutral point pani milcha.',
+      voice: 'स्टार कनेक्सनमा फेज भोल्टेज, भी एल ओभर रुट थ्री हुन्छ, र फेज करेन्ट लाइन करेन्ट बराबर। फेजमा कम भोल्टेज भएकोले इन्सुलेसन कम चाहिन्छ, र न्युट्रल पोइन्ट पनि मिल्छ।',
+    },
+    {
+      carry: <>(a) Delta: phase voltage V<sub>L</sub>; star-delta starting possible</>,
+      node: <><H>(b) Delta-connected stator (Fig. 1b)</H><Pts items={[<>Phase voltage = V<sub>L</sub>; phase current <K>{String.raw`I_L/\sqrt{3}`}</K></>, <>More turns of thinner wire per phase; more insulation</>, <>A motor that runs in delta can be started in star (star–delta starting)</>]} /></>,
+      say: 'Delta ma phase voltage pura V L huncha ra phase current I L over root three. Phase ma dherai turns ra patlo tar, insulation badhi. Delta ma chalne motor lai star ma start garna milcha: star-delta starter.',
+      voice: 'डेल्टामा फेज भोल्टेज पूरा भी एल हुन्छ, र फेज करेन्ट आई एल ओभर रुट थ्री। फेजमा धेरै टर्न्स र पातलो तार, इन्सुलेसन बढी। डेल्टामा चल्ने मोटरलाई स्टारमा स्टार्ट गर्न मिल्छ — स्टार डेल्टा स्टार्टर।',
+    },
+    {
+      page: true,
+      node: <><H>(c) Effect on performance</H><Pts items={[<>For the same line voltage, the flux per pole, rotating field and torque are the same if each phase gets its rated voltage</>, <>Star–delta starting gives <K>{String.raw`\tfrac{1}{3}`}</K> of the direct-on-line starting current and torque</>, <>The rotor of a slip-ring motor is always star-connected; its three ends go to the slip rings for external starting resistance (Fig. 1)</>]} /></>,
+      say: 'Asar: line voltage same bhaye ra phase le rated voltage paye flux, rotating field ra torque usai. Star-delta starting ma starting current ra torque direct online ko ek tihai. Slip ring motor ko rotor sadhai star ma jodincha, ra tin ota end slip ring hudai bahira ko resistance samma jancha.',
+      voice: 'असर — लाइन भोल्टेज उही भए र फेजले रेटेड भोल्टेज पाए, फ्लक्स, रोटेटिङ फिल्ड र टर्क उस्तै। स्टार डेल्टा स्टार्टिङमा स्टार्टिङ करेन्ट र टर्क, डाइरेक्ट अनलाइनको एक तिहाइ। स्लिप रिङ मोटरको रोटर सधैं स्टारमा जोडिन्छ, र तीन ओटा एन्ड स्लिप रिङ हुँदै बाहिरको रेजिस्टेन्ससम्म जान्छ।',
+      ask: {
+        q: 'Star-delta starting le starting current lai direct-on-line starting ko kati gunama ghataucha?',
+        voice: 'स्टार डेल्टा स्टार्टिङले स्टार्टिङ करेन्टलाई डाइरेक्ट अनलाइन स्टार्टिङको कति गुणामा घटाउँछ?',
+        options: ['1/3', '1/√3', '1/2'],
+        answer: 0,
+        why: 'Star ma phase voltage 1/√3 huncha; line current ra torque dubai 1/3 ma jharchan.',
+      },
+    },
+  ],
+});
+
+/* ── 5.5 Power stages: where the input power goes ───────────────────── */
+export const basicsStages55 = duo('5.5 · Basic understanding: where does an induction motor’s power go?', {
+  three: inductionTour([
+    { shot: 'supply', show: FED, field: 1, rmf: 0.7, spin: 0.65, flow: 0.7, focus: ['supply', 'winding'], labels: [['power bhitra', 'supply']] },
+    { shot: 'inside', heat: { stator: 0.4, winding: 0.5 }, focus: ['stator', 'winding'], labels: [['stator ma taato', 'winding']] },
+    { heat: { stator: 0.4, winding: 0.5 }, focus: ['rotorCore'], labels: [['hawa ko gap pari', 'rotorCore']] },
+    { heat: { stator: 0.4, winding: 0.5, cage: 0.4 }, focus: ['cage'], labels: [['slip jati rotor ma taato', 'cage']] },
+    { shot: 'side', heat: {}, focus: ['shaft'], labels: [['baki: shaft ma', 'shaft']] },
+    { shot: 'whole', spin: 0.6, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Supply le stator ma power dincha. Yo power ek-ek chiran gari shaft samma pugcha.',
+      voice: 'सप्लाईले स्टेटरमा पावर दिन्छ। यो पावर एक एक चरण गरी साफ्टसम्म पुग्छ।',
+      lines: [['h', <>5.5 · Power kaha kaha jancha?</>], part(<>Input</>, <>supply bata stator ma</>)],
+    },
+    {
+      say: 'Pahila stator ko tar ra falam ma kehi power taato bhayera harauncha.',
+      voice: 'पहिला स्टेटरको तार र फलाममा केही पावर तातो भएर हराउँछ।',
+      lines: [chain(<>Stator: tar ra falam ma taato</>)],
+    },
+    {
+      say: 'Bachi rahane power hawa ko gap pari rotor samma pugcha. Yaslai air gap power bhanchan.',
+      voice: 'बाँकी रहने पावर हावाको ग्याप पारी रोटरसम्म पुग्छ। यसलाई एयर ग्याप पावर भन्छन्।',
+      lines: [part(<>Air gap power</>, <>gap pari rotor samma pugne power</>)],
+    },
+    {
+      say: 'Rotor ma slip jati bhag taato huncha. Rotor jati chito, slip utti kam, ra rotor ma loss pani kam.',
+      voice: 'रोटरमा स्लिप जति भाग तातो हुन्छ। रोटर जति छिटो, स्लिप उत्ति कम, र रोटरमा लस पनि कम।',
+      lines: [chain(<>Slip jati bhag → rotor ma taato</>)],
+      ask: {
+        q: 'Induction motor ko rotor copper loss kun kura sanga badhcha?',
+        voice: 'इन्डक्सन मोटरको रोटर कपर लस कुन कुरासँग बढ्छ?',
+        options: ['Slip', 'Supply frequency matra', 'Stator ko resistance'],
+        answer: 0,
+        why: 'Rotor copper loss air gap power ko slip guna huncha.',
+      },
+    },
+    {
+      say: 'Baki power shaft ghumauna jancha, ra ghasai ra hawa ko loss pachhi bachi rahane output ho.',
+      voice: 'बाँकी पावर साफ्ट घुमाउन जान्छ, र घर्षण र हावाको लसपछि बाँकी रहने आउटपुट हो।',
+      lines: [chain(<>Baki → shaft ghumai → ghasai pachi output</>)],
+    },
+    {
+      say: 'Saransh: input, stator loss, air gap power, rotor loss, ani shaft ko output.',
+      voice: 'सारांश — इनपुट, स्टेटर लस, एयर ग्याप पावर, रोटर लस, अनि साफ्टको आउटपुट।',
+      lines: [['idea', <>Input → stator loss → air gap power → rotor loss → output</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Power stages le stator input dekhi shaft output samma power ko bato dekhaucha.',
+      voice: 'पावर स्टेजेसले स्टेटर इनपुटदेखि साफ्ट आउटपुटसम्म पावरको बाटो देखाउँछ।',
+      lines: [['h', <>5.5 · Power stages</>], part(<>Stator input</>, <>electrical power from the supply</>)],
+    },
+    {
+      say: 'Stator ma stator copper loss ra iron loss huncha.',
+      voice: 'स्टेटरमा स्टेटर कपर लस र आइरन लस हुन्छ।',
+      lines: [chain(<>Stator: copper loss + iron loss</>)],
+    },
+    {
+      say: 'Bachi rahane power air gap power ko rupma rotor ma transfer huncha.',
+      voice: 'बाँकी रहने पावर, एयर ग्याप पावरको रूपमा रोटरमा ट्रान्सफर हुन्छ।',
+      lines: [part(<>Air gap power</>, <>power transferred to the rotor</>)],
+    },
+    {
+      say: 'Rotor copper loss air gap power ko slip guna huncha.',
+      voice: 'रोटर कपर लस, एयर ग्याप पावरको स्लिप गुणा हुन्छ।',
+      lines: [chain(<>Rotor copper loss: slip times the air gap power</>)],
+      ask: {
+        q: 'Air gap power ko kati bhag rotor copper loss huncha?',
+        voice: 'एयर ग्याप पावरको कति भाग रोटर कपर लस हुन्छ?',
+        options: ['Slip guna', '(1 − slip) guna', 'Sadhai aadha'],
+        answer: 0,
+        why: 'P2 : Pcu2 : Pm = 1 : s : (1 − s).',
+      },
+    },
+    {
+      say: 'Bachi rahane gross mechanical power bata friction ra windage ghataye shaft output prapta huncha.',
+      voice: 'बाँकी रहने ग्रस मेकानिकल पावरबाट फ्रिक्सन र विन्डेज घटाए, साफ्ट आउटपुट प्राप्त हुन्छ।',
+      lines: [chain(<>Gross mechanical power − friction and windage → shaft output</>)],
+    },
+    {
+      say: 'Saransh: stator input, stator losses, air gap power, rotor copper loss, mechanical power ra output.',
+      voice: 'सारांश — स्टेटर इनपुट, स्टेटर लसेस, एयर ग्याप पावर, रोटर कपर लस, मेकानिकल पावर र आउटपुट।',
+      lines: [['idea', <>Input → stator losses → air gap power → rotor Cu loss → mechanical → output</>]],
+    },
+  ],
+});
+
+// One topic per IOE syllabus bullet of Unit 5 (rule 68). Bullet 2 is one long
+// IOE item (principle, RMF, Ns, slip, rotor EMF, current, frequency, torque eq).
+const t51 = topic({ num: '5.1', title: 'Three Phase Induction Motor: Constructional Details and Types', opener: basics51, derive: [construction51], picture: [connAnswer51] });
+const t52 = topic({ num: '5.2', title: 'Operating Principle, Rotating Magnetic Field, Synchronous Speed, Slip, Induced EMF, Rotor Current and its frequency, Torque Equation', opener: basics52, derive: [rmf51, slip52, rotor52, torque53], picture: [rmfAnswer51, speedAnswer52, rotorSolve52] });
+const t53 = topic({ num: '5.3', title: 'Torque-Slip characteristics', opener: basics53, derive: [tmax53], picture: [torqueAnswer53, tmaxSolve53] });
+const t54 = topic({ num: '5.4', title: 'Three Phase Induction Generator: Working Principle, voltage build up in an Induction Generator', opener: basics54, derive: [gen54], picture: [genAnswer54] });
+const t55 = topic({ num: '5.5', title: 'Power Stages', opener: basicsStages55, derive: [stages54], picture: [stagesSolve54] });
 
 export const unit5 = {
-  topics: [t51, t52, t53, t54],
+  topics: [t51, t52, t53, t54, t55],
   summary: [
     <>Three-phase winding → RMF of 1.5Φ<sub>m</sub> at N<sub>s</sub> = 120f/P; rotor (cage wa slip ring) le pachhyaucha.</>,
     <>s = (N<sub>s</sub> − N)/N<sub>s</sub>; f<sub>2</sub> = sf; E<sub>2r</sub> = sE<sub>2</sub>; X<sub>2r</sub> = sX<sub>2</sub>.</>,
