@@ -124,6 +124,12 @@ const split = (bs) => ({
   rem(…)    → ['recall', node]
   br(title, node, until) → ['branch', node, until, { title }]
 */
+// Basic Understanding boards (user, 2026-11-02: "the mind can't keep the
+// structure"): one fixed shape the eye learns. part(name, job) is a numbered
+// "Parts and their jobs" item; chain(step) is one link of "How it works",
+// drawn on a rail; the takeaway stays an 'idea'.
+export const part = (name, job, until) => ['part', <><b className="part-name">{name}</b><span className="part-job">{job}</span></>, until];
+export const chain = (node, until) => ['chain', node, until];
 export const rem = (...items) => ['recall', items.length > 1 ? <Pts items={items} /> : items[0]];
 export const br = (title, node, until) => ['branch', node, until, { title }];
 export const duo = (title, { tutor, lecturer, ...rest }) => {
@@ -159,7 +165,7 @@ export function answer(title, { papers, marks, q, read, points, draw, viewBox, v
     return next < 0 ? undefined : next;
   };
   const board = [
-    { at: 0, kind: 'q', node: <><span className="tag">{src}{marks ? ` · ${marks}` : ''}</span>{q}</> },
+    { at: 0, kind: 'q', node: <><span className="tag">{src}</span>{marks && <span className="marks">{marks}</span>}<span className="qtext">{q}</span></> },
     ...points.map((p, i) => ({ at: i + 1, until: until(i), kind: 'step', node: p.node, ...(p.carry ? { carry: p.carry } : {}) })),
   ];
   return { ...video(title, { beats, board, tall: true, draw, viewBox, notes: true, pov: 'lecturer', variants }), ioe: papers.length > 0, tag: 'Model answer', tagKind: 'watch' };
@@ -421,7 +427,7 @@ export function solve({ title, paper, paperVoice, marks, read, readVoice, questi
   ];
   const first = 4;
   const board = [
-    { at: 0, kind: 'q', node: <><span className="tag">IOE {paper}{marks ? ` · ${marks}` : ''}</span>{question}</> },
+    { at: 0, kind: 'q', node: <><span className="tag">IOE {paper}</span>{marks && <span className="marks">{marks}</span>}<span className="qtext">{question}</span></> },
     ...given.map((g) => ({ at: 1, kind: 'given', node: g.node })),
     { at: 2, kind: 'find', node: <>Nikalnu parne: {find.node}</> },
     { at: 3, kind: 'idea', node: <><b>Method.</b> {idea.node}</> },

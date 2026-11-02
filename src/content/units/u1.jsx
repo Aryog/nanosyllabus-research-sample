@@ -1,4 +1,5 @@
 import { C, K, Pts, answer, duo, figAt, solve, topic } from '../video/kit.jsx';
+import { chain, part } from '../video/kit.jsx';
 import { Cap, T, W, head, cond } from '../unit4/figs.jsx';
 import { magnetTour } from '../machines/models3d.js';
 
@@ -143,22 +144,22 @@ export const basics11 = duo('1.1 · Basic understanding: does magnetism have a c
     {
       say: 'Falam ko frame ma tama ko tar bereko cha. Tar ma current pathaau, frame nai magnet bancha.',
       voice: 'फलामको फ्रेममा तामाको तार बेरेको छ। तारमा करेन्ट पठाऊ, फ्रेम नै म्याग्नेट बन्छ।',
-      lines: [['h', <>1.1 · Magnet ko pani circuit huncha?</>], ['step', <>Falam ko frame + tar ko coil → electromagnet</>]],
+      lines: [['h', <>1.1 · Magnet ko pani circuit huncha?</>], chain(<>Falam ko frame + tar ko coil → electromagnet</>)],
     },
     {
       say: 'Battery le coil ma current pathaucha. Tyo current le nadekhine magnetic flux banaucha, jun falam bhitra ghumcha.',
       voice: 'ब्याट्रीले कोइलमा करेन्ट पठाउँछ। त्यो करेन्टले नदेखिने म्याग्नेटिक फ्लक्स बनाउँछ, जुन फलामभित्र घुम्छ।',
-      lines: [['step', <>Current → coil → flux falam bhitra ghumcha</>]],
+      lines: [chain(<>Current → coil → flux falam bhitra ghumcha</>)],
     },
     {
       say: 'Tar current ko bato ho; falam chai flux ko bato. Flux pura ghumera pheri aaucha: yahi magnetic circuit.',
       voice: 'तार करेन्टको बाटो हो, फलाम चाहिँ फ्लक्सको बाटो। फ्लक्स पूरा घुमेर फेरि आउँछ — यही म्याग्नेटिक सर्किट।',
-      lines: [['step', <>Magnetic circuit: flux ghumne falam ko bato</>]],
+      lines: [part(<>Magnetic circuit</>, <>flux ghumne falam ko bato</>)],
     },
     {
       say: 'Coil ma dherai pheri ra dherai current bhaye, flux lai dherai dhakka puchha. Pheri ra current, duitai le bal dincha.',
       voice: 'कोइलमा धेरै फेरा र धेरै करेन्ट भए, फ्लक्सलाई धेरै धक्का पुग्छ। फेरा र करेन्ट, दुवैले बल दिन्छ।',
-      lines: [['step', <>Dherai pheri + dherai current → flux lai dherai dhakka</>]],
+      lines: [chain(<>Dherai pheri + dherai current → flux lai dherai dhakka</>)],
     },
     {
       say: 'Aba falam ma sano kaat garau. Bich ma hawa aayo, ani hawa ma flux lai jana dherai gahro huncha.',
@@ -175,7 +176,7 @@ export const basics11 = duo('1.1 · Basic understanding: does magnetism have a c
     {
       say: 'Ascharya: ek-dui millimeter ko hawa ko gap le pura frame ko falam bhanda badhi rokcha. Flux ekdam ghatcha.',
       voice: 'आश्चर्य — एक दुई मिलिमिटरको हावाको ग्यापले पूरा फ्रेमको फलामभन्दा बढी रोक्छ। फ्लक्स एकदम घट्छ।',
-      lines: [['step', <>Sano hawa ko gap → thulo rok → flux ghatcha</>]],
+      lines: [chain(<>Sano hawa ko gap → thulo rok → flux ghatcha</>)],
     },
     {
       say: 'Eutai bato ma falam ra hawa lagatar aaye, rok haru jodincha: series. Bato duita bhaye flux bandincha: parallel.',
@@ -192,22 +193,22 @@ export const basics11 = duo('1.1 · Basic understanding: does magnetism have a c
     {
       say: 'Iron core ma conductor ko winding cha. Winding ma current dida core magnetised huncha.',
       voice: 'आइरन कोरमा कन्डक्टरको वाइन्डिङ छ। वाइन्डिङमा करेन्ट दिँदा कोर म्याग्नेटाइज्ड हुन्छ।',
-      lines: [['h', <>1.1 · Magnetic circuit</>], ['step', <>Iron core + exciting winding → electromagnet</>]],
+      lines: [['h', <>1.1 · Magnetic circuit</>], chain(<>Iron core + exciting winding → electromagnet</>)],
     },
     {
       say: 'Current le magnetic flux produce garcha, ra tyo flux core ko bato hudai close loop ma ghumcha.',
       voice: 'करेन्टले म्याग्नेटिक फ्लक्स प्रोड्युस गर्छ, र त्यो फ्लक्स कोरको बाटो हुँदै क्लोज लुपमा घुम्छ।',
-      lines: [['step', <>Exciting current → flux in a closed loop through the core</>]],
+      lines: [chain(<>Exciting current → flux in a closed loop through the core</>)],
     },
     {
       say: 'Flux le follow garne closed path lai magnetic circuit bhanincha, jasari current ko closed path electric circuit ho.',
       voice: 'फ्लक्सले फलो गर्ने क्लोज्ड पाथलाई म्याग्नेटिक सर्किट भनिन्छ, जसरी करेन्टको क्लोज्ड पाथ इलेक्ट्रिक सर्किट हो।',
-      lines: [['step', <>Magnetic circuit: the closed path of the flux</>]],
+      lines: [part(<>Magnetic circuit</>, <>the closed path of the flux</>)],
     },
     {
       say: 'Turns ra current badhaye flux badhcha. Winding le dine yo magnetic driving force nai flux ko karan ho.',
       voice: 'टर्न्स र करेन्ट बढाए फ्लक्स बढ्छ। वाइन्डिङले दिने यो म्याग्नेटिक ड्राइभिङ फोर्स नै फ्लक्सको कारण हो।',
-      lines: [['step', <>More turns, more current → stronger driving force → more flux</>]],
+      lines: [chain(<>More turns, more current → stronger driving force → more flux</>)],
     },
     {
       say: 'Core ma air gap kaatiyo bhane flux ko bato ma hawa aaucha. Hawa le iron bhanda dherai oppose garcha.',
@@ -488,22 +489,22 @@ export const basics12 = duo('1.2 · Basic understanding: why does the iron core 
     {
       say: 'Falam bhitra karodau sano-sano magnet hunchan. Sadharan bela tiniharu jata-tatai pharkiyeka hunchan.',
       voice: 'फलामभित्र करोडौं सानो सानो म्याग्नेट हुन्छन्। साधारण बेला तिनीहरू जता ततै फर्किएका हुन्छन्।',
-      lines: [['h', <>1.2 · Falam kina taato huncha?</>], ['step', <>Falam bhitra sano magnet: jata-tatai</>]],
+      lines: [['h', <>1.2 · Falam kina taato huncha?</>], chain(<>Falam bhitra sano magnet: jata-tatai</>)],
     },
     {
       say: 'Coil ma current dida ti sano magnet eutai disha tira pharkina thalchan, ra falam magnet bancha.',
       voice: 'कोइलमा करेन्ट दिँदा ती सानो म्याग्नेट एउटै दिशातिर फर्किन थाल्छन्, र फलाम म्याग्नेट बन्छ।',
-      lines: [['step', <>Current → sano magnet lain lagchan → falam magnet</>]],
+      lines: [chain(<>Current → sano magnet lain lagchan → falam magnet</>)],
     },
     {
       say: 'Sabai milepachi current badhaye pani magnet jhan balio hudaina. Falam bharisakyo: yesai lai saturation bhanchan.',
       voice: 'सबै मिलेपछि करेन्ट बढाए पनि म्याग्नेट झन् बलियो हुँदैन। फलाम भरिसक्यो — यसैलाई स्याचुरेसन भन्छन्।',
-      lines: [['step', <>Sabai milyo → aru badhdaina: saturation</>]],
+      lines: [chain(<>Sabai milyo → aru badhdaina: saturation</>)],
     },
     {
       say: 'Current banda garda pani kehi magnet milirahanchan. Falam ma ali magnet baki rahancha: falam le samjhancha.',
       voice: 'करेन्ट बन्द गर्दा पनि केही म्याग्नेट मिलिरहन्छन्। फलाममा अलि म्याग्नेट बाँकी रहन्छ — फलामले सम्झन्छ।',
-      lines: [['step', <>Current off → ali magnet baki: falam ko samjhana</>]],
+      lines: [chain(<>Current off → ali magnet baki: falam ko samjhana</>)],
       ask: {
         q: 'Current banda garepachi falam ma k huncha?',
         voice: 'करेन्ट बन्द गरेपछि फलाममा के हुन्छ?',
@@ -515,17 +516,17 @@ export const basics12 = duo('1.2 · Basic understanding: why does the iron core 
     {
       say: 'AC ma current eksekend ma pachas choti ulto pharkincha. Sano magnet haru pani ulto-sulto ghumda ghasincha, ra falam taato huncha.',
       voice: 'ए सीमा करेन्ट एक सेकेन्डमा पचास चोटि उल्टो फर्किन्छ। सानो म्याग्नेटहरू पनि उल्टो सुल्टो घुम्दा घसिन्छ, र फलाम तातो हुन्छ।',
-      lines: [['step', <>Ulto-sulto ghumda ghasincha → taato: hysteresis loss</>]],
+      lines: [chain(<>Ulto-sulto ghumda ghasincha → taato: hysteresis loss</>)],
     },
     {
       say: 'Badlirahne flux le falam bhitrai sano bhaugaro jasto current ghumaucha. Yo current le pani falam taato banaucha.',
       voice: 'बदलिरहने फ्लक्सले फलामभित्रै सानो भौँगारो जस्तो करेन्ट घुमाउँछ। यो करेन्टले पनि फलाम तातो बनाउँछ।',
-      lines: [['step', <>Falam bhitra bhaugaro current → taato: eddy current loss</>]],
+      lines: [chain(<>Falam bhitra bhaugaro current → taato: eddy current loss</>)],
     },
     {
       say: 'Upaya: thick falam ko satta patla pata, bich ma insulation. Bhaugaro current lai ghumne thau nai hudaina.',
       voice: 'उपाय — थिक फलामको सट्टा पातलो पाता, बीचमा इन्सुलेसन। भौँगारो करेन्टलाई घुम्ने ठाउँ नै हुँदैन।',
-      lines: [['step', <>Patla insulated pata (lamination) → bhaugaro ghatcha</>]],
+      lines: [chain(<>Patla insulated pata (lamination) → bhaugaro ghatcha</>)],
     },
     {
       say: 'Saransha: sano magnet milda falam magnet bancha; ulto-sulto ra bhaugaro le taato banaucha; patla pata le bachaucha.',
@@ -537,22 +538,22 @@ export const basics12 = duo('1.2 · Basic understanding: why does the iron core 
     {
       say: 'Ferromagnetic material ma magnetic domains hunchan. Unmagnetised awastha ma tiniharu random direction ma hunchan.',
       voice: 'फेरोम्याग्नेटिक म्याटेरियलमा म्याग्नेटिक डोमेन्स हुन्छन्। अनम्याग्नेटाइज्ड अवस्थामा तिनीहरू र्‍यान्डम डाइरेक्सनमा हुन्छन्।',
-      lines: [['h', <>1.2 · Magnetisation of iron</>], ['step', <>Ferromagnetic material: domains in random directions</>]],
+      lines: [['h', <>1.2 · Magnetisation of iron</>], part(<>Ferromagnetic material</>, <>domains in random directions</>)],
     },
     {
       say: 'Magnetising current badhaudai jada domains applied field ko direction ma align hunchan.',
       voice: 'म्याग्नेटाइजिङ करेन्ट बढाउँदै जाँदा डोमेन्स एप्लाइड फिल्डको डाइरेक्सनमा एलाइन हुन्छन्।',
-      lines: [['step', <>Magnetising current ↑ → domains align with the field</>]],
+      lines: [chain(<>Magnetising current ↑ → domains align with the field</>)],
     },
     {
       say: 'Sabai domains align bhayepachi aru current le flux density lagbhag badhdaina: saturation.',
       voice: 'सबै डोमेन्स एलाइन भएपछि, अरू करेन्टले फ्लक्स डेन्सिटी लगभग बढ्दैन — स्याचुरेसन।',
-      lines: [['step', <>All domains aligned → saturation</>]],
+      lines: [chain(<>All domains aligned → saturation</>)],
     },
     {
       say: 'Current zero garda pani kehi domains aligned rahanchan; core ma residual magnetism rahancha.',
       voice: 'करेन्ट जिरो गर्दा पनि केही डोमेन्स एलाइन्ड रहन्छन्, कोरमा रेसिड्युअल म्याग्नेटिज्म रहन्छ।',
-      lines: [['step', <>Current removed → residual magnetism remains</>]],
+      lines: [chain(<>Current removed → residual magnetism remains</>)],
       ask: {
         q: 'Current hataye pachi pani core ma baki rahane magnetism lai k bhanincha?',
         voice: 'करेन्ट हटाएपछि पनि कोरमा बाँकी रहने म्याग्नेटिज्मलाई के भनिन्छ?',
@@ -564,17 +565,17 @@ export const basics12 = duo('1.2 · Basic understanding: why does the iron core 
     {
       say: 'AC excitation ma domains har cycle ulto pharkinchan; tyo molecular friction heat ma janchha: hysteresis loss.',
       voice: 'ए सी एक्साइटेसनमा डोमेन्स हरेक साइकल उल्टो फर्किन्छन्, त्यो मोलिक्युलर फ्रिक्सन हिटमा जान्छ — हिस्टेरेसिस लस।',
-      lines: [['step', <>Reversal every cycle → molecular friction → hysteresis loss</>]],
+      lines: [chain(<>Reversal every cycle → molecular friction → hysteresis loss</>)],
     },
     {
       say: 'Changing flux le core bhitra circulating currents induce garcha: eddy currents, ra tiniharu le heat banaucha.',
       voice: 'चेन्जिङ फ्लक्सले कोरभित्र सर्कुलेटिङ करेन्ट्स इन्ड्युस गर्छ — एडी करेन्ट्स, र तिनीहरूले हिट बनाउँछ।',
-      lines: [['step', <>Changing flux → circulating eddy currents → eddy current loss</>]],
+      lines: [chain(<>Changing flux → circulating eddy currents → eddy current loss</>)],
     },
     {
       say: 'Core lai patla insulated laminations bata banauda eddy current ko path saano huncha ra loss ghatcha.',
       voice: 'कोरलाई पातलो इन्सुलेटेड ल्यामिनेसन्सबाट बनाउँदा एडी करेन्टको पाथ सानो हुन्छ, र लस घट्छ।',
-      lines: [['step', <>Thin insulated laminations → eddy loss reduced</>]],
+      lines: [chain(<>Thin insulated laminations → eddy loss reduced</>)],
     },
     {
       say: 'Saransha: domains align bhayera magnetisation, reversal le hysteresis loss, ra circulating current le eddy loss.',
@@ -836,12 +837,12 @@ export const basics13 = duo('1.3 · Basic understanding: how does a moving magne
     {
       say: 'Magnet loop ko mukh ma chupchap cha bhane meter ko sui pani chupchap. Kehi hudaina.',
       voice: 'म्याग्नेट लुपको मुखमा चुपचाप छ भने मिटरको सुई पनि चुपचाप। केही हुँदैन।',
-      lines: [['step', <>Magnet chupchap → sui chupchap</>]],
+      lines: [chain(<>Magnet chupchap → sui chupchap</>)],
     },
     {
       say: 'Aba magnet bhitra-bahira chalau. Sui halliyo! Tar ma bijuli aayo, battery bina.',
       voice: 'अब म्याग्नेट भित्र बाहिर चलाऊ। सुई हल्लियो! तारमा बिजुली आयो, ब्याट्री बिना।',
-      lines: [['step', <>Magnet chalyo → loop ma bijuli (induced EMF)</>]],
+      lines: [chain(<>Magnet chalyo → loop ma bijuli (induced EMF)</>)],
       ask: {
         q: 'Loop ma bijuli kahile aaucha?',
         voice: 'लुपमा बिजुली कहिले आउँछ?',
@@ -853,12 +854,12 @@ export const basics13 = duo('1.3 · Basic understanding: how does a moving magne
     {
       say: 'Bhitra lagda sui eta, bahira tanda uta. Jati chito chalayo, utti thulo hallai. Badlai nai mukhya kura ho.',
       voice: 'भित्र लाग्दा सुई यता, बाहिर तान्दा उता। जति छिटो चलायो, उति ठूलो हल्लाइ। बदलाइ नै मुख्य कुरा हो।',
-      lines: [['step', <>Chito badlai → thulo bijuli · ulto chal → ulto disha</>]],
+      lines: [chain(<>Chito badlai → thulo bijuli · ulto chal → ulto disha</>)],
     },
     {
       say: 'Kehi pani nachalai pani hunchha: pahilo coil ma AC le falam ma magnet badlirahancha, dosro coil ko bulb balcha. Yo transformer ko kura.',
       voice: 'केही पनि नचलाई पनि हुन्छ — पहिलो कोइलमा ए सीले फलाममा म्याग्नेट बदलिरहन्छ, दोस्रो कोइलको बल्ब बल्छ। यो ट्रान्सफर्मरको कुरा।',
-      lines: [['step', <>Kehi nachali, magnet matra badlincha → static (transformer)</>]],
+      lines: [chain(<>Kehi nachali, magnet matra badlincha → static (transformer)</>)],
     },
     {
       say: 'Ulto kura pani huncha: magnet ko bich ma tama ko rod rakhau.',
@@ -868,7 +869,7 @@ export const basics13 = duo('1.3 · Basic understanding: how does a moving magne
     {
       say: 'Rod ma current pathaau: rod lai dhakka lagcha ra rod sarcha. Yahi dhakka le motor ghumaucha.',
       voice: 'रडमा करेन्ट पठाऊ — रडलाई धक्का लाग्छ, र रड सर्छ। यही धक्काले मोटर घुमाउँछ।',
-      lines: [['step', <>Current + magnet → dhakka (motor ko bal)</>]],
+      lines: [chain(<>Current + magnet → dhakka (motor ko bal)</>)],
     },
     {
       say: 'Saransha: magnet ra tar ma badlai bhaye bijuli; magnet ma current bokeko tar rakhe dhakka. Generator ra motor yahi dui kura.',
@@ -885,12 +886,12 @@ export const basics13 = duo('1.3 · Basic understanding: how does a moving magne
     {
       say: 'Magnet stationary huda coil sanga linked flux constant huncha; galvanometer le kei dekhaudaina.',
       voice: 'म्याग्नेट स्टेसनरी हुँदा कोइलसँग लिङ्क्ड फ्लक्स कन्स्टेन्ट हुन्छ, ग्याल्भानोमिटरले केही देखाउँदैन।',
-      lines: [['step', <>Stationary magnet: constant flux linkage → no deflection</>]],
+      lines: [part(<>Stationary magnet</>, <>constant flux linkage → no deflection</>)],
     },
     {
       say: 'Magnet move garda flux linkage change huncha ra coil ma EMF induce huncha: galvanometer deflect huncha.',
       voice: 'म्याग्नेट मुभ गर्दा फ्लक्स लिङ्केज चेन्ज हुन्छ, र कोइलमा ई एम एफ इन्ड्युस हुन्छ — ग्याल्भानोमिटर डिफ्लेक्ट हुन्छ।',
-      lines: [['step', <>Changing flux linkage → induced EMF</>]],
+      lines: [chain(<>Changing flux linkage → induced EMF</>)],
       ask: {
         q: 'Coil ma EMF induce hune awashyak sart k ho?',
         voice: 'कोइलमा ई एम एफ इन्ड्युस हुने आवश्यक सर्त के हो?',
@@ -902,12 +903,12 @@ export const basics13 = duo('1.3 · Basic understanding: how does a moving magne
     {
       say: 'Change ko rate badhda EMF badhcha; motion ulto bhaye EMF ko polarity ulto huncha.',
       voice: 'चेन्जको रेट बढ्दा ई एम एफ बढ्छ, मोसन उल्टो भए ई एम एफको पोलारिटी उल्टो हुन्छ।',
-      lines: [['step', <>Faster change → larger EMF · reversed motion → reversed polarity</>]],
+      lines: [chain(<>Faster change → larger EMF · reversed motion → reversed polarity</>)],
     },
     {
       say: 'Conductor ra field stationary rahera flux matra alternate bhaye statically induced EMF: transformer ma yahi huncha.',
       voice: 'कन्डक्टर र फिल्ड स्टेसनरी रहेर फ्लक्स मात्र अल्टरनेट भए स्टाटिकल्ली इन्ड्युस्ड ई एम एफ — ट्रान्सफर्मरमा यही हुन्छ।',
-      lines: [['step', <>No motion, alternating flux → statically induced EMF (transformer)</>]],
+      lines: [chain(<>No motion, alternating flux → statically induced EMF (transformer)</>)],
     },
     {
       say: 'Aba magnetic field ma current-carrying conductor rakhincha.',
@@ -917,7 +918,7 @@ export const basics13 = duo('1.3 · Basic understanding: how does a moving magne
     {
       say: 'Conductor ma mechanical force lagcha ra conductor move huncha: yo motor action ho.',
       voice: 'कन्डक्टरमा मेकानिकल फोर्स लाग्छ, र कन्डक्टर मुभ हुन्छ — यो मोटर एक्सन हो।',
-      lines: [['step', <>Force on the conductor → motor action</>]],
+      lines: [chain(<>Force on the conductor → motor action</>)],
     },
     {
       say: 'Saransha: changing flux linkage le EMF dincha, ra field ma current le force dincha. Sabai machines yahi dui principle ma chalchan.',

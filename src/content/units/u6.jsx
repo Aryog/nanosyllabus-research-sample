@@ -1,4 +1,5 @@
 import { C, K, Pts, answer, duo, solve, topic } from '../video/kit.jsx';
+import { chain, part } from '../video/kit.jsx';
 import { Cap, T, W, head } from '../unit4/figs.jsx';
 import { syncTour } from '../machines/models3d.js';
 
@@ -164,22 +165,22 @@ export const basics61 = duo('6.1 · Basic understanding: what is inside a power-
     {
       say: 'Kulekhani ko powerhouse ma pani le turbine ghumaucha, ra turbine le thulo generator. Yo synchronous generator wa alternator ho.',
       voice: 'कुलेखानीको पावरहाउसमा पानीले टर्बाइन घुमाउँछ, र टर्बाइनले ठूलो जेनेरेटर। यो सिन्क्रोनस जेनेरेटर वा अल्टरनेटर हो।',
-      lines: [['h', <>6.1 · Powerhouse ko generator bhitra?</>], ['step', <>Pani → turbine → alternator</>]],
+      lines: [['h', <>6.1 · Powerhouse ko generator bhitra?</>], chain(<>Pani → turbine → alternator</>)],
     },
     {
       say: 'DC generator ko ulto: alternator ma magnet ghumcha. Rotor ma pole ra field coil, DC le magnet banaucha.',
       voice: 'डी सी जेनेरेटरको उल्टो — अल्टरनेटरमा म्याग्नेट घुम्छ। रोटरमा पोल र फिल्ड कोइल, डी सीले म्याग्नेट बनाउँछ।',
-      lines: [['step', <>Rotor: ghumne magnet (field)</>]],
+      lines: [part(<>Rotor</>, <>ghumne magnet (field)</>)],
     },
     {
       say: 'Bahira ko stator ma tin phase ka coil, chupchap basthan. Ghumne magnet le tini lai kaatcha.',
       voice: 'बाहिरको स्टेटरमा तीन फेजका कोइल, चुपचाप बस्छन्। घुम्ने म्याग्नेटले तिनीलाई काट्छ।',
-      lines: [['step', <>Stator: nachalne tin phase coil (armature)</>]],
+      lines: [part(<>Stator</>, <>nachalne tin phase coil (armature)</>)],
     },
     {
       say: 'Yasari tin phase AC bijuli sidhai nachalne coil bata niklancha. Thulo current lai ghumne contact chahina.',
       voice: 'यसरी तीन फेज ए सी बिजुली सिधै नचल्ने कोइलबाट निक्लन्छ। ठूलो करेन्टलाई घुम्ने कन्ट्याक्ट चाहिँदैन।',
-      lines: [['step', <>Thulo bijuli nachalne coil bata → surakshit</>]],
+      lines: [chain(<>Thulo bijuli nachalne coil bata → surakshit</>)],
       ask: {
         q: 'Alternator ma armature kina stationary rakhincha?',
         voice: 'अल्टरनेटरमा आर्मेचर किन स्टेसनरी राखिन्छ?',
@@ -191,12 +192,12 @@ export const basics61 = duo('6.1 · Basic understanding: what is inside a power-
     {
       say: 'Rotor ko magnet ko lagi sano DC chahincha: slip ring ra brush bata pathaincha.',
       voice: 'रोटरको म्याग्नेटको लागि सानो डी सी चाहिन्छ — स्लिप रिङ र ब्रसबाट पठाइन्छ।',
-      lines: [['step', <>Slip ring + brush: rotor ma sano DC</>]],
+      lines: [chain(<>Slip ring + brush: rotor ma sano DC</>)],
     },
     {
       say: 'Tyo DC shaft mai jodiyeko sano DC generator le dincha: exciter.',
       voice: 'त्यो डी सी सफ्टमै जोडिएको सानो डी सी जेनेरेटरले दिन्छ — एक्साइटर।',
-      lines: [['step', <>Exciter: shaft ma sano DC generator</>]],
+      lines: [part(<>Exciter</>, <>shaft ma sano DC generator</>)],
     },
     {
       say: 'Pani ko turbine bistarai ghumcha, tesaile dherai pole bhayeko chauda rotor. Steam turbine chito, tesaile lamo chikno round rotor.',
@@ -213,17 +214,17 @@ export const basics61 = duo('6.1 · Basic understanding: what is inside a power-
     {
       say: 'Hydro station ma turbine le synchronous generator chalaucha.',
       voice: 'हाइड्रो स्टेसनमा टर्बाइनले सिन्क्रोनस जेनेरेटर चलाउँछ।',
-      lines: [['h', <>6.1 · The alternator</>], ['step', <>Prime mover: hydro or steam turbine</>]],
+      lines: [['h', <>6.1 · The alternator</>], part(<>Prime mover</>, <>hydro or steam turbine</>)],
     },
     {
       say: 'Rotor ma DC excited field poles hunchan; yo rotating field system ho.',
       voice: 'रोटरमा डी सी एक्साइटेड फिल्ड पोल्स हुन्छन्, यो रोटेटिङ फिल्ड सिस्टम हो।',
-      lines: [['step', <>Rotor: DC-excited field poles (rotating field)</>]],
+      lines: [part(<>Rotor</>, <>DC-excited field poles (rotating field)</>)],
     },
     {
       say: 'Stator slots ma three-phase armature winding huncha: stationary armature.',
       voice: 'स्टेटर स्लट्समा थ्री फेज आर्मेचर वाइन्डिङ हुन्छ — स्टेसनरी आर्मेचर।',
-      lines: [['step', <>Stator: three-phase armature (stationary)</>]],
+      lines: [part(<>Stator</>, <>three-phase armature (stationary)</>)],
     },
     {
       say: 'Rotating field le armature conductors cut garcha ra three-phase EMF induce huncha; output fixed terminals bata linchha.',
@@ -245,7 +246,7 @@ export const basics61 = duo('6.1 · Basic understanding: what is inside a power-
     {
       say: 'Excitation shaft-mounted DC exciter wa brushless exciter le dincha.',
       voice: 'एक्साइटेसन सफ्ट माउन्टेड डी सी एक्साइटर वा ब्रसलेस एक्साइटरले दिन्छ।',
-      lines: [['step', <>Exciter: DC or brushless, on the shaft</>]],
+      lines: [part(<>Exciter</>, <>DC or brushless, on the shaft</>)],
     },
     {
       say: 'Low speed ko lagi salient pole rotor, high speed ko lagi cylindrical rotor.',
@@ -492,22 +493,22 @@ export const basics62 = duo('6.2 · Basic understanding: why does a distributed 
     {
       say: 'Rotor ko magnet stator ko coil agadi pass huncha, ra coil ma voltage aaucha.',
       voice: 'रोटरको म्याग्नेट स्टेटरको कोइल अगाडि पास हुन्छ, र कोइलमा भोल्टेज आउँछ।',
-      lines: [['h', <>6.2 · Coil chhariyeda voltage kina ghatcha?</>], ['step', <>Magnet pass → coil ma voltage</>]],
+      lines: [['h', <>6.2 · Coil chhariyeda voltage kina ghatcha?</>], chain(<>Magnet pass → coil ma voltage</>)],
     },
     {
       say: 'Chito ghumaye eksekend ma dherai cycle: frequency ra voltage dubai badhcha.',
       voice: 'छिटो घुमाए एक सेकेन्डमा धेरै साइकल — फ्रिक्वेन्सी र भोल्टेज दुवै बढ्छ।',
-      lines: [['step', <>Chito → dherai cycle (frequency) + voltage</>]],
+      lines: [chain(<>Chito → dherai cycle (frequency) + voltage</>)],
     },
     {
       say: 'Magnet balio, field current badhaye, voltage badhcha.',
       voice: 'म्याग्नेट बलियो, फिल्ड करेन्ट बढाए, भोल्टेज बढ्छ।',
-      lines: [['step', <>Balio magnet → dherai voltage</>]],
+      lines: [chain(<>Balio magnet → dherai voltage</>)],
     },
     {
       say: 'Coil ma dherai pheri bhaye pheri pheri ko voltage jodincha.',
       voice: 'कोइलमा धेरै फेरा भए फेरा फेराको भोल्टेज जोडिन्छ।',
-      lines: [['step', <>Dherai pheri → dherai voltage</>]],
+      lines: [chain(<>Dherai pheri → dherai voltage</>)],
     },
     {
       say: 'Tara euta phase ko coil euta slot ma hoina, dherai slot ma chhariyeka hunchan.',
@@ -517,7 +518,7 @@ export const basics62 = duo('6.2 · Basic understanding: why does a distributed 
     {
       say: 'Magnet ek-ek slot ma ali farak samaya ma pugcha, tesaile tini ko dhakka ek-sathai hudaina, ra jamma ali kam huncha.',
       voice: 'म्याग्नेट एक एक स्लटमा अलि फरक समयमा पुग्छ, त्यसैले तिनीको धक्का एकसाथै हुँदैन, र जम्मा अलि कम हुन्छ।',
-      lines: [['step', <>Ek-sathai hoina → jamma ali kam (distribution)</>]],
+      lines: [chain(<>Ek-sathai hoina → jamma ali kam (distribution)</>)],
       ask: {
         q: 'Chhariyeka coil ko voltage jamma garda kina ali kam huncha?',
         voice: 'छरिएका कोइलको भोल्टेज जम्मा गर्दा किन अलि कम हुन्छ?',
@@ -529,7 +530,7 @@ export const basics62 = duo('6.2 · Basic understanding: why does a distributed 
     {
       say: 'Coil ali chhoto banaye pani voltage ali ghatcha, tara wave chikno ra tama bachcha.',
       voice: 'कोइल अलि छोटो बनाए पनि भोल्टेज अलि घट्छ, तर वेभ चिल्लो र तामा बच्छ।',
-      lines: [['step', <>Chhoto coil → ali kam voltage, tara chikno wave</>]],
+      lines: [chain(<>Chhoto coil → ali kam voltage, tara chikno wave</>)],
     },
     {
       say: 'Saransha: speed, magnet ra pheri le voltage badhcha; chhariyeko ra chhoto coil le ali ghataucha tara wave ramro.',
@@ -541,22 +542,22 @@ export const basics62 = duo('6.2 · Basic understanding: why does a distributed 
     {
       say: 'Rotor flux stator coils pass garda EMF induce huncha.',
       voice: 'रोटर फ्लक्स स्टेटर कोइल्स पास गर्दा ई एम एफ इन्ड्युस हुन्छ।',
-      lines: [['h', <>6.2 · Factors affecting the EMF</>], ['step', <>Rotor flux passing the coils → EMF</>]],
+      lines: [['h', <>6.2 · Factors affecting the EMF</>], chain(<>Rotor flux passing the coils → EMF</>)],
     },
     {
       say: 'Speed badhda frequency ra EMF dubai badhchan.',
       voice: 'स्पिड बढ्दा फ्रिक्वेन्सी र ई एम एफ दुवै बढ्छन्।',
-      lines: [['step', <>Speed → frequency and EMF</>]],
+      lines: [chain(<>Speed → frequency and EMF</>)],
     },
     {
       say: 'Field current le flux per pole ra EMF badhcha.',
       voice: 'फिल्ड करेन्टले फ्लक्स पर पोल र ई एम एफ बढ्छ।',
-      lines: [['step', <>Field current → flux → EMF</>]],
+      lines: [chain(<>Field current → flux → EMF</>)],
     },
     {
       say: 'Turns per phase badhaye EMF badhcha.',
       voice: 'टर्न्स पर फेज बढाए ई एम एफ बढ्छ।',
-      lines: [['step', <>Turns per phase → EMF</>]],
+      lines: [chain(<>Turns per phase → EMF</>)],
     },
     {
       say: 'Pratyek phase ko winding dherai slots ma distributed huncha.',
@@ -578,7 +579,7 @@ export const basics62 = duo('6.2 · Basic understanding: why does a distributed 
     {
       say: 'Short-pitched coil le EMF alikati ghataucha tara harmonics ra copper ghataucha: pitch factor.',
       voice: 'सर्ट पिच्ड कोइलले ई एम एफ अलिकति घटाउँछ तर हार्मोनिक्स र कपर घटाउँछ — पिच फ्याक्टर।',
-      lines: [['step', <>Short pitch: pitch factor; fewer harmonics, less copper</>]],
+      lines: [part(<>Short pitch</>, <>pitch factor; fewer harmonics, less copper</>)],
     },
     {
       say: 'Saransha: EMF frequency, flux ra turns sanga badhcha, ra pitch ra distribution factors le ali ghataucha.',
@@ -791,32 +792,32 @@ export const basics63 = duo('6.3 · Basic understanding: why does the alternator
     {
       say: 'No load ma bulb haru off, stator ma current chaina. Voltage rotor ko magnet le matra tay garcha.',
       voice: 'नो लोडमा बल्बहरू अफ, स्टेटरमा करेन्ट छैन। भोल्टेज रोटरको म्याग्नेटले मात्र तय गर्छ।',
-      lines: [['h', <>6.3 · Load anusar voltage kina badlincha?</>], ['step', <>No load: rotor ko magnet le matra voltage</>]],
+      lines: [['h', <>6.3 · Load anusar voltage kina badlincha?</>], part(<>No load</>, <>rotor ko magnet le matra voltage</>)],
     },
     {
       say: 'Load lagaye stator ka coil ma current bagcha.',
       voice: 'लोड लगाए स्टेटरका कोइलमा करेन्ट बग्छ।',
-      lines: [['step', <>Load → stator ma current</>]],
+      lines: [chain(<>Load → stator ma current</>)],
     },
     {
       say: 'Tyo current le stator ma aafnai magnet banaucha. Yo magnet rotor ko magnet lai chalaucha: armature reaction.',
       voice: 'त्यो करेन्टले स्टेटरमा आफ्नै म्याग्नेट बनाउँछ। यो म्याग्नेट रोटरको म्याग्नेटलाई चलाउँछ — आर्मेचर रियाक्सन।',
-      lines: [['step', <>Stator ko aafnai magnet → armature reaction</>]],
+      lines: [chain(<>Stator ko aafnai magnet → armature reaction</>)],
     },
     {
       say: 'Bulb jasto load ma stator ko magnet rotor ko magnet ko chheu bata lagcha: magnet bango huncha, tara kamjor hudaina.',
       voice: 'बल्ब जस्तो लोडमा स्टेटरको म्याग्नेट रोटरको म्याग्नेटको छेउबाट लाग्छ — म्याग्नेट बाङ्गो हुन्छ, तर कमजोर हुँदैन।',
-      lines: [['step', <>Bulb (resistive): chheu bata → bango (cross-magnetising)</>]],
+      lines: [part(<>Bulb (resistive)</>, <>chheu bata → bango (cross-magnetising)</>)],
     },
     {
       say: 'Motor, fan jasto load ma stator ko magnet rotor ko ulto lagcha: magnet kamjor, voltage jharcha.',
       voice: 'मोटर, फ्यान जस्तो लोडमा स्टेटरको म्याग्नेट रोटरको उल्टो लाग्छ — म्याग्नेट कमजोर, भोल्टेज झर्छ।',
-      lines: [['step', <>Motor (inductive): ulto → kamjor → voltage jharcha</>]],
+      lines: [part(<>Motor (inductive)</>, <>ulto → kamjor → voltage jharcha</>)],
     },
     {
       say: 'Ascharya: capacitor load ma stator ko magnet le rotor lai saath dincha: voltage no load bhanda pani badhcha!',
       voice: 'आश्चर्य — क्यापासिटर लोडमा स्टेटरको म्याग्नेटले रोटरलाई साथ दिन्छ — भोल्टेज नो लोडभन्दा पनि बढ्छ!',
-      lines: [['step', <>Capacitor (leading): saath dincha → voltage badhcha</>]],
+      lines: [part(<>Capacitor (leading)</>, <>saath dincha → voltage badhcha</>)],
       ask: {
         q: 'Capacitive load ma alternator ko terminal voltage k huna sakcha?',
         voice: 'क्यापासिटिभ लोडमा अल्टरनेटरको टर्मिनल भोल्टेज के हुन सक्छ?',
@@ -828,7 +829,7 @@ export const basics63 = duo('6.3 · Basic understanding: why does the alternator
     {
       say: 'Powerhouse ma voltage ustai rakhna exciter ko field current load anusar milaincha.',
       voice: 'पावरहाउसमा भोल्टेज उस्तै राख्न एक्साइटरको फिल्ड करेन्ट लोड अनुसार मिलाइन्छ।',
-      lines: [['step', <>Voltage ustai rakhna: field current milaune</>]],
+      lines: [chain(<>Voltage ustai rakhna: field current milaune</>)],
     },
     {
       say: 'Saransha: load ko current le aafnai magnet; bulb ma bango, motor ma kamjor, capacitor ma balio.',
@@ -840,12 +841,12 @@ export const basics63 = duo('6.3 · Basic understanding: why does the alternator
     {
       say: 'No load ma armature current zero; terminal voltage excitation EMF barabar.',
       voice: 'नो लोडमा आर्मेचर करेन्ट जिरो, टर्मिनल भोल्टेज एक्साइटेसन ई एम एफ बराबर।',
-      lines: [['h', <>6.3 · Armature reaction</>], ['step', <>No load: V equals the excitation EMF</>]],
+      lines: [['h', <>6.3 · Armature reaction</>], part(<>No load</>, <>V equals the excitation EMF</>)],
     },
     {
       say: 'Load ma armature current bagcha.',
       voice: 'लोडमा आर्मेचर करेन्ट बग्छ।',
-      lines: [['step', <>On load: armature current flows</>]],
+      lines: [part(<>On load</>, <>armature current flows</>)],
     },
     {
       say: 'Armature current ko flux le main field flux ma parne asar lai armature reaction bhanincha.',
@@ -855,17 +856,17 @@ export const basics63 = duo('6.3 · Basic understanding: why does the alternator
     {
       say: 'Unity pf ma armature reaction cross-magnetising huncha; flux distort huncha.',
       voice: 'युनिटी पी एफमा आर्मेचर रियाक्सन क्रस म्याग्नेटाइजिङ हुन्छ, फ्लक्स डिस्टर्ट हुन्छ।',
-      lines: [['step', <>Unity pf: cross-magnetising</>]],
+      lines: [part(<>Unity pf</>, <>cross-magnetising</>)],
     },
     {
       say: 'Lagging pf ma demagnetising; terminal voltage ghatcha.',
       voice: 'ल्यागिङ पी एफमा डिम्याग्नेटाइजिङ, टर्मिनल भोल्टेज घट्छ।',
-      lines: [['step', <>Lagging pf: demagnetising, V falls</>]],
+      lines: [part(<>Lagging pf</>, <>demagnetising, V falls</>)],
     },
     {
       say: 'Leading pf ma magnetising; terminal voltage excitation EMF bhanda badhi huna sakcha.',
       voice: 'लिडिङ पी एफमा म्याग्नेटाइजिङ, टर्मिनल भोल्टेज एक्साइटेसन ई एम एफभन्दा बढी हुन सक्छ।',
-      lines: [['step', <>Leading pf: magnetising, V may exceed E</>]],
+      lines: [part(<>Leading pf</>, <>magnetising, V may exceed E</>)],
       ask: {
         q: 'Lagging pf ma armature reaction ko nature k?',
         voice: 'ल्यागिङ पी एफमा आर्मेचर रियाक्सनको नेचर के?',
@@ -1141,17 +1142,17 @@ export const basics64 = duo('6.4 · Basic understanding: why is a synchronous mo
     {
       say: 'Synchronous motor ko stator induction motor jastai: tin phase le ghumne magnet banaucha.',
       voice: 'सिन्क्रोनस मोटरको स्टेटर इन्डक्सन मोटर जस्तै — तीन फेजले घुम्ने म्याग्नेट बनाउँछ।',
-      lines: [['h', <>6.4 · Aafai kina start hudaina?</>], ['step', <>Stator: tin phase → ghumne magnet</>]],
+      lines: [['h', <>6.4 · Aafai kina start hudaina?</>], part(<>Stator</>, <>tin phase → ghumne magnet</>)],
     },
     {
       say: 'Rotor ma DC le banaeko balio magnet. Dui magnet ek-arka lai samatchan.',
       voice: 'रोटरमा डी सीले बनाएको बलियो म्याग्नेट। दुई म्याग्नेट एक अर्कालाई समात्छन्।',
-      lines: [['step', <>Rotor: DC magnet</>]],
+      lines: [part(<>Rotor</>, <>DC magnet</>)],
     },
     {
       say: 'Tara start ma stator ko magnet eksekend ma pachas choti ghumcha. Gahro rotor le samatna bhyaudaina: eta-uta tanincha matra.',
       voice: 'तर स्टार्टमा स्टेटरको म्याग्नेट एक सेकेन्डमा पचास चोटि घुम्छ। गह्रौं रोटरले समात्न भ्याउँदैन — यता उता तानिन्छ मात्र।',
-      lines: [['step', <>Start: magnet dherai chito → rotor samatna sakdaina</>]],
+      lines: [part(<>Start</>, <>magnet dherai chito → rotor samatna sakdaina</>)],
       ask: {
         q: 'Synchronous motor aafai start kina hudaina?',
         voice: 'सिन्क्रोनस मोटर आफैं स्टार्ट किन हुँदैन?',
@@ -1163,22 +1164,22 @@ export const basics64 = duo('6.4 · Basic understanding: why is a synchronous mo
     {
       say: 'Upaya: pole ma damper bar, cage jastai. Induction motor jastai rotor ghumna thalcha.',
       voice: 'उपाय — पोलमा ड्याम्पर बार, केज जस्तै। इन्डक्सन मोटर जस्तै रोटर घुम्न थाल्छ।',
-      lines: [['step', <>Damper bar → induction motor jastai start</>]],
+      lines: [chain(<>Damper bar → induction motor jastai start</>)],
     },
     {
       say: 'Speed najik pugepachi DC dida rotor ko magnet stator ko magnet sanga lock huncha, ra thik eutai speed ma ghumcha.',
       voice: 'स्पिड नजिक पुगेपछि डी सी दिँदा रोटरको म्याग्नेट स्टेटरको म्याग्नेटसँग लक हुन्छ, र ठिक एउटै स्पिडमा घुम्छ।',
-      lines: [['step', <>DC dida lock → thik synchronous speed</>]],
+      lines: [chain(<>DC dida lock → thik synchronous speed</>)],
     },
     {
       say: 'Field current kam bhaye motor le supply bata magnet ko lagi current magcha: lagging, induction motor jastai.',
       voice: 'फिल्ड करेन्ट कम भए मोटरले सप्लाईबाट म्याग्नेटको लागि करेन्ट माग्छ — ल्यागिङ, इन्डक्सन मोटर जस्तै।',
-      lines: [['step', <>Kam field → lagging pf</>]],
+      lines: [chain(<>Kam field → lagging pf</>)],
     },
     {
       say: 'Field current badhaye ulto: motor le supply lai current dincha, capacitor jastai: leading. Factory ko pf sudharcha!',
       voice: 'फिल्ड करेन्ट बढाए उल्टो — मोटरले सप्लाईलाई करेन्ट दिन्छ, क्यापासिटर जस्तै — लिडिङ। फ्याक्ट्रीको पी एफ सुधार्छ!',
-      lines: [['step', <>Badhi field → leading pf (capacitor jastai)</>]],
+      lines: [chain(<>Badhi field → leading pf (capacitor jastai)</>)],
     },
     {
       say: 'Saransha: start ma damper le ghumaucha, DC le lock garcha, speed fixed, ra field current le pf milaucha.',
@@ -1212,22 +1213,22 @@ export const basics64 = duo('6.4 · Basic understanding: why is a synchronous mo
     {
       say: 'Damper winding le motor induction motor jastai start garcha.',
       voice: 'ड्याम्पर वाइन्डिङले मोटर इन्डक्सन मोटर जस्तै स्टार्ट गर्छ।',
-      lines: [['step', <>Damper winding: induction-motor starting</>]],
+      lines: [part(<>Damper winding</>, <>induction-motor starting</>)],
     },
     {
       say: 'Near synchronous speed ma DC excitation dida rotor pull into step huncha.',
       voice: 'नियर सिन्क्रोनस स्पिडमा डी सी एक्साइटेसन दिँदा रोटर पुल इन्टु स्टेप हुन्छ।',
-      lines: [['step', <>DC applied near N<sub>s</sub>: pulls into synchronism</>]],
+      lines: [chain(<>DC applied near N<sub>s</sub>: pulls into synchronism</>)],
     },
     {
       say: 'Under-excitation ma motor lagging current lincha.',
       voice: 'अन्डर एक्साइटेसनमा मोटर ल्यागिङ करेन्ट लिन्छ।',
-      lines: [['step', <>Under-excited: lagging pf</>]],
+      lines: [part(<>Under-excited</>, <>lagging pf</>)],
     },
     {
       say: 'Over-excitation ma leading current lincha; yasari synchronous condenser ko rup ma pf improve garcha.',
       voice: 'ओभर एक्साइटेसनमा लिडिङ करेन्ट लिन्छ, यसरी सिन्क्रोनस कन्डेन्सरको रूपमा पी एफ इम्प्रुभ गर्छ।',
-      lines: [['step', <>Over-excited: leading pf (synchronous condenser)</>]],
+      lines: [part(<>Over-excited</>, <>leading pf (synchronous condenser)</>)],
     },
     {
       say: 'Saransha: not self-starting, damper bata start, constant speed, ra excitation le pf control.',

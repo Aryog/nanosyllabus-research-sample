@@ -1,4 +1,5 @@
 import { C, K, Pts, answer, duo, solve, topic } from '../video/kit.jsx';
+import { chain, part } from '../video/kit.jsx';
 import { Cap, T, W, head } from '../unit4/figs.jsx';
 import { motorTour } from '../unit4/basics3d.js';
 
@@ -182,17 +183,17 @@ export const basics31 = duo('3.1 · Basic understanding: how does rotation make 
     {
       say: 'Bhitra motor jastai duita magnet: N ra S, ra bich ma nadekhine field.',
       voice: 'भित्र मोटर जस्तै दुईटा म्याग्नेट — एन र एस, र बीचमा नदेखिने फिल्ड।',
-      lines: [['step', <>Magnet: N ra S → field</>]],
+      lines: [part(<>Magnet</>, <>N ra S → field</>)],
     },
     {
       say: 'Shaft sanga armature ra yasko tama ko coil ghumcha, ra coil le magnet ko field kaatcha.',
       voice: 'सफ्टसँग आर्मेचर र यसको तामाको कोइल घुम्छ, र कोइलले म्याग्नेटको फिल्ड काट्छ।',
-      lines: [['step', <>Coil ghumcha → field kaatcha</>]],
+      lines: [chain(<>Coil ghumcha → field kaatcha</>)],
     },
     {
       say: 'Field kaatda coil ma bijuli induce huncha, ra bulb balcha. Motor ko ulto: ghumai dida bijuli aaucha.',
       voice: 'फिल्ड काट्दा कोइलमा बिजुली इन्ड्युस हुन्छ, र बल्ब बल्छ। मोटरको उल्टो — घुमाइ दिँदा बिजुली आउँछ।',
-      lines: [['step', <>Field kaatyo → bijuli → bulb balyo</>]],
+      lines: [chain(<>Field kaatyo → bijuli → bulb balyo</>)],
       ask: {
         q: 'Generator ma kun energy kun ma badlincha?',
         voice: 'जेनेरेटरमा कुन इनर्जी कुनमा बदलिन्छ?',
@@ -209,7 +210,7 @@ export const basics31 = duo('3.1 · Basic understanding: how does rotation make 
     {
       say: 'Harek aadha ghumai ma commutator le jodai pharkaucha, tesaile bahira ko bijuli sadhai eutai disha: DC.',
       voice: 'हरेक आधा घुमाइमा कम्युटेटरले जोडाइ फर्काउँछ, त्यसैले बाहिरको बिजुली सधैं एउटै दिशा — डी सी।',
-      lines: [['step', <>Aadha ghumai ma jodai pharkincha → bahira DC</>]],
+      lines: [chain(<>Aadha ghumai ma jodai pharkincha → bahira DC</>)],
     },
     {
       say: 'Bahira ko falam ko frame yoke ho; pole ma bereko tar field coil, jasle magnet banaucha.',
@@ -226,12 +227,12 @@ export const basics31 = duo('3.1 · Basic understanding: how does rotation make 
     {
       say: 'DC generator le prime mover ko mechanical energy lai DC electrical energy ma convert garcha.',
       voice: 'डी सी जेनेरेटरले प्राइम मुभरको मेकानिकल इनर्जीलाई डी सी इलेक्ट्रिकल इनर्जीमा कन्भर्ट गर्छ।',
-      lines: [['h', <>3.1 · The DC generator</>], ['step', <>Prime mover → mechanical input</>]],
+      lines: [['h', <>3.1 · The DC generator</>], chain(<>Prime mover → mechanical input</>)],
     },
     {
       say: 'Field system le poles bich ma magnetic field dincha.',
       voice: 'फिल्ड सिस्टमले पोल्स बीचमा म्याग्नेटिक फिल्ड दिन्छ।',
-      lines: [['step', <>Field poles: N and S</>]],
+      lines: [part(<>Field poles</>, <>N and S</>)],
     },
     {
       say: 'Armature conductors rotate hunda flux cut garchan.',
@@ -241,7 +242,7 @@ export const basics31 = duo('3.1 · Basic understanding: how does rotation make 
     {
       say: 'Faraday ko law anusar conductors ma dynamically induced EMF aaucha ra load ma current bagcha.',
       voice: 'फाराडेको ल अनुसार कन्डक्टर्समा डाइनामिकल्ली इन्ड्युस्ड ई एम एफ आउँछ, र लोडमा करेन्ट बग्छ।',
-      lines: [['step', <>Dynamically induced EMF → load current</>]],
+      lines: [chain(<>Dynamically induced EMF → load current</>)],
       ask: {
         q: 'Generator ko EMF ko direction kun rule le?',
         voice: 'जेनेरेटरको ई एम एफको डाइरेक्सन कुन रुलले?',
@@ -258,7 +259,7 @@ export const basics31 = duo('3.1 · Basic understanding: how does rotation make 
     {
       say: 'Commutator le harek half revolution ma connection reverse garcha, ra external circuit ma unidirectional current dincha.',
       voice: 'कम्युटेटरले हरेक हाफ रिभोल्युसनमा कनेक्सन रिभर्स गर्छ, र एक्सटर्नल सर्किटमा युनिडाइरेक्सनल करेन्ट दिन्छ।',
-      lines: [['step', <>Commutator: mechanical rectifier → DC in the external circuit</>]],
+      lines: [part(<>Commutator</>, <>mechanical rectifier → DC in the external circuit</>)],
     },
     {
       say: 'Yoke le mechanical support ra flux ko return path dincha; field winding le poles excite garcha.',
@@ -590,12 +591,12 @@ export const basics32 = duo('3.2 · Basic understanding: what sets a generator�
     {
       say: 'Cycle ko dynamo: bistarai chalaye batti madhuro, chito chalaye ujyalo. Generator ma pani tyastai.',
       voice: 'साइकलको डाइनामो — बिस्तारै चलाए बत्ती मधुरो, छिटो चलाए उज्यालो। जेनेरेटरमा पनि त्यस्तै।',
-      lines: [['h', <>3.2 · Voltage kasle badhaucha?</>], ['step', <>Bistarai → madhuro</>]],
+      lines: [['h', <>3.2 · Voltage kasle badhaucha?</>], chain(<>Bistarai → madhuro</>)],
     },
     {
       say: 'Chito ghumaye coil le eksekend ma dherai field kaatcha, ra voltage badhcha.',
       voice: 'छिटो घुमाए कोइलले एक सेकेन्डमा धेरै फिल्ड काट्छ, र भोल्टेज बढ्छ।',
-      lines: [['step', <>Chito ghumai → dherai voltage</>]],
+      lines: [chain(<>Chito ghumai → dherai voltage</>)],
       ask: {
         q: 'Speed dobar garda generator ko voltage kati?',
         voice: 'स्पिड दोब्बर गर्दा जेनेरेटरको भोल्टेज कति?',
@@ -607,17 +608,17 @@ export const basics32 = duo('3.2 · Basic understanding: what sets a generator�
     {
       say: 'Magnet balio bhaye pani voltage badhcha: eutai ghumai ma dherai field kaatincha.',
       voice: 'म्याग्नेट बलियो भए पनि भोल्टेज बढ्छ — एउटै घुमाइमा धेरै फिल्ड काटिन्छ।',
-      lines: [['step', <>Balio magnet → dherai voltage</>]],
+      lines: [chain(<>Balio magnet → dherai voltage</>)],
     },
     {
       say: 'Magnet kamjor garyo bhane batti madhuro hunchha.',
       voice: 'म्याग्नेट कमजोर गर्‍यो भने बत्ती मधुरो हुन्छ।',
-      lines: [['step', <>Kamjor magnet → kam voltage</>]],
+      lines: [chain(<>Kamjor magnet → kam voltage</>)],
     },
     {
       say: 'Armature ma dherai tar ka tukra bhaye, dherai thau ma voltage banchha ra jodincha.',
       voice: 'आर्मेचरमा धेरै तारका टुक्रा भए, धेरै ठाउँमा भोल्टेज बन्छ, र जोडिन्छ।',
-      lines: [['step', <>Dherai tar → dherai voltage jodincha</>]],
+      lines: [chain(<>Dherai tar → dherai voltage jodincha</>)],
     },
     {
       say: 'Tar haru line ma jode voltage jodincha; dherai bato ma bandiye voltage kam tara current dherai.',
@@ -627,7 +628,7 @@ export const basics32 = duo('3.2 · Basic understanding: what sets a generator�
     {
       say: 'Dherai pole bhaye eutai ghumai ma coil le dherai choti field kaatcha.',
       voice: 'धेरै पोल भए एउटै घुमाइमा कोइलले धेरै चोटि फिल्ड काट्छ।',
-      lines: [['step', <>Dherai pole → dherai choti kaatcha</>]],
+      lines: [chain(<>Dherai pole → dherai choti kaatcha</>)],
     },
     {
       say: 'Saransha: speed, magnet ko bal, tar ko sankhya ra pole le voltage badhaucha; bato bandiye ghataucha.',
@@ -639,7 +640,7 @@ export const basics32 = duo('3.2 · Basic understanding: what sets a generator�
     {
       say: 'Kam speed ma generator ko terminal voltage kam huncha.',
       voice: 'कम स्पिडमा जेनेरेटरको टर्मिनल भोल्टेज कम हुन्छ।',
-      lines: [['h', <>3.2 · What decides the generated EMF</>], ['step', <>Low speed → low EMF</>]],
+      lines: [['h', <>3.2 · What decides the generated EMF</>], chain(<>Low speed → low EMF</>)],
     },
     {
       say: 'Speed badhda flux cutting ko rate badhcha ra EMF badhcha.',
@@ -661,22 +662,22 @@ export const basics32 = duo('3.2 · Basic understanding: what sets a generator�
     {
       say: 'Flux ghataye EMF ghatcha.',
       voice: 'फ्लक्स घटाए ई एम एफ घट्छ।',
-      lines: [['step', <>Weaker field → lower EMF</>]],
+      lines: [chain(<>Weaker field → lower EMF</>)],
     },
     {
       say: 'Armature conductors ko sankhya badhda EMF badhcha.',
       voice: 'आर्मेचर कन्डक्टर्सको संख्या बढ्दा ई एम एफ बढ्छ।',
-      lines: [['step', <>More conductors → more EMF</>]],
+      lines: [chain(<>More conductors → more EMF</>)],
     },
     {
       say: 'Conductors series ma jodiyeka path ko EMF nai output; parallel paths badhaye EMF ghatcha.',
       voice: 'कन्डक्टर्स सिरिजमा जोडिएका पाथको ई एम एफ नै आउटपुट, प्यारालल पाथ्स बढाए ई एम एफ घट्छ।',
-      lines: [['step', <>More parallel paths → lower EMF, higher current</>]],
+      lines: [chain(<>More parallel paths → lower EMF, higher current</>)],
     },
     {
       say: 'Poles ko sankhya badhaye pratyek revolution ma badhi flux cut huncha.',
       voice: 'पोल्सको संख्या बढाए प्रत्येक रिभोल्युसनमा बढी फ्लक्स कट हुन्छ।',
-      lines: [['step', <>More poles → more flux cut per revolution</>]],
+      lines: [chain(<>More poles → more flux cut per revolution</>)],
     },
     {
       say: 'Saransha: EMF speed, flux, conductors ra poles sanga badhcha, ra parallel paths sanga ghatcha.',
@@ -857,7 +858,7 @@ export const basics33 = duo('3.3 · Basic understanding: how does a generator ex
     {
       say: 'Generator ko magnet field coil ho, jaslai current chahincha. Chhuttai battery bata diye separately excited.',
       voice: 'जेनेरेटरको म्याग्नेट फिल्ड कोइल हो, जसलाई करेन्ट चाहिन्छ। छुट्टै ब्याट्रीबाट दिए सेपरेट्ली एक्साइटेड।',
-      lines: [['h', <>3.3 · Aafno magnet aafai?</>], ['step', <>Chhuttai battery bata field: separately excited</>]],
+      lines: [['h', <>3.3 · Aafno magnet aafai?</>], chain(<>Chhuttai battery bata field: separately excited</>)],
     },
     {
       say: 'Tara generator le aafai bijuli banaucha, tesaile aafno field coil lai aafai bijuli dina sakcha: self-excited.',
@@ -867,22 +868,22 @@ export const basics33 = duo('3.3 · Basic understanding: how does a generator ex
     {
       say: 'Suru ma current chaina, tara pole ma ali purano magnet baki huncha. Tyahi le ali-ali bijuli suru garcha.',
       voice: 'सुरुमा करेन्ट छैन, तर पोलमा अलि पुरानो म्याग्नेट बाँकी हुन्छ। त्यही ले अलि अलि बिजुली सुरु गर्छ।',
-      lines: [['step', <>Suru: pole ma ali baki magnet → ali bijuli</>]],
+      lines: [part(<>Suru</>, <>pole ma ali baki magnet → ali bijuli</>)],
     },
     {
       say: 'Tyo ali bijuli field coil ma janchha, magnet ali balio huncha, ani jhan bijuli: chakra chalcha.',
       voice: 'त्यो अलि बिजुली फिल्ड कोइलमा जान्छ, म्याग्नेट अलि बलियो हुन्छ, अनि झन् बिजुली — चक्र चल्छ।',
-      lines: [['step', <>Ali bijuli → balio magnet → jhan bijuli (chakra)</>]],
+      lines: [chain(<>Ali bijuli → balio magnet → jhan bijuli (chakra)</>)],
     },
     {
       say: 'Badhdai badhdai magnet bharincha ra voltage eutai thau ma rokincha. Yo voltage build-up ho.',
       voice: 'बढ्दै बढ्दै म्याग्नेट भरिन्छ, र भोल्टेज एउटै ठाउँमा रोकिन्छ। यो भोल्टेज बिल्ड अप हो।',
-      lines: [['step', <>Badhdai badhdai → eutai thau ma rokincha (build-up)</>]],
+      lines: [chain(<>Badhdai badhdai → eutai thau ma rokincha (build-up)</>)],
     },
     {
       say: 'Ascharya: field coil ko bato ma dherai rok bhaye chakra suru nai hudaina. Tyo seema lai critical resistance bhanchan.',
       voice: 'आश्चर्य — फिल्ड कोइलको बाटोमा धेरै रोक भए चक्र सुरु नै हुँदैन। त्यो सीमालाई क्रिटिकल रेजिस्टेन्स भन्छन्।',
-      lines: [['step', <>Field ko bato ma dherai rok → build-up hudaina (critical resistance)</>]],
+      lines: [chain(<>Field ko bato ma dherai rok → build-up hudaina (critical resistance)</>)],
       ask: {
         q: 'Self-excited generator ko build-up kasle suru garcha?',
         voice: 'सेल्फ एक्साइटेड जेनेरेटरको बिल्ड अप कसले सुरु गर्छ?',
@@ -894,7 +895,7 @@ export const basics33 = duo('3.3 · Basic understanding: how does a generator ex
     {
       say: 'Series generator ma field coil load ko line mai cha, tesaile load nabhaye current nai bagdaina.',
       voice: 'सिरिज जेनेरेटरमा फिल्ड कोइल लोडको लाइनमै छ, त्यसैले लोड नभए करेन्ट नै बग्दैन।',
-      lines: [['step', <>Series: field load ko line ma → load chahincha</>]],
+      lines: [part(<>Series</>, <>field load ko line ma → load chahincha</>)],
     },
     {
       say: 'Saransha: separately ma battery, self-excited ma aafai; baki magnet le suru, chakra le badhaucha; compound ma dubai coil.',
@@ -906,22 +907,22 @@ export const basics33 = duo('3.3 · Basic understanding: how does a generator ex
     {
       say: 'Field winding lai external DC source bata excite garincha bhane separately excited generator.',
       voice: 'फिल्ड वाइन्डिङलाई एक्सटर्नल डी सी सोर्सबाट एक्साइट गरिन्छ भने सेपरेट्ली एक्साइटेड जेनेरेटर।',
-      lines: [['h', <>3.3 · Excitation</>], ['step', <>Separately excited: field from an external source</>]],
+      lines: [['h', <>3.3 · Excitation</>], part(<>Separately excited</>, <>field from an external source</>)],
     },
     {
       say: 'Self-excited generator ma aafnai output le field excite garcha: shunt, series wa compound.',
       voice: 'सेल्फ एक्साइटेड जेनेरेटरमा आफ्नै आउटपुटले फिल्ड एक्साइट गर्छ — सन्ट, सिरिज, वा कम्पाउन्ड।',
-      lines: [['step', <>Self-excited: field from its own output</>]],
+      lines: [part(<>Self-excited</>, <>field from its own output</>)],
     },
     {
       say: 'Start ma poles ko residual magnetism le sano EMF induce garcha.',
       voice: 'स्टार्टमा पोल्सको रेसिड्युअल म्याग्नेटिज्मले सानो ई एम एफ इन्ड्युस गर्छ।',
-      lines: [['step', <>Residual magnetism → small initial EMF</>]],
+      lines: [chain(<>Residual magnetism → small initial EMF</>)],
     },
     {
       say: 'Yo EMF le field current dincha, flux badhcha, ra EMF badhcha: cumulative process.',
       voice: 'यो ई एम एफले फिल्ड करेन्ट दिन्छ, फ्लक्स बढ्छ, र ई एम एफ बढ्छ — क्युमुलेटिभ प्रोसेस।',
-      lines: [['step', <>EMF → field current → flux → more EMF</>]],
+      lines: [chain(<>EMF → field current → flux → more EMF</>)],
     },
     {
       say: 'Saturation le garda voltage OCC ra field resistance line ko intersection ma stable huncha.',
@@ -931,7 +932,7 @@ export const basics33 = duo('3.3 · Basic understanding: how does a generator ex
     {
       say: 'Field resistance critical value bhanda badhi bhaye voltage build up hudaina.',
       voice: 'फिल्ड रेजिस्टेन्स क्रिटिकल भ्यालुभन्दा बढी भए भोल्टेज बिल्ड अप हुँदैन।',
-      lines: [['step', <>Field resistance above critical → no build-up</>]],
+      lines: [chain(<>Field resistance above critical → no build-up</>)],
       ask: {
         q: 'Voltage build-up ko lagi field resistance kasto hunu parcha?',
         voice: 'भोल्टेज बिल्ड अपको लागि फिल्ड रेजिस्टेन्स कस्तो हुनु पर्छ?',
@@ -943,7 +944,7 @@ export const basics33 = duo('3.3 · Basic understanding: how does a generator ex
     {
       say: 'Series generator ma field load sanga series ma, tesaile load bina build-up hudaina.',
       voice: 'सिरिज जेनेरेटरमा फिल्ड लोडसँग सिरिजमा, त्यसैले लोड बिना बिल्ड अप हुँदैन।',
-      lines: [['step', <>Series generator: builds up only with a load</>]],
+      lines: [part(<>Series generator</>, <>builds up only with a load</>)],
     },
     {
       say: 'Saransha: excitation separate wa self; build-up residual magnetism ra critical resistance ma depend; compound ma shunt ra series dubai.',
@@ -1198,22 +1199,22 @@ export const basics34 = duo('3.4 · Basic understanding: does all the engine’s
     {
       say: 'Engine le shaft ma power dincha. Tara sabai power bulb samma pugdaina.',
       voice: 'इन्जिनले सफ्टमा पावर दिन्छ। तर सबै पावर बल्बसम्म पुग्दैन।',
-      lines: [['h', <>3.4 · Engine ko power sabai bulb ma?</>], ['step', <>Engine ko power → kehi bato mai harauncha</>]],
+      lines: [['h', <>3.4 · Engine ko power sabai bulb ma?</>], chain(<>Engine ko power → kehi bato mai harauncha</>)],
     },
     {
       say: 'Bearing ra brush ko ghasai, ani ghumda hawa sanga ko ladai: yo mechanical loss.',
       voice: 'बेयरिङ र ब्रसको घसाइ, अनि घुम्दा हावासँगको लडाइँ — यो मेकानिकल लस।',
-      lines: [['step', <>Ghasai + hawa → mechanical loss</>]],
+      lines: [chain(<>Ghasai + hawa → mechanical loss</>)],
     },
     {
       say: 'Ghumne falam ma magnet ulto-sulto huncha ra falam taato huncha: iron loss.',
       voice: 'घुम्ने फलाममा म्याग्नेट उल्टो सुल्टो हुन्छ, र फलाम तातो हुन्छ — आइरन लस।',
-      lines: [['step', <>Falam taato → iron loss</>]],
+      lines: [chain(<>Falam taato → iron loss</>)],
     },
     {
       say: 'Tar ma current bagda tar taato: copper loss. Load badhda yo chito badhcha.',
       voice: 'तारमा करेन्ट बग्दा तार तातो — कपर लस। लोड बढ्दा यो छिटो बढ्छ।',
-      lines: [['step', <>Tar taato → copper loss (load sanga badhcha)</>]],
+      lines: [chain(<>Tar taato → copper loss (load sanga badhcha)</>)],
       ask: {
         q: 'Load badhda kun loss sabai bhanda chito badhcha?',
         voice: 'लोड बढ्दा कुन लस सबैभन्दा छिटो बढ्छ?',
@@ -1225,17 +1226,17 @@ export const basics34 = duo('3.4 · Basic understanding: does all the engine’s
     {
       say: 'Bulb samma pugeko power over engine ko power: yahi efficiency.',
       voice: 'बल्बसम्म पुगेको पावर ओभर इन्जिनको पावर — यही इफिसियन्सी।',
-      lines: [['step', <>Bulb ma pugeko ÷ engine ko power → efficiency</>]],
+      lines: [chain(<>Bulb ma pugeko ÷ engine ko power → efficiency</>)],
     },
     {
       say: 'Dherai bulb balda generator ko voltage alikati jharcha. Kati jharyo bhanne naap: voltage regulation.',
       voice: 'धेरै बल्ब बल्दा जेनेरेटरको भोल्टेज अलिकति झर्छ। कति झर्‍यो भन्ने नाप — भोल्टेज रेगुलेसन।',
-      lines: [['step', <>Load badhyo → voltage jharyo (regulation)</>]],
+      lines: [chain(<>Load badhyo → voltage jharyo (regulation)</>)],
     },
     {
       say: 'Transformer jastai, best efficiency tar ko loss ra fixed loss barabar huda.',
       voice: 'ट्रान्सफर्मर जस्तै, बेस्ट इफिसियन्सी तारको लस र फिक्स्ड लस बराबर हुँदा।',
-      lines: [['step', <>Best: badhne loss ra fixed loss barabar</>]],
+      lines: [part(<>Best</>, <>badhne loss ra fixed loss barabar</>)],
     },
     {
       say: 'Saransha: ghasai, falam ra tar ma loss; bachyo tyo output; voltage ali jharcha; dui loss barabar huda best.',
@@ -1252,7 +1253,7 @@ export const basics34 = duo('3.4 · Basic understanding: does all the engine’s
     {
       say: 'Mechanical losses: bearing friction, brush friction ra windage.',
       voice: 'मेकानिकल लसेस — बेयरिङ फ्रिक्सन, ब्रस फ्रिक्सन, र विन्डेज।',
-      lines: [['step', <>Mechanical losses: friction, windage</>]],
+      lines: [part(<>Mechanical losses</>, <>friction, windage</>)],
     },
     {
       say: 'Iron losses: armature core ma hysteresis ra eddy current loss.',
@@ -1274,12 +1275,12 @@ export const basics34 = duo('3.4 · Basic understanding: does all the engine’s
     {
       say: 'Commercial efficiency electrical output ra mechanical input ko ratio ho.',
       voice: 'कमर्सियल इफिसियन्सी इलेक्ट्रिकल आउटपुट र मेकानिकल इनपुटको रेसियो हो।',
-      lines: [['step', <>Commercial efficiency: output over mechanical input</>]],
+      lines: [part(<>Commercial efficiency</>, <>output over mechanical input</>)],
     },
     {
       say: 'Load badhda terminal voltage ghatcha; yo change voltage regulation le naapcha.',
       voice: 'लोड बढ्दा टर्मिनल भोल्टेज घट्छ, यो चेन्ज भोल्टेज रेगुलेसनले नाप्छ।',
-      lines: [['step', <>Voltage falls with load: voltage regulation</>]],
+      lines: [chain(<>Voltage falls with load: voltage regulation</>)],
     },
     {
       say: 'Maximum efficiency variable loss constant loss barabar huda huncha.',

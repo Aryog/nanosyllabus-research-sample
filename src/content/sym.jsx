@@ -98,8 +98,20 @@ export function symSvg(str) {
 
 // Walk a React tree and format the plain strings in HTML text and SVG <text>
 // (maths in <K> is left alone: it is already typeset).
+// A chain "load ↑ → N ↓ → Eb ↓" breaks only after an arrow, never inside a
+// step (user, 2026-11-02: "this things are messier"). Short steps keep their
+// spaces unbreakable; long ones wrap normally.
+const NB = '\u00a0';
+export const keepSteps = (str) =>
+  !str.includes('→') && !str.includes('⇒')
+    ? str
+    : str
+        .split(/(→|⇒)/)
+        .map((p, i) => (i % 2 ? p : p.trim().length <= 22 ? p.replace(/ +/g, (m, at) => (at === 0 && i > 0 ? ' ' : NB)) : p))
+        .join('')
+        .replace(/ (→|⇒)/g, `${NB}$1`);
 export function symTree(node, svg = false) {
-  if (typeof node === 'string') return svg ? symSvg(node) : sym(node);
+  if (typeof node === 'string') return svg ? symSvg(node) : sym(keepSteps(node));
   if (Array.isArray(node)) return node.map((n) => symTree(n, svg));
   if (!isValidElement(node)) return node;
   const t = node.type;

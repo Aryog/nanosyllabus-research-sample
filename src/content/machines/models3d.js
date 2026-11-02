@@ -519,7 +519,7 @@ export const inductionTour = makeTour({
       capacitor: [4.2, -1.5, 1.2],
       engine: [0, 1.2, -4.6],
     };
-    const lead = (y, c) => ({ pts: [V(-3.9, y, 0.6), V(-3.2, y, 0.9), V(-2.6, y * 0.6, 1.3), V(-1.6, y * 0.5, 1.35)], color: c, r: 0.045, dots: 5 });
+    const lead = (y, c) => ({ wire: true, pts: [V(-3.9, y, 0.6), V(-2.9, y, 0.6), V(-2.9, y, 1.35), V(-2.3, y, 1.35), V(-2.3, y * 0.5, 1.35), V(-1.6, y * 0.5, 1.35)], color: c, r: 0.045, bend: 0.12, dots: 5 });
     const paths = { r: lead(0.45, COL.R), y: lead(0, COL.Y), b: lead(-0.45, COL.B) };
     return {
       shots,
@@ -650,7 +650,7 @@ export const syncTour = makeTour({
       supply: [-4.4, 1.2, 0.6],
       field: [0, 1.5, 1.9],
     };
-    const lead = (y, c, from) => ({ pts: from ? [V(1.6, y * 0.5, 1.35), V(2.6, y * 0.6, 1.3), V(3.4, y - 0.6, 1.0), V(4.2 + (y + 0.45) * 2.1, -1.0, 0.8)] : [V(-3.9, y, 0.6), V(-3.2, y, 0.9), V(-2.6, y * 0.6, 1.3), V(-1.6, y * 0.5, 1.35)], color: c, r: 0.045, dots: 5 });
+    const lead = (y, c, from) => ({ wire: true, pts: from ? [V(1.6, y * 0.5, 1.35), V(2.3, y * 0.5, 1.35), V(2.3, y, 1.35), V(4.2 + (y + 0.45) * 2.1, y, 1.35), V(4.2 + (y + 0.45) * 2.1, -1.0, 1.35), V(4.2 + (y + 0.45) * 2.1, -1.0, 0.8)] : [V(-3.9, y, 0.6), V(-2.9, y, 0.6), V(-2.9, y, 1.35), V(-2.3, y, 1.35), V(-2.3, y * 0.5, 1.35), V(-1.6, y * 0.5, 1.35)], color: c, r: 0.045, bend: 0.12, dots: 5 });
     const paths = {
       r: lead(0.45, COL.R), y: lead(0, COL.Y), b: lead(-0.45, COL.B),
       or: lead(0.45, COL.R, true), oy: lead(0, COL.Y, true), ob: lead(-0.45, COL.B, true),
@@ -810,8 +810,8 @@ export const smallTour = makeTour({
       sensor: [1.4, -1.4, 1.6],
     };
     const paths = {
-      line: { pts: [V(-4.0, -0.4, 0.8), V(-3.0, 0.2, 1.1), V(-2.0, 1.4, 1.3), V(-0.4, 1.5, 1.3)], color: 0xe8590c, dots: 6 },
-      capLine: { pts: [V(-3.6, 0.8, 0.8), V(-2.8, 0.2, 1.2), V(-1.5, 0.0, 1.3)], color: COL.purple, r: 0.04, dots: 5 },
+      line: { wire: true, pts: [V(-4.0, -0.4, 0.8), V(-3.0, -0.4, 0.8), V(-3.0, -0.4, 1.3), V(-3.0, 1.5, 1.3), V(-0.4, 1.5, 1.3)], color: 0xe8590c, dots: 6 },
+      capLine: { wire: true, pts: [V(-3.6, 0.8, 0.8), V(-2.7, 0.8, 0.8), V(-2.7, 0.8, 1.2), V(-2.7, 0, 1.2), V(-1.5, 0, 1.2)], color: COL.purple, r: 0.04, bend: 0.12, dots: 5 },
     };
     return {
       shots,

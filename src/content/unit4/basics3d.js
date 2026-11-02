@@ -37,6 +37,7 @@
   battery; it glows with `flow`) and engine (the prime mover behind the shaft). Anchors for labels are the part names plus north/south/nvc/olr.
   Every motion runs on the scene clock (M1): pause, seek and the MP4 match.
 */
+import { orthoWire } from '../machines/wire3d.js';
 import { kit } from './scenes41.js';
 
 const smooth = (t) => t * t * (3 - 2 * t);
@@ -242,22 +243,26 @@ export function motorTour(plan) {
     const BOT = P(0, -0.98, COMM_Z);
     const NC = P(-2.35, 0, 1.25); // north field coil, outer face
     const SC = P(2.35, 0, 1.25);
+    // Wires run like real cabling: straight along the axes with rounded 90°
+    // bends (machines/wire3d.js), in front of the machine (z 2.3), around the
+    // field coils (z 1.45) and, for the shunt field, round the outside of the
+    // yoke (z 0.7), so no two cross.
     const paths = {
-      mainPlus: [PLUS, P(-2.2, -1.2, 2.5), P(-1.2, 1.9, 2.6), P(-0.25, 1.6, COMM_Z), TOP],
-      mainMinus: [BOT, P(0.1, -1.6, 2.4), P(-1.6, -3.0, 2.4), P(-3.6, -3.1, 2.0), MINUS],
+      mainPlus: [PLUS, P(-2.2, -2.2, 1.6), P(-2.2, -2.2, 2.3), P(-2.2, 2.0, 2.3), P(0, 2.0, 2.3), P(0, 2.0, COMM_Z), TOP],
+      mainMinus: [BOT, P(0, -3.0, COMM_Z), P(0, -3.0, 1.6), P(-4.75, -3.0, 1.6), P(-4.75, -2.2, 1.6), MINUS],
       // Series: the whole current through both field coils, then the brushes.
-      series: [PLUS, P(-2.4, -1.0, 1.9), NC, P(-1.2, 2.8, 1.4), P(1.4, 2.8, 1.4), SC, P(2.0, 1.6, 2.4), P(0.4, 1.7, COMM_Z), TOP],
-      // Shunt: its own path, across the battery, through both field coils.
-      shunt: [PLUS, P(-3.0, -1.0, 0.6), NC, P(-1.2, 2.9, 0.4), P(1.4, 2.9, 0.4), SC, P(2.6, -1.8, 0.6), P(-1.0, -3.3, 1.0), MINUS],
+      series: [PLUS, P(-2.2, -2.2, 1.6), P(-2.2, -2.2, 1.45), P(-2.2, 2.8, 1.45), P(2.2, 2.8, 1.45), P(2.2, 0, 1.45), P(2.2, 0, 2.3), P(2.2, 2.0, 2.3), P(0, 2.0, 2.3), P(0, 2.0, COMM_Z), TOP],
+      // Shunt: its own path across the battery, round both field coils.
+      shunt: [PLUS, P(-2.4, -2.2, 1.6), P(-2.4, -2.2, 0.7), P(-2.8, -2.2, 0.7), P(-2.8, 2.95, 0.7), P(2.8, 2.95, 0.7), P(2.8, -2.95, 0.7), P(-4.6, -2.95, 0.7), P(-4.6, -2.2, 0.7), P(-4.6, -2.2, 1.6), MINUS],
     };
     const curves = {};
     const wireMeshes = {};
     for (const [k, pts] of Object.entries(paths)) {
       // Smooth bends, rounded ends: no sharp elbows (user, 2026-11-02).
-      curves[k] = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
+      curves[k] = orthoWire(THREE, pts, { r: 0.22 });
       const m = mat('wires', k === 'shunt' ? 0x9775fa : 0xe8590c, { roughness: 0.5 });
       const r = k === 'shunt' ? 0.035 : 0.055;
-      wireMeshes[k] = new THREE.Mesh(new THREE.TubeGeometry(curves[k], 200, r, 14, false), m);
+      wireMeshes[k] = new THREE.Mesh(new THREE.TubeGeometry(curves[k], 400, r, 14, false), m);
       for (const t of [0, 1]) {
         const cap = new THREE.Mesh(new THREE.SphereGeometry(r, 14, 10), m);
         cap.position.copy(curves[k].getPoint(t));

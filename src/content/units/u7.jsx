@@ -1,4 +1,5 @@
 import { C, K, Pts, answer, duo, topic } from '../video/kit.jsx';
+import { chain, part } from '../video/kit.jsx';
 import { Cap, CoilH, T, W, head } from '../unit4/figs.jsx';
 import { smallTour } from '../machines/models3d.js';
 import { motorTour } from '../unit4/basics3d.js';
@@ -193,12 +194,12 @@ export const basics71 = duo('7.1 · Basic understanding: why can’t a single-ph
     {
       say: 'Euta winding ko magnet ghumdaina; mathi-tala matra thulo-sano huncha, chhatpataune jasto.',
       voice: 'एउटा वाइन्डिङको म्याग्नेट घुम्दैन, माथि तल मात्र ठूलो सानो हुन्छ, छटपटाउने जस्तो।',
-      lines: [['step', <>Magnet ghumdaina: mathi-tala matra (pulsating)</>]],
+      lines: [part(<>Magnet ghumdaina</>, <>mathi-tala matra (pulsating)</>)],
     },
     {
       say: 'Tesaile rotor lai dubai tira barabar tancha, ra rotor chupchap basthan. Aafai start hudaina!',
       voice: 'त्यसैले रोटरलाई दुवैतिर बराबर तान्छ, र रोटर चुपचाप बस्छ। आफैं स्टार्ट हुँदैन!',
-      lines: [['step', <>Dubai tira barabar → rotor chupchap</>]],
+      lines: [chain(<>Dubai tira barabar → rotor chupchap</>)],
       ask: {
         q: 'Single phase induction motor aafai start kina hudaina?',
         voice: 'सिङ्गल फेज इन्डक्सन मोटर आफैं स्टार्ट किन हुँदैन?',
@@ -210,17 +211,17 @@ export const basics71 = duo('7.1 · Basic understanding: why can’t a single-ph
     {
       say: 'Mathi-tala ko magnet lai dui aadha-aadha magnet jasto socha, euta yata ra arko uta ulto ghumne.',
       voice: 'माथि तलको म्याग्नेटलाई दुई आधा आधा म्याग्नेट जस्तो सोच, एउटा यता र अर्को उता उल्टो घुम्ने।',
-      lines: [['step', <>Dui aadha magnet: ulto-ulto ghumne</>]],
+      lines: [chain(<>Dui aadha magnet: ulto-ulto ghumne</>)],
     },
     {
       say: 'Rotor lai hat le ali dhakka diye, euta aadha le badhi tancha.',
       voice: 'रोटरलाई हातले अलि धक्का दिए, एउटा आधाले बढी तान्छ।',
-      lines: [['step', <>Ali dhakka → euta aadha badhi</>]],
+      lines: [chain(<>Ali dhakka → euta aadha badhi</>)],
     },
     {
       say: 'Jun tira dhakka diyo, tyai tira ko aadha jitcha, ra motor tyai tira ghumirahancha.',
       voice: 'जुनतिर धक्का दियो, त्यहीतिरको आधा जित्छ, र मोटर त्यहीतिर घुमिरहन्छ।',
-      lines: [['step', <>Dhakka ko tira jitcha → ghumirahancha</>]],
+      lines: [chain(<>Dhakka ko tira jitcha → ghumirahancha</>)],
     },
     {
       say: 'Saransha: euta winding ko magnet mathi-tala matra, tesaile start hudaina; start bhayepachi chalirahancha; start ko lagi upaya chahincha.',
@@ -232,7 +233,7 @@ export const basics71 = duo('7.1 · Basic understanding: why can’t a single-ph
     {
       say: 'Ghar ka sana appliances ma single-phase induction motor prayog hunchha.',
       voice: 'घरका साना एप्लायन्सेसमा सिङ्गल फेज इन्डक्सन मोटर प्रयोग हुन्छ।',
-      lines: [['h', <>7.1 · Single-phase induction motor</>], ['step', <>Domestic appliances: fans, mixers, compressors</>]],
+      lines: [['h', <>7.1 · Single-phase induction motor</>], part(<>Domestic appliances</>, <>fans, mixers, compressors</>)],
     },
     {
       say: 'Stator ma single-phase main winding ra cage rotor hunchha.',
@@ -247,7 +248,7 @@ export const basics71 = duo('7.1 · Basic understanding: why can’t a single-ph
     {
       say: 'Standstill ma net torque zero; motor self-starting hudaina.',
       voice: 'स्ट्यान्डस्टिलमा नेट टर्क जिरो, मोटर सेल्फ स्टार्टिङ हुँदैन।',
-      lines: [['step', <>Zero starting torque: not self-starting</>]],
+      lines: [chain(<>Zero starting torque: not self-starting</>)],
       ask: {
         q: 'Single phase IM ko field kasto huncha?',
         voice: 'सिङ्गल फेज आई एमको फिल्ड कस्तो हुन्छ?',
@@ -487,7 +488,7 @@ export const basics72 = duo('7.2 · Basic understanding: how is a single-phase m
     {
       say: 'Dui coil ko current ali farak samaya ma thulo bhaye magnet ghumna thalcha, tin phase jastai.',
       voice: 'दुई कोइलको करेन्ट अलि फरक समयमा ठूलो भए म्याग्नेट घुम्न थाल्छ, तीन फेज जस्तै।',
-      lines: [['step', <>Current farak samaya ma → field ghumcha</>]],
+      lines: [chain(<>Current farak samaya ma → field ghumcha</>)],
       ask: {
         q: 'Dui winding ma current eutai samaya ma thulo bhaye k huncha?',
         voice: 'दुई वाइन्डिङमा करेन्ट एउटै समयमा ठूलो भए के हुन्छ?',
@@ -499,17 +500,17 @@ export const basics72 = duo('7.2 · Basic understanding: how is a single-phase m
     {
       say: 'Ghumne field le rotor aafai start garcha.',
       voice: 'घुम्ने फिल्डले रोटर आफैं स्टार्ट गर्छ।',
-      lines: [['step', <>Ghumne field → aafai start</>]],
+      lines: [chain(<>Ghumne field → aafai start</>)],
     },
     {
       say: 'Aux coil ma capacitor jode current dherai aghi aaucha: badhi dhakka. Yo capacitor-start motor.',
       voice: 'अक्स कोइलमा क्यापासिटर जोडे करेन्ट धेरै अघि आउँछ — बढी धक्का। यो क्यापासिटर स्टार्ट मोटर।',
-      lines: [['step', <>Capacitor → current aghi → badhi dhakka</>]],
+      lines: [chain(<>Capacitor → current aghi → badhi dhakka</>)],
     },
     {
       say: 'Speed 75 percent pugepachi shaft ko centrifugal switch ka gola bahira phaliyera aux coil chhutaucha.',
       voice: 'स्पिड पचहत्तर प्रतिशत पुगेपछि सफ्टको सेन्ट्रिफ्युगल स्विचका गोला बाहिर फालिएर अक्स कोइल छुटाउँछ।',
-      lines: [['step', <>75 % speed → centrifugal switch le aux chhutaucha</>]],
+      lines: [chain(<>75 % speed → centrifugal switch le aux chhutaucha</>)],
     },
     {
       say: 'Tyaspachi main coil matra le chalaucha, kinaki chalisakeko motor chalirahancha.',
@@ -536,7 +537,7 @@ export const basics72 = duo('7.2 · Basic understanding: how is a single-phase m
     {
       say: 'Dui winding ko current ma time-phase difference bhaye rotating field banchha.',
       voice: 'दुई वाइन्डिङको करेन्टमा टाइम फेज डिफरेन्स भए रोटेटिङ फिल्ड बन्छ।',
-      lines: [['step', <>Time-phase difference → rotating field (phase splitting)</>]],
+      lines: [chain(<>Time-phase difference → rotating field (phase splitting)</>)],
       ask: {
         q: 'Rotating field ko lagi kun dui kura chahincha?',
         voice: 'रोटेटिङ फिल्डको लागि कुन दुई कुरा चाहिन्छ?',
@@ -553,7 +554,7 @@ export const basics72 = duo('7.2 · Basic understanding: how is a single-phase m
     {
       say: 'Capacitor-start motor ma auxiliary winding sanga capacitor series ma huncha, ra phase difference lagbhag 90 degree.',
       voice: 'क्यापासिटर स्टार्ट मोटरमा अक्जिलरी वाइन्डिङसँग क्यापासिटर सिरिजमा हुन्छ, र फेज डिफरेन्स लगभग नाइन्टी डिग्री।',
-      lines: [['step', <>Capacitor-start: currents nearly a right angle apart, high starting torque</>]],
+      lines: [part(<>Capacitor-start</>, <>currents nearly a right angle apart, high starting torque</>)],
     },
     {
       say: 'Centrifugal switch le 70 dekhi 80 percent speed ma auxiliary circuit disconnect garcha.',
@@ -787,7 +788,7 @@ export const basics73 = duo('7.3 · Basic understanding: why does a mixer motor 
     {
       say: 'Tara supply ghar ko AC ho, ulto-sulto.',
       voice: 'तर सप्लाई घरको ए सी हो, उल्टो सुल्टो।',
-      lines: [['step', <>Supply: AC (ulto-sulto)</>]],
+      lines: [part(<>Supply</>, <>AC (ulto-sulto)</>)],
     },
     {
       say: 'AC ulto huda field coil ko magnet ra armature ko current dubai sangai ulto hunchan.',
@@ -797,7 +798,7 @@ export const basics73 = duo('7.3 · Basic understanding: why does a mixer motor 
     {
       say: 'Dubai ulto bhaye dhakka eutai disha ma rahancha. Tesaile AC ra DC dubai ma chalcha: universal motor.',
       voice: 'दुवै उल्टो भए धक्का एउटै दिशामा रहन्छ। त्यसैले ए सी र डी सी दुवैमा चल्छ — युनिभर्सल मोटर।',
-      lines: [['step', <>Dubai ulto → dhakka ustai → AC/DC dubai (universal)</>]],
+      lines: [chain(<>Dubai ulto → dhakka ustai → AC/DC dubai (universal)</>)],
       ask: {
         q: 'Series motor AC ma pani kina eutai disha ma ghumcha?',
         voice: 'सिरिज मोटर ए सीमा पनि किन एउटै दिशामा घुम्छ?',
@@ -809,12 +810,12 @@ export const basics73 = duo('7.3 · Basic understanding: why does a mixer motor 
     {
       say: 'AC ma brush ma ali badhi spark ra taato huncha, tesaile brush chadai khiyincha.',
       voice: 'ए सीमा ब्रसमा अलि बढी स्पार्क र तातो हुन्छ, त्यसैले ब्रस चाँडै खिइन्छ।',
-      lines: [['step', <>Brush ma spark → chadai khiyincha</>]],
+      lines: [chain(<>Brush ma spark → chadai khiyincha</>)],
     },
     {
       say: 'Load halka bhaye speed dherai badhcha: mixie khali ghumaye kati chito bhayo, sunnu bhayeko cha?',
       voice: 'लोड हल्का भए स्पिड धेरै बढ्छ — मिक्सी खाली घुमाए कति छिटो भयो, सुन्नु भएको छ?',
-      lines: [['step', <>Halka load → dherai chito</>]],
+      lines: [chain(<>Halka load → dherai chito</>)],
     },
     {
       say: 'Saransha: series motor ma magnet ra current sangai ulto, tesaile AC ma pani chalcha; sano, chito ra thulo dhakka.',
@@ -863,7 +864,7 @@ export const basics73 = duo('7.3 · Basic understanding: why does a mixer motor 
     {
       say: 'Series characteristic: light load ma dherai high speed.',
       voice: 'सिरिज क्यारेक्टरिस्टिक — लाइट लोडमा धेरै हाई स्पिड।',
-      lines: [['step', <>Series characteristic: very high speed at light load</>]],
+      lines: [part(<>Series characteristic</>, <>very high speed at light load</>)],
     },
     {
       say: 'Saransha: universal motor series motor ho jun AC ra DC dubai ma high speed ra high starting torque dincha.',
@@ -1013,12 +1014,12 @@ export const basics74 = duo('7.4 · Basic understanding: how does a printer moto
     {
       say: 'Euta coil on garyo, rotor tyo pole tira pharkincha ra rokincha. Aba arko coil on garau.',
       voice: 'एउटा कोइल अन गर्‍यो, रोटर त्यो पोलतिर फर्किन्छ र रोकिन्छ। अब अर्को कोइल अन गरौं।',
-      lines: [['step', <>Coil on → rotor tyo pole tira</>]],
+      lines: [chain(<>Coil on → rotor tyo pole tira</>)],
     },
     {
       say: 'Rotor ek step sarcha ra pheri rokincha. Euta pulse, euta step.',
       voice: 'रोटर एक स्टेप सर्छ र फेरि रोकिन्छ। एउटा पल्स, एउटा स्टेप।',
-      lines: [['step', <>Euta pulse → euta step</>]],
+      lines: [chain(<>Euta pulse → euta step</>)],
       ask: {
         q: 'Stepper motor ko rotor kati ghumcha bhanne kasle tay garcha?',
         voice: 'स्टेपर मोटरको रोटर कति घुम्छ भन्ने कसले तय गर्छ?',
@@ -1030,17 +1031,17 @@ export const basics74 = duo('7.4 · Basic understanding: how does a printer moto
     {
       say: 'Jati pulse, utti step: ganera ghumcha, sensor bina pani thik thau ma pugcha.',
       voice: 'जति पल्स, उति स्टेप — गनेर घुम्छ, सेन्सर बिना पनि ठिक ठाउँमा पुग्छ।',
-      lines: [['step', <>Jati pulse, utti step → ganera ghumcha</>]],
+      lines: [chain(<>Jati pulse, utti step → ganera ghumcha</>)],
     },
     {
       say: 'Servo motor arkai tarika: sensor le shaft kaha cha bhanera hercha ra farak bhaye sudharcha.',
       voice: 'सर्भो मोटर अर्कै तरिका — सेन्सरले सफ्ट कहाँ छ भनेर हेर्छ, र फरक भए सुधार्छ।',
-      lines: [['step', <>Servo: sensor le check → sudharcha (feedback)</>]],
+      lines: [part(<>Servo</>, <>sensor le check → sudharcha (feedback)</>)],
     },
     {
       say: 'Tesaile servo bhaneko thau ma chito ra thik pugcha: robot ko haat, drone, RC car.',
       voice: 'त्यसैले सर्भो भनेको ठाउँमा छिटो र ठिक पुग्छ — रोबटको हात, ड्रोन, आर सी कार।',
-      lines: [['step', <>Servo: robot, drone, RC car</>]],
+      lines: [part(<>Servo</>, <>robot, drone, RC car</>)],
     },
     {
       say: 'Saransha: stepper pulse ganera step-step jancha; servo sensor le hera-hera milaucha; Schrage motor chai brush bata speed milaune purano AC motor.',
@@ -1052,7 +1053,7 @@ export const basics74 = duo('7.4 · Basic understanding: how does a printer moto
     {
       say: 'Precise positioning chahine machines ma stepper motor prayog hunchha.',
       voice: 'प्रिसाइज पोजिसनिङ चाहिने मेसिन्समा स्टेपर मोटर प्रयोग हुन्छ।',
-      lines: [['h', <>7.4 · Special purpose machines</>], ['step', <>Stepper motor: precise positioning</>]],
+      lines: [['h', <>7.4 · Special purpose machines</>], part(<>Stepper motor</>, <>precise positioning</>)],
     },
     {
       say: 'Stator ma phase windings bhayeka poles ra rotor ma permanent magnet wa soft iron.',
@@ -1062,12 +1063,12 @@ export const basics74 = duo('7.4 · Basic understanding: how does a printer moto
     {
       say: 'Euta phase excite garda rotor minimum reluctance position ma align huncha.',
       voice: 'एउटा फेज एक्साइट गर्दा रोटर मिनिमम रिलक्टेन्स पोजिसनमा एलाइन हुन्छ।',
-      lines: [['step', <>Excited phase: rotor aligns</>]],
+      lines: [part(<>Excited phase</>, <>rotor aligns</>)],
     },
     {
       say: 'Arko phase excite garda rotor euta step angle le ghumcha.',
       voice: 'अर्को फेज एक्साइट गर्दा रोटर एउटा स्टेप एङ्गलले घुम्छ।',
-      lines: [['step', <>Next phase → one step</>]],
+      lines: [chain(<>Next phase → one step</>)],
       ask: {
         q: 'Stepper motor ko speed kasle tay garcha?',
         voice: 'स्टेपर मोटरको स्पिड कसले तय गर्छ?',
@@ -1084,12 +1085,12 @@ export const basics74 = duo('7.4 · Basic understanding: how does a printer moto
     {
       say: 'Servo motor closed-loop system ma feedback sensor sanga kaam garcha.',
       voice: 'सर्भो मोटर क्लोज्ड लुप सिस्टममा फिडब्याक सेन्सरसँग काम गर्छ।',
-      lines: [['step', <>Servo motor: closed loop with feedback</>]],
+      lines: [part(<>Servo motor</>, <>closed loop with feedback</>)],
     },
     {
       say: 'Yasle error signal anusar position wa speed accurately control garcha.',
       voice: 'यसले एरर सिग्नल अनुसार पोजिसन वा स्पिड एक्युरेट्ली कन्ट्रोल गर्छ।',
-      lines: [['step', <>Error signal → accurate position or speed</>]],
+      lines: [chain(<>Error signal → accurate position or speed</>)],
     },
     {
       say: 'Saransha: stepper open loop, servo closed loop, ra Schrage motor brush shifting bata speed control garne AC commutator motor.',

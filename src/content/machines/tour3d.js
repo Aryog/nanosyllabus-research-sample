@@ -26,6 +26,7 @@
   Every value is a function of (beat, ms) only, so a seek, a pause and the
   offline MP4 render show the same frame (M1). Only spin angles accumulate.
 */
+import { orthoWire } from './wire3d.js';
 import { kit } from '../unit4/scenes41.js';
 
 export const smooth = (t) => t * t * (3 - 2 * t);
@@ -87,11 +88,13 @@ export const makeTour = (model) => (plan) =>
     for (const [k, p] of Object.entries(paths)) {
       // Centripetal curves bend smoothly through every point (no kinks or
       // sharp 90° elbows); open wires get rounded caps (user, 2026-11-02).
-      curves[k] = new THREE.CatmullRomCurve3(p.pts, !!p.loop, 'centripetal');
+      // `wire: true` paths are cabling with 90° bends; the rest (windings,
+      // flux loops) stay smooth curves.
+      curves[k] = p.wire ? orthoWire(THREE, p.pts, { r: p.bend ?? 0.2 }) : new THREE.CatmullRomCurve3(p.pts, !!p.loop, 'centripetal');
       if (p.tube !== false) {
         const m = new THREE.MeshStandardMaterial({ color: p.color ?? 0xe8590c, roughness: 0.5, transparent: true });
         const r = p.r ?? 0.05;
-        tubes[k] = new THREE.Mesh(new THREE.TubeGeometry(curves[k], 200, r, 14, !!p.loop), m);
+        tubes[k] = new THREE.Mesh(new THREE.TubeGeometry(curves[k], p.wire ? 400 : 200, r, 14, !!p.loop), m);
         if (!p.loop)
           for (const t of [0, 1]) {
             const cap = new THREE.Mesh(new THREE.SphereGeometry(r, 14, 10), m);

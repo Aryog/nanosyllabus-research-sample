@@ -706,7 +706,8 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
   let cols = 0;
   // A line holding an aligned block (one "=" per row) counts once per row.
   const rows = (b) => 1 + (textOf(b.node).match(/\\\\/g) ?? []).length;
-  if (wide && board && !draw && board.slice(head).reduce((n, b) => n + rows(b), 0) >= 7) {
+  // Never for a 3D video: its board is one column beside the model.
+  if (wide && board && !draw && !three && board.slice(head).reduce((n, b) => n + rows(b), 0) >= 7) {
     const size = board.slice(head).map((b) => textOf(b.node).length + 30);
     const half = size.reduce((a, b) => a + b, 0) / 2;
     let sum = 0;
@@ -749,6 +750,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
   // A line that has left (its `until`, or an earlier page) but carries a
   // result stays as that short result, so later steps can use it.
   const carriedAt = (b) => b.carry && beat > b.at && !shownAt(b) && !ended;
+  const qCard = board?.find((b) => b.kind === 'q');
   const branch = ended ? null : branches.find((b) => beat >= b.at && beat <= (b.until ?? b.at));
 
   // Camera, like an explainer video: zoom onto what this beat explains (the
@@ -1338,12 +1340,6 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
   return (
     <div className={`scene ${lookClass} ${segment ? `seg-${segment[0]}` : ''} beat-${beat} ${tall ? 'tall' : ''} ${full ? 'full' : ''}`} ref={sceneRef}>
       <div className={`scene-screen ${ask && askOpen && !ended ? 'asking' : ''}`}>
-        {title && (
-          <div className={`scene-title ${(beat === 0 && playing) || !playing || ended ? 'show' : ''}`}>
-            {kicker && <span>{kicker}</span>}
-            <b>{title}</b>
-          </div>
-        )}
         {!RENDER && (
           <div className="scene-look" title={`${povById(povId)?.role}. ★ = this video has its own version for that role.`}>
             <span aria-hidden="true">POV</span>
@@ -1383,7 +1379,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
             toggleRef.current();
           }}
         >
-          <div className={`scene-cam ${split ? 'split' : ''} ${split && notes ? 'notes' : ''} ${branch ? 'branching' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
+          <div className={`scene-cam ${split ? 'split' : ''} ${split && notes ? 'notes' : ''} ${branch ? 'branching' : ''} ${qCard ? 'has-q' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
             {three && (
               <Suspense fallback={<div className="stage3d" />}>
                 <Stage3D build={three} beat={beat} clock={within} />
@@ -1393,6 +1389,15 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
               <svg viewBox={viewBox} className="scene-svg" role="img">
                 {symTree(draw(s), true)}
               </svg>
+            )}
+            {qCard && (
+              // The IOE question: one full-width row on top, above the
+              // answer and its figure (user, 2026-11-02).
+              <div className="q-zone">
+                <div className={`board-line kind-q ${shownAt(qCard) ? 'on' : ''} ${beat === qCard.at ? 'hl' : ''}`}>
+                  <span className="ink">{qCard.node}</span>
+                </div>
+              </div>
             )}
             {branch && (
               // The side scene: it takes the figure's place for its beats,
@@ -1412,13 +1417,13 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
               <div className={`board ${draw ? '' : 'board-only'} ${cols ? 'board-cols' : ''}`} data-pen={penAt}>
                 {(cols ? [board.slice(0, head), board.slice(head, cols), board.slice(cols)] : [board]).map((part, c) => (
                   <div key={c} className={cols ? (c ? 'board-col' : 'board-head') : 'board-flow'}>
-                    {part.map((b, i) => (
+                    {part.filter((b) => b.kind !== 'q').map((b, i) => (
                       <div
                         key={i}
-                        className={`board-line kind-${b.kind ?? 'text'} ${shownAt(b) || carriedAt(b) ? 'on' : ''} ${carriedAt(b) ? 'carried' : ''} ${beat === b.at ? 'hl' : ''} ${board.indexOf(b) === penAt ? 'pen' : ''}`}
+                        className={`board-line kind-${b.kind ?? 'text'} ${(b.kind === 'part' || b.kind === 'chain') && board.find((x) => x.kind === b.kind) === b ? 'first' : ''} ${shownAt(b) || carriedAt(b) ? 'on' : ''} ${carriedAt(b) ? 'carried' : ''} ${beat === b.at ? 'hl' : ''} ${board.indexOf(b) === penAt ? 'pen' : ''}`}
                         style={{ '--wd': `${writeSecs(b.node)}s` }}
                       >
-                        <span className="ink">
+                        <span className="ink" data-n={b.kind === 'part' ? board.filter((x) => x.kind === 'part').indexOf(b) + 1 : undefined}>
                           {carriedAt(b) ? b.carry : b.node}
                           {/* Highlight only what matters (results, traps, what to find), never every line (rule 39). */}
                           {beat === b.at && MARKED.has(b.kind) && <Marker kind={b.kind} delay={writeSecs(b.node)} />}

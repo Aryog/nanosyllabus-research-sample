@@ -1,4 +1,5 @@
 import { C, K, Pts, answer, duo, figAt, solve, topic } from '../video/kit.jsx';
+import { chain, part } from '../video/kit.jsx';
 import { Cap, CoilV, ResH, T, W, head } from '../unit4/figs.jsx';
 import { transformerTour } from '../machines/models3d.js';
 
@@ -226,12 +227,12 @@ export const basics21 = duo('2.1 · Basic understanding: how does a transformer 
     {
       say: 'Bich ma patla falam ko pata thupareko core. Yahi falam magnet ko bato ho.',
       voice: 'बीचमा पातलो फलामको पाता थुपारेको कोर। यही फलाम म्याग्नेटको बाटो हो।',
-      lines: [['step', <>Core: patla falam ko pata, magnet ko bato</>]],
+      lines: [part(<>Core</>, <>patla falam ko pata, magnet ko bato</>)],
     },
     {
       say: 'Euta coil AC supply ma jodincha: primary coil. AC current ulto-sulto bagcha.',
       voice: 'एउटा कोइल ए सी सप्लाईमा जोडिन्छ — प्राइमरी कोइल। ए सी करेन्ट उल्टो सुल्टो बग्छ।',
-      lines: [['step', <>Primary coil: AC supply ma</>]],
+      lines: [part(<>Primary coil</>, <>AC supply ma</>)],
     },
     {
       say: 'Tyo current le core ma flux banaucha, ra flux pani ulto-sulto badlirahancha.',
@@ -241,7 +242,7 @@ export const basics21 = duo('2.1 · Basic understanding: how does a transformer 
     {
       say: 'Arko coil le tyo badlirahne flux paucha ra yasma bijuli aaucha. Dui coil chhuidainan, tara bulb balcha!',
       voice: 'अर्को कोइलले त्यो बदलिरहने फ्लक्स पाउँछ, र यसमा बिजुली आउँछ। दुई कोइल छुँदैनन्, तर बल्ब बल्छ!',
-      lines: [['step', <>Secondary coil: nachhoi bijuli aaucha</>]],
+      lines: [part(<>Secondary coil</>, <>nachhoi bijuli aaucha</>)],
       ask: {
         q: 'Secondary coil ma bijuli kina aaucha?',
         voice: 'सेकेन्डरी कोइलमा बिजुली किन आउँछ?',
@@ -253,7 +254,7 @@ export const basics21 = duo('2.1 · Basic understanding: how does a transformer 
     {
       say: 'Dherai pheri bhayeko coil ma dherai voltage, kam pheri ma kam. Pheri ko hisab le voltage badhcha wa ghatcha.',
       voice: 'धेरै फेरा भएको कोइलमा धेरै भोल्टेज, कम फेरामा कम। फेराको हिसाबले भोल्टेज बढ्छ वा घट्छ।',
-      lines: [['step', <>Dherai pheri → dherai voltage (step-up / step-down)</>]],
+      lines: [chain(<>Dherai pheri → dherai voltage (step-up / step-down)</>)],
     },
     {
       say: 'Thulo transformer tel bhariyeko tank ma huncha: tel le taato hataucha. Mathi ko bushing bata tar bahira niklancha.',
@@ -270,17 +271,17 @@ export const basics21 = duo('2.1 · Basic understanding: how does a transformer 
     {
       say: 'Transformer static device ho jasle frequency nabadali AC power lai eutai circuit bata arko ma transfer garcha.',
       voice: 'ट्रान्सफर्मर स्टाटिक डिभाइस हो, जसले फ्रिक्वेन्सी नबदली ए सी पावरलाई एउटा सर्किटबाट अर्कोमा ट्रान्सफर गर्छ।',
-      lines: [['h', <>2.1 · The transformer</>], ['step', <>A static device: AC power from one circuit to another at the same frequency</>]],
+      lines: [['h', <>2.1 · The transformer</>], chain(<>A static device: AC power from one circuit to another at the same frequency</>)],
     },
     {
       say: 'Core silicon steel ko laminations bata baneko huncha, flux lai low reluctance path dina.',
       voice: 'कोर सिलिकन स्टिलको ल्यामिनेसन्सबाट बनेको हुन्छ, फ्लक्सलाई लो रिलक्टेन्स पाथ दिन।',
-      lines: [['step', <>Core: laminated silicon steel, a low-reluctance path</>]],
+      lines: [part(<>Core</>, <>laminated silicon steel, a low-reluctance path</>)],
     },
     {
       say: 'Supply sanga jodiyeko winding primary winding ho; yasma alternating current bagcha.',
       voice: 'सप्लाईसँग जोडिएको वाइन्डिङ प्राइमरी वाइन्डिङ हो, यसमा अल्टरनेटिङ करेन्ट बग्छ।',
-      lines: [['step', <>Primary winding: connected to the AC supply</>]],
+      lines: [part(<>Primary winding</>, <>connected to the AC supply</>)],
     },
     {
       say: 'Primary current le core ma alternating flux set up garcha.',
@@ -290,7 +291,7 @@ export const basics21 = duo('2.1 · Basic understanding: how does a transformer 
     {
       say: 'Yo flux secondary winding sanga link huncha, ra mutual induction le secondary ma EMF induce huncha.',
       voice: 'यो फ्लक्स सेकेन्डरी वाइन्डिङसँग लिङ्क हुन्छ, र म्युचुअल इन्डक्सनले सेकेन्डरीमा ई एम एफ इन्ड्युस हुन्छ।',
-      lines: [['step', <>Mutual induction: EMF induced in the secondary</>]],
+      lines: [part(<>Mutual induction</>, <>EMF induced in the secondary</>)],
       ask: {
         q: 'Transformer kun principle ma chalcha?',
         voice: 'ट्रान्सफर्मर कुन प्रिन्सिपलमा चल्छ?',
@@ -525,22 +526,22 @@ export const basics22 = duo('2.2 · Basic understanding: what happens when a tra
     {
       say: 'Pahila sapana ko transformer socha: kunai loss chaina, tar ma resistance chaina, sabai flux dubai coil ma pugcha. Yo ideal transformer.',
       voice: 'पहिला सपनाको ट्रान्सफर्मर सोच — कुनै लस छैन, तारमा रेजिस्टेन्स छैन, सबै फ्लक्स दुवै कोइलमा पुग्छ। यो आइडियल ट्रान्सफर्मर।',
-      lines: [['h', <>2.2 · Load lagauda k huncha?</>], ['step', <>Ideal: kunai loss chaina, sabai flux dubai coil ma</>]],
+      lines: [['h', <>2.2 · Load lagauda k huncha?</>], part(<>Ideal</>, <>kunai loss chaina, sabai flux dubai coil ma</>)],
     },
     {
       say: 'Secondary ma kei jodeko chaina. Tara pani primary le sano current lincha.',
       voice: 'सेकेन्डरीमा केही जोडेको छैन। तर पनि प्राइमरीले सानो करेन्ट लिन्छ।',
-      lines: [['step', <>No load: primary ma sano current</>]],
+      lines: [part(<>No load</>, <>primary ma sano current</>)],
     },
     {
       say: 'Tyo sano current ko kaam core ma flux banaunu matra ho. Yahi no-load current.',
       voice: 'त्यो सानो करेन्टको काम कोरमा फ्लक्स बनाउनु मात्र हो। यही नो लोड करेन्ट।',
-      lines: [['step', <>Sano current → flux banaune matra (no-load current)</>]],
+      lines: [chain(<>Sano current → flux banaune matra (no-load current)</>)],
     },
     {
       say: 'Aba bulb jodau. Secondary ma current bagcha, bulb balcha.',
       voice: 'अब बल्ब जोडौं। सेकेन्डरीमा करेन्ट बग्छ, बल्ब बल्छ।',
-      lines: [['step', <>Load jodyo → secondary current</>]],
+      lines: [chain(<>Load jodyo → secondary current</>)],
     },
     {
       say: 'Ani primary le aafai badhi current tancha, kasaile nabhani. Kina?',
@@ -550,7 +551,7 @@ export const basics22 = duo('2.2 · Basic understanding: what happens when a tra
     {
       say: 'Secondary current le ulto magnet banaucha. Primary ko thap current le tyo ulto magnet cancel garcha, tesaile core ko flux ustai rahancha.',
       voice: 'सेकेन्डरी करेन्टले उल्टो म्याग्नेट बनाउँछ। प्राइमरीको थप करेन्टले त्यो उल्टो म्याग्नेट क्यान्सिल गर्छ, त्यसैले कोरको फ्लक्स उस्तै रहन्छ।',
-      lines: [['step', <>Secondary ko ulto magnet ↔ primary ko thap current → flux ustai</>]],
+      lines: [chain(<>Secondary ko ulto magnet ↔ primary ko thap current → flux ustai</>)],
       ask: {
         q: 'Load badhda core ko flux k huncha?',
         voice: 'लोड बढ्दा कोरको फ्लक्स के हुन्छ?',
@@ -562,7 +563,7 @@ export const basics22 = duo('2.2 · Basic understanding: what happens when a tra
     {
       say: 'Yesari load jati badhyo, primary le utti nai badhi power supply bata tancha. Transformer aafai milaucha.',
       voice: 'यसरी लोड जति बढ्यो, प्राइमरीले उति नै बढी पावर सप्लाईबाट तान्छ। ट्रान्सफर्मर आफैं मिलाउँछ।',
-      lines: [['step', <>Load ↑ → primary power ↑: aafai milaucha</>]],
+      lines: [chain(<>Load ↑ → primary power ↑: aafai milaucha</>)],
     },
     {
       say: 'Saransha: no load ma sano current le flux banaucha; load ma primary le secondary ko ulto magnet cancel garcha; flux ustai.',
@@ -574,12 +575,12 @@ export const basics22 = duo('2.2 · Basic understanding: what happens when a tra
     {
       say: 'Ideal transformer ma winding resistance, leakage flux ra core loss kei pani hudaina.',
       voice: 'आइडियल ट्रान्सफर्मरमा वाइन्डिङ रेजिस्टेन्स, लिकेज फ्लक्स, र कोर लस केही पनि हुँदैन।',
-      lines: [['h', <>2.2 · No load and on load</>], ['step', <>Ideal: no resistance, no leakage, no core loss</>]],
+      lines: [['h', <>2.2 · No load and on load</>], part(<>Ideal</>, <>no resistance, no leakage, no core loss</>)],
     },
     {
       say: 'Secondary open huda primary le no-load current matra lincha.',
       voice: 'सेकेन्डरी ओपन हुँदा प्राइमरीले नो लोड करेन्ट मात्र लिन्छ।',
-      lines: [['step', <>Secondary open: primary draws only the no-load current</>]],
+      lines: [part(<>Secondary open</>, <>primary draws only the no-load current</>)],
     },
     {
       say: 'No-load current le core lai magnetise garcha ra mutual flux set up garcha.',
@@ -589,7 +590,7 @@ export const basics22 = duo('2.2 · Basic understanding: what happens when a tra
     {
       say: 'Load connect garda secondary current I 2 bagcha.',
       voice: 'लोड कनेक्ट गर्दा सेकेन्डरी करेन्ट आई टु बग्छ।',
-      lines: [['step', <>Load connected: secondary current I<sub>2</sub> flows</>]],
+      lines: [part(<>Load connected</>, <>secondary current I<sub>2</sub> flows</>)],
     },
     {
       say: 'Primary le thap load component current automatically draw garcha.',
@@ -599,7 +600,7 @@ export const basics22 = duo('2.2 · Basic understanding: what happens when a tra
     {
       say: 'Secondary MMF le core flux ghataune prayas garcha; primary ko load component ko MMF le tyo balance garcha, ra flux constant rahancha.',
       voice: 'सेकेन्डरी एम एम एफले कोर फ्लक्स घटाउने प्रयास गर्छ, प्राइमरीको लोड कम्पोनेन्टको एम एम एफले त्यो ब्यालेन्स गर्छ, र फ्लक्स कन्स्टेन्ट रहन्छ।',
-      lines: [['step', <>Secondary MMF balanced by primary load MMF → constant flux</>]],
+      lines: [chain(<>Secondary MMF balanced by primary load MMF → constant flux</>)],
       ask: {
         q: 'Loaded transformer ma core flux constant kina rahancha?',
         voice: 'लोडेड ट्रान्सफर्मरमा कोर फ्लक्स कन्स्टेन्ट किन रहन्छ?',
@@ -829,17 +830,17 @@ export const basics23 = duo('2.3 · Basic understanding: what does a real transf
     {
       say: 'Real transformer sapana jasto hudaina. Kehi bijuli bato mai harauncha. Kaha-kaha harauncha, herau.',
       voice: 'रियल ट्रान्सफर्मर सपना जस्तो हुँदैन। केही बिजुली बाटोमै हराउँछ। कहाँ कहाँ हराउँछ, हेरौं।',
-      lines: [['h', <>2.3 · Real transformer ma k-k harauncha?</>], ['step', <>Real: kehi bijuli bato mai harauncha</>]],
+      lines: [['h', <>2.3 · Real transformer ma k-k harauncha?</>], part(<>Real</>, <>kehi bijuli bato mai harauncha</>)],
     },
     {
       say: 'Tama ko tar ma pani resistance huncha, current bagda tar taato huncha.',
       voice: 'तामाको तारमा पनि रेजिस्टेन्स हुन्छ, करेन्ट बग्दा तार तातो हुन्छ।',
-      lines: [['step', <>Tar ko resistance → taato</>]],
+      lines: [chain(<>Tar ko resistance → taato</>)],
     },
     {
       say: 'Sabai flux arko coil samma pugdaina; kehi flux coil ko bahira chuhincha. Yo chuheko flux pani bato rokcha.',
       voice: 'सबै फ्लक्स अर्को कोइलसम्म पुग्दैन, केही फ्लक्स कोइलको बाहिर चुहिन्छ। यो चुहेको फ्लक्स पनि बाटो रोक्छ।',
-      lines: [['step', <>Chuheko flux (leakage) → voltage ghatcha</>]],
+      lines: [chain(<>Chuheko flux (leakage) → voltage ghatcha</>)],
     },
     {
       say: 'Core pani taato huncha, ra flux banauna sano current sadhai chahincha.',
@@ -849,12 +850,12 @@ export const basics23 = duo('2.3 · Basic understanding: what does a real transf
     {
       say: 'Engineer haru yo sabai lai kagaj ma resistance ra coil ko sano circuit jasto kornchan: yahi equivalent circuit.',
       voice: 'इन्जिनियरहरू यो सबैलाई कागजमा रेजिस्टेन्स र कोइलको सानो सर्किट जस्तो कोर्छन् — यही इक्विभ्यालेन्ट सर्किट।',
-      lines: [['step', <>Sabai loss → kagaj ko sano circuit (equivalent circuit)</>]],
+      lines: [chain(<>Sabai loss → kagaj ko sano circuit (equivalent circuit)</>)],
     },
     {
       say: 'Pahilo test: secondary khulla rakhera pura voltage dine. Current sano, tar taato hudaina; naapeko loss sabai core ko.',
       voice: 'पहिलो टेस्ट — सेकेन्डरी खुल्ला राखेर पूरा भोल्टेज दिने। करेन्ट सानो, तार तातो हुँदैन, नापेको लस सबै कोरको।',
-      lines: [['step', <>Secondary khulla, pura voltage → core ko loss (OC test)</>]],
+      lines: [chain(<>Secondary khulla, pura voltage → core ko loss (OC test)</>)],
       ask: {
         q: 'Secondary khulla rakhera garne test ma kun loss naapincha?',
         voice: 'सेकेन्डरी खुल्ला राखेर गर्ने टेस्टमा कुन लस नापिन्छ?',
@@ -866,7 +867,7 @@ export const basics23 = duo('2.3 · Basic understanding: what does a real transf
     {
       say: 'Dosro test: secondary short garera sano voltage matra dine. Pura current bagcha tara flux sano: naapeko loss sabai tar ko.',
       voice: 'दोस्रो टेस्ट — सेकेन्डरी सर्ट गरेर सानो भोल्टेज मात्र दिने। पूरा करेन्ट बग्छ तर फ्लक्स सानो — नापेको लस सबै तारको।',
-      lines: [['step', <>Secondary short, sano voltage → tar ko loss (SC test)</>]],
+      lines: [chain(<>Secondary short, sano voltage → tar ko loss (SC test)</>)],
     },
     {
       say: 'Saransha: tar, chuheko flux ra core le loss garchan; dui sajilo test le tiniharu naapchan, load nalagai.',
@@ -883,27 +884,27 @@ export const basics23 = duo('2.3 · Basic understanding: what does a real transf
     {
       say: 'Winding resistance R 1 ra R 2 ma copper loss huncha.',
       voice: 'वाइन्डिङ रेजिस्टेन्स आर वान र आर टु मा कपर लस हुन्छ।',
-      lines: [['step', <>Winding resistances → copper loss</>]],
+      lines: [chain(<>Winding resistances → copper loss</>)],
     },
     {
       say: 'Leakage flux le leakage reactance X 1 ra X 2 dincha.',
       voice: 'लिकेज फ्लक्सले लिकेज रियाक्टेन्स एक्स वान र एक्स टु दिन्छ।',
-      lines: [['step', <>Leakage flux → leakage reactances</>]],
+      lines: [chain(<>Leakage flux → leakage reactances</>)],
     },
     {
       say: 'Core loss ra magnetising current lai shunt branch R 0 ra X 0 le represent garincha.',
       voice: 'कोर लस र म्याग्नेटाइजिङ करेन्टलाई सन्ट ब्रान्च आर जिरो र एक्स जिरोले रिप्रिजेन्ट गरिन्छ।',
-      lines: [['step', <>Core loss and magnetising current → shunt branch</>]],
+      lines: [chain(<>Core loss and magnetising current → shunt branch</>)],
     },
     {
       say: 'Yi sabai elements milayera banaeko circuit nai equivalent circuit ho.',
       voice: 'यी सबै एलिमेन्ट्स मिलाएर बनाएको सर्किट नै इक्विभ्यालेन्ट सर्किट हो।',
-      lines: [['step', <>All elements together: the equivalent circuit</>]],
+      lines: [chain(<>All elements together: the equivalent circuit</>)],
     },
     {
       say: 'Open circuit test: secondary open, rated voltage; reading le core loss ra shunt branch dincha.',
       voice: 'ओपन सर्किट टेस्ट — सेकेन्डरी ओपन, रेटेड भोल्टेज, रिडिङले कोर लस र सन्ट ब्रान्च दिन्छ।',
-      lines: [['step', <>OC test: rated voltage, secondary open → core loss, shunt branch</>]],
+      lines: [part(<>OC test</>, <>rated voltage, secondary open → core loss, shunt branch</>)],
       ask: {
         q: 'OC test ma copper loss kina negligible huncha?',
         voice: 'ओ सी टेस्टमा कपर लस किन नेग्लिजिबल हुन्छ?',
@@ -915,7 +916,7 @@ export const basics23 = duo('2.3 · Basic understanding: what does a real transf
     {
       say: 'Short circuit test: secondary short, rated current samma sano voltage; reading le copper loss ra series parameters dincha.',
       voice: 'सर्ट सर्किट टेस्ट — सेकेन्डरी सर्ट, रेटेड करेन्टसम्म सानो भोल्टेज, रिडिङले कपर लस र सिरिज प्यारामिटर्स दिन्छ।',
-      lines: [['step', <>SC test: low voltage, rated current → copper loss, series parameters</>]],
+      lines: [part(<>SC test</>, <>low voltage, rated current → copper loss, series parameters</>)],
     },
     {
       say: 'Saransha: equivalent circuit le losses model garcha, ra OC ra SC test le yesko parameters dincha.',
@@ -1174,22 +1175,22 @@ export const basics24 = duo('2.4 · Basic understanding: how efficient is a tran
     {
       say: 'Ghar ko pole transformer ma beluka sabai ko batti balcha. Halka load ma bulb ko voltage thik cha.',
       voice: 'घरको पोल ट्रान्सफर्मरमा बेलुका सबैको बत्ती बल्छ। हल्का लोडमा बल्बको भोल्टेज ठिक छ।',
-      lines: [['h', <>2.4 · Transformer kati ramro kaam garcha?</>], ['step', <>Halka load: voltage thik</>]],
+      lines: [['h', <>2.4 · Transformer kati ramro kaam garcha?</>], part(<>Halka load</>, <>voltage thik</>)],
     },
     {
       say: 'Load dherai bhayo bhane secondary ko voltage alikati jharcha. Kati jharyo bhanne naap: regulation.',
       voice: 'लोड धेरै भयो भने सेकेन्डरीको भोल्टेज अलिकति झर्छ। कति झर्‍यो भन्ने नाप — रेगुलेसन।',
-      lines: [['step', <>Load dherai → voltage ali jharcha (regulation)</>]],
+      lines: [chain(<>Load dherai → voltage ali jharcha (regulation)</>)],
     },
     {
       say: 'Core ko taato load jati bhaye pani lagbhag eutai: sadhai eutai loss.',
       voice: 'कोरको तातो लोड जति भए पनि लगभग एउटै — सधैं एउटै लस।',
-      lines: [['step', <>Core loss: load sanga badlindaina</>]],
+      lines: [part(<>Core loss</>, <>load sanga badlindaina</>)],
     },
     {
       say: 'Tar ko taato chai load sanga chito badhcha: dobar load, char guna taato.',
       voice: 'तारको तातो चाहिँ लोडसँग छिटो बढ्छ — दोब्बर लोड, चार गुना तातो।',
-      lines: [['step', <>Tar ko loss: dobar load → char guna</>]],
+      lines: [chain(<>Tar ko loss: dobar load → char guna</>)],
       ask: {
         q: 'Load dobar garda tar ko taato kati guna?',
         voice: 'लोड दोब्बर गर्दा तारको तातो कति गुना?',
@@ -1201,17 +1202,17 @@ export const basics24 = duo('2.4 · Basic understanding: how efficient is a tran
     {
       say: 'Efficiency bhaneko diyeko power madhye kati kaam ma aayo. Thulo transformer ko 98 percent bhanda badhi!',
       voice: 'इफिसियन्सी भनेको दिएको पावरमध्ये कति काममा आयो। ठूलो ट्रान्सफर्मरको अन्ठानब्बे प्रतिशतभन्दा बढी!',
-      lines: [['step', <>Efficiency: aayeko madhye kaam ma gayeko (98 % +)</>]],
+      lines: [part(<>Efficiency</>, <>aayeko madhye kaam ma gayeko (98 % +)</>)],
     },
     {
       say: 'Ascharya: sabai bhanda ramro efficiency full load ma hoina, jaba tar ko loss ra core ko loss barabar huncha.',
       voice: 'आश्चर्य — सबैभन्दा राम्रो इफिसियन्सी फुल लोडमा होइन, जब तारको लस र कोरको लस बराबर हुन्छ।',
-      lines: [['step', <>Best efficiency: tar ko loss ra core ko loss barabar</>]],
+      lines: [part(<>Best efficiency</>, <>tar ko loss ra core ko loss barabar</>)],
     },
     {
       say: 'Pole ko transformer din-raat on huncha, raati load kam. Tesaile pura din ko energy hisab garne: all-day efficiency.',
       voice: 'पोलको ट्रान्सफर्मर दिनरात अन हुन्छ, राति लोड कम। त्यसैले पूरा दिनको इनर्जी हिसाब गर्ने — अल डे इफिसियन्सी।',
-      lines: [['step', <>24 ghanta on → pura din ko hisab (all-day efficiency)</>]],
+      lines: [chain(<>24 ghanta on → pura din ko hisab (all-day efficiency)</>)],
     },
     {
       say: 'Saransha: load ma voltage ali jharcha, core ko loss fixed, tar ko badhdo, ra dubai barabar huda best.',
@@ -1223,22 +1224,22 @@ export const basics24 = duo('2.4 · Basic understanding: how efficient is a tran
     {
       say: 'Halka load ma secondary terminal voltage lagbhag no-load voltage barabar huncha.',
       voice: 'हल्का लोडमा सेकेन्डरी टर्मिनल भोल्टेज लगभग नो लोड भोल्टेज बराबर हुन्छ।',
-      lines: [['h', <>2.4 · Performance of a transformer</>], ['step', <>Light load: terminal voltage nearly the no-load voltage</>]],
+      lines: [['h', <>2.4 · Performance of a transformer</>], part(<>Light load</>, <>terminal voltage nearly the no-load voltage</>)],
     },
     {
       say: 'Load badhda internal impedance ma drop hunchha ra terminal voltage ghatcha: voltage regulation.',
       voice: 'लोड बढ्दा इन्टरनल इम्पिडेन्समा ड्रप हुन्छ, र टर्मिनल भोल्टेज घट्छ — भोल्टेज रेगुलेसन।',
-      lines: [['step', <>Load ↑ → internal drop → voltage regulation</>]],
+      lines: [chain(<>Load ↑ → internal drop → voltage regulation</>)],
     },
     {
       say: 'Core loss load ma depend gardaina: constant loss.',
       voice: 'कोर लस लोडमा डिपेन्ड गर्दैन — कन्स्टेन्ट लस।',
-      lines: [['step', <>Core (iron) loss: constant</>]],
+      lines: [chain(<>Core (iron) loss: constant</>)],
     },
     {
       say: 'Copper loss load current ko square sanga badhcha: variable loss.',
       voice: 'कपर लस लोड करेन्टको स्क्वायरसँग बढ्छ — भेरिएबल लस।',
-      lines: [['step', <>Copper loss: grows with the square of load, variable</>]],
+      lines: [part(<>Copper loss</>, <>grows with the square of load, variable</>)],
       ask: {
         q: 'Half load ma copper loss full-load ko kati?',
         voice: 'हाफ लोडमा कपर लस फुल लोडको कति?',
@@ -1250,7 +1251,7 @@ export const basics24 = duo('2.4 · Basic understanding: how efficient is a tran
     {
       say: 'Efficiency output ra input ko ratio ho; power transformers ma 98 percent bhanda badhi.',
       voice: 'इफिसियन्सी आउटपुट र इनपुटको रेसियो हो, पावर ट्रान्सफर्मर्समा अन्ठानब्बे प्रतिशतभन्दा बढी।',
-      lines: [['step', <>Efficiency: output over input, above 98 %</>]],
+      lines: [part(<>Efficiency</>, <>output over input, above 98 %</>)],
     },
     {
       say: 'Maximum efficiency copper loss ra core loss barabar huda huncha.',
@@ -1260,7 +1261,7 @@ export const basics24 = duo('2.4 · Basic understanding: how efficient is a tran
     {
       say: 'Distribution transformer 24 ghanta energised huncha; tesko lagi all-day efficiency energy ma nikalincha.',
       voice: 'डिस्ट्रिब्युसन ट्रान्सफर्मर चौबीस घण्टा इनर्जाइज्ड हुन्छ, त्यसको लागि अल डे इफिसियन्सी इनर्जीमा निकालिन्छ।',
-      lines: [['step', <>Distribution transformer: all-day (energy) efficiency</>]],
+      lines: [part(<>Distribution transformer</>, <>all-day (energy) efficiency</>)],
     },
     {
       say: 'Saransha: regulation le voltage drop, efficiency le losses, ra maximum efficiency loss barabar huda.',
@@ -1519,12 +1520,12 @@ export const basics25 = duo('2.5 · Basic understanding: auto, instrument and th
     {
       say: 'Yo transformer ma euta matra coil cha, bich ma euta tap. Supply pura coil ma, load chai coil ko ek bhag bata.',
       voice: 'यो ट्रान्सफर्मरमा एउटा मात्र कोइल छ, बीचमा एउटा ट्याप। सप्लाई पूरा कोइलमा, लोड चाहिँ कोइलको एक भागबाट।',
-      lines: [['h', <>2.5 · Euta coil, CT ra tin phase</>], ['step', <>Auto transformer: euta coil, bich ma tap</>]],
+      lines: [['h', <>2.5 · Euta coil, CT ra tin phase</>], part(<>Auto transformer</>, <>euta coil, bich ma tap</>)],
     },
     {
       say: 'Tap sarauda output voltage badlincha. Ghar ko stabiliser ra lab ko variac yahi ho.',
       voice: 'ट्याप सराउँदा आउटपुट भोल्टेज बदलिन्छ। घरको स्टेबिलाइजर र ल्याबको भेरियाक यही हो।',
-      lines: [['step', <>Tap sarayo → voltage badlincha (variac, stabiliser)</>]],
+      lines: [chain(<>Tap sarayo → voltage badlincha (variac, stabiliser)</>)],
     },
     {
       say: 'Euta coil le dui coil ko kaam garcha, tesaile tama kam lagcha ra sasto. Tara input ra output jodiyekai hunchan.',
@@ -1541,22 +1542,22 @@ export const basics25 = duo('2.5 · Basic understanding: auto, instrument and th
     {
       say: 'Line ko thulo current meter le sidhai naapna sakdaina. CT le thulo current lai sano current ma badalera meter ma dincha.',
       voice: 'लाइनको ठूलो करेन्ट मिटरले सिधै नाप्न सक्दैन। सी टीले ठूलो करेन्टलाई सानो करेन्टमा बदलेर मिटरमा दिन्छ।',
-      lines: [['step', <>CT: thulo current → sano current, meter ko lagi</>]],
+      lines: [part(<>CT</>, <>thulo current → sano current, meter ko lagi</>)],
     },
     {
       say: 'CT ko secondary kahile khulla nachhoda. Khulla bhaye core ma bhayankar flux bancha, ra khatarnak thulo voltage aaucha.',
       voice: 'सी टीको सेकेन्डरी कहिल्यै खुल्ला नछोड। खुल्ला भए कोरमा भयंकर फ्लक्स बन्छ, र खतरनाक ठूलो भोल्टेज आउँछ।',
-      lines: [['step', <>CT secondary khulla → thulo flux → khatarnak voltage</>]],
+      lines: [chain(<>CT secondary khulla → thulo flux → khatarnak voltage</>)],
     },
     {
       say: 'PT chai thulo voltage lai sano voltage ma jharcha, voltmeter ko lagi.',
       voice: 'पी टी चाहिँ ठूलो भोल्टेजलाई सानो भोल्टेजमा झार्छ, भोल्टमिटरको लागि।',
-      lines: [['step', <>PT: thulo voltage → sano voltage</>]],
+      lines: [part(<>PT</>, <>thulo voltage → sano voltage</>)],
     },
     {
       say: 'Pawar house bata tin phase bijuli aaucha. Tin khutta bhayeko core ma R, Y ra B ka coil: three-phase transformer.',
       voice: 'पावरहाउसबाट तीन फेज बिजुली आउँछ। तीन खुट्टा भएको कोरमा आर, वाई, र बी का कोइल — थ्री फेज ट्रान्सफर्मर।',
-      lines: [['step', <>Tin khutta ko core + R Y B coil → three-phase</>]],
+      lines: [chain(<>Tin khutta ko core + R Y B coil → three-phase</>)],
     },
     {
       say: 'Saransha: auto ma euta coil, CT ra PT naapne kaam ma, ra three-phase ma tin khutta.',
@@ -1568,12 +1569,12 @@ export const basics25 = duo('2.5 · Basic understanding: auto, instrument and th
     {
       say: 'Auto transformer ma eutai winding hunchha, jasko ek bhag primary ra secondary dubai ma common huncha.',
       voice: 'अटो ट्रान्सफर्मरमा एउटै वाइन्डिङ हुन्छ, जसको एक भाग प्राइमरी र सेकेन्डरी दुवैमा कमन हुन्छ।',
-      lines: [['h', <>2.5 · Special transformers</>], ['step', <>Auto transformer: a single winding with a common part</>]],
+      lines: [['h', <>2.5 · Special transformers</>], part(<>Auto transformer</>, <>a single winding with a common part</>)],
     },
     {
       say: 'Tapping position badlera variable output voltage paincha: variac.',
       voice: 'ट्यापिङ पोजिसन बदलेर भेरिएबल आउटपुट भोल्टेज पाइन्छ — भेरियाक।',
-      lines: [['step', <>Movable tap → variable voltage (variac)</>]],
+      lines: [chain(<>Movable tap → variable voltage (variac)</>)],
     },
     {
       say: 'Common part ma kam current bagcha, tesaile copper saving huncha; tara electrical isolation hudaina.',
@@ -1590,7 +1591,7 @@ export const basics25 = duo('2.5 · Basic understanding: auto, instrument and th
     {
       say: 'Current transformer le thulo line current lai standard sano current ma step down garcha.',
       voice: 'करेन्ट ट्रान्सफर्मरले ठूलो लाइन करेन्टलाई स्ट्यान्डर्ड सानो करेन्टमा स्टेप डाउन गर्छ।',
-      lines: [['step', <>CT: large line current → small standard current</>]],
+      lines: [part(<>CT</>, <>large line current → small standard current</>)],
     },
     {
       say: 'CT ko secondary open garnu hudaina; burden bina primary current sabai magnetising bancha ra high voltage induce huncha.',
@@ -1600,12 +1601,12 @@ export const basics25 = duo('2.5 · Basic understanding: auto, instrument and th
     {
       say: 'Potential transformer le high voltage lai measurement ko lagi low voltage ma jharcha.',
       voice: 'पोटेन्सियल ट्रान्सफर्मरले हाई भोल्टेजलाई मेजरमेन्टको लागि लो भोल्टेजमा झार्छ।',
-      lines: [['step', <>PT: high voltage → measurable low voltage</>]],
+      lines: [part(<>PT</>, <>high voltage → measurable low voltage</>)],
     },
     {
       say: 'Three-phase transformer ma tin limb ko core ma pratyek phase ko winding hunchha.',
       voice: 'थ्री फेज ट्रान्सफर्मरमा तीन लिम्बको कोरमा प्रत्येक फेजको वाइन्डिङ हुन्छ।',
-      lines: [['step', <>Three-phase: three-limb core, one phase per limb</>]],
+      lines: [part(<>Three-phase</>, <>three-limb core, one phase per limb</>)],
     },
     {
       say: 'Saransha: auto transformer le copper bachaucha, instrument transformers le measurement surakshit banaucha, ra three-phase le power transmit garcha.',

@@ -1,4 +1,5 @@
 import { C, K, Pts, answer, duo, solve, topic } from '../video/kit.jsx';
+import { chain, part } from '../video/kit.jsx';
 import { Cap, T, W, head } from '../unit4/figs.jsx';
 import { inductionTour } from '../machines/models3d.js';
 
@@ -186,7 +187,7 @@ export const basics51 = duo('5.1 · Basic understanding: how does a field rotate
     {
       say: 'Bahira ko falam ko ring stator ho. Yo kahile ghumdaina.',
       voice: 'बाहिरको फलामको रिङ स्टेटर हो। यो कहिल्यै घुम्दैन।',
-      lines: [['step', <>Stator: nachalne bahira ko ring</>]],
+      lines: [part(<>Stator</>, <>nachalne bahira ko ring</>)],
     },
     {
       say: 'Stator ma tin set coil: R, Y ra B. Tin phase supply ko ek-ek tar ek-ek coil ma.',
@@ -196,7 +197,7 @@ export const basics51 = duo('5.1 · Basic understanding: how does a field rotate
     {
       say: 'Tin phase ko current palo-palo thulo hunchha, ra magnet ko disha ghumdai jancha. Kehi naghumi, magnet ghumcha!',
       voice: 'तीन फेजको करेन्ट पालो पालो ठूलो हुन्छ, र म्याग्नेटको दिशा घुम्दै जान्छ। केही नघुमी, म्याग्नेट घुम्छ!',
-      lines: [['step', <>Palo-palo current → ghumne magnet (rotating field)</>]],
+      lines: [chain(<>Palo-palo current → ghumne magnet (rotating field)</>)],
       ask: {
         q: 'Stator ko magnet kina ghumcha?',
         voice: 'स्टेटरको म्याग्नेट किन घुम्छ?',
@@ -208,17 +209,17 @@ export const basics51 = duo('5.1 · Basic understanding: how does a field rotate
     {
       say: 'Bich ma rotor: aluminium ka bar ra dui chheu ma ring, musa ko pinjada jasto. Yaslai squirrel cage bhanchan.',
       voice: 'बीचमा रोटर — एल्युमिनियमका बार र दुई छेउमा रिङ, मुसाको पिँजडा जस्तो। यसलाई स्क्विरल केज भन्छन्।',
-      lines: [['step', <>Rotor: bar + ring, pinjada jasto (squirrel cage)</>]],
+      lines: [part(<>Rotor</>, <>bar + ring, pinjada jasto (squirrel cage)</>)],
     },
     {
       say: 'Ghumne magnet le bar ma current induce garcha, ra rotor magnet ko pachhi-pachhi ghumcha.',
       voice: 'घुम्ने म्याग्नेटले बारमा करेन्ट इन्ड्युस गर्छ, र रोटर म्याग्नेटको पछि पछि घुम्छ।',
-      lines: [['step', <>Bar ma current → rotor magnet ko pachhi</>]],
+      lines: [chain(<>Bar ma current → rotor magnet ko pachhi</>)],
     },
     {
       say: 'Arko type: rotor ma tar ko winding, slip ring ra brush bata bahira resistance jodna milcha. Yo slip-ring motor.',
       voice: 'अर्को टाइप — रोटरमा तारको वाइन्डिङ, स्लिप रिङ र ब्रसबाट बाहिर रेजिस्टेन्स जोड्न मिल्छ। यो स्लिप रिङ मोटर।',
-      lines: [['step', <>Slip-ring rotor: winding + slip ring + bahira resistance</>]],
+      lines: [part(<>Slip-ring rotor</>, <>winding + slip ring + bahira resistance</>)],
     },
     {
       say: 'Saransha: nachalne stator le ghumne magnet banaucha, ra rotor tyo magnet lai pachhyaucha.',
@@ -235,7 +236,7 @@ export const basics51 = duo('5.1 · Basic understanding: how does a field rotate
     {
       say: 'Stator stationary part ho: laminated core ra slots.',
       voice: 'स्टेटर स्टेसनरी पार्ट हो — ल्यामिनेटेड कोर र स्लट्स।',
-      lines: [['step', <>Stator: laminated slotted core</>]],
+      lines: [part(<>Stator</>, <>laminated slotted core</>)],
     },
     {
       say: 'Stator slots ma 120 degree displaced three-phase winding huncha.',
@@ -245,7 +246,7 @@ export const basics51 = duo('5.1 · Basic understanding: how does a field rotate
     {
       say: 'Balanced three-phase current le constant magnitude ko rotating magnetic field banaucha.',
       voice: 'ब्यालेन्स्ड थ्री फेज करेन्टले कन्स्टेन्ट म्याग्निच्युडको रोटेटिङ म्याग्नेटिक फिल्ड बनाउँछ।',
-      lines: [['step', <>Balanced currents → rotating magnetic field of constant magnitude</>]],
+      lines: [chain(<>Balanced currents → rotating magnetic field of constant magnitude</>)],
       ask: {
         q: 'RMF ko speed kasle tay garcha?',
         voice: 'आर एम एफको स्पिड कसले तय गर्छ?',
@@ -257,17 +258,17 @@ export const basics51 = duo('5.1 · Basic understanding: how does a field rotate
     {
       say: 'Squirrel cage rotor: short-circuited aluminium wa copper bars ra end rings.',
       voice: 'स्क्विरल केज रोटर — सर्ट सर्किटेड एल्युमिनियम वा कपर बार्स र एन्ड रिङ्स।',
-      lines: [['step', <>Squirrel cage: short-circuited bars and end rings</>]],
+      lines: [part(<>Squirrel cage</>, <>short-circuited bars and end rings</>)],
     },
     {
       say: 'RMF le rotor conductors ma EMF ra current induce garcha; tesko force le rotor RMF ko direction ma ghumcha.',
       voice: 'आर एम एफले रोटर कन्डक्टर्समा ई एम एफ र करेन्ट इन्ड्युस गर्छ, त्यसको फोर्सले रोटर आर एम एफको डाइरेक्सनमा घुम्छ।',
-      lines: [['step', <>Induced rotor current → torque in the direction of the RMF</>]],
+      lines: [chain(<>Induced rotor current → torque in the direction of the RMF</>)],
     },
     {
       say: 'Slip-ring rotor ma three-phase winding, slip rings ra brushes hunchan; external resistance jodna sakincha.',
       voice: 'स्लिप रिङ रोटरमा थ्री फेज वाइन्डिङ, स्लिप रिङ्स, र ब्रसेस हुन्छन्, एक्सटर्नल रेजिस्टेन्स जोड्न सकिन्छ।',
-      lines: [['step', <>Slip-ring (wound) rotor: external resistance via slip rings</>]],
+      lines: [chain(<>Slip-ring (wound) rotor: external resistance via slip rings</>)],
     },
     {
       say: 'Saransha: stator ko RMF ra rotor ma induction: yahi induction motor ko principle.',
@@ -485,7 +486,7 @@ export const basics52 = duo('5.2 · Basic understanding: why does the rotor neve
     {
       say: 'Stator ko ghumne magnet fixed speed ma ghumcha, supply ko frequency ra pole le tay gareko: synchronous speed.',
       voice: 'स्टेटरको घुम्ने म्याग्नेट फिक्स्ड स्पिडमा घुम्छ, सप्लाईको फ्रिक्वेन्सी र पोलले तय गरेको — सिन्क्रोनस स्पिड।',
-      lines: [['h', <>5.2 · Rotor kina pachhi parcha?</>], ['step', <>Magnet ko speed fixed: synchronous speed</>]],
+      lines: [['h', <>5.2 · Rotor kina pachhi parcha?</>], chain(<>Magnet ko speed fixed: synchronous speed</>)],
     },
     {
       say: 'Rotor magnet lai pachhyaucha, tara sadhai ali pachhi. Kina?',
@@ -495,7 +496,7 @@ export const basics52 = duo('5.2 · Basic understanding: why does the rotor neve
     {
       say: 'Rotor magnet jattikai chito bhayo bhane bar le magnet kaatdaina: current hudaina, dhakka hudaina, ra rotor sust huncha.',
       voice: 'रोटर म्याग्नेट जत्तिकै छिटो भयो भने बारले म्याग्नेट काट्दैन — करेन्ट हुँदैन, धक्का हुँदैन, र रोटर सुस्त हुन्छ।',
-      lines: [['step', <>Barabar speed → kaatdaina → current, dhakka chaina</>]],
+      lines: [chain(<>Barabar speed → kaatdaina → current, dhakka chaina</>)],
       ask: {
         q: 'Rotor magnet ko barabar speed ma pugyo bhane k huncha?',
         voice: 'रोटर म्याग्नेटको बराबर स्पिडमा पुग्यो भने के हुन्छ?',
@@ -507,12 +508,12 @@ export const basics52 = duo('5.2 · Basic understanding: why does the rotor neve
     {
       say: 'Magnet ra rotor ko speed ko farak, magnet ko speed ko bhag ma: yahi slip. Sadharan ma 2 dekhi 5 percent.',
       voice: 'म्याग्नेट र रोटरको स्पिडको फरक, म्याग्नेटको स्पिडको भागमा — यही स्लिप। साधारणमा दुई देखि पाँच प्रतिशत।',
-      lines: [['step', <>Speed ko farak ÷ magnet ko speed → slip (2–5 %)</>]],
+      lines: [chain(<>Speed ko farak ÷ magnet ko speed → slip (2–5 %)</>)],
     },
     {
       say: 'Load badhaye rotor jhan pachhi parcha, slip badhcha, ra badhi current le badhi dhakka dincha.',
       voice: 'लोड बढाए रोटर झन् पछि पर्छ, स्लिप बढ्छ, र बढी करेन्टले बढी धक्का दिन्छ।',
-      lines: [['step', <>Load badhyo → slip badhyo → badhi dhakka</>]],
+      lines: [chain(<>Load badhyo → slip badhyo → badhi dhakka</>)],
     },
     {
       say: 'Rotor le magnet lai bistarai matra kaatcha, tesaile rotor ko current dherai bistarai ulto-sulto huncha: 1-2 hertz jasto.',
@@ -522,7 +523,7 @@ export const basics52 = duo('5.2 · Basic understanding: why does the rotor neve
     {
       say: 'Ascharya: start ma rotor rokiyeko, magnet le sabai bhanda chito kaatcha, ra rotor ma sabai bhanda thulo current.',
       voice: 'आश्चर्य — स्टार्टमा रोटर रोकिएको, म्याग्नेटले सबैभन्दा छिटो काट्छ, र रोटरमा सबैभन्दा ठूलो करेन्ट।',
-      lines: [['step', <>Start: rotor rokiyeko → sabai bhanda thulo current</>]],
+      lines: [part(<>Start</>, <>rotor rokiyeko → sabai bhanda thulo current</>)],
     },
     {
       say: 'Saransha: rotor sadhai ali pachhi; farak nai slip; slip le rotor ko current ra frequency tay garcha.',
@@ -544,7 +545,7 @@ export const basics52 = duo('5.2 · Basic understanding: why does the rotor neve
     {
       say: 'Synchronous speed ma relative motion hudaina, rotor EMF ra torque zero hunchan.',
       voice: 'सिन्क्रोनस स्पिडमा रिलेटिभ मोसन हुँदैन, रोटर ई एम एफ र टर्क जिरो हुन्छन्।',
-      lines: [['step', <>At synchronous speed: no EMF, no torque</>]],
+      lines: [chain(<>At synchronous speed: no EMF, no torque</>)],
       ask: {
         q: 'Induction motor lai asynchronous motor kina bhanincha?',
         voice: 'इन्डक्सन मोटरलाई एसिन्क्रोनस मोटर किन भनिन्छ?',
@@ -556,12 +557,12 @@ export const basics52 = duo('5.2 · Basic understanding: why does the rotor neve
     {
       say: 'Relative speed ra synchronous speed ko ratio slip ho; full load ma 2 dekhi 5 percent.',
       voice: 'रिलेटिभ स्पिड र सिन्क्रोनस स्पिडको रेसियो स्लिप हो, फुल लोडमा दुई देखि पाँच प्रतिशत।',
-      lines: [['step', <>Slip: relative speed over synchronous speed (2–5 %)</>]],
+      lines: [part(<>Slip</>, <>relative speed over synchronous speed (2–5 %)</>)],
     },
     {
       say: 'Load badhda slip badhcha, rotor current badhcha ra torque badhcha.',
       voice: 'लोड बढ्दा स्लिप बढ्छ, रोटर करेन्ट बढ्छ, र टर्क बढ्छ।',
-      lines: [['step', <>Load ↑ → slip ↑ → rotor current and torque ↑</>]],
+      lines: [chain(<>Load ↑ → slip ↑ → rotor current and torque ↑</>)],
     },
     {
       say: 'Rotor EMF ko frequency slip ko anupat ma sano huncha.',
@@ -571,7 +572,7 @@ export const basics52 = duo('5.2 · Basic understanding: why does the rotor neve
     {
       say: 'Standstill ma slip ek, rotor EMF ra current maximum hunchan.',
       voice: 'स्ट्यान्डस्टिलमा स्लिप एक, रोटर ई एम एफ र करेन्ट म्याक्सिमम हुन्छन्।',
-      lines: [['step', <>Standstill: slip unity, maximum rotor EMF and current</>]],
+      lines: [part(<>Standstill</>, <>slip unity, maximum rotor EMF and current</>)],
     },
     {
       say: 'Saransha: slip le rotor ko EMF, frequency, reactance ra current tay garcha.',
@@ -822,12 +823,12 @@ export const basics53 = duo('5.3 · Basic understanding: why high current but lo
     {
       say: 'Motor on garda rotor rokiyeko: magnet sabai bhanda chito kaatcha, ra rotor ma bhayankar current.',
       voice: 'मोटर अन गर्दा रोटर रोकिएको — म्याग्नेट सबैभन्दा छिटो काट्छ, र रोटरमा भयंकर करेन्ट।',
-      lines: [['h', <>5.3 · Thulo current, kam dhakka?</>], ['step', <>Start: rotor ma thulo current</>]],
+      lines: [['h', <>5.3 · Thulo current, kam dhakka?</>], part(<>Start</>, <>rotor ma thulo current</>)],
     },
     {
       say: 'Tara dhakka kam! Rotor ko current magnet bhanda ali pachhi huncha, ra pachhi pareko current le kam kaam garcha.',
       voice: 'तर धक्का कम! रोटरको करेन्ट म्याग्नेटभन्दा अलि पछि हुन्छ, र पछि परेको करेन्टले कम काम गर्छ।',
-      lines: [['step', <>Current pachhi parcha → dhakka kam</>]],
+      lines: [chain(<>Current pachhi parcha → dhakka kam</>)],
       ask: {
         q: 'Start ma induction motor ko torque kina kam huncha?',
         voice: 'स्टार्टमा इन्डक्सन मोटरको टर्क किन कम हुन्छ?',
@@ -839,7 +840,7 @@ export const basics53 = duo('5.3 · Basic understanding: why high current but lo
     {
       say: 'Speed badhdai jada current kam pachhi parcha, ra dhakka badhdai jancha.',
       voice: 'स्पिड बढ्दै जाँदा करेन्ट कम पछि पर्छ, र धक्का बढ्दै जान्छ।',
-      lines: [['step', <>Speed badhyo → dhakka badhyo</>]],
+      lines: [chain(<>Speed badhyo → dhakka badhyo</>)],
     },
     {
       say: 'Euta speed ma dhakka sabai bhanda thulo huncha: maximum torque.',
@@ -849,17 +850,17 @@ export const basics53 = duo('5.3 · Basic understanding: why high current but lo
     {
       say: 'Tyo pachhi magnet ko speed najik pugda bar le kam kaatcha, ra dhakka ghatdai zero tira.',
       voice: 'त्यो पछि म्याग्नेटको स्पिड नजिक पुग्दा बारले कम काट्छ, र धक्का घट्दै जिरोतिर।',
-      lines: [['step', <>Magnet ko speed najik → dhakka ghatcha</>]],
+      lines: [chain(<>Magnet ko speed najik → dhakka ghatcha</>)],
     },
     {
       say: 'Sadharan motor yahi antim bhag ma chalcha: load thapyo bhane ali sust bhayera dhakka badhaucha. Yo stable thau.',
       voice: 'साधारण मोटर यही अन्तिम भागमा चल्छ — लोड थप्यो भने अलि सुस्त भएर धक्का बढाउँछ। यो स्टेबल ठाउँ।',
-      lines: [['step', <>Sadharan chalne thau: stable</>]],
+      lines: [chain(<>Sadharan chalne thau: stable</>)],
     },
     {
       say: 'Slip-ring motor ma rotor ma bahira resistance thape current kam pachhi parcha, ra start mai thulo dhakka.',
       voice: 'स्लिप रिङ मोटरमा रोटरमा बाहिर रेजिस्टेन्स थपे करेन्ट कम पछि पर्छ, र स्टार्टमै ठूलो धक्का।',
-      lines: [['step', <>Rotor resistance thapyo → start mai thulo dhakka</>]],
+      lines: [chain(<>Rotor resistance thapyo → start mai thulo dhakka</>)],
     },
     {
       say: 'Saransha: start ma thulo current tara kam dhakka, ani maximum, ani sync najik ghatcha; resistance le maximum lai start tira sarcha.',
@@ -871,12 +872,12 @@ export const basics53 = duo('5.3 · Basic understanding: why high current but lo
     {
       say: 'Starting ma slip ek huncha ra rotor current dherai thulo huncha.',
       voice: 'स्टार्टिङमा स्लिप एक हुन्छ, र रोटर करेन्ट धेरै ठूलो हुन्छ।',
-      lines: [['h', <>5.3 · Torque against slip</>], ['step', <>At start: slip unity, large rotor current</>]],
+      lines: [['h', <>5.3 · Torque against slip</>], part(<>At start</>, <>slip unity, large rotor current</>)],
     },
     {
       say: 'Tara rotor reactance thulo bhayera rotor power factor kam, tesaile starting torque kam.',
       voice: 'तर रोटर रियाक्टेन्स ठूलो भएर रोटर पावर फ्याक्टर कम, त्यसैले स्टार्टिङ टर्क कम।',
-      lines: [['step', <>High rotor reactance → low rotor pf → low starting torque</>]],
+      lines: [chain(<>High rotor reactance → low rotor pf → low starting torque</>)],
       ask: {
         q: 'Torque kun current component sanga badhcha?',
         voice: 'टर्क कुन करेन्ट कम्पोनेन्टसँग बढ्छ?',
@@ -888,7 +889,7 @@ export const basics53 = duo('5.3 · Basic understanding: why high current but lo
     {
       say: 'Speed badhda slip ghatcha, power factor sudhrincha ra torque badhcha.',
       voice: 'स्पिड बढ्दा स्लिप घट्छ, पावर फ्याक्टर सुध्रिन्छ, र टर्क बढ्छ।',
-      lines: [['step', <>Slip falls → pf improves → torque rises</>]],
+      lines: [chain(<>Slip falls → pf improves → torque rises</>)],
     },
     {
       say: 'Euta slip ma torque maximum huncha: pull-out torque.',
@@ -903,12 +904,12 @@ export const basics53 = duo('5.3 · Basic understanding: why high current but lo
     {
       say: 'Normal operation low-slip region ma huncha, jaha torque slip sanga lagbhag linear ra stable.',
       voice: 'नर्मल अपरेसन लो स्लिप रिजनमा हुन्छ, जहाँ टर्क स्लिपसँग लगभग लिनियर र स्टेबल।',
-      lines: [['step', <>Normal running: low-slip, linear, stable region</>]],
+      lines: [part(<>Normal running</>, <>low-slip, linear, stable region</>)],
     },
     {
       say: 'Rotor resistance badhaye maximum torque ko slip badhcha, tara maximum torque ko value ustai rahancha.',
       voice: 'रोटर रेजिस्टेन्स बढाए म्याक्सिमम टर्कको स्लिप बढ्छ, तर म्याक्सिमम टर्कको भ्यालु उस्तै रहन्छ।',
-      lines: [['step', <>Higher rotor resistance: same maximum torque at a higher slip</>]],
+      lines: [chain(<>Higher rotor resistance: same maximum torque at a higher slip</>)],
     },
     {
       say: 'Saransha: torque slip ma depend garcha, maximum euta slip ma, ra rotor resistance le starting torque badhauna sakcha.',
@@ -1178,7 +1179,7 @@ export const basics54 = duo('5.4 · Basic understanding: what if the motor is dr
     {
       say: 'Baki power hawa ko gap pari rotor samma pugcha: air gap power.',
       voice: 'बाँकी पावर हावाको ग्यापपारि रोटरसम्म पुग्छ — एयर ग्याप पावर।',
-      lines: [['step', <>Baki → hawa ko gap pari rotor ma</>]],
+      lines: [chain(<>Baki → hawa ko gap pari rotor ma</>)],
     },
     {
       say: 'Rotor ma slip jati bhag taato bancha. Slip 4 percent bhaye rotor ma pugeko ko 4 percent taato.',
@@ -1195,12 +1196,12 @@ export const basics54 = duo('5.4 · Basic understanding: what if the motor is dr
     {
       say: 'Baki sabai ghumai ma; ghasai ghatayera shaft bata kaam.',
       voice: 'बाँकी सबै घुमाइमा, घसाइ घटाएर सफ्टबाट काम।',
-      lines: [['step', <>Baki → ghumai → shaft ko kaam</>]],
+      lines: [chain(<>Baki → ghumai → shaft ko kaam</>)],
     },
     {
       say: 'Aba engine le rotor lai magnet bhanda chito ghumaucha. Slip ulto bhayo, ra power ulto bagcha: supply tira!',
       voice: 'अब इन्जिनले रोटरलाई म्याग्नेटभन्दा छिटो घुमाउँछ। स्लिप उल्टो भयो, र पावर उल्टो बग्छ — सप्लाईतिर!',
-      lines: [['step', <>Magnet bhanda chito → power ulto: generator</>]],
+      lines: [chain(<>Magnet bhanda chito → power ulto: generator</>)],
     },
     {
       say: 'Tara magnet banauna current chahincha. Grid nabhaye capacitor le tyo current dincha, ra voltage build up huncha.',
@@ -1227,12 +1228,12 @@ export const basics54 = duo('5.4 · Basic understanding: what if the motor is dr
     {
       say: 'Baki power air gap pari rotor ma transfer huncha: rotor input.',
       voice: 'बाँकी पावर एयर ग्यापपारि रोटरमा ट्रान्सफर हुन्छ — रोटर इनपुट।',
-      lines: [['step', <>Air-gap power: rotor input</>]],
+      lines: [part(<>Air-gap power</>, <>rotor input</>)],
     },
     {
       say: 'Rotor copper loss rotor input ko slip guna huncha.',
       voice: 'रोटर कपर लस रोटर इनपुटको स्लिप गुना हुन्छ।',
-      lines: [['step', <>Rotor copper loss: slip times rotor input</>]],
+      lines: [chain(<>Rotor copper loss: slip times rotor input</>)],
       ask: {
         q: 'Rotor input ko kati bhag gross mechanical power ma badlincha?',
         voice: 'रोटर इनपुटको कति भाग ग्रस मेकानिकल पावरमा बदलिन्छ?',
@@ -1249,7 +1250,7 @@ export const basics54 = duo('5.4 · Basic understanding: what if the motor is dr
     {
       say: 'Prime mover le rotor lai synchronous speed bhanda badhi ghumaye slip negative huncha ra machine generator banchha.',
       voice: 'प्राइम मुभरले रोटरलाई सिन्क्रोनस स्पिडभन्दा बढी घुमाए स्लिप नेगेटिभ हुन्छ, र मेसिन जेनेरेटर बन्छ।',
-      lines: [['step', <>Above synchronous speed: negative slip → generator</>]],
+      lines: [chain(<>Above synchronous speed: negative slip → generator</>)],
     },
     {
       say: 'Magnetising reactive power grid wa capacitor bank le dinu parcha; isolated generator ma capacitor le voltage build up garcha.',
