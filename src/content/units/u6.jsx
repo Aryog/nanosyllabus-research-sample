@@ -893,8 +893,8 @@ export const ar63 = duo('Armature reaction: unity, lagging and leading pf', {
   viewBox: '0 0 360 222',
   tutor: [
     {
-      say: 'Armature current ko MMF le main field MMF ma parne asar: armature reaction. Asar current ko phase ma depend.',
-      voice: 'आर्मेचर करेन्टको एम एम एफले मेन फिल्ड एम एम एफमा पर्ने असर — आर्मेचर रियाक्सन। असर करेन्टको फेजमा डिपेन्ड।',
+      say: 'Armature current I a ko MMF le main field MMF ma parne asar: armature reaction. Asar current ko phase ma depend.',
+      voice: 'आर्मेचर करेन्ट आई एको एम एम एफले मेन फिल्ड एम एम एफमा पर्ने असर — आर्मेचर रियाक्सन। असर करेन्टको फेजमा डिपेन्ड।',
       lines: [['h', <>Armature reaction</>], ['step', <>Effect of the armature MMF on the main-field MMF, set by the pf</>]],
     },
     {
@@ -908,7 +908,7 @@ export const ar63 = duo('Armature reaction: unity, lagging and leading pf', {
       lines: [['step', <>Zero pf lagging: directly opposes → demagnetising, V ↓</>]],
       ask: {
         q: 'Inductive load ma alternator ko field current kina badhaunu parcha?',
-        voice: 'इन्डक्टिभ लोडमा अल्टरनेटरको फिल्ड करेन्ट किन बढाउनु पर्छ?',
+        voice: 'इन्डक्टिभ लोडमा अल्टरनेटरको फिल्ड करेन्ट आई एफ किन बढाउनु पर्छ?',
         options: ['Demagnetising armature reaction le flux ghataucha', 'Frequency ghatcha', 'Speed badhcha'],
         answer: 0,
         why: 'Ghateko flux pura garna excitation badhaune.',
@@ -1316,8 +1316,8 @@ export const excitation64 = duo('Derivation: effect of excitation, V-curves and 
   viewBox: '0 0 360 232',
   tutor: [
     {
-      say: 'Motor ko equation: V equals E plus I into R a plus j X s. Load ra V constant, tara E field current le badlincha.',
-      voice: 'मोटरको इक्वेसन — भी इक्वल्स ई प्लस आई इन्टु आर ए प्लस जे एक्स एस। लोड र भी कन्स्टेन्ट, तर ई फिल्ड करेन्टले बदलिन्छ।',
+      say: 'Motor ko equation: V equals E plus I into R a plus j X s. Load ra V constant, tara E field current I f le badlincha.',
+      voice: 'मोटरको इक्वेसन — भी इक्वल्स ई प्लस आई इन्टु आर ए प्लस जे एक्स एस। लोड र भी कन्स्टेन्ट, तर ई फिल्ड करेन्ट आई एफले बदलिन्छ।',
       lines: [['h', <>Effect of excitation</>], ['eq', tex(String.raw`\vec V = \vec E + \vec I(R_a + jX_s)`)]],
     },
     {
@@ -1457,7 +1457,7 @@ export const excitationAnswer64 = answer('Model answer: effect of excitation on 
       voice: 'भी कर्भ्स — आई ए अगेन्स्ट आई एफ एट कन्स्टेन्ट लोड इज भी सेप्ड विद इट्स मिनिमम एट युनिटी पी एफ, एट हाइयर लोड द कर्भ मुभ्स अप। पावर फ्याक्टर अगेन्स्ट आई एफ इज एन इन्भर्टेड भी।',
       ask: {
         q: 'Field current badhaudai jada armature current pahila k huncha?',
-        voice: 'फिल्ड करेन्ट बढाउँदै जाँदा आर्मेचर करेन्ट पहिला के हुन्छ?',
+        voice: 'फिल्ड करेन्ट आई एफ बढाउँदै जाँदा आर्मेचर करेन्ट आई ए पहिला के हुन्छ?',
         options: ['Ghatcha, ani badhcha', 'Sadhai badhcha', 'Ustai rahancha'],
         answer: 0,
         why: 'Lagging bata unity samma ghatcha, ani leading ma badhcha: V.',

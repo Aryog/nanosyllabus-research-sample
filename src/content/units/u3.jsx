@@ -962,8 +962,8 @@ export const types33 = duo('Excitation and types: current and voltage equations'
   viewBox: '0 0 360 232',
   tutor: [
     {
-      say: 'Separately excited: field alag source bata. Armature current equals load current: I a equals I L.',
-      voice: 'सेपरेट्ली एक्साइटेड — फिल्ड अलग सोर्सबाट। आर्मेचर करेन्ट इक्वल्स लोड करेन्ट — आई ए इक्वल्स आई एल।',
+      say: 'Separately excited: field alag source bata. Armature current I a equals load current I L: I a equals I L.',
+      voice: 'सेपरेट्ली एक्साइटेड — फिल्ड अलग सोर्सबाट। आर्मेचर करेन्ट आई ए इक्वल्स लोड करेन्ट आई एल — आई ए इक्वल्स आई एल।',
       lines: [['h', <>Types of DC generator</>], ['eq', tex(String.raw`\text{Separate: } I_a = I_L, \quad E = V + I_aR_a + V_b`)]],
     },
     {
@@ -977,7 +977,7 @@ export const types33 = duo('Excitation and types: current and voltage equations'
       lines: [['eq', tex(String.raw`\text{Series: } I_a = I_L, \quad E = V + I_a(R_a + R_{se})`)]],
       ask: {
         q: 'Shunt generator ma armature current kati?',
-        voice: 'सन्ट जेनेरेटरमा आर्मेचर करेन्ट कति?',
+        voice: 'सन्ट जेनेरेटरमा आर्मेचर करेन्ट आई ए कति?',
         options: ['IL + Ish', 'IL − Ish', 'IL matra'],
         answer: 0,
         why: 'Armature le load ra shunt field dubai lai current dincha.',

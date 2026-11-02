@@ -86,7 +86,7 @@ export const knobs45 = duo('What decides the speed', {
       lines: [['step', <>Knob 1, φ (field control): φ ↓ → N ↑</>]],
       ask: {
         q: 'Shunt motor ko field current ghatayo bhane speed ma k huncha?',
-        voice: 'शन्ट मोटरको फिल्ड करेन्ट घटायो भने, स्पिडमा के हुन्छ?',
+        voice: 'शन्ट मोटरको फिल्ड करेन्ट आई एस एच घटायो भने, स्पिडमा के हुन्छ?',
         options: ['Badhcha', 'Ghatcha', 'Utti nai'],
         answer: 0,
         why: 'N ∝ 1/φ: field current ghatda φ ghatcha ra N badhcha.',
@@ -216,8 +216,8 @@ export const armature45 = duo('Armature (rheostatic) control', {
       },
     },
     {
-      say: 'Tara pura armature current R bata bagcha, tesaile I a square R loss dherai huncha. Yo wasteful tarika ho.',
-      voice: 'तर पूरा आर्मेचर करेन्ट आरबाट बग्छ, त्यसैले आई ए स्क्वायर आर लस धेरै हुन्छ। यो वेस्टफुल तरिका हो।',
+      say: 'Tara pura armature current I a R bata bagcha, tesaile I a square R loss dherai huncha. Yo wasteful tarika ho.',
+      voice: 'तर पूरा आर्मेचर करेन्ट आई ए आरबाट बग्छ, त्यसैले आई ए स्क्वायर आर लस धेरै हुन्छ। यो वेस्टफुल तरिका हो।',
       lines: [['trap', <>Full I<sub>a</sub> flows in R → large <K>{String.raw`I_a^2R`}</K> loss</>]],
     },
     {
@@ -298,7 +298,7 @@ export const seriesRev45 = duo('Speed control and reversal of a series motor', {
     },
     {
       say: 'Field diverter: series field ko across variable resistance, jasle field current ra phi ghataucha, ra speed badhcha.',
-      voice: 'फिल्ड डाइभर्टर — सिरिज फिल्डको अक्रस भेरिएबल रेजिस्टेन्स, जसले फिल्ड करेन्ट र फाइ घटाउँछ, र स्पिड बढ्छ।',
+      voice: 'फिल्ड डाइभर्टर — सिरिज फिल्डको अक्रस भेरिएबल रेजिस्टेन्स, जसले फिल्ड करेन्ट आई एस एच र फाइ घटाउँछ, र स्पिड बढ्छ।',
       lines: [['step', <><Pts items={[<>(i) Field diverter across the series field: φ ↓ → N ↑</>]} /></>]],
     },
     {
@@ -307,8 +307,8 @@ export const seriesRev45 = duo('Speed control and reversal of a series motor', {
       lines: [['step', <><Pts items={[<>(ii) Tapped field: fewer turns → N ↑</>, <>(iii) Series resistance: N ↓</>]} /></>]],
     },
     {
-      say: 'Reversal of rotation: armature current wa field current, euta matra reverse garincha.',
-      voice: 'रिभर्सल अफ रोटेसन — आर्मेचर करेन्ट वा फिल्ड करेन्ट, एउटा मात्र रिभर्स गरिन्छ।',
+      say: 'Reversal of rotation: armature current I a wa field current, euta matra reverse garincha.',
+      voice: 'रिभर्सल अफ रोटेसन — आर्मेचर करेन्ट आई ए वा फिल्ड करेन्ट, एउटा मात्र रिभर्स गरिन्छ।',
       lines: [['step', <><Pts items={[<>Reversal: reverse either the armature or the field current, not both</>]} /></>]],
       ask: {
         q: 'DC motor ko rotation reverse garna k garnu parcha?',

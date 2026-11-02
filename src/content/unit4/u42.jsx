@@ -73,8 +73,8 @@ export const types42 = duo('Method of excitation and types of DC motor', {
       lines: [['h', <>Methods of excitation</>], rem(<>Shunt = in parallel · series = in the same path</>), ['step', <>(a) Separately excited: field from its own supply V<sub>f</sub></>]],
     },
     {
-      say: 'Shunt motor ma field armature sanga parallel ma jodincha. Field ma pura V lagcha, tesaile flux lagbhag constant rahancha. Line current dui bhag huncha: I L equals I a plus I sh.',
-      voice: 'शन्ट मोटरमा, फिल्ड आर्मेचरसँग प्याराललमा जोडिन्छ। फिल्डमा पूरा भी लाग्छ, त्यसैले फ्लक्स लगभग कन्स्टेन्ट रहन्छ। लाइन करेन्ट दुई भाग हुन्छ — आई एल इक्वल्स आई ए प्लस आई एस एच।',
+      say: 'Shunt motor ma field armature sanga parallel ma jodincha. Field ma pura V lagcha, tesaile flux lagbhag constant rahancha. Line current I L dui bhag huncha: I L equals I a plus I sh.',
+      voice: 'शन्ट मोटरमा, फिल्ड आर्मेचरसँग प्याराललमा जोडिन्छ। फिल्डमा पूरा भी लाग्छ, त्यसैले फ्लक्स लगभग कन्स्टेन्ट रहन्छ। लाइन करेन्ट आई एल दुई भाग हुन्छ — आई एल इक्वल्स आई ए प्लस आई एस एच।',
       lines: [['step', <>(b) Shunt: field across the supply → φ ≈ constant; <K>{String.raw`I_L = I_a + I_{sh}`}</K></>]],
       ask: {
         q: 'Shunt motor ma field winding armature sanga kasari jodiyeko huncha?',
@@ -85,8 +85,8 @@ export const types42 = duo('Method of excitation and types of DC motor', {
       },
     },
     {
-      say: 'Series motor ma field armature sanga series ma huncha, arthat sampurna armature current field bata bagcha. Flux armature current sanga badhcha.',
-      voice: 'सिरिज मोटरमा, फिल्ड आर्मेचरसँग सिरिजमा हुन्छ — अर्थात सम्पूर्ण आर्मेचर करेन्ट फिल्डबाट बग्छ। फ्लक्स, आर्मेचर करेन्टसँग बढ्छ।',
+      say: 'Series motor ma field armature sanga series ma huncha, arthat sampurna armature current I a field bata bagcha. Flux armature current I a sanga badhcha.',
+      voice: 'सिरिज मोटरमा, फिल्ड आर्मेचरसँग सिरिजमा हुन्छ — अर्थात सम्पूर्ण आर्मेचर करेन्ट आई ए फिल्डबाट बग्छ। फ्लक्स, आर्मेचर करेन्ट आई एसँग बढ्छ।',
       lines: [['step', <>(c) Series: field in series → <K>{String.raw`I_L = I_a = I_{se}`}</K>, <K>{String.raw`\phi \propto I_a`}</K> (before saturation)</>]],
     },
     {
@@ -129,7 +129,7 @@ export const types42 = duo('Method of excitation and types of DC motor', {
       lines: [['step', <><Pts items={[<>(b) Shunt: field in parallel with the armature; many turns, high R<sub>sh</sub></>, <><K>{String.raw`I_L = I_a + I_{sh}`}</K></>]} /></>]],
       ask: {
         q: 'Shunt motor ma line current kati huncha?',
-        voice: 'शन्ट मोटरमा लाइन करेन्ट कति हुन्छ?',
+        voice: 'शन्ट मोटरमा लाइन करेन्ट आई एल कति हुन्छ?',
         options: ['Ia + Ish', 'Ia matra', 'Ia − Ish'],
         answer: 0,
         why: 'Line current dui branch ma bandincha: armature ra shunt field.',
@@ -188,8 +188,8 @@ export const chars42 = duo('Performance characteristics: Ta–Ia, N–Ia, N–Ta
       lines: [['step', <>(i) Ta–Ia (electrical): <K>{String.raw`T_a \propto \phi\,I_a`}</K></>]],
     },
     {
-      say: 'N–Ia le load current badhda speed kasari badlincha dekhaucha. Adhar N, E b over phi sanga proportional.',
-      voice: 'एन आई एले, लोड करेन्ट बढ्दा स्पिड कसरी बदलिन्छ देखाउँछ। आधार — एन, ई बी ओभर फाइसँग प्रोपोर्सनल।',
+      say: 'N–Ia le load current I L badhda speed kasari badlincha dekhaucha. Adhar N, E b over phi sanga proportional.',
+      voice: 'एन आई एले, लोड करेन्ट आई एल बढ्दा स्पिड कसरी बदलिन्छ देखाउँछ। आधार — एन, ई बी ओभर फाइसँग प्रोपोर्सनल।',
       lines: [['step', <>(ii) N–Ia: <K>{String.raw`N \propto \dfrac{E_b}{\phi} = \dfrac{V - I_aR_a}{\phi}`}</K></>]],
     },
     {
@@ -207,8 +207,8 @@ export const chars42 = duo('Performance characteristics: Ta–Ia, N–Ia, N–Ta
   ],
   lecturer: [
     {
-      say: 'Performance characteristics: motor ko torque ra speed armature current sanga kasari badlinchan, tyo dekhaune curves.',
-      voice: 'परफर्मेन्स क्यारेक्टरिस्टिक्स — मोटरको टर्क र स्पिड, आर्मेचर करेन्टसँग कसरी बदलिन्छन्, त्यो देखाउने कर्भ्स।',
+      say: 'Performance characteristics: motor ko torque ra speed armature current I a sanga kasari badlinchan, tyo dekhaune curves.',
+      voice: 'परफर्मेन्स क्यारेक्टरिस्टिक्स — मोटरको टर्क र स्पिड, आर्मेचर करेन्ट आई एसँग कसरी बदलिन्छन्, त्यो देखाउने कर्भ्स।',
       lines: [['h', <>Characteristics of DC motors</>], ['step', <><Pts items={[<>Curves of torque and speed against armature current (Fig. 3)</>]} /></>]],
     },
     {
@@ -242,8 +242,8 @@ export const equations42 = duo('Derivation: voltage and current equations', {
   viewBox: '0 0 540 276',
   tutor: [
     {
-      say: 'Shunt motor bata suru garau. Line current dui bata bandincha: armature tira I a ra field tira I sh.',
-      voice: 'शन्ट मोटरबाट सुरु गरौं। लाइन करेन्ट दुईतिर बाँडिन्छ — आर्मेचरतिर आई ए, र फिल्डतिर आई एस एच।',
+      say: 'Shunt motor bata suru garau. Line current I L dui bata bandincha: armature tira I a ra field tira I sh.',
+      voice: 'शन्ट मोटरबाट सुरु गरौं। लाइन करेन्ट आई एल दुईतिर बाँडिन्छ — आर्मेचरतिर आई ए, र फिल्डतिर आई एस एच।',
       lines: [['h', <>Voltage and current equations</>], ['step', tex(String.raw`\begin{aligned} I_L &= I_a + I_{sh} \\ I_{sh} &= \dfrac{V}{R_{sh}} \\ V &= E_b + I_aR_a \end{aligned}`)]],
     },
     {
@@ -259,8 +259,8 @@ export const equations42 = duo('Derivation: voltage and current equations', {
       },
     },
     {
-      say: 'Long shunt compound ma armature current series field bata pani jaancha. Tesaile drop I a times R a plus R se, ra I sh equals V over R sh.',
-      voice: 'लङ शन्ट कम्पाउन्डमा, आर्मेचर करेन्ट सिरिज फिल्डबाट पनि जान्छ। त्यसैले ड्रप — आई ए टाइम्स आर ए प्लस आर एस ई, र आई एस एच इक्वल्स भी ओभर आर एस एच।',
+      say: 'Long shunt compound ma armature current I a series field bata pani jaancha. Tesaile drop I a times R a plus R se, ra I sh equals V over R sh.',
+      voice: 'लङ शन्ट कम्पाउन्डमा, आर्मेचर करेन्ट आई ए सिरिज फिल्डबाट पनि जान्छ। त्यसैले ड्रप — आई ए टाइम्स आर ए प्लस आर एस ई, र आई एस एच इक्वल्स भी ओभर आर एस एच।',
       lines: [['step', tex(String.raw`\begin{aligned} I_L &= I_a + I_{sh} \\ I_{sh} &= \tfrac{V}{R_{sh}} \\ V &= E_b + I_a(R_a + R_{se}) \end{aligned}`)]],
     },
     {
@@ -335,8 +335,8 @@ export const shunt42 = duo('Derivation: shunt motor characteristics', {
   ],
   lecturer: [
     {
-      say: 'Shunt motor ma field current V over R sh constant, tesaile flux phi constant manincha.',
-      voice: 'शन्ट मोटरमा फिल्ड करेन्ट, भी ओभर आर एस एच कन्स्टेन्ट। त्यसैले फ्लक्स फाइ कन्स्टेन्ट मानिन्छ।',
+      say: 'Shunt motor ma field current I sh V over R sh constant, tesaile flux phi constant manincha.',
+      voice: 'शन्ट मोटरमा फिल्ड करेन्ट आई एस एच, भी ओभर आर एस एच कन्स्टेन्ट। त्यसैले फ्लक्स फाइ कन्स्टेन्ट मानिन्छ।',
       lines: [['h', <>Characteristics of a shunt motor</>], ['step', <><Pts items={[<><K>{String.raw`I_{sh} = V/R_{sh}`}</K> = constant, ∴ φ = constant</>]} /></>]],
     },
     {
@@ -436,8 +436,8 @@ export const charsAnswer42 = answer('Model answer: shunt and series motor charac
   marks: '[8]',
   q: 'Explain the torque–armature current and speed–torque characteristics of DC shunt and DC series motors.',
   read: {
-    say: 'IOE 2070 Magh, aath marks: explain the torque–armature current and speed–torque characteristics of DC shunt and DC series motors. Shunt char marks, series char marks.',
-    voice: 'आई ओ ई दुई हजार सत्तरी माघ, आठ मार्क्स — एक्सप्लेन द टर्क आर्मेचर करेन्ट एन्ड स्पिड टर्क क्यारेक्टरिस्टिक्स अफ डी सी शन्ट एन्ड डी सी सिरिज मोटर्स। शन्ट चार मार्क्स, सिरिज चार मार्क्स।',
+    say: 'IOE 2070 Magh, aath marks: explain the torque–armature current I a and speed–torque characteristics of DC shunt and DC series motors. Shunt char marks, series char marks.',
+    voice: 'आई ओ ई दुई हजार सत्तरी माघ, आठ मार्क्स — एक्सप्लेन द टर्क आर्मेचर करेन्ट आई ए एन्ड स्पिड टर्क क्यारेक्टरिस्टिक्स अफ डी सी शन्ट एन्ड डी सी सिरिज मोटर्स। शन्ट चार मार्क्स, सिरिज चार मार्क्स।',
   },
   points: [
     {

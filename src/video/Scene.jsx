@@ -707,29 +707,55 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
   // Long derivation: heading across the top, the rest written column by column.
   const head = board && !draw && board[0]?.kind === 'h' ? 1 : 0;
   // Columns are balanced by text length, so long answer points don't pile up on one side.
-  let cols = 0;
-  // A line holding an aligned block (one "=" per row) counts once per row.
-  const rows = (b) => 1 + (textOf(b.node).match(/\\\\/g) ?? []).length;
-  // Never for a 3D video: its board is one column beside the model.
-  if (wide && board && !draw && !three && board.slice(head).reduce((n, b) => n + rows(b), 0) >= 7) {
-    const size = board.slice(head).map((b) => textOf(b.node).length + 30);
-    const half = size.reduce((a, b) => a + b, 0) / 2;
-    let sum = 0;
-    let k = 0;
-    while (k < size.length - 1 && sum + size[k] / 2 < half) sum += size[k++];
-    cols = head + Math.max(1, k);
-  }
+  // Rolling two-column board (user, 2026-11-02: "if you need another segment
+  // then shift seg 2 content to seg 1 and show in seg 2"): a board-only video
+  // on a wide screen writes the left column first; when it overflows, the
+  // right column starts; when the right column overflows, its lines move to
+  // the left and the new step is written on the right. The reader always sees
+  // the step before beside the step now. Never for a figure or 3D video.
+  const roll = !!(wide && board && !draw && !three);
   // Whiteboard pages (user, 2026-10-30: "why things are becoming small and
   // small"): the board keeps a readable size. When the lines so far no longer
   // fit the frame at PAGE_K, the board is wiped as a teacher would: earlier
   // lines leave (the heading and the question stay) and this beat starts a
   // new page. Pages are remembered per beat, so a seek lands on the same page.
   const [page, setPage] = useState(0);
+  const [rollR, setRollR] = useState(null); // first beat of the right column
   const pages = useRef({});
   useLayoutEffect(() => {
     if (!board) return;
     // Phones: no measured pages, but the planned page turns still apply.
     if (!wide) return void (page !== (planned[beat] ?? 0) && setPage(planned[beat] ?? 0));
+    if (roll) {
+      const known = pages.current[beat];
+      if (known) {
+        if (known.L !== page) setPage(known.L);
+        if (known.R !== rollR) setRollR(known.R);
+        return;
+      }
+      // The last measured beat before this one (a seek may skip beats).
+      const before = Object.keys(pages.current).map(Number).filter((k) => k < beat).sort((x, y) => y - x)[0];
+      let st = before != null ? pages.current[before] : { L: 0, R: null };
+      if (st.L > beat || (st.R != null && st.R > beat)) st = { L: Math.min(st.L, beat), R: null };
+      if ((planned[beat] ?? 0) > st.L) st = { L: planned[beat], R: null };
+      if (st.L !== page || st.R !== rollR) {
+        setPage(st.L);
+        setRollR(st.R);
+        return;
+      }
+      const stage = stageRef.current;
+      const el = camRef.current;
+      if (!stage || !el) return;
+      const cap = stage.parentElement?.querySelector('.scene-caption')?.getBoundingClientRect();
+      const H = stage.clientHeight - (cap ? Math.max(0, stage.getBoundingClientRect().bottom - cap.top + 8) : 0);
+      const over = el.offsetHeight * PAGE_K > H;
+      const writes = board.some((b) => b.at === beat);
+      if (over && writes && beat > st.L && (st.R == null || beat > st.R)) st = st.R == null ? { L: st.L, R: beat } : { L: st.R, R: beat };
+      pages.current[beat] = st;
+      if (st.L !== page) setPage(st.L);
+      if (st.R !== rollR) setRollR(st.R);
+      return;
+    }
     const known = pages.current[beat];
     if (known != null) {
       if (known !== page) setPage(known);
@@ -749,7 +775,8 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
     pages.current[beat] = p;
     if (p !== page) setPage(p);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [beat, page, wide]);
+  }, [beat, page, rollR, wide]);
+  const cols = roll && rollR != null;
   const shownAt = (b) => beat >= b.at && (b.until == null || beat <= b.until) && (b.at >= page || KEEP.has(b.kind));
   // A line that has left (its `until`, or an earlier page) but carries a
   // result stays as that short result, so later steps can use it.
@@ -1419,7 +1446,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
               // the CSS write animation never runs on it first (it did, and
               // the pen then rewrote it from the start: a double write).
               <div className={`board ${draw ? '' : 'board-only'} ${cols ? 'board-cols' : ''}`} data-pen={penAt}>
-                {(cols ? [board.slice(0, head), board.slice(head, cols), board.slice(cols)] : [board]).map((part, c) => (
+                {(cols ? [board.filter((x) => x.kind === 'h'), board.filter((x) => x.kind !== 'h' && x.at < rollR), board.filter((x) => x.kind !== 'h' && x.at >= rollR)] : [board]).map((part, c) => (
                   <div key={c} className={cols ? (c ? 'board-col' : 'board-head') : 'board-flow'}>
                     {part.filter((b) => b.kind !== 'q').map((b, i) => (
                       <div

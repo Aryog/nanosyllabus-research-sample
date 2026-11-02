@@ -79,7 +79,7 @@ export const losses43 = duo('Losses in a DC motor', {
       lines: [['step', <>Copper: <K>{String.raw`I_a^2R_a`}</K>, <K>{String.raw`I_{sh}^2R_{sh}`}</K>, brush contact</>]],
       ask: {
         q: 'Armature current dobar bhaye armature copper loss kati guna huncha?',
-        voice: 'आर्मेचर करेन्ट दोब्बर भए, आर्मेचर कपर लस कति गुना हुन्छ?',
+        voice: 'आर्मेचर करेन्ट आई ए दोब्बर भए, आर्मेचर कपर लस कति गुना हुन्छ?',
         options: ['4 guna', '2 guna', 'Utti nai'],
         answer: 0,
         why: 'Loss = I a² R a, tesaile 2² = 4 guna.',

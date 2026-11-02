@@ -61,7 +61,7 @@ export const dfrFigure = (s) => (
   </>
 );
 
-// Fig. 7.2: 0 main winding · 1 auxiliary + centrifugal switch · 2 capacitor · 3 phasors Im, Ia, α · 4 T ∝ Im Ia sin α
+// Fig. 7.2: 0 main winding · 1 auxiliary + centrifugal switch · 2 capacitor · 3 phasors Im, Ia, α · 4 T ∝ Im Is sin α
 export const splitFigure = (s) => (
   <>
     <g className={s.on(0)}>
@@ -93,11 +93,11 @@ export const splitFigure = (s) => (
       <W d="M220 140 L300 190" w={1.3} />
       <T x={304} y={198} a="start" i size={10}>Im</T>
       <W d="M220 140 L300 70" w={1.3} />
-      <T x={304} y={68} a="start" i size={10}>Ia (C-start)</T>
+      <T x={304} y={68} a="start" i size={10}>Is (C-start)</T>
       <T x={256} y={136} i size={10}>α</T>
     </g>
     <g className={s.on(4) + s.hl(4)}>
-      <T x={280} y={34} size={11} i>T ∝ Im Ia sin α</T>
+      <T x={280} y={34} size={11} i>T ∝ Im Is sin α</T>
     </g>
   </>
 );
@@ -621,14 +621,14 @@ export const split72 = duo('Split-phase induction motor', {
       lines: [['h', <>Split-phase induction motor</>], ['step', <>Main ∥ auxiliary across V; switch S in the auxiliary</>]],
     },
     {
-      say: 'Split-phase: aux ma badhi R, kam X, tesaile I a kam lag garcha. I m ra I a bich angle alpha 25 dekhi 30 degree.',
-      voice: 'स्प्लिट फेज — अक्समा बढी आर, कम एक्स, त्यसैले आई ए कम ल्याग गर्छ। आई एम र आई ए बीच एङ्गल अल्फा पच्चीस देखि तीस डिग्री।',
+      say: 'Split-phase: aux ma badhi R, kam X, tesaile I s kam lag garcha. I m ra I s bich angle alpha 25 dekhi 30 degree.',
+      voice: 'स्प्लिट फेज — अक्समा बढी आर, कम एक्स, त्यसैले आई एस कम ल्याग गर्छ। आई एम र आई एस बीच एङ्गल अल्फा पच्चीस देखि तीस डिग्री।',
       lines: [['step', <>Split-phase (resistance start): α ≈ 25–30°, moderate starting torque (fans, blowers)</>]],
     },
     {
-      say: 'Starting torque I m I a sin alpha sanga badhcha.',
-      voice: 'स्टार्टिङ टर्क आई एम आई ए साइन अल्फासँग बढ्छ।',
-      lines: [['eq', tex(String.raw`\boxed{T_{st} \propto I_m I_a \sin\alpha}`)]],
+      say: 'Starting torque I m I s sin alpha sanga badhcha.',
+      voice: 'स्टार्टिङ टर्क आई एम आई एस साइन अल्फासँग बढ्छ।',
+      lines: [['eq', tex(String.raw`\boxed{T_{st} \propto I_m I_s \sin\alpha}`)]],
       ask: {
         q: 'Starting torque maximum garna alpha kati hunu ramro?',
         voice: 'स्टार्टिङ टर्क म्याक्सिमम गर्न अल्फा कति हुनु राम्रो?',
@@ -655,9 +655,9 @@ export const split72 = duo('Split-phase induction motor', {
       lines: [['step', <>Split-phase: α ≈ 25–30°</>]],
     },
     {
-      say: 'The starting torque is proportional to I m I a sin alpha.',
-      voice: 'द स्टार्टिङ टर्क इज प्रपोर्सनल टु आई एम आई ए साइन अल्फा।',
-      lines: [['eq', tex(String.raw`\boxed{T_{st} \propto I_m I_a \sin\alpha}`)]],
+      say: 'The starting torque is proportional to I m I s sin alpha.',
+      voice: 'द स्टार्टिङ टर्क इज प्रपोर्सनल टु आई एम आई एस साइन अल्फा।',
+      lines: [['eq', tex(String.raw`\boxed{T_{st} \propto I_m I_s \sin\alpha}`)]],
       ask: {
         q: 'Split-phase motor ko starting torque kina kam?',
         voice: 'स्प्लिट फेज मोटरको स्टार्टिङ टर्क किन कम?',
@@ -764,13 +764,13 @@ export const startAnswer72 = answer('Model answer: why a single-phase IM is not 
     },
     {
       page: true,
-      node: <><H>(1) Split-phase (resistance start)</H><Pts items={[<>Auxiliary winding of high R, low X, 90° in space from the main (Fig. 7.2)</>, <>I<sub>a</sub> lags less than I<sub>m</sub>: α ≈ 25–30° → rotating field; <K>{String.raw`T \propto I_mI_a\sin\alpha`}</K></>, <>Centrifugal switch cuts the auxiliary at ~75 % speed; moderate torque (fans, washing machines)</>]} /></>,
-      say: 'Split-phase: an auxiliary winding of high resistance, 90 degrees in space. Its current lags less, alpha about 25 to 30 degrees, giving a rotating field; torque proportional to I m I a sin alpha. A centrifugal switch cuts it at about 75 percent speed.',
-      voice: 'स्प्लिट फेज — एन अक्जिलरी वाइन्डिङ अफ हाई रेजिस्टेन्स, नाइन्टी डिग्रिज इन स्पेस। इट्स करेन्ट ल्याग्स लेस, अल्फा अबाउट ट्वेन्टी फाइभ टु थर्टी डिग्रिज, गिभिङ अ रोटेटिङ फिल्ड, टर्क प्रपोर्सनल टु आई एम आई ए साइन अल्फा। अ सेन्ट्रिफ्युगल स्विच कट्स इट एट अबाउट सेभेन्टी फाइभ पर्सेन्ट स्पिड।',
+      node: <><H>(1) Split-phase (resistance start)</H><Pts items={[<>Auxiliary winding of high R, low X, 90° in space from the main (Fig. 7.2)</>, <>I<sub>s</sub> lags less than I<sub>m</sub>: α ≈ 25–30° → rotating field; <K>{String.raw`T \propto I_mI_s\sin\alpha`}</K></>, <>Centrifugal switch cuts the auxiliary at ~75 % speed; moderate torque (fans, washing machines)</>]} /></>,
+      say: 'Split-phase: an auxiliary winding of high resistance, 90 degrees in space. Its current lags less, alpha about 25 to 30 degrees, giving a rotating field; torque proportional to I m I s sin alpha. A centrifugal switch cuts it at about 75 percent speed.',
+      voice: 'स्प्लिट फेज — एन अक्जिलरी वाइन्डिङ अफ हाई रेजिस्टेन्स, नाइन्टी डिग्रिज इन स्पेस। इट्स करेन्ट ल्याग्स लेस, अल्फा अबाउट ट्वेन्टी फाइभ टु थर्टी डिग्रिज, गिभिङ अ रोटेटिङ फिल्ड, टर्क प्रपोर्सनल टु आई एम आई एस साइन अल्फा। अ सेन्ट्रिफ्युगल स्विच कट्स इट एट अबाउट सेभेन्टी फाइभ पर्सेन्ट स्पिड।',
     },
     {
       page: true,
-      node: <><H>(2) Capacitor start</H><Pts items={[<>A capacitor C in series with the auxiliary makes I<sub>a</sub> lead V</>, <>α ≈ 80–90° → high starting torque (compressors, pumps)</>, <>Auxiliary and C removed by the centrifugal switch; a run capacitor may be kept (capacitor-start-run)</>]} /></>,
+      node: <><H>(2) Capacitor start</H><Pts items={[<>A capacitor C in series with the auxiliary makes I<sub>s</sub> lead V</>, <>α ≈ 80–90° → high starting torque (compressors, pumps)</>, <>Auxiliary and C removed by the centrifugal switch; a run capacitor may be kept (capacitor-start-run)</>]} /></>,
       say: 'Capacitor start: a capacitor in series with the auxiliary makes its current lead, so alpha is about 80 to 90 degrees and the starting torque is high. The switch removes it; a run capacitor may be kept.',
       voice: 'क्यापासिटर स्टार्ट — अ क्यापासिटर इन सिरिज विद द अक्जिलरी मेक्स इट्स करेन्ट लिड, सो अल्फा इज अबाउट असी देखि नब्बे डिग्रिज एन्ड द स्टार्टिङ टर्क इज हाई। द स्विच रिमुभ्स इट, अ रन क्यापासिटर मे बी केप्ट।',
       ask: {
@@ -1500,24 +1500,24 @@ export const basicsCap74 = duo('7.4 · Basic understanding: what does the capaci
   ],
 });
 
-// splitFigure: 0 main · 1 auxiliary + switch · 2 capacitor · 3 phasors · 4 T ∝ Im Ia sin α
+// splitFigure: 0 main · 1 auxiliary + switch · 2 capacitor · 3 phasors · 4 T ∝ Im Is sin α
 export const capacitor74 = duo('Capacitor start and capacitor run motors', {
   draw: figAt(splitFigure, { 0: 0, 1: 0, 2: 1, 3: 2, 4: 3 }),
   viewBox: '0 0 360 222',
   tutor: [
     {
-      say: 'Yaad garau: starting torque T st, I m I a sin alpha sanga proportional, jaha alpha dui current bich ko phase difference.',
-      voice: 'याद गरौं — स्टार्टिङ टर्क टी एस टी, आई एम आई ए साइन अल्फासँग प्रोपोर्सनल, जहाँ अल्फा दुई करेन्टबीचको फेज डिफरेन्स।',
-      lines: [['h', <>Capacitor start and run motors</>], rem(<K>{String.raw`T_{st} \propto I_m I_a \sin\alpha`}</K>, <>Split-phase: α ≈ 25–30° only</>)],
+      say: 'Yaad garau: starting torque T st, I m I s sin alpha sanga proportional, jaha alpha dui current bich ko phase difference.',
+      voice: 'याद गरौं — स्टार्टिङ टर्क टी एस टी, आई एम आई एस साइन अल्फासँग प्रोपोर्सनल, जहाँ अल्फा दुई करेन्टबीचको फेज डिफरेन्स।',
+      lines: [['h', <>Capacitor start and run motors</>], rem(<K>{String.raw`T_{st} \propto I_m I_s \sin\alpha`}</K>, <>Split-phase: α ≈ 25–30° only</>)],
     },
     {
-      say: 'Capacitor-start motor ma auxiliary winding sanga series ma capacitor jodincha. Capacitor le I a lai V bhanda aghi lead garaucha.',
+      say: 'Capacitor-start motor ma auxiliary winding sanga series ma capacitor jodincha. Capacitor le I s lai V bhanda aghi lead garaucha.',
       voice: 'क्यापासिटर स्टार्ट मोटरमा अक्जिलरी वाइन्डिङसँग सिरिजमा क्यापासिटर जोडिन्छ। क्यापासिटरले आई एलाई भीभन्दा अघि लिड गराउँछ।',
-      lines: [['step', <>Capacitor C in series with the auxiliary → I<sub>a</sub> leads V</>]],
+      lines: [['step', <>Capacitor C in series with the auxiliary → I<sub>s</sub> leads V</>]],
     },
     {
-      say: 'I m V bhanda pachhi lag garcha, I a aghi lead garcha, tesaile alpha lagbhag 90 degree. Sin 90 equals one, tesaile starting torque maximum.',
-      voice: 'आई एम भीभन्दा पछि ल्याग गर्छ, आई ए अघि लिड गर्छ, त्यसैले अल्फा लगभग नब्बे डिग्री। साइन नाइन्टी इक्वल्स वान, यसरी स्टार्टिङ टर्क म्याक्सिमम।',
+      say: 'I m V bhanda pachhi lag garcha, I s aghi lead garcha, tesaile alpha lagbhag 90 degree. Sin 90 equals one, tesaile starting torque maximum.',
+      voice: 'आई एम भीभन्दा पछि ल्याग गर्छ, आई एस अघि लिड गर्छ, त्यसैले अल्फा लगभग नब्बे डिग्री। साइन नाइन्टी इक्वल्स वान, यसरी स्टार्टिङ टर्क म्याक्सिमम।',
       lines: [['step', step('Phase difference', String.raw`\begin{aligned} \alpha &\approx 90^\circ \\ \sin\alpha &\approx 1 \end{aligned}`)]],
     },
     {
@@ -1539,15 +1539,15 @@ export const capacitor74 = duo('Capacitor start and capacitor run motors', {
         voice: 'क्यापासिटर स्टार्ट मोटरको स्टार्टिङ टर्क, स्प्लिट फेजभन्दा किन बढी हुन्छ?',
         options: ['α lagbhag 90° huncha', 'Main winding hatcha', 'Supply voltage badhcha'],
         answer: 0,
-        why: 'Tst ∝ Im Ia sin α; α ≈ 90° ma sin α ≈ 1, split-phase ma 25–30° matra.',
+        why: 'Tst ∝ Im Is sin α; α ≈ 90° ma sin α ≈ 1, split-phase ma 25–30° matra.',
       },
     },
   ],
   lecturer: [
     {
-      say: 'Smaran: T st proportional to I m I a sin alpha; split-phase ma alpha 25 dekhi 30 degree matra.',
-      voice: 'स्मरण — टी एस टी, प्रोपोर्सनल टु आई एम आई ए साइन अल्फा। स्प्लिट फेजमा अल्फा पच्चीस देखि तीस डिग्री मात्र।',
-      lines: [['h', <>Capacitor start and run motors (Fig. 7.2)</>], rem(<K>{String.raw`T_{st} \propto I_m I_a \sin\alpha`}</K>)],
+      say: 'Smaran: T st proportional to I m I s sin alpha; split-phase ma alpha 25 dekhi 30 degree matra.',
+      voice: 'स्मरण — टी एस टी, प्रोपोर्सनल टु आई एम आई एस साइन अल्फा। स्प्लिट फेजमा अल्फा पच्चीस देखि तीस डिग्री मात्र।',
+      lines: [['h', <>Capacitor start and run motors (Fig. 7.2)</>], rem(<K>{String.raw`T_{st} \propto I_m I_s \sin\alpha`}</K>)],
     },
     {
       say: 'Capacitor-start motor: auxiliary winding sanga series ma capacitor, ra centrifugal switch.',
@@ -1555,9 +1555,9 @@ export const capacitor74 = duo('Capacitor start and capacitor run motors', {
       lines: [['step', <>A capacitor C and centrifugal switch in series with the auxiliary winding.</>]],
     },
     {
-      say: 'I a V lai lead garcha ra I m lag garcha, tesaile alpha lagbhag 90 degree ra starting torque ucho.',
-      voice: 'आई ए भीलाई लिड गर्छ, र आई एम ल्याग गर्छ, त्यसैले अल्फा लगभग नब्बे डिग्री, र स्टार्टिङ टर्क उच्च।',
-      lines: [['step', <>I<sub>a</sub> leads V, I<sub>m</sub> lags: <K>{String.raw`\alpha \approx 90^\circ`}</K>, hence high starting torque.</>]],
+      say: 'I s V lai lead garcha ra I m lag garcha, tesaile alpha lagbhag 90 degree ra starting torque ucho.',
+      voice: 'आई एस भीलाई लिड गर्छ, र आई एम ल्याग गर्छ, त्यसैले अल्फा लगभग नब्बे डिग्री, र स्टार्टिङ टर्क उच्च।',
+      lines: [['step', <>I<sub>s</sub> leads V, I<sub>m</sub> lags: <K>{String.raw`\alpha \approx 90^\circ`}</K>, hence high starting torque.</>]],
     },
     {
       say: 'Capacitor ma current voltage lai lead garcha, kinaki plates charge huna pahila current bagnu parcha.',
@@ -1690,8 +1690,8 @@ export const consAnswer71 = answer('Model answer: working principle of a single-
     {
       page: true,
       node: <><H>(b) Effect of the air gap [3]</H><Pts items={[<>The air gap has a very high reluctance: <K>{String.raw`S_g = \dfrac{l_g}{\mu_0 A}`}</K></>, <>A larger gap needs a larger magnetising current → lower power factor and efficiency</>, <>So the gap is kept as small as mechanically possible (≈ 0.25–0.5 mm)</>]} /></>,
-      say: 'Air gap ko reluctance dherai ucho huncha: S g equals l g over mu zero A. Gap thulo bhaye magnetising current badhi chahincha, ra power factor ra efficiency ghatchan. Tesaile gap mechanical rupma sambhav bhaye samma sano rakhincha.',
-      voice: 'एयर ग्यापको रिलक्टेन्स धेरै उच्च हुन्छ — एस जी इक्वल्स, एल जी ओभर म्यु जिरो ए। ग्याप ठूलो भए म्याग्नेटाइजिङ करेन्ट बढी चाहिन्छ, र पावर फ्याक्टर र इफिसियन्सी घट्छन्। त्यसैले ग्याप मेकानिकल रूपमा सम्भव भएसम्म सानो राखिन्छ।',
+      say: 'Air gap ko reluctance dherai ucho huncha: S g equals l g over mu zero A. Gap thulo bhaye magnetising current I mu badhi chahincha, ra power factor ra efficiency ghatchan. Tesaile gap mechanical rupma sambhav bhaye samma sano rakhincha.',
+      voice: 'एयर ग्यापको रिलक्टेन्स धेरै उच्च हुन्छ — एस जी इक्वल्स, एल जी ओभर म्यु जिरो ए। ग्याप ठूलो भए म्याग्नेटाइजिङ करेन्ट आई म्यु बढी चाहिन्छ, र पावर फ्याक्टर र इफिसियन्सी घट्छन्। त्यसैले ग्याप मेकानिकल रूपमा सम्भव भएसम्म सानो राखिन्छ।',
       ask: {
         q: 'Induction motor ma air gap badhaye power factor lai k huncha?',
         voice: 'इन्डक्सन मोटरमा एयर ग्याप बढाए पावर फ्याक्टरलाई के हुन्छ?',
@@ -1719,9 +1719,9 @@ export const capAnswer74 = answer('Model answer: capacitor start and run motor (
   points: [
     {
       carry: <>Capacitor in the auxiliary → α ≈ 90°</>,
-      node: <><H>Capacitor start motor (Fig. 7.2)</H><Pts items={[<>A capacitor and a centrifugal switch in series with the auxiliary winding</>, <>I<sub>a</sub> leads V, I<sub>m</sub> lags: α ≈ 90°, so <K>{String.raw`T_{st} \propto I_mI_a\sin\alpha`}</K> is high</>, <>Switch opens at about 75 % speed</>]} /></>,
-      say: 'Capacitor start motor: auxiliary winding sanga series ma capacitor ra centrifugal switch. I a lead ra I m lag garda alpha lagbhag 90 degree, tesaile starting torque ucho. Lagbhag 75 percent speed ma switch khulcha.',
-      voice: 'क्यापासिटर स्टार्ट मोटर — अक्जिलरी वाइन्डिङसँग सिरिजमा क्यापासिटर र सेन्ट्रिफ्युगल स्विच। आई ए लिड र आई एम ल्याग गर्दा, अल्फा लगभग नब्बे डिग्री, त्यसैले स्टार्टिङ टर्क उच्च। लगभग पचहत्तर प्रतिशत स्पिडमा स्विच खुल्छ।',
+      node: <><H>Capacitor start motor (Fig. 7.2)</H><Pts items={[<>A capacitor and a centrifugal switch in series with the auxiliary winding</>, <>I<sub>s</sub> leads V, I<sub>m</sub> lags: α ≈ 90°, so <K>{String.raw`T_{st} \propto I_mI_s\sin\alpha`}</K> is high</>, <>Switch opens at about 75 % speed</>]} /></>,
+      say: 'Capacitor start motor: auxiliary winding sanga series ma capacitor ra centrifugal switch. I s lead ra I m lag garda alpha lagbhag 90 degree, tesaile starting torque ucho. Lagbhag 75 percent speed ma switch khulcha.',
+      voice: 'क्यापासिटर स्टार्ट मोटर — अक्जिलरी वाइन्डिङसँग सिरिजमा क्यापासिटर र सेन्ट्रिफ्युगल स्विच। आई एस लिड र आई एम ल्याग गर्दा, अल्फा लगभग नब्बे डिग्री, त्यसैले स्टार्टिङ टर्क उच्च। लगभग पचहत्तर प्रतिशत स्पिडमा स्विच खुल्छ।',
     },
     {
       node: <><H>Capacitor start capacitor run motor</H><Pts items={[<>Two capacitors: C<sub>s</sub> (large, electrolytic) for starting, C<sub>r</sub> (small, oil-filled) always connected</>, <>Better power factor and efficiency, quiet and smooth running</>, <>Uses: compressors, refrigerators, air conditioners, pumps; ceiling fans use one permanent capacitor</>]} /></>,
@@ -1766,7 +1766,7 @@ export const relAnswer75 = answer('Model answer: starting methods (reluctance st
       voice: 'रिलक्टेन्स स्टार्ट — सेलियन्ट पोलमा नन युनिफर्म एयर ग्याप, अक्जिलरी वाइन्डिङ छैन। ठूलो ग्यापको फ्लक्स कम ल्याग गर्छ, फिल्ड सानो ग्यापतिर सर्छ, र सानो स्टार्टिङ टर्क आउँछ। क्लक, टाइमर र टोयमा।',
     },
     {
-      node: <><H>(b)(ii) Split phase (resistance start)</H><Pts items={[<>High-resistance auxiliary winding 90° in space from the main, with a centrifugal switch</>, <>I<sub>a</sub> nearly in phase with V, I<sub>m</sub> lags: α ≈ 25–30°, so <K>{String.raw`T_{st} \propto I_mI_a\sin\alpha`}</K> is moderate</>, <>Fans, blowers, washing machines</>]} /></>,
+      node: <><H>(b)(ii) Split phase (resistance start)</H><Pts items={[<>High-resistance auxiliary winding 90° in space from the main, with a centrifugal switch</>, <>I<sub>s</sub> nearly in phase with V, I<sub>m</sub> lags: α ≈ 25–30°, so <K>{String.raw`T_{st} \propto I_mI_s\sin\alpha`}</K> is moderate</>, <>Fans, blowers, washing machines</>]} /></>,
       say: 'Split phase: high resistance auxiliary winding main sanga space ma 90 degree, centrifugal switch sahit. Alpha 25 dekhi 30 degree, tesaile starting torque madhyam. Fan, blower ra washing machine ma.',
       voice: 'स्प्लिट फेज — हाई रेजिस्टेन्स अक्जिलरी वाइन्डिङ, मेनसँग स्पेसमा नब्बे डिग्री, सेन्ट्रिफ्युगल स्विचसहित। अल्फा पच्चीस देखि तीस डिग्री, त्यसैले स्टार्टिङ टर्क मध्यम। फ्यान, ब्लोअर र वासिङ मेसिनमा।',
       ask: {
@@ -1793,7 +1793,7 @@ export const unit7 = {
   topics: [t71, t72, t73, t74, t75, t76, t77],
   summary: [
     <>Single-phase IM: pulsating field Φ<sub>m</sub> cos ωt = two Φ<sub>m</sub>/2 fields ulto ghumne; standstill ma T<sub>f</sub> = T<sub>b</sub>, not self-starting.</>,
-    <>Starting: auxiliary winding 90° ma; T ∝ I<sub>m</sub>I<sub>a</sub> sin α; split-phase α ≈ 30°, capacitor-start α ≈ 90°; centrifugal switch.</>,
+    <>Starting: auxiliary winding 90° ma; T ∝ I<sub>m</sub>I<sub>s</sub> sin α; split-phase α ≈ 30°, capacitor-start α ≈ 90°; centrifugal switch.</>,
     <>Reluctance start: non-uniform air gap, kam torque (clock, timer).</>,
     <>Universal motor: series, T ∝ i² → AC ra DC dubai; high speed (mixie, drill).</>,
     <>Stepper β = 360°/(mN<sub>r</sub>), open loop; servo closed loop feedback; Schrage: brush shift speed control.</>,

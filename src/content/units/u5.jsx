@@ -289,8 +289,8 @@ export const construction51 = duo('Construction and types: squirrel cage and sli
       lines: [['h', <>Construction</>], ['step', <>Stator: frame, laminated slotted core, 3-phase winding (Y or Δ)</>]],
     },
     {
-      say: 'Air gap ati sano, 0.4 dekhi 2 millimeter, tesaile magnetising current kam.',
-      voice: 'एयर ग्याप अति सानो, जिरो पोइन्ट फोर देखि दुई मिलिमिटर, त्यसैले म्याग्नेटाइजिङ करेन्ट कम।',
+      say: 'Air gap ati sano, 0.4 dekhi 2 millimeter, tesaile magnetising current I mu kam.',
+      voice: 'एयर ग्याप अति सानो, जिरो पोइन्ट फोर देखि दुई मिलिमिटर, त्यसैले म्याग्नेटाइजिङ करेन्ट आई म्यु कम।',
       lines: [['step', <>Small air gap (0.4–2 mm) → low magnetising current, better pf</>]],
     },
     {
@@ -323,8 +323,8 @@ export const construction51 = duo('Construction and types: squirrel cage and sli
       lines: [['h', <>Constructional details and types</>], ['step', <>Stator: frame, core, three-phase winding</>]],
     },
     {
-      say: 'The air gap is kept small to reduce the magnetising current.',
-      voice: 'द एयर ग्याप इज केप्ट स्मल टु रिड्युस द म्याग्नेटाइजिङ करेन्ट।',
+      say: 'The air gap is kept small to reduce the magnetising current I mu.',
+      voice: 'द एयर ग्याप इज केप्ट स्मल टु रिड्युस द म्याग्नेटाइजिङ करेन्ट आई म्यु।',
       lines: [['step', <>Small air gap: low magnetising current</>]],
     },
     {
@@ -681,7 +681,7 @@ export const rotor52 = duo('Derivation: rotor EMF, reactance and current', {
       lines: [['eq', tex(String.raw`\boxed{I_2 = \dfrac{sE_2}{\sqrt{R_2^2 + (sX_2)^2}}}`)]],
       ask: {
         q: 'Slip zero bhaye rotor current kati?',
-        voice: 'स्लिप जिरो भए रोटर करेन्ट कति?',
+        voice: 'स्लिप जिरो भए रोटर करेन्ट आई टु कति?',
         options: ['Zero', 'Maximum', 'E2/R2'],
         answer: 0,
         why: 'Numerator sE2 = 0.',
@@ -710,8 +710,8 @@ export const rotor52 = duo('Derivation: rotor EMF, reactance and current', {
       lines: [['eq', tex(String.raw`\begin{aligned} X_{2r} &= 2\pi (sf) L_2 \\ &= \boxed{sX_2} \end{aligned}`)]],
     },
     {
-      say: 'Hence the rotor current per phase.',
-      voice: 'हेन्स द रोटर करेन्ट पर फेज।',
+      say: 'Hence the rotor current I 2 per phase.',
+      voice: 'हेन्स द रोटर करेन्ट आई टु पर फेज।',
       lines: [['eq', tex(String.raw`\boxed{I_2 = \dfrac{sE_2}{\sqrt{R_2^2 + (sX_2)^2}}}`)]],
       ask: {
         q: 'Running ma rotor reactance standstill bhanda kasto?',
@@ -959,8 +959,8 @@ export const torque53 = duo('Derivation: torque equation of the induction motor'
   ],
   lecturer: [
     {
-      say: 'The torque is proportional to the flux, the rotor current and the rotor power factor.',
-      voice: 'द टर्क इज प्रपोर्सनल टु द फ्लक्स, द रोटर करेन्ट, एन्ड द रोटर पावर फ्याक्टर।',
+      say: 'The torque is proportional to the flux, the rotor current I 2 and the rotor power factor.',
+      voice: 'द टर्क इज प्रपोर्सनल टु द फ्लक्स, द रोटर करेन्ट आई टु, एन्ड द रोटर पावर फ्याक्टर।',
       lines: [['h', <>Torque developed by an induction motor</>], ['eq', tex(String.raw`T \propto \Phi\, I_2 \cos\varphi_2`)]],
     },
     {
@@ -1383,8 +1383,8 @@ export const gen54 = duo('Induction generator and voltage build-up', {
       lines: [['h', <>Induction generator</>], ['eq', tex(String.raw`N > N_s \;\Rightarrow\; s = \dfrac{N_s - N}{N_s} < 0`)]],
     },
     {
-      say: 'The rotor current and torque reverse, and power flows from the shaft to the supply.',
-      voice: 'द रोटर करेन्ट एन्ड टर्क रिभर्स, एन्ड पावर फ्लोज फ्रम द सफ्ट टु द सप्लाई।',
+      say: 'The rotor current I 2 and torque reverse, and power flows from the shaft to the supply.',
+      voice: 'द रोटर करेन्ट आई टु एन्ड टर्क रिभर्स, एन्ड पावर फ्लोज फ्रम द सफ्ट टु द सप्लाई।',
       lines: [['step', <>Negative slip: generating region of the T-s curve</>]],
       ask: {
         q: 'Induction generator lai reactive power kaha bata chahincha?',
@@ -1405,8 +1405,8 @@ export const gen54 = duo('Induction generator and voltage build-up', {
       lines: [['step', <>Isolated: capacitor self-excitation from residual flux</>]],
     },
     {
-      say: 'The capacitance per phase equals the magnetising current over omega V.',
-      voice: 'द क्यापासिटेन्स पर फेज इक्वल्स द म्याग्नेटाइजिङ करेन्ट ओभर ओमेगा भी।',
+      say: 'The capacitance per phase equals the magnetising current I mu over omega V.',
+      voice: 'द क्यापासिटेन्स पर फेज इक्वल्स द म्याग्नेटाइजिङ करेन्ट आई म्यु ओभर ओमेगा भी।',
       lines: [['eq', tex(String.raw`\begin{aligned} I_C &= \omega C V \\ &= I_\mu \\ \therefore\ C &= \boxed{\dfrac{I_\mu}{2\pi f V}}\ \text{per phase} \end{aligned}`)]],
     },
   ],
@@ -1440,8 +1440,8 @@ export const genAnswer54 = answer('Model answer: induction generator and excitat
     },
     {
       node: <><H>Value of capacitor</H><Pts items={[<>Run the machine as a motor on no load at rated V, f; measure the no-load current (≈ I<sub>μ</sub>)</>]} /><K>{String.raw`\begin{aligned} \omega C V &= I_\mu \\ \therefore\ C &= \boxed{\dfrac{I_\mu}{2\pi f V}} \end{aligned}`}</K>per phase (rated V across each capacitor).</>,
-      say: 'Procedure: run as a motor on no load at rated voltage and frequency, and measure the no-load current, nearly I mu. Then omega C V equals I mu, so C equals I mu over 2 pi f V per phase.',
-      voice: 'प्रोसिजर — रन एज अ मोटर अन नो लोड एट रेटेड भोल्टेज एन्ड फ्रिक्वेन्सी, एन्ड मेजर द नो लोड करेन्ट, नियर्ली आई म्यु। देन ओमेगा सी भी इक्वल्स आई म्यु, सो सी इक्वल्स आई म्यु ओभर टु पाइ एफ भी पर फेज।',
+      say: 'Procedure: run as a motor on no load at rated voltage and frequency, and measure the no-load current I 0, nearly I mu. Then omega C V equals I mu, so C equals I mu over 2 pi f V per phase.',
+      voice: 'प्रोसिजर — रन एज अ मोटर अन नो लोड एट रेटेड भोल्टेज एन्ड फ्रिक्वेन्सी, एन्ड मेजर द नो लोड करेन्ट आई जिरो, नियर्ली आई म्यु। देन ओमेगा सी भी इक्वल्स आई म्यु, सो सी इक्वल्स आई म्यु ओभर टु पाइ एफ भी पर फेज।',
       ask: {
         q: 'Capacitor kam bhaye isolated induction generator ma k huncha?',
         voice: 'क्यापासिटर कम भए आइसोलेटेड इन्डक्सन जेनेरेटरमा के हुन्छ?',

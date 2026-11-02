@@ -290,8 +290,8 @@ export const backEmf41 = duo('Back EMF and its significance', {
       },
     },
     {
-      say: 'Significance one: armature current V minus E b, over R a huncha; speed badhda ammeter ko reading ghatcha.',
-      voice: 'सिग्निफिकेन्स वान — आर्मेचर करेन्ट, भी माइनस ई बी, ओभर आर ए हुन्छ। स्पिड बढ्दा, एमिटरको रिडिङ घट्छ।',
+      say: 'Significance one: armature current I a V minus E b, over R a huncha; speed badhda ammeter ko reading ghatcha.',
+      voice: 'सिग्निफिकेन्स वान — आर्मेचर करेन्ट आई ए, भी माइनस ई बी, ओभर आर ए हुन्छ। स्पिड बढ्दा, एमिटरको रिडिङ घट्छ।',
       lines: [['step', <>(i) The armature current is <K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K></>]],
     },
     {

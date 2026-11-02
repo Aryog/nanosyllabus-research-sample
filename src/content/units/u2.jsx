@@ -339,8 +339,8 @@ export const principle21 = duo('Construction and working principle of a transfor
       lines: [['step', <>Primary N<sub>1</sub> on V<sub>1</sub>; secondary N<sub>2</sub> to the load; copper, insulated</>]],
     },
     {
-      say: 'V 1 le magnetising current pathaucha, ra core ma alternating flux phi m banaucha.',
-      voice: 'भी वानले म्याग्नेटाइजिङ करेन्ट पठाउँछ, र कोरमा अल्टरनेटिङ फ्लक्स फाइ एम बनाउँछ।',
+      say: 'V 1 le magnetising current I mu pathaucha, ra core ma alternating flux phi m banaucha.',
+      voice: 'भी वानले म्याग्नेटाइजिङ करेन्ट आई म्यु पठाउँछ, र कोरमा अल्टरनेटिङ फ्लक्स फाइ एम बनाउँछ।',
       lines: [['eq', tex(String.raw`\Phi = \Phi_m \sin \omega t`)]],
     },
     {
@@ -373,8 +373,8 @@ export const principle21 = duo('Construction and working principle of a transfor
       lines: [['step', <>Primary N<sub>1</sub> on V<sub>1</sub>; secondary N<sub>2</sub> to the load</>]],
     },
     {
-      say: 'Working: V 1 drives a magnetising current that sets up an alternating flux phi m sin omega t.',
-      voice: 'वर्किङ — भी वान ड्राइभ्स अ म्याग्नेटाइजिङ करेन्ट दयाट सेट्स अप एन अल्टरनेटिङ फ्लक्स फाइ एम साइन ओमेगा टी।',
+      say: 'Working: V 1 drives a magnetising current I mu that sets up an alternating flux phi m sin omega t.',
+      voice: 'वर्किङ — भी वान ड्राइभ्स अ म्याग्नेटाइजिङ करेन्ट आई म्यु दयाट सेट्स अप एन अल्टरनेटिङ फ्लक्स फाइ एम साइन ओमेगा टी।',
       lines: [['eq', tex(String.raw`\Phi = \Phi_m \sin \omega t`)]],
     },
     {
@@ -653,7 +653,7 @@ export const noLoad22 = duo('Ideal transformer and no-load operation', {
       lines: [['eq', tex(String.raw`\boxed{I_0 = \sqrt{I_w^2 + I_\mu^2}}, \quad P_0 = V_1 I_0\cos\varphi_0`)]],
       ask: {
         q: 'No-load current ko kun component le flux banaucha?',
-        voice: 'नो लोड करेन्टको कुन कम्पोनेन्टले फ्लक्स बनाउँछ?',
+        voice: 'नो लोड करेन्ट आई टुको कुन कम्पोनेन्टले फ्लक्स बनाउँछ?',
         options: ['Iμ (magnetising)', 'Iw (working)', 'Dubai le barabar'],
         answer: 0,
         why: 'Iμ flux sanga in phase: flux banaune kaam yasko.',
@@ -2966,8 +2966,8 @@ export const idealAnswer23 = answer('Model answer: ideal transformer on no load 
     {
       carry: <>(i) <K>{String.raw`V_1/V_2 = N_1/N_2`}</K></>,
       node: <><H>(i) No load</H><Pts items={[<>Ideal: no winding resistance, leakage or core loss; magnetising current I<sub>μ</sub> lags V<sub>1</sub> by 90°</>, <>The same flux links both windings (Fig. 2.1)</>]} /><K>{String.raw`\begin{aligned} e_1 &= N_1\dfrac{d\phi}{dt},\ e_2 = N_2\dfrac{d\phi}{dt} \\ \therefore\ \dfrac{V_1}{V_2} &= \dfrac{E_1}{E_2} = \dfrac{N_1}{N_2} = \dfrac{1}{K} \end{aligned}`}</K></>,
-      say: 'No load: ideal transformer ma loss chaina, magnetising current V 1 bhanda 90 degree pachhi. Eutai flux dubai winding ma, tesaile V 1 over V 2 equals N 1 over N 2.',
-      voice: 'नो लोड — आइडियल ट्रान्सफर्मरमा लस छैन, म्याग्नेटाइजिङ करेन्ट भी वानभन्दा नब्बे डिग्री पछि। एउटै फ्लक्स दुवै वाइन्डिङमा, त्यसैले भी वान ओभर भी टु इक्वल्स एन वान ओभर एन टु।',
+      say: 'No load: ideal transformer ma loss chaina, magnetising current I mu V 1 bhanda 90 degree pachhi. Eutai flux dubai winding ma, tesaile V 1 over V 2 equals N 1 over N 2.',
+      voice: 'नो लोड — आइडियल ट्रान्सफर्मरमा लस छैन, म्याग्नेटाइजिङ करेन्ट आई म्यु भी वानभन्दा नब्बे डिग्री पछि। एउटै फ्लक्स दुवै वाइन्डिङमा, त्यसैले भी वान ओभर भी टु इक्वल्स एन वान ओभर एन टु।',
     },
     {
       page: true,

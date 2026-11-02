@@ -268,8 +268,8 @@ export const swinEff46 = duo('Derivation: efficiency by Swinburne’s test', {
       lines: [['h', <>Efficiency from Swinburne’s test</>], ['step', tex(String.raw`W_c = VI_0 - (I_0 - I_{sh})^2R_a`)]],
     },
     {
-      say: 'Aba motor le jun sukai load ma I L line current lincha. Armature current I a equals I L minus I sh, ra copper loss I a square R a.',
-      voice: 'अब मोटरले जुन सुकै लोडमा आई एल लाइन करेन्ट लिन्छ। आर्मेचर करेन्ट — आई ए इक्वल्स आई एल माइनस आई एस एच, र कपर लस — आई ए स्क्वायर आर ए।',
+      say: 'Aba motor le jun sukai load ma I L line current I L lincha. Armature current I a equals I L minus I sh, ra copper loss I a square R a.',
+      voice: 'अब मोटरले जुन सुकै लोडमा आई एल लाइन करेन्ट आई एल लिन्छ। आर्मेचर करेन्ट आई ए — आई ए इक्वल्स आई एल माइनस आई एस एच, र कपर लस — आई ए स्क्वायर आर ए।',
       lines: [['step', tex(String.raw`\begin{aligned} I_a &= I_L - I_{sh} \\ \text{Cu loss} &= I_a^2R_a \end{aligned}`)]],
     },
     {
@@ -312,7 +312,7 @@ export const swinEff46 = duo('Derivation: efficiency by Swinburne’s test', {
       lines: [['step', <><K>{String.raw`\begin{aligned} \eta &= \dfrac{8800 - 1092 - 760.5}{8800} && \\ &= 78.9\,\% && \end{aligned}`}</K></>]],
       ask: {
         q: 'Swinburne method ma load ma armature current kasari nikalincha?',
-        voice: 'स्विनबर्न मेथडमा, लोडमा आर्मेचर करेन्ट कसरी निकालिन्छ?',
+        voice: 'स्विनबर्न मेथडमा, लोडमा आर्मेचर करेन्ट आई ए कसरी निकालिन्छ?',
         options: ['Ia = IL − Ish', 'Ia = IL + Ish', 'Ia = I0'],
         answer: 0,
         why: 'Shunt motor ma line current armature ra field ma bandincha.',

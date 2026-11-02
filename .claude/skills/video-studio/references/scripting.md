@@ -154,3 +154,14 @@ Graph step board line (rule 19):
 69. **3D labels are at most three words** (user, 2026-11-02: "the texts are like lots"): a label names the part or the effect ("rotor pachhi", "dherai flux"), never a sentence; the board and caption carry the explanation. Lint: error (reads each tour's `plan`).
 70. **A numerical Model Answer always calculates, every step** (user, 2026-11-02). Never a "method only" answer: if a paper's data is incomplete in the Question Bank (missing figure), use a fully specified real numerical for the same bullet from the vault Notes (KBT Insights worked problems carry paper tags) or another paper, recompute every number with python, and carry each step's result forward.
 71. **Segment 1 is 3D wherever a machine or core can show the idea** (user: "3d understanding if required should be in segment 1"). If the model lacks the shape, add it to the model as a new part and shot (e.g. `core3`, the three-limb core, shot `shell`), never fall back to a 2D figure in Basic Understanding.
+72. **Name every current by its symbol from the notes, decisively** (user, 2026-11-02: "telling Ia or I1 is better"). In Syllabus Content and Model Answer captions, voice and boards, a current is never just "current" or "current I" when the notes give it a name:
+    | Unit | Symbols |
+    |---|---|
+    | 1 Magnetic circuits | I (coil / exciting current), i (instantaneous) |
+    | 2 Transformer | I₁ primary, I₂ secondary, I₂′ load component, I₀ no-load, I_w working, I_μ magnetising, I_sc short-circuit |
+    | 3, 4 DC machines | I_a armature, I_L line/load, I_sh shunt field, I_se series field, I_c per conductor, I_st starting |
+    | 5 Induction | I₁ stator, I₂ rotor, I₀ / I_μ no-load and magnetising |
+    | 6 Synchronous | I_a armature, I_f field |
+    | 7 Single phase | I_m main winding, I_s starting (auxiliary) winding (never I_a here: I_a is armature current); I for the universal motor |
+    Write the symbol right after the name the first time ("armature current I a"). General phrases (eddy current, current density, circulating current) need none. Basic Understanding stays symbol-free (rule 7).
+73. **Board-only videos roll two columns** (user: "shift seg 2 content to seg 1 and show in seg 2"). On a wide screen the left column fills first; on overflow the right column starts; when the right overflows, its lines move to the left and the new step is written on the right (Scene.jsx `roll`, `rollR`). The question card stays on top; lines that leave keep their `carry`.

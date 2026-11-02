@@ -91,15 +91,15 @@ export const need44 = duo('Derivation: why a starter is needed', {
       lines: [['step', <>Huge current → burnt winding, sparking, supply dip → add R in series</>]],
     },
     {
-      say: 'Aba starting current V over R a plus R. Motor ghumdai jada E b badhcha, ani R bistarai hatauna milcha. Yahi kaam starter garcha.',
-      voice: 'अब स्टार्टिङ करेन्ट — भी ओभर आर ए प्लस आर। मोटर घुम्दै जाँदा ई बी बढ्छ, अनि आर बिस्तारै हटाउन मिल्छ। यही काम स्टार्टर गर्छ।',
+      say: 'Aba starting current I st V over R a plus R. Motor ghumdai jada E b badhcha, ani R bistarai hatauna milcha. Yahi kaam starter garcha.',
+      voice: 'अब स्टार्टिङ करेन्ट आई एस टी — भी ओभर आर ए प्लस आर। मोटर घुम्दै जाँदा ई बी बढ्छ, अनि आर बिस्तारै हटाउन मिल्छ। यही काम स्टार्टर गर्छ।',
       lines: [['idea', <>Starter: R in at start, cut out step by step as E<sub>b</sub> builds up</>]],
     },
   ],
   lecturer: [
     {
       say: 'Armature current I a equals V minus E b, over R a.',
-      voice: 'आर्मेचर करेन्ट — आई ए इक्वल्स, भी माइनस ई बी, ओभर आर ए।',
+      voice: 'आर्मेचर करेन्ट आई ए — आई ए इक्वल्स, भी माइनस ई बी, ओभर आर ए।',
       lines: [['h', <>Necessity of a starter (Fig. 7)</>], ['step', <><K>{String.raw`I_a = \dfrac{V - E_b}{R_a} \qquad \cdots(1)`}</K></>]],
     },
     {
@@ -291,7 +291,7 @@ export const starterR44 = duo('Derivation: starting current and starter resistan
       lines: [['eq', tex(String.raw`\begin{aligned} R &= \dfrac{V}{I_{st}} - R_a \\ &= \dfrac{220}{40} - 0.5 \\ &= 5\ \Omega \end{aligned}`)]],
       ask: {
         q: 'Same motor ma starting current 55 A ma limit garna R kati?',
-        voice: 'सेम मोटरमा स्टार्टिङ करेन्ट फिफ्टी फाइभ एम्पियरमा लिमिट गर्न, आर कति?',
+        voice: 'सेम मोटरमा स्टार्टिङ करेन्ट आई एस टी फिफ्टी फाइभ एम्पियरमा लिमिट गर्न, आर कति?',
         options: ['3.5 Ω', '4 Ω', '5 Ω'],
         answer: 0,
         why: 'R = 220/55 − 0.5 = 4 − 0.5 = 3.5 Ω.',
@@ -311,7 +311,7 @@ export const starterR44 = duo('Derivation: starting current and starter resistan
     },
     {
       say: 'Direct-on-line starting current I st equals V over R a, example 440 ampere.',
-      voice: 'डाइरेक्ट अन लाइन स्टार्टिङ करेन्ट — आई एस टी इक्वल्स भी ओभर आर ए, उदाहरण फोर हन्ड्रेड फोर्टी एम्पियर।',
+      voice: 'डाइरेक्ट अन लाइन स्टार्टिङ करेन्ट आई एस टी — आई एस टी इक्वल्स भी ओभर आर ए, उदाहरण फोर हन्ड्रेड फोर्टी एम्पियर।',
       lines: [['step', <><K>{String.raw`\begin{aligned} I_{st} &= \dfrac{V}{R_a} && \cdots(2) \\ &= \dfrac{220}{0.5} && \\ &= 440\ \text{A} && \end{aligned}`}</K></>]],
     },
     {

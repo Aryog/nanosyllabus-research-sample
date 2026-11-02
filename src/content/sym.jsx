@@ -15,7 +15,7 @@ import { Children, cloneElement, isValidElement } from 'react';
 // base + subscript, as written in plain text. Order: longest first.
 const SUBS = {
   E: ['b', 'g', 'r', 'ph'],
-  I: ['sh', 'se', 'a', 'L', 'c', 'f', 'm', 'w', 'μ', '0', 'st', 'fl', 'nl'],
+  I: ['sh', 'se', 'a', 'L', 'c', 'f', 'm', 'w', 'μ', 'mu', '0', 'st', 'fl', 'nl', 's', '1', '2'],
   R: ['sh', 'se', 'a', 'f', 'c', 'L', 'st', 'eq'],
   T: ['sh', 'st', 'max', 'a', 'L', 'f', 'lost'],
   P: ['cu', 'm', 'i', 'out', 'g'],
@@ -72,7 +72,7 @@ export function sym(str) {
     typeof p === 'string' ? p : (
       <span key={i} className="sym">
         {p.base}
-        <sub>{p.sub}</sub>
+        <sub>{p.sub === 'mu' ? 'μ' : p.sub}</sub>
       </span>
     ),
   );
@@ -88,7 +88,7 @@ export function symSvg(str) {
     out.push(
       <tspan key={`${i}b`}>{p.base}</tspan>,
       <tspan key={`${i}s`} dy="0.32em" style={{ fontSize: '0.72em' }}>
-        {p.sub}
+        {p.sub === 'mu' ? 'μ' : p.sub}
       </tspan>,
       <tspan key={`${i}r`} dy="-0.32em" />,
     );

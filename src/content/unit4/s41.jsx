@@ -265,8 +265,8 @@ export const backEmfS41 = duo('Back EMF and its significance', {
       lines: [['eq', tex(String.raw`E_b = \dfrac{P\phi Z N}{60A} \unit{volt}`)], ['note', <>Derived later in this segment; E<sub>b</sub> grows with φ and N</>]],
     },
     {
-      say: 'Significance ek: current V le matra chalaudaina. Net voltage V minus E b ho, tesaile I a equals V minus E b, over R a. Back EMF le armature current lai limit garcha.',
-      voice: 'सिग्निफिकेन्स एक — करेन्ट भीले मात्र चलाउँदैन। नेट भोल्टेज भी माइनस ई बी हो, त्यसैले आई ए इक्वल्स, भी माइनस ई बी, ओभर आर ए। ब्याक ई एम एफले आर्मेचर करेन्टलाई लिमिट गर्छ।',
+      say: 'Significance ek: current V le matra chalaudaina. Net voltage V minus E b ho, tesaile I a equals V minus E b, over R a. Back EMF le armature current I a lai limit garcha.',
+      voice: 'सिग्निफिकेन्स एक — करेन्ट भीले मात्र चलाउँदैन। नेट भोल्टेज भी माइनस ई बी हो, त्यसैले आई ए इक्वल्स, भी माइनस ई बी, ओभर आर ए। ब्याक ई एम एफले आर्मेचर करेन्ट आई एलाई लिमिट गर्छ।',
       lines: [['step', <>(i) Limits the current: <K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K></>, undefined, { carry: <>(i) <K>{String.raw`I_a = (V - E_b)/R_a`}</K></> }]],
     },
     {
@@ -281,7 +281,7 @@ export const backEmfS41 = duo('Back EMF and its significance', {
       lines: [['step', <>(ii) Self-regulation: load ↑ → N ↓ → E<sub>b</sub> ↓ → I<sub>a</sub> ↑ → T<sub>a</sub> ↑ until T<sub>a</sub> = T<sub>L</sub></>, undefined, { carry: <>(ii) self-regulation</> }]],
       ask: {
         q: 'DC motor ma load badhda armature current kina badhcha?',
-        voice: 'डी सी मोटरमा लोड बढ्दा, आर्मेचर करेन्ट किन बढ्छ?',
+        voice: 'डी सी मोटरमा लोड बढ्दा, आर्मेचर करेन्ट आई ए किन बढ्छ?',
         options: ['Speed ra Eb ghatchan, yasari V − Eb badhcha', 'Supply voltage badhcha', 'Ra badhcha'],
         answer: 0,
         why: 'Ia = (V − Eb)/Ra; Eb ghatda V − Eb badhcha ra Ia badhcha.',
@@ -330,7 +330,7 @@ export const backEmfS41 = duo('Back EMF and its significance', {
     },
     {
       say: 'Significance one: armature current I a equals V minus E b, over R a; back EMF le current lai seemit garera armature lai short circuit jasto awastha bata bachaucha.',
-      voice: 'सिग्निफिकेन्स वान — आर्मेचर करेन्ट, आई ए इक्वल्स, भी माइनस ई बी, ओभर आर ए। ब्याक ई एम एफले करेन्टलाई सीमित गरेर, आर्मेचरलाई सर्ट सर्किट जस्तो अवस्थाबाट बचाउँछ।',
+      voice: 'सिग्निफिकेन्स वान — आर्मेचर करेन्ट आई ए, आई ए इक्वल्स, भी माइनस ई बी, ओभर आर ए। ब्याक ई एम एफले करेन्टलाई सीमित गरेर, आर्मेचरलाई सर्ट सर्किट जस्तो अवस्थाबाट बचाउँछ।',
       lines: [['step', <>(i) <K>{String.raw`I_a = \dfrac{V - E_b}{R_a}`}</K>: E<sub>b</sub> limits I<sub>a</sub> and protects the armature from a short-circuit current.</>, undefined, { carry: <>(i) <K>{String.raw`I_a = (V - E_b)/R_a`}</K></> }]],
     },
     {
@@ -597,8 +597,8 @@ export const torqueForceS41 = duo('Derivation: torque equation (force method)', 
       lines: [['h', <>Derivation: torque equation (force method)</>], rem(<K>{String.raw`F = B\,I\,l`}</K>, <>Torque = force × radius: <K>{String.raw`\tau = F\,r`}</K></>)],
     },
     {
-      say: 'Symbols: P, phi, Z ra A aghi jastai. Thap ma I a armature current, r armature ko radius, ra l conductor ko active length.',
-      voice: 'सिम्बोल्स — पी, फाइ, जेड र ए अघि जस्तै। थपमा, आई ए आर्मेचर करेन्ट, आर आर्मेचरको रेडियस, र एल कन्डक्टरको एक्टिभ लेन्थ।',
+      say: 'Symbols: P, phi, Z ra A aghi jastai. Thap ma I a armature current I a, r armature ko radius, ra l conductor ko active length.',
+      voice: 'सिम्बोल्स — पी, फाइ, जेड र ए अघि जस्तै। थपमा, आई ए आर्मेचर करेन्ट आई ए, आर आर्मेचरको रेडियस, र एल कन्डक्टरको एक्टिभ लेन्थ।',
       lines: [['step', <Let items={[<>P, φ, Z, A as before</>, <>I<sub>a</sub> = armature current</>, <>r = armature radius</>, <>l = active length</>]} />, undefined, { carry: <>P, φ, Z, A, I<sub>a</sub>, r, l</> }]],
     },
     {
@@ -638,13 +638,13 @@ export const torqueForceS41 = duo('Derivation: torque equation (force method)', 
       lines: [['eq', tex(String.raw`T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right) \unit{newton-metre}`)]],
     },
     {
-      say: 'Euta machine ma P, Z ra A fixed. Tesaile torque flux ra armature current ma bhar parcha: T a phi I a sanga proportional. IOE ma sodhine factors pani yahi hun.',
-      voice: 'एउटा मेसिनमा पी, जेड र ए फिक्स्ड। त्यसैले टर्क, फ्लक्स र आर्मेचर करेन्टमा भर पर्छ — टी ए, फाइ आई एसँग प्रोपोर्सनल। आई ओ ईमा सोधिने फ्याक्टर्स पनि यही हुन्।',
+      say: 'Euta machine ma P, Z ra A fixed. Tesaile torque flux ra armature current I a ma bhar parcha: T a phi I a sanga proportional. IOE ma sodhine factors pani yahi hun.',
+      voice: 'एउटा मेसिनमा पी, जेड र ए फिक्स्ड। त्यसैले टर्क, फ्लक्स र आर्मेचर करेन्ट आई एमा भर पर्छ — टी ए, फाइ आई एसँग प्रोपोर्सनल। आई ओ ईमा सोधिने फ्याक्टर्स पनि यही हुन्।',
       lines: [['step', step('Factors affecting torque (given machine)', String.raw`T_a \propto \phi\, I_a`)]],
       ask: {
         tag: 'Quick check',
         q: 'Flux same rakhera armature current dui guna garda torque kati huncha?',
-        voice: 'फ्लक्स उही राखेर, आर्मेचर करेन्ट दुई गुना गर्दा, टर्क कति हुन्छ?',
+        voice: 'फ्लक्स उही राखेर, आर्मेचर करेन्ट आई ए दुई गुना गर्दा, टर्क कति हुन्छ?',
         options: ['Dui guna', 'Same', 'Char guna'],
         answer: 0,
         why: 'Ta ∝ φ Ia; φ same bhaye Ta Ia sanga badhcha.',
@@ -658,8 +658,8 @@ export const torqueForceS41 = duo('Derivation: torque equation (force method)', 
       lines: [['h', <>Torque equation of a DC motor</>], rem(<K>{String.raw`F = B\,I\,l`}</K>, <K>{String.raw`\tau = F\,r`}</K>)],
     },
     {
-      say: 'Let: P poles, phi flux per pole, Z conductors, A parallel paths, I a armature current, r armature radius, ra l active length.',
-      voice: 'लेट — पी पोल्स, फाइ फ्लक्स पर पोल, जेड कन्डक्टर्स, ए प्यारालल पाथ्स, आई ए आर्मेचर करेन्ट, आर आर्मेचर रेडियस, र एल एक्टिभ लेन्थ।',
+      say: 'Let: P poles, phi flux per pole, Z conductors, A parallel paths, I a armature current I a, r armature radius, ra l active length.',
+      voice: 'लेट — पी पोल्स, फाइ फ्लक्स पर पोल, जेड कन्डक्टर्स, ए प्यारालल पाथ्स, आई ए आर्मेचर करेन्ट आई ए, आर आर्मेचर रेडियस, र एल एक्टिभ लेन्थ।',
       lines: [['step', <Let items={[<>P = poles</>, <>φ = flux/pole (Wb)</>, <>Z = conductors</>, <>A = parallel paths</>, <>I<sub>a</sub> = armature current (A)</>, <>r = radius (m)</>, <>l = active length (m)</>]} />, undefined, { carry: <>P, φ, Z, A, I<sub>a</sub>, r, l</> }]],
     },
     {
@@ -668,8 +668,8 @@ export const torqueForceS41 = duo('Derivation: torque equation (force method)', 
       lines: [['step', tex(String.raw`I_c = \dfrac{I_a}{A} \qquad \cdots(1)`), undefined, { carry: <><K>{String.raw`I_c = I_a/A \quad (1)`}</K></> }]],
     },
     {
-      say: 'Kina bhane armature current A ota parallel path ma barabar bandincha.',
-      voice: 'किनभने आर्मेचर करेन्ट, ए ओटा प्यारालल पाथमा बराबर बाँडिन्छ।',
+      say: 'Kina bhane armature current I a A ota parallel path ma barabar bandincha.',
+      voice: 'किनभने आर्मेचर करेन्ट आई ए, ए ओटा प्यारालल पाथमा बराबर बाँडिन्छ।',
       lines: [br('Why Ia/A?', <Pts items={[<>I<sub>a</sub> divides equally among A parallel paths</>]} />)],
     },
     {
@@ -699,8 +699,8 @@ export const torqueForceS41 = duo('Derivation: torque equation (force method)', 
       lines: [['step', tex(String.raw`\therefore\ \boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right) \unit{newton-metre}} \qquad \cdots(5)`)]],
     },
     {
-      say: 'Given machine ma P, Z ra A constant, yasari T a phi I a sanga proportional. Torque lai flux ra armature current le prabhavit garchan.',
-      voice: 'गिभन मेसिनमा पी, जेड र ए कन्स्टेन्ट। यसरी टी ए, फाइ आई एसँग प्रोपोर्सनल। टर्कलाई फ्लक्स र आर्मेचर करेन्टले प्रभावित गर्छन्।',
+      say: 'Given machine ma P, Z ra A constant, yasari T a phi I a sanga proportional. Torque lai flux ra armature current I a le prabhavit garchan.',
+      voice: 'गिभन मेसिनमा पी, जेड र ए कन्स्टेन्ट। यसरी टी ए, फाइ आई एसँग प्रोपोर्सनल। टर्कलाई फ्लक्स र आर्मेचर करेन्ट आई एले प्रभावित गर्छन्।',
       lines: [['step', <>For a given machine, <K>{String.raw`T_a \propto \phi\, I_a`}</K>: the torque depends on the flux and the armature current.</>]],
       ask: {
         q: 'Given DC motor ko torque kun kura sanga proportional huncha?',

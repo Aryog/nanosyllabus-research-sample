@@ -76,7 +76,7 @@ clips.
 | MP4 render, the review loop, the frame strip, the final checklist | [references/render-and-qa.md](references/render-and-qa.md) |
 
 Read the reference before touching its area. Rules are numbered: house rules
-1 to 71 (the scripts cite them by number) and motion rules M1 to M20. A rule
+1 to 73 (the scripts cite them by number) and motion rules M1 to M20. A rule
 lives in exactly one reference.
 
 ## POVs: who is teaching (two roles, two skills)
@@ -227,3 +227,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-11-02: "Why" explanations moved from a card over the figure into the notes (rule 63, M20); "Main line ma farkau" removed from 44 lines; `Let` component: one symbol per line (10 definition lines converted).
 - 2026-11-02: carried results as a list, one per line (6 carries converted; Scene renders `.carry-row`).
 - 2026-11-02: all open 3D wires are 90° cabling by default (magnet, transformer, lamp leads rerouted terminal → coil end); 65 long 3D labels cut to ≤ 3 words with lint rule 69; 1.3 Basic Understanding moved to 3D on a new three-limb core (`core3`, shot `shell`); 1.3 Model Answer replaced by a fully solved parallel-circuit numerical from the vault notes (MMF = 77.09 AT); rules 69–71.
+- 2026-11-02: decisive current notation (rule 72): 86 caption and voice lines now name I_a, I_L, I_st, I_sh, I_f, I_2, I_0, I_μ; single-phase auxiliary current renamed I_s (40 uses) so I_a always means armature current; sym.jsx knows I_s, I_μ, I₁, I₂. Rolling two-column board for board-only videos (rule 73).
