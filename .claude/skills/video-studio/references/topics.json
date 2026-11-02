@@ -1141,9 +1141,27 @@
     ]
   },
   "6.1": {
-    "title": "Alternator: construction, rotor types ra working",
+    "title": "Three Phase Synchronous Generator: Constructional Details, Armature Windings, Types of Rotor, Exciter",
     "syllabus": [
-      "Three Phase Synchronous Generator: Constructional Details, Armature Windings, Types of Rotor, Exciter",
+      "Three Phase Synchronous Generator: Constructional Details, Armature Windings, Types of Rotor, Exciter"
+    ],
+    "derivations": [],
+    "bigPicture": [
+      {
+        "id": "salient",
+        "kind": "theory",
+        "papers": [
+          "2067 Mangsir"
+        ],
+        "marks": "",
+        "q": "Salient pole alternators are suitable for low speed whereas cylindrical pole alternators for high speed."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "6.2": {
+    "title": "Working Principle",
+    "syllabus": [
       "Working Principle"
     ],
     "derivations": [
@@ -1158,20 +1176,12 @@
         ],
         "marks": "",
         "q": "What are the advantages of rotating magnetic system and stationary armature system in ac machine?"
-      },
-      {
-        "id": "salient",
-        "kind": "theory",
-        "papers": [
-          "2067 Mangsir"
-        ],
-        "marks": "",
-        "q": "Salient pole alternators are suitable for low speed whereas cylindrical pole alternators for high speed."
       }
-    ]
+    ],
+    "alsoAsked": []
   },
-  "6.2": {
-    "title": "Alternator EMF equation, pitch ra distribution factor",
+  "6.3": {
+    "title": "EMF equation, distribution factor, pitch factor",
     "syllabus": [
       "EMF equation, distribution factor, pitch factor"
     ],
@@ -1191,15 +1201,12 @@
       }
     ]
   },
-  "6.3": {
-    "title": "Armature reaction ra alternator on load",
+  "6.4": {
+    "title": "Armature Reaction and its effects",
     "syllabus": [
-      "Armature Reaction and its effects",
-      "Alternator with load and its phasor diagram"
+      "Armature Reaction and its effects"
     ],
-    "derivations": [
-      "E = V + I(Ra + jXs) and regulation (E − V)/V"
-    ],
+    "derivations": [],
     "bigPicture": [
       {
         "id": "ar",
@@ -1211,7 +1218,19 @@
         ],
         "marks": "",
         "q": "Explain the armature reaction in a synchronous generator for resistive, inductive and capacitive loading with necessary diagram"
-      },
+      }
+    ],
+    "alsoAsked": []
+  },
+  "6.5": {
+    "title": "Alternator with load and its phasor diagram",
+    "syllabus": [
+      "Alternator with load and its phasor diagram"
+    ],
+    "derivations": [
+      "E = V + I(Ra + jXs) and regulation (E − V)/V"
+    ],
+    "bigPicture": [
       {
         "id": "load",
         "kind": "numerical",
@@ -1235,16 +1254,13 @@
       }
     ]
   },
-  "6.4": {
-    "title": "Synchronous motor: principle, starting ra excitation",
+  "6.6": {
+    "title": "Three Phase Synchronous Motor: Principle of operation",
     "syllabus": [
-      "Three Phase Synchronous Motor: Principle of operation",
-      "Starting methods",
-      "No load and Load operation, Phasor Diagram",
-      "Effect of Excitation and power factor control"
+      "Three Phase Synchronous Motor: Principle of operation"
     ],
     "derivations": [
-      "Motor phasor V = E + I(Ra + jXs); V-curves"
+      "Magnetic locking: N = Ns at every load; not self-starting"
     ],
     "bigPicture": [
       {
@@ -1257,7 +1273,59 @@
         ],
         "marks": "",
         "q": "Explain why synchronous motor is not self starting? Explain the starting method using damper winding."
-      },
+      }
+    ],
+    "alsoAsked": []
+  },
+  "6.7": {
+    "title": "Starting methods",
+    "syllabus": [
+      "Starting methods"
+    ],
+    "derivations": [],
+    "bigPicture": [
+      {
+        "id": "startnote",
+        "kind": "theory",
+        "papers": [
+          "2068 Magh"
+        ],
+        "marks": "",
+        "q": "Write short notes on: Starting methods of synchronous motor."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "6.8": {
+    "title": "No load and Load operation, Phasor Diagram",
+    "syllabus": [
+      "No load and Load operation, Phasor Diagram"
+    ],
+    "derivations": [
+      "E = V − I(Ra + jXs); P = 3VE sin δ / Xs"
+    ],
+    "bigPicture": [
+      {
+        "id": "motor-emf",
+        "kind": "numerical",
+        "papers": [
+          "2071 Bhadra"
+        ],
+        "marks": "",
+        "q": "A 3.3 kV, 3-phase star connected synchronous motor has impedance of (0.2 + j2.2) Ω/phase of the armature winding."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "6.9": {
+    "title": "Effect of Excitation and power factor control",
+    "syllabus": [
+      "Effect of Excitation and power factor control"
+    ],
+    "derivations": [
+      "Motor phasor V = E + I(Ra + jXs); V-curves"
+    ],
+    "bigPicture": [
       {
         "id": "excitation",
         "kind": "theory",

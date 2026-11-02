@@ -1,14 +1,14 @@
 import { C, K, Pts, answer, duo, solve, topic } from '../video/kit.jsx';
-import { chain, part } from '../video/kit.jsx';
+import { br, chain, figAt, part, rem } from '../video/kit.jsx';
 import { Cap, T, W, head } from '../unit4/figs.jsx';
 import { syncTour } from '../machines/models3d.js';
 
 /*
-  Unit 6 Three Phase Synchronous Machines (IOE syllabus).
-    6.1 alternator construction, rotor types, exciter, working principle
-    6.2 EMF equation, pitch factor, distribution factor
-    6.3 armature reaction, alternator on load, phasor diagram
-    6.4 synchronous motor: principle, starting, excitation and pf control
+  Unit 6 Three Phase Synchronous Machines (IOE syllabus), one topic per bullet
+  (rule 68): 6.1 construction · 6.2 working principle · 6.3 EMF equation,
+  factors · 6.4 armature reaction · 6.5 alternator on load · 6.6 motor
+  principle · 6.7 starting methods · 6.8 no-load and load operation, phasor
+  diagram · 6.9 effect of excitation and pf control.
   Segment 1 walks the 3D synchronous machine (machines/models3d.js syncTour).
   Recomputed (2073 Chaitra / 2070 Bhadra): Vph = 6600/√3 = 3810.5 V,
   I = 1200e3/(√3 × 6600) = 104.97 A; lagging IZs = 411.5 + j478.7,
@@ -478,7 +478,7 @@ export const salientAnswer61 = answer('Model answer: suitability of salient-pole
 });
 
 /* ── 6.2 EMF equation, pitch and distribution factors ───────────────── */
-export const basics62 = duo('6.2 · Basic understanding: why does a distributed winding give slightly less voltage?', {
+export const basics62 = duo('6.3 · Basic understanding: why does a distributed winding give slightly less voltage?', {
   three: syncTour([
     { shot: 'front', show: [...SM, 'lamps'], spin: 0.35, field: 1, lamp: 0.8, focus: ['salient', 'winding'], labels: [['magnet coil ko agadi', 'winding']] },
     { spin: 0.8, lamp: 1, focus: ['salient'], labels: [['chito: dherai cycle', 'salient']] },
@@ -493,7 +493,7 @@ export const basics62 = duo('6.2 · Basic understanding: why does a distributed 
     {
       say: 'Rotor ko magnet stator ko coil agadi pass huncha, ra coil ma voltage aaucha.',
       voice: 'रोटरको म्याग्नेट स्टेटरको कोइल अगाडि पास हुन्छ, र कोइलमा भोल्टेज आउँछ।',
-      lines: [['h', <>6.2 · Coil chhariyeda voltage kina ghatcha?</>], chain(<>Magnet pass → coil ma voltage</>)],
+      lines: [['h', <>6.3 · Coil chhariyeda voltage kina ghatcha?</>], chain(<>Magnet pass → coil ma voltage</>)],
     },
     {
       say: 'Chito ghumaye eksekend ma dherai cycle: frequency ra voltage dubai badhcha.',
@@ -542,7 +542,7 @@ export const basics62 = duo('6.2 · Basic understanding: why does a distributed 
     {
       say: 'Rotor flux stator coils pass garda EMF induce huncha.',
       voice: 'रोटर फ्लक्स स्टेटर कोइल्स पास गर्दा ई एम एफ इन्ड्युस हुन्छ।',
-      lines: [['h', <>6.2 · Factors affecting the EMF</>], chain(<>Rotor flux passing the coils → EMF</>)],
+      lines: [['h', <>6.3 · Factors affecting the EMF</>], chain(<>Rotor flux passing the coils → EMF</>)],
     },
     {
       say: 'Speed badhda frequency ra EMF dubai badhchan.',
@@ -777,7 +777,7 @@ export const emfAnswer62 = answer('Model answer: EMF equation of the alternator'
 });
 
 /* ── 6.3 Armature reaction, alternator on load ───────────────────────── */
-export const basics63 = duo('6.3 · Basic understanding: why does the alternator voltage change with load?', {
+export const basics63 = duo('6.5 · Basic understanding: why does the alternator voltage change with load?', {
   three: syncTour([
     { shot: 'lamps', show: GENSET, spin: 0.4, field: 1, lamp: 0, focus: ['lamps'], labels: [['no load', 'lamps']] },
     { lamp: 1, focus: ['winding', 'lamps'], labels: [['load: stator ma current', 'winding']] },
@@ -792,7 +792,7 @@ export const basics63 = duo('6.3 · Basic understanding: why does the alternator
     {
       say: 'No load ma bulb haru off, stator ma current chaina. Voltage rotor ko magnet le matra tay garcha.',
       voice: 'नो लोडमा बल्बहरू अफ, स्टेटरमा करेन्ट छैन। भोल्टेज रोटरको म्याग्नेटले मात्र तय गर्छ।',
-      lines: [['h', <>6.3 · Load anusar voltage kina badlincha?</>], part(<>No load</>, <>rotor ko magnet le matra voltage</>)],
+      lines: [['h', <>6.5 · Load anusar voltage kina badlincha?</>], part(<>No load</>, <>rotor ko magnet le matra voltage</>)],
     },
     {
       say: 'Load lagaye stator ka coil ma current bagcha.',
@@ -841,7 +841,7 @@ export const basics63 = duo('6.3 · Basic understanding: why does the alternator
     {
       say: 'No load ma armature current zero; terminal voltage excitation EMF barabar.',
       voice: 'नो लोडमा आर्मेचर करेन्ट जिरो, टर्मिनल भोल्टेज एक्साइटेसन ई एम एफ बराबर।',
-      lines: [['h', <>6.3 · Armature reaction</>], part(<>No load</>, <>V equals the excitation EMF</>)],
+      lines: [['h', <>6.5 · Armature reaction</>], part(<>No load</>, <>V equals the excitation EMF</>)],
     },
     {
       say: 'Load ma armature current bagcha.',
@@ -1127,7 +1127,7 @@ export const loadSolve63 = solve({
 });
 
 /* ── 6.4 Synchronous motor ────────────────────────────────────────────── */
-export const basics64 = duo('6.4 · Basic understanding: why is a synchronous motor not self-starting?', {
+export const basics64 = duo('6.6 · Basic understanding: why is a synchronous motor not self-starting?', {
   three: syncTour([
     { shot: 'front', show: MOTOR, field: 1, rmf: 0.6, spin: 0, flow: 0.7, focus: ['winding', 'supply'], labels: [['stator: ghumne magnet', 'winding']] },
     { focus: ['salient', 'fieldCoil'], labels: [['rotor: DC magnet', 'salient']] },
@@ -1142,7 +1142,7 @@ export const basics64 = duo('6.4 · Basic understanding: why is a synchronous mo
     {
       say: 'Synchronous motor ko stator induction motor jastai: tin phase le ghumne magnet banaucha.',
       voice: 'सिन्क्रोनस मोटरको स्टेटर इन्डक्सन मोटर जस्तै — तीन फेजले घुम्ने म्याग्नेट बनाउँछ।',
-      lines: [['h', <>6.4 · Aafai kina start hudaina?</>], part(<>Stator</>, <>tin phase → ghumne magnet</>)],
+      lines: [['h', <>6.6 · Aafai kina start hudaina?</>], part(<>Stator</>, <>tin phase → ghumne magnet</>)],
     },
     {
       say: 'Rotor ma DC le banaeko balio magnet. Dui magnet ek-arka lai samatchan.',
@@ -1191,7 +1191,7 @@ export const basics64 = duo('6.4 · Basic understanding: why is a synchronous mo
     {
       say: 'Stator ko three-phase supply le synchronous speed ma RMF banaucha.',
       voice: 'स्टेटरको थ्री फेज सप्लाईले सिन्क्रोनस स्पिडमा आर एम एफ बनाउँछ।',
-      lines: [['h', <>6.4 · Synchronous motor</>], ['step', <>Stator RMF at synchronous speed</>]],
+      lines: [['h', <>6.6 · Synchronous motor</>], ['step', <>Stator RMF at synchronous speed</>]],
     },
     {
       say: 'Rotor poles DC le excite gariyeka hunchan.',
@@ -1466,13 +1466,709 @@ export const excitationAnswer64 = answer('Model answer: effect of excitation on 
   ],
 });
 
-const t61 = topic({ num: '6.1', title: 'Three Phase Synchronous Generator: Constructional Details, Armature Windings, Types of Rotor, Exciter · Working Principle', opener: basics61, derive: [construction61, working61], picture: [rotatingAnswer61, salientAnswer61] });
-const t62 = topic({ num: '6.2', title: 'EMF equation, distribution factor, pitch factor', opener: basics62, derive: [factors62, emf62], picture: [emfAnswer62] });
-const t63 = topic({ num: '6.3', title: 'Armature Reaction and its effects · Alternator with load and its phasor diagram', opener: basics63, derive: [ar63, load63], picture: [arAnswer63, loadSolve63] });
-const t64 = topic({ num: '6.4', title: 'Three Phase Synchronous Motor: Principle of operation · Starting methods · No load and Load operation, Phasor Diagram · Effect of Excitation and power factor control', opener: basics64, derive: [start64, excitation64], picture: [startAnswer64, excitationAnswer64] });
+
+/* ── Fig. 6.5: synchronous motor phasor diagram (leading pf) ─────────── */
+// Drawn to scale for 2071 Bhadra (V = 1905 V, E = 2090 V at δ = 3.5°, I at 60° lead).
+// 0 V · 1 I leading by φ · 2 I Zs · 3 E and δ
+export const motorPhasorFigure = (s) => (
+  <>
+    <g className={s.on(0) + s.hl(0)}>
+      <W d="M40 130 H240" w={1.5} />
+      {head(240, 130, 'right', 7)}
+      <T x={244} y={124} i size={11} a="start">V</T>
+      <circle cx={40} cy={130} r={2} fill={C.chalk} />
+      <T x={34} y={146} i size={10} a="end">O</T>
+      <Cap x={170} y={214}>Fig. 6.5  Synchronous motor phasor diagram (leading pf)</Cap>
+    </g>
+    <g className={s.on(1) + s.hl(1)}>
+      <W d="M40 130 L80 61" w={1.2} />
+      {head(80, 61, 'up', 6)}
+      <T x={86} y={58} i size={11} a="start">I</T>
+      <path d="M70 130 A30 30 0 0 0 55 104" fill="none" stroke={C.chalk} strokeWidth={0.9} />
+      <T x={74} y={116} i size={10} a="start">φ</T>
+    </g>
+    <g className={s.on(2) + s.hl(2)}>
+      <W d="M259 143 L240 130" w={1.2} dash="4 2" />
+      <T x={262} y={160} i size={10} a="start">I Zs</T>
+    </g>
+    <g className={s.on(3) + s.hl(3)}>
+      <W d="M40 130 L259 143" w={1.5} />
+      {head(259, 143, 'right', 7)}
+      <T x={150} y={152} i size={11}>E</T>
+      <path d="M180 130 A140 140 0 0 1 180 138" fill="none" stroke={C.chalk} strokeWidth={0.9} />
+      <T x={190} y={124} i size={10} a="start">δ</T>
+    </g>
+  </>
+);
+
+/* ── 6.2 Working principle of the alternator ─────────────────────────── */
+export const basicsWork62 = duo('6.2 · Basic understanding: how does a spinning magnet light a city?', {
+  three: syncTour([
+    { shot: 'back', show: GENSET, spin: 0.35, field: 0.8, lamp: 0.4, focus: ['turbine', 'shaft'], labels: [['turbine le ghumaucha', 'turbine']] },
+    { shot: 'front', field: 1, focus: ['salient', 'fieldCoil'], labels: [['ghumne magnet', 'salient']] },
+    { spin: 0.5, focus: ['winding'], labels: [['stator coil le flux kaatcha', 'winding']] },
+    { shot: 'lamps', lamp: 1, focus: ['lamps'], labels: [['bulb balyo', 'lamps']] },
+    { spin: 0.8, lamp: 1, focus: ['salient', 'lamps'], labels: [['chito: badhi frequency', 'lamps']] },
+    { shot: 'wide', spin: 0.5, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Pani ko turbine le alternator ko shaft ghumaucha.',
+      voice: 'पानीको टर्बाइनले अल्टरनेटरको साफ्ट घुमाउँछ।',
+      lines: [['h', <>6.2 · Ghumne magnet le bijuli</>], part(<>Turbine</>, <>shaft ghumaucha</>)],
+    },
+    {
+      say: 'Shaft sanga rotor ghumcha, ra rotor ma DC le baneko magnet cha.',
+      voice: 'साफ्टसँग रोटर घुम्छ, र रोटरमा डी सीले बनेको म्याग्नेट छ।',
+      lines: [part(<>Rotor</>, <>DC le baneko ghumne magnet</>)],
+    },
+    {
+      say: 'Rotor ghumda yasko flux stator ko sthir coil lai kaatcha, ra coil ma voltage induce huncha.',
+      voice: 'रोटर घुम्दा यसको फ्लक्सले स्टेटरको स्थिर कोइललाई काट्छ, र कोइलमा भोल्टेज इन्ड्युस हुन्छ।',
+      lines: [chain(<>Ghumne flux → sthir coil kaatcha → voltage</>)],
+    },
+    {
+      say: 'N ra S palai palo pass hunda voltage ulta-pulta huncha: AC. Tin coil bata tin phase.',
+      voice: 'एन र एस पालैपालो पास हुँदा भोल्टेज उल्टापुल्टा हुन्छ — ए सी। तीन कोइलबाट तीन फेज।',
+      lines: [chain(<>N, S palai palo → AC · tin coil → tin phase</>)],
+    },
+    {
+      say: 'Rotor jati chito ghumcha, frequency utti badhi. Nepal ma pachas hertz rakhna speed fixed rakhincha.',
+      voice: 'रोटर जति छिटो घुम्छ, फ्रिक्वेन्सी उत्ति बढी। नेपालमा पचास हर्ज राख्न स्पिड फिक्स्ड राखिन्छ।',
+      lines: [chain(<>Badhi speed → badhi frequency (50 Hz ko lagi speed fixed)</>)],
+      ask: {
+        q: 'Alternator ma voltage kun bhag ma induce huncha?',
+        voice: 'अल्टरनेटरमा भोल्टेज कुन भागमा इन्ड्युस हुन्छ?',
+        options: ['Stator ko coil ma', 'Rotor ko DC coil ma', 'Turbine ma'],
+        answer: 0,
+        why: 'Ghumne rotor ko flux le sthir stator coil kaatcha.',
+      },
+    },
+    {
+      say: 'Saransh: ghumne DC magnet, sthir coil, ra AC bijuli.',
+      voice: 'सारांश — घुम्ने डी सी म्याग्नेट, स्थिर कोइल, र ए सी बिजुली।',
+      lines: [['idea', <>Ghumne magnet + sthir coil → AC</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Prime mover le alternator ko rotor lai synchronous speed ma ghumaucha.',
+      voice: 'प्राइम मुभरले अल्टरनेटरको रोटरलाई सिन्क्रोनस स्पिडमा घुमाउँछ।',
+      lines: [['h', <>6.2 · Working principle</>], part(<>Prime mover</>, <>drives the rotor</>)],
+    },
+    {
+      say: 'Rotor ko field winding DC le excite huncha ra rotating magnetic field banauncha.',
+      voice: 'रोटरको फिल्ड वाइन्डिङ डी सीले एक्साइट हुन्छ, र रोटेटिङ म्याग्नेटिक फिल्ड बनाउँछ।',
+      lines: [part(<>Rotor field</>, <>DC-excited, rotating</>)],
+    },
+    {
+      say: 'Yo field le stationary armature conductor cut garcha, ra Faraday ko law anusar EMF induce huncha.',
+      voice: 'यो फिल्डले स्टेसनरी आर्मेचर कन्डक्टर कट गर्छ, र फाराडेको ल अनुसार ई एम एफ इन्ड्युस हुन्छ।',
+      lines: [chain(<>Rotating field cuts the stator conductors → EMF (Faraday)</>)],
+    },
+    {
+      say: 'N ra S pole palai palo pass hunda alternating EMF; 120 degree apart ka tin winding bata three-phase supply.',
+      voice: 'एन र एस पोल पालैपालो पास हुँदा अल्टरनेटिङ ई एम एफ। एक सय बीस डिग्री फरकका तीन वाइन्डिङबाट थ्री फेज सप्लाई।',
+      lines: [chain(<>Alternating EMF; three windings 120° apart → three-phase</>)],
+      ask: {
+        q: 'Alternator ma armature kun bhag ma hunchha?',
+        voice: 'अल्टरनेटरमा आर्मेचर कुन भागमा हुन्छ?',
+        options: ['Stator', 'Rotor', 'Exciter'],
+        answer: 0,
+        why: 'Field ghumcha ra armature sthir stator ma huncha.',
+      },
+    },
+    {
+      say: 'Frequency rotor speed ra pole sankhya ma bhar parcha.',
+      voice: 'फ्रिक्वेन्सी रोटर स्पिड र पोल सङ्ख्यामा भर पर्छ।',
+      lines: [chain(<>Frequency set by speed and number of poles</>)],
+    },
+    {
+      say: 'Saransh: rotating DC field ra stationary armature le alternating EMF dinchan.',
+      voice: 'सारांश — रोटेटिङ डी सी फिल्ड र स्टेसनरी आर्मेचरले अल्टरनेटिङ ई एम एफ दिन्छन्।',
+      lines: [['idea', <>Rotating field + stationary armature → alternating EMF</>]],
+    },
+  ],
+});
+
+/* ── 6.4 Armature reaction ─────────────────────────────────────────── */
+export const basicsAr64 = duo('6.4 · Basic understanding: how does the load current fight the magnet?', {
+  three: syncTour([
+    { shot: 'front', show: GENSET, spin: 0.4, field: 1, lamp: 0.2, focus: ['salient'], labels: [['rotor ko magnet', 'salient']] },
+    { lamp: 1, focus: ['winding', 'lamps'], labels: [['load ko current', 'winding']] },
+    { field: 1, focus: ['winding', 'stator'], labels: [['stator pani magnet banyo', 'stator']] },
+    { field: 0.6, focus: ['salient', 'winding'], labels: [['lagging: magnet kamjor', 'salient']] },
+    { field: 1.0, focus: ['salient', 'winding'], labels: [['leading: magnet balio', 'salient']] },
+    { shot: 'wide', field: 0.9, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Alternator ma rotor ko magnet le flux dincha.',
+      voice: 'अल्टरनेटरमा रोटरको म्याग्नेटले फ्लक्स दिन्छ।',
+      lines: [['h', <>6.4 · Load ko current ra magnet</>], part(<>Main field</>, <>rotor ko magnet</>)],
+    },
+    {
+      say: 'Load jodda stator ko winding ma current bagcha.',
+      voice: 'लोड जोड्दा स्टेटरको वाइन्डिङमा करेन्ट बग्छ।',
+      lines: [chain(<>Load → stator ma current</>)],
+    },
+    {
+      say: 'Yo current le stator lai pani magnet banaucha. Yasko asar rotor ko magnet ma parcha: armature reaction.',
+      voice: 'यो करेन्टले स्टेटरलाई पनि म्याग्नेट बनाउँछ। यसको असर रोटरको म्याग्नेटमा पर्छ — आर्मेचर रियाक्सन।',
+      lines: [part(<>Armature reaction</>, <>stator ko field ko asar main field ma</>)],
+    },
+    {
+      say: 'Motor jasta lagging load ma yo asar le main magnet lai kamjor banaucha ra voltage jharcha.',
+      voice: 'मोटर जस्ता ल्यागिङ लोडमा यो असरले मेन म्याग्नेटलाई कमजोर बनाउँछ, र भोल्टेज झर्छ।',
+      lines: [chain(<>Lagging load → main field kamjor → voltage jharyo</>)],
+      ask: {
+        q: 'Lagging load ma armature reaction le main field lai k garcha?',
+        voice: 'ल्यागिङ लोडमा आर्मेचर रियाक्सनले मेन फिल्डलाई के गर्छ?',
+        options: ['Kamjor banaucha', 'Balio banaucha', 'Kei gardaina'],
+        answer: 0,
+        why: 'Lagging current ko field main field ko ulto (demagnetising) huncha.',
+      },
+    },
+    {
+      say: 'Capacitor jasta leading load ma ulto: main magnet balio ra voltage badhcha.',
+      voice: 'क्यापासिटर जस्ता लिडिङ लोडमा उल्टो — मेन म्याग्नेट बलियो, र भोल्टेज बढ्छ।',
+      lines: [chain(<>Leading load → main field balio → voltage badhyo</>)],
+    },
+    {
+      say: 'Saransh: unity ma field tirchhe, lagging ma kamjor, leading ma balio.',
+      voice: 'सारांश — युनिटीमा फिल्ड तिर्छे, ल्यागिङमा कमजोर, लिडिङमा बलियो।',
+      lines: [['idea', <>Unity: cross · lagging: kamjor · leading: balio</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Rotor ko DC field main flux dincha.',
+      voice: 'रोटरको डी सी फिल्डले मेन फ्लक्स दिन्छ।',
+      lines: [['h', <>6.4 · Armature reaction</>], part(<>Main field</>, <>from the rotor</>)],
+    },
+    {
+      say: 'Load current armature winding ma bagcha.',
+      voice: 'लोड करेन्ट आर्मेचर वाइन्डिङमा बग्छ।',
+      lines: [chain(<>Load → armature current</>)],
+    },
+    {
+      say: 'Armature current ko flux le main flux ma asar garcha: armature reaction.',
+      voice: 'आर्मेचर करेन्टको फ्लक्सले मेन फ्लक्समा असर गर्छ — आर्मेचर रियाक्सन।',
+      lines: [part(<>Armature reaction</>, <>effect of armature flux on the main flux</>)],
+    },
+    {
+      say: 'Zero lagging pf ma yo purai demagnetising huncha.',
+      voice: 'जिरो ल्यागिङ पी एफमा यो पूरै डिम्याग्नेटाइजिङ हुन्छ।',
+      lines: [chain(<>Lagging pf → demagnetising → terminal voltage falls</>)],
+      ask: {
+        q: 'Zero leading pf ma armature reaction kasto huncha?',
+        voice: 'जिरो लिडिङ पी एफमा आर्मेचर रियाक्सन कस्तो हुन्छ?',
+        options: ['Magnetising', 'Demagnetising', 'Cross-magnetising'],
+        answer: 0,
+        why: 'Leading current ko flux main flux sanga aid garcha.',
+      },
+    },
+    {
+      say: 'Zero leading pf ma magnetising huncha ra voltage badhcha.',
+      voice: 'जिरो लिडिङ पी एफमा म्याग्नेटाइजिङ हुन्छ, र भोल्टेज बढ्छ।',
+      lines: [chain(<>Leading pf → magnetising → terminal voltage rises</>)],
+    },
+    {
+      say: 'Saransh: unity ma cross-magnetising, lagging ma demagnetising, leading ma magnetising.',
+      voice: 'सारांश — युनिटीमा क्रस म्याग्नेटाइजिङ, ल्यागिङमा डिम्याग्नेटाइजिङ, लिडिङमा म्याग्नेटाइजिङ।',
+      lines: [['idea', <>Unity: cross · lagging: demagnetising · leading: magnetising</>]],
+    },
+  ],
+});
+
+/* ── 6.6 Principle of operation of the synchronous motor (notes) ────── */
+export const principle66 = duo('Principle of operation of the synchronous motor', {
+  draw: figAt(motorPhasorFigure, { 0: 1, 3: 3 }),
+  viewBox: '0 0 360 222',
+  tutor: [
+    {
+      say: 'Yaad garau: three-phase supply le stator ma rotating magnetic field banauncha, jun N s equals 120 f over P ma ghumcha.',
+      voice: 'याद गरौं — थ्री फेज सप्लाईले स्टेटरमा रोटेटिङ म्याग्नेटिक फिल्ड बनाउँछ, जुन एन एस इक्वल्स, वान ट्वेन्टी एफ ओभर पी मा घुम्छ।',
+      lines: [['h', <>Principle of operation of the synchronous motor</>], rem(<K>{String.raw`N_s = \dfrac{120f}{P}`}</K>, <>Three-phase stator → rotating field at N<sub>s</sub></>)],
+    },
+    {
+      say: 'Rotor ko field winding DC le excite huncha ra rotor ma sthir N ra S pole banchhan.',
+      voice: 'रोटरको फिल्ड वाइन्डिङ डी सीले एक्साइट हुन्छ, र रोटरमा स्थिर एन र एस पोल बन्छन्।',
+      lines: [['step', <>Rotor field winding excited by DC → fixed N and S poles on the rotor</>]],
+    },
+    {
+      say: 'Rotor lai N s najik puryaye pachhi stator ko N le rotor ko S lai ra S le N lai tancha: magnetic locking. Rotor thik N s ma ghumcha.',
+      voice: 'रोटरलाई एन एस नजिक पुर्‍याएपछि, स्टेटरको एनले रोटरको एसलाई, र एसले एनलाई तान्छ — म्याग्नेटिक लकिङ। रोटर ठीक एन एसमा घुम्छ।',
+      lines: [['step', <>Near N<sub>s</sub>: unlike poles lock (magnetic locking) → rotor runs at exactly N<sub>s</sub></>], ['eq', tex(String.raw`N = N_s \unit{rpm}`)]],
+    },
+    {
+      say: 'Standstill ma kina ghumdaina? Stator ko field second ma pachas choti ghumcha; rotor ko pole lai aadha cycle tancha, aadha dhakelcha, ra average torque zero.',
+      voice: 'स्ट्यान्डस्टिलमा किन घुम्दैन? स्टेटरको फिल्ड सेकेन्डमा पचास चोटि घुम्छ। रोटरको पोललाई आधा साइकल तान्छ, आधा धकेल्छ, र एभरेज टर्क जिरो।',
+      lines: [br('Why not self-starting?', <Pts items={[<>The stator field turns at N<sub>s</sub> (fast); the heavy rotor cannot follow at once</>, <>It is pulled one way for half a cycle and pushed the other way for the next half</>, <>Average torque zero → a starting method is needed (topic 6.7)</>]} />)],
+    },
+    {
+      say: 'Main line ma farkau. Load lagauda rotor ko pole stator ko field bhanda load angle delta le pachhi parcha, tara speed N s nai rahancha.',
+      voice: 'मेन लाइनमा फर्कौं। लोड लगाउँदा रोटरको पोल स्टेटरको फिल्डभन्दा लोड एङ्गल डेल्टाले पछि पर्छ, तर स्पिड एन एस नै रहन्छ।',
+      lines: [['step', <>On load the rotor poles fall back by the load angle δ; the speed stays N<sub>s</sub> (Fig. 6.5)</>]],
+      ask: {
+        q: 'Load badhda synchronous motor ko speed lai k huncha?',
+        voice: 'लोड बढ्दा सिन्क्रोनस मोटरको स्पिडलाई के हुन्छ?',
+        options: ['Ns mai rahancha; δ badhcha', 'Ghatcha', 'Badhcha'],
+        answer: 0,
+        why: 'Magnetic locking le speed Ns rakhcha; load ko lagi load angle δ matra badhcha.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: three-phase stator le N s ma ghumne field banauncha.',
+      voice: 'स्मरण — थ्री फेज स्टेटरले एन एसमा घुम्ने फिल्ड बनाउँछ।',
+      lines: [['h', <>Synchronous motor: principle of operation</>], rem(<K>{String.raw`N_s = 120f/P`}</K>)],
+    },
+    {
+      say: 'Rotor DC le excite huncha ra fixed poles banauncha.',
+      voice: 'रोटर डी सीले एक्साइट हुन्छ, र फिक्स्ड पोल्स बनाउँछ।',
+      lines: [['step', <>The rotor is DC-excited, giving fixed poles.</>]],
+    },
+    {
+      say: 'Unlike poles bich ko magnetic locking le rotor N s ma ghumcha.',
+      voice: 'अनलाइक पोल्सबीचको म्याग्नेटिक लकिङले, रोटर एन एसमा घुम्छ।',
+      lines: [['step', <>Magnetic locking between unlike poles: the rotor runs at N<sub>s</sub> at every load.</>]],
+    },
+    {
+      say: 'Standstill ma rotor ma lagne torque har aadha cycle ma ulto huncha, tesaile average torque zero.',
+      voice: 'स्ट्यान्डस्टिलमा रोटरमा लाग्ने टर्क हरेक आधा साइकलमा उल्टो हुन्छ, त्यसैले एभरेज टर्क जिरो।',
+      lines: [br('Not self-starting', <Pts items={[<>Torque reverses every half cycle at rest</>, <>Rotor inertia: average torque zero</>]} />)],
+    },
+    {
+      say: 'Load ma rotor load angle delta le pachhi parcha ra input power badhcha, tara speed constant.',
+      voice: 'लोडमा रोटर लोड एङ्गल डेल्टाले पछि पर्छ, र इनपुट पावर बढ्छ, तर स्पिड कन्स्टेन्ट।',
+      lines: [['step', <>On load the rotor lags by the load angle δ; speed constant (Fig. 6.5).</>]],
+      ask: {
+        q: 'Synchronous motor ko speed kun kura le nirdharan garcha?',
+        voice: 'सिन्क्रोनस मोटरको स्पिड कुन कुराले निर्धारण गर्छ?',
+        options: ['Supply frequency ra poles', 'Load', 'Excitation'],
+        answer: 0,
+        why: 'N = Ns = 120f/P at all loads.',
+      },
+    },
+  ],
+});
+
+/* ── 6.7 Starting methods ───────────────────────────────────────────── */
+export const basicsStart67 = duo('6.7 · Basic understanding: how do we get a synchronous motor up to speed?', {
+  three: syncTour([
+    { shot: 'front', show: MOTOR, field: 0, rmf: 0.6, spin: 0, flow: 0.7, focus: ['winding'], labels: [['ghumne field: dherai chito', 'winding']] },
+    { show: [...MOTOR, 'damper'], spin: 0.5, spinMs: 3500, focus: ['damper'], labels: [['damper bar: induction jastai', 'damper']] },
+    { spin: 0.58, focus: ['salient'], labels: [['najik pugyo', 'salient']] },
+    { shot: 'exciter', field: 1, spin: 0.6, focus: ['sliprings', 'fieldCoil'], labels: [['DC on: lock', 'fieldCoil']] },
+    { shot: 'wide', spin: 0.6, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Synchronous motor aafai start hudaina, kinaki stator ko field dherai chito ghumcha.',
+      voice: 'सिन्क्रोनस मोटर आफैं स्टार्ट हुँदैन, किनकि स्टेटरको फिल्ड धेरै छिटो घुम्छ।',
+      lines: [['h', <>6.7 · Speed samma kasari puryaune?</>], chain(<>Field dherai chito → rotor pachhyauna sakdaina</>)],
+    },
+    {
+      say: 'Rotor ko pole ma short gareko damper bar hunchan. Yinle induction motor jastai rotor ghumauchan.',
+      voice: 'रोटरको पोलमा सर्ट गरेको डम्पर बार हुन्छन्। यिनले इन्डक्सन मोटर जस्तै रोटर घुमाउँछन्।',
+      lines: [part(<>Damper winding</>, <>induction motor jastai start</>)],
+    },
+    {
+      say: 'Rotor synchronous speed ko najik pugcha.',
+      voice: 'रोटर सिन्क्रोनस स्पिडको नजिक पुग्छ।',
+      lines: [chain(<>Rotor N s najik pugyo</>)],
+    },
+    {
+      say: 'Ani DC field on garda rotor lock bhayera thik synchronous speed ma ghumcha.',
+      voice: 'अनि डी सी फिल्ड अन गर्दा रोटर लक भएर ठीक सिन्क्रोनस स्पिडमा घुम्छ।',
+      lines: [chain(<>DC on → lock → thik N s</>)],
+      ask: {
+        q: 'Damper winding le synchronous motor lai kasari start garcha?',
+        voice: 'डम्पर वाइन्डिङले सिन्क्रोनस मोटरलाई कसरी स्टार्ट गर्छ?',
+        options: ['Induction motor jastai', 'DC motor jastai', 'Generator jastai'],
+        answer: 0,
+        why: 'Short gareko bars ma current induce bhayera induction torque aaucha.',
+      },
+    },
+    {
+      say: 'Saransh: damper le najik puryaucha, DC field le lock garcha. Arko upaya: sano pony motor le ghumaune.',
+      voice: 'सारांश — डम्परले नजिक पुर्‍याउँछ, डी सी फिल्डले लक गर्छ। अर्को उपाय — सानो पोनी मोटरले घुमाउने।',
+      lines: [['idea', <>Damper → najik · DC field → lock · arko: pony motor</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Synchronous motor self-starting hudaina, tesaile rotor lai N s najik puryaunu parcha.',
+      voice: 'सिन्क्रोनस मोटर सेल्फ स्टार्टिङ हुँदैन, त्यसैले रोटरलाई एन एस नजिक पुर्‍याउनुपर्छ।',
+      lines: [['h', <>6.7 · Starting methods</>], chain(<>Not self-starting → bring the rotor near N<sub>s</sub></>)],
+    },
+    {
+      say: 'Damper winding pole face ka short-circuited bars hun; yinle induction motor jastai torque dinchan.',
+      voice: 'डम्पर वाइन्डिङ पोल फेसका सर्ट सर्किटेड बार्स हुन्। यिनले इन्डक्सन मोटर जस्तै टर्क दिन्छन्।',
+      lines: [part(<>Damper winding</>, <>induction start from the pole-face bars</>)],
+    },
+    {
+      say: 'Rotor N s ko najik pugcha.',
+      voice: 'रोटर एन एसको नजिक पुग्छ।',
+      lines: [chain(<>Rotor reaches near N<sub>s</sub></>)],
+    },
+    {
+      say: 'DC excitation switch on garda rotor synchronism ma pull in huncha.',
+      voice: 'डी सी एक्साइटेसन स्विच अन गर्दा, रोटर सिन्क्रोनिजममा पुल इन हुन्छ।',
+      lines: [chain(<>DC field on → pulls into synchronism</>)],
+      ask: {
+        q: 'Starting ma synchronous motor ko field winding lai kina short garincha?',
+        voice: 'स्टार्टिङमा सिन्क्रोनस मोटरको फिल्ड वाइन्डिङलाई किन सर्ट गरिन्छ?',
+        options: ['Induced high voltage bata insulation bachauna', 'Speed badhauna', 'Flux badhauna'],
+        answer: 0,
+        why: 'Standstill ma RMF le field winding ma dherai thulo voltage induce garcha.',
+      },
+    },
+    {
+      say: 'Saransh: damper winding, pony motor, slip-ring induction start ra variable frequency supply.',
+      voice: 'सारांश — डम्पर वाइन्डिङ, पोनी मोटर, स्लिप रिङ इन्डक्सन स्टार्ट, र भेरिएबल फ्रिक्वेन्सी सप्लाई।',
+      lines: [['idea', <>Damper · pony motor · slip-ring induction start · variable frequency</>]],
+    },
+  ],
+});
+
+/* ── 6.8 No load and load operation, phasor diagram ────────────────── */
+export const basicsLoad68 = duo('6.8 · Basic understanding: what happens inside a synchronous motor when you load it?', {
+  three: syncTour([
+    { shot: 'front', show: MOTOR, field: 1, rmf: 0.6, spin: 0.6, flow: 0.4, focus: ['salient', 'winding'], labels: [['no load: sano current', 'winding']] },
+    { flow: 0.8, focus: ['salient'], labels: [['load: rotor alik pachhi', 'salient']] },
+    { spin: 0.6, focus: ['shaft'], labels: [['speed ustai', 'shaft']] },
+    { flow: 1, focus: ['winding', 'supply'], labels: [['badhi current', 'supply']] },
+    { shot: 'wide', focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Load bina synchronous motor ma thorai current bagcha, losses pura garna matra.',
+      voice: 'लोड बिना सिन्क्रोनस मोटरमा थोरै करेन्ट बग्छ, लसेस पूरा गर्न मात्र।',
+      lines: [['h', <>6.8 · Load lagauda k huncha?</>], part(<>No load</>, <>thorai current, losses matra</>)],
+    },
+    {
+      say: 'Load lagauda rotor ko magnet stator ko field bhanda alik pachhi parcha, rubber band tanie jastai.',
+      voice: 'लोड लगाउँदा रोटरको म्याग्नेट स्टेटरको फिल्डभन्दा अलि पछि पर्छ, रबर ब्यान्ड तानिए जस्तै।',
+      lines: [chain(<>Load → rotor alik pachhi (load angle)</>)],
+    },
+    {
+      say: 'Tara speed ghatdaina: rotor ustai speed ma ghumirahancha.',
+      voice: 'तर स्पिड घट्दैन — रोटर उस्तै स्पिडमा घुमिरहन्छ।',
+      lines: [chain(<>Speed ustai</>)],
+      ask: {
+        q: 'Synchronous motor ma load badhda k badhcha?',
+        voice: 'सिन्क्रोनस मोटरमा लोड बढ्दा के बढ्छ?',
+        options: ['Load angle ra current', 'Speed', 'Supply frequency'],
+        answer: 0,
+        why: 'Speed fixed; rotor pachhi parne kon ra current badhcha.',
+      },
+    },
+    {
+      say: 'Pachhi pareko le supply bata badhi current ra power lincha.',
+      voice: 'पछि परेकोले सप्लाईबाट बढी करेन्ट र पावर लिन्छ।',
+      lines: [chain(<>Pachhi paryo → badhi current, badhi power</>)],
+    },
+    {
+      say: 'Saransh: load badhda load angle ra current badhchan, speed ustai.',
+      voice: 'सारांश — लोड बढ्दा लोड एङ्गल र करेन्ट बढ्छन्, स्पिड उस्तै।',
+      lines: [['idea', <>Load ↑ → load angle ↑, current ↑ · speed ustai</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'No load ma armature current sano huncha ra load angle lagbhag zero.',
+      voice: 'नो लोडमा आर्मेचर करेन्ट सानो हुन्छ, र लोड एङ्गल लगभग जिरो।',
+      lines: [['h', <>6.8 · No-load and load operation</>], part(<>No load</>, <>small current, load angle near zero</>)],
+    },
+    {
+      say: 'Load lagauda rotor load angle delta le pachhi parcha.',
+      voice: 'लोड लगाउँदा रोटर लोड एङ्गल डेल्टाले पछि पर्छ।',
+      lines: [chain(<>Load → rotor falls back by δ</>)],
+    },
+    {
+      say: 'Speed N s nai rahancha.',
+      voice: 'स्पिड एन एस नै रहन्छ।',
+      lines: [chain(<>Speed stays N<sub>s</sub></>)],
+      ask: {
+        q: 'Synchronous motor ma load angle kun ko bich ko kon ho?',
+        voice: 'सिन्क्रोनस मोटरमा लोड एङ्गल कुनकोबीचको कोण हो?',
+        options: ['V ra E bich', 'V ra I bich', 'I ra E bich matra'],
+        answer: 0,
+        why: 'δ is the angle by which E falls behind V.',
+      },
+    },
+    {
+      say: 'Resultant voltage le armature current ra input power badhauncha.',
+      voice: 'रिजल्टेन्ट भोल्टेजले आर्मेचर करेन्ट र इनपुट पावर बढाउँछ।',
+      lines: [chain(<>Larger resultant voltage → more current and input</>)],
+    },
+    {
+      say: 'Saransh: load sanga delta ra current badhchan, speed constant.',
+      voice: 'सारांश — लोडसँग डेल्टा र करेन्ट बढ्छन्, स्पिड कन्स्टेन्ट।',
+      lines: [['idea', <>Load ↑ → δ ↑ and current ↑; speed constant</>]],
+    },
+  ],
+});
+
+export const load68 = duo('No load and load operation of the synchronous motor, phasor diagram', {
+  draw: motorPhasorFigure,
+  viewBox: '0 0 360 222',
+  tutor: [
+    {
+      say: 'Yaad garau: motor ma supply V le back EMF E ra synchronous impedance Z s ko drop dubai lai overcome garcha.',
+      voice: 'याद गरौं — मोटरमा सप्लाई भीले ब्याक ई एम एफ ई र सिन्क्रोनस इम्पिडेन्स जेड एसको ड्रप, दुवैलाई ओभरकम गर्छ।',
+      lines: [['h', <>Load operation and phasor diagram</>], rem(<>Motor: V supplies E and the drop in Z<sub>s</sub> = R<sub>a</sub> + jX<sub>s</sub></>)],
+    },
+    {
+      say: 'Voltage equation: V equals E plus I Z s, arthat E equals V minus I Z s. Yaha sabai phasor hun.',
+      voice: 'भोल्टेज इक्वेसन — भी इक्वल्स ई प्लस आई जेड एस, अर्थात ई इक्वल्स भी माइनस आई जेड एस। यहाँ सबै फेजर हुन्।',
+      lines: [['eq', tex(String.raw`\bar{E} = \bar{V} - \bar{I}\,(R_a + jX_s)`)]],
+    },
+    {
+      say: 'No load ma I sano, tesaile E lagbhag V barabar ra load angle lagbhag zero.',
+      voice: 'नो लोडमा आई सानो, त्यसैले ई लगभग भी बराबर, र लोड एङ्गल लगभग जिरो।',
+      lines: [['step', <>No load: I small → E ≈ V, δ ≈ 0</>]],
+    },
+    {
+      say: 'Load badhda E V bhanda delta le pachhi parcha, ra I Z s badhcha. Figure 6.5 ma V, I, I Z s ra E.',
+      voice: 'लोड बढ्दा ई, भीभन्दा डेल्टाले पछि पर्छ, र आई जेड एस बढ्छ। फिगर सिक्स पोइन्ट फाइभमा भी, आई, आई जेड एस र ई।',
+      lines: [['step', <>On load: E falls behind V by δ; the drop IZ<sub>s</sub> grows (Fig. 6.5)</>]],
+    },
+    {
+      say: 'Delta kina badhcha? Badhi load ko lagi badhi power chahincha, ra power delta sanga badhcha: P equals 3 V E sin delta over X s.',
+      voice: 'डेल्टा किन बढ्छ? बढी लोडको लागि बढी पावर चाहिन्छ, र पावर डेल्टासँग बढ्छ — पी इक्वल्स थ्री भी ई साइन डेल्टा ओभर एक्स एस।',
+      lines: [br('Why does δ grow with load?', <><Pts items={[<>More load needs more input power</>, <>Power developed rises with δ (R<sub>a</sub> neglected):</>]} />{tex(String.raw`P = \dfrac{3VE\sin\delta}{X_s}`)}</>)],
+    },
+    {
+      say: 'Main line: leading pf ma E V bhanda thulo huncha, ra lagging pf ma sano. Yo excitation ma bhar parcha.',
+      voice: 'मेन लाइन — लिडिङ पी एफमा ई, भीभन्दा ठूलो हुन्छ, र ल्यागिङ पी एफमा सानो। यो एक्साइटेसनमा भर पर्छ।',
+      lines: [['step', <>Leading pf: E &gt; V (over-excited) · lagging pf: E &lt; V (under-excited)</>]],
+      ask: {
+        q: 'Synchronous motor leading pf ma chalda E ra V ma kun thulo huncha?',
+        voice: 'सिन्क्रोनस मोटर लिडिङ पी एफमा चल्दा ई र भीमा कुन ठूलो हुन्छ?',
+        options: ['E', 'V', 'Barabar'],
+        answer: 0,
+        why: 'Over-excited motor (E > V) draws a leading current.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: V equals E plus I Z s, jaha Z s equals R a plus j X s.',
+      voice: 'स्मरण — भी इक्वल्स ई प्लस आई जेड एस, जहाँ जेड एस इक्वल्स आर ए प्लस जे एक्स एस।',
+      lines: [['h', <>Load operation of the synchronous motor (Fig. 6.5)</>], rem(<K>{String.raw`Z_s = R_a + jX_s`}</K>)],
+    },
+    {
+      say: 'Per phase voltage equation: E equals V minus I Z s.',
+      voice: 'पर फेज भोल्टेज इक्वेसन — ई इक्वल्स भी माइनस आई जेड एस।',
+      lines: [['step', tex(String.raw`\bar{E} = \bar{V} - \bar{I}(R_a + jX_s) \qquad \cdots(1)`)]],
+    },
+    {
+      say: 'No load ma I sano, E lagbhag V, ra delta lagbhag zero.',
+      voice: 'नो लोडमा आई सानो, ई लगभग भी, र डेल्टा लगभग जिरो।',
+      lines: [['step', <>No load: E ≈ V, δ ≈ 0.</>]],
+    },
+    {
+      say: 'Load badhda E V bhanda delta le pachhi parcha.',
+      voice: 'लोड बढ्दा ई, भीभन्दा डेल्टाले पछि पर्छ।',
+      lines: [['step', <>On load E lags V by the load angle δ.</>]],
+    },
+    {
+      say: 'Power developed P equals 3 V E sin delta over X s, R a neglect garda.',
+      voice: 'पावर डेभलप्ड — पी इक्वल्स थ्री भी ई साइन डेल्टा ओभर एक्स एस, आर ए नेग्लेक्ट गर्दा।',
+      lines: [br('Power and δ', tex(String.raw`P = \dfrac{3VE\sin\delta}{X_s}`))],
+    },
+    {
+      say: 'Over-excited ma E V bhanda thulo ra pf leading; under-excited ma E sano ra pf lagging.',
+      voice: 'ओभर एक्साइटेडमा ई भीभन्दा ठूलो र पी एफ लिडिङ। अन्डर एक्साइटेडमा ई सानो र पी एफ ल्यागिङ।',
+      lines: [['step', <>Over-excited: E &gt; V, leading pf · under-excited: E &lt; V, lagging pf.</>]],
+      ask: {
+        q: 'Under-excited synchronous motor ko pf kasto huncha?',
+        voice: 'अन्डर एक्साइटेड सिन्क्रोनस मोटरको पी एफ कस्तो हुन्छ?',
+        options: ['Lagging', 'Leading', 'Sadhai unity'],
+        answer: 0,
+        why: 'E < V bhaye motor le lagging (magnetising) current lincha.',
+      },
+    },
+  ],
+});
+
+/* ── 6.9 Effect of excitation and power factor control ─────────────── */
+export const basicsExc69 = duo('6.9 · Basic understanding: how can a motor fix the power factor?', {
+  three: syncTour([
+    { shot: 'exciter', show: MOTOR, field: 0.5, rmf: 0.6, spin: 0.6, flow: 0.7, focus: ['sliprings', 'fieldCoil'], labels: [['kam field: lagging', 'fieldCoil']] },
+    { field: 0.75, flow: 0.4, focus: ['fieldCoil'], labels: [['thik field: unity', 'fieldCoil']] },
+    { field: 1, flow: 0.7, focus: ['fieldCoil'], labels: [['badhi field: leading', 'fieldCoil']] },
+    { shot: 'front', field: 1, focus: ['winding', 'supply'], labels: [['capacitor jastai', 'supply']] },
+    { shot: 'wide', focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Synchronous motor ko rotor ko DC field kam rakhyo bhane motor le supply bata magnet banaune current pani lincha: lagging.',
+      voice: 'सिन्क्रोनस मोटरको रोटरको डी सी फिल्ड कम राख्यो भने, मोटरले सप्लाईबाट म्याग्नेट बनाउने करेन्ट पनि लिन्छ — ल्यागिङ।',
+      lines: [['h', <>6.9 · Motor le power factor kasari sudharcha?</>], chain(<>Kam field → lagging current</>)],
+    },
+    {
+      say: 'Field thik milaye current sabai bhanda kam ra power factor unity.',
+      voice: 'फिल्ड ठीक मिलाए करेन्ट सबैभन्दा कम, र पावर फ्याक्टर युनिटी।',
+      lines: [chain(<>Thik field → sabai bhanda kam current, unity pf</>)],
+    },
+    {
+      say: 'Field badhi rakhe motor le leading current lincha, capacitor jastai.',
+      voice: 'फिल्ड बढी राखे मोटरले लिडिङ करेन्ट लिन्छ, क्यापासिटर जस्तै।',
+      lines: [chain(<>Badhi field → leading current (capacitor jastai)</>)],
+      ask: {
+        q: 'Over-excited synchronous motor kasto kaam garcha?',
+        voice: 'ओभर एक्साइटेड सिन्क्रोनस मोटर कस्तो काम गर्छ?',
+        options: ['Capacitor jastai, leading current', 'Inductor jastai', 'Resistor jastai'],
+        answer: 0,
+        why: 'Badhi excitation ma motor le leading (capacitive) current lincha.',
+      },
+    },
+    {
+      say: 'Factory ma dherai induction motor le lagging current linchan. Over-excited synchronous motor le tyo pura garcha: synchronous condenser.',
+      voice: 'फ्याक्ट्रीमा धेरै इन्डक्सन मोटरले ल्यागिङ करेन्ट लिन्छन्। ओभर एक्साइटेड सिन्क्रोनस मोटरले त्यो पूरा गर्छ — सिन्क्रोनस कन्डेन्सर।',
+      lines: [part(<>Synchronous condenser</>, <>factory ko pf sudharcha</>)],
+    },
+    {
+      say: 'Saransh: field ghatau lagging, milau unity, badhau leading.',
+      voice: 'सारांश — फिल्ड घटाऊ ल्यागिङ, मिलाऊ युनिटी, बढाऊ लिडिङ।',
+      lines: [['idea', <>Kam field: lagging · thik: unity · badhi: leading</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Under-excitation ma motor lagging pf ma current lincha.',
+      voice: 'अन्डर एक्साइटेसनमा मोटर ल्यागिङ पी एफमा करेन्ट लिन्छ।',
+      lines: [['h', <>6.9 · Effect of excitation</>], chain(<>Under-excited → lagging pf</>)],
+    },
+    {
+      say: 'Normal excitation ma armature current minimum ra pf unity.',
+      voice: 'नर्मल एक्साइटेसनमा आर्मेचर करेन्ट मिनिमम, र पी एफ युनिटी।',
+      lines: [chain(<>Normal excitation → minimum current, unity pf</>)],
+    },
+    {
+      say: 'Over-excitation ma leading pf.',
+      voice: 'ओभर एक्साइटेसनमा लिडिङ पी एफ।',
+      lines: [chain(<>Over-excited → leading pf</>)],
+      ask: {
+        q: 'V-curve ma minimum armature current kun pf ma huncha?',
+        voice: 'भी कर्भमा मिनिमम आर्मेचर करेन्ट कुन पी एफमा हुन्छ?',
+        options: ['Unity', 'Zero lagging', 'Zero leading'],
+        answer: 0,
+        why: 'Unity pf ma reactive component zero, tesaile current minimum.',
+      },
+    },
+    {
+      say: 'Over-excited motor no load ma synchronous condenser ko rupma power factor correction garcha.',
+      voice: 'ओभर एक्साइटेड मोटर नो लोडमा, सिन्क्रोनस कन्डेन्सरको रूपमा पावर फ्याक्टर करेक्सन गर्छ।',
+      lines: [part(<>Synchronous condenser</>, <>power factor correction</>)],
+    },
+    {
+      say: 'Saransh: excitation badalera synchronous motor ko pf lagging dekhi leading samma control garna milcha.',
+      voice: 'सारांश — एक्साइटेसन बदलेर सिन्क्रोनस मोटरको पी एफ, ल्यागिङदेखि लिडिङसम्म कन्ट्रोल गर्न मिल्छ।',
+      lines: [['idea', <>Excitation controls pf from lagging to leading</>]],
+    },
+  ],
+});
+
+/* ── 6.7 Model answer: short note on starting methods (2068 Magh Q6d) ─ */
+export const startNote67 = answer('Model answer: starting methods of the synchronous motor (short note)', {
+  draw: vCurveFigure,
+  viewBox: '0 0 360 232',
+  papers: ['2068 Magh'],
+  marks: '',
+  q: 'Write short notes on: Starting methods of synchronous motor.',
+  read: {
+    say: 'IOE 2068 Magh: synchronous motor ko starting methods ma short note lekha.',
+    voice: 'आई ओ ई दुई हजार अठसट्ठी माघ — सिन्क्रोनस मोटरको स्टार्टिङ मेथड्समा सर्ट नोट लेख।',
+  },
+  points: [
+    {
+      carry: <>Not self-starting: average torque zero at rest</>,
+      node: <><H>Need</H><Pts items={[<>At standstill the torque reverses every half cycle: average zero, so the motor is not self-starting</>, <>The rotor must be brought near N<sub>s</sub>, then DC excitation pulls it into step</>]} /></>,
+      say: 'Standstill ma torque har aadha cycle ma ulto huncha, average zero, tesaile self-starting hudaina. Rotor lai N s najik puryayera DC excitation dinu parcha.',
+      voice: 'स्ट्यान्डस्टिलमा टर्क हरेक आधा साइकलमा उल्टो हुन्छ, एभरेज जिरो, त्यसैले सेल्फ स्टार्टिङ हुँदैन। रोटरलाई एन एस नजिक पुर्‍याएर डी सी एक्साइटेसन दिनुपर्छ।',
+    },
+    {
+      page: true,
+      node: <><H>Methods</H><Pts items={[<>(i) <b>Damper winding:</b> short-circuited pole-face bars start it as an induction motor; field shorted through a resistance while starting</>, <>(ii) <b>Pony motor:</b> a small auxiliary motor brings the rotor to N<sub>s</sub></>, <>(iii) <b>Slip-ring induction start:</b> the field winding is used as a wound rotor with resistance</>, <>(iv) <b>Variable-frequency supply:</b> frequency raised slowly from zero</>]} /></>,
+      say: 'Method: ek, damper winding le induction motor jastai start, starting ma field resistance bata short. Dui, pony motor. Tin, slip-ring induction start. Char, variable frequency supply, frequency zero bata bistarai badhaune.',
+      voice: 'मेथड — एक, डम्पर वाइन्डिङले इन्डक्सन मोटर जस्तै स्टार्ट, स्टार्टिङमा फिल्ड रेजिस्टेन्सबाट सर्ट। दुई, पोनी मोटर। तीन, स्लिप रिङ इन्डक्सन स्टार्ट। चार, भेरिएबल फ्रिक्वेन्सी सप्लाई, फ्रिक्वेन्सी जिरोबाट बिस्तारै बढाउने।',
+      ask: {
+        q: 'Pony motor method ma k garincha?',
+        voice: 'पोनी मोटर मेथडमा के गरिन्छ?',
+        options: ['Sano motor le rotor lai Ns samma ghumaucha', 'Field lai short garincha matra', 'Supply voltage double garincha'],
+        answer: 0,
+        why: 'Auxiliary (pony) motor le synchronous speed samma puryauncha, ani DC field on.',
+      },
+    },
+  ],
+});
+
+/* ── 6.8 Numerical: back EMF of a synchronous motor (2071 Bhadra) ──── */
+// Vph = 3300/√3 = 1905.26 V; I = 100∠60° = 50 + j86.60 A; IZs = −180.53 + j127.32;
+// E = V − IZs = 2085.78 − j127.32 → |E| = 2089.7 V/phase, δ = −3.49°.
+export const motorSolve68 = solve({
+  title: 'IOE 2071 Bhadra: back EMF of a synchronous motor at leading pf',
+  paper: '2071 Bhadra',
+  paperVoice: 'दुई हजार एकहत्तर भदौ',
+  marks: '',
+  question: 'A 3.3 kV, 3-phase star connected synchronous motor has impedance of (0.2 + j2.2) Ω/phase of the armature winding. The motor is operated at 0.5 pf leading with line current of 100 A. Determine the back emf per phase and also draw phasor diagram.',
+  read: '3.3 kV star synchronous motor, Z s 0.2 plus j 2.2 ohm per phase, 0.5 pf leading ma 100 ampere. Back EMF per phase kati?',
+  readVoice: 'थ्री पोइन्ट थ्री के भी स्टार सिन्क्रोनस मोटर, जेड एस जिरो पोइन्ट टु प्लस जे टु पोइन्ट टु ओम पर फेज, जिरो पोइन्ट फाइभ पी एफ लिडिङमा सय एम्पियर। ब्याक ई एम एफ पर फेज कति?',
+  given: [
+    { node: <>V<sub>ph</sub> = 3300/√3 = 1905.3 V · Z<sub>s</sub> = 0.2 + j2.2 Ω</>, say: 'Phase voltage 1905.3 volt, Z s 0.2 plus j 2.2', voice: 'फेज भोल्टेज उन्नाइस सय पाँच दशमलव तीन भोल्ट, जेड एस जिरो पोइन्ट टु प्लस जे टु पोइन्ट टु' },
+    { node: <>I = 100 A at 0.5 pf leading → φ = 60°</>, say: 'I 100 ampere, pf 0.5 leading, phi 60 degree', voice: 'आई सय एम्पियर, पी एफ जिरो पोइन्ट फाइभ लिडिङ, फाइ साठी डिग्री' },
+  ],
+  find: { node: <>back EMF per phase E and δ</>, say: 'Nikalnu parne: back EMF per phase E ra load angle.', voice: 'निकाल्नु पर्ने — ब्याक ई एम एफ पर फेज ई, र लोड एङ्गल।' },
+  idea: { node: <>Motor: <K>{String.raw`\bar{E} = \bar{V} - \bar{I}\bar{Z}_s`}</K> with V as reference</>, say: 'Method: V reference liyera E equals V minus I Z s.', voice: 'मेथड — भी रेफरेन्स लिएर, ई इक्वल्स भी माइनस आई जेड एस।' },
+  steps: [
+    {
+      carry: <><K>{String.raw`\bar{I} = 50 + j86.6`}</K></>,
+      node: <K>{String.raw`\begin{aligned} \bar{I} &= 100\angle 60^\circ \\ &= 50 + j86.60\ \text{A} \end{aligned}`}</K>,
+      say: 'Leading current: I equals 100 angle 60, arthat 50 plus j 86.6 ampere.',
+      voice: 'लिडिङ करेन्ट — आई इक्वल्स सय एङ्गल साठी, अर्थात पचास प्लस जे छयासी दशमलव छ एम्पियर।',
+    },
+    {
+      carry: <><K>{String.raw`\bar{I}\bar{Z}_s = -180.5 + j127.3`}</K></>,
+      node: <K>{String.raw`\begin{aligned} \bar{I}\bar{Z}_s &= (50 + j86.6)(0.2 + j2.2) \\ &= -180.53 + j127.32\ \text{V} \end{aligned}`}</K>,
+      say: 'I Z s equals 50 plus j 86.6, times 0.2 plus j 2.2, arthat minus 180.53 plus j 127.32 volt.',
+      voice: 'आई जेड एस इक्वल्स, पचास प्लस जे छयासी दशमलव छ, टाइम्स जिरो पोइन्ट टु प्लस जे टु पोइन्ट टु — अर्थात माइनस एक सय असी दशमलव पाँच तीन, प्लस जे एक सय सत्ताइस दशमलव तीन दुई भोल्ट।',
+    },
+    {
+      node: <K>{String.raw`\begin{aligned} \bar{E} &= 1905.26 - (-180.53 + j127.32) \\ &= 2085.78 - j127.32 \\ |E| &= 2089.7\ \text{V} \\ \delta &= -3.49^\circ \end{aligned}`}</K>,
+      say: 'E equals 1905.26 minus I Z s, arthat 2085.78 minus j 127.32. Magnitude 2089.7 volt, angle minus 3.49 degree: E V bhanda 3.49 degree pachhi.',
+      voice: 'ई इक्वल्स उन्नाइस सय पाँच दशमलव दुई छ माइनस आई जेड एस, अर्थात बीस सय पचासी दशमलव सात आठ माइनस जे एक सय सत्ताइस दशमलव तीन दुई। म्याग्निच्युड बीस सय उनान्नब्बे दशमलव सात भोल्ट, एङ्गल माइनस थ्री पोइन्ट फोर नाइन डिग्री — ई, भीभन्दा थ्री पोइन्ट फोर नाइन डिग्री पछि।',
+      ask: {
+        q: 'Yo motor ma E ra V ma kun thulo cha?',
+        voice: 'यो मोटरमा ई र भीमा कुन ठूलो छ?',
+        options: ['E (over-excited, leading pf)', 'V', 'Barabar'],
+        answer: 0,
+        why: 'E = 2089.7 V > V = 1905.3 V; over-excited motor leading current lincha.',
+      },
+    },
+  ],
+  answer: { node: <K>{String.raw`\boxed{E = 2089.7\ \text{V/phase},\ \delta = 3.49^\circ\ \text{behind}\ V}`}</K>, say: 'Answer: E equals 2089.7 volt per phase, 3.49 degree V bhanda pachhi. Phasor diagram Figure 6.5 jastai.', voice: 'आन्सर — ई इक्वल्स बीस सय उनान्नब्बे दशमलव सात भोल्ट पर फेज, थ्री पोइन्ट फोर नाइन डिग्री भीभन्दा पछि। फेजर डायाग्राम फिगर सिक्स पोइन्ट फाइभ जस्तै।' },
+  trap: { node: <>Trap: use the phase voltage V<sub>L</sub>/√3 for a star connection, and I leads V at leading pf.</>, say: 'Trap: star ma phase voltage V L over root three, ra leading pf ma I V bhanda aghi.', voice: 'ट्र्याप — स्टारमा फेज भोल्टेज, भी एल ओभर रुट थ्री, र लिडिङ पी एफमा आई भीभन्दा अघि।' },
+});
+
+// One topic per IOE syllabus bullet of Unit 6 (rule 68).
+const t61 = topic({ num: '6.1', title: 'Three Phase Synchronous Generator: Constructional Details, Armature Windings, Types of Rotor, Exciter', opener: basics61, derive: [construction61], picture: [salientAnswer61] });
+const t62 = topic({ num: '6.2', title: 'Working Principle', opener: basicsWork62, derive: [working61], picture: [rotatingAnswer61] });
+const t63 = topic({ num: '6.3', title: 'EMF equation, distribution factor, pitch factor', opener: basics62, derive: [factors62, emf62], picture: [emfAnswer62] });
+const t64 = topic({ num: '6.4', title: 'Armature Reaction and its effects', opener: basicsAr64, derive: [ar63], picture: [arAnswer63] });
+const t65 = topic({ num: '6.5', title: 'Alternator with load and its phasor diagram', opener: basics63, derive: [load63], picture: [loadSolve63] });
+const t66 = topic({ num: '6.6', title: 'Three Phase Synchronous Motor: Principle of operation', opener: basics64, derive: [principle66], picture: [startAnswer64] });
+const t67 = topic({ num: '6.7', title: 'Starting methods', opener: basicsStart67, derive: [start64], picture: [startNote67] });
+const t68 = topic({ num: '6.8', title: 'No load and Load operation, Phasor Diagram', opener: basicsLoad68, derive: [load68], picture: [motorSolve68] });
+const t69 = topic({ num: '6.9', title: 'Effect of Excitation and power factor control', opener: basicsExc69, derive: [excitation64], picture: [excitationAnswer64] });
 
 export const unit6 = {
-  topics: [t61, t62, t63, t64],
+  topics: [t61, t62, t63, t64, t65, t66, t67, t68, t69],
   summary: [
     <>Alternator: rotating DC field, stationary armature; f = PN/120; salient (low speed) wa cylindrical (high speed).</>,
     <>E<sub>ph</sub> = 4.44K<sub>p</sub>K<sub>d</sub>fφT; K<sub>p</sub> = cos(α/2), K<sub>d</sub> = sin(mβ/2)/(m sin(β/2)).</>,
