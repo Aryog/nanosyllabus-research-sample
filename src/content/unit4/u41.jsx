@@ -405,7 +405,7 @@ export const backEmfAnswer41 = answer('Model answer: back EMF and its role', {
     },
     {
       node: <><H>Expression (Fig. 2)</H><K>{String.raw`\begin{aligned} E_b &= \dfrac{P\phi Z N}{60A} && \cdots(1) \\ V &= E_b + I_aR_a && \cdots(2) \\ \therefore\ I_a &= \dfrac{V - E_b}{R_a} && \cdots(3) \end{aligned}`}</K></>,
-      carry: <><K>{String.raw`E_b = \dfrac{P\phi ZN}{60A}\ (1)`}</K> · <K>{String.raw`V = E_b + I_aR_a\ (2)`}</K></>,
+      carry: [<><K>{String.raw`E_b = \dfrac{P\phi ZN}{60A}\ (1)`}</K></>, <><K>{String.raw`V = E_b + I_aR_a\ (2)`}</K></>],
       say: 'Expression: E b equals P phi Z N over sixty A. Voltage equation V equals E b plus I a R a. Yasari I a equals V minus E b, over R a.',
       voice: 'एक्स्प्रेसन — ई बी इक्वल्स, पी फाइ जेड एन ओभर सिक्स्टी ए। भोल्टेज इक्वेसन — भी इक्वल्स ई बी प्लस आई ए आर ए। यसरी, आई ए इक्वल्स भी माइनस ई बी, ओभर आर ए।',
     },

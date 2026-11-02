@@ -2930,7 +2930,7 @@ export const consAnswer21 = answer('Model answer: constructional details of a tr
   },
   points: [
     {
-      carry: <>Core: laminated silicon steel · core type / shell type</>,
+      carry: [<>Core: laminated silicon steel</>, <>core type / shell type</>],
       node: <><H>(a) Core and windings (Fig. 2.6)</H><Pts items={[<>Core of 0.35–0.5 mm laminated silicon steel (CRGO) to reduce eddy loss</>, <><b>Core type:</b> windings on both limbs · <b>shell type:</b> windings on the centre limb, core surrounds them</>, <>LV winding next to the core, HV outside (less insulation)</>]} /></>,
       say: 'Core 0.35 dekhi 0.5 mm ko laminated silicon steel ko huncha. Core type ma winding dubai limb ma, shell type ma centre limb ma. LV winding core najik, HV bahira.',
       voice: 'कोर जिरो पोइन्ट थ्री फाइभ देखि जिरो पोइन्ट फाइभ मिलिमिटरको ल्यामिनेटेड सिलिकन स्टिलको हुन्छ। कोर टाइपमा वाइन्डिङ दुवै लिम्बमा, सेल टाइपमा सेन्टर लिम्बमा। एल भी वाइन्डिङ कोर नजिक, एच भी बाहिर।',
@@ -3066,7 +3066,7 @@ export const threeAnswer213 = answer('Model answer: three-phase transformer conn
   },
   points: [
     {
-      carry: <>(a) Y–Y · (b) Δ–Δ</>,
+      carry: [<>(a) Y–Y</>, <>(b) Δ–Δ</>],
       node: <><H>(a) Star–star and delta–delta (Fig. 2.7)</H><Pts items={[<><b>Y–Y:</b> phase voltage V<sub>L</sub>/√3 (less insulation), neutral available; trouble with unbalanced load and third harmonics. Use: small high-voltage units</>, <><b>Δ–Δ:</b> no phase shift; can run as open delta at 57.7 % rating if one unit fails. Use: low-voltage, large-current loads</>]} /></>,
       say: 'Star-star: phase voltage V L over root three, insulation kam, neutral milcha; unbalanced load ma samasya. Delta-delta: phase shift chaina, euta unit bigriye open delta ma 57.7 percent rating ma chalcha.',
       voice: 'स्टार स्टार — फेज भोल्टेज भी एल ओभर रुट थ्री, इन्सुलेसन कम, न्युट्रल मिल्छ। अनब्यालेन्स्ड लोडमा समस्या। डेल्टा डेल्टा — फेज सिफ्ट छैन, एउटा युनिट बिग्रिए ओपन डेल्टामा सन्ताउन्न दशमलव सात प्रतिशत रेटिङमा चल्छ।',

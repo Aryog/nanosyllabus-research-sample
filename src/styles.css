@@ -1233,3 +1233,8 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 /* A "why" sits in the notes like any other line: slightly indented, no card. */
 .board-line.kind-branch { padding-left: 0.9em !important; font-size: calc(var(--bs) * 0.92); }
 .board-line.kind-branch .lbl { color: var(--chalk); font-weight: 600; }
+/* Several carried results: one per line, each with its tick. */
+.board-line.carried .ink:has(.carry-row) { display: block; }
+.board-line.carried .ink:has(.carry-row)::before { content: none; }
+.carry-row { display: block; }
+.carry-row::before { content: '✓ '; color: var(--c-green); font-weight: 700; }

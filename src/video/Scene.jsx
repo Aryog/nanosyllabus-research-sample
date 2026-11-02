@@ -481,7 +481,7 @@ function withAbbr(board) {
   const seen = new Set();
   const order = board.map((b, i) => [b, i]).sort((x, y) => x[0].at - y[0].at || x[1] - y[1]);
   const out = [...board];
-  for (const [b, i] of order) out[i] = { ...b, node: symTree(b.kind === 'q' ? b.node : expandNode(b.node, seen)), carry: b.carry && symTree(b.carry) };
+  for (const [b, i] of order) out[i] = { ...b, node: symTree(b.kind === 'q' ? b.node : expandNode(b.node, seen)), carry: b.carry && (Array.isArray(b.carry) ? b.carry.map((c) => symTree(c)) : symTree(b.carry)) };
   return out;
 }
 const captionsOf = (beats = []) => {
@@ -1428,7 +1428,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
                         style={{ '--wd': `${writeSecs(b.node)}s` }}
                       >
                         <span className="ink" data-n={b.kind === 'part' ? board.filter((x) => x.kind === 'part').indexOf(b) + 1 : undefined}>
-                          {carriedAt(b) ? b.carry : b.node}
+                          {carriedAt(b) ? (Array.isArray(b.carry) ? b.carry.map((c, k) => <span key={k} className="carry-row">{c}</span>) : b.carry) : b.node}
                           {/* Highlight only what matters (results, traps, what to find), never every line (rule 39). */}
                           {beat === b.at && MARKED.has(b.kind) && <Marker kind={b.kind} delay={writeSecs(b.node)} />}
                         </span>

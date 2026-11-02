@@ -1722,7 +1722,7 @@ export const hyst16 = duo('Hysteresis with DC and AC excitation', {
     {
       say: 'H zero garda B zero hudaina; bachi rahane B r lai residual flux density bhanchan. Yaslai zero garna ulto H c chahincha: coercive force.',
       voice: 'एच जिरो गर्दा बी जिरो हुँदैन। बाँकी रहने बी आरलाई रेसिड्युअल फ्लक्स डेन्सिटी भन्छन्। यसलाई जिरो गर्न उल्टो एच सी चाहिन्छ — कोअर्सिभ फोर्स।',
-      lines: [['step', <Pts items={[<>H = 0 leaves B<sub>r</sub> (residual flux density, retentivity)</>, <>−H<sub>c</sub> (coercive force) brings B to zero</>]} />, undefined, { carry: <>B<sub>r</sub> at H = 0 · −H<sub>c</sub> makes B = 0</> }]],
+      lines: [['step', <Pts items={[<>H = 0 leaves B<sub>r</sub> (residual flux density, retentivity)</>, <>−H<sub>c</sub> (coercive force) brings B to zero</>]} />, undefined, { carry: [<>B<sub>r</sub> at H = 0</>, <>−H<sub>c</sub> makes B = 0</>] }]],
     },
     {
       say: 'B kina H bhanda pachhi parcha? Domain lai pharkauna friction jasto rokawat huncha, tesaile B le H lai lag garcha: yahi hysteresis.',
@@ -1880,7 +1880,7 @@ export const relAnswer12 = answer('Model answer: reluctance and permeance', {
   },
   points: [
     {
-      carry: <>(a) S: opposition to flux · P = 1/S</>,
+      carry: [<>(a) S: opposition to flux</>, <>P = 1/S</>],
       node: <><H>(a) Definitions</H><Pts items={[<><b>Reluctance S:</b> the opposition offered by a magnetic circuit to the flux; S = MMF/φ (AT/Wb)</>, <><b>Permeance P:</b> the ease with which flux is set up; P = 1/S (Wb/AT)</>]} /></>,
       say: 'Reluctance: magnetic circuit le flux lai dine opposition, S equals MMF over phi, AT per weber. Permeance: flux sajilai banne gun, P equals one over S, weber per AT.',
       voice: 'रिलक्टेन्स — म्याग्नेटिक सर्किटले फ्लक्सलाई दिने अपोजिसन, एस इक्वल्स एम एम एफ ओभर फाइ, ए टी पर वेबर। पर्मियन्स — फ्लक्स सजिलै बन्ने गुण, पी इक्वल्स वान ओभर एस, वेबर पर ए टी।',
@@ -1921,7 +1921,7 @@ export const parAnswer13 = answer('Model answer: ampere-turns for a parallel mag
   },
   points: [
     {
-      carry: <>Centre: φ · each side: φ/2</>,
+      carry: [<>Centre: φ</>, <>each side: φ/2</>],
       node: <><H>Step 1: fluxes (Fig. 1.4)</H><Pts items={[<>Centre limb carries φ = 0.75 Wb; each side limb carries φ/2 (symmetrical)</>, <><K>{String.raw`B_c = \phi/A_c`}</K>, <K>{String.raw`B_s = \phi/(2A_s)`}</K></>]} /></>,
       say: 'Pahilo: centre limb ma phi, har side limb ma phi over two. B c equals phi over A c, ra B s equals phi over two A s.',
       voice: 'पहिलो — सेन्टर लिम्बमा फाइ, हरेक साइड लिम्बमा फाइ ओभर टु। बी सी इक्वल्स फाइ ओभर ए सी, र बी एस इक्वल्स फाइ ओभर टु ए एस।',
