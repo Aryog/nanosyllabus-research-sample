@@ -1,4 +1,4 @@
-import { K, figAt } from './kit.jsx';
+import { K, figAt, Let } from './kit.jsx';
 import { backEmfFigure, torqueFigure } from './picture.jsx';
 import { story } from './ch4.jsx';
 import { torqueProduction3d } from './ch3.jsx';
@@ -181,7 +181,7 @@ addRoles(torqueDerivation, {
     ],
     [
       L(0, 'h', <>Torque equation of a DC motor</>),
-      L(0, 'step', <>Let, P = poles; φ = flux/pole; Z = conductors; A = paths; I<sub>a</sub> = armature current; r = radius; l = length.</>),
+      L(0, 'step', <Let items={[<>P = poles</>, <>φ = flux/pole</>, <>Z = conductors</>, <>A = paths</>, <>I<sub>a</sub> = armature current</>, <>r = radius</>, <>l = length</>]} />),
       L(1, 'step', tex(String.raw`\begin{aligned} I_c &= \dfrac{I_a}{A} && \cdots(1) \\ B &= \dfrac{P\phi}{2\pi r l} && \cdots(2) \end{aligned}`)),
       L(2, 'step', tex(String.raw`\begin{aligned} F &= B\,I_c\,l && \\ &= \dfrac{P\phi I_a}{2\pi r A} && \cdots(3) \\ \tau &= F\,r && \cdots(4) \end{aligned}`)),
       L(3, 'step', <>{tex(String.raw`\therefore\ \boxed{T_a = 0.159\,\phi Z I_a \left(\dfrac{P}{A}\right)\unit{newton-metre}} \qquad \cdots(5)`)}<b>Hence proved.</b></>),

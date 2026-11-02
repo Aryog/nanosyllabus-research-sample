@@ -637,7 +637,11 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
   // Branch scenes (kind 'branch') live in the figure zone, not in the board's flow.
   const { board, notes: termNotes, branches } = useMemo(() => {
     const all = withAbbr(rawBoard);
-    return { ...withTerms(all?.filter((b) => b.kind !== 'branch')), branches: all?.filter((b) => b.kind === 'branch') ?? [] };
+    // A "why" (kind 'branch') is written into the notes under the step it
+    // explains and stays there, like the rest of the page (user, 2026-11-02:
+    // "don't show it separately, don't make me feel like it's a branch").
+    const flow = all?.map((x) => (x.kind === 'branch' ? { ...x, until: undefined, node: <><span className="lbl">{x.title}</span>{x.node}</> } : x));
+    return { ...withTerms(flow), branches: [] };
   }, [rawBoard]);
   // Planned pages: a beat with `page: true` starts a new page (kit.jsx).
   const planned = useMemo(() => beats.reduce((a, b, i) => [...a, b.page ? i : (a[i - 1] ?? 0)], []), [beats]);

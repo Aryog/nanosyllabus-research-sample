@@ -1632,8 +1632,8 @@ export const losses36 = duo('Losses in a DC generator', {
       lines: [br('Why are iron losses constant?', <Pts items={[<>They depend on flux density and frequency (speed)</>, <>Shunt generator: φ and N ≈ constant</>, <>So iron loss hardly changes with load</>]} />)],
     },
     {
-      say: 'Main line ma farkau. Tesro, mechanical loss: bearing ra brush ko ghasai, ra ghumda hawa ko rokawat, arthat windage.',
-      voice: 'मेन लाइनमा फर्कौं। तेस्रो, मेकानिकल लस — बेयरिङ र ब्रसको घर्षण, र घुम्दा हावाको रोकावट, अर्थात विन्डेज।',
+      say: 'Tesro, mechanical loss: bearing ra brush ko ghasai, ra ghumda hawa ko rokawat, arthat windage.',
+      voice: 'तेस्रो, मेकानिकल लस — बेयरिङ र ब्रसको घर्षण, र घुम्दा हावाको रोकावट, अर्थात विन्डेज।',
       lines: [['step', <>Mechanical: bearing friction · brush friction · windage</>]],
     },
     {

@@ -1135,7 +1135,7 @@ export const ocscSolve23 = solve({
   steps: [
     {
       node: <K>{String.raw`\begin{aligned} \cos\varphi_0 &= \dfrac{80}{250\times0.8} \\ &= 0.4 \\ I_w &= 0.8\times0.4 \\ &= 0.32\ \text{A} \\ I_\mu &= 0.8\times0.9165 \\ &= 0.7332\ \text{A} \end{aligned}`}</K>,
-      say: 'cos phi 0 equals 80 over 200, 0.4. I w equals 0.32 ampere, I mu equals 0.7332 ampere.',
+      say: 'Cos phi 0 equals 80 over 200, 0.4. I w equals 0.32 ampere, I mu equals 0.7332 ampere.',
       voice: 'कस फाइ जिरो इक्वल्स असी ओभर दुई सय, जिरो पोइन्ट फोर। आई डब्लु इक्वल्स जिरो पोइन्ट थ्री टु एम्पियर, आई म्यु इक्वल्स जिरो पोइन्ट सेभेन थ्री थ्री टु एम्पियर।',
     },
     {
@@ -2431,8 +2431,8 @@ export const cons21 = duo('Constructional details and recent trends', {
       lines: [br('Why laminated?', <Pts items={[<>Thin insulated sheets break the eddy-current paths</>, <>Eddy loss ∝ (thickness)², so thin sheets cut it sharply</>]} />)],
     },
     {
-      say: 'Main line ma farkau. Accessories: tank, oil, conservator, breather ra bushing. Recent trends: CRGO ra amorphous core, dry type ra smart monitoring.',
-      voice: 'मेन लाइनमा फर्कौं। एक्सेसरिज — ट्याङ्क, अयल, कन्जर्भेटर, ब्रिदर र बुसिङ। रिसेन्ट ट्रेन्ड्स — सी आर जी ओ र एमोर्फस कोर, ड्राई टाइप, र स्मार्ट मनिटरिङ।',
+      say: 'Accessories: tank, oil, conservator, breather ra bushing. Recent trends: CRGO ra amorphous core, dry type ra smart monitoring.',
+      voice: 'एक्सेसरिज — ट्याङ्क, अयल, कन्जर्भेटर, ब्रिदर र बुसिङ। रिसेन्ट ट्रेन्ड्स — सी आर जी ओ र एमोर्फस कोर, ड्राई टाइप, र स्मार्ट मनिटरिङ।',
       lines: [['step', <Pts items={[<>Accessories: tank, oil, conservator, breather, bushings</>, <>Recent trends: CRGO and amorphous cores (low loss), dry-type (cast resin), online monitoring</>]} />]],
       ask: {
         q: 'Shell type transformer ma winding kaha rakhincha?',
@@ -2504,8 +2504,8 @@ export const ideal23 = duo('Ideal transformer: voltage and current ratios', {
       lines: [br('Why is the current ratio inverted?', <><Pts items={[<>No loss: input power equals output power</>]} />{tex(String.raw`V_1I_1 = V_2I_2`)}</>)],
     },
     {
-      say: 'Main line: I 1 over I 2 equals N 2 over N 1. Step-up ma voltage badhcha ra current ghatcha.',
-      voice: 'मेन लाइन — आई वान ओभर आई टु इक्वल्स एन टु ओभर एन वान। स्टेप अपमा भोल्टेज बढ्छ, र करेन्ट घट्छ।',
+      say: 'I 1 over I 2 equals N 2 over N 1. Step-up ma voltage badhcha ra current ghatcha.',
+      voice: 'आई वान ओभर आई टु इक्वल्स एन टु ओभर एन वान। स्टेप अपमा भोल्टेज बढ्छ, र करेन्ट घट्छ।',
       lines: [['eq', tex(String.raw`\dfrac{I_1}{I_2} = \dfrac{N_2}{N_1}`)]],
       ask: {
         q: 'Ideal step-up transformer ma secondary current primary bhanda kasto huncha?',
@@ -2577,8 +2577,8 @@ export const load25 = duo('Operation of the transformer with load: phasor diagra
       lines: [br('I2 for each kind of load', <Pts items={[<>Resistive: I<sub>2</sub> in phase with V<sub>2</sub></>, <>Inductive: I<sub>2</sub> lags V<sub>2</sub> by φ<sub>2</sub></>, <>Capacitive: I<sub>2</sub> leads V<sub>2</sub> by φ<sub>2</sub></>]} />)],
     },
     {
-      say: 'Main line: real transformer ma V 1 equals minus E 1 plus I 1 Z 1, ra V 2 equals E 2 minus I 2 Z 2. Phasor diagram yahi equation bata banaincha.',
-      voice: 'मेन लाइन — रियल ट्रान्सफर्मरमा भी वान इक्वल्स माइनस ई वान प्लस आई वान जेड वान, र भी टु इक्वल्स ई टु माइनस आई टु जेड टु। फेजर डायाग्राम यही इक्वेसनबाट बनाइन्छ।',
+      say: 'Real transformer ma V 1 equals minus E 1 plus I 1 Z 1, ra V 2 equals E 2 minus I 2 Z 2. Phasor diagram yahi equation bata banaincha.',
+      voice: 'रियल ट्रान्सफर्मरमा भी वान इक्वल्स माइनस ई वान प्लस आई वान जेड वान, र भी टु इक्वल्स ई टु माइनस आई टु जेड टु। फेजर डायाग्राम यही इक्वेसनबाट बनाइन्छ।',
       lines: [['step', <K>{String.raw`\begin{aligned} \bar{V}_1 &= -\bar{E}_1 + \bar{I}_1\bar{Z}_1 \\ \bar{V}_2 &= \bar{E}_2 - \bar{I}_2\bar{Z}_2 \end{aligned}`}</K>]],
       ask: {
         q: 'Capacitive load ma secondary current V2 lai kasto huncha?',
@@ -2650,8 +2650,8 @@ export const polarity27 = duo('Polarity test of a transformer', {
       lines: [br('Why does polarity matter?', <Pts items={[<>Parallel operation: wrong polarity → short-circuit current</>, <>Three-phase banks and instrument transformers need correct marks</>]} />)],
     },
     {
-      say: 'Main line: test pachhi terminal lai A 1, A 2 ra a 1, a 2 jasta chinha diyincha.',
-      voice: 'मेन लाइन — टेस्टपछि टर्मिनललाई ए वान, ए टु र स्मल ए वान, ए टु जस्ता चिन्ह दिइन्छ।',
+      say: 'Test pachhi terminal lai A 1, A 2 ra a 1, a 2 jasta chinha diyincha.',
+      voice: 'टेस्टपछि टर्मिनललाई ए वान, ए टु र स्मल ए वान, ए टु जस्ता चिन्ह दिइन्छ।',
       lines: [['step', <>Terminals are then marked (A<sub>1</sub>, A<sub>2</sub> on HV; a<sub>1</sub>, a<sub>2</sub> on LV)</>]],
       ask: {
         q: 'Polarity test ma voltmeter le V1 + V2 dekhayo bhane polarity kasto ho?',
@@ -2723,8 +2723,8 @@ export const losses29 = duo('Losses in a transformer', {
       lines: [br('Why x²?', <Pts items={[<>Cu loss ∝ I², and I ∝ load</>, <>Half load → (½)² = ¼ of full-load Cu loss</>]} />)],
     },
     {
-      say: 'Main line: stray loss ra dielectric loss sano hunchan. Figure 2.4 ma iron loss flat line ra copper loss parabola.',
-      voice: 'मेन लाइन — स्ट्रे लस र डाइइलेक्ट्रिक लस साना हुन्छन्। फिगर टु पोइन्ट फोरमा आइरन लस फ्ल्याट लाइन, र कपर लस प्याराबोला।',
+      say: 'Stray loss ra dielectric loss sano hunchan. Figure 2.4 ma iron loss flat line ra copper loss parabola.',
+      voice: 'स्ट्रे लस र डाइइलेक्ट्रिक लस साना हुन्छन्। फिगर टु पोइन्ट फोरमा आइरन लस फ्ल्याट लाइन, र कपर लस प्याराबोला।',
       lines: [['step', <>Small stray and dielectric losses · Fig. 2.4: iron loss flat, Cu loss rises as x²</>]],
       ask: {
         q: 'Transformer ko kun loss load sanga badalidaina?',
@@ -2796,8 +2796,8 @@ export const allDay210 = duo('All-day efficiency', {
       lines: [br('Why count iron loss for 24 h?', <Pts items={[<>The core is magnetised whenever the transformer is energised</>, <>Cu loss counts only for the hours and fraction of load</>]} />)],
     },
     {
-      say: 'Main line: input kWh equals output plus 24 times P i plus har period ko x squared P cu fl times ghanta. Tesaile distribution transformer kam iron loss ko banaincha.',
-      voice: 'मेन लाइन — इनपुट किलोवाट आवर इक्वल्स आउटपुट प्लस चौबीस टाइम्स पी आई, प्लस हरेक पिरियडको एक्स स्क्वायर पी सी यु एफ एल टाइम्स घण्टा। त्यसैले डिस्ट्रिब्युसन ट्रान्सफर्मर कम आइरन लसको बनाइन्छ।',
+      say: 'Input kWh equals output plus 24 times P i plus har period ko x squared P cu fl times ghanta. Tesaile distribution transformer kam iron loss ko banaincha.',
+      voice: 'इनपुट किलोवाट आवर इक्वल्स आउटपुट प्लस चौबीस टाइम्स पी आई, प्लस हरेक पिरियडको एक्स स्क्वायर पी सी यु एफ एल टाइम्स घण्टा। त्यसैले डिस्ट्रिब्युसन ट्रान्सफर्मर कम आइरन लसको बनाइन्छ।',
       lines: [['step', <K>{String.raw`\begin{aligned} \text{Input} &= \text{Output} + 24P_i \\ &\quad + \textstyle\sum x^2P_{cu,fl}\,t \end{aligned}`}</K>]],
       ask: {
         q: 'Distribution transformer lai kam iron loss ko kina banaincha?',
@@ -2869,8 +2869,8 @@ export const three213 = duo('Three-phase transformer connections', {
       lines: [br('Why a 30° shift?', <Pts items={[<>Line voltages of a star lead its phase voltages by 30°</>, <>So Y–Δ and Δ–Y outputs are shifted by 30°</>, <>They cannot be paralleled with Y–Y or Δ–Δ</>]} />)],
     },
     {
-      say: 'Main line: star-delta step-down substation ma, ra delta-star step-up generating station ra distribution ma, jaha neutral chahincha.',
-      voice: 'मेन लाइन — स्टार डेल्टा स्टेप डाउन सबस्टेसनमा, र डेल्टा स्टार स्टेप अप जेनेरेटिङ स्टेसन र डिस्ट्रिब्युसनमा, जहाँ न्युट्रल चाहिन्छ।',
+      say: 'Star-delta step-down substation ma, ra delta-star step-up generating station ra distribution ma, jaha neutral chahincha.',
+      voice: 'स्टार डेल्टा स्टेप डाउन सबस्टेसनमा, र डेल्टा स्टार स्टेप अप जेनेरेटिङ स्टेसन र डिस्ट्रिब्युसनमा, जहाँ न्युट्रल चाहिन्छ।',
       lines: [['step', <Pts items={[<>(c) Y–Δ: step-down at receiving substations</>, <>(d) Δ–Y: step-up at generating stations; distribution (neutral for 3-phase 4-wire)</>]} />]],
       ask: {
         q: 'Ghar ko distribution transformer ma secondary prayah kun connection ma huncha?',

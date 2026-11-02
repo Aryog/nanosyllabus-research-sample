@@ -1,4 +1,4 @@
-import { K, Pts, answer, duo, figAt } from '../video/kit.jsx';
+import { K, Pts, answer, duo, figAt, Let } from '../video/kit.jsx';
 import { backEmfFigure, torqueFigure } from '../video/picture.jsx';
 import { backEmf41 as backEmfScene41, fan41, swing41, torque41 as torqueScene41 } from './scenes41.js';
 
@@ -366,7 +366,7 @@ export const torqueAnswer41 = answer('Model answer: working principle and torque
       node: (
         <>
           <H>(b) Torque equation [2]</H>
-          <Pts items={[<>Let P = poles, φ = flux/pole, Z = conductors, A = paths</>, <>I<sub>a</sub> = armature current, r = radius, l = length</>]} />
+          <Pts items={[<Let items={[<>P = poles</>, <>φ = flux/pole</>, <>Z = conductors</>, <>A = paths</>]} />, <>I<sub>a</sub> = armature current, r = radius, l = length</>]} />
           <K>{String.raw`\begin{aligned} I_c &= \dfrac{I_a}{A} && \cdots(1) \\ B &= \dfrac{P\phi}{2\pi r l} && \cdots(2) \\ F &= B\,I_c\,l && \\ &= \dfrac{P\phi I_a}{2\pi r A} && \cdots(3) \end{aligned}`}</K>
         </>
       ),

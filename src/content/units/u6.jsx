@@ -616,7 +616,7 @@ export const factors62 = duo('Pitch factor and distribution factor', {
       lines: [['step', <>m = slots per pole per phase, β = 180°/(slots per pole)</>]],
     },
     {
-      say: 'm ota slot EMF beta beta farak; vector sum over arithmetic sum: K d equals sin m beta over 2, over m sin beta over 2.',
+      say: 'M ota slot EMF beta beta farak; vector sum over arithmetic sum: K d equals sin m beta over 2, over m sin beta over 2.',
       voice: 'एम ओटा स्लट ई एम एफ बिटा बिटा फरक, भेक्टर सम ओभर एरिथमेटिक सम — के डी इक्वल्स साइन एम बिटा ओभर टु, ओभर एम साइन बिटा ओभर टु।',
       lines: [['eq', tex(String.raw`\boxed{K_d = \dfrac{\sin(m\beta/2)}{m\sin(\beta/2)}}`)]],
     },
@@ -1707,8 +1707,8 @@ export const principle66 = duo('Principle of operation of the synchronous motor'
       lines: [br('Why not self-starting?', <Pts items={[<>The stator field turns at N<sub>s</sub> (fast); the heavy rotor cannot follow at once</>, <>It is pulled one way for half a cycle and pushed the other way for the next half</>, <>Average torque zero → a starting method is needed (topic 6.7)</>]} />)],
     },
     {
-      say: 'Main line ma farkau. Load lagauda rotor ko pole stator ko field bhanda load angle delta le pachhi parcha, tara speed N s nai rahancha.',
-      voice: 'मेन लाइनमा फर्कौं। लोड लगाउँदा रोटरको पोल स्टेटरको फिल्डभन्दा लोड एङ्गल डेल्टाले पछि पर्छ, तर स्पिड एन एस नै रहन्छ।',
+      say: 'Load lagauda rotor ko pole stator ko field bhanda load angle delta le pachhi parcha, tara speed N s nai rahancha.',
+      voice: 'लोड लगाउँदा रोटरको पोल स्टेटरको फिल्डभन्दा लोड एङ्गल डेल्टाले पछि पर्छ, तर स्पिड एन एस नै रहन्छ।',
       lines: [['step', <>On load the rotor poles fall back by the load angle δ; the speed stays N<sub>s</sub> (Fig. 6.5)</>]],
       ask: {
         q: 'Load badhda synchronous motor ko speed lai k huncha?',
@@ -1943,8 +1943,8 @@ export const load68 = duo('No load and load operation of the synchronous motor, 
       lines: [br('Why does δ grow with load?', <><Pts items={[<>More load needs more input power</>, <>Power developed rises with δ (R<sub>a</sub> neglected):</>]} />{tex(String.raw`P = \dfrac{3VE\sin\delta}{X_s}`)}</>)],
     },
     {
-      say: 'Main line: leading pf ma E V bhanda thulo huncha, ra lagging pf ma sano. Yo excitation ma bhar parcha.',
-      voice: 'मेन लाइन — लिडिङ पी एफमा ई, भीभन्दा ठूलो हुन्छ, र ल्यागिङ पी एफमा सानो। यो एक्साइटेसनमा भर पर्छ।',
+      say: 'Leading pf ma E V bhanda thulo huncha, ra lagging pf ma sano. Yo excitation ma bhar parcha.',
+      voice: 'लिडिङ पी एफमा ई, भीभन्दा ठूलो हुन्छ, र ल्यागिङ पी एफमा सानो। यो एक्साइटेसनमा भर पर्छ।',
       lines: [['step', <>Leading pf: E &gt; V (over-excited) · lagging pf: E &lt; V (under-excited)</>]],
       ask: {
         q: 'Synchronous motor leading pf ma chalda E ra V ma kun thulo huncha?',

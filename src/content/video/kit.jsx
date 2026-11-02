@@ -130,6 +130,16 @@ const split = (bs) => ({
 // drawn on a rail; the takeaway stays an 'idea'.
 export const part = (name, job, until) => ['part', <><b className="part-name">{name}</b><span className="part-job">{job}</span></>, until];
 export const chain = (node, until) => ['chain', node, until];
+// "Let," with one symbol per line (user, 2026-11-02: "these notation can be
+// line changed"): <Let items={[<>P = number of poles</>, …]} />.
+export const Let = ({ items, lead = 'Let,' }) => (
+  <span className="let">
+    <span className="let-lead">{lead}</span>
+    {items.map((x, i) => (
+      <span key={i} className="let-row">{x}</span>
+    ))}
+  </span>
+);
 export const rem = (...items) => ['recall', items.length > 1 ? <Pts items={items} /> : items[0]];
 export const br = (title, node, until) => ['branch', node, until, { title }];
 export const duo = (title, { tutor, lecturer, ...rest }) => {

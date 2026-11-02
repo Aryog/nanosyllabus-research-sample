@@ -1,4 +1,4 @@
-import { C, K, Pts, answer, duo, figAt, solve, topic } from '../video/kit.jsx';
+import { C, K, Pts, answer, duo, figAt, solve, topic, Let } from '../video/kit.jsx';
 import { br, chain, part, rem } from '../video/kit.jsx';
 import { Cap, T, W, head, cond } from '../unit4/figs.jsx';
 import { magnetTour } from '../machines/models3d.js';
@@ -670,7 +670,7 @@ export const loss12 = duo('Derivation: hysteresis loss and eddy current loss', {
       lines: [['h', <>Hysteresis loss = loop area</>], ['eq', tex(String.raw`dW = v\,i\,dt, \quad v = N A \dfrac{dB}{dt}`)]],
     },
     {
-      say: 'i equals H l over N rakhau. N kattincha: d W equals A l times H d B. A l nai core ko volume V.',
+      say: 'I equals H l over N rakhau. N kattincha: d W equals A l times H d B. A l nai core ko volume V.',
       voice: 'आई इक्वल्स एच एल ओभर एन राखौं। एन कटिन्छ — डी डब्लु इक्वल्स ए एल टाइम्स एच डी बी। ए एल नै कोरको भोल्युम भी।',
       lines: [['eq', tex(String.raw`\begin{aligned} dW &= \underbrace{N A \dfrac{dB}{dt}}_{v}\cdot\underbrace{\dfrac{Hl}{N}}_{i}\,dt \\ &= (Al)\,H\,dB \end{aligned}`)]],
     },
@@ -1013,7 +1013,7 @@ export const blv13 = duo('Derivation: e = Blv sinθ and F = BIl sinθ', {
       lines: [['h', <>Dynamically induced EMF</>], ['step', <>Conductor of length l moves with velocity v across B</>]],
     },
     {
-      say: 'd t samaya ma conductor d x sarcha, ra l times d x area ko flux kaatcha: d phi equals B l d x.',
+      say: 'D t samaya ma conductor d x sarcha, ra l times d x area ko flux kaatcha: d phi equals B l d x.',
       voice: 'डी टी समयमा कन्डक्टर डी एक्स सर्छ, र एल टाइम्स डी एक्स एरियाको फ्लक्स काट्छ — डी फाइ इक्वल्स बी एल डी एक्स।',
       lines: [['eq', tex(String.raw`d\Phi = B \underbrace{(l\,dx)}_{\text{area swept}}`)]],
     },
@@ -1093,7 +1093,7 @@ export const faradayAnswer13 = answer("Model answer: Faraday's laws and types of
     },
     {
       node: <><K>{String.raw`\boxed{e = -N\dfrac{d\Phi}{dt}}`}</K>The minus sign is Lenz’s law: the EMF opposes the change that causes it.</>,
-      say: 'e equals minus N d phi by d t; the minus sign is Lenz’s law.',
+      say: 'E equals minus N d phi by d t; the minus sign is Lenz’s law.',
       voice: 'ई इक्वल्स माइनस एन डी फाइ बाइ डी टी, द माइनस साइन इज लेन्जेस ल।',
     },
     {
@@ -1248,7 +1248,7 @@ export const reluctance12 = duo("Ohm's law for magnetic circuits: reluctance and
     {
       say: 'Maanau core ko mean length l, cross-section area A, ra relative permeability mu r. Coil ma N turns ra current I.',
       voice: 'मानौं कोरको मिन लेन्थ एल, क्रस सेक्सन एरिया ए, र रिलेटिभ पर्मियाबिलिटी म्यु आर। कोइलमा एन टर्न्स र करेन्ट आई।',
-      lines: [['step', <>Let l = mean length (m), A = area (m²), μ<sub>r</sub> = relative permeability, N turns carrying I</>, undefined, { carry: <>l, A, μ<sub>r</sub>, N, I</> }]],
+      lines: [['step', <Let items={[<>l = mean length (m)</>, <>A = area (m²)</>, <>μ<sub>r</sub> = relative permeability, N turns carrying I</>]} />, undefined, { carry: <>l, A, μ<sub>r</sub>, N, I</> }]],
     },
     {
       say: 'H equals N I over l, ra B equals mu zero mu r H. Flux phi equals B A.',
@@ -1262,8 +1262,8 @@ export const reluctance12 = duo("Ohm's law for magnetic circuits: reluctance and
     },
     {
       page: true,
-      say: 'Main line: phi equals mu zero mu r A N I over l, arthat N I over l over mu zero mu r A. Yahi magnetic Ohm ko niyam: phi equals MMF over S.',
-      voice: 'मेन लाइन — फाइ इक्वल्स म्यु जिरो म्यु आर ए एन आई ओभर एल, अर्थात एन आई ओभर, एल ओभर म्यु जिरो म्यु आर ए। यही म्याग्नेटिक ओमको नियम — फाइ इक्वल्स एम एम एफ ओभर एस।',
+      say: 'Phi equals mu zero mu r A N I over l, arthat N I over l over mu zero mu r A. Yahi magnetic Ohm ko niyam: phi equals MMF over S.',
+      voice: 'फाइ इक्वल्स म्यु जिरो म्यु आर ए एन आई ओभर एल, अर्थात एन आई ओभर, एल ओभर म्यु जिरो म्यु आर ए। यही म्याग्नेटिक ओमको नियम — फाइ इक्वल्स एम एम एफ ओभर एस।',
       lines: [['step', step('Flux', String.raw`\begin{aligned} \phi &= \mu_0\mu_r A\,\dfrac{NI}{l} \\ &= \dfrac{NI}{\;l/(\mu_0\mu_r A)\;} \end{aligned}`)], ['eq', tex(String.raw`\phi = \dfrac{\text{MMF}}{S} \unit{weber}`)]],
     },
     {
@@ -1288,7 +1288,7 @@ export const reluctance12 = duo("Ohm's law for magnetic circuits: reluctance and
     {
       say: 'Let: l mean length, A area, mu r relative permeability, ra N turn ma current I.',
       voice: 'लेट — एल मिन लेन्थ, ए एरिया, म्यु आर रिलेटिभ पर्मियाबिलिटी, र एन टर्नमा करेन्ट आई।',
-      lines: [['step', <>Let l = mean length, A = cross-section, μ<sub>r</sub> = relative permeability, N turns, current I.</>, undefined, { carry: <>l, A, μ<sub>r</sub>, N, I</> }]],
+      lines: [['step', <Let items={[<>l = mean length</>, <>A = cross-section</>, <>μ<sub>r</sub> = relative permeability, N turns, current I</>]} />, undefined, { carry: <>l, A, μ<sub>r</sub>, N, I</> }]],
     },
     {
       say: 'H equals N I over l equation ek, B equals mu zero mu r H equation dui, ra phi equals B A equation tin.',
@@ -1420,8 +1420,8 @@ export const series13 = duo('Series and parallel magnetic circuits', {
       lines: [br('Why count one side limb only?', <Pts items={[<>The two side limbs are in parallel</>, <>Parallel paths share the same MMF (like the same voltage across parallel resistors)</>, <>So the loop is centre limb + one side limb</>]} />)],
     },
     {
-      say: 'Main line: jamma AT equals centre limb ko H c l c plus euta side limb ko H s l s.',
-      voice: 'मेन लाइन — जम्मा ए टी इक्वल्स, सेन्टर लिम्बको एच सी एल सी प्लस, एउटा साइड लिम्बको एच एस एल एस।',
+      say: 'Jamma AT equals centre limb ko H c l c plus euta side limb ko H s l s.',
+      voice: 'जम्मा ए टी इक्वल्स, सेन्टर लिम्बको एच सी एल सी प्लस, एउटा साइड लिम्बको एच एस एल एस।',
       lines: [['eq', tex(String.raw`NI = H_c l_c + H_s l_s \unit{ampere-turn}`)]],
       ask: {
         q: 'Symmetrical parallel circuit ma side limb ko flux density centre ko kati huncha (area barabar bhaye)?',
@@ -1730,8 +1730,8 @@ export const hyst16 = duo('Hysteresis with DC and AC excitation', {
       lines: [br('Why does B lag H?', <Pts items={[<>Domains resist turning back (like friction)</>, <>So B lags behind H: hysteresis (“lagging behind”)</>]} />)],
     },
     {
-      say: 'Main line: AC excitation ma H plus H max dekhi minus H max samma ghumcha, ra har cycle ma B le pura loop trace garcha.',
-      voice: 'मेन लाइन — ए सी एक्साइटेसनमा एच, प्लस एच म्याक्सदेखि माइनस एच म्याक्ससम्म घुम्छ, र हरेक साइकलमा बीले पूरा लुप ट्रेस गर्छ।',
+      say: 'AC excitation ma H plus H max dekhi minus H max samma ghumcha, ra har cycle ma B le pura loop trace garcha.',
+      voice: 'ए सी एक्साइटेसनमा एच, प्लस एच म्याक्सदेखि माइनस एच म्याक्ससम्म घुम्छ, र हरेक साइकलमा बीले पूरा लुप ट्रेस गर्छ।',
       lines: [['step', <>AC: H swings between +H<sub>max</sub> and −H<sub>max</sub>; B traces the whole loop every cycle</>]],
     },
     {

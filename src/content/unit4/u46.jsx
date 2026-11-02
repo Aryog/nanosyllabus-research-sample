@@ -1,4 +1,4 @@
-import { K, Pts, answer, duo, figAt } from '../video/kit.jsx';
+import { K, Pts, answer, duo, figAt, Let } from '../video/kit.jsx';
 import { retardFigure, swinburneFigure } from './figs.jsx';
 
 /*
@@ -358,7 +358,7 @@ export const retardDer46 = duo('Derivation: retardation test formula', {
     {
       say: 'Rotational loss W equals rate of loss of kinetic energy, half J omega square.',
       voice: 'रोटेसनल लस डब्लु इक्वल्स, रेट अफ लस अफ काइनेटिक इनर्जी, हाफ जे ओमेगा स्क्वायर।',
-      lines: [['h', <>Retardation test: rotational losses</>], ['note', <>Let J = moment of inertia of the armature (kg·m²); ω = angular speed (rad/s); W = rotational loss (watt).</>], ['step', <><K>{String.raw`\begin{aligned} W &= \dfrac{d}{dt}\left(\tfrac{1}{2}J\omega^2\right) && \\ &= J\omega\,\dfrac{d\omega}{dt} && \cdots(1) \end{aligned}`}</K></>]],
+      lines: [['h', <>Retardation test: rotational losses</>], ['note', <Let items={[<>J = moment of inertia of the armature (kg·m²)</>, <>ω = angular speed (rad/s)</>, <>W = rotational loss (watt)</>]} />], ['step', <><K>{String.raw`\begin{aligned} W &= \dfrac{d}{dt}\left(\tfrac{1}{2}J\omega^2\right) && \\ &= J\omega\,\dfrac{d\omega}{dt} && \cdots(1) \end{aligned}`}</K></>]],
     },
     {
       say: 'Omega equals two pi N over sixty rakhda, W equals two pi over sixty square, J N d N by d t.',

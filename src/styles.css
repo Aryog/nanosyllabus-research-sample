@@ -1224,3 +1224,12 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .board-line.kind-q .marks { display: inline-block; margin-left: 8px; padding: 0 8px; border-radius: 999px; font-size: 0.72em; font-weight: 700; letter-spacing: 0.02em; vertical-align: 0.1em; color: #1f2328; background: #ffd43b; white-space: nowrap; }
 .board-line.kind-q .qtext { display: block; margin-top: 4px; color: var(--chalk); }
 .board-line.kind-q .tag { white-space: normal; }
+
+/* "Let," definitions: one symbol per line (kit.jsx Let). */
+.let { display: block; }
+.let-lead { display: block; }
+.let-row { display: block; padding-left: 1.4em; }
+.board-line .ink:has(.let) { display: block; }
+/* A "why" sits in the notes like any other line: slightly indented, no card. */
+.board-line.kind-branch { padding-left: 0.9em !important; font-size: calc(var(--bs) * 0.92); }
+.board-line.kind-branch .lbl { color: var(--chalk); font-weight: 600; }

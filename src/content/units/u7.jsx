@@ -911,7 +911,7 @@ export const series73 = duo('Operation of the AC series motor and universal moto
       lines: [['eq', tex(String.raw`\begin{aligned} T &\propto \phi\, i \propto i^2 \\ T_{av} &\propto I^2 \;(>0) \end{aligned}`)]],
     },
     {
-      say: 'i equals I m sin omega t bhaye T proportional to I m square sin square omega t: double frequency ma pulsate garcha tara ulto hudaina.',
+      say: 'I equals I m sin omega t bhaye T proportional to I m square sin square omega t: double frequency ma pulsate garcha tara ulto hudaina.',
       voice: 'आई इक्वल्स आई एम साइन ओमेगा टी भए टी प्रपोर्सनल टु आई एम स्क्वायर साइन स्क्वायर ओमेगा टी — डबल फ्रिक्वेन्सीमा पल्सेट गर्छ तर उल्टो हुँदैन।',
       lines: [['eq', tex(String.raw`\begin{aligned} T &\propto I_m^2\sin^2\omega t \\ &= \dfrac{I_m^2}{2}(1 - \cos2\omega t) \end{aligned}`)]],
       ask: {
@@ -1526,8 +1526,8 @@ export const capacitor74 = duo('Capacitor start and capacitor run motors', {
       lines: [br('Why does a capacitor make the current lead?', <Pts items={[<>Current must flow first to put charge on the plates</>, <>The voltage builds up after the charge</>, <>So in a capacitor the current leads the voltage (up to 90°)</>]} />)],
     },
     {
-      say: 'Main line ma farkau. Rated speed ko lagbhag 75 percent ma centrifugal switch khulcha, ra motor main winding le matra chalcha.',
-      voice: 'मेन लाइनमा फर्कौं। रेटेड स्पिडको लगभग पचहत्तर प्रतिशतमा सेन्ट्रिफ्युगल स्विच खुल्छ, र मोटर मेन वाइन्डिङले मात्र चल्छ।',
+      say: 'Rated speed ko lagbhag 75 percent ma centrifugal switch khulcha, ra motor main winding le matra chalcha.',
+      voice: 'रेटेड स्पिडको लगभग पचहत्तर प्रतिशतमा सेन्ट्रिफ्युगल स्विच खुल्छ, र मोटर मेन वाइन्डिङले मात्र चल्छ।',
       lines: [['step', <>At ≈ 75 % speed the centrifugal switch opens; the motor runs on the main winding</>]],
     },
     {

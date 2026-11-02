@@ -1,4 +1,4 @@
-import { K, Pts, br, duo, figAt, rem } from '../video/kit.jsx';
+import { K, Pts, br, duo, figAt, rem, Let } from '../video/kit.jsx';
 import { backEmfFigure, torqueFigure } from '../video/picture.jsx';
 import { commFigure, forceFigure } from './figs.jsx';
 
@@ -64,8 +64,8 @@ export const principleS41 = duo('Working principle of a DC motor', {
       lines: [br('Direction of F: Fleming’s left-hand rule', <Pts items={[<>Three fingers of the left hand, mutually perpendicular</>, <><b>F</b>irst finger → <b>F</b>ield (B)</>, <>se<b>C</b>ond finger → <b>C</b>urrent (I)</>, <>thu<b>M</b>b → <b>M</b>otion (F)</>]} />)],
     },
     {
-      say: 'Main line ma farkau. Force ko magnitude F equals B I l. Yesko unit newton ho. Force B, I ra l teenai sanga proportional cha.',
-      voice: 'मेन लाइनमा फर्कौं। फोर्सको म्याग्निच्युड — एफ इक्वल्स बी आई एल। यसको युनिट न्युटन हो। फोर्स बी, आई र एल, तीनैसँग प्रोपोर्सनल छ।',
+      say: 'Force ko magnitude F equals B I l. Yesko unit newton ho. Force B, I ra l teenai sanga proportional cha.',
+      voice: 'फोर्सको म्याग्निच्युड — एफ इक्वल्स बी आई एल। यसको युनिट न्युटन हो। फोर्स बी, आई र एल, तीनैसँग प्रोपोर्सनल छ।',
       lines: [['eq', tex(String.raw`F = B\,I\,l \unit{newton}`)], ['note', <>F grows with B, I and l (conductor at right angles to B)</>]],
     },
     {
@@ -150,8 +150,8 @@ export const commS41 = duo('Production of unidirectional torque', {
       lines: [br('Without a commutator?', <Pts items={[<>After 180°, a is in the S-pole region but still carries ⊗</>, <>Its force reverses → the torque reverses</>, <>The coil only rocks to and fro: no continuous rotation</>]} />)],
     },
     {
-      say: 'Main figure ma farkau. Figure b ma coil 180 degree ghumisakeko cha. Commutator ra brush le coil ko current ulto gardincha, tesaile N pole ko prabhav ma aaune a dash ma aba current bhitra jancha. Force ra torque ko direction usai rahancha.',
-      voice: 'मेन फिगरमा फर्कौं। फिगर बीमा, कोइल एक सय असी डिग्री घुमिसकेको छ। कम्युटेटर र ब्रसले कोइलको करेन्ट उल्टो गर्दिन्छ, त्यसैले एन पोलको प्रभावमा आउने ए ड्यासमा अब करेन्ट भित्र जान्छ। फोर्स र टर्कको डाइरेक्सन उस्तै रहन्छ।',
+      say: 'Figure b ma coil 180 degree ghumisakeko cha. Commutator ra brush le coil ko current ulto gardincha, tesaile N pole ko prabhav ma aaune a dash ma aba current bhitra jancha. Force ra torque ko direction usai rahancha.',
+      voice: 'फिगर बीमा, कोइल एक सय असी डिग्री घुमिसकेको छ। कम्युटेटर र ब्रसले कोइलको करेन्ट उल्टो गर्दिन्छ, त्यसैले एन पोलको प्रभावमा आउने ए ड्यासमा अब करेन्ट भित्र जान्छ। फोर्स र टर्कको डाइरेक्सन उस्तै रहन्छ।',
       lines: [['step', <>Fig. (b), after 180°: the commutator reverses the coil current → a′ (now in the N-pole region) carries ⊗ → same torque direction</>]],
     },
     {
@@ -385,7 +385,7 @@ export const emfS41 = duo('Derivation: EMF equation (back EMF)', {
     {
       say: 'Symbols maanau: P poles ko sankhya, phi euta pole ko flux weber ma, Z armature ka jamma conductor, A parallel path, ra N speed rpm ma. Yi symbols har video ma yahi artha ma aauchan.',
       voice: 'सिम्बोल्स मानौं — पी पोल्सको सङ्ख्या, फाइ एउटा पोलको फ्लक्स वेबरमा, जेड आर्मेचरका जम्मा कन्डक्टर, ए प्यारालल पाथ, र एन स्पिड आर पी एममा। यी सिम्बोल्स हरेक भिडियोमा यही अर्थमा आउँछन्।',
-      lines: [['step', <>Let P = poles · φ = flux per pole (Wb) · Z = armature conductors · A = parallel paths · N = speed (rpm)</>, undefined, { carry: <>P, φ, Z, A, N as defined</> }]],
+      lines: [['step', <Let items={[<>P = poles</>, <>φ = flux per pole (Wb)</>, <>Z = armature conductors</>, <>A = parallel paths</>, <>N = speed (rpm)</>]} />, undefined, { carry: <>P, φ, Z, A, N as defined</> }]],
     },
     {
       say: 'Pahilo kadam: euta revolution ma euta conductor le kati flux kaatcha? d Phi equals P phi weber.',
@@ -398,8 +398,8 @@ export const emfS41 = duo('Derivation: EMF equation (back EMF)', {
       lines: [br('Why Pφ?', <Pts items={[<>In one revolution a conductor passes every pole once</>, <>Each pole gives flux φ</>, <>P poles → flux cut = P × φ (4 poles → 4φ)</>]} />)],
     },
     {
-      say: 'Main line ma farkau. Dosro kadam: euta revolution lai kati time lagcha? d t equals sixty over N second.',
-      voice: 'मेन लाइनमा फर्कौं। दोस्रो कदम — एउटा रिभोलुसनलाई कति टाइम लाग्छ? डी टी इक्वल्स, सिक्स्टी ओभर एन सेकेन्ड।',
+      say: 'Dosro kadam: euta revolution lai kati time lagcha? d t equals sixty over N second.',
+      voice: 'दोस्रो कदम — एउटा रिभोलुसनलाई कति टाइम लाग्छ? डी टी इक्वल्स, सिक्स्टी ओभर एन सेकेन्ड।',
       lines: [['step', step('Time for one revolution', String.raw`\textcolor{${C.VI}}{dt} = \dfrac{60}{N} \unit{second}`), undefined, { carry: <><K>{String.raw`dt = 60/N`}</K></> }]],
     },
     {
@@ -419,8 +419,8 @@ export const emfS41 = duo('Derivation: EMF equation (back EMF)', {
       lines: [br('Why multiply by Z/A?', <Pts items={[<>Z conductors are shared among A parallel paths</>, <>Each path: Z/A conductors in series → their EMFs add</>, <>Parallel paths have the same EMF = machine EMF</>, <>Lap: A = P · Wave: A = 2</>]} />)],
     },
     {
-      say: 'Main line ma farkau: E b equals e times Z over A. e rakhda E b equals P phi Z N over sixty A volt. Motor ma yahi EMF back EMF ho.',
-      voice: 'मेन लाइनमा फर्कौं — ई बी इक्वल्स, ई टाइम्स जेड ओभर ए। ई राख्दा, ई बी इक्वल्स पी फाइ जेड एन, ओभर सिक्स्टी ए भोल्ट। मोटरमा यही ई एम एफ, ब्याक ई एम एफ हो।',
+      say: 'E b equals e times Z over A. e rakhda E b equals P phi Z N over sixty A volt. Motor ma yahi EMF back EMF ho.',
+      voice: 'ई बी इक्वल्स, ई टाइम्स जेड ओभर ए। ई राख्दा, ई बी इक्वल्स पी फाइ जेड एन, ओभर सिक्स्टी ए भोल्ट। मोटरमा यही ई एम एफ, ब्याक ई एम एफ हो।',
       lines: [['step', step('EMF of the machine = EMF of one path', String.raw`\begin{aligned} E_b &= ${X('e', C.GR)} \times \dfrac{Z}{A} \\ &= ${R(String.raw`\dfrac{P\phi N}{60}`, C.GR, 1)} \cdot \dfrac{Z}{A} \end{aligned}`)], ['eq', tex(String.raw`E_b = \dfrac{P\phi Z N}{60A} \unit{volt}`)]],
     },
     {
@@ -446,7 +446,7 @@ export const emfS41 = duo('Derivation: EMF equation (back EMF)', {
     {
       say: 'Let: P number of poles, phi flux per pole weber ma, Z total armature conductors, A number of parallel paths, ra N speed rpm ma.',
       voice: 'लेट — पी नम्बर अफ पोल्स, फाइ फ्लक्स पर पोल वेबरमा, जेड टोटल आर्मेचर कन्डक्टर्स, ए नम्बर अफ प्यारालल पाथ्स, र एन स्पिड आर पी एममा।',
-      lines: [['step', <>Let, P = number of poles; φ = flux per pole (Wb); Z = total armature conductors; A = number of parallel paths; N = speed (rpm).</>, undefined, { carry: <>P, φ, Z, A, N as defined</> }]],
+      lines: [['step', <Let items={[<>P = number of poles</>, <>φ = flux per pole (Wb)</>, <>Z = total armature conductors</>, <>A = number of parallel paths</>, <>N = speed (rpm)</>]} />, undefined, { carry: <>P, φ, Z, A, N as defined</> }]],
     },
     {
       say: 'Euta revolution ma euta conductor le cut garne flux d Phi equals P phi weber, equation ek.',
@@ -521,8 +521,8 @@ export const voltageS41 = duo('Derivation: voltage and power equation', {
       lines: [br('KVL round the armature loop', <><Pts items={[<>Rise: V (supply)</>, <>Drops: I<sub>a</sub>R<sub>a</sub> and E<sub>b</sub></>]} />{tex(String.raw`V - I_aR_a - E_b = 0`)}</>)],
     },
     {
-      say: 'Main line: voltage equation V equals E b plus I a R a. Yasbata I a equals V minus E b, over R a.',
-      voice: 'मेन लाइन — भोल्टेज इक्वेसन, भी इक्वल्स ई बी प्लस आई ए आर ए। यसबाट, आई ए इक्वल्स भी माइनस ई बी, ओभर आर ए।',
+      say: 'Voltage equation V equals E b plus I a R a. Yasbata I a equals V minus E b, over R a.',
+      voice: 'भोल्टेज इक्वेसन, भी इक्वल्स ई बी प्लस आई ए आर ए। यसबाट, आई ए इक्वल्स भी माइनस ई बी, ओभर आर ए।',
       lines: [['eq', tex(String.raw`V = E_b + I_aR_a`)], ['step', step('Armature current', String.raw`I_a = \dfrac{V - E_b}{R_a}`), undefined, { carry: <><K>{String.raw`V = E_b + I_aR_a`}</K></> }]],
     },
     {
@@ -599,7 +599,7 @@ export const torqueForceS41 = duo('Derivation: torque equation (force method)', 
     {
       say: 'Symbols: P, phi, Z ra A aghi jastai. Thap ma I a armature current, r armature ko radius, ra l conductor ko active length.',
       voice: 'सिम्बोल्स — पी, फाइ, जेड र ए अघि जस्तै। थपमा, आई ए आर्मेचर करेन्ट, आर आर्मेचरको रेडियस, र एल कन्डक्टरको एक्टिभ लेन्थ।',
-      lines: [['step', <>Let P, φ, Z, A as before · I<sub>a</sub> = armature current · r = armature radius · l = active length</>, undefined, { carry: <>P, φ, Z, A, I<sub>a</sub>, r, l</> }]],
+      lines: [['step', <Let items={[<>P, φ, Z, A as before</>, <>I<sub>a</sub> = armature current</>, <>r = armature radius</>, <>l = active length</>]} />, undefined, { carry: <>P, φ, Z, A, I<sub>a</sub>, r, l</> }]],
     },
     {
       say: 'Pahilo kadam: euta conductor ma current I c equals I a over A.',
@@ -612,8 +612,8 @@ export const torqueForceS41 = duo('Derivation: torque equation (force method)', 
       lines: [br('Why Ia/A?', <Pts items={[<>I<sub>a</sub> enters at the brush</>, <>It divides equally among the A parallel paths</>, <>Every conductor of a path carries I<sub>a</sub>/A</>]} />)],
     },
     {
-      say: 'Main line ma farkau. Dosro kadam: armature ko surface ma flux density B equals P phi over two pi r l.',
-      voice: 'मेन लाइनमा फर्कौं। दोस्रो कदम — आर्मेचरको सर्फेसमा फ्लक्स डेन्सिटी, बी इक्वल्स पी फाइ, ओभर टु पाइ आर एल।',
+      say: 'Dosro kadam: armature ko surface ma flux density B equals P phi over two pi r l.',
+      voice: 'दोस्रो कदम — आर्मेचरको सर्फेसमा फ्लक्स डेन्सिटी, बी इक्वल्स पी फाइ, ओभर टु पाइ आर एल।',
       lines: [['step', step('Flux density at the armature surface', String.raw`\textcolor{${C.BL}}{B} = \dfrac{P\phi}{2\pi r\,l}`), undefined, { carry: <><K>{String.raw`B = P\phi/2\pi r l`}</K></> }]],
     },
     {
@@ -660,7 +660,7 @@ export const torqueForceS41 = duo('Derivation: torque equation (force method)', 
     {
       say: 'Let: P poles, phi flux per pole, Z conductors, A parallel paths, I a armature current, r armature radius, ra l active length.',
       voice: 'लेट — पी पोल्स, फाइ फ्लक्स पर पोल, जेड कन्डक्टर्स, ए प्यारालल पाथ्स, आई ए आर्मेचर करेन्ट, आर आर्मेचर रेडियस, र एल एक्टिभ लेन्थ।',
-      lines: [['step', <>Let, P = poles; φ = flux/pole (Wb); Z = conductors; A = parallel paths; I<sub>a</sub> = armature current (A); r = radius (m); l = active length (m).</>, undefined, { carry: <>P, φ, Z, A, I<sub>a</sub>, r, l</> }]],
+      lines: [['step', <Let items={[<>P = poles</>, <>φ = flux/pole (Wb)</>, <>Z = conductors</>, <>A = parallel paths</>, <>I<sub>a</sub> = armature current (A)</>, <>r = radius (m)</>, <>l = active length (m)</>]} />, undefined, { carry: <>P, φ, Z, A, I<sub>a</sub>, r, l</> }]],
     },
     {
       say: 'Current per conductor I c equals I a over A, equation ek.',
@@ -740,8 +740,8 @@ export const torquePowerS41 = duo('Derivation: torque equation (power method)', 
       lines: [br('Why F × 2πr?', <Pts items={[<>Work = force × distance moved</>, <>One revolution: the point moves the circumference 2πr</>, <>F × 2πr = (F r) × 2π = T<sub>a</sub> × 2π</>]} />)],
     },
     {
-      say: 'Main line: power bhaneko work bhag time. Time sixty over N rakhda power equals two pi N T a over sixty watt.',
-      voice: 'मेन लाइन — पावर भनेको वर्क भाग टाइम। टाइम सिक्स्टी ओभर एन राख्दा, पावर इक्वल्स, टु पाइ एन टी ए ओभर सिक्स्टी वाट।',
+      say: 'Power bhaneko work bhag time. Time sixty over N rakhda power equals two pi N T a over sixty watt.',
+      voice: 'पावर भनेको वर्क भाग टाइम। टाइम सिक्स्टी ओभर एन राख्दा, पावर इक्वल्स, टु पाइ एन टी ए ओभर सिक्स्टी वाट।',
       lines: [['step', step('Power developed = work ÷ time', String.raw`\begin{aligned} P_m &= \dfrac{2\pi T_a}{${X('60/N', C.VI)}} \\ &= \dfrac{2\pi N T_a}{60} \unit{watt} \end{aligned}`), undefined, { carry: <><K>{String.raw`P_m = 2\pi N T_a/60`}</K></> }]],
     },
     {

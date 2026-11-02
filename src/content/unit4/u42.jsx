@@ -105,8 +105,8 @@ export const types42 = duo('Method of excitation and types of DC motor', {
       lines: [br('Long or short shunt?', <Pts items={[<>Find where the shunt field is tapped</>, <>Before the series field (at the supply): <b>long</b> shunt, I<sub>se</sub> = I<sub>a</sub></>, <>After it (at the armature): <b>short</b> shunt, I<sub>se</sub> = I<sub>L</sub></>]} />)],
     },
     {
-      say: 'Main kura ma farkau. Dubai field ko flux ek arka lai sahayog gare cumulative compound, ek arka ko ulto bhaye differential compound.',
-      voice: 'मेन कुरामा फर्कौं। दुवै फिल्डको फ्लक्स एक अर्कालाई सहयोग गरे क्युमुलेटिभ कम्पाउन्ड, एक अर्काको उल्टो भए डिफरेन्सियल कम्पाउन्ड।',
+      say: 'Dubai field ko flux ek arka lai sahayog gare cumulative compound, ek arka ko ulto bhaye differential compound.',
+      voice: 'दुवै फिल्डको फ्लक्स एक अर्कालाई सहयोग गरे क्युमुलेटिभ कम्पाउन्ड, एक अर्काको उल्टो भए डिफरेन्सियल कम्पाउन्ड।',
       lines: [['step', <K>{String.raw`\begin{aligned} \text{Cumulative: } \phi &= \phi_{sh} + \phi_{se} \\ \text{Differential: } \phi &= \phi_{sh} - \phi_{se} \end{aligned}`}</K>]],
       ask: {
         q: 'Short-shunt compound motor ma series field ma kun current bagcha?',

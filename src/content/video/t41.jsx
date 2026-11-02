@@ -1,4 +1,4 @@
-import { Arrow, C, Conductor, K, Resistor, Source, figAt, video } from './kit.jsx';
+import { Arrow, C, Conductor, K, Resistor, Source, figAt, video, Let } from './kit.jsx';
 import { backEmfFigure, torqueFigure } from './picture.jsx';
 
 /*
@@ -114,7 +114,7 @@ export const backEmfDerivation = video('Derivation: back EMF equation', {
       ],
       board: [
         { at: 0, kind: 'h', node: <>EMF equation of a DC machine</> },
-        { at: 0, kind: 'step', node: <>Let,&nbsp; P = number of poles; φ = flux per pole (Wb); Z = total armature conductors; A = number of parallel paths; N = speed (rpm).</> },
+        { at: 0, kind: 'step', node: <Let items={[<>P = number of poles</>, <>φ = flux per pole (Wb)</>, <>Z = total armature conductors</>, <>A = number of parallel paths</>, <>N = speed (rpm)</>]} /> },
         { at: 1, kind: 'step', node: <>In one revolution, flux cut by one conductor and the time taken:{tex(String.raw`\begin{aligned} d\Phi &= P\phi\unit{weber} && \cdots(1) \\ dt &= \dfrac{60}{N}\unit{second} && \cdots(2) \end{aligned}`)}</> },
         { at: 2, kind: 'step', node: <>By Faraday’s law, EMF per conductor,{tex(String.raw`\begin{aligned} e &= \dfrac{d\Phi}{dt} && \\ &= \dfrac{P\phi N}{60}\unit{volt} && \cdots(3) \end{aligned}`)}</> },
         { at: 3, kind: 'step', node: <>With Z/A conductors in series per path, {tex(String.raw`\therefore\ \boxed{E_b = \dfrac{P\phi Z N}{60A}\unit{volt}} \qquad \cdots(4)`)}</> },
