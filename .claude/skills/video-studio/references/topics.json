@@ -534,9 +534,18 @@
     "gap": "No question on force on a conductor alone in vault/; the closest real one (2079 Jestha, torque from conductor forces) is used."
   },
   "2.1": {
-    "title": "Transformer: construction, principle ra EMF equation",
+    "title": "Constructional Details, recent trends",
     "syllabus": [
-      "Constructional Details, recent trends",
+      "Constructional Details, recent trends"
+    ],
+    "derivations": [],
+    "bigPicture": [],
+    "alsoAsked": [],
+    "gap": "No transformer construction question in vault/ (any of the three question banks); an exam-style question is answered and labelled so."
+  },
+  "2.2": {
+    "title": "Working principle and EMF equation",
+    "syllabus": [
       "Working principle and EMF equation"
     ],
     "derivations": [
@@ -553,14 +562,34 @@
         "marks": "",
         "q": "Explain the operating principle of an ideal transformer and derive the emf equation."
       }
-    ]
+    ],
+    "alsoAsked": []
   },
-  "2.2": {
-    "title": "Ideal transformer, no-load ra load operation",
+  "2.3": {
+    "title": "Ideal Transformer",
     "syllabus": [
-      "Ideal Transformer",
-      "No load and load Operation",
-      "Operation of Transformer with load"
+      "Ideal Transformer"
+    ],
+    "derivations": [
+      "V1/V2 = N1/N2 and I1/I2 = N2/N1 from equal flux linkage and V1I1 = V2I2"
+    ],
+    "bigPicture": [
+      {
+        "id": "ideal",
+        "kind": "theory",
+        "papers": [
+          "2071 Magh"
+        ],
+        "marks": "",
+        "q": "Explain the working of an ideal transformer under (i) no-load and (ii) loaded conditions and derive expressions for voltage and current ratios relating to transformer turns ratio."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "2.4": {
+    "title": "No load and load Operation",
+    "syllabus": [
+      "No load and load Operation"
     ],
     "derivations": [
       "No-load current I0 = Iw + Iμ",
@@ -598,15 +627,34 @@
       }
     ]
   },
-  "2.3": {
-    "title": "Equivalent circuit, phasor ra OC/SC tests",
+  "2.5": {
+    "title": "Operation of Transformer with load",
     "syllabus": [
-      "Equivalent Circuits and Phasor Diagram",
-      "Tests: Polarity Test, Open Circuit test, Short Circuit test and Equivalent Circuit Parameters"
+      "Operation of Transformer with load"
     ],
     "derivations": [
-      "Referring to primary R01 = R1 + R2/K², X01 = X1 + X2/K²",
-      "OC test R0 = V1/Iw, X0 = V1/Iμ; SC test R01 = Psc/Isc², Z01 = Vsc/Isc"
+      "I1 = I0 + I2′ with I2′N1 = I2N2; V2 = E2 − I2Z2"
+    ],
+    "bigPicture": [
+      {
+        "id": "onload",
+        "kind": "theory",
+        "papers": [
+          "2068 Magh"
+        ],
+        "marks": "",
+        "q": "Explain the transformer on load and no load with the phasor diagram of resistive and capacitive load."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "2.6": {
+    "title": "Equivalent Circuits and Phasor Diagram",
+    "syllabus": [
+      "Equivalent Circuits and Phasor Diagram"
+    ],
+    "derivations": [
+      "Referring to primary R01 = R1 + R2/K², X01 = X1 + X2/K²"
     ],
     "bigPicture": [
       {
@@ -617,7 +665,19 @@
         ],
         "marks": "",
         "q": "Draw the equivalent circuit of a transformer with their parameters as it is in primary side and secondary side. How all parameters can be transferred to primary side"
-      },
+      }
+    ],
+    "alsoAsked": []
+  },
+  "2.7": {
+    "title": "Tests: Polarity Test, Open Circuit test, Short Circuit test and Equivalent Circuit Parameters",
+    "syllabus": [
+      "Tests: Polarity Test, Open Circuit test, Short Circuit test and Equivalent Circuit Parameters"
+    ],
+    "derivations": [
+      "OC test R0 = V1/Iw, X0 = V1/Iμ; SC test R01 = Psc/Isc², Z01 = Vsc/Isc"
+    ],
+    "bigPicture": [
       {
         "id": "ocsc",
         "kind": "numerical",
@@ -646,16 +706,34 @@
       }
     ]
   },
-  "2.4": {
-    "title": "Voltage regulation, losses ra efficiency",
+  "2.8": {
+    "title": "Voltage Regulation",
     "syllabus": [
-      "Voltage Regulation",
-      "Losses in a transformer",
-      "Efficiency, condition for maximum efficiency and all day efficiency"
+      "Voltage Regulation"
     ],
     "derivations": [
-      "Regulation ≈ (I2R02 cosφ ± I2X02 sinφ)/V2",
-      "Efficiency and condition for maximum efficiency Pcu = Pi"
+      "Regulation ≈ (I2R02 cosφ ± I2X02 sinφ)/V2"
+    ],
+    "bigPicture": [
+      {
+        "id": "regulation",
+        "kind": "theory",
+        "papers": [
+          "2071 Chaitra"
+        ],
+        "marks": "",
+        "q": "Define voltage regulation of a transformer. Derive an expression for voltage regulation if a transformer is loaded with an inductive load."
+      }
+    ],
+    "alsoAsked": []
+  },
+  "2.9": {
+    "title": "Losses in a transformer",
+    "syllabus": [
+      "Losses in a transformer"
+    ],
+    "derivations": [
+      "Core loss Ph + Pe (constant), copper loss x²Pcu,fl"
     ],
     "bigPicture": [
       {
@@ -669,7 +747,20 @@
         ],
         "marks": "[5 + 3]",
         "q": "Describe different types of losses on the transformer. Derive the expression for the maximum efficiency also."
-      },
+      }
+    ],
+    "alsoAsked": []
+  },
+  "2.10": {
+    "title": "Efficiency, condition for maximum efficiency and all day efficiency",
+    "syllabus": [
+      "Efficiency, condition for maximum efficiency and all day efficiency"
+    ],
+    "derivations": [
+      "Efficiency and condition for maximum efficiency Pcu = Pi",
+      "All-day efficiency = output kWh / input kWh in 24 h"
+    ],
+    "bigPicture": [
       {
         "id": "eff",
         "kind": "numerical",
@@ -698,12 +789,30 @@
       }
     ]
   },
-  "2.5": {
-    "title": "Auto, instrument ra three-phase transformers",
+  "2.11": {
+    "title": "Instrument Transformers: Potential Transformer (PT) and Current Transformer (CT)",
     "syllabus": [
-      "Instrument Transformers: Potential Transformer (PT) and Current Transformer (CT)",
-      "Auto transformer: construction, working principle and Cu saving",
-      "Three phase Transformers"
+      "Instrument Transformers: Potential Transformer (PT) and Current Transformer (CT)"
+    ],
+    "derivations": [],
+    "bigPicture": [
+      {
+        "id": "ct",
+        "kind": "theory",
+        "papers": [
+          "2079 Jestha",
+          "2068 Bhadra"
+        ],
+        "marks": "",
+        "q": "Why secondary of CT should not be left open?"
+      }
+    ],
+    "alsoAsked": []
+  },
+  "2.12": {
+    "title": "Auto transformer: construction, working principle and Cu saving",
+    "syllabus": [
+      "Auto transformer: construction, working principle and Cu saving"
     ],
     "derivations": [
       "Auto transformer copper saving W_auto = (1 − K) W_two-winding"
@@ -719,16 +828,6 @@
         ],
         "marks": "",
         "q": "What is an auto transformer? State its merits and demerits over a two winding transformer. Derive an expression of Cu-saving in auto transformer."
-      },
-      {
-        "id": "ct",
-        "kind": "theory",
-        "papers": [
-          "2079 Jestha",
-          "2068 Bhadra"
-        ],
-        "marks": "",
-        "q": "Why secondary of CT should not be left open?"
       }
     ],
     "alsoAsked": [
@@ -747,6 +846,25 @@
         "where": "Syllabus Content"
       }
     ]
+  },
+  "2.13": {
+    "title": "Three phase Transformers",
+    "syllabus": [
+      "Three phase Transformers"
+    ],
+    "derivations": [],
+    "bigPicture": [
+      {
+        "id": "threephase",
+        "kind": "theory",
+        "papers": [
+          "2075 Baisakh"
+        ],
+        "marks": "",
+        "q": "Explain the different three phase transformer connections with neat sketch. Write their application also."
+      }
+    ],
+    "alsoAsked": []
   },
   "3.1": {
     "title": "Constructional Details and Armature Winding",

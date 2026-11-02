@@ -1,10 +1,15 @@
 import { C, K, Pts, answer, duo, figAt, solve, topic } from '../video/kit.jsx';
-import { chain, part } from '../video/kit.jsx';
+import { br, chain, part, rem } from '../video/kit.jsx';
 import { Cap, CoilV, ResH, T, W, head } from '../unit4/figs.jsx';
 import { transformerTour } from '../machines/models3d.js';
 
 /*
-  Unit 2 Transformer (IOE syllabus).
+  Unit 2 Transformer (IOE syllabus), one topic per bullet (rule 68): 2.1
+  construction, recent trends · 2.2 working principle and EMF equation · 2.3
+  ideal transformer · 2.4 no-load and load operation · 2.5 operation with
+  load · 2.6 equivalent circuit and phasors · 2.7 polarity, OC, SC tests · 2.8
+  voltage regulation · 2.9 losses · 2.10 efficiency, maximum and all-day ·
+  2.11 PT and CT · 2.12 auto transformer · 2.13 three-phase transformers.
     2.1 construction, working principle, EMF equation
     2.2 ideal transformer, no-load and load operation (flux constant)
     2.3 equivalent circuit, phasor, OC/SC tests
@@ -18,6 +23,7 @@ import { transformerTour } from '../machines/models3d.js';
 
 const tex = (s) => <K>{s}</K>;
 const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
+const step = (label, math) => <><span className="lbl">{label}</span><K>{math}</K></>;
 const BASE = ['core', 'primary', 'secondary'];
 const FED = [...BASE, 'source'];
 const LOADED = [...FED, 'lamp'];
@@ -207,7 +213,7 @@ export const autoFigure = (s) => (
 );
 
 /* ── 2.1 Construction, principle, EMF equation ───────────────────────── */
-export const basics21 = duo('2.1 · Basic understanding: how does a transformer change voltage?', {
+export const basics21 = duo('2.2 · Basic understanding: how does a transformer change voltage?', {
   three: transformerTour([
     { shot: 'whole', show: BASE, labels: [['transformer', [0, 2.3, 0.6]]] },
     { shot: 'core', focus: ['core'], labels: [['falam ko core', 'core']] },
@@ -222,7 +228,7 @@ export const basics21 = duo('2.1 · Basic understanding: how does a transformer 
     {
       say: 'Phone charger dekheko cha? Tyo bhitra euta sano transformer cha, jasle 230 volt lai sano voltage ma jharcha.',
       voice: 'फोन चार्जर देखेको छ? त्यो भित्र एउटा सानो ट्रान्सफर्मर छ, जसले दुई सय तीस भोल्टलाई सानो भोल्टेजमा झार्छ।',
-      lines: [['h', <>2.1 · Transformer le voltage kasari badalcha?</>], ['step', <>Charger, pole ko box: sabai ma transformer</>]],
+      lines: [['h', <>2.2 · Transformer le voltage kasari badalcha?</>], ['step', <>Charger, pole ko box: sabai ma transformer</>]],
     },
     {
       say: 'Bich ma patla falam ko pata thupareko core. Yahi falam magnet ko bato ho.',
@@ -271,7 +277,7 @@ export const basics21 = duo('2.1 · Basic understanding: how does a transformer 
     {
       say: 'Transformer static device ho jasle frequency nabadali AC power lai eutai circuit bata arko ma transfer garcha.',
       voice: 'ट्रान्सफर्मर स्टाटिक डिभाइस हो, जसले फ्रिक्वेन्सी नबदली ए सी पावरलाई एउटा सर्किटबाट अर्कोमा ट्रान्सफर गर्छ।',
-      lines: [['h', <>2.1 · The transformer</>], chain(<>A static device: AC power from one circuit to another at the same frequency</>)],
+      lines: [['h', <>2.2 · The transformer</>], chain(<>A static device: AC power from one circuit to another at the same frequency</>)],
     },
     {
       say: 'Core silicon steel ko laminations bata baneko huncha, flux lai low reluctance path dina.',
@@ -511,7 +517,7 @@ export const emfAnswer21 = answer('Model answer: principle and EMF equation of a
 });
 
 /* ── 2.2 Ideal transformer, no load and load ─────────────────────────── */
-export const basics22 = duo('2.2 · Basic understanding: what happens when a transformer is loaded?', {
+export const basics22 = duo('2.4 · Basic understanding: what happens when a transformer is loaded?', {
   three: transformerTour([
     { shot: 'whole', show: FED, focus: ['core', 'primary', 'secondary'], labels: [['ideal: kei loss chaina', [0, 2.3, 0.6]]] },
     { shot: 'source', flow: 0.2, flux: 1, focus: ['primary', 'source'], labels: [['sano current', 'primary']] },
@@ -526,7 +532,7 @@ export const basics22 = duo('2.2 · Basic understanding: what happens when a tra
     {
       say: 'Pahila sapana ko transformer socha: kunai loss chaina, tar ma resistance chaina, sabai flux dubai coil ma pugcha. Yo ideal transformer.',
       voice: 'पहिला सपनाको ट्रान्सफर्मर सोच — कुनै लस छैन, तारमा रेजिस्टेन्स छैन, सबै फ्लक्स दुवै कोइलमा पुग्छ। यो आइडियल ट्रान्सफर्मर।',
-      lines: [['h', <>2.2 · Load lagauda k huncha?</>], part(<>Ideal</>, <>kunai loss chaina, sabai flux dubai coil ma</>)],
+      lines: [['h', <>2.4 · Load lagauda k huncha?</>], part(<>Ideal</>, <>kunai loss chaina, sabai flux dubai coil ma</>)],
     },
     {
       say: 'Secondary ma kei jodeko chaina. Tara pani primary le sano current lincha.',
@@ -575,7 +581,7 @@ export const basics22 = duo('2.2 · Basic understanding: what happens when a tra
     {
       say: 'Ideal transformer ma winding resistance, leakage flux ra core loss kei pani hudaina.',
       voice: 'आइडियल ट्रान्सफर्मरमा वाइन्डिङ रेजिस्टेन्स, लिकेज फ्लक्स, र कोर लस केही पनि हुँदैन।',
-      lines: [['h', <>2.2 · No load and on load</>], part(<>Ideal</>, <>no resistance, no leakage, no core loss</>)],
+      lines: [['h', <>2.4 · No load and on load</>], part(<>Ideal</>, <>no resistance, no leakage, no core loss</>)],
     },
     {
       say: 'Secondary open huda primary le no-load current matra lincha.',
@@ -815,7 +821,7 @@ export const fluxAnswer22 = answer('Model answer: no-load and load operation, co
 });
 
 /* ── 2.3 Equivalent circuit, OC/SC tests ─────────────────────────────── */
-export const basics23 = duo('2.3 · Basic understanding: what does a real transformer lose?', {
+export const basics23 = duo('2.9 · Basic understanding: what does a real transformer lose?', {
   three: transformerTour([
     { shot: 'whole', show: LOADED, flow: 0.7, flow2: 0.8, flux: 1, focus: null, labels: [['real transformer', [0, 2.3, 0.6]]] },
     { shot: 'primary', heat: { primary: 0.7 }, focus: ['primary'], labels: [['tar taato', 'primary']] },
@@ -830,7 +836,7 @@ export const basics23 = duo('2.3 · Basic understanding: what does a real transf
     {
       say: 'Real transformer sapana jasto hudaina. Kehi bijuli bato mai harauncha. Kaha-kaha harauncha, herau.',
       voice: 'रियल ट्रान्सफर्मर सपना जस्तो हुँदैन। केही बिजुली बाटोमै हराउँछ। कहाँ कहाँ हराउँछ, हेरौं।',
-      lines: [['h', <>2.3 · Real transformer ma k-k harauncha?</>], part(<>Real</>, <>kehi bijuli bato mai harauncha</>)],
+      lines: [['h', <>2.9 · Real transformer ma k-k harauncha?</>], part(<>Real</>, <>kehi bijuli bato mai harauncha</>)],
     },
     {
       say: 'Tama ko tar ma pani resistance huncha, current bagda tar taato huncha.',
@@ -879,7 +885,7 @@ export const basics23 = duo('2.3 · Basic understanding: what does a real transf
     {
       say: 'Practical transformer ma resistance, leakage flux ra core loss hunchan.',
       voice: 'प्राक्टिकल ट्रान्सफर्मरमा रेजिस्टेन्स, लिकेज फ्लक्स, र कोर लस हुन्छन्।',
-      lines: [['h', <>2.3 · The practical transformer</>], ['step', <>Resistance, leakage flux and core loss</>]],
+      lines: [['h', <>2.9 · The practical transformer</>], ['step', <>Resistance, leakage flux and core loss</>]],
     },
     {
       say: 'Winding resistance R 1 ra R 2 ma copper loss huncha.',
@@ -1160,7 +1166,7 @@ export const ocscSolve23 = solve({
 });
 
 /* ── 2.4 Regulation, losses, efficiency ──────────────────────────────── */
-export const basics24 = duo('2.4 · Basic understanding: how efficient is a transformer?', {
+export const basics24 = duo('2.10 · Basic understanding: how efficient is a transformer?', {
   three: transformerTour([
     { shot: 'load', show: LOADED, flux: 1, flow: 0.4, flow2: 0.4, focus: ['lamp'], labels: [['halka load', 'lamp']] },
     { flow: 1, flow2: 1, focus: ['lamp', 'secondary'], labels: [['voltage ali jharyo', 'lamp']] },
@@ -1175,7 +1181,7 @@ export const basics24 = duo('2.4 · Basic understanding: how efficient is a tran
     {
       say: 'Ghar ko pole transformer ma beluka sabai ko batti balcha. Halka load ma bulb ko voltage thik cha.',
       voice: 'घरको पोल ट्रान्सफर्मरमा बेलुका सबैको बत्ती बल्छ। हल्का लोडमा बल्बको भोल्टेज ठिक छ।',
-      lines: [['h', <>2.4 · Transformer kati ramro kaam garcha?</>], part(<>Halka load</>, <>voltage thik</>)],
+      lines: [['h', <>2.10 · Transformer kati ramro kaam garcha?</>], part(<>Halka load</>, <>voltage thik</>)],
     },
     {
       say: 'Load dherai bhayo bhane secondary ko voltage alikati jharcha. Kati jharyo bhanne naap: regulation.',
@@ -1224,7 +1230,7 @@ export const basics24 = duo('2.4 · Basic understanding: how efficient is a tran
     {
       say: 'Halka load ma secondary terminal voltage lagbhag no-load voltage barabar huncha.',
       voice: 'हल्का लोडमा सेकेन्डरी टर्मिनल भोल्टेज लगभग नो लोड भोल्टेज बराबर हुन्छ।',
-      lines: [['h', <>2.4 · Performance of a transformer</>], part(<>Light load</>, <>terminal voltage nearly the no-load voltage</>)],
+      lines: [['h', <>2.10 · Performance of a transformer</>], part(<>Light load</>, <>terminal voltage nearly the no-load voltage</>)],
     },
     {
       say: 'Load badhda internal impedance ma drop hunchha ra terminal voltage ghatcha: voltage regulation.',
@@ -1505,7 +1511,7 @@ export const effSolve24 = solve({
 });
 
 /* ── 2.5 Auto, instrument and three-phase transformers ───────────────── */
-export const basics25 = duo('2.5 · Basic understanding: auto, instrument and three-phase transformers', {
+export const basics25 = duo('2.12 · Basic understanding: auto, instrument and three-phase transformers', {
   three: transformerTour([
     { shot: 'primary', show: ['core', 'primary', 'source', 'tap'], flow: 0.6, flux: 1, tap: 0.5, focus: ['primary', 'tap'], labels: [['euta coil', 'primary'], ['tap', 'tap']] },
     { tap: 0.9, tapMs: 2000, focus: ['tap'], labels: [['tap sarauda voltage', 'tap']] },
@@ -1520,7 +1526,7 @@ export const basics25 = duo('2.5 · Basic understanding: auto, instrument and th
     {
       say: 'Yo transformer ma euta matra coil cha, bich ma euta tap. Supply pura coil ma, load chai coil ko ek bhag bata.',
       voice: 'यो ट्रान्सफर्मरमा एउटा मात्र कोइल छ, बीचमा एउटा ट्याप। सप्लाई पूरा कोइलमा, लोड चाहिँ कोइलको एक भागबाट।',
-      lines: [['h', <>2.5 · Euta coil, CT ra tin phase</>], part(<>Auto transformer</>, <>euta coil, bich ma tap</>)],
+      lines: [['h', <>2.12 · Euta coil, CT ra tin phase</>], part(<>Auto transformer</>, <>euta coil, bich ma tap</>)],
     },
     {
       say: 'Tap sarauda output voltage badlincha. Ghar ko stabiliser ra lab ko variac yahi ho.',
@@ -1569,7 +1575,7 @@ export const basics25 = duo('2.5 · Basic understanding: auto, instrument and th
     {
       say: 'Auto transformer ma eutai winding hunchha, jasko ek bhag primary ra secondary dubai ma common huncha.',
       voice: 'अटो ट्रान्सफर्मरमा एउटै वाइन्डिङ हुन्छ, जसको एक भाग प्राइमरी र सेकेन्डरी दुवैमा कमन हुन्छ।',
-      lines: [['h', <>2.5 · Special transformers</>], part(<>Auto transformer</>, <>a single winding with a common part</>)],
+      lines: [['h', <>2.12 · Special transformers</>], part(<>Auto transformer</>, <>a single winding with a common part</>)],
     },
     {
       say: 'Tapping position badlera variable output voltage paincha: variac.',
@@ -1841,14 +1847,1263 @@ export const ctAnswer25 = answer('Model answer: why the CT secondary must not be
   ],
 });
 
-const t21 = topic({ num: '2.1', title: 'Constructional Details, recent trends · Working principle and EMF equation', opener: basics21, derive: [principle21, emf21], picture: [emfAnswer21] });
-const t22 = topic({ num: '2.2', title: 'Ideal Transformer · No load and load Operation · Operation of Transformer with load', opener: basics22, derive: [noLoad22, onLoad22], picture: [fluxAnswer22] });
-const t23 = topic({ num: '2.3', title: 'Equivalent Circuits and Phasor Diagram · Tests: Polarity Test, Open Circuit test, Short Circuit test and Equivalent Circuit Parameters', opener: basics23, derive: [eqCircuit23, tests23], picture: [referAnswer23, ocscSolve23] });
-const t24 = topic({ num: '2.4', title: 'Voltage Regulation · Losses in a transformer · Efficiency, condition for maximum efficiency and all day efficiency', opener: basics24, derive: [reg24, eff24], picture: [lossAnswer24, effSolve24] });
-const t25 = topic({ num: '2.5', title: 'Instrument Transformers: Potential Transformer (PT) and Current Transformer (CT) · Auto transformer: construction, working principle and Cu saving · Three phase Transformers', opener: basics25, derive: [auto25, special25], picture: [autoAnswer25, ctAnswer25] });
+
+/* ── Fig. 2.6: core type and shell type ──────────────────────────────── */
+// 0 core type (windings on both limbs) · 1 shell type (windings on the centre limb) · 2 laminations
+export const coreShellFigure = (s) => (
+  <>
+    <g className={s.on(0) + s.hl(0)}>
+      <W d="M20 40 H160 V170 H20 Z" w={1.4} />
+      <W d="M48 68 H132 V142 H48 Z" w={1.2} />
+      {[60, 80, 100, 120, 140].map((y) => <g key={y}><W d={`M14 ${y} H54`} w={1} /><W d={`M126 ${y} H166`} w={1} /></g>)}
+      <T x={90} y={190} i size={10}>(a) Core type: windings on both limbs</T>
+    </g>
+    <g className={s.on(1) + s.hl(1)}>
+      <W d="M200 40 H340 V170 H200 Z" w={1.4} />
+      <W d="M222 64 H256 V146 H222 Z" w={1.2} />
+      <W d="M284 64 H318 V146 H284 Z" w={1.2} />
+      {[70, 88, 106, 124, 142].map((y) => <W key={y} d={`M250 ${y} H290`} w={1} />)}
+      <T x={270} y={190} i size={10}>(b) Shell type: windings on the centre limb</T>
+    </g>
+    <g className={s.on(2) + s.hl(2)}>
+      <T x={180} y={212} size={9.5}>Core: laminated CRGO silicon steel, 0.35–0.5 mm sheets, insulated by varnish</T>
+    </g>
+    <Cap y={234}>Fig. 2.6  Core-type and shell-type transformers</Cap>
+  </>
+);
+
+/* ── Fig. 2.7: three-phase transformer connections ─────────────────── */
+// 0 star–star · 1 delta–delta · 2 star–delta · 3 delta–star
+const Ysym = (cx, cy, r = 18) => [0, 120, 240].map((a) => { const t = ((a - 90) * Math.PI) / 180; return <W key={a} d={`M${cx} ${cy} L${cx + r * Math.cos(t)} ${cy + r * Math.sin(t)}`} w={1.3} />; });
+const Dsym = (cx, cy, r = 20) => { const p = [0, 120, 240].map((a) => { const t = ((a - 90) * Math.PI) / 180; return [cx + r * Math.cos(t), cy + r * Math.sin(t)]; }); return <W d={`M${p[0][0]} ${p[0][1]} L${p[1][0]} ${p[1][1]} L${p[2][0]} ${p[2][1]} Z`} w={1.3} />; };
+const pair = (x, y, a, b, label) => (
+  <g>
+    {a === 'Y' ? Ysym(x, y) : Dsym(x, y)}
+    <T x={x + 40} y={y + 4} size={11}>→</T>
+    {b === 'Y' ? Ysym(x + 80, y) : Dsym(x + 80, y)}
+    <T x={x + 40} y={y + 40} i size={9.5}>{label}</T>
+  </g>
+);
+export const threePhaseFigure = (s) => (
+  <>
+    <g className={s.on(0) + s.hl(0)}>{pair(40, 50, 'Y', 'Y', '(a) Star–star')}</g>
+    <g className={s.on(1) + s.hl(1)}>{pair(220, 50, 'D', 'D', '(b) Delta–delta')}</g>
+    <g className={s.on(2) + s.hl(2)}>{pair(40, 150, 'Y', 'D', '(c) Star–delta')}</g>
+    <g className={s.on(3) + s.hl(3)}>{pair(220, 150, 'D', 'Y', '(d) Delta–star')}</g>
+    <Cap y={226}>Fig. 2.7  Three-phase transformer connections (primary → secondary)</Cap>
+  </>
+);
+
+export const basicsCons21 = duo('2.1 · Basic understanding: what is a transformer made of?', {
+  three: transformerTour([
+    { shot: 'whole', show: BASE, labels: [['transformer', [0, 2.3, 0.6]]] },
+    { shot: 'core', focus: ['core'], labels: [['patla pata ko core', 'core']] },
+    { shot: 'whole', focus: ['primary', 'secondary'], labels: [['LV ra HV winding', 'primary']] },
+    { shot: 'tank', show: [...BASE, 'tank', 'bushings'], focus: ['tank', 'bushings'], labels: [['tel ko tank', 'tank'], ['bushing', 'bushings']] },
+    { shot: 'whole', show: [...BASE, 'tank', 'bushings'], focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Transformer ma bijuli ko tar jodiyeko hudaina; magnet ko bato le matra bijuli sarcha. Bahira bata herda yo dherai sajilo dekhincha.',
+      voice: 'ट्रान्सफर्मरमा बिजुलीको तार जोडिएको हुँदैन, म्याग्नेटको बाटोले मात्र बिजुली सर्छ। बाहिरबाट हेर्दा यो धेरै सजिलो देखिन्छ।',
+      lines: [['h', <>2.1 · Transformer ka bhag</>], part(<>Transformer</>, <>magnet ko bato le bijuli sarcha</>)],
+    },
+    {
+      say: 'Bich ma patla patla falam ka pata jodeko core cha. Pata patlo bhayeko le taato kam huncha.',
+      voice: 'बीचमा पातला पातला फलामका पाता जोडेको कोर छ। पाता पातलो भएकोले तातो कम हुन्छ।',
+      lines: [part(<>Core</>, <>patla pata jodeko falam</>)],
+    },
+    {
+      say: 'Core ma dui winding: kam voltage ko LV ra badhi voltage ko HV.',
+      voice: 'कोरमा दुई वाइन्डिङ — कम भोल्टेजको एल भी, र बढी भोल्टेजको एच भी।',
+      lines: [part(<>Windings</>, <>LV ra HV</>)],
+    },
+    {
+      say: 'Thulo transformer tel ko tank ma rakhincha; tel le chiso banaucha. Bushing bata tar bahira niskincha.',
+      voice: 'ठूलो ट्रान्सफर्मर तेलको ट्याङ्कमा राखिन्छ, तेलले चिसो बनाउँछ। बुसिङबाट तार बाहिर निस्किन्छ।',
+      lines: [part(<>Tank ra bushing</>, <>tel le chiso, bushing bata tar</>)],
+    },
+    {
+      say: 'Saransh: core, winding, tank ra bushing. Aajakal tel bina ko dry type ra kam loss ko core pani banchhan.',
+      voice: 'सारांश — कोर, वाइन्डिङ, ट्याङ्क र बुसिङ। आजकल तेलबिनाको ड्राई टाइप, र कम लसको कोर पनि बन्छन्।',
+      lines: [['idea', <>Core · windings · tank · bushings · naya: dry type, kam loss core</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Transformer static machine ho; yasma ghumne bhag hudaina.',
+      voice: 'ट्रान्सफर्मर स्टाटिक मेसिन हो, यसमा घुम्ने भाग हुँदैन।',
+      lines: [['h', <>2.1 · Constructional details</>], part(<>Static machine</>, <>no moving parts</>)],
+    },
+    {
+      say: 'Core laminated silicon steel ko huncha, jasle eddy current loss ghataucha.',
+      voice: 'कोर ल्यामिनेटेड सिलिकन स्टिलको हुन्छ, जसले एडी करेन्ट लस घटाउँछ।',
+      lines: [part(<>Core</>, <>laminated silicon steel</>)],
+    },
+    {
+      say: 'LV ra HV winding core ka limb ma rakhincha.',
+      voice: 'एल भी र एच भी वाइन्डिङ कोरका लिम्बमा राखिन्छ।',
+      lines: [part(<>Windings</>, <>LV and HV on the limbs</>)],
+    },
+    {
+      say: 'Tank, transformer oil, conservator ra bushing le cooling ra insulation dinchan.',
+      voice: 'ट्याङ्क, ट्रान्सफर्मर अयल, कन्जर्भेटर र बुसिङले कुलिङ र इन्सुलेसन दिन्छन्।',
+      lines: [part(<>Tank and accessories</>, <>cooling and insulation</>)],
+    },
+    {
+      say: 'Saransh: core, winding ra accessories; recent trend ma amorphous core ra dry type transformer.',
+      voice: 'सारांश — कोर, वाइन्डिङ र एक्सेसरिज। रिसेन्ट ट्रेन्डमा एमोर्फस कोर र ड्राई टाइप ट्रान्सफर्मर।',
+      lines: [['idea', <>Core · windings · accessories · trends: amorphous core, dry type</>]],
+    },
+  ],
+});
+
+export const basicsIdeal23 = duo('2.3 · Basic understanding: what would a perfect transformer do?', {
+  three: transformerTour([
+    { shot: 'source', show: FED, flow: 0.6, flux: 1, focus: ['primary', 'core'], labels: [['kunai loss chaina', 'core']] },
+    { shot: 'whole', show: LOADED, flux: 1, flow2: 1, focus: ['primary', 'secondary'], labels: [['turns ko anupat', 'secondary']] },
+    { focus: ['secondary', 'lamp'], labels: [['voltage turns anusar', 'lamp']] },
+    { focus: ['primary', 'source'], labels: [['current ulto anupat', 'source']] },
+    { shot: 'whole', focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Ideal transformer bhaneko kunai pani loss nabhayeko kalpanik transformer: tar ko resistance zero, sabai flux dubai coil ma.',
+      voice: 'आइडियल ट्रान्सफर्मर भनेको कुनै पनि लस नभएको काल्पनिक ट्रान्सफर्मर — तारको रेजिस्टेन्स जिरो, सबै फ्लक्स दुवै कोइलमा।',
+      lines: [['h', <>2.3 · Perfect transformer</>], part(<>Ideal</>, <>loss zero, sabai flux dubai coil ma</>)],
+    },
+    {
+      say: 'Yasma voltage turns ko anupat ma badalcha.',
+      voice: 'यसमा भोल्टेज टर्न्सको अनुपातमा बदलिन्छ।',
+      lines: [chain(<>Badhi turns → badhi voltage</>)],
+    },
+    {
+      say: 'Secondary ma dui guna turns bhaye voltage pani dui guna.',
+      voice: 'सेकेन्डरीमा दुई गुणा टर्न्स भए भोल्टेज पनि दुई गुणा।',
+      lines: [chain(<>Dui guna turns → dui guna voltage</>)],
+    },
+    {
+      say: 'Tara current ulto anupat ma: voltage dui guna bhaye current aadha, kinaki power ustai.',
+      voice: 'तर करेन्ट उल्टो अनुपातमा — भोल्टेज दुई गुणा भए करेन्ट आधा, किनकि पावर उस्तै।',
+      lines: [chain(<>Voltage dui guna → current aadha (power ustai)</>)],
+    },
+    {
+      say: 'Saransh: voltage turns anusar, current ulto, power bhitra ra bahira barabar.',
+      voice: 'सारांश — भोल्टेज टर्न्स अनुसार, करेन्ट उल्टो, पावर भित्र र बाहिर बराबर।',
+      lines: [['idea', <>Voltage turns anusar · current ulto · power barabar</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Ideal transformer ma winding resistance, leakage flux ra core loss zero maanincha.',
+      voice: 'आइडियल ट्रान्सफर्मरमा वाइन्डिङ रेजिस्टेन्स, लिकेज फ्लक्स र कोर लस जिरो मानिन्छ।',
+      lines: [['h', <>2.3 · Ideal transformer</>], part(<>Ideal transformer</>, <>no resistance, leakage or core loss</>)],
+    },
+    {
+      say: 'Voltage turns ratio ma badalcha.',
+      voice: 'भोल्टेज टर्न्स रेसियोमा बदलिन्छ।',
+      lines: [chain(<>Voltage ratio equals turns ratio</>)],
+    },
+    {
+      say: 'Step-up ma secondary turns badhi.',
+      voice: 'स्टेप अपमा सेकेन्डरी टर्न्स बढी।',
+      lines: [chain(<>More secondary turns → step-up</>)],
+    },
+    {
+      say: 'Current turns ratio ko ulto ma badalcha, kinaki input ra output power barabar.',
+      voice: 'करेन्ट टर्न्स रेसियोको उल्टोमा बदलिन्छ, किनकि इनपुट र आउटपुट पावर बराबर।',
+      lines: [chain(<>Current in the inverse ratio; input power equals output</>)],
+    },
+    {
+      say: 'Saransh: ideal transformer le power badaldaina, voltage ra current matra.',
+      voice: 'सारांश — आइडियल ट्रान्सफर्मरले पावर बदल्दैन, भोल्टेज र करेन्ट मात्र।',
+      lines: [['idea', <>Changes voltage and current, not power</>]],
+    },
+  ],
+});
+
+export const basicsLoad25 = duo('2.5 · Basic understanding: how does the primary know a load is connected?', {
+  three: transformerTour([
+    { shot: 'load', show: LOADED, flux: 1, flow2: 0.4, focus: ['lamp'], labels: [['bulb: resistive', 'lamp']] },
+    { flow2: 1, focus: ['secondary'], labels: [['load current', 'secondary']] },
+    { flux: 1, flow: 1, focus: ['primary', 'source'], labels: [['primary le badhi lincha', 'primary']] },
+    { flux: 1, focus: ['core'], labels: [['flux ustai', 'flux']] },
+    { shot: 'whole', focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Secondary ma bulb jodyau. Bulb resistive load ho.',
+      voice: 'सेकेन्डरीमा बल्ब जोडौं। बल्ब रेजिस्टिभ लोड हो।',
+      lines: [['h', <>2.5 · Load lagauda primary lai kasari thaha huncha?</>], part(<>Load</>, <>secondary ma bulb</>)],
+    },
+    {
+      say: 'Secondary ma current bagcha, ra yasle core ma ulto magnet banaucha.',
+      voice: 'सेकेन्डरीमा करेन्ट बग्छ, र यसले कोरमा उल्टो म्याग्नेट बनाउँछ।',
+      lines: [chain(<>Secondary current → ulto magnet</>)],
+    },
+    {
+      say: 'Tyo ulto magnet mettauna primary le supply bata badhi current tancha.',
+      voice: 'त्यो उल्टो म्याग्नेट मेटाउन प्राइमरीले सप्लाईबाट बढी करेन्ट तान्छ।',
+      lines: [chain(<>Primary le badhi current tancha</>)],
+    },
+    {
+      say: 'Yasari core ko flux lagbhag ustai rahancha, load jati bhaye pani.',
+      voice: 'यसरी कोरको फ्लक्स लगभग उस्तै रहन्छ, लोड जति भए पनि।',
+      lines: [chain(<>Flux ustai</>)],
+    },
+    {
+      say: 'Saransh: load ko current le primary lai sanket dincha, ra primary aafai badhi lincha.',
+      voice: 'सारांश — लोडको करेन्टले प्राइमरीलाई सङ्केत दिन्छ, र प्राइमरी आफैं बढी लिन्छ।',
+      lines: [['idea', <>Load current → primary aafai badhi current</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Secondary ma load jodda I 2 bagcha.',
+      voice: 'सेकेन्डरीमा लोड जोड्दा आई टु बग्छ।',
+      lines: [['h', <>2.5 · Transformer on load</>], part(<>Load</>, <>secondary current flows</>)],
+    },
+    {
+      say: 'I 2 ko MMF le main flux lai oppose garcha.',
+      voice: 'आई टुको एम एम एफले मेन फ्लक्सलाई अपोज गर्छ।',
+      lines: [chain(<>Secondary MMF opposes the main flux</>)],
+    },
+    {
+      say: 'Primary le counter-balancing current I 2 dash linchha.',
+      voice: 'प्राइमरीले काउन्टर ब्यालेन्सिङ करेन्ट आई टु ड्यास लिन्छ।',
+      lines: [chain(<>Primary draws a balancing current</>)],
+    },
+    {
+      say: 'Phalswarup flux lagbhag constant rahancha.',
+      voice: 'फलस्वरूप फ्लक्स लगभग कन्स्टेन्ट रहन्छ।',
+      lines: [chain(<>Main flux stays nearly constant</>)],
+    },
+    {
+      say: 'Saransh: load anusar primary current aafai milcha; phasor diagram load ko pf anusar badalcha.',
+      voice: 'सारांश — लोड अनुसार प्राइमरी करेन्ट आफैं मिल्छ, फेजर डायाग्राम लोडको पी एफ अनुसार बदलिन्छ।',
+      lines: [['idea', <>Primary current follows the load; phasors depend on load pf</>]],
+    },
+  ],
+});
+
+export const basicsEq26 = duo('2.6 · Basic understanding: how can a whole transformer fit in one small circuit?', {
+  three: transformerTour([
+    { shot: 'whole', show: LOADED, flux: 0.9, flow2: 0.8, focus: ['primary'], labels: [['tar ko resistance', 'primary']] },
+    { leak: 1, focus: ['primary', 'secondary'], labels: [['leakage flux', 'secondary']] },
+    { leak: 0, flux: 1, focus: ['core'], labels: [['core ma magnet banaune current', 'core']] },
+    { focus: ['primary', 'secondary', 'core'], labels: [['sabai lai sano circuit ma', [0, 2.3, 0.6]]] },
+    { shot: 'whole', focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Real transformer ko tar ma resistance huncha, ra tyo heat banaucha.',
+      voice: 'रियल ट्रान्सफर्मरको तारमा रेजिस्टेन्स हुन्छ, र त्यो हिट बनाउँछ।',
+      lines: [['h', <>2.6 · Transformer lai sano circuit ma</>], part(<>Resistance</>, <>tar ma heat</>)],
+    },
+    {
+      say: 'Kehi flux core bata bahira chuhuncha: leakage flux. Yasle reactance jasto kaam garcha.',
+      voice: 'केही फ्लक्स कोरबाट बाहिर चुहिन्छ — लिकेज फ्लक्स। यसले रियाक्टेन्स जस्तो काम गर्छ।',
+      lines: [part(<>Leakage</>, <>chuheko flux, reactance</>)],
+    },
+    {
+      say: 'Core ma magnet banauna ra core loss ko lagi pani sano current chahincha.',
+      voice: 'कोरमा म्याग्नेट बनाउन, र कोर लसको लागि पनि सानो करेन्ट चाहिन्छ।',
+      lines: [part(<>Core branch</>, <>magnet ra core loss ko current</>)],
+    },
+    {
+      say: 'Yi sabai lai resistor ra inductor ko sano circuit ma rakhna milcha: equivalent circuit.',
+      voice: 'यी सबैलाई रेजिस्टर र इन्डक्टरको सानो सर्किटमा राख्न मिल्छ — इक्विभ्यालेन्ट सर्किट।',
+      lines: [chain(<>Sabai → euta sano circuit</>)],
+    },
+    {
+      say: 'Saransh: equivalent circuit le pura transformer lai gannu sajilo banaucha.',
+      voice: 'सारांश — इक्विभ्यालेन्ट सर्किटले पूरा ट्रान्सफर्मरलाई गन्न सजिलो बनाउँछ।',
+      lines: [['idea', <>Equivalent circuit → hisab sajilo</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Winding resistance R 1 ra R 2 copper loss dinchan.',
+      voice: 'वाइन्डिङ रेजिस्टेन्स आर वान र आर टु कपर लस दिन्छन्।',
+      lines: [['h', <>2.6 · Equivalent circuit</>], part(<>R<sub>1</sub>, R<sub>2</sub></>, <>winding resistances</>)],
+    },
+    {
+      say: 'Leakage flux leakage reactance X 1 ra X 2 le janaincha.',
+      voice: 'लिकेज फ्लक्स, लिकेज रियाक्टेन्स एक्स वान र एक्स टुले जनाइन्छ।',
+      lines: [part(<>X<sub>1</sub>, X<sub>2</sub></>, <>leakage reactances</>)],
+    },
+    {
+      say: 'No-load current ko lagi shunt branch R 0 ra X 0.',
+      voice: 'नो लोड करेन्टको लागि सन्ट ब्रान्च आर जिरो र एक्स जिरो।',
+      lines: [part(<>R<sub>0</sub> ∥ X<sub>0</sub></>, <>core loss and magnetising branch</>)],
+    },
+    {
+      say: 'Sabai parameter lai eutai side ma refer garera equivalent circuit banaincha.',
+      voice: 'सबै प्यारामिटरलाई एउटै साइडमा रेफर गरेर इक्विभ्यालेन्ट सर्किट बनाइन्छ।',
+      lines: [chain(<>Refer all to one side → equivalent circuit</>)],
+    },
+    {
+      say: 'Saransh: equivalent circuit ra phasor diagram le transformer ko performance dekhauchan.',
+      voice: 'सारांश — इक्विभ्यालेन्ट सर्किट र फेजर डायाग्रामले ट्रान्सफर्मरको पर्फर्मेन्स देखाउँछन्।',
+      lines: [['idea', <>Equivalent circuit + phasor diagram → performance</>]],
+    },
+  ],
+});
+
+export const basicsTests27 = duo('2.7 · Basic understanding: how do we test a big transformer without loading it?', {
+  three: transformerTour([
+    { shot: 'source', show: FED, flow: 0.3, flux: 1, focus: ['primary', 'source'], labels: [['OC: secondary khulla', 'secondary']] },
+    { focus: ['core'], labels: [['core loss napcha', 'core']] },
+    { shot: 'load', show: LOADED, flux: 0.2, flow2: 1, focus: ['secondary'], labels: [['SC: secondary short', 'secondary']] },
+    { focus: ['primary', 'secondary'], labels: [['copper loss napcha', 'primary']] },
+    { shot: 'whole', focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Open circuit test ma secondary khulla rakhera LV side ma pura voltage dincha.',
+      voice: 'ओपन सर्किट टेस्टमा सेकेन्डरी खुल्ला राखेर एल भी साइडमा पूरा भोल्टेज दिन्छ।',
+      lines: [['h', <>2.7 · Load bina test</>], part(<>OC test</>, <>secondary khulla, pura voltage</>)],
+    },
+    {
+      say: 'Current dherai thorai, tesaile wattmeter le core ko loss matra napcha.',
+      voice: 'करेन्ट धेरै थोरै, त्यसैले वाटमिटरले कोरको लस मात्र नाप्छ।',
+      lines: [chain(<>Thorai current → core loss matra</>)],
+    },
+    {
+      say: 'Short circuit test ma secondary short garera sano voltage dincha, jun rated current bagauna pugcha.',
+      voice: 'सर्ट सर्किट टेस्टमा सेकेन्डरी सर्ट गरेर सानो भोल्टेज दिन्छ, जुन रेटेड करेन्ट बगाउन पुग्छ।',
+      lines: [part(<>SC test</>, <>secondary short, sano voltage</>)],
+    },
+    {
+      say: 'Voltage sano bhayeko le core loss nagannya; wattmeter le copper loss napcha.',
+      voice: 'भोल्टेज सानो भएकोले कोर लस नगन्य, वाटमिटरले कपर लस नाप्छ।',
+      lines: [chain(<>Sano voltage → copper loss matra</>)],
+    },
+    {
+      say: 'Saransh: OC le core loss ra shunt branch, SC le copper loss ra series parameter. Polarity test le terminal ko chinha milaucha.',
+      voice: 'सारांश — ओ सीले कोर लस र सन्ट ब्रान्च, एस सीले कपर लस र सिरिज प्यारामिटर। पोलारिटी टेस्टले टर्मिनलको चिन्ह मिलाउँछ।',
+      lines: [['idea', <>OC: core loss · SC: copper loss · polarity: terminal marks</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'OC test LV side ma rated voltage dida HV side khulla rakhincha.',
+      voice: 'ओ सी टेस्ट एल भी साइडमा रेटेड भोल्टेज दिँदा, एच भी साइड खुल्ला राखिन्छ।',
+      lines: [['h', <>2.7 · Transformer tests</>], part(<>OC test</>, <>rated voltage on LV, HV open</>)],
+    },
+    {
+      say: 'Wattmeter reading core loss barabar huncha.',
+      voice: 'वाटमिटर रिडिङ कोर लस बराबर हुन्छ।',
+      lines: [chain(<>Wattmeter reads the core loss</>)],
+    },
+    {
+      say: 'SC test HV side ma reduced voltage dida LV short garincha.',
+      voice: 'एस सी टेस्ट एच भी साइडमा रिड्युस्ड भोल्टेज दिँदा, एल भी सर्ट गरिन्छ।',
+      lines: [part(<>SC test</>, <>reduced voltage, rated current</>)],
+    },
+    {
+      say: 'Wattmeter reading full-load copper loss huncha.',
+      voice: 'वाटमिटर रिडिङ फुल लोड कपर लस हुन्छ।',
+      lines: [chain(<>Wattmeter reads the copper loss</>)],
+    },
+    {
+      say: 'Saransh: OC ra SC test bata equivalent circuit parameter nikalincha; polarity test le relative polarity.',
+      voice: 'सारांश — ओ सी र एस सी टेस्टबाट इक्विभ्यालेन्ट सर्किट प्यारामिटर निकालिन्छ, पोलारिटी टेस्टले रिलेटिभ पोलारिटी।',
+      lines: [['idea', <>OC + SC → parameters · polarity test → terminal marking</>]],
+    },
+  ],
+});
+
+export const basicsReg28 = duo('2.8 · Basic understanding: why does the voltage drop when the load comes on?', {
+  three: transformerTour([
+    { shot: 'load', show: LOADED, flux: 1, flow2: 0.2, focus: ['lamp'], labels: [['no load: voltage dherai', 'lamp']] },
+    { flow2: 1, focus: ['lamp', 'secondary'], labels: [['full load: alik jharyo', 'lamp']] },
+    { leak: 1, focus: ['secondary'], labels: [['bhitra ko drop', 'secondary']] },
+    { leak: 0, focus: ['lamp'], labels: [['sano regulation: ramro', 'lamp']] },
+    { shot: 'whole', focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Load nabhaye secondary ko voltage sabai bhanda badhi huncha.',
+      voice: 'लोड नभए सेकेन्डरीको भोल्टेज सबैभन्दा बढी हुन्छ।',
+      lines: [['h', <>2.8 · Load ma voltage kina jharcha?</>], part(<>No load</>, <>voltage sabai bhanda badhi</>)],
+    },
+    {
+      say: 'Pura load jodda voltage alik jharcha.',
+      voice: 'पूरा लोड जोड्दा भोल्टेज अलि झर्छ।',
+      lines: [chain(<>Full load → voltage alik jharyo</>)],
+    },
+    {
+      say: 'Kina? Bhitra ko tar ko resistance ra chuheko flux ma drop huncha.',
+      voice: 'किन? भित्रको तारको रेजिस्टेन्स र चुहिएको फ्लक्समा ड्रप हुन्छ।',
+      lines: [chain(<>Resistance + leakage → bhitra drop</>)],
+    },
+    {
+      say: 'Kati jharyo bhanne kura percent ma: voltage regulation. Sano bhaye ramro transformer.',
+      voice: 'कति झर्‍यो भन्ने कुरा प्रतिशतमा — भोल्टेज रेगुलेसन। सानो भए राम्रो ट्रान्सफर्मर।',
+      lines: [part(<>Regulation</>, <>kati jharyo, percent ma</>)],
+    },
+    {
+      say: 'Saransh: lagging load ma badhi jharcha, leading ma voltage badhna pani sakcha.',
+      voice: 'सारांश — ल्यागिङ लोडमा बढी झर्छ, लिडिङमा भोल्टेज बढ्न पनि सक्छ।',
+      lines: [['idea', <>Lagging: badhi jharcha · leading: badhna sakcha</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'No load ma secondary terminal voltage E 2 huncha.',
+      voice: 'नो लोडमा सेकेन्डरी टर्मिनल भोल्टेज ई टु हुन्छ।',
+      lines: [['h', <>2.8 · Voltage regulation</>], part(<>No load</>, <>terminal voltage equals E<sub>2</sub></>)],
+    },
+    {
+      say: 'Full load ma terminal voltage V 2 ma jharcha.',
+      voice: 'फुल लोडमा टर्मिनल भोल्टेज भी टुमा झर्छ।',
+      lines: [chain(<>Full load → V<sub>2</sub> falls</>)],
+    },
+    {
+      say: 'Yo drop equivalent resistance ra reactance ma huncha.',
+      voice: 'यो ड्रप इक्विभ्यालेन्ट रेजिस्टेन्स र रियाक्टेन्समा हुन्छ।',
+      lines: [chain(<>Drop in R<sub>02</sub> and X<sub>02</sub></>)],
+    },
+    {
+      say: 'Voltage regulation equals E 2 minus V 2 over V 2, percent ma.',
+      voice: 'भोल्टेज रेगुलेसन इक्वल्स ई टु माइनस भी टु ओभर भी टु, प्रतिशतमा।',
+      lines: [part(<>Regulation</>, <>(E<sub>2</sub> − V<sub>2</sub>)/V<sub>2</sub> × 100 %</>)],
+    },
+    {
+      say: 'Saransh: lagging pf ma regulation positive ra thulo, leading ma negative huna sakcha.',
+      voice: 'सारांश — ल्यागिङ पी एफमा रेगुलेसन पोजिटिभ र ठूलो, लिडिङमा नेगेटिभ हुन सक्छ।',
+      lines: [['idea', <>Lagging: positive, larger · leading: may be negative</>]],
+    },
+  ],
+});
+
+export const basicsInst211 = duo('2.11 · Basic understanding: how do we measure thousands of volts safely?', {
+  three: transformerTour([
+    { shot: 'whole', show: LOADED, flux: 0.8, flow2: 0.6, focus: ['primary'], labels: [['thulo voltage, thulo current', 'primary']] },
+    { focus: ['secondary', 'lamp'], labels: [['sano, surakshit meter', 'lamp']] },
+    { flow2: 1, focus: ['secondary'], labels: [['CT: current ghataucha', 'secondary']] },
+    { flow2: 0.3, focus: ['secondary'], labels: [['PT: voltage ghataucha', 'secondary']] },
+    { shot: 'whole', focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Power line ma hajarau volt ra sayau ampere huncha; sidhai meter jodna khatara.',
+      voice: 'पावर लाइनमा हजारौं भोल्ट र सयौं एम्पियर हुन्छ, सिधै मिटर जोड्न खतरा।',
+      lines: [['h', <>2.11 · Thulo voltage surakshit napne</>], part(<>Power line</>, <>thulo voltage ra current</>)],
+    },
+    {
+      say: 'Instrument transformer le yasko sano, surakshit copy meter lai dincha.',
+      voice: 'इन्स्ट्रुमेन्ट ट्रान्सफर्मरले यसको सानो, सुरक्षित कपी मिटरलाई दिन्छ।',
+      lines: [part(<>Instrument transformer</>, <>sano, surakshit copy</>)],
+    },
+    {
+      say: 'CT le current ghataucha, jastai sau ampere bata panch ampere.',
+      voice: 'सी टीले करेन्ट घटाउँछ, जस्तै सय एम्पियरबाट पाँच एम्पियर।',
+      lines: [part(<>CT</>, <>current ghataucha</>)],
+    },
+    {
+      say: 'PT le voltage ghataucha, jastai egara hajar bata ek sau das volt.',
+      voice: 'पी टीले भोल्टेज घटाउँछ, जस्तै एघार हजारबाट एक सय दस भोल्ट।',
+      lines: [part(<>PT</>, <>voltage ghataucha</>)],
+    },
+    {
+      say: 'Saransh: CT ko secondary kahile pani khulla chhodnu hudaina; PT ko secondary short garnu hudaina.',
+      voice: 'सारांश — सी टीको सेकेन्डरी कहिल्यै पनि खुल्ला छोड्नु हुँदैन, पी टीको सेकेन्डरी सर्ट गर्नु हुँदैन।',
+      lines: [['idea', <>CT: open nagarne · PT: short nagarne</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'High voltage ra current sidhai napna surakshit ra sambhav hudaina.',
+      voice: 'हाई भोल्टेज र करेन्ट सिधै नाप्न सुरक्षित र सम्भव हुँदैन।',
+      lines: [['h', <>2.11 · Instrument transformers</>], part(<>Need</>, <>safe measurement of high V and I</>)],
+    },
+    {
+      say: 'Instrument transformer le standard sano value dincha ra meter lai isolate garcha.',
+      voice: 'इन्स्ट्रुमेन्ट ट्रान्सफर्मरले स्ट्यान्डर्ड सानो भ्यालु दिन्छ, र मिटरलाई आइसोलेट गर्छ।',
+      lines: [part(<>Instrument transformer</>, <>standard low values, isolation</>)],
+    },
+    {
+      say: 'CT series ma jodincha ra 5 wa 1 ampere secondary dincha.',
+      voice: 'सी टी सिरिजमा जोडिन्छ, र पाँच वा एक एम्पियर सेकेन्डरी दिन्छ।',
+      lines: [part(<>CT</>, <>series, 5 A or 1 A secondary</>)],
+    },
+    {
+      say: 'PT parallel ma jodincha ra 110 volt secondary dincha.',
+      voice: 'पी टी प्याराललमा जोडिन्छ, र एक सय दस भोल्ट सेकेन्डरी दिन्छ।',
+      lines: [part(<>PT</>, <>parallel, 110 V secondary</>)],
+    },
+    {
+      say: 'Saransh: CT secondary open garda dherai thulo voltage induce huncha.',
+      voice: 'सारांश — सी टी सेकेन्डरी ओपन गर्दा धेरै ठूलो भोल्टेज इन्ड्युस हुन्छ।',
+      lines: [['idea', <>CT never open-circuited · PT never short-circuited</>]],
+    },
+  ],
+});
+
+export const basicsThree213 = duo('2.13 · Basic understanding: how does a transformer handle three phases?', {
+  three: transformerTour([
+    { shot: 'whole', show: LOADED, flux: 1, flow2: 0.8, focus: ['primary', 'secondary'], labels: [['tin phase: tin jodi coil', [0, 2.3, 0.6]]] },
+    { focus: ['primary'], labels: [['star: euta bindu', 'primary']] },
+    { focus: ['secondary'], labels: [['delta: triangle', 'secondary']] },
+    { focus: ['primary', 'secondary'], labels: [['jodne tarika anusar kaam', 'secondary']] },
+    { shot: 'whole', focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Tin phase supply ma tin jodi coil chahincha: tin primary ra tin secondary.',
+      voice: 'तीन फेज सप्लाईमा तीन जोडी कोइल चाहिन्छ — तीन प्राइमरी र तीन सेकेन्डरी।',
+      lines: [['h', <>2.13 · Tin phase ko transformer</>], part(<>Three phase</>, <>tin jodi coil</>)],
+    },
+    {
+      say: 'Coil ka euta chheu euta bindu ma jodda star banchha.',
+      voice: 'कोइलका एउटा छेउ एउटा बिन्दुमा जोड्दा स्टार बन्छ।',
+      lines: [part(<>Star</>, <>euta bindu ma jodeko</>)],
+    },
+    {
+      say: 'Coil lai triangle ma jodda delta banchha.',
+      voice: 'कोइललाई ट्राइएङ्गलमा जोड्दा डेल्टा बन्छ।',
+      lines: [part(<>Delta</>, <>triangle ma jodeko</>)],
+    },
+    {
+      say: 'Primary ra secondary ko jodne tarika anusar char prakar: star-star, delta-delta, star-delta ra delta-star.',
+      voice: 'प्राइमरी र सेकेन्डरीको जोड्ने तरिका अनुसार चार प्रकार — स्टार स्टार, डेल्टा डेल्टा, स्टार डेल्टा, र डेल्टा स्टार।',
+      lines: [chain(<>Star-star · delta-delta · star-delta · delta-star</>)],
+    },
+    {
+      say: 'Saransh: power station ma voltage badhauna delta-star, distribution ma ghar samma delta-star pani.',
+      voice: 'सारांश — पावर स्टेसनमा भोल्टेज बढाउन डेल्टा स्टार, डिस्ट्रिब्युसनमा घरसम्म पनि डेल्टा स्टार।',
+      lines: [['idea', <>Jodne tarika anusar kaam</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Three-phase transformer ma tin phase ka winding hunchan.',
+      voice: 'थ्री फेज ट्रान्सफर्मरमा तीन फेजका वाइन्डिङ हुन्छन्।',
+      lines: [['h', <>2.13 · Three-phase transformers</>], part(<>Three-phase</>, <>three windings each side</>)],
+    },
+    {
+      say: 'Star connection ma phase voltage line voltage ko one over root three.',
+      voice: 'स्टार कनेक्सनमा फेज भोल्टेज, लाइन भोल्टेजको वान ओभर रुट थ्री।',
+      lines: [part(<>Star</>, <>phase voltage is line voltage ÷ √3</>)],
+    },
+    {
+      say: 'Delta connection ma phase voltage line voltage barabar.',
+      voice: 'डेल्टा कनेक्सनमा फेज भोल्टेज लाइन भोल्टेज बराबर।',
+      lines: [part(<>Delta</>, <>phase voltage equals line voltage</>)],
+    },
+    {
+      say: 'Char standard connection: Y-Y, delta-delta, Y-delta ra delta-Y.',
+      voice: 'चार स्ट्यान्डर्ड कनेक्सन — वाई वाई, डेल्टा डेल्टा, वाई डेल्टा, र डेल्टा वाई।',
+      lines: [chain(<>Y–Y · Δ–Δ · Y–Δ · Δ–Y</>)],
+    },
+    {
+      say: 'Saransh: connection ko chhanot voltage level ra application anusar.',
+      voice: 'सारांश — कनेक्सनको छनोट भोल्टेज लेभल र एप्लिकेसन अनुसार।',
+      lines: [['idea', <>Choice depends on voltage level and use</>]],
+    },
+  ],
+});
+
+export const cons21 = duo('Constructional details and recent trends', {
+  draw: coreShellFigure,
+  viewBox: '0 0 360 240',
+  tutor: [
+    {
+      say: 'Yaad garau: transformer static machine ho, ra yasko kaam mutual induction le chalcha. Core ra winding mul bhag hun.',
+      voice: 'याद गरौं — ट्रान्सफर्मर स्टाटिक मेसिन हो, र यसको काम म्युचुअल इन्डक्सनले चल्छ। कोर र वाइन्डिङ मूल भाग हुन्।',
+      lines: [['h', <>Constructional details and recent trends</>], rem(<>Static machine, works by mutual induction</>, <>Main parts: core and windings</>)],
+    },
+    {
+      say: 'Core type ma winding dubai limb ma hunchan ra core le winding lai gherdaina.',
+      voice: 'कोर टाइपमा वाइन्डिङ दुवै लिम्बमा हुन्छन्, र कोरले वाइन्डिङलाई घेर्दैन।',
+      lines: [['step', <>(a) Core type: windings on both limbs; core surrounds little of the winding</>]],
+    },
+    {
+      say: 'Shell type ma winding centre limb ma huncha ra core le winding lai dubai tira bata gherchha; flux dui bato ma bandincha.',
+      voice: 'सेल टाइपमा वाइन्डिङ सेन्टर लिम्बमा हुन्छ, र कोरले वाइन्डिङलाई दुवैतिरबाट घेर्छ। फ्लक्स दुई बाटोमा बाँडिन्छ।',
+      lines: [['step', <>(b) Shell type: windings on the centre limb, surrounded by the core; flux divides</>]],
+    },
+    {
+      say: 'Core laminated kina? Patla pata ra bich ma varnish le eddy current ko bato kaatcha, ra loss ghatcha.',
+      voice: 'कोर ल्यामिनेटेड किन? पातला पाता र बीचमा भार्निसले एडी करेन्टको बाटो काट्छ, र लस घट्छ।',
+      lines: [br('Why laminated?', <Pts items={[<>Thin insulated sheets break the eddy-current paths</>, <>Eddy loss ∝ (thickness)², so thin sheets cut it sharply</>]} />)],
+    },
+    {
+      say: 'Main line ma farkau. Accessories: tank, oil, conservator, breather ra bushing. Recent trends: CRGO ra amorphous core, dry type ra smart monitoring.',
+      voice: 'मेन लाइनमा फर्कौं। एक्सेसरिज — ट्याङ्क, अयल, कन्जर्भेटर, ब्रिदर र बुसिङ। रिसेन्ट ट्रेन्ड्स — सी आर जी ओ र एमोर्फस कोर, ड्राई टाइप, र स्मार्ट मनिटरिङ।',
+      lines: [['step', <Pts items={[<>Accessories: tank, oil, conservator, breather, bushings</>, <>Recent trends: CRGO and amorphous cores (low loss), dry-type (cast resin), online monitoring</>]} />]],
+      ask: {
+        q: 'Shell type transformer ma winding kaha rakhincha?',
+        voice: 'सेल टाइप ट्रान्सफर्मरमा वाइन्डिङ कहाँ राखिन्छ?',
+        options: ['Centre limb ma', 'Dubai side limb ma', 'Yoke ma'],
+        answer: 0,
+        why: 'Shell type ma core le centre limb ko winding lai gherchha.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: transformer mutual induction ma chalne static machine ho.',
+      voice: 'स्मरण — ट्रान्सफर्मर म्युचुअल इन्डक्सनमा चल्ने स्टाटिक मेसिन हो।',
+      lines: [['h', <>Construction of a single-phase transformer (Fig. 2.6)</>], rem(<>Static; mutual induction</>)],
+    },
+    {
+      say: 'Core type: winding le core ko thulo bhag gherchha; dui limb.',
+      voice: 'कोर टाइप — वाइन्डिङले कोरको ठूलो भाग घेर्छ, दुई लिम्ब।',
+      lines: [['step', <>(i) Core type: two limbs, windings on both.</>]],
+    },
+    {
+      say: 'Shell type: core le winding lai gherchha; tin limb.',
+      voice: 'सेल टाइप — कोरले वाइन्डिङलाई घेर्छ, तीन लिम्ब।',
+      lines: [['step', <>(ii) Shell type: three limbs, windings on the centre limb.</>]],
+    },
+    {
+      say: 'Core 0.35 dekhi 0.5 mm ka laminated silicon steel ko huncha, eddy loss ghatauna.',
+      voice: 'कोर जिरो पोइन्ट थ्री फाइभ देखि जिरो पोइन्ट फाइभ मिलिमिटरका ल्यामिनेटेड सिलिकन स्टिलको हुन्छ, एडी लस घटाउन।',
+      lines: [br('Laminations', <Pts items={[<>0.35–0.5 mm silicon-steel sheets, varnished</>, <>Reduce eddy-current loss</>]} />)],
+    },
+    {
+      say: 'Accessories ra recent trends: conservator, breather, bushing; CRGO, amorphous core ra dry-type transformer.',
+      voice: 'एक्सेसरिज र रिसेन्ट ट्रेन्ड्स — कन्जर्भेटर, ब्रिदर, बुसिङ। सी आर जी ओ, एमोर्फस कोर, र ड्राई टाइप ट्रान्सफर्मर।',
+      lines: [['step', <Pts items={[<>Accessories: conservator, breather, bushings, tank and oil</>, <>Trends: CRGO, amorphous cores, dry-type, monitoring</>]} />]],
+      ask: {
+        q: 'Transformer core laminated kina garincha?',
+        voice: 'ट्रान्सफर्मर कोर ल्यामिनेटेड किन गरिन्छ?',
+        options: ['Eddy current loss ghatauna', 'Weight badhauna', 'Flux zero garna'],
+        answer: 0,
+        why: 'Lamination le eddy current ko bato kaatcha.',
+      },
+    },
+  ],
+});
+
+export const ideal23 = duo('Ideal transformer: voltage and current ratios', {
+  draw: xfmrFigure,
+  viewBox: '0 0 360 230',
+  tutor: [
+    {
+      say: 'Yaad garau: Faraday ko law anusar e equals N d phi over d t, ra ideal ma loss zero.',
+      voice: 'याद गरौं — फाराडेको ल अनुसार ई इक्वल्स एन डी फाइ ओभर डी टी, र आइडियलमा लस जिरो।',
+      lines: [['h', <>Ideal transformer</>], rem(<K>{String.raw`e = N\,\dfrac{d\phi}{dt}`}</K>, <>Ideal: no R, no leakage, no core loss</>)],
+    },
+    {
+      say: 'Dubai winding ma eutai flux phi linked cha, tesaile e 1 equals N 1 d phi over d t ra e 2 equals N 2 d phi over d t.',
+      voice: 'दुवै वाइन्डिङमा एउटै फ्लक्स फाइ लिङ्क्ड छ, त्यसैले ई वान इक्वल्स एन वान डी फाइ ओभर डी टी, र ई टु इक्वल्स एन टु डी फाइ ओभर डी टी।',
+      lines: [['step', step('Same flux links both windings', String.raw`\begin{aligned} e_1 &= N_1\dfrac{d\phi}{dt} \\ e_2 &= N_2\dfrac{d\phi}{dt} \end{aligned}`), undefined, { carry: <>Same φ in both windings</> }]],
+    },
+    {
+      say: 'Bhag garda voltage ratio: V 1 over V 2 equals N 1 over N 2, arthat transformation ratio.',
+      voice: 'भाग गर्दा भोल्टेज रेसियो — भी वान ओभर भी टु इक्वल्स एन वान ओभर एन टु, अर्थात ट्रान्सफर्मेसन रेसियो।',
+      lines: [['eq', tex(String.raw`\dfrac{V_1}{V_2} = \dfrac{N_1}{N_2}`)]],
+    },
+    {
+      say: 'Current ratio kina ulto? Ideal ma power harauna sakdaina: V 1 I 1 equals V 2 I 2.',
+      voice: 'करेन्ट रेसियो किन उल्टो? आइडियलमा पावर हराउन सक्दैन — भी वान आई वान इक्वल्स भी टु आई टु।',
+      lines: [br('Why is the current ratio inverted?', <><Pts items={[<>No loss: input power equals output power</>]} />{tex(String.raw`V_1I_1 = V_2I_2`)}</>)],
+    },
+    {
+      say: 'Main line: I 1 over I 2 equals N 2 over N 1. Step-up ma voltage badhcha ra current ghatcha.',
+      voice: 'मेन लाइन — आई वान ओभर आई टु इक्वल्स एन टु ओभर एन वान। स्टेप अपमा भोल्टेज बढ्छ, र करेन्ट घट्छ।',
+      lines: [['eq', tex(String.raw`\dfrac{I_1}{I_2} = \dfrac{N_2}{N_1}`)]],
+      ask: {
+        q: 'Ideal step-up transformer ma secondary current primary bhanda kasto huncha?',
+        voice: 'आइडियल स्टेप अप ट्रान्सफर्मरमा सेकेन्डरी करेन्ट प्राइमरीभन्दा कस्तो हुन्छ?',
+        options: ['Sano', 'Thulo', 'Barabar'],
+        answer: 0,
+        why: 'I1/I2 = N2/N1; N2 > N1 bhaye I2 < I1.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: e equals N d phi over d t; ideal transformer ma kunai loss chaina.',
+      voice: 'स्मरण — ई इक्वल्स एन डी फाइ ओभर डी टी। आइडियल ट्रान्सफर्मरमा कुनै लस छैन।',
+      lines: [['h', <>Ideal transformer (Fig. 2.1)</>], rem(<K>{String.raw`e = N\,d\phi/dt`}</K>)],
+    },
+    {
+      say: 'Mutual flux dubai winding ma link huncha, tesaile e 1 ra e 2 N 1 ra N 2 ko anupat ma.',
+      voice: 'म्युचुअल फ्लक्स दुवै वाइन्डिङमा लिङ्क हुन्छ, त्यसैले ई वान र ई टु, एन वान र एन टुको अनुपातमा।',
+      lines: [['step', tex(String.raw`\begin{aligned} e_1 &= N_1\dfrac{d\phi}{dt} && \cdots(1) \\ e_2 &= N_2\dfrac{d\phi}{dt} && \cdots(2) \end{aligned}`), undefined, { carry: <>(1), (2): same φ</> }]],
+    },
+    {
+      say: 'Equation ek ra dui bata V 1 over V 2 equals N 1 over N 2 equals K ko ulto.',
+      voice: 'इक्वेसन वान र टुबाट, भी वान ओभर भी टु इक्वल्स एन वान ओभर एन टु।',
+      lines: [['step', tex(String.raw`\dfrac{V_1}{V_2} = \dfrac{N_1}{N_2} \qquad \cdots(3)`)]],
+    },
+    {
+      say: 'Power conservation: V 1 I 1 equals V 2 I 2.',
+      voice: 'पावर कन्जर्भेसन — भी वान आई वान इक्वल्स भी टु आई टु।',
+      lines: [br('Power balance', tex(String.raw`V_1I_1 = V_2I_2`))],
+    },
+    {
+      say: 'Tesaile I 1 over I 2 equals N 2 over N 1.',
+      voice: 'त्यसैले आई वान ओभर आई टु इक्वल्स एन टु ओभर एन वान।',
+      lines: [['step', tex(String.raw`\therefore\ \boxed{\dfrac{I_1}{I_2} = \dfrac{N_2}{N_1}} \qquad \cdots(4)`)]],
+      ask: {
+        q: 'Ideal transformer ma kun quantity badalidaina?',
+        voice: 'आइडियल ट्रान्सफर्मरमा कुन क्वान्टिटी बदलिँदैन?',
+        options: ['Power (VA)', 'Voltage', 'Current'],
+        answer: 0,
+        why: 'V1I1 = V2I2: voltage ra current badalchan, power ustai.',
+      },
+    },
+  ],
+});
+
+export const load25 = duo('Operation of the transformer with load: phasor diagrams', {
+  draw: noLoadFigure,
+  viewBox: '0 0 360 230',
+  tutor: [
+    {
+      say: 'Yaad garau: no load ma I 0 matra bagcha, ra flux phi m constant rahancha.',
+      voice: 'याद गरौं — नो लोडमा आई जिरो मात्र बग्छ, र फ्लक्स फाइ एम कन्स्टेन्ट रहन्छ।',
+      lines: [['h', <>Transformer on load: phasor diagrams</>], rem(<>No load: only I<sub>0</sub>; φ<sub>m</sub> constant</>)],
+    },
+    {
+      say: 'Load jodda secondary current I 2 bagcha. Primary le load component I 2 dash linchha, jasle I 2 ko MMF lai balance garcha.',
+      voice: 'लोड जोड्दा सेकेन्डरी करेन्ट आई टु बग्छ। प्राइमरीले लोड कम्पोनेन्ट आई टु ड्यास लिन्छ, जसले आई टुको एम एम एफलाई ब्यालेन्स गर्छ।',
+      lines: [['step', step('Load component of primary current', String.raw`\begin{aligned} I_2'N_1 &= I_2N_2 \\ I_2' &= \dfrac{N_2}{N_1}I_2 \end{aligned}`), undefined, { carry: <><K>{String.raw`I_1 = I_0 + I_2'`}</K></> }]],
+    },
+    {
+      say: 'Primary current I 1 equals I 0 plus I 2 dash, phasor ma jodincha.',
+      voice: 'प्राइमरी करेन्ट आई वान इक्वल्स आई जिरो प्लस आई टु ड्यास, फेजरमा जोडिन्छ।',
+      lines: [['eq', tex(String.raw`\bar{I}_1 = \bar{I}_0 + \bar{I}_2'`)]],
+    },
+    {
+      say: 'Resistive load ma I 2 V 2 sanga eutai phase ma; inductive ma I 2 pachhi lag; capacitive ma aghi lead. Yasaile I 1 ko kon pani badalcha.',
+      voice: 'रेजिस्टिभ लोडमा आई टु, भी टुसँग एउटै फेजमा। इन्डक्टिभमा आई टु पछि ल्याग, क्यापासिटिभमा अघि लिड। यसैले आई वानको कोण पनि बदलिन्छ।',
+      lines: [br('I2 for each kind of load', <Pts items={[<>Resistive: I<sub>2</sub> in phase with V<sub>2</sub></>, <>Inductive: I<sub>2</sub> lags V<sub>2</sub> by φ<sub>2</sub></>, <>Capacitive: I<sub>2</sub> leads V<sub>2</sub> by φ<sub>2</sub></>]} />)],
+    },
+    {
+      say: 'Main line: real transformer ma V 1 equals minus E 1 plus I 1 Z 1, ra V 2 equals E 2 minus I 2 Z 2. Phasor diagram yahi equation bata banaincha.',
+      voice: 'मेन लाइन — रियल ट्रान्सफर्मरमा भी वान इक्वल्स माइनस ई वान प्लस आई वान जेड वान, र भी टु इक्वल्स ई टु माइनस आई टु जेड टु। फेजर डायाग्राम यही इक्वेसनबाट बनाइन्छ।',
+      lines: [['step', <K>{String.raw`\begin{aligned} \bar{V}_1 &= -\bar{E}_1 + \bar{I}_1\bar{Z}_1 \\ \bar{V}_2 &= \bar{E}_2 - \bar{I}_2\bar{Z}_2 \end{aligned}`}</K>]],
+      ask: {
+        q: 'Capacitive load ma secondary current V2 lai kasto huncha?',
+        voice: 'क्यापासिटिभ लोडमा सेकेन्डरी करेन्ट भी टुलाई कस्तो हुन्छ?',
+        options: ['Lead garcha', 'Lag garcha', 'In phase'],
+        answer: 0,
+        why: 'Capacitive load ma current voltage bhanda aghi huncha.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: no load ma I 0 ra constant flux.',
+      voice: 'स्मरण — नो लोडमा आई जिरो र कन्स्टेन्ट फ्लक्स।',
+      lines: [['h', <>Transformer on load (Fig. 2.2)</>], rem(<>No load: I<sub>0</sub>, constant φ<sub>m</sub></>)],
+    },
+    {
+      say: 'Load ma primary le I 2 dash linchha, I 2 dash N 1 equals I 2 N 2.',
+      voice: 'लोडमा प्राइमरीले आई टु ड्यास लिन्छ, आई टु ड्यास एन वान इक्वल्स आई टु एन टु।',
+      lines: [['step', tex(String.raw`I_2'N_1 = I_2N_2 \qquad \cdots(1)`), undefined, { carry: <>(1) <K>{String.raw`I_2'N_1 = I_2N_2`}</K></> }]],
+    },
+    {
+      say: 'Total primary current I 1 equals I 0 plus I 2 dash.',
+      voice: 'टोटल प्राइमरी करेन्ट आई वान इक्वल्स आई जिरो प्लस आई टु ड्यास।',
+      lines: [['step', tex(String.raw`\bar{I}_1 = \bar{I}_0 + \bar{I}_2' \qquad \cdots(2)`)]],
+    },
+    {
+      say: 'Resistive, inductive ra capacitive load ma I 2 kramashah in phase, lagging ra leading huncha.',
+      voice: 'रेजिस्टिभ, इन्डक्टिभ र क्यापासिटिभ लोडमा आई टु क्रमशः इन फेज, ल्यागिङ र लिडिङ हुन्छ।',
+      lines: [br('Load types', <Pts items={[<>R: in phase · L: lagging · C: leading</>]} />)],
+    },
+    {
+      say: 'Voltage equations V 1 equals minus E 1 plus I 1 Z 1, ra V 2 equals E 2 minus I 2 Z 2 bata phasor diagram banaincha.',
+      voice: 'भोल्टेज इक्वेसन, भी वान इक्वल्स माइनस ई वान प्लस आई वान जेड वान, र भी टु इक्वल्स ई टु माइनस आई टु जेड टुबाट फेजर डायाग्राम बनाइन्छ।',
+      lines: [['step', <K>{String.raw`\begin{aligned} \bar{V}_1 &= -\bar{E}_1 + \bar{I}_1\bar{Z}_1 && \cdots(3) \\ \bar{V}_2 &= \bar{E}_2 - \bar{I}_2\bar{Z}_2 && \cdots(4) \end{aligned}`}</K>]],
+      ask: {
+        q: 'Load badhda transformer ko primary current kina badhcha?',
+        voice: 'लोड बढ्दा ट्रान्सफर्मरको प्राइमरी करेन्ट किन बढ्छ?',
+        options: ['I2 ko MMF balance garna I2′ badhcha', 'Flux badhcha', 'Supply voltage badhcha'],
+        answer: 0,
+        why: 'I2′N1 = I2N2, flux constant rakhna.',
+      },
+    },
+  ],
+});
+
+export const polarity27 = duo('Polarity test of a transformer', {
+  draw: xfmrFigure,
+  viewBox: '0 0 360 230',
+  tutor: [
+    {
+      say: 'Yaad garau: transformer ko primary ra secondary ko EMF ko disha winding ko disha ma bhar parcha.',
+      voice: 'याद गरौं — ट्रान्सफर्मरको प्राइमरी र सेकेन्डरीको ई एम एफको दिशा, वाइन्डिङको दिशामा भर पर्छ।',
+      lines: [['h', <>Polarity test</>], rem(<>EMF direction depends on the winding sense</>)],
+    },
+    {
+      say: 'Test: primary ko euta terminal ra secondary ko euta terminal jodera, sano AC voltage primary ma dincha. Voltmeter le baki dui terminal bich napcha.',
+      voice: 'टेस्ट — प्राइमरीको एउटा टर्मिनल र सेकेन्डरीको एउटा टर्मिनल जोडेर, सानो ए सी भोल्टेज प्राइमरीमा दिन्छ। भोल्टमिटरले बाँकी दुई टर्मिनलबीच नाप्छ।',
+      lines: [['step', <>Join one primary terminal to one secondary terminal; apply low AC voltage V<sub>1</sub>; voltmeter V across the other two</>]],
+    },
+    {
+      say: 'Voltmeter V 1 minus V 2 dekhayo bhane subtractive polarity; V 1 plus V 2 dekhayo bhane additive polarity.',
+      voice: 'भोल्टमिटरले भी वान माइनस भी टु देखायो भने सबट्र्याक्टिभ पोलारिटी, भी वान प्लस भी टु देखायो भने एडिटिभ पोलारिटी।',
+      lines: [['step', <K>{String.raw`\begin{aligned} V &= V_1 - V_2 \Rightarrow \text{subtractive} \\ V &= V_1 + V_2 \Rightarrow \text{additive} \end{aligned}`}</K>]],
+    },
+    {
+      say: 'Polarity kina chahincha? Transformer parallel ma jodda ra three-phase bank banauda ulto polarity bhaye thulo circulating current bagcha.',
+      voice: 'पोलारिटी किन चाहिन्छ? ट्रान्सफर्मर प्याराललमा जोड्दा, र थ्री फेज बैंक बनाउँदा, उल्टो पोलारिटी भए ठूलो सर्कुलेटिङ करेन्ट बग्छ।',
+      lines: [br('Why does polarity matter?', <Pts items={[<>Parallel operation: wrong polarity → short-circuit current</>, <>Three-phase banks and instrument transformers need correct marks</>]} />)],
+    },
+    {
+      say: 'Main line: test pachhi terminal lai A 1, A 2 ra a 1, a 2 jasta chinha diyincha.',
+      voice: 'मेन लाइन — टेस्टपछि टर्मिनललाई ए वान, ए टु र स्मल ए वान, ए टु जस्ता चिन्ह दिइन्छ।',
+      lines: [['step', <>Terminals are then marked (A<sub>1</sub>, A<sub>2</sub> on HV; a<sub>1</sub>, a<sub>2</sub> on LV)</>]],
+      ask: {
+        q: 'Polarity test ma voltmeter le V1 + V2 dekhayo bhane polarity kasto ho?',
+        voice: 'पोलारिटी टेस्टमा भोल्टमिटरले भी वान प्लस भी टु देखायो भने पोलारिटी कस्तो हो?',
+        options: ['Additive', 'Subtractive', 'Zero'],
+        answer: 0,
+        why: 'Dui EMF jodiye additive, ghatiye subtractive.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: induced EMF ko relative direction winding sense ma bhar parcha.',
+      voice: 'स्मरण — इन्ड्युस्ड ई एम एफको रिलेटिभ डाइरेक्सन वाइन्डिङ सेन्समा भर पर्छ।',
+      lines: [['h', <>Polarity test</>], rem(<>Relative polarity depends on winding sense</>)],
+    },
+    {
+      say: 'Ek primary ra ek secondary terminal jodera primary ma reduced voltage diyincha.',
+      voice: 'एक प्राइमरी र एक सेकेन्डरी टर्मिनल जोडेर, प्राइमरीमा रिड्युस्ड भोल्टेज दिइन्छ।',
+      lines: [['step', <>Connect one HV and one LV terminal; apply reduced voltage to the HV side.</>]],
+    },
+    {
+      say: 'Voltmeter reading V 1 minus V 2 bhaye subtractive, V 1 plus V 2 bhaye additive.',
+      voice: 'भोल्टमिटर रिडिङ, भी वान माइनस भी टु भए सबट्र्याक्टिभ, भी वान प्लस भी टु भए एडिटिभ।',
+      lines: [['step', <>V = V<sub>1</sub> − V<sub>2</sub>: subtractive · V = V<sub>1</sub> + V<sub>2</sub>: additive</>]],
+    },
+    {
+      say: 'Correct polarity parallel operation ra three-phase connection ko lagi anivarya cha.',
+      voice: 'करेक्ट पोलारिटी, प्यारालल अपरेसन र थ्री फेज कनेक्सनको लागि अनिवार्य छ।',
+      lines: [br('Importance', <Pts items={[<>Parallel operation · three-phase banks · instrument transformers</>]} />)],
+    },
+    {
+      say: 'Terminal ma polarity marking garincha.',
+      voice: 'टर्मिनलमा पोलारिटी मार्किङ गरिन्छ।',
+      lines: [['step', <>Terminals are marked accordingly.</>]],
+      ask: {
+        q: 'Transformer polarity test kina garincha?',
+        voice: 'ट्रान्सफर्मर पोलारिटी टेस्ट किन गरिन्छ?',
+        options: ['Parallel ra three-phase connection sahi garna', 'Efficiency napna', 'Core loss napna'],
+        answer: 0,
+        why: 'Ulto polarity ma circulating current ra short circuit huncha.',
+      },
+    },
+  ],
+});
+
+export const losses29 = duo('Losses in a transformer', {
+  draw: effCurveFigure,
+  viewBox: '0 0 360 230',
+  tutor: [
+    {
+      say: 'Yaad garau: transformer ma ghumne bhag chaina, tesaile mechanical loss hudaina. Loss core ra winding ma matra.',
+      voice: 'याद गरौं — ट्रान्सफर्मरमा घुम्ने भाग छैन, त्यसैले मेकानिकल लस हुँदैन। लस कोर र वाइन्डिङमा मात्र।',
+      lines: [['h', <>Losses in a transformer</>], rem(<>No moving parts → no mechanical loss</>)],
+    },
+    {
+      say: 'Core loss wa iron loss: hysteresis ra eddy current. Yo flux ra frequency ma bhar parcha, load ma hoina, tesaile constant.',
+      voice: 'कोर लस वा आइरन लस — हिस्टेरेसिस र एडी करेन्ट। यो फ्लक्स र फ्रिक्वेन्सीमा भर पर्छ, लोडमा होइन, त्यसैले कन्स्टेन्ट।',
+      lines: [['step', <Pts items={[<>Hysteresis: <K>{String.raw`P_h = \eta B_{max}^{1.6} f V`}</K></>, <>Eddy current: <K>{String.raw`P_e = k_e B_{max}^2 f^2 t^2 V`}</K></>]} />, undefined, { carry: <>Core loss P<sub>i</sub>: constant</> }]],
+    },
+    {
+      say: 'Copper loss: winding ko resistance ma I squared R. Yo load ko square sanga badhcha.',
+      voice: 'कपर लस — वाइन्डिङको रेजिस्टेन्समा आई स्क्वायर आर। यो लोडको स्क्वायरसँग बढ्छ।',
+      lines: [['step', step('Copper loss at a fraction x of full load', String.raw`\begin{aligned} P_{cu} &= I_1^2R_1 + I_2^2R_2 \\ &= x^2\,P_{cu,fl} \end{aligned}`), undefined, { carry: <>Cu loss ∝ x²</> }]],
+    },
+    {
+      say: 'Kina x squared? Copper loss current ko square ma huncha, ra current load ko anupat ma, tesaile aadha load ma ek chauthai.',
+      voice: 'किन एक्स स्क्वायर? कपर लस करेन्टको स्क्वायरमा हुन्छ, र करेन्ट लोडको अनुपातमा, त्यसैले आधा लोडमा एक चौथाइ।',
+      lines: [br('Why x²?', <Pts items={[<>Cu loss ∝ I², and I ∝ load</>, <>Half load → (½)² = ¼ of full-load Cu loss</>]} />)],
+    },
+    {
+      say: 'Main line: stray loss ra dielectric loss sano hunchan. Figure 2.4 ma iron loss flat line ra copper loss parabola.',
+      voice: 'मेन लाइन — स्ट्रे लस र डाइइलेक्ट्रिक लस साना हुन्छन्। फिगर टु पोइन्ट फोरमा आइरन लस फ्ल्याट लाइन, र कपर लस प्याराबोला।',
+      lines: [['step', <>Small stray and dielectric losses · Fig. 2.4: iron loss flat, Cu loss rises as x²</>]],
+      ask: {
+        q: 'Transformer ko kun loss load sanga badalidaina?',
+        voice: 'ट्रान्सफर्मरको कुन लस लोडसँग बदलिँदैन?',
+        options: ['Core (iron) loss', 'Copper loss', 'Dubai'],
+        answer: 0,
+        why: 'Core loss flux ra frequency ma bhar parcha, jun lagbhag constant.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: transformer static machine bhayeko le mechanical loss hudaina.',
+      voice: 'स्मरण — ट्रान्सफर्मर स्टाटिक मेसिन भएकोले मेकानिकल लस हुँदैन।',
+      lines: [['h', <>Losses in a transformer (Fig. 2.4)</>], rem(<>Static machine: no friction or windage</>)],
+    },
+    {
+      say: 'Core loss: hysteresis ra eddy current loss, jun constant hun.',
+      voice: 'कोर लस — हिस्टेरेसिस र एडी करेन्ट लस, जुन कन्स्टेन्ट हुन्।',
+      lines: [['step', <><H>(i) Core (iron) loss P<sub>i</sub></H><Pts items={[<><K>{String.raw`P_h = \eta B_{max}^{1.6} f V`}</K></>, <><K>{String.raw`P_e = k_e B_{max}^2 f^2 t^2 V`}</K></>]} /></>, undefined, { carry: <>(i) P<sub>i</sub> constant</> }]],
+    },
+    {
+      say: 'Copper loss I 1 squared R 1 plus I 2 squared R 2, load ko square sanga.',
+      voice: 'कपर लस, आई वान स्क्वायर आर वान प्लस आई टु स्क्वायर आर टु, लोडको स्क्वायरसँग।',
+      lines: [['step', <><H>(ii) Copper loss</H><K>{String.raw`P_{cu} = I_1^2R_1 + I_2^2R_2 = x^2P_{cu,fl}`}</K></>]],
+    },
+    {
+      say: 'Copper loss current ko square ma huncha.',
+      voice: 'कपर लस करेन्टको स्क्वायरमा हुन्छ।',
+      lines: [br('x²', <Pts items={[<>P<sub>cu</sub> ∝ I² ∝ x²</>]} />)],
+    },
+    {
+      say: 'Stray ra dielectric loss sano hunchan.',
+      voice: 'स्ट्रे र डाइइलेक्ट्रिक लस साना हुन्छन्।',
+      lines: [['step', <>(iii) Stray and dielectric losses: small</>]],
+      ask: {
+        q: 'Transformer core lai laminate garda kun loss ghatcha?',
+        voice: 'ट्रान्सफर्मर कोरलाई ल्यामिनेट गर्दा कुन लस घट्छ?',
+        options: ['Eddy current loss', 'Copper loss', 'Hysteresis loss matra'],
+        answer: 0,
+        why: 'Pe ∝ t²; patla lamination le eddy loss ghataucha.',
+      },
+    },
+  ],
+});
+
+export const allDay210 = duo('All-day efficiency', {
+  draw: effCurveFigure,
+  viewBox: '0 0 360 230',
+  tutor: [
+    {
+      say: 'Yaad garau: efficiency eta equals output over input, ra maximum efficiency copper loss iron loss barabar hunda.',
+      voice: 'याद गरौं — इफिसियन्सी इटा इक्वल्स आउटपुट ओभर इनपुट, र म्याक्सिमम इफिसियन्सी कपर लस आइरन लस बराबर हुँदा।',
+      lines: [['h', <>All-day efficiency</>], rem(<K>{String.raw`\eta = \dfrac{\text{output}}{\text{input}}`}</K>, <>η<sub>max</sub> when Cu loss equals iron loss</>)],
+    },
+    {
+      say: 'Distribution transformer chaubis ghanta jodiyeko huncha, tara load din bhari badalirahancha; raati dherai kam.',
+      voice: 'डिस्ट्रिब्युसन ट्रान्सफर्मर चौबीस घण्टा जोडिएको हुन्छ, तर लोड दिनभरि बदलिरहन्छ — राति धेरै कम।',
+      lines: [['step', <>Distribution transformers stay energised 24 h; the load varies through the day</>]],
+    },
+    {
+      say: 'Yasko lagi energy ma efficiency herincha: all-day efficiency equals din bhari ko output kWh over input kWh.',
+      voice: 'यसको लागि इनर्जीमा इफिसियन्सी हेरिन्छ — अल डे इफिसियन्सी इक्वल्स दिनभरिको आउटपुट किलोवाट आवर ओभर इनपुट किलोवाट आवर।',
+      lines: [['eq', tex(String.raw`\eta_{\text{all-day}} = \dfrac{\text{output kWh in 24 h}}{\text{input kWh in 24 h}}`)]],
+    },
+    {
+      say: 'Iron loss kina chaubis ghanta? Transformer supply ma jodiyeko jati bela core magnetise bhairahancha, load hos wa nahos.',
+      voice: 'आइरन लस किन चौबीस घण्टा? ट्रान्सफर्मर सप्लाईमा जोडिएको जति बेला कोर म्याग्नेटाइज भइरहन्छ, लोड होस् वा नहोस्।',
+      lines: [br('Why count iron loss for 24 h?', <Pts items={[<>The core is magnetised whenever the transformer is energised</>, <>Cu loss counts only for the hours and fraction of load</>]} />)],
+    },
+    {
+      say: 'Main line: input kWh equals output plus 24 times P i plus har period ko x squared P cu fl times ghanta. Tesaile distribution transformer kam iron loss ko banaincha.',
+      voice: 'मेन लाइन — इनपुट किलोवाट आवर इक्वल्स आउटपुट प्लस चौबीस टाइम्स पी आई, प्लस हरेक पिरियडको एक्स स्क्वायर पी सी यु एफ एल टाइम्स घण्टा। त्यसैले डिस्ट्रिब्युसन ट्रान्सफर्मर कम आइरन लसको बनाइन्छ।',
+      lines: [['step', <K>{String.raw`\begin{aligned} \text{Input} &= \text{Output} + 24P_i \\ &\quad + \textstyle\sum x^2P_{cu,fl}\,t \end{aligned}`}</K>]],
+      ask: {
+        q: 'Distribution transformer lai kam iron loss ko kina banaincha?',
+        voice: 'डिस्ट्रिब्युसन ट्रान्सफर्मरलाई कम आइरन लसको किन बनाइन्छ?',
+        options: ['Iron loss 24 ghanta huncha', 'Copper loss badhauna', 'Voltage badhauna'],
+        answer: 0,
+        why: 'Energised bhaye samma iron loss hunchha, load kam huda pani.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: eta equals output over input ra maximum ma copper loss iron loss barabar.',
+      voice: 'स्मरण — इटा इक्वल्स आउटपुट ओभर इनपुट, र म्याक्सिमममा कपर लस आइरन लस बराबर।',
+      lines: [['h', <>All-day (energy) efficiency</>], rem(<>η<sub>max</sub>: Cu loss equals iron loss</>)],
+    },
+    {
+      say: 'Distribution transformer sadhai energised rahancha tara load variable huncha.',
+      voice: 'डिस्ट्रिब्युसन ट्रान्सफर्मर सधैं इनर्जाइज्ड रहन्छ, तर लोड भेरिएबल हुन्छ।',
+      lines: [['step', <>Always energised; variable load.</>]],
+    },
+    {
+      say: 'All-day efficiency equals output kWh over input kWh in 24 hours.',
+      voice: 'अल डे इफिसियन्सी इक्वल्स, आउटपुट किलोवाट आवर ओभर इनपुट किलोवाट आवर, इन टुएन्टी फोर आवर्स।',
+      lines: [['step', tex(String.raw`\eta_{ad} = \dfrac{\text{output kWh (24 h)}}{\text{input kWh (24 h)}} \qquad \cdots(1)`)]],
+    },
+    {
+      say: 'Iron loss 24 ghanta, copper loss load period anusar.',
+      voice: 'आइरन लस चौबीस घण्टा, कपर लस लोड पिरियड अनुसार।',
+      lines: [br('Loss energy', <Pts items={[<>Iron: 24 P<sub>i</sub></>, <>Copper: Σ x² P<sub>cu,fl</sub> t</>]} />)],
+    },
+    {
+      say: 'Tesaile distribution transformer ma iron loss kam rakhna design garincha.',
+      voice: 'त्यसैले डिस्ट्रिब्युसन ट्रान्सफर्मरमा आइरन लस कम राख्न डिजाइन गरिन्छ।',
+      lines: [['step', <>Hence distribution transformers are designed for low iron loss.</>]],
+      ask: {
+        q: 'All-day efficiency kun ko ratio ho?',
+        voice: 'अल डे इफिसियन्सी कुनको रेसियो हो?',
+        options: ['Energy (kWh) ko', 'Power (kW) ko', 'Voltage ko'],
+        answer: 0,
+        why: 'Din bhari ko output energy ra input energy ko ratio.',
+      },
+    },
+  ],
+});
+
+export const three213 = duo('Three-phase transformer connections', {
+  draw: threePhaseFigure,
+  viewBox: '0 0 360 236',
+  tutor: [
+    {
+      say: 'Yaad garau: star ma V L equals root three V ph ra I L equals I ph; delta ma V L equals V ph ra I L equals root three I ph.',
+      voice: 'याद गरौं — स्टारमा भी एल इक्वल्स रुट थ्री भी पी एच, र आई एल इक्वल्स आई पी एच। डेल्टामा भी एल इक्वल्स भी पी एच, र आई एल इक्वल्स रुट थ्री आई पी एच।',
+      lines: [['h', <>Three-phase transformer connections</>], rem(<>Star: <K>{String.raw`V_L = \sqrt{3}V_{ph},\ I_L = I_{ph}`}</K></>, <>Delta: <K>{String.raw`V_L = V_{ph},\ I_L = \sqrt{3}I_{ph}`}</K></>)],
+    },
+    {
+      say: 'Star-star: economical high voltage ko lagi, neutral milcha; tara unbalanced load ma samasya.',
+      voice: 'स्टार स्टार — इकोनोमिकल हाई भोल्टेजको लागि, न्युट्रल मिल्छ। तर अनब्यालेन्स्ड लोडमा समस्या।',
+      lines: [['step', <>(a) Y–Y: low insulation per phase, neutral available; poor with unbalanced load</>]],
+    },
+    {
+      say: 'Delta-delta: euta transformer bigriye pani open delta ma chalna sakcha; low voltage, high current ko lagi.',
+      voice: 'डेल्टा डेल्टा — एउटा ट्रान्सफर्मर बिग्रिए पनि ओपन डेल्टामा चल्न सक्छ। लो भोल्टेज, हाई करेन्टको लागि।',
+      lines: [['step', <>(b) Δ–Δ: low-voltage, high-current; can run in open delta</>]],
+    },
+    {
+      say: 'Star-delta ra delta-star ma 30 degree phase shift kina? Star ko phase voltage ra delta ko line voltage bich 30 degree ko kon huncha.',
+      voice: 'स्टार डेल्टा र डेल्टा स्टारमा तीस डिग्री फेज सिफ्ट किन? स्टारको फेज भोल्टेज र डेल्टाको लाइन भोल्टेजबीच तीस डिग्रीको कोण हुन्छ।',
+      lines: [br('Why a 30° shift?', <Pts items={[<>Line voltages of a star lead its phase voltages by 30°</>, <>So Y–Δ and Δ–Y outputs are shifted by 30°</>, <>They cannot be paralleled with Y–Y or Δ–Δ</>]} />)],
+    },
+    {
+      say: 'Main line: star-delta step-down substation ma, ra delta-star step-up generating station ra distribution ma, jaha neutral chahincha.',
+      voice: 'मेन लाइन — स्टार डेल्टा स्टेप डाउन सबस्टेसनमा, र डेल्टा स्टार स्टेप अप जेनेरेटिङ स्टेसन र डिस्ट्रिब्युसनमा, जहाँ न्युट्रल चाहिन्छ।',
+      lines: [['step', <Pts items={[<>(c) Y–Δ: step-down at receiving substations</>, <>(d) Δ–Y: step-up at generating stations; distribution (neutral for 3-phase 4-wire)</>]} />]],
+      ask: {
+        q: 'Ghar ko distribution transformer ma secondary prayah kun connection ma huncha?',
+        voice: 'घरको डिस्ट्रिब्युसन ट्रान्सफर्मरमा सेकेन्डरी प्रायः कुन कनेक्सनमा हुन्छ?',
+        options: ['Star (neutral sahit)', 'Delta', 'Open delta'],
+        answer: 0,
+        why: 'Delta-star ma secondary star bhayeko le 3-phase 4-wire ra single-phase supply milcha.',
+      },
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Smaran: star ma V L equals root three V ph, delta ma I L equals root three I ph.',
+      voice: 'स्मरण — स्टारमा भी एल इक्वल्स रुट थ्री भी पी एच, डेल्टामा आई एल इक्वल्स रुट थ्री आई पी एच।',
+      lines: [['h', <>Three-phase transformer connections (Fig. 2.7)</>], rem(<>Star: V<sub>L</sub> = √3 V<sub>ph</sub> · delta: I<sub>L</sub> = √3 I<sub>ph</sub></>)],
+    },
+    {
+      say: 'Star-star: insulation kam, neutral available.',
+      voice: 'स्टार स्टार — इन्सुलेसन कम, न्युट्रल एभेलेबल।',
+      lines: [['step', <>(a) Y–Y: less insulation; neutral available.</>]],
+    },
+    {
+      say: 'Delta-delta: open delta operation sambhav.',
+      voice: 'डेल्टा डेल्टा — ओपन डेल्टा अपरेसन सम्भव।',
+      lines: [['step', <>(b) Δ–Δ: open-delta operation possible.</>]],
+    },
+    {
+      say: 'Star-delta ra delta-star ma primary ra secondary bich 30 degree phase shift huncha.',
+      voice: 'स्टार डेल्टा र डेल्टा स्टारमा प्राइमरी र सेकेन्डरीबीच तीस डिग्री फेज सिफ्ट हुन्छ।',
+      lines: [br('Phase shift', <Pts items={[<>Y–Δ and Δ–Y: 30° shift between primary and secondary</>]} />)],
+    },
+    {
+      say: 'Star-delta step-down ra delta-star step-up wa distribution ma prayog huncha.',
+      voice: 'स्टार डेल्टा स्टेप डाउन, र डेल्टा स्टार स्टेप अप वा डिस्ट्रिब्युसनमा प्रयोग हुन्छ।',
+      lines: [['step', <>(c) Y–Δ: step-down · (d) Δ–Y: step-up and distribution.</>]],
+      ask: {
+        q: 'Star-delta transformer lai star-star sanga parallel kina garna mildaina?',
+        voice: 'स्टार डेल्टा ट्रान्सफर्मरलाई स्टार स्टारसँग प्यारालल किन गर्न मिल्दैन?',
+        options: ['30° phase shift farak huncha', 'Frequency farak', 'Turns farak'],
+        answer: 0,
+        why: 'Y–Δ ko output 30° shifted; parallel garda circulating current bagcha.',
+      },
+    },
+  ],
+});
+
+/* ── 2.1 Model answer: construction (exam-style; no paper in vault/) ─ */
+export const consAnswer21 = answer('Model answer: constructional details of a transformer', {
+  draw: coreShellFigure,
+  viewBox: '0 0 360 240',
+  papers: [],
+  marks: '',
+  q: 'Describe the constructional details of a single-phase transformer (core type and shell type) and state the recent trends in transformer construction.',
+  read: {
+    say: 'Exam-style question, kinaki vault ma transformer construction ko past paper chaina: single-phase transformer ko construction, core type ra shell type, ra recent trends.',
+    voice: 'एक्जाम स्टाइल क्वेस्चन, किनकि भल्टमा ट्रान्सफर्मर कन्स्ट्रक्सनको पास्ट पेपर छैन — सिंगल फेज ट्रान्सफर्मरको कन्स्ट्रक्सन, कोर टाइप र सेल टाइप, र रिसेन्ट ट्रेन्ड्स।',
+  },
+  points: [
+    {
+      carry: <>Core: laminated silicon steel · core type / shell type</>,
+      node: <><H>(a) Core and windings (Fig. 2.6)</H><Pts items={[<>Core of 0.35–0.5 mm laminated silicon steel (CRGO) to reduce eddy loss</>, <><b>Core type:</b> windings on both limbs · <b>shell type:</b> windings on the centre limb, core surrounds them</>, <>LV winding next to the core, HV outside (less insulation)</>]} /></>,
+      say: 'Core 0.35 dekhi 0.5 mm ko laminated silicon steel ko huncha. Core type ma winding dubai limb ma, shell type ma centre limb ma. LV winding core najik, HV bahira.',
+      voice: 'कोर जिरो पोइन्ट थ्री फाइभ देखि जिरो पोइन्ट फाइभ मिलिमिटरको ल्यामिनेटेड सिलिकन स्टिलको हुन्छ। कोर टाइपमा वाइन्डिङ दुवै लिम्बमा, सेल टाइपमा सेन्टर लिम्बमा। एल भी वाइन्डिङ कोर नजिक, एच भी बाहिर।',
+    },
+    {
+      page: true,
+      node: <><H>(b) Accessories and recent trends</H><Pts items={[<>Tank and transformer oil (cooling, insulation), conservator, breather, bushings, tap changer</>, <>Trends: amorphous-metal cores (very low core loss), cast-resin dry-type units, online monitoring of oil and temperature</>]} /></>,
+      say: 'Accessories: tank ra oil, conservator, breather, bushing ra tap changer. Recent trends: amorphous core, cast-resin dry type ra online monitoring.',
+      voice: 'एक्सेसरिज — ट्याङ्क र अयल, कन्जर्भेटर, ब्रिदर, बुसिङ र ट्याप चेन्जर। रिसेन्ट ट्रेन्ड्स — एमोर्फस कोर, कास्ट रेजिन ड्राई टाइप, र अनलाइन मनिटरिङ।',
+      ask: {
+        q: 'LV winding lai core ko najik kina rakhincha?',
+        voice: 'एल भी वाइन्डिङलाई कोरको नजिक किन राखिन्छ?',
+        options: ['Core ra winding bich insulation kam chahincha', 'Copper loss badhauna', 'Flux ghatauna'],
+        answer: 0,
+        why: 'LV le core sanga kam voltage farak rakhcha, tesaile insulation sasto.',
+      },
+    },
+  ],
+});
+
+/* ── 2.3 Model answer: ideal transformer (2071 Magh) ───────────────── */
+export const idealAnswer23 = answer('Model answer: ideal transformer on no load and on load', {
+  draw: xfmrFigure,
+  viewBox: '0 0 360 230',
+  papers: ['2071 Magh'],
+  marks: '',
+  q: 'Explain the working of an ideal transformer under (i) no-load and (ii) loaded conditions and derive expressions for voltage and current ratios relating to transformer turns ratio.',
+  read: {
+    say: 'IOE 2071 Magh: ideal transformer ko working no load ra loaded condition ma, ra voltage ra current ratio derive gara.',
+    voice: 'आई ओ ई दुई हजार एकहत्तर माघ — आइडियल ट्रान्सफर्मरको वर्किङ नो लोड र लोडेड कन्डिसनमा, र भोल्टेज र करेन्ट रेसियो डेराइभ गर।',
+  },
+  points: [
+    {
+      carry: <>(i) <K>{String.raw`V_1/V_2 = N_1/N_2`}</K></>,
+      node: <><H>(i) No load</H><Pts items={[<>Ideal: no winding resistance, leakage or core loss; magnetising current I<sub>μ</sub> lags V<sub>1</sub> by 90°</>, <>The same flux links both windings (Fig. 2.1)</>]} /><K>{String.raw`\begin{aligned} e_1 &= N_1\dfrac{d\phi}{dt},\ e_2 = N_2\dfrac{d\phi}{dt} \\ \therefore\ \dfrac{V_1}{V_2} &= \dfrac{E_1}{E_2} = \dfrac{N_1}{N_2} = \dfrac{1}{K} \end{aligned}`}</K></>,
+      say: 'No load: ideal transformer ma loss chaina, magnetising current V 1 bhanda 90 degree pachhi. Eutai flux dubai winding ma, tesaile V 1 over V 2 equals N 1 over N 2.',
+      voice: 'नो लोड — आइडियल ट्रान्सफर्मरमा लस छैन, म्याग्नेटाइजिङ करेन्ट भी वानभन्दा नब्बे डिग्री पछि। एउटै फ्लक्स दुवै वाइन्डिङमा, त्यसैले भी वान ओभर भी टु इक्वल्स एन वान ओभर एन टु।',
+    },
+    {
+      page: true,
+      node: <><H>(ii) On load</H><Pts items={[<>Secondary current I<sub>2</sub> sets up MMF N<sub>2</sub>I<sub>2</sub>; the primary draws I<sub>1</sub> so that N<sub>1</sub>I<sub>1</sub> = N<sub>2</sub>I<sub>2</sub> and the flux is unchanged</>]} /><K>{String.raw`\begin{aligned} V_1I_1 &= V_2I_2 \\ \therefore\ \dfrac{I_1}{I_2} &= \dfrac{N_2}{N_1} = K \end{aligned}`}</K></>,
+      say: 'Load ma I 2 ko MMF lai balance garna primary le I 1 linchha, N 1 I 1 equals N 2 I 2. Power barabar, tesaile I 1 over I 2 equals N 2 over N 1 equals K.',
+      voice: 'लोडमा आई टुको एम एम एफलाई ब्यालेन्स गर्न प्राइमरीले आई वान लिन्छ — एन वान आई वान इक्वल्स एन टु आई टु। पावर बराबर, त्यसैले आई वान ओभर आई टु इक्वल्स एन टु ओभर एन वान इक्वल्स के।',
+      ask: {
+        q: 'Ideal transformer ma transformation ratio K equals?',
+        voice: 'आइडियल ट्रान्सफर्मरमा ट्रान्सफर्मेसन रेसियो के इक्वल्स?',
+        options: ['N2/N1', 'N1/N2', 'I2/I1'],
+        answer: 0,
+        why: 'K = N2/N1 = V2/V1 = I1/I2.',
+      },
+    },
+  ],
+});
+
+/* ── 2.5 Model answer: on load and no load with phasors (2068 Magh Q2a) */
+export const loadAnswer25 = answer('Model answer: transformer on no load and load, phasor diagrams', {
+  draw: noLoadFigure,
+  viewBox: '0 0 360 230',
+  papers: ['2068 Magh'],
+  marks: '',
+  q: 'Explain the transformer on load and no load with the phasor diagram of resistive and capacitive load.',
+  read: {
+    say: 'IOE 2068 Magh: transformer no load ra load ma, resistive ra capacitive load ko phasor diagram sahit.',
+    voice: 'आई ओ ई दुई हजार अठसट्ठी माघ — ट्रान्सफर्मर नो लोड र लोडमा, रेजिस्टिभ र क्यापासिटिभ लोडको फेजर डायाग्राम सहित।',
+  },
+  points: [
+    {
+      carry: <>No load: <K>{String.raw`I_0 = I_w + I_\mu`}</K></>,
+      node: <><H>(a) No load (Fig. 2.2)</H><Pts items={[<>Primary draws I<sub>0</sub> (2–5 % of rated): I<sub>w</sub> in phase with V<sub>1</sub> (core loss) and I<sub>μ</sub> along φ (magnetising)</>, <>E<sub>1</sub>, E<sub>2</sub> lag φ by 90°; no-load pf ≈ 0.1–0.2 lagging</>]} /></>,
+      say: 'No load ma primary le I 0 linchha: I w core loss ko, V 1 sanga in phase, ra I mu magnetising, flux ko disha ma. E 1 ra E 2 flux bhanda 90 degree pachhi.',
+      voice: 'नो लोडमा प्राइमरीले आई जिरो लिन्छ — आई डब्लु कोर लसको, भी वानसँग इन फेज, र आई म्यु म्याग्नेटाइजिङ, फ्लक्सको दिशामा। ई वान र ई टु फ्लक्सभन्दा नब्बे डिग्री पछि।',
+    },
+    {
+      page: true,
+      node: <><H>(b) On load</H><Pts items={[<>I<sub>2</sub> flows; the primary adds I<sub>2</sub>′ (= K I<sub>2</sub>) opposite to it: <K>{String.raw`\bar{I}_1 = \bar{I}_0 + \bar{I}_2'`}</K></>, <><b>Resistive:</b> I<sub>2</sub> in phase with V<sub>2</sub> · <b>capacitive:</b> I<sub>2</sub> leads V<sub>2</sub></>, <>Voltage equations: <K>{String.raw`\bar{V}_2 = \bar{E}_2 - \bar{I}_2\bar{Z}_2`}</K>, <K>{String.raw`\bar{V}_1 = -\bar{E}_1 + \bar{I}_1\bar{Z}_1`}</K></>]} /></>,
+      say: 'Load ma I 2 bagcha ra primary le I 2 dash thapcha: I 1 equals I 0 plus I 2 dash. Resistive ma I 2 V 2 sanga in phase, capacitive ma lead garcha. V 2 equals E 2 minus I 2 Z 2.',
+      voice: 'लोडमा आई टु बग्छ, र प्राइमरीले आई टु ड्यास थप्छ — आई वान इक्वल्स आई जिरो प्लस आई टु ड्यास। रेजिस्टिभमा आई टु, भी टुसँग इन फेज, क्यापासिटिभमा लिड गर्छ। भी टु इक्वल्स ई टु माइनस आई टु जेड टु।',
+      ask: {
+        q: 'Capacitive load ma V2 E2 bhanda kasto huna sakcha?',
+        voice: 'क्यापासिटिभ लोडमा भी टु, ई टुभन्दा कस्तो हुन सक्छ?',
+        options: ['Thulo', 'Sadhai sano', 'Sadhai zero'],
+        answer: 0,
+        why: 'Leading current ko I2X2 drop le V2 lai E2 bhanda badhi banauna sakcha (negative regulation).',
+      },
+    },
+  ],
+});
+
+/* ── 2.8 Model answer: voltage regulation (2071 Chaitra) ────────────── */
+export const regAnswer28 = answer('Model answer: voltage regulation with an inductive load', {
+  draw: figAt(eqFigure, { 0: 1, 2: 1, 3: 2 }),
+  viewBox: '0 0 360 230',
+  papers: ['2071 Chaitra'],
+  marks: '',
+  q: 'Define voltage regulation of a transformer. Derive an expression for voltage regulation if a transformer is loaded with an inductive load.',
+  read: {
+    say: 'IOE 2071 Chaitra: transformer ko voltage regulation define gara, ra inductive load ma regulation ko expression derive gara.',
+    voice: 'आई ओ ई दुई हजार एकहत्तर चैत — ट्रान्सफर्मरको भोल्टेज रेगुलेसन डिफाइन गर, र इन्डक्टिभ लोडमा रेगुलेसनको एक्स्प्रेसन डेराइभ गर।',
+  },
+  points: [
+    {
+      carry: <>Reg = (E<sub>2</sub> − V<sub>2</sub>)/V<sub>2</sub></>,
+      node: <><H>(a) Definition</H><Pts items={[<>Voltage regulation is the change in secondary terminal voltage from no load to full load, as a fraction of the full-load voltage, with the primary voltage constant</>]} /><K>{String.raw`\%\,\text{Reg} = \dfrac{E_2 - V_2}{V_2}\times 100 \qquad \cdots(1)`}</K></>,
+      say: 'Primary voltage constant rakhda no load bata full load samma secondary voltage ko parivartan, full load voltage ko bhag ma: regulation equals E 2 minus V 2 over V 2.',
+      voice: 'प्राइमरी भोल्टेज कन्स्टेन्ट राख्दा, नो लोडबाट फुल लोडसम्म सेकेन्डरी भोल्टेजको परिवर्तन, फुल लोड भोल्टेजको भागमा — रेगुलेसन इक्वल्स ई टु माइनस भी टु ओभर भी टु।',
+    },
+    {
+      page: true,
+      node: <><H>(b) Inductive (lagging) load</H><Pts items={[<>Referred to the secondary: R<sub>02</sub>, X<sub>02</sub>; I<sub>2</sub> lags V<sub>2</sub> by φ</>]} /><K>{String.raw`\begin{aligned} E_2 &\approx V_2 + I_2R_{02}\cos\phi + I_2X_{02}\sin\phi && \cdots(2) \\ \therefore\ \%\,\text{Reg} &= \dfrac{I_2R_{02}\cos\phi + I_2X_{02}\sin\phi}{V_2}\times100 && \cdots(3) \end{aligned}`}</K></>,
+      say: 'Secondary ma refer garda R 02 ra X 02. Lagging load ko phasor bata E 2 lagbhag V 2 plus I 2 R 02 cos phi plus I 2 X 02 sin phi. Tesaile percent regulation equals I 2 R 02 cos phi plus I 2 X 02 sin phi, over V 2, times 100.',
+      voice: 'सेकेन्डरीमा रेफर गर्दा आर जिरो टु र एक्स जिरो टु। ल्यागिङ लोडको फेजरबाट, ई टु लगभग भी टु प्लस आई टु आर जिरो टु कस फाइ, प्लस आई टु एक्स जिरो टु साइन फाइ। त्यसैले प्रतिशत रेगुलेसन, इक्वल्स आई टु आर जिरो टु कस फाइ प्लस आई टु एक्स जिरो टु साइन फाइ, ओभर भी टु, टाइम्स सय।',
+      ask: {
+        q: 'Leading pf load ma regulation ko formula ma sin phi term ko chinha kasto huncha?',
+        voice: 'लिडिङ पी एफ लोडमा रेगुलेसनको फर्मुलामा साइन फाइ टर्मको चिन्ह कस्तो हुन्छ?',
+        options: ['Minus', 'Plus', 'Hataincha'],
+        answer: 0,
+        why: 'Leading load ma I2X02 sinφ ghataincha; regulation negative huna sakcha.',
+      },
+    },
+  ],
+});
+
+/* ── 2.13 Model answer: three-phase connections (2075 Baisakh Q2a) ── */
+export const threeAnswer213 = answer('Model answer: three-phase transformer connections and applications', {
+  draw: threePhaseFigure,
+  viewBox: '0 0 360 236',
+  papers: ['2075 Baisakh'],
+  marks: '',
+  q: 'Explain the different three phase transformer connections with neat sketch. Write their application also.',
+  read: {
+    say: 'IOE 2075 Baisakh: three phase transformer ka connection sketch sahit, ra tinko application.',
+    voice: 'आई ओ ई दुई हजार पचहत्तर बैशाख — थ्री फेज ट्रान्सफर्मरका कनेक्सन स्केच सहित, र तिनको एप्लिकेसन।',
+  },
+  points: [
+    {
+      carry: <>(a) Y–Y · (b) Δ–Δ</>,
+      node: <><H>(a) Star–star and delta–delta (Fig. 2.7)</H><Pts items={[<><b>Y–Y:</b> phase voltage V<sub>L</sub>/√3 (less insulation), neutral available; trouble with unbalanced load and third harmonics. Use: small high-voltage units</>, <><b>Δ–Δ:</b> no phase shift; can run as open delta at 57.7 % rating if one unit fails. Use: low-voltage, large-current loads</>]} /></>,
+      say: 'Star-star: phase voltage V L over root three, insulation kam, neutral milcha; unbalanced load ma samasya. Delta-delta: phase shift chaina, euta unit bigriye open delta ma 57.7 percent rating ma chalcha.',
+      voice: 'स्टार स्टार — फेज भोल्टेज भी एल ओभर रुट थ्री, इन्सुलेसन कम, न्युट्रल मिल्छ। अनब्यालेन्स्ड लोडमा समस्या। डेल्टा डेल्टा — फेज सिफ्ट छैन, एउटा युनिट बिग्रिए ओपन डेल्टामा सन्ताउन्न दशमलव सात प्रतिशत रेटिङमा चल्छ।',
+    },
+    {
+      page: true,
+      node: <><H>(b) Star–delta and delta–star</H><Pts items={[<><b>Y–Δ:</b> 30° phase shift; no third-harmonic trouble. Use: step-down at the receiving end of transmission lines</>, <><b>Δ–Y:</b> 30° shift; star secondary gives a neutral for 3-phase 4-wire supply. Use: step-up at generating stations and distribution transformers</>]} /></>,
+      say: 'Star-delta: 30 degree phase shift, transmission line ko receiving end ma step-down. Delta-star: 30 degree shift, secondary star ma neutral milcha; generating station ma step-up ra distribution ma.',
+      voice: 'स्टार डेल्टा — तीस डिग्री फेज सिफ्ट, ट्रान्समिसन लाइनको रिसिभिङ एन्डमा स्टेप डाउन। डेल्टा स्टार — तीस डिग्री सिफ्ट, सेकेन्डरी स्टारमा न्युट्रल मिल्छ। जेनेरेटिङ स्टेसनमा स्टेप अप, र डिस्ट्रिब्युसनमा।',
+      ask: {
+        q: 'Open delta ma transformer bank kati percent rating ma chalna sakcha?',
+        voice: 'ओपन डेल्टामा ट्रान्सफर्मर बैंक कति प्रतिशत रेटिङमा चल्न सक्छ?',
+        options: ['57.7 %', '66.7 %', '100 %'],
+        answer: 0,
+        why: 'Open delta capacity = 1/√3 = 57.7 % of the original delta–delta rating.',
+      },
+    },
+  ],
+});
+
+// One topic per IOE syllabus bullet of Unit 2 (rule 68).
+const t21 = topic({ num: '2.1', title: 'Constructional Details, recent trends', opener: basicsCons21, derive: [cons21], picture: [consAnswer21] });
+const t22 = topic({ num: '2.2', title: 'Working principle and EMF equation', opener: basics21, derive: [principle21, emf21], picture: [emfAnswer21] });
+const t23 = topic({ num: '2.3', title: 'Ideal Transformer', opener: basicsIdeal23, derive: [ideal23], picture: [idealAnswer23] });
+const t24 = topic({ num: '2.4', title: 'No load and load Operation', opener: basics22, derive: [noLoad22, onLoad22], picture: [fluxAnswer22] });
+const t25 = topic({ num: '2.5', title: 'Operation of Transformer with load', opener: basicsLoad25, derive: [load25], picture: [loadAnswer25] });
+const t26 = topic({ num: '2.6', title: 'Equivalent Circuits and Phasor Diagram', opener: basicsEq26, derive: [eqCircuit23], picture: [referAnswer23] });
+const t27 = topic({ num: '2.7', title: 'Tests: Polarity Test, Open Circuit test, Short Circuit test and Equivalent Circuit Parameters', opener: basicsTests27, derive: [polarity27, tests23], picture: [ocscSolve23] });
+const t28 = topic({ num: '2.8', title: 'Voltage Regulation', opener: basicsReg28, derive: [reg24], picture: [regAnswer28] });
+const t29 = topic({ num: '2.9', title: 'Losses in a transformer', opener: basics23, derive: [losses29], picture: [lossAnswer24] });
+const t210 = topic({ num: '2.10', title: 'Efficiency, condition for maximum efficiency and all day efficiency', opener: basics24, derive: [eff24, allDay210], picture: [effSolve24] });
+const t211 = topic({ num: '2.11', title: 'Instrument Transformers: Potential Transformer (PT) and Current Transformer (CT)', opener: basicsInst211, derive: [special25], picture: [ctAnswer25] });
+const t212 = topic({ num: '2.12', title: 'Auto transformer: construction, working principle and Cu saving', opener: basics25, derive: [auto25], picture: [autoAnswer25] });
+const t213 = topic({ num: '2.13', title: 'Three phase Transformers', opener: basicsThree213, derive: [three213], picture: [threeAnswer213] });
 
 export const unit2 = {
-  topics: [t21, t22, t23, t24, t25],
+  topics: [t21, t22, t23, t24, t25, t26, t27, t28, t29, t210, t211, t212, t213],
   summary: [
     <>Mutual induction: E = 4.44 fNΦ<sub>m</sub>, E<sub>2</sub>/E<sub>1</sub> = N<sub>2</sub>/N<sub>1</sub> = K; frequency badlindaina.</>,
     <>No load: I<sub>0</sub> = √(I<sub>w</sub>² + I<sub>μ</sub>²). Load ma N<sub>1</sub>I<sub>2</sub>′ = N<sub>2</sub>I<sub>2</sub>, flux constant.</>,
