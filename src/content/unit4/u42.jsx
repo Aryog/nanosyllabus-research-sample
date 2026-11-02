@@ -546,3 +546,59 @@ export const seriesSolve42 = answer('IOE 2069 Bhadra: current of a series motor'
     },
   ],
 });
+
+/* ── 4.3 Model answer: suitability of series, shunt and compound motors ── */
+// 2067 Mangsir (Question Bank part 12): "Explain with reason, the suitability
+// of DC series, DC shunt and DC compound motors. Identify suitable DC motor
+// for the following application: i) Electric traction ii) Vacuum cleaner
+// iii) Paper making iv) Shearing and punching". Marks not shown in the paper.
+// curvesFigure parts used: 0 axes · 5 shunt N–Ta · 7 series N–Ta · 6 no-load mark.
+export const suitability43 = answer('Model answer: suitability of DC series, shunt and compound motors', {
+  draw: figAt(curvesFigure, { 0: 0, 5: 1, 7: 2, 6: 2 }),
+  viewBox: '0 0 360 180',
+  papers: ['2067 Mangsir'],
+  marks: '',
+  q: 'Explain with reason, the suitability of DC series, DC shunt and DC compound motors. Identify suitable DC motor for the following application: i) Electric traction ii) Vacuum cleaner iii) Paper making iv) Shearing and punching.',
+  read: {
+    say: 'IOE 2067 Mangsir: DC series, shunt ra compound motor ko suitability karan sahit, ani char ota application ko lagi upayukta motor.',
+    voice: 'आई ओ ई दुई हजार सतसट्ठी मंसिर — डी सी सिरिज, शन्ट र कम्पाउन्ड मोटरको सुटेबिलिटी कारणसहित, अनि चार ओटा एप्लिकेसनको लागि उपयुक्त मोटर।',
+  },
+  points: [
+    {
+      carry: <>(a) Shunt: near-constant speed</>,
+      node: <><H>(a) Suitability with reason</H><Pts items={[<><b>Shunt motor:</b> φ ≈ constant, so N falls only slightly with load (Fig. 1)</>, <>Suitable where a nearly constant speed is needed</>]} /></>,
+      say: 'Shunt motor: flux lagbhag constant, tesaile load badhda speed thorai matra ghatcha. Lagbhag constant speed chahine thau ma upayukta.',
+      voice: 'शन्ट मोटर — फ्लक्स लगभग कन्स्टेन्ट, त्यसैले लोड बढ्दा स्पिड थोरै मात्र घट्छ। लगभग कन्स्टेन्ट स्पिड चाहिने ठाउँमा उपयुक्त।',
+    },
+    {
+      carry: <>(a) Series: high starting torque, never on no load</>,
+      node: <><Pts items={[<><b>Series motor:</b> φ ∝ I<sub>a</sub>, so <K>{String.raw`T_a \propto I_a^2`}</K>: very high starting torque</>, <>Speed falls sharply with load; dangerous speed on no load</>, <>Suitable for heavy starting loads that are never removed</>]} /></>,
+      say: 'Series motor: flux I a sanga badhcha, tesaile T a I a squared sanga proportional ra starting torque dherai ucho. Load badhda speed dherai ghatcha, ra no load ma speed khatarnak.',
+      voice: 'सिरिज मोटर — फ्लक्स आई एसँग बढ्छ, त्यसैले टी ए, आई ए स्क्वायरसँग प्रोपोर्सनल र स्टार्टिङ टर्क धेरै उच्च। लोड बढ्दा स्पिड धेरै घट्छ, र नो लोडमा स्पिड खतरनाक।',
+    },
+    {
+      carry: <>(a) Cumulative compound: high torque + limited no-load speed</>,
+      node: <><Pts items={[<><b>Cumulative compound motor:</b> φ = φ<sub>sh</sub> + φ<sub>se</sub></>, <>High starting torque like series, safe no-load speed like shunt</>, <>Suitable for sudden heavy loads (with a flywheel)</>]} /></>,
+      say: 'Cumulative compound motor: dubai field ko flux jodincha. Series jastai ucho starting torque, ra shunt jastai no load ma pani surakshit speed. Achanak bhari load ma, flywheel sanga upayukta.',
+      voice: 'क्युमुलेटिभ कम्पाउन्ड मोटर — दुवै फिल्डको फ्लक्स जोडिन्छ। सिरिज जस्तै उच्च स्टार्टिङ टर्क, र शन्ट जस्तै नो लोडमा पनि सुरक्षित स्पिड। अचानक भारी लोडमा, फ्लाइह्विलसँग उपयुक्त।',
+    },
+    {
+      page: true,
+      node: <><H>(b) Suitable motor for each application</H><Pts items={[<>(i) Electric traction: <b>DC series motor</b> (very high starting torque)</>, <>(ii) Vacuum cleaner: <b>DC series (universal) motor</b> (high speed, always loaded by the fan)</>]} /></>,
+      say: 'Application: electric traction ko lagi DC series motor, kinaki starting torque dherai ucho. Vacuum cleaner ko lagi series, arthat universal motor: ucho speed, ra fan le sadhai load dincha.',
+      voice: 'एप्लिकेसन — इलेक्ट्रिक ट्र्याक्सनको लागि डी सी सिरिज मोटर, किनकि स्टार्टिङ टर्क धेरै उच्च। भ्याकुम क्लिनरको लागि सिरिज, अर्थात युनिभर्सल मोटर — उच्च स्पिड, र फ्यानले सधैं लोड दिन्छ।',
+    },
+    {
+      node: <><Pts items={[<>(iii) Paper making: <b>DC shunt motor</b> (nearly constant speed)</>, <>(iv) Shearing and punching: <b>cumulative compound motor</b> (high torque for sudden loads, with a flywheel)</>]} /></>,
+      say: 'Paper making ko lagi DC shunt motor, kinaki speed lagbhag constant chahincha. Shearing ra punching ko lagi cumulative compound motor: achanak aaune bhari load ko lagi ucho torque.',
+      voice: 'पेपर मेकिङको लागि डी सी शन्ट मोटर, किनकि स्पिड लगभग कन्स्टेन्ट चाहिन्छ। सियरिङ र पन्चिङको लागि क्युमुलेटिभ कम्पाउन्ड मोटर — अचानक आउने भारी लोडको लागि उच्च टर्क।',
+      ask: {
+        q: 'Electric traction ko lagi kun DC motor upayukta huncha?',
+        voice: 'इलेक्ट्रिक ट्र्याक्सनको लागि कुन डी सी मोटर उपयुक्त हुन्छ?',
+        options: ['DC series motor', 'DC shunt motor', 'Differential compound motor'],
+        answer: 0,
+        why: 'Series motor ko starting torque dherai ucho huncha (Ta ∝ Ia² before saturation).',
+      },
+    },
+  ],
+});

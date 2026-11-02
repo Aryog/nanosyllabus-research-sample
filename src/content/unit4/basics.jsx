@@ -17,7 +17,7 @@ const WIRED = [...MOTOR, 'battery'];
 const STARTER = [...WIRED, 'starter'];
 
 /* ── 4.1 Working principle, back EMF, torque: what is inside a motor ──── */
-export const basics41 = duo('4.1 · Basic understanding: what is inside a DC motor?', {
+export const basics41 = duo('4.1 · Basic understanding: how does a DC motor turn?', {
   three: motorTour([
     { shot: 'whole', spin: 0.35, labels: [['DC motor', [0, 3.1, 0.6]]] },
     { shot: 'inside', open: 1, spin: 0.2, field: 1, focus: ['poles', 'field'], labels: [['N pole', 'north'], ['S pole', 'south']] },
@@ -26,14 +26,14 @@ export const basics41 = duo('4.1 · Basic understanding: what is inside a DC mot
     { field: 1, push: 1, spin: 0.5, focus: ['coil', 'poles'], labels: [['tala dhakka', [-2.0, -0.9, 1.8]], ['mathi dhakka', [2.0, 1.3, 1.8]]] },
     { shot: 'commutator', push: 0, spin: 0.25, focus: ['commutator', 'brushes'], labels: [['commutator', 'commutator'], ['brush', 'brushes']] },
     { spin: 0.6, focus: ['commutator', 'brushes', 'coil'] },
-    { shot: 'wiring', show: WIRED, open: 0.6, spin: 0.8, flow: 0.6, back: 1, focus: ['battery', 'wires', 'armature'], labels: [['battery ko dhakka', [-3.5, -0.6, 2.0]], ['ulto dhakka', [-3.5, -2.1, 2.0]]] },
-    { shot: 'starter', show: STARTER, spin: 0.15, back: 0, flow: 0, wiring: 'none', stud: 3, studMs: 2500, focus: ['starter'], labels: [['starter', 'starter']] },
+    { shot: 'inside', open: 1, field: 1, push: 1, spin: 0.7, focus: ['coil', 'armature'], labels: [['dherai coil, dherai dhakka', [0, 2.9, 1.4]]] },
+    { shot: 'whole', open: 0, push: 0, field: 0.4, spin: 0.8, focus: null },
   ]),
   tutor: [
     {
       say: 'Fan, mixer, e-rickshaw: sabai motor le ghumchan. Aaja euta DC motor kholera herau.',
       voice: 'फ्यान, मिक्सर, ई-रिक्सा — सबै मोटरले घुम्छन्। आज एउटा डी सी मोटर खोलेर हेरौं।',
-      lines: [['h', <>4.1 · Motor kina ghumcha?</>], ['step', <>Fan, mixer, e-rickshaw: sabai bhitra DC motor</>]],
+      lines: [['h', <>4.1 · Motor kasari ghumcha?</>], ['step', <>Fan, mixer, e-rickshaw: sabai bhitra DC motor</>]],
     },
     {
       say: 'Frame bhitra duita magnet: euta N, arko S. Bich ma nadekhine magnetic field.',
@@ -73,14 +73,14 @@ export const basics41 = duo('4.1 · Basic understanding: what is inside a DC mot
       },
     },
     {
-      say: 'Ghumdai gareko motor aafai sano generator jastai battery lai ulto dhakelcha. Yo ulto dhakka nai back EMF.',
-      voice: 'घुम्दै गरेको मोटर, आफैं सानो जेनेरेटर जस्तै ब्याट्रीलाई उल्टो धकेल्छ। यो उल्टो धक्का नै ब्याक ई एम एफ।',
-      lines: [['step', <>Ghumda battery lai ulto dhakka: back EMF</>]],
+      say: 'Armature ma euta matra hoina, dherai coil hunchan. Sabai ko dhakka jodera ghumai balio ra lagatar huncha. Magnet balio ra current dherai bhaye dhakka pani dherai.',
+      voice: 'आर्मेचरमा एउटा मात्र होइन, धेरै कोइल हुन्छन्। सबैको धक्का जोडिएर घुमाइ बलियो र लगातार हुन्छ। म्याग्नेट बलियो र करेन्ट धेरै भए, धक्का पनि धेरै।',
+      lines: [chain(<>Dherai coil → dhakka jodincha → balio, lagatar ghumai</>)],
     },
     {
-      say: 'Suru ma motor rokiyeko huncha: ulto dhakka chaina, current ekai choti dherai pascha. Starter le bistarai dincha.',
-      voice: 'सुरुमा मोटर रोकिएको हुन्छ — उल्टो धक्का छैन, करेन्ट एकैचोटि धेरै पस्छ। स्टार्टरले बिस्तारै दिन्छ।',
-      lines: [['idea', <>Suru ma ulto dhakka chaina → dherai current → starter chahincha</>]],
+      say: 'Yasari motor le bijuli lai ghumai ma badalcha: magnet ra current le dhakka, commutator le ek tira.',
+      voice: 'यसरी मोटरले बिजुलीलाई घुमाइमा बदल्छ — म्याग्नेट र करेन्टले धक्का, कम्युटेटरले एकतिर।',
+      lines: [['idea', <>Magnet + current → dhakka · commutator → ek tira ghumai</>]],
     },
   ],
   lecturer: [
@@ -127,20 +127,20 @@ export const basics41 = duo('4.1 · Basic understanding: what is inside a DC mot
       },
     },
     {
-      say: 'Ghumda armature ma supply ko ulto voltage induce huncha. Yaslai back EMF bhanincha.',
-      voice: 'घुम्दा आर्मेचरमा सप्लाईको उल्टो भोल्टेज इन्ड्युस हुन्छ। यसलाई ब्याक ई एम एफ भनिन्छ।',
-      lines: [['step', <>Ghumda supply ko ulto voltage: back EMF</>]],
+      say: 'Armature ma dherai coil hunchan, ra sabai ko torque jodera continuous rotation huncha. Torque magnetic field ko strength ra current ma bhar parcha.',
+      voice: 'आर्मेचरमा धेरै कोइल हुन्छन्, र सबैको टर्क जोडिएर कन्टिन्युअस रोटेसन हुन्छ। टर्क, म्याग्नेटिक फिल्डको स्ट्रेन्थ र करेन्टमा भर पर्छ।',
+      lines: [chain(<>Many coils → torques add → continuous rotation</>)],
     },
     {
-      say: 'Start ma armature rokiyeko huncha, back EMF hudaina, ra current dherai thulo. Tesaile starter chahincha.',
-      voice: 'स्टार्टमा आर्मेचर रोकिएको हुन्छ, ब्याक ई एम एफ हुँदैन, र करेन्ट धेरै ठूलो। त्यसैले स्टार्टर चाहिन्छ।',
-      lines: [['idea', <>Start ma back EMF chaina → thulo current → starter</>]],
+      say: 'Saransh: field ra current milera torque banauchan, ra commutator le torque lai eutai direction ma rakhcha.',
+      voice: 'सारांश — फिल्ड र करेन्ट मिलेर टर्क बनाउँछन्, र कम्युटेटरले टर्कलाई एउटै डाइरेक्सनमा राख्छ।',
+      lines: [['idea', <>Field + current → torque · commutator → one direction</>]],
     },
   ],
 });
 
 /* ── 4.2 Types: how the field coil is connected ──────────────────────── */
-export const basics42 = duo('4.2 · Basic understanding: how is the field winding connected?', {
+export const basics42 = duo('4.3 · Basic understanding: how is the field winding connected?', {
   three: motorTour([
     { shot: 'inside', open: 1, spin: 0.3, field: 0.6, focus: ['fieldCoil', 'poles'], labels: [['field coil', 'fieldCoil']] },
     { shot: 'wiring', show: WIRED, open: 0.7, wiring: 'main', flow: 0.5, focus: ['battery', 'wires'], labels: [['armature ko bato', 'wires']] },
@@ -155,7 +155,7 @@ export const basics42 = duo('4.2 · Basic understanding: how is the field windin
     {
       say: 'Motor ko magnet chumbak dhunga hoina; pole ma tar bereko electromagnet ho. Tyo tar lai field coil bhanchan.',
       voice: 'मोटरको म्याग्नेट चुम्बक ढुङ्गा होइन — पोलमा तार बेरेको इलेक्ट्रोम्याग्नेट हो। त्यो तारलाई फिल्ड कोइल भन्छन्।',
-      lines: [['h', <>4.2 · Field coil kasari jodne?</>], part(<>Field coil</>, <>pole ma bereko tar → magnet</>)],
+      lines: [['h', <>4.3 · Field coil kasari jodne?</>], part(<>Field coil</>, <>pole ma bereko tar → magnet</>)],
     },
     {
       say: 'Field coil lai current kaha bata dine? Yahi jodne tarika le motor ko type chhutincha.',
@@ -204,7 +204,7 @@ export const basics42 = duo('4.2 · Basic understanding: how is the field windin
     {
       say: 'Field poles ma tar bereko huncha, jaslai field winding bhanincha. Yasma current bagda pole electromagnet banchha.',
       voice: 'फिल्ड पोल्समा तार बेरेको हुन्छ, जसलाई फिल्ड वाइन्डिङ भनिन्छ। यसमा करेन्ट बग्दा, पोल इलेक्ट्रोम्याग्नेट बन्छ।',
-      lines: [['h', <>4.2 · Excitation: field winding ko connection</>], part(<>Field winding</>, <>pole lai electromagnet banauncha</>)],
+      lines: [['h', <>4.3 · Excitation: field winding ko connection</>], part(<>Field winding</>, <>pole lai electromagnet banauncha</>)],
     },
     {
       say: 'Field winding lai current dine tarika lai excitation bhanincha. Yasaile motor ko type chhutincha.',
@@ -252,7 +252,7 @@ export const basics42 = duo('4.2 · Basic understanding: how is the field windin
 });
 
 /* ── 4.3 Losses and efficiency: where the energy leaks ──────────────── */
-export const basics43 = duo('4.3 · Basic understanding: energy kaha harauncha?', {
+export const basics43 = duo('4.7 · Basic understanding: where does the energy go?', {
   three: motorTour([
     { shot: 'whole', spin: 0.6 },
     { shot: 'inside', open: 1, focus: ['coil', 'fieldCoil'], heat: { coil: 1, fieldCoil: 0.7 }, labels: [['copper loss', 'coil']] },
@@ -266,7 +266,7 @@ export const basics43 = duo('4.3 · Basic understanding: energy kaha harauncha?'
     {
       say: 'Battery le diyeko sabai energy ghumai ma pugdaina; kehi bato mai taato bhayera harauncha. Kaha-kaha?',
       voice: 'ब्याट्रीले दिएको सबै इनर्जी घुमाइमा पुग्दैन — केही बाटोमै तातो भएर हराउँछ। कहाँ-कहाँ?',
-      lines: [['h', <>4.3 · Energy kaha harauncha?</>], chain(<>Diyeko energy → ghumai + taato (loss)</>)],
+      lines: [['h', <>4.7 · Energy kaha harauncha?</>], chain(<>Diyeko energy → ghumai + taato (loss)</>)],
     },
     {
       say: 'Coil ma current bagda tar taato huncha, heater ko tar jastai. Yo copper loss.',
@@ -310,7 +310,7 @@ export const basics43 = duo('4.3 · Basic understanding: energy kaha harauncha?'
     {
       say: 'Motor lai diyeko input ko sabai bhag output ma pugdaina; bich ma heat bhayera jane bhag losses hun.',
       voice: 'मोटरलाई दिएको इनपुटको सबै भाग आउटपुटमा पुग्दैन — बीचमा हिट भएर जाने भाग लसेस हुन्।',
-      lines: [['h', <>4.3 · Losses: energy kaha jancha?</>], chain(<>Input → output + losses (heat)</>)],
+      lines: [['h', <>4.7 · Losses: energy kaha jancha?</>], chain(<>Input → output + losses (heat)</>)],
     },
     {
       say: 'Armature ra field winding ko resistance ma current bagda heat huncha. Yo copper loss ho.',
@@ -353,7 +353,7 @@ export const basics43 = duo('4.3 · Basic understanding: energy kaha harauncha?'
 });
 
 /* ── 4.4 Starters: why a motor needs a gentle start ──────────────────── */
-export const basics44 = duo('4.4 · Basic understanding: why does a motor need a starter?', {
+export const basics44 = duo('4.5 · Basic understanding: why does a motor need a starter?', {
   three: motorTour([
     { shot: 'wiring', show: WIRED, open: 0.7, spin: 0, flow: 0 },
     { flow: 1, focus: ['wires', 'battery', 'coil'], labels: [['dherai current', 'wires']] },
@@ -368,7 +368,7 @@ export const basics44 = duo('4.4 · Basic understanding: why does a motor need a
     {
       say: 'Thulo motor lai ek-dam switch thichera suru garyo bhane k huncha? Herau.',
       voice: 'ठूलो मोटरलाई एकदम स्विच थिचेर सुरु गर्‍यो भने के हुन्छ? हेरौं।',
-      lines: [['h', <>4.4 · Starter kina chahincha?</>], chain(<>Ek-dam switch on → k huncha?</>)],
+      lines: [['h', <>4.5 · Starter kina chahincha?</>], chain(<>Ek-dam switch on → k huncha?</>)],
     },
     {
       say: 'Rokiyeko motor le ulto dhakka dina sakdaina, ra coil ko resistance ekdam sano. Current baadh jastai ekai choti pascha.',
@@ -417,7 +417,7 @@ export const basics44 = duo('4.4 · Basic understanding: why does a motor need a
     {
       say: 'DC motor lai supply ma sidhai jodda k huncha bhanne bujhera starter ko aawashyakta herau.',
       voice: 'डी सी मोटरलाई सप्लाईमा सिधै जोड्दा के हुन्छ भन्ने बुझेर, स्टार्टरको आवश्यकता हेरौं।',
-      lines: [['h', <>4.4 · Starter ko aawashyakta</>], ['step', <>Supply ma sidhai jodda k huncha?</>]],
+      lines: [['h', <>4.5 · Starter ko aawashyakta</>], ['step', <>Supply ma sidhai jodda k huncha?</>]],
     },
     {
       say: 'Start ma armature rokiyeko huncha, back EMF hudaina, ra armature resistance sano huncha. Tesaile current dherai thulo.',
@@ -465,7 +465,7 @@ export const basics44 = duo('4.4 · Basic understanding: why does a motor need a
 });
 
 /* ── 4.5 Speed control: three knobs, and turning it the other way ────── */
-export const basics45 = duo('4.5 · Basic understanding: how is the speed changed?', {
+export const basics45 = duo('4.6 · Basic understanding: how is the speed changed?', {
   three: motorTour([
     { shot: 'whole', show: WIRED, spin: 0.5, flow: 0.4, labels: [['voltage', 'battery'], ['magnet', 'north'], ['resistance', 'wires']], gap: 1200 },
     { shot: 'wiring', back: 1, focus: ['battery', 'wires', 'armature'], labels: [['battery ko dhakka', [-3.5, -0.6, 2.0]], ['ulto dhakka', [-3.5, -2.1, 2.0]]] },
@@ -479,7 +479,7 @@ export const basics45 = duo('4.5 · Basic understanding: how is the speed change
     {
       say: 'Motor ko speed tin kura le badlincha: supply voltage, magnet ko bal, ra armature sanga jodeko resistance.',
       voice: 'मोटरको स्पिड तीन कुराले बदलिन्छ — सप्लाई भोल्टेज, म्याग्नेटको बल, र आर्मेचरसँग जोडेको रेजिस्टेन्स।',
-      lines: [['h', <>4.5 · Speed kasari badalne?</>], ['step', <>Voltage · magnet ko bal · resistance</>]],
+      lines: [['h', <>4.6 · Speed kasari badalne?</>], ['step', <>Voltage · magnet ko bal · resistance</>]],
     },
     {
       say: 'Ghumda motor le ulto dhakka dincha. Speed tyo bela thamincha jaba ulto dhakka battery ko dhakka jattikai huncha.',
@@ -523,7 +523,7 @@ export const basics45 = duo('4.5 · Basic understanding: how is the speed change
     {
       say: 'DC motor ko speed supply voltage, flux ra armature circuit ko resistance mathi nirbhar garcha.',
       voice: 'डी सी मोटरको स्पिड सप्लाई भोल्टेज, फ्लक्स, र आर्मेचर सर्किटको रेजिस्टेन्समाथि निर्भर गर्छ।',
-      lines: [['h', <>4.5 · Speed control ka tin upaya</>], ['step', <>Voltage · flux · armature resistance</>]],
+      lines: [['h', <>4.6 · Speed control ka tin upaya</>], ['step', <>Voltage · flux · armature resistance</>]],
     },
     {
       say: 'Ghumda back EMF supply voltage ko najik pugcha, ra tyahi bindu ma speed sthir huncha.',
@@ -566,7 +566,7 @@ export const basics45 = duo('4.5 · Basic understanding: how is the speed change
 });
 
 /* ── 4.6 Testing: finding the losses without loading the motor ──────── */
-export const basics46 = duo('4.6 · Basic understanding: how is a motor tested without load?', {
+export const basics46 = duo('Basic understanding: how is a motor tested without load?', {
   three: motorTour([
     { shot: 'whole', spin: 0.5 },
     { shot: 'wiring', show: WIRED, open: 0.6, flow: 0.5, focus: ['battery', 'wires', 'armature', 'brushes'], heat: { armature: 0.6, brushes: 0.5, coil: 0.3 }, labels: [['sabai power → losses', [-1.0, 2.9, 1.4]]] },
@@ -580,7 +580,7 @@ export const basics46 = duo('4.6 · Basic understanding: how is a motor tested w
     {
       say: 'Thulo motor lai pura load lagayera test garna mahango ra garo. Load bina nai losses napne tarika chahiyo.',
       voice: 'ठूलो मोटरलाई पूरा लोड लगाएर टेस्ट गर्न महँगो र गाह्रो। लोड बिना नै लसेस नाप्ने तरिका चाहियो।',
-      lines: [['h', <>4.6 · Load bina motor kasari jachne?</>], chain(<>Pura load ma test: mahango ra garo</>)],
+      lines: [['h', <>Load bina motor kasari jachne?</>], chain(<>Pura load ma test: mahango ra garo</>)],
     },
     {
       say: 'Load bina chalda bahira kunai kaam hudaina, tesaile motor le liyeko sabai power losses mai jancha.',
@@ -624,7 +624,7 @@ export const basics46 = duo('4.6 · Basic understanding: how is a motor tested w
     {
       say: 'Thulo machine lai full load ma test garna dherai energy ra mahango load chahincha. Tesaile indirect test garincha.',
       voice: 'ठूलो मेसिनलाई फुल लोडमा टेस्ट गर्न धेरै इनर्जी र महँगो लोड चाहिन्छ। त्यसैले इनडाइरेक्ट टेस्ट गरिन्छ।',
-      lines: [['h', <>4.6 · Indirect testing</>], chain(<>Full load test: dherai energy, mahango</>)],
+      lines: [['h', <>Indirect testing</>], chain(<>Full load test: dherai energy, mahango</>)],
     },
     {
       say: 'No load ma output shunya huncha, tesaile motor ko input power sabai losses ma kharcha huncha.',
@@ -662,6 +662,230 @@ export const basics46 = duo('4.6 · Basic understanding: how is a motor tested w
       say: 'Dubai indirect test ma load chahidaina, ra losses bata efficiency nikalincha.',
       voice: 'दुवै इनडाइरेक्ट टेस्टमा लोड चाहिँदैन, र लसेसबाट इफिसियन्सी निकालिन्छ।',
       lines: [['idea', <>Indirect tests: load bina losses → efficiency</>]],
+    },
+  ],
+});
+
+/* ── 4.2 Back EMF: the motor pushes back (IOE Unit 4, bullet 2) ───────── */
+export const basicsBackEmf = duo('4.2 · Basic understanding: why does a running motor push back?', {
+  three: motorTour([
+    { shot: 'wiring', show: WIRED, open: 0.6, wiring: 'main', flow: 0.5, spin: 0.5, focus: ['battery', 'wires'], labels: [['battery ko dhakka', [-3.5, -0.6, 2.0]]] },
+    { spin: 0.8, back: 1, focus: ['armature', 'battery'], labels: [['ulto dhakka', [-3.5, -2.1, 2.0]]] },
+    { flow: 0.25, focus: ['wires'], labels: [['current thorai', 'wires']] },
+    { spin: 0.45, spinMs: 2500, back: 0.5, flow: 0.7, push: 1, focus: ['armature', 'fan'], labels: [['load badhyo', 'fan']] },
+    { push: 0, spin: 0.7, flow: 0.5, back: 0.8, focus: ['fan'], labels: [['kaam: ghumai', 'fan']] },
+    { spin: 0, spinMs: 400, back: 0, flow: 1, heat: { coil: 0.8 }, focus: ['coil', 'wires'], labels: [['suru: dherai current', [0, 2.9, 1.4]]] },
+    { shot: 'starter', show: STARTER, heat: {}, flow: 0, wiring: 'none', spin: 0.2, stud: 3, studMs: 2500, focus: ['starter'], labels: [['starter', 'starter']] },
+    { shot: 'whole', show: MOTOR, stud: 0, spin: 0.7, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Battery le current lai armature tira dhakelcha. Current ra magnet milera motor ghumcha.',
+      voice: 'ब्याट्रीले करेन्टलाई आर्मेचरतिर धकेल्छ। करेन्ट र म्याग्नेट मिलेर मोटर घुम्छ।',
+      lines: [['h', <>4.2 · Ghumne motor ulto kina dhakelcha?</>], part(<>Battery</>, <>current lai agadi dhakelcha</>)],
+    },
+    {
+      say: 'Tara ghumdai gareko motor aafai sano generator jastai huncha, ra battery lai ulto dhakelcha. Yo ulto dhakka nai back EMF.',
+      voice: 'तर घुम्दै गरेको मोटर आफैं सानो जेनेरेटर जस्तै हुन्छ, र ब्याट्रीलाई उल्टो धकेल्छ। यो उल्टो धक्का नै ब्याक ई एम एफ।',
+      lines: [part(<>Back EMF</>, <>ghumne motor ko ulto dhakka</>)],
+    },
+    {
+      say: 'Dui dhakka ek arka ko ulto bhayeko le bachi rahane dhakka sano huncha, ra chito ghumda current thorai matra bagcha.',
+      voice: 'दुई धक्का एक अर्काको उल्टो भएकोले, बाँकी रहने धक्का सानो हुन्छ, र छिटो घुम्दा करेन्ट थोरै मात्र बग्छ।',
+      lines: [chain(<>Chito ghumai → thulo ulto dhakka → current thorai</>)],
+    },
+    {
+      say: 'Load badhyo bhane motor alik dhilo huncha, ulto dhakka ghatcha, current badhcha, ra dhakka pani badhcha. Motor le aafai milaucha.',
+      voice: 'लोड बढ्यो भने मोटर अलि ढिलो हुन्छ, उल्टो धक्का घट्छ, करेन्ट बढ्छ, र धक्का पनि बढ्छ। मोटरले आफैं मिलाउँछ।',
+      lines: [chain(<>Load badhyo → dhilo → ulto dhakka ghatyo → current badhyo</>)],
+      ask: {
+        q: 'Load badhda DC motor ko current kina badhcha?',
+        voice: 'लोड बढ्दा डी सी मोटरको करेन्ट किन बढ्छ?',
+        options: ['Motor dhilo bhayera ulto dhakka ghatcha', 'Battery ko voltage badhcha', 'Magnet kamjor huncha'],
+        answer: 0,
+        why: 'Dhilo ghumda back EMF ghatcha, tesaile battery ko dhakka le badhi current pathaucha.',
+      },
+    },
+    {
+      say: 'Yahi ulto dhakka ko viruddha battery le gareko kaam nai shaft ko ghumai ma badalincha.',
+      voice: 'यही उल्टो धक्काको विरुद्ध ब्याट्रीले गरेको काम नै, साफ्टको घुमाइमा बदलिन्छ।',
+      lines: [chain(<>Ulto dhakka viruddha kaam → shaft ko ghumai</>)],
+    },
+    {
+      say: 'Suru ma motor rokiyeko huncha, ulto dhakka hudaina. Current ekai choti dherai bagcha ra coil taato huncha.',
+      voice: 'सुरुमा मोटर रोकिएको हुन्छ, उल्टो धक्का हुँदैन। करेन्ट एकैचोटि धेरै बग्छ, र कोइल तातो हुन्छ।',
+      lines: [chain(<>Suru: rokiyeko → ulto dhakka chaina → dherai current</>)],
+    },
+    {
+      say: 'Yesaile suru ma starter le current lai bistarai badhaucha, jaba samma ulto dhakka bandaina.',
+      voice: 'यसैले सुरुमा स्टार्टरले करेन्टलाई बिस्तारै बढाउँछ, जबसम्म उल्टो धक्का बन्दैन।',
+      lines: [part(<>Starter</>, <>suru ko current bistarai badhaucha</>)],
+    },
+    {
+      say: 'Saransh: back EMF le current milaucha, load anusar motor lai aafai sambhalcha, ra suru ma yo nabhayeko le starter chahincha.',
+      voice: 'सारांश — ब्याक ई एम एफले करेन्ट मिलाउँछ, लोड अनुसार मोटरलाई आफैं सम्हाल्छ, र सुरुमा यो नभएकोले स्टार्टर चाहिन्छ।',
+      lines: [['idea', <>Back EMF: current milaucha · load anusar aafai · suru ma chaina → starter</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Supply voltage le armature ma current pathaucha, ra current ra field milera torque banchha.',
+      voice: 'सप्लाई भोल्टेजले आर्मेचरमा करेन्ट पठाउँछ, र करेन्ट र फिल्ड मिलेर टर्क बन्छ।',
+      lines: [['h', <>4.2 · Back EMF</>], part(<>Supply</>, <>armature ma current pathaucha</>)],
+    },
+    {
+      say: 'Armature ghumda tesko conductor le flux cut garchan, ra supply ko ulto EMF induce huncha. Yahi back EMF ho.',
+      voice: 'आर्मेचर घुम्दा त्यसको कन्डक्टरले फ्लक्स कट गर्छन्, र सप्लाईको उल्टो ई एम एफ इन्ड्युस हुन्छ। यही ब्याक ई एम एफ हो।',
+      lines: [part(<>Back EMF</>, <>rotation le induce bhayeko ulto EMF</>)],
+    },
+    {
+      say: 'Back EMF supply lai oppose garcha, tesaile running condition ma armature current sano rahancha.',
+      voice: 'ब्याक ई एम एफ सप्लाईलाई अपोज गर्छ, त्यसैले रनिङ कन्डिसनमा आर्मेचर करेन्ट सानो रहन्छ।',
+      lines: [chain(<>High speed → large back EMF → small current</>)],
+    },
+    {
+      say: 'Load badhda speed ghatcha, back EMF ghatcha, current ra torque badhchan: motor self-regulating huncha.',
+      voice: 'लोड बढ्दा स्पिड घट्छ, ब्याक ई एम एफ घट्छ, करेन्ट र टर्क बढ्छन् — मोटर सेल्फ रेगुलेटिङ हुन्छ।',
+      lines: [chain(<>Load up → speed down → back EMF down → current up</>)],
+      ask: {
+        q: 'Back EMF le DC motor lai kasto banaucha?',
+        voice: 'ब्याक ई एम एफले डी सी मोटरलाई कस्तो बनाउँछ?',
+        options: ['Self-regulating', 'Self-starting matra', 'Constant current'],
+        answer: 0,
+        why: 'Load badhda back EMF ghatera current ra torque aafai badhcha.',
+      },
+    },
+    {
+      say: 'Back EMF ko viruddha supply le gareko kaam nai mechanical power ma rupantaran huncha.',
+      voice: 'ब्याक ई एम एफको विरुद्ध सप्लाईले गरेको काम नै, मेकानिकल पावरमा रूपान्तरण हुन्छ।',
+      lines: [chain(<>Work against back EMF → mechanical power</>)],
+    },
+    {
+      say: 'Starting ma armature sthir huncha, back EMF hudaina, ra current dherai thulo hunchha.',
+      voice: 'स्टार्टिङमा आर्मेचर स्थिर हुन्छ, ब्याक ई एम एफ हुँदैन, र करेन्ट धेरै ठूलो हुन्छ।',
+      lines: [chain(<>At rest → no back EMF → very large current</>)],
+    },
+    {
+      say: 'Tesaile starter le suru ma current seemit garcha.',
+      voice: 'त्यसैले स्टार्टरले सुरुमा करेन्ट सीमित गर्छ।',
+      lines: [part(<>Starter</>, <>limits the starting current</>)],
+    },
+    {
+      say: 'Saransh: back EMF le current niyantran garcha, motor lai self-regulating banaucha, ra starting ma yo nahune bhayeko le starter chahincha.',
+      voice: 'सारांश — ब्याक ई एम एफले करेन्ट नियन्त्रण गर्छ, मोटरलाई सेल्फ रेगुलेटिङ बनाउँछ, र स्टार्टिङमा यो नहुने भएकोले स्टार्टर चाहिन्छ।',
+      lines: [['idea', <>Back EMF: limits current · self-regulation · none at start → starter</>]],
+    },
+  ],
+});
+
+/* ── 4.4 Performance characteristics: how speed and torque follow load ── */
+export const basicsChars = duo('4.4 · Basic understanding: how do speed and torque change with load?', {
+  three: motorTour([
+    { shot: 'wiring', show: WIRED, open: 0.6, wiring: 'shunt', flow: 0.4, field: 0.7, spin: 0.7, focus: ['fieldCoil', 'wires'], labels: [['shunt motor', [0.2, 3.4, 0.4]]] },
+    { flow: 0.7, push: 0.6, spin: 0.62, spinMs: 2000, focus: ['armature', 'fan'], labels: [['speed thorai ghatyo', 'fan']] },
+    { push: 0.9, flow: 0.9, focus: ['coil'], labels: [['current badhyo, dhakka badhyo', [0, 2.9, 1.4]]] },
+    { wiring: 'series', field: 0.4, push: 0.4, spin: 0.5, flow: 0.5, focus: ['fieldCoil', 'wires'], labels: [['series motor', [0.2, 3.4, 1.4]]] },
+    { field: 1, push: 1, spin: 0.25, spinMs: 2000, flow: 1, focus: ['poles', 'coil'], labels: [['dherai load: thulo dhakka', [0, 2.9, 1.4]]] },
+    { field: 0.15, push: 0.1, spin: 1, spinMs: 2500, flow: 0.15, focus: ['armature', 'fan'], labels: [['load kam: dherai speed', 'fan']] },
+    { wiring: 'compound', field: 0.7, push: 0.6, spin: 0.55, flow: 0.6, focus: ['fieldCoil', 'wires'], labels: [['compound: bich ko', [0.2, 3.4, 1.0]]] },
+    { shot: 'whole', show: MOTOR, push: 0, spin: 0.6, focus: null },
+  ]),
+  tutor: [
+    {
+      say: 'Characteristic bhaneko load badaldai jada motor ko speed ra dhakka kasari badalchan bhanne kura. Pahila shunt motor herau.',
+      voice: 'क्यारेक्टरिस्टिक भनेको, लोड बदल्दै जाँदा मोटरको स्पिड र धक्का कसरी बदलिन्छन् भन्ने कुरा। पहिला शन्ट मोटर हेरौं।',
+      lines: [['h', <>4.4 · Load anusar speed ra dhakka</>], part(<>Characteristic</>, <>load anusar speed ra dhakka</>)],
+    },
+    {
+      say: 'Shunt motor ma magnet ko bal ustai rahancha. Load badhda speed thorai matra ghatcha.',
+      voice: 'शन्ट मोटरमा म्याग्नेटको बल उस्तै रहन्छ। लोड बढ्दा स्पिड थोरै मात्र घट्छ।',
+      lines: [chain(<>Shunt: magnet ustai → load badhda speed thorai ghatcha</>)],
+    },
+    {
+      say: 'Jati current badhcha, utai anupat ma dhakka pani badhcha. Fan, lathe jasta lagbhag eutai speed chahine kaam ma ramro.',
+      voice: 'जति करेन्ट बढ्छ, उत्तिकै अनुपातमा धक्का पनि बढ्छ। फ्यान, लेथ जस्ता लगभग एउटै स्पिड चाहिने काममा राम्रो।',
+      lines: [chain(<>Current badhyo → dhakka utai badhyo (fan, lathe)</>)],
+    },
+    {
+      say: 'Aba series motor. Yasma magnet ko bal current anusar badalcha.',
+      voice: 'अब सिरिज मोटर। यसमा म्याग्नेटको बल करेन्ट अनुसार बदलिन्छ।',
+      lines: [part(<>Series</>, <>magnet ko bal current anusar</>)],
+    },
+    {
+      say: 'Dherai load ma current ra magnet dubai balio, tesaile dhakka dherai thulo tara speed kam. Crane ra train ma yahi chahincha.',
+      voice: 'धेरै लोडमा करेन्ट र म्याग्नेट दुवै बलियो, त्यसैले धक्का धेरै ठूलो तर स्पिड कम। क्रेन र ट्रेनमा यही चाहिन्छ।',
+      lines: [chain(<>Dherai load → thulo dhakka, kam speed (crane, train)</>)],
+    },
+    {
+      say: 'Load kam bhaye magnet kamjor, ra speed dherai badhcha. Load bina chalaunu khatarnak cha.',
+      voice: 'लोड कम भए म्याग्नेट कमजोर, र स्पिड धेरै बढ्छ। लोड बिना चलाउनु खतरनाक छ।',
+      lines: [chain(<>Load kam → magnet kamjor → speed dherai (load bina khatara)</>)],
+      ask: {
+        q: 'Kun motor lai load bina chalaunu khatarnak cha?',
+        voice: 'कुन मोटरलाई लोड बिना चलाउनु खतरनाक छ?',
+        options: ['Series motor', 'Shunt motor', 'Dubai ma farak chaina'],
+        answer: 0,
+        why: 'Series motor ma load bina current ra magnet kamjor huncha, ani speed khatarnak badhcha.',
+      },
+    },
+    {
+      say: 'Compound motor dubai ko bich ma parcha: suru ko dhakka ramro, ra load bina pani speed seemit.',
+      voice: 'कम्पाउन्ड मोटर दुवैको बीचमा पर्छ — सुरुको धक्का राम्रो, र लोड बिना पनि स्पिड सीमित।',
+      lines: [part(<>Compound</>, <>shunt ra series ko bich</>)],
+    },
+    {
+      say: 'Saransh: shunt lagbhag eutai speed, series thulo dhakka tara load bina khatara, compound dubai ko bich.',
+      voice: 'सारांश — शन्ट लगभग एउटै स्पिड, सिरिज ठूलो धक्का तर लोड बिना खतरा, कम्पाउन्ड दुवैको बीच।',
+      lines: [['idea', <>Shunt: eutai speed · series: thulo dhakka · compound: bich</>]],
+    },
+  ],
+  lecturer: [
+    {
+      say: 'Performance characteristic le load anusar speed ra torque kasari badalcha bhanera dekhaucha. Suru ma shunt motor.',
+      voice: 'पर्फर्मेन्स क्यारेक्टरिस्टिकले, लोड अनुसार स्पिड र टर्क कसरी बदलिन्छ भनेर देखाउँछ। सुरुमा शन्ट मोटर।',
+      lines: [['h', <>4.4 · Performance characteristics</>], part(<>Characteristic</>, <>speed and torque against load</>)],
+    },
+    {
+      say: 'Shunt motor ma flux lagbhag constant huncha, tesaile load badhda speed thorai matra ghatcha.',
+      voice: 'शन्ट मोटरमा फ्लक्स लगभग कन्स्टेन्ट हुन्छ, त्यसैले लोड बढ्दा स्पिड थोरै मात्र घट्छ।',
+      lines: [chain(<>Shunt: flux constant → speed falls slightly with load</>)],
+    },
+    {
+      say: 'Torque armature current sanga sidha badhcha. Yasaile shunt motor lathe, fan, ra paper machine ma prayog huncha.',
+      voice: 'टर्क आर्मेचर करेन्टसँग सिधा बढ्छ। यसैले शन्ट मोटर लेथ, फ्यान, र पेपर मेसिनमा प्रयोग हुन्छ।',
+      lines: [chain(<>Torque grows directly with current (lathe, fan, paper machine)</>)],
+    },
+    {
+      say: 'Series motor ma field current nai armature current ho, tesaile flux load anusar badalcha.',
+      voice: 'सिरिज मोटरमा फिल्ड करेन्ट नै आर्मेचर करेन्ट हो, त्यसैले फ्लक्स लोड अनुसार बदलिन्छ।',
+      lines: [part(<>Series</>, <>flux changes with load current</>)],
+    },
+    {
+      say: 'Bhari load ma current ra flux dubai thulo, tesaile starting torque dherai ucho ra speed kam: traction ra crane ko lagi upayukta.',
+      voice: 'भारी लोडमा करेन्ट र फ्लक्स दुवै ठूलो, त्यसैले स्टार्टिङ टर्क धेरै उच्च र स्पिड कम — ट्र्याक्सन र क्रेनको लागि उपयुक्त।',
+      lines: [chain(<>Heavy load → very high torque, low speed (traction, cranes)</>)],
+    },
+    {
+      say: 'Halka load ma flux ghatcha ra speed dherai badhcha; series motor kahile pani load bina start garnu hudaina.',
+      voice: 'हल्का लोडमा फ्लक्स घट्छ र स्पिड धेरै बढ्छ। सिरिज मोटर कहिल्यै पनि लोड बिना स्टार्ट गर्नु हुँदैन।',
+      lines: [chain(<>Light load → weak flux → dangerous speed (never start on no load)</>)],
+      ask: {
+        q: 'Series motor lai kahile pani load bina kina start garnu hudaina?',
+        voice: 'सिरिज मोटरलाई कहिल्यै पनि लोड बिना किन स्टार्ट गर्नु हुँदैन?',
+        options: ['Flux kam bhayera speed khatarnak badhcha', 'Starting torque zero huncha', 'Current zero huncha'],
+        answer: 0,
+        why: 'No load ma current ra flux dherai kam, speed flux ko ulto anupat ma badhcha.',
+      },
+    },
+    {
+      say: 'Compound motor ko characteristic shunt ra series ko bich ma huncha.',
+      voice: 'कम्पाउन्ड मोटरको क्यारेक्टरिस्टिक, शन्ट र सिरिजको बीचमा हुन्छ।',
+      lines: [part(<>Compound</>, <>between shunt and series</>)],
+    },
+    {
+      say: 'Saransh: shunt constant speed, series high starting torque, compound dubai ko bich.',
+      voice: 'सारांश — शन्ट कन्स्टेन्ट स्पिड, सिरिज हाई स्टार्टिङ टर्क, कम्पाउन्ड दुवैको बीच।',
+      lines: [['idea', <>Shunt: near-constant speed · series: high starting torque · compound: between</>]],
     },
   ],
 });

@@ -9,7 +9,7 @@ import { units } from './content/units/index.jsx';
 
 // v3: one record per unit ({ done, pos, max }) and one XP total. The v2
 // record (the DC motor course alone) becomes Unit 4's.
-const KEY = 'em-progress-v3';
+const KEY = 'em-progress-v4'; // v4: one topic per IOE syllabus bullet (topic numbers changed)
 function load() {
   try {
     const saved = JSON.parse(localStorage.getItem(KEY));

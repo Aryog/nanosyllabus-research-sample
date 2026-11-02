@@ -6,8 +6,9 @@ description: The complete studio for the DC Motors video course in one skill. Wh
 # Video studio
 
 The course is the whole IOE **Electrical Machines** subject: seven units,
-one video-first journey per unit, 30 micro-topics (1.1–1.3, 2.1–2.5,
-3.1–3.4, 4.1–4.6, 5.1–5.4, 6.1–6.4, 7.1–7.4). Unit 4 (DC Motor) was the
+one video-first journey per unit, one micro-topic per IOE syllabus bullet
+(56 in all: Unit 1 8, Unit 2 13, Unit 3 7, Unit 4 7, Unit 5 5, Unit 6 9,
+Unit 7 7; vault/…/Syllabus). Never merge two bullets into one topic (rule 68). Unit 4 (DC Motor) was the
 first and is the reference implementation. Each topic is three segments of
 self-playing videos with a Devanagari voice, roman captions and questions
 inside the video:
@@ -216,3 +217,4 @@ Every time the user corrects, prefers or praises something:
 
 - 2026-11-02: **4.1 Syllabus Content rebuilt as bookish notes with a planned canvas** (user review: script ≠ animation, "dt = 60/N comes from nowhere", symbols messy, no subscripts, units read as part of formulas, "N ko muni", merged Nepali titles, 3D in the mid section, cramped content). Seven new duos in `unit4/s41.jsx` from the vault notes (working principle, commutator Fig (a)/(b), back EMF and four significances, EMF equation, voltage/power, torque by force, torque by power), each with a Remember card, branch scenes and carried results (rules 59–65, M19–M20). Old 3D versions moved to extras. Player: ←/→ skip 5 s, branch zone, `recall` kind, planned pages, carried lines; `sym.jsx` subscripts everywhere; `\unit{}` macro (24 formulas converted); topic titles = IOE syllabus bullets, 131 video titles in English; "muni" replaced course-wide; 4.2 excitation figure with long- and short-shunt panels; 4.6 inertia J (not I); 3D wires smooth with caps. Lint rules 59–63. Nothing recorded: the 4.1 clips whose lines changed need new takes when the user asks (user: no audio during the revamp).
 - 2026-11-02 (later): Basic Understanding boards structured as numbered parts + "How it works" chain (rule 66; 146 parts, 180 chain steps converted across all 30 topics); 3D boards no longer split into columns; IOE question card full width with papers / marks chip / question lines and no title chip (rule 67); wires rerouted as 90° cabling (M19, `machines/wire3d.js`).
+- 2026-11-02: **One topic per IOE syllabus bullet** (user: "don't squeeze, be actual as IOE"; chose: own topic, all three segments, all units). Unit 4 split from 6 to 7 topics (4.1 Working principle and Torque equation, 4.2 Back EMF, 4.3 Method of excitation and types, 4.4 Performance characteristics, 4.5 Starting, 4.6 Speed control, 4.7 Losses and efficiency with the tests); new Basic Understanding duos `basicsBackEmf`, `basicsChars`; 4.3 Model Answer from 2067 Mangsir (suitability); Swinburne exam-style answer moved to extras (no paper in vault). Progress key `em-progress-v4`.
