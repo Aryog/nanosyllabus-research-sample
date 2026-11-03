@@ -588,7 +588,8 @@ export const basics12 = duo('1.7 · Basic understanding: why does the iron core 
 });
 
 export const bh12 = duo('B-H curve and hysteresis loop', {
-  draw: bhFigure,
+  // Each part on the beat that names it; the loop area on the AC loss beat (rule 74).
+  draw: figAt(bhFigure, { 0: 0, 1: 1, 3: 2, 2: 3, 4: 3, 5: 4 }),
   viewBox: '0 0 360 235',
   tutor: [
     {
@@ -661,7 +662,8 @@ export const bh12 = duo('B-H curve and hysteresis loop', {
 });
 
 export const loss12 = duo('Derivation: hysteresis loss and eddy current loss', {
-  draw: bhFigure,
+  // The loop with dW = H dB, its area on the beat that says so (rule 74).
+  draw: figAt(bhFigure, { 0: 0, 1: 0, 2: 1, 3: 1, 4: 1, 5: 2 }),
   viewBox: '0 0 360 235',
   tutor: [
     {
@@ -2026,8 +2028,9 @@ export const bhSolve15 = solve({
 /* ── 1.9 Model answer: torque from the force on conductors (2079 Jestha) */
 // No question on force on a conductor alone in vault/; the closest real one.
 export const forceAnswer19 = answer('Model answer: torque from the force on current-carrying conductors', {
+  // Only panel (b) is taught: the view is cropped to it, no empty half (rule 74).
   draw: figAt(inductionFigure, { 2: 1, 3: 1 }),
-  viewBox: '0 0 370 225',
+  viewBox: '196 36 174 190',
   papers: ['2079 Jestha'],
   marks: '',
   q: 'How is unidirectional torque produced in a DC machine when the armature is supplied from DC and the field by DC current? What factors affect the torque?',

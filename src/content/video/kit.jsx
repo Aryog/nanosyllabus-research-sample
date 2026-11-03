@@ -167,16 +167,14 @@ export const figAt = (draw, map) => (s) => {
 
 export function answer(title, { papers, marks, q, read, points, draw, viewBox, variants }) {
   const src = papers.length ? `IOE ${papers.slice(0, 3).join(' · ')}${papers.length > 3 ? ` +${papers.length - 3}` : ''}` : 'Exam-style';
-  const beats = [read, ...points].map(({ say, voice, ask }) => ({ say, voice, ask }));
-  // A point with `page: true` turns the page: the points before it leave the
-  // board (the question stays), so a long answer stays big enough to read.
-  const until = (i) => {
-    const next = points.findIndex((p, j) => j > i && p.page);
-    return next < 0 ? undefined : next;
-  };
+  // A point with `page: true` is a planned page turn, a hint only (skill rule
+  // 75): on a wide screen the board fills column 1, then column 2 (beside or
+  // under the figure) and rolls, and wipes only when nothing fits; on a phone
+  // the page turns there. The points before it never get a hard `until`.
+  const beats = [read, ...points].map(({ say, voice, ask, page }) => ({ say, voice, ask, ...(page ? { page } : {}) }));
   const board = [
     { at: 0, kind: 'q', node: <><span className="tag">{src}</span>{marks && <span className="marks">{marks}</span>}<span className="qtext">{q}</span></> },
-    ...points.map((p, i) => ({ at: i + 1, until: until(i), kind: 'step', node: p.node, ...(p.carry ? { carry: p.carry } : {}) })),
+    ...points.map((p, i) => ({ at: i + 1, kind: 'step', node: p.node, ...(p.carry ? { carry: p.carry } : {}) })),
   ];
   return { ...video(title, { beats, board, tall: true, draw, viewBox, notes: true, pov: 'lecturer', variants }), ioe: papers.length > 0, tag: 'Model answer', tagKind: 'watch' };
 }

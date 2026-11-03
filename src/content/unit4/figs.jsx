@@ -259,6 +259,18 @@ export const typesFigure = (s) => (
     <Cap x={270} y={268}>Fig. 2  Methods of excitation of a DC motor</Cap>
   </>
 );
+// The four self-excited types only, two by two (viewBox 0 0 370 276), for a
+// video that never shows (a): no empty slot (skill rule 74).
+// 0 shunt · 1 series · 2 long-shunt compound · 3 short-shunt compound.
+export const selfTypesFigure = (s) => (
+  <>
+    <g className={s.on(0) + s.hl(0)}>{panel(14, 0, 'shunt', '(b) Shunt')}</g>
+    <g className={s.on(1) + s.hl(1)}>{panel(190, 0, 'series', '(c) Series')}</g>
+    <g className={s.on(2) + s.hl(2)}>{panel(14, 128, 'long', '(d) Long-shunt compound')}</g>
+    <g className={s.on(3) + s.hl(3)}>{panel(190, 128, 'short', '(e) Short-shunt compound')}</g>
+    <Cap x={185} y={268}>Fig. 2  Methods of excitation of a DC motor</Cap>
+  </>
+);
 
 /* ── 4.2: performance characteristics (Fig. 3) ────────────────────────── */
 // 0 axes · 1 shunt Ta–Ia · 2 series Ta–Ia · 3 shunt N–Ia · 4 series N–Ia ·

@@ -1238,3 +1238,41 @@ a.scene-btn { display: inline-grid; place-items: center; text-decoration: none; 
 .board-line.carried .ink:has(.carry-row)::before { content: none; }
 .carry-row { display: block; }
 .carry-row::before { content: '✓ '; color: var(--c-green); font-weight: 700; }
+
+/* Canvas fill (skill rules 75–77, user 2026-11-03): a figure video is a book
+   page, the board top left and the figure top right. When the board column is
+   full, the next lines are written under the figure (column 2, Scene.jsx
+   `under`); when that is full too, its lines move to column 1 and writing goes
+   on under the figure. The page is wiped only when a move does not fit. */
+.scene-cam.split:has(> .scene-svg) { align-items: start; }
+.scene-cam.split.under > .board { justify-content: flex-start; }
+.scene-cam.split.under { grid-template-rows: auto 1fr; }
+.scene-cam.split.under > .board:not(.board-under) { grid-column: 1; grid-row: 1 / span 2; }
+.scene-cam.split.under > .scene-svg { grid-column: 2; grid-row: 1; }
+.scene-cam.split.under > .board.board-under { grid-column: 2; grid-row: 2; }
+.scene-cam.split.under.has-q { grid-template-rows: auto auto 1fr; }
+.scene-cam.split.under.has-q > .board:not(.board-under) { grid-row: 2 / span 2; }
+.scene-cam.split.under.has-q > .scene-svg { grid-row: 2; }
+.scene-cam.split.under.has-q > .board.board-under { grid-row: 3; }
+.board-under { border-top: 2px dashed #e3e6ea; padding-top: 10px; min-width: 0; }
+.scene.look-blue .board-under { border-top-color: rgba(255, 255, 255, 0.22); }
+.scene.look-book .board-under { border-top: 1px solid #d4d4d4; }
+/* A line moved to the other column is mounted again: only the line of this
+   beat writes itself, the rest show finished (M16, nothing animates twice). */
+.board-line.on:not(.hl) .ink { animation: none; }
+.board-line.on:not(.hl) .tm-lines path { animation: none; stroke-dashoffset: 0; }
+.board-line.on:not(.hl) .tm-label, .board-line.on:not(.hl) .tm-legend .tm-item { animation: none; opacity: 1; }
+
+/* Weak topics: first-try accuracy on the in-video questions below 70% */
+.unit-weak { margin-top: 18px; padding: 14px 16px; border-radius: 16px; background: var(--amber-bg); border: 2px solid var(--amber); }
+.unit-weak-head { display: flex; flex-direction: column; gap: 2px; margin-bottom: 10px; }
+.unit-weak-head b { font-size: 15px; color: var(--amber-ink); }
+.unit-weak-head span { font-size: 12.5px; color: var(--muted); }
+.unit-weak-list { display: flex; flex-direction: column; gap: 6px; }
+.unit-weak-list button { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; text-align: left; padding: 9px 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font: inherit; cursor: pointer; }
+.unit-weak-list button b { font-weight: 800; color: var(--amber-ink); }
+.unit-weak-list button span { font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.unit-weak-list button em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--red); }
+.unit-node.weak button { box-shadow: 0 6px 0 var(--amber), 0 0 0 4px var(--amber-bg); }
+.unit-node.weak .unit-label { color: var(--amber-ink); }
+.syl-weak { font-style: normal; color: var(--amber-ink); font-weight: 700; }

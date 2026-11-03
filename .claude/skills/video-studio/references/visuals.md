@@ -62,6 +62,8 @@ Add a new doodle here when segment 1 needs an everyday object: thick round strok
 49. **Whiteboard pages, never shrinking.** Text stays a readable size: when the lines so far no longer fit the frame at camera scale 0.86 (`PAGE_K` in `Scene.jsx`), the board is wiped like a teacher's and the beat starts a new page (heading and question stay). Board text sits on the left, the figure on the right (`.scene-cam.split` order). Book figures for Unit 4: `src/content/unit4/figs.jsx` (thin single ink, italic symbols, numbered caption of at most about 40 characters).
 
 
+74. **No empty figure panels** (user, 2026-11-03: "if nothing here till the end then why showing it"). Every axis, panel or box a figure draws has its content by the video's last beat. With `figAt(draw, map)` map every part a shown panel needs (curves, labels, marks) to a beat; if the video needs only one panel, draw only that panel. Check the last frame of the strip.
+
 ## Book figures outside Unit 4
 
 Every unit file `src/content/units/u<N>.jsx` defines its figures at the top with the shared ink exported from `unit4/figs.jsx` (`T`, `Cap`, `W`, `head`, `cond`, `ResH`, `ResV`, `CoilH`, `CoilV`, `Arm`, `Term`, `Meter`, `Cur`), so all seven units print in one textbook style. One figure per topic, built in parts `s.on(k)` with `s.hl(k)` on the part the line names, a numbered caption `Fig. <unit>.<topic>  …`, and a comment line above it listing its parts in beat order (`// Fig. 5.3: 0 axes · 1 T-s curve · …`). Fills use `C.board`, strokes and text `C.chalk`, never `currentColor` or a hex. Generated curves (sine waves, phasors) are computed in JS in the figure, not hand-typed paths.

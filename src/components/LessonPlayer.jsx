@@ -77,7 +77,7 @@ export function XpCounter({ xp, bump }) {
 }
 
 
-export default function LessonPlayer({ course, lessonIndex, startStep = 0, reachStep = 0, crumbs = [], narrator, xp, addXp, onExit, onComplete, onProgress, onTopicEnd }) {
+export default function LessonPlayer({ course, lessonIndex, startStep = 0, reachStep = 0, crumbs = [], narrator, xp, addXp, onExit, onComplete, onProgress, onTopicEnd, onQuiz }) {
   const lesson = course.lessons[lessonIndex];
   const [pos, setPos] = useState(startStep);
   const [missed, setMissed] = useState([]);
@@ -219,6 +219,7 @@ export default function LessonPlayer({ course, lessonIndex, startStep = 0, reach
   };
   const onCheck = (right, first) => {
     if (!first) return;
+    onQuiz?.(base.indexOf(entry), right);
     if (!right) return setStreak(0);
     const n = streak + 1;
     setStreak(n);

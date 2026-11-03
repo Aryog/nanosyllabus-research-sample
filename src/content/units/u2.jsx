@@ -1,5 +1,5 @@
 import { C, K, Pts, answer, duo, figAt, solve, topic } from '../video/kit.jsx';
-import { br, chain, part, rem } from '../video/kit.jsx';
+import { Let, br, chain, part, rem } from '../video/kit.jsx';
 import { Cap, CoilV, ResH, T, W, head } from '../unit4/figs.jsx';
 import { transformerTour } from '../machines/models3d.js';
 
@@ -24,6 +24,10 @@ import { transformerTour } from '../machines/models3d.js';
 const tex = (s) => <K>{s}</K>;
 const H = ({ children }) => <span className="lbl"><u>{children}</u></span>;
 const step = (label, math) => <><span className="lbl">{label}</span><K>{math}</K></>;
+// Expanding terms (rule 33c): X marks the term, R drops in its expansion.
+const INK = { BL: '#1c7ed6', OR: '#d9480f', GR: '#2b8a3e', VI: '#7048e8' };
+const X = (t, c) => String.raw`\htmlClass{xt}{\textcolor{${c}}{${t}}}`;
+const R = (t, c, n = 1) => String.raw`\htmlClass{xr xr${n}}{\textcolor{${c}}{${t}}}`;
 const BASE = ['core', 'primary', 'secondary'];
 const FED = [...BASE, 'source'];
 const LOADED = [...FED, 'lamp'];
@@ -324,148 +328,272 @@ export const basics21 = duo('2.2 · Basic understanding: how does a transformer 
   ],
 });
 
-export const principle21 = duo('Construction and working principle of a transformer', {
-  draw: xfmrFigure,
+/* ── 2.2 Syllabus Content: working principle ──────────────────────────── */
+// Canvas plan: heading · Remember (Faraday, Lenz) · left: definition, primary
+// on AC, alternating flux, why AC only · page turn (carry Φ = Φm sin ωt, AC
+// only) · secondary EMF by mutual induction, load · recap. Right: Fig. 2.1
+// (0 core · 1 primary · 2 flux · 3 secondary · 4 load).
+export const principle21 = duo('Working principle of a transformer', {
+  draw: figAt(xfmrFigure, { 0: 1, 1: 2, 2: 3, 3: 5, 4: 6 }),
   viewBox: '0 0 360 220',
   tutor: [
     {
-      say: 'Figure 2.1: laminated silicon steel ko core. Lamination le eddy loss, silicon steel le hysteresis loss ghataucha.',
-      voice: 'फिगर टु पोइन्ट वान — ल्यामिनेटेड सिलिकन स्टिलको कोर। ल्यामिनेसनले एडी लस, सिलिकन स्टिलले हिस्टेरेसिस लस घटाउँछ।',
-      lines: [['h', <>Construction</>], ['step', <>Core: laminated silicon steel (CRGO); core type and shell type</>]],
+      say: 'Working principle bujhna duita law yaad garau. Faraday: coil sanga link bhayeko flux change bhaye EMF induce huncha. Lenz: induced EMF le aafno cause lai oppose garcha.',
+      voice: 'वर्किङ प्रिन्सिपल बुझ्न दुईटा ल याद गरौं। फाराडे — कोइलसँग लिङ्क भएको फ्लक्स चेन्ज भए ई एम एफ इन्ड्युस हुन्छ। लेन्ज — इन्ड्युस्ड ई एम एफले आफ्नो कजलाई अपोज गर्छ।',
+      lines: [['h', <>Working principle of a transformer</>], rem(<>Faraday: changing flux linkage induces an EMF, <K>{String.raw`e = -N\,\dfrac{d\Phi}{dt}`}</K></>, <>Lenz: the induced EMF opposes its cause</>)],
     },
     {
-      say: 'Primary winding N 1 turns, supply V 1 ma. Copper winding, enamel le insulated.',
-      voice: 'प्राइमरी वाइन्डिङ एन वान टर्न्स, सप्लाई भी वानमा। कपर वाइन्डिङ, इनामेलले इन्सुलेटेड।',
-      lines: [['step', <>Primary N<sub>1</sub> on V<sub>1</sub>; secondary N<sub>2</sub> to the load; copper, insulated</>]],
+      say: 'Transformer static device ho. Yasle AC power euta circuit bata arko circuit ma transfer garcha, frequency change nagari, ra voltage step up wa step down garcha. Figure ma laminated core cha.',
+      voice: 'ट्रान्सफर्मर स्टाटिक डिभाइस हो। यसले ए सी पावर एउटा सर्किटबाट अर्को सर्किटमा ट्रान्सफर गर्छ, फ्रिक्वेन्सी चेन्ज नगरी, र भोल्टेज स्टेप अप वा स्टेप डाउन गर्छ। फिगरमा ल्यामिनेटेड कोर छ।',
+      lines: [['step', <><b>Transformer:</b> a static device that transfers AC power from one circuit to another at the same frequency, stepping the voltage up or down</>]],
     },
     {
-      say: 'V 1 le magnetising current I mu pathaucha, ra core ma alternating flux phi m banaucha.',
-      voice: 'भी वानले म्याग्नेटाइजिङ करेन्ट आई म्यु पठाउँछ, र कोरमा अल्टरनेटिङ फ्लक्स फाइ एम बनाउँछ।',
-      lines: [['eq', tex(String.raw`\Phi = \Phi_m \sin \omega t`)]],
+      say: 'Primary winding N 1 turns ko cha, ra AC supply V 1 ma jodincha. V 1 le primary ma sano magnetising current I mu pathaucha.',
+      voice: 'प्राइमरी वाइन्डिङ एन वान टर्न्सको छ, र ए सी सप्लाई भी वानमा जोडिन्छ। भी वानले प्राइमरीमा सानो म्याग्नेटाइजिङ करेन्ट आई म्यु पठाउँछ।',
+      lines: [['step', <>Primary (N<sub>1</sub> turns) on AC supply V<sub>1</sub> → magnetising current I<sub>μ</sub></>]],
     },
     {
-      say: 'Yo flux dubai winding sanga link huncha. Secondary ma mutual induction le E 2 induce huncha, ani load ma current.',
-      voice: 'यो फ्लक्स दुवै वाइन्डिङसँग लिङ्क हुन्छ। सेकेन्डरीमा म्युचुअल इन्डक्सनले ई टु इन्ड्युस हुन्छ, अनि लोडमा करेन्ट।',
-      lines: [['step', <>Mutual induction: <K>{String.raw`e_2 = -N_2\,d\Phi/dt`}</K> → load current</>]],
+      say: 'I mu alternating bhayeko le core ma alternating flux phi equals phi m sin omega t banchha. Yo flux low-reluctance iron core bhitra circulate garcha.',
+      voice: 'आई म्यु अल्टरनेटिङ भएकोले कोरमा अल्टरनेटिङ फ्लक्स — फाइ इक्वल्स फाइ एम साइन ओमेगा टी बन्छ। यो फ्लक्स लो रिलक्टेन्स आइरन कोरभित्र सर्कुलेट गर्छ।',
+      lines: [['eq', tex(String.raw`\Phi = \Phi_m \sin \omega t`), undefined, { carry: <K>{String.raw`\Phi = \Phi_m \sin\omega t`}</K> }]],
+    },
+    {
+      say: 'Supply AC nai kina? DC le constant flux dincha: d phi by d t zero, secondary EMF zero. Primary ma opposing EMF pani hudaina, so R 1 matra le current limit garcha ra winding burn huncha.',
+      voice: 'सप्लाई ए सी नै किन? डी सीले कन्स्टेन्ट फ्लक्स दिन्छ — डी फाइ बाइ डी टी जिरो, सेकेन्डरी ई एम एफ जिरो। प्राइमरीमा अपोजिङ ई एम एफ पनि हुँदैन, सो आर वानले मात्र करेन्ट लिमिट गर्छ, र वाइन्डिङ बर्न हुन्छ।',
+      lines: [br('Why must the supply be AC?', <Pts items={[<>DC: constant flux → dΦ/dt = 0 → no secondary EMF</>, <>No self-induced EMF in the primary either</>, <>Only R<sub>1</sub> limits the current → winding burns</>]} />)],
       ask: {
-        q: 'Transformer DC ma kina chaldaina?',
-        voice: 'ट्रान्सफर्मर डी सीमा किन चल्दैन?',
-        options: ['DC le flux badaldaina', 'DC ko voltage kam huncha', 'Core paglincha'],
+        q: 'Transformer ko primary DC supply ma jodda secondary EMF kati huncha?',
+        voice: 'ट्रान्सफर्मरको प्राइमरी डी सी सप्लाईमा जोड्दा सेकेन्डरी ई एम एफ कति हुन्छ?',
+        options: ['Zero', 'Supply voltage barabar', 'Turns ratio times supply voltage'],
         answer: 0,
-        why: 'Constant flux ma dΦ/dt = 0, tesaile secondary ma EMF aaudaina.',
+        why: 'DC le constant flux dincha; dΦ/dt = 0, tesaile e = −N dΦ/dt = 0.',
       },
     },
     {
-      say: 'Thulo transformer ma conservator, breather, tank, oil ra bushings pani hunchan. Naya trend: amorphous core ra dry type.',
-      voice: 'ठूलो ट्रान्सफर्मरमा कन्जर्भेटर, ब्रिदर, ट्याङ्क, आयल, र बुसिङ्स पनि हुन्छन्। नयाँ ट्रेन्ड — एमोर्फस कोर र ड्राई टाइप।',
-      lines: [['idea', <>Tank, oil, conservator, breather, bushings · trends: amorphous core, dry-type, smart monitoring</>]],
+      page: true,
+      say: 'Yahi flux secondary N 2 sanga pani link huncha, ra mutual induction le e 2 equals minus N 2 d phi by d t induce huncha. Primary ko e 1 le chai V 1 lai oppose garcha.',
+      voice: 'यही फ्लक्स सेकेन्डरी एन टुसँग पनि लिङ्क हुन्छ, र म्युचुअल इन्डक्सनले — ई टु इक्वल्स माइनस एन टु डी फाइ बाइ डी टी — इन्ड्युस हुन्छ। प्राइमरीको ई वानले चाहिँ भी वानलाई अपोज गर्छ।',
+      lines: [['step', <>Same flux links N<sub>2</sub>: mutual induction{tex(String.raw`\begin{aligned} e_1 &= -N_1\dfrac{d\Phi}{dt} \\ e_2 &= -N_2\dfrac{d\Phi}{dt} \end{aligned}`)}</>, undefined, { carry: <>Mutual induction: <K>{String.raw`e_2 = -N_2\,d\Phi/dt`}</K></> }]],
+    },
+    {
+      say: 'Secondary ma load jodda secondary current I 2 bagcha, ra power load samma pugcha. Primary ra secondary electrically connected chainan; power magnetic flux le transfer huncha, ra frequency ustai rahancha.',
+      voice: 'सेकेन्डरीमा लोड जोड्दा सेकेन्डरी करेन्ट आई टु बग्छ, र पावर लोडसम्म पुग्छ। प्राइमरी र सेकेन्डरी इलेक्ट्रिकल्ली कनेक्टेड छैनन्, पावर म्याग्नेटिक फ्लक्सले ट्रान्सफर हुन्छ, र फ्रिक्वेन्सी उस्तै रहन्छ।',
+      lines: [['step', <>Load connected → I<sub>2</sub> flows; no electrical connection, power passes through the flux; frequency unchanged</>]],
+      ask: {
+        q: 'Transformer le kun quantity change gardaina?',
+        voice: 'ट्रान्सफर्मरले कुन क्वान्टिटी चेन्ज गर्दैन?',
+        options: ['Frequency', 'Voltage', 'Current'],
+        answer: 0,
+        why: 'Secondary EMF eutai flux bata induce huncha, tesaile yasko frequency supply ko frequency nai huncha.',
+      },
+    },
+    {
+      say: 'Recap: AC V 1 bata alternating flux, flux dubai winding sanga link, mutual induction le secondary ma EMF, ra frequency ustai. Yo EMF kati huncha, arko video ma derive garchau.',
+      voice: 'रिक्याप — ए सी भी वानबाट अल्टरनेटिङ फ्लक्स, फ्लक्स दुवै वाइन्डिङसँग लिङ्क, म्युचुअल इन्डक्सनले सेकेन्डरीमा ई एम एफ, र फ्रिक्वेन्सी उस्तै। यो ई एम एफ कति हुन्छ, अर्को भिडियोमा डिराइभ गर्छौं।',
+      lines: [['idea', <>Recap: AC V<sub>1</sub> → alternating Φ → links both windings → EMF in the secondary by mutual induction · same frequency · AC only</>]],
     },
   ],
   lecturer: [
     {
-      say: 'Construction: the core is built of laminated silicon steel, in core type or shell type, Figure 2.1.',
-      voice: 'कन्स्ट्रक्सन — द कोर इज बिल्ट अफ ल्यामिनेटेड सिलिकन स्टिल, इन कोर टाइप अर सेल टाइप, फिगर टु पोइन्ट वान।',
-      lines: [['h', <>Construction and working principle</>], ['step', <>Core: laminated silicon steel; core type or shell type</>]],
+      say: 'Smaran garau: Faraday ko law anusar flux linkage change huda EMF induce huncha, ra Lenz ko law anusar tyo EMF le aafno cause lai oppose garcha.',
+      voice: 'स्मरण गरौं — फाराडेको ल अनुसार फ्लक्स लिङ्केज चेन्ज हुँदा ई एम एफ इन्ड्युस हुन्छ, र लेन्जको ल अनुसार त्यो ई एम एफले आफ्नो कजलाई अपोज गर्छ।',
+      lines: [['h', <>Working principle of a transformer (Fig. 2.1)</>], rem(<>Faraday: <K>{String.raw`e = -N\,\dfrac{d\Phi}{dt}`}</K></>, <>Lenz: the induced EMF opposes its cause</>)],
     },
     {
-      say: 'The primary winding of N 1 turns is connected to V 1, and the secondary of N 2 turns to the load.',
-      voice: 'द प्राइमरी वाइन्डिङ अफ एन वान टर्न्स इज कनेक्टेड टु भी वान, एन्ड द सेकेन्डरी अफ एन टु टर्न्स टु द लोड।',
-      lines: [['step', <>Primary N<sub>1</sub> on V<sub>1</sub>; secondary N<sub>2</sub> to the load</>]],
+      say: 'Definition: transformer static device ho jasle electrical power lai euta circuit bata arko circuit ma, frequency change nagari, mutual induction dwara transfer garcha.',
+      voice: 'डेफिनिसन — ट्रान्सफर्मर स्टाटिक डिभाइस हो, जसले इलेक्ट्रिकल पावरलाई एउटा सर्किटबाट अर्को सर्किटमा, फ्रिक्वेन्सी चेन्ज नगरी, म्युचुअल इन्डक्सनद्वारा ट्रान्सफर गर्छ।',
+      lines: [['step', <><i>A transformer is a static device which transfers electrical power from one circuit to another without change of frequency, by mutual induction.</i></>]],
     },
     {
-      say: 'Working: V 1 drives a magnetising current I mu that sets up an alternating flux phi m sin omega t.',
-      voice: 'वर्किङ — भी वान ड्राइभ्स अ म्याग्नेटाइजिङ करेन्ट आई म्यु दयाट सेट्स अप एन अल्टरनेटिङ फ्लक्स फाइ एम साइन ओमेगा टी।',
-      lines: [['eq', tex(String.raw`\Phi = \Phi_m \sin \omega t`)]],
+      say: 'Primary winding, N 1 turns, lai AC supply V 1 ma jodda magnetising current I mu bagcha.',
+      voice: 'प्राइमरी वाइन्डिङ, एन वान टर्न्स, लाई ए सी सप्लाई भी वानमा जोड्दा म्याग्नेटाइजिङ करेन्ट आई म्यु बग्छ।',
+      lines: [['step', <>The primary winding of N<sub>1</sub> turns is connected to the AC supply V<sub>1</sub>; a magnetising current I<sub>μ</sub> flows.</>]],
     },
     {
-      say: 'The flux links the secondary; by mutual induction an EMF e 2 is induced and current flows in the load.',
-      voice: 'द फ्लक्स लिङ्क्स द सेकेन्डरी, बाइ म्युचुअल इन्डक्सन एन ई एम एफ ई टु इज इन्ड्युस्ड एन्ड करेन्ट फ्लोज इन द लोड।',
-      lines: [['step', <>Mutual induction: <K>{String.raw`e_2 = -N_2\,d\Phi/dt`}</K></>]],
+      say: 'I mu le core ma alternating flux phi equals phi m sin omega t set up garcha, equation ek.',
+      voice: 'आई म्यु ले कोरमा अल्टरनेटिङ फ्लक्स — फाइ इक्वल्स फाइ एम साइन ओमेगा टी — सेट अप गर्छ, इक्वेसन वान।',
+      lines: [['step', <>I<sub>μ</sub> sets up an alternating flux in the core,{tex(String.raw`\Phi = \Phi_m \sin \omega t \qquad \cdots(1)`)}</>, undefined, { carry: <K>{String.raw`\Phi = \Phi_m \sin\omega t \quad (1)`}</K> }]],
+    },
+    {
+      say: 'DC supply ma flux constant hune bhayeko le d phi by d t zero huncha; EMF induce hudaina, ra primary current resistance le matra limit bhayera winding damage huncha.',
+      voice: 'डी सी सप्लाईमा फ्लक्स कन्स्टेन्ट हुने भएकोले, डी फाइ बाइ डी टी जिरो हुन्छ। ई एम एफ इन्ड्युस हुँदैन, र प्राइमरी करेन्ट रेजिस्टेन्सले मात्र लिमिट भएर वाइन्डिङ ड्यामेज हुन्छ।',
+      lines: [br('Transformer on DC', <Pts items={[<>Constant flux: dΦ/dt = 0, no induced EMF</>, <>Current limited by R<sub>1</sub> only: winding burns</>]} />)],
       ask: {
-        q: 'Transformer le kun quantity badaldaina?',
-        voice: 'ट्रान्सफर्मरले कुन क्वान्टिटी बदल्दैन?',
-        options: ['Frequency', 'Voltage', 'Current'],
+        q: 'Transformer DC supply ma kina kaam gardaina?',
+        voice: 'ट्रान्सफर्मर डी सी सप्लाईमा किन काम गर्दैन?',
+        options: ['DC le constant flux dincha, dΦ/dt = 0', 'DC ko voltage low huncha', 'Core saturate hudaina'],
         answer: 0,
-        why: 'Secondary ko EMF ko frequency flux ko jastai, supply ko frequency nai.',
+        why: 'EMF flux ko rate of change le induce huncha; constant flux ma EMF zero.',
       },
     },
     {
-      say: 'Accessories: tank, oil, conservator, breather and bushings. Recent trends: amorphous cores and dry-type units.',
-      voice: 'एक्सेसोरिज — ट्याङ्क, आयल, कन्जर्भेटर, ब्रिदर, एन्ड बुसिङ्स। रिसेन्ट ट्रेन्ड्स — एमोर्फस कोर्स एन्ड ड्राई टाइप युनिट्स।',
-      lines: [['step', <><Pts items={[<>Accessories: tank, oil, conservator, breather, bushings</>, <>Trends: amorphous cores, dry-type, on-line monitoring</>]} /></>]],
+      page: true,
+      say: 'Yo flux secondary winding N 2 sanga link bhayera mutual induction le e 2 induce garcha; primary ma self-induced e 1 le V 1 lai oppose garcha, equation dui ra tin.',
+      voice: 'यो फ्लक्स सेकेन्डरी वाइन्डिङ एन टुसँग लिङ्क भएर म्युचुअल इन्डक्सनले ई टु इन्ड्युस गर्छ। प्राइमरीमा सेल्फ इन्ड्युस्ड ई वानले भी वानलाई अपोज गर्छ, इक्वेसन टु र थ्री।',
+      lines: [['step', <>The flux links the secondary (N<sub>2</sub>); by mutual induction,{tex(String.raw`\begin{aligned} e_1 &= -N_1\dfrac{d\Phi}{dt} && \cdots(2) \\ e_2 &= -N_2\dfrac{d\Phi}{dt} && \cdots(3) \end{aligned}`)}</>, undefined, { carry: <><K>{String.raw`e_2 = -N_2\,d\Phi/dt \quad (3)`}</K></> }]],
+    },
+    {
+      say: 'Secondary circuit close garda I 2 bagcha ra power load ma transfer huncha; dui winding bich electrical connection hudaina, ra frequency same rahancha.',
+      voice: 'सेकेन्डरी सर्किट क्लोज गर्दा आई टु बग्छ, र पावर लोडमा ट्रान्सफर हुन्छ। दुई वाइन्डिङबीच इलेक्ट्रिकल कनेक्सन हुँदैन, र फ्रिक्वेन्सी सेम रहन्छ।',
+      lines: [['step', <>With the secondary closed, I<sub>2</sub> flows and power is delivered to the load; there is no electrical connection, and the frequency is unchanged.</>]],
+      ask: {
+        q: 'Transformer ko primary ra secondary bich power kasari transfer huncha?',
+        voice: 'ट्रान्सफर्मरको प्राइमरी र सेकेन्डरीबीच पावर कसरी ट्रान्सफर हुन्छ?',
+        options: ['Mutual flux (magnetic coupling) bata', 'Direct electrical connection bata', 'Rotating shaft bata'],
+        answer: 0,
+        why: 'Dui winding electrically isolated hunchan; common core ko mutual flux le EMF induce garcha.',
+      },
+    },
+    {
+      say: 'Saransha: AC supply le alternating mutual flux banaucha, jasle mutual induction dwara secondary ma same frequency ko EMF induce garcha.',
+      voice: 'सारांश — ए सी सप्लाईले अल्टरनेटिङ म्युचुअल फ्लक्स बनाउँछ, जसले म्युचुअल इन्डक्सनद्वारा सेकेन्डरीमा सेम फ्रिक्वेन्सीको ई एम एफ इन्ड्युस गर्छ।',
+      lines: [['idea', <>Summary: AC supply → alternating mutual flux → EMF induced in the secondary by mutual induction, at the same frequency</>]],
     },
   ],
 });
 
+/* ── 2.2 Syllabus Content: EMF equation and turns ratio ──────────────── */
+// Canvas plan: heading · Remember (Faraday, RMS = max/√2, ω = 2πf) · Let
+// (N1, N2, Φm, f) · flux, e1 by differentiation, why the 90° lag · page turn
+// (carry Φ, e1) · E1m, RMS, why 4.44, boxed E1, E2 · turns ratio K with the
+// IOE 2075 numbers (KBT notes) · recap. Right: Fig. 2.1.
+// Recomputed: 2π/√2 = 4.4429; 2075: E2 = (100/500) × 3000 = 600 V,
+// Φm = 3000/(4.44 × 50 × 500) = 0.02703 Wb.
 export const emf21 = duo('Derivation: EMF equation of a transformer', {
-  draw: xfmrFigure,
+  draw: figAt(xfmrFigure, { 0: 1, 1: 1, 2: 2, 3: 7, 4: 8 }),
   viewBox: '0 0 360 220',
   tutor: [
     {
-      say: 'Flux phi equals phi m sin omega t. Primary ma N 1 turns cha.',
-      voice: 'फ्लक्स फाइ इक्वल्स फाइ एम साइन ओमेगा टी। प्राइमरीमा एन वान टर्न्स छ।',
-      lines: [['h', <>EMF equation</>], ['eq', tex(String.raw`\Phi = \Phi_m \sin \omega t`)]],
+      say: 'Derivation ko lagi tin kura yaad garau: Faraday ko law, e equals minus N d phi by d t; sine wave ko RMS value maximum over root two; ra omega equals two pi f.',
+      voice: 'डिराइभेसनको लागि तीन कुरा याद गरौं — फाराडेको ल, ई इक्वल्स माइनस एन डी फाइ बाइ डी टी, साइन वेभको आर एम एस भ्यालु म्याक्सिमम ओभर रुट टु, र ओमेगा इक्वल्स टु पाइ एफ।',
+      lines: [['h', <>Derivation: EMF equation of a transformer</>], rem(<K>{String.raw`e = -N\,\dfrac{d\Phi}{dt}`}</K>, <>Sine wave: RMS = maximum ÷ √2</>, <K>{String.raw`\omega = 2\pi f`}</K>)],
     },
     {
-      say: 'Faraday: e 1 equals minus N 1 d phi by d t. Differentiate garda cos aaucha.',
-      voice: 'फाराडे — ई वान इक्वल्स माइनस एन वान डी फाइ बाइ डी टी। डिफरेन्सियट गर्दा कस आउँछ।',
-      lines: [['eq', tex(String.raw`\begin{aligned} e_1 &= -N_1\dfrac{d\Phi}{dt} \\ &= -N_1\omega\Phi_m\cos\omega t \end{aligned}`)]],
+      say: 'Let: N 1 primary turns, N 2 secondary turns, phi m core ko maximum flux weber ma, ra f supply frequency hertz ma.',
+      voice: 'लेट — एन वान प्राइमरी टर्न्स, एन टु सेकेन्डरी टर्न्स, फाइ एम कोरको म्याक्सिमम फ्लक्स वेबरमा, र एफ सप्लाई फ्रिक्वेन्सी हर्ट्जमा।',
+      lines: [['step', <Let items={[<>N<sub>1</sub> = primary turns</>, <>N<sub>2</sub> = secondary turns</>, <>Φ<sub>m</sub> = maximum flux (Wb)</>, <>f = supply frequency (Hz)</>]} />, undefined, { carry: <>N<sub>1</sub>, N<sub>2</sub>, Φ<sub>m</sub>, f as defined</> }]],
     },
     {
-      say: 'Maximum value N 1 omega phi m, ra omega equals 2 pi f. RMS chai maximum over root 2.',
-      voice: 'म्याक्सिमम भ्यालु एन वान ओमेगा फाइ एम, र ओमेगा इक्वल्स टु पाइ एफ। आर एम एस चाहिँ म्याक्सिमम ओभर रुट टु।',
-      lines: [['eq', tex(String.raw`\begin{aligned} E_{1m} &= N_1 (2\pi f)\Phi_m \\ E_1 &= \dfrac{E_{1m}}{\sqrt 2} \end{aligned}`)]],
+      say: 'Sinusoidal supply le sinusoidal flux dincha: phi equals phi m sin omega t.',
+      voice: 'साइनसोइडल सप्लाईले साइनसोइडल फ्लक्स दिन्छ — फाइ इक्वल्स फाइ एम साइन ओमेगा टी।',
+      lines: [['step', step('Flux in the core', String.raw`\Phi = \Phi_m \sin \omega t \unit{weber}`), undefined, { carry: <K>{String.raw`\Phi = \Phi_m\sin\omega t`}</K> }]],
     },
     {
-      say: '2 pi over root 2 equals 4.44. Tesaile E 1 equals 4.44 f N 1 phi m. Secondary ko lagi N 2.',
-      voice: 'टु पाइ ओभर रुट टु इक्वल्स फोर पोइन्ट फोर फोर। त्यसैले ई वान इक्वल्स फोर पोइन्ट फोर फोर एफ एन वान फाइ एम। सेकेन्डरीको लागि एन टु।',
-      lines: [['eq', tex(String.raw`\boxed{E_1 = 4.44 f N_1 \Phi_m}, \quad \boxed{E_2 = 4.44 f N_2 \Phi_m}`)]],
+      say: 'Faraday ko law ma yo flux rakhau. Differentiate garda e 1 equals minus N 1 omega phi m cos omega t, arthat N 1 omega phi m sin omega t minus 90 degree.',
+      voice: 'फाराडेको लमा यो फ्लक्स राखौं। डिफरेन्सियट गर्दा — ई वान इक्वल्स माइनस एन वान ओमेगा फाइ एम कस ओमेगा टी, अर्थात एन वान ओमेगा फाइ एम, साइन ओमेगा टी माइनस नाइन्टी डिग्री।',
+      lines: [['step', step('Primary EMF (Faraday)', String.raw`\begin{aligned} e_1 &= -N_1\dfrac{d}{dt}(${X(String.raw`\Phi_m\sin\omega t`, INK.BL)}) \\ &= -N_1${R(String.raw`\omega\Phi_m\cos\omega t`, INK.BL, 1)} \\ &= N_1\omega\Phi_m\sin(\omega t - 90^\circ) \end{aligned}`), undefined, { carry: <K>{String.raw`e_1 = N_1\omega\Phi_m\sin(\omega t - 90^\circ)`}</K> }]],
+    },
+    {
+      say: 'Minus cos kasari sin omega t minus 90 bhayo? Minus cos omega t ra sin omega t minus 90 degree eutai wave ho. Yesko matlab e 1 le flux lai 90 degree le lag garcha.',
+      voice: 'माइनस कस कसरी साइन ओमेगा टी माइनस नाइन्टी भयो? माइनस कस ओमेगा टी, र साइन ओमेगा टी माइनस नाइन्टी डिग्री, एउटै वेभ हो। यसको मतलब ई वानले फ्लक्सलाई नाइन्टी डिग्रीले ल्याग गर्छ।',
+      lines: [br('Why sin(ωt − 90°)?', <Pts items={[<><K>{String.raw`-\cos\omega t = \sin(\omega t - 90^\circ)`}</K></>, <>So e<sub>1</sub> lags the flux by 90°</>, <>Its peak is reached when |cos ωt| = 1</>]} />)],
+    },
+    {
+      page: true,
+      say: 'Maximum value E 1 m equals N 1 omega phi m; omega ko thau ma two pi f rakhau. RMS value chai maximum over root two.',
+      voice: 'म्याक्सिमम भ्यालु — ई वान एम इक्वल्स एन वान ओमेगा फाइ एम, ओमेगाको ठाउँमा टु पाइ एफ राखौं। आर एम एस भ्यालु चाहिँ म्याक्सिमम ओभर रुट टु।',
+      lines: [['step', step('Maximum, then RMS value', String.raw`\begin{aligned} E_{1m} &= N_1\,${X(String.raw`\omega`, INK.VI)}\,\Phi_m \\ &= ${R(String.raw`2\pi f`, INK.VI, 1)}\,N_1\Phi_m \\ E_1 &= \dfrac{E_{1m}}{\sqrt 2} \\ &= \dfrac{2\pi}{\sqrt 2}\,f N_1\Phi_m \end{aligned}`)]],
+    },
+    {
+      say: '4.44 kaha bata aaucha? Two pi over root two equals 4.443, round garda 4.44. Yo number sinusoidal flux ko lagi matra ho.',
+      voice: 'फोर पोइन्ट फोर फोर कहाँबाट आउँछ? टु पाइ ओभर रुट टु इक्वल्स फोर पोइन्ट फोर फोर थ्री, राउन्ड गर्दा फोर पोइन्ट फोर फोर। यो नम्बर साइनसोइडल फ्लक्सको लागि मात्र हो।',
+      lines: [br('Where does 4.44 come from?', tex(String.raw`\begin{aligned} \dfrac{2\pi}{\sqrt 2} &= 4.443 \\ &\approx 4.44 \end{aligned}`))],
       ask: {
-        q: 'Frequency dobar garda, eutai voltage ko lagi flux kati chahincha?',
-        voice: 'फ्रिक्वेन्सी दोब्बर गर्दा, एउटै भोल्टेजको लागि फ्लक्स कति चाहिन्छ?',
-        options: ['Aadha', 'Dobar', 'Ustai'],
+        q: 'EMF equation ko 4.44 kun ratio bata aaucha?',
+        voice: 'ई एम एफ इक्वेसनको फोर पोइन्ट फोर फोर कुन रेसियोबाट आउँछ?',
+        options: ['2π / √2', '√2 / 2π', '2 / π'],
         answer: 0,
-        why: 'E = 4.44 f N Φm: f dobar, eutai E ko lagi Φm aadha.',
+        why: 'E1 = E1m/√2 = (2π/√2) f N1 Φm, ra 2π/√2 = 4.443.',
       },
     },
     {
-      say: 'Duita equation bhag garda: E 2 over E 1 equals N 2 over N 1 equals K, transformation ratio.',
-      voice: 'दुईटा इक्वेसन भाग गर्दा — ई टु ओभर ई वान इक्वल्स एन टु ओभर एन वान इक्वल्स के, ट्रान्सफर्मेसन रेसियो।',
-      lines: [['idea', <>Turns ratio: <K>{String.raw`\begin{aligned} \dfrac{E_2}{E_1} &= \dfrac{N_2}{N_1} \\ &= K \end{aligned}`}</K>; K &gt; 1 step-up, K &lt; 1 step-down</>]],
+      say: 'Tesaile primary EMF E 1 equals 4.44 f N 1 phi m volt. Eutai flux secondary ma pani link bhayeko le E 2 equals 4.44 f N 2 phi m volt.',
+      voice: 'त्यसैले प्राइमरी ई एम एफ — ई वान इक्वल्स फोर पोइन्ट फोर फोर एफ एन वान फाइ एम भोल्ट। एउटै फ्लक्स सेकेन्डरीमा पनि लिङ्क भएकोले, ई टु इक्वल्स फोर पोइन्ट फोर फोर एफ एन टु फाइ एम भोल्ट।',
+      lines: [['eq', tex(String.raw`E_1 = 4.44\,f N_1 \Phi_m \unit{volt}`)], ['eq', tex(String.raw`E_2 = 4.44\,f N_2 \Phi_m \unit{volt}`)]],
+    },
+    {
+      say: 'Bhag garda E 2 over E 1 equals N 2 over N 1 equals K, transformation ratio. IOE 2075: 500 ra 100 turns, V 1 3000 volt, so E 2 600 volt.',
+      voice: 'भाग गर्दा, ई टु ओभर ई वान इक्वल्स एन टु ओभर एन वान इक्वल्स के, ट्रान्सफर्मेसन रेसियो। आई ओ ई दुई हजार पचहत्तर — पाँच सय र एक सय टर्न्स, भी वान तीन हजार भोल्ट, सो ई टु छ सय भोल्ट।',
+      lines: [['step', step('Transformation ratio', String.raw`\begin{aligned} K &= \dfrac{E_2}{E_1} \\ &= \dfrac{N_2}{N_1} \end{aligned}`)], ['note', <>K &gt; 1 step-up · K &lt; 1 step-down · IOE 2075: E<sub>2</sub> = (100/500) × 3000 = 600 V</>]],
+      ask: {
+        q: 'IOE 2075: 500/100 turns ko transformer 3000 V, 50 Hz ma jodda maximum flux Φm kati huncha?',
+        voice: 'आई ओ ई दुई हजार पचहत्तर — पाँच सय बाई एक सय टर्न्सको ट्रान्सफर्मर तीन हजार भोल्ट, पचास हर्ट्जमा जोड्दा म्याक्सिमम फ्लक्स फाइ एम कति हुन्छ?',
+        options: ['0.027 Wb', '0.135 Wb', '0.0054 Wb'],
+        answer: 0,
+        why: 'Φm = E1/(4.44 f N1) = 3000/(4.44 × 50 × 500) = 0.027 Wb.',
+      },
+    },
+    {
+      say: 'Recap: E equals 4.44 f N phi m. EMF turns, frequency ra maximum flux teenai sanga proportional, ra voltage ratio turns ratio K barabar.',
+      voice: 'रिक्याप — ई इक्वल्स फोर पोइन्ट फोर फोर एफ एन फाइ एम। ई एम एफ टर्न्स, फ्रिक्वेन्सी र म्याक्सिमम फ्लक्स तीनैसँग प्रोपोर्सनल, र भोल्टेज रेसियो टर्न्स रेसियो के बराबर।',
+      lines: [['idea', <>Recap: <K>{String.raw`E = 4.44\,fN\Phi_m`}</K> · E ∝ f, N, Φ<sub>m</sub> · E<sub>2</sub>/E<sub>1</sub> = N<sub>2</sub>/N<sub>1</sub> = K</>]],
     },
   ],
   lecturer: [
     {
-      say: 'Let the flux be phi m sin omega t, linking N 1 primary turns.',
-      voice: 'लेट द फ्लक्स बी फाइ एम साइन ओमेगा टी, लिङ्किङ एन वान प्राइमरी टर्न्स।',
-      lines: [['h', <>EMF equation of a transformer</>], ['eq', tex(String.raw`\Phi = \Phi_m \sin \omega t`)]],
+      say: 'Smaran garau: Faraday ko law e equals minus N d phi by d t, RMS value maximum over root two, ra omega equals two pi f.',
+      voice: 'स्मरण गरौं — फाराडेको ल, ई इक्वल्स माइनस एन डी फाइ बाइ डी टी, आर एम एस भ्यालु म्याक्सिमम ओभर रुट टु, र ओमेगा इक्वल्स टु पाइ एफ।',
+      lines: [['h', <>EMF equation of a transformer (Fig. 2.1)</>], rem(<K>{String.raw`e = -N\,d\Phi/dt`}</K>, <>RMS = maximum ÷ √2 · ω = 2πf</>)],
     },
     {
-      say: 'By Faraday’s law, e 1 equals minus N 1 omega phi m cos omega t.',
-      voice: 'बाइ फाराडेज ल, ई वान इक्वल्स माइनस एन वान ओमेगा फाइ एम कस ओमेगा टी।',
-      lines: [['eq', tex(String.raw`\begin{aligned} e_1 &= -N_1\dfrac{d\Phi}{dt} \\ &= -N_1\omega\Phi_m\cos\omega t \end{aligned}`)]],
+      say: 'Let N 1 ra N 2 primary ra secondary turns, phi m maximum flux weber ma, ra f supply frequency hertz ma.',
+      voice: 'लेट, एन वान र एन टु प्राइमरी र सेकेन्डरी टर्न्स, फाइ एम म्याक्सिमम फ्लक्स वेबरमा, र एफ सप्लाई फ्रिक्वेन्सी हर्ट्जमा।',
+      lines: [['step', <Let items={[<>N<sub>1</sub>, N<sub>2</sub> = primary and secondary turns</>, <>Φ<sub>m</sub> = maximum value of flux (Wb)</>, <>f = frequency of the supply (Hz)</>]} />, undefined, { carry: <>N<sub>1</sub>, N<sub>2</sub>, Φ<sub>m</sub>, f</> }]],
     },
     {
-      say: 'The maximum is 2 pi f N 1 phi m, and the RMS value is the maximum over root two.',
-      voice: 'द म्याक्सिमम इज टु पाइ एफ एन वान फाइ एम, एन्ड द आर एम एस भ्यालु इज द म्याक्सिमम ओभर रुट टु।',
-      lines: [['eq', tex(String.raw`\begin{aligned} E_{1m} &= N_1 (2\pi f)\Phi_m \\ E_1 &= \dfrac{E_{1m}}{\sqrt 2} \end{aligned}`)]],
+      say: 'Sinusoidal supply ma core ko flux phi equals phi m sin omega t, equation ek.',
+      voice: 'साइनसोइडल सप्लाईमा कोरको फ्लक्स — फाइ इक्वल्स फाइ एम साइन ओमेगा टी, इक्वेसन वान।',
+      lines: [['step', <>The flux in the core is{tex(String.raw`\Phi = \Phi_m\sin\omega t \qquad \cdots(1)`)}</>, undefined, { carry: <K>{String.raw`\Phi = \Phi_m\sin\omega t \quad (1)`}</K> }]],
     },
     {
-      say: 'Hence E 1 equals 4.44 f N 1 phi m, and similarly E 2 equals 4.44 f N 2 phi m.',
-      voice: 'हेन्स ई वान इक्वल्स फोर पोइन्ट फोर फोर एफ एन वान फाइ एम, एन्ड सिमिलर्ली ई टु इक्वल्स फोर पोइन्ट फोर फोर एफ एन टु फाइ एम।',
-      lines: [['eq', tex(String.raw`\boxed{E_1 = 4.44 f N_1 \Phi_m}, \quad \boxed{E_2 = 4.44 f N_2 \Phi_m}`)]],
+      say: 'Faraday ko law anusar, equation ek prayog garda, e 1 equals N 1 omega phi m sin omega t minus 90 degree, equation dui.',
+      voice: 'फाराडेको ल अनुसार, इक्वेसन वान प्रयोग गर्दा, ई वान इक्वल्स एन वान ओमेगा फाइ एम, साइन ओमेगा टी माइनस नाइन्टी डिग्री, इक्वेसन टु।',
+      lines: [['step', <>By Faraday’s law, using (1),{tex(String.raw`\begin{aligned} e_1 &= -N_1\dfrac{d\Phi}{dt} && \\ &= -N_1\omega\Phi_m\cos\omega t && \\ &= N_1\omega\Phi_m\sin(\omega t - 90^\circ) && \cdots(2) \end{aligned}`)}</>, undefined, { carry: <K>{String.raw`e_1 = N_1\omega\Phi_m\sin(\omega t - 90^\circ) \quad (2)`}</K> }]],
+    },
+    {
+      say: 'Equation dui le dekhaucha: induced EMF le flux lai 90 degree le lag garcha, ra yesko maximum value N 1 omega phi m ho.',
+      voice: 'इक्वेसन टुले देखाउँछ — इन्ड्युस्ड ई एम एफले फ्लक्सलाई नाइन्टी डिग्रीले ल्याग गर्छ, र यसको म्याक्सिमम भ्यालु एन वान ओमेगा फाइ एम हो।',
+      lines: [br('From (2)', <Pts items={[<>e<sub>1</sub> lags Φ by 90°</>, <>Maximum value E<sub>1m</sub> = N<sub>1</sub>ωΦ<sub>m</sub></>]} />)],
+    },
+    {
+      page: true,
+      say: 'Maximum value E 1 m equals two pi f N 1 phi m, ra RMS value E 1 equals E 1 m over root two, equation tin.',
+      voice: 'म्याक्सिमम भ्यालु — ई वान एम इक्वल्स टु पाइ एफ एन वान फाइ एम, र आर एम एस भ्यालु — ई वान इक्वल्स ई वान एम ओभर रुट टु, इक्वेसन थ्री।',
+      lines: [['step', <>Maximum and RMS values,{tex(String.raw`\begin{aligned} E_{1m} &= 2\pi f N_1\Phi_m && \\ E_1 &= \dfrac{E_{1m}}{\sqrt 2} && \\ &= \dfrac{2\pi}{\sqrt 2}\,fN_1\Phi_m && \cdots(3) \end{aligned}`)}</>]],
+    },
+    {
+      say: 'Equation tin ma two pi over root two equals 4.443, arthat 4.44.',
+      voice: 'इक्वेसन थ्रीमा टु पाइ ओभर रुट टु इक्वल्स फोर पोइन्ट फोर फोर थ्री, अर्थात फोर पोइन्ट फोर फोर।',
+      lines: [br('The factor 4.44', tex(String.raw`\begin{aligned} \dfrac{2\pi}{\sqrt 2} &= 4.443 \\ &\approx 4.44 \end{aligned}`))],
       ask: {
-        q: 'EMF equation ma 4.44 kasari aaucha?',
-        voice: 'ई एम एफ इक्वेसनमा फोर पोइन्ट फोर फोर कसरी आउँछ?',
+        q: 'Transformer ko EMF equation ma 4.44 kasari aaucha?',
+        voice: 'ट्रान्सफर्मरको ई एम एफ इक्वेसनमा फोर पोइन्ट फोर फोर कसरी आउँछ?',
         options: ['2π/√2', '√2 × π', '2/π'],
         answer: 0,
-        why: 'E rms = 2πfNΦm/√2 = 4.44 fNΦm.',
+        why: 'E1 = E1m/√2 = (2π/√2) f N1 Φm = 4.44 f N1 Φm.',
       },
     },
     {
-      say: 'Dividing, E 2 over E 1 equals N 2 over N 1 equals K, the transformation ratio.',
-      voice: 'डिभाइडिङ, ई टु ओभर ई वान इक्वल्स एन टु ओभर एन वान इक्वल्स के, द ट्रान्सफर्मेसन रेसियो।',
-      lines: [['step', <>Transformation ratio <K>{String.raw`\begin{aligned} K &= \dfrac{E_2}{E_1} \\ &= \dfrac{N_2}{N_1} \end{aligned}`}</K>; K &gt; 1 step-up, K &lt; 1 step-down</>]],
+      say: 'Tesaile E 1 equals 4.44 f N 1 phi m, ra secondary ko lagi tyastai E 2 equals 4.44 f N 2 phi m, equation char ra panch.',
+      voice: 'त्यसैले ई वान इक्वल्स फोर पोइन्ट फोर फोर एफ एन वान फाइ एम, र सेकेन्डरीको लागि त्यस्तै ई टु इक्वल्स फोर पोइन्ट फोर फोर एफ एन टु फाइ एम, इक्वेसन फोर र फाइभ।',
+      lines: [['step', <>∴ From (3), and similarly for the secondary,{tex(String.raw`\begin{aligned} &\boxed{E_1 = 4.44\,fN_1\Phi_m} && \cdots(4) \\ &\boxed{E_2 = 4.44\,fN_2\Phi_m} && \cdots(5) \end{aligned}`)}</>]],
+    },
+    {
+      say: 'Equation panch lai char le bhag garda E 2 over E 1 equals N 2 over N 1 equals K, transformation ratio. IOE 2075 ko data ma E 2 equals 600 volt aaucha.',
+      voice: 'इक्वेसन फाइभलाई फोरले भाग गर्दा, ई टु ओभर ई वान इक्वल्स एन टु ओभर एन वान इक्वल्स के, ट्रान्सफर्मेसन रेसियो। आई ओ ई दुई हजार पचहत्तरको डाटामा ई टु इक्वल्स छ सय भोल्ट आउँछ।',
+      lines: [['step', <>Dividing (5) by (4),{tex(String.raw`\begin{aligned} K &= \dfrac{E_2}{E_1} \\ &= \dfrac{N_2}{N_1} \end{aligned}`)}</>], ['note', <>K &gt; 1 step-up, K &lt; 1 step-down · IOE 2075 (N<sub>1</sub> = 500, N<sub>2</sub> = 100, 3000 V): E<sub>2</sub> = 600 V</>]],
+      ask: {
+        q: 'IOE 2075: 500 primary turns, 3000 V, 50 Hz bhaye core ko maximum flux kati?',
+        voice: 'आई ओ ई दुई हजार पचहत्तर — पाँच सय प्राइमरी टर्न्स, तीन हजार भोल्ट, पचास हर्ट्ज भए कोरको म्याक्सिमम फ्लक्स कति?',
+        options: ['0.027 Wb', '0.27 Wb', '0.0027 Wb'],
+        answer: 0,
+        why: 'Φm = 3000/(4.44 × 50 × 500) = 0.027 Wb.',
+      },
+    },
+    {
+      say: 'Saransha: E equals 4.44 f N phi m, ra voltage ratio turns ratio K barabar huncha.',
+      voice: 'सारांश — ई इक्वल्स फोर पोइन्ट फोर फोर एफ एन फाइ एम, र भोल्टेज रेसियो टर्न्स रेसियो के बराबर हुन्छ।',
+      lines: [['idea', <>Summary: <K>{String.raw`E = 4.44\,fN\Phi_m`}</K> · <K>{String.raw`E_2/E_1 = N_2/N_1`}</K> (= K)</>]],
     },
   ],
 });
@@ -2406,75 +2534,136 @@ export const basicsThree213 = duo('2.13 · Basic understanding: how does a trans
   ],
 });
 
+/* ── 2.1 Syllabus Content: constructional details and recent trends ─── */
+// Canvas plan: heading · Remember (static machine, mutual induction) · left:
+// core type, shell type, why laminated, windings, why LV inside · page turn
+// (carry (a), (b), laminations) · accessories, trends · recap. Right:
+// Fig. 2.6 (0 core type · 1 shell type · 2 lamination note).
 export const cons21 = duo('Constructional details and recent trends', {
-  draw: coreShellFigure,
+  draw: figAt(coreShellFigure, { 0: 1, 1: 2, 2: 3 }),
   viewBox: '0 0 360 240',
   tutor: [
     {
-      say: 'Yaad garau: transformer static machine ho, ra yasko kaam mutual induction le chalcha. Core ra winding mul bhag hun.',
-      voice: 'याद गरौं — ट्रान्सफर्मर स्टाटिक मेसिन हो, र यसको काम म्युचुअल इन्डक्सनले चल्छ। कोर र वाइन्डिङ मूल भाग हुन्।',
-      lines: [['h', <>Constructional details and recent trends</>], rem(<>Static machine, works by mutual induction</>, <>Main parts: core and windings</>)],
+      say: 'Construction suru garnu aghi duita kura yaad garau. Transformer static machine ho, yasma kunai rotating part chaina. Yo mutual induction le kaam garcha, ra main parts core ra windings hun.',
+      voice: 'कन्स्ट्रक्सन सुरु गर्नुअघि दुईटा कुरा याद गरौं। ट्रान्सफर्मर स्टाटिक मेसिन हो, यसमा कुनै रोटेटिङ पार्ट छैन। यो म्युचुअल इन्डक्सनले काम गर्छ, र मेन पार्ट्स कोर र वाइन्डिङ्स हुन्।',
+      lines: [['h', <>Constructional details and recent trends</>], rem(<>Static machine: no rotating part</>, <>Works by mutual induction; main parts: core and windings</>)],
     },
     {
-      say: 'Core type ma winding dubai limb ma hunchan ra core le winding lai gherdaina.',
-      voice: 'कोर टाइपमा वाइन्डिङ दुवै लिम्बमा हुन्छन्, र कोरले वाइन्डिङलाई घेर्दैन।',
-      lines: [['step', <>(a) Core type: windings on both limbs; core surrounds little of the winding</>]],
+      say: 'Figure a, core type: rectangular core ko dui limb hunchan, ra winding dubai limb ma rakhincha. Core type ma windings le core lai surround garchan.',
+      voice: 'फिगर ए, कोर टाइप — रेक्ट्याङ्गुलर कोरको दुई लिम्ब हुन्छन्, र वाइन्डिङ दुवै लिम्बमा राखिन्छ। कोर टाइपमा वाइन्डिङ्सले कोरलाई सराउन्ड गर्छन्।',
+      lines: [['step', <>(a) <b>Core type:</b> two limbs, windings on both limbs; the windings surround the core</>, undefined, { carry: <>(a) Core type: windings on both limbs</> }]],
     },
     {
-      say: 'Shell type ma winding centre limb ma huncha ra core le winding lai dubai tira bata gherchha; flux dui bato ma bandincha.',
-      voice: 'सेल टाइपमा वाइन्डिङ सेन्टर लिम्बमा हुन्छ, र कोरले वाइन्डिङलाई दुवैतिरबाट घेर्छ। फ्लक्स दुई बाटोमा बाँडिन्छ।',
-      lines: [['step', <>(b) Shell type: windings on the centre limb, surrounded by the core; flux divides</>]],
+      say: 'Figure b, shell type: core ko tin limb hunchan, ra dubai winding centre limb mai huncha. Core le winding lai dubai side bata surround garcha, ra flux dui side limb ma split huncha.',
+      voice: 'फिगर बी, सेल टाइप — कोरको तीन लिम्ब हुन्छन्, र दुवै वाइन्डिङ सेन्टर लिम्बमै हुन्छ। कोरले वाइन्डिङलाई दुवै साइडबाट सराउन्ड गर्छ, र फ्लक्स दुई साइड लिम्बमा स्प्लिट हुन्छ।',
+      lines: [['step', <>(b) <b>Shell type:</b> three limbs, both windings on the centre limb; the core surrounds the windings and the flux splits into two paths</>, undefined, { carry: <>(b) Shell type: windings on the centre limb</> }]],
     },
     {
-      say: 'Core laminated kina? Patla pata ra bich ma varnish le eddy current ko bato kaatcha, ra loss ghatcha.',
-      voice: 'कोर ल्यामिनेटेड किन? पातला पाता र बीचमा भार्निसले एडी करेन्टको बाटो काट्छ, र लस घट्छ।',
-      lines: [br('Why laminated?', <Pts items={[<>Thin insulated sheets break the eddy-current paths</>, <>Eddy loss ∝ (thickness)², so thin sheets cut it sharply</>]} />)],
-    },
-    {
-      say: 'Accessories: tank, oil, conservator, breather ra bushing. Recent trends: CRGO ra amorphous core, dry type ra smart monitoring.',
-      voice: 'एक्सेसरिज — ट्याङ्क, अयल, कन्जर्भेटर, ब्रिदर र बुसिङ। रिसेन्ट ट्रेन्ड्स — सी आर जी ओ र एमोर्फस कोर, ड्राई टाइप, र स्मार्ट मनिटरिङ।',
-      lines: [['step', <Pts items={[<>Accessories: tank, oil, conservator, breather, bushings</>, <>Recent trends: CRGO and amorphous cores (low loss), dry-type (cast resin), online monitoring</>]} />]],
+      say: 'Core kina laminated? Solid iron core ma alternating flux le eddy current circulate garcha ra core heat up huncha. Thin, varnished silicon-steel sheets le eddy current ko path cut garchan.',
+      voice: 'कोर किन ल्यामिनेटेड? सोलिड आइरन कोरमा अल्टरनेटिङ फ्लक्सले एडी करेन्ट सर्कुलेट गर्छ, र कोर हिट अप हुन्छ। थिन, भार्निस्ड सिलिकन स्टिल सिट्सले एडी करेन्टको पाथ कट गर्छन्।',
+      lines: [br('Why a laminated silicon-steel core?', <Pts items={[<>Solid core: eddy currents circulate → heat</>, <>0.35–0.5 mm sheets, insulated by varnish</>, <>Eddy loss ∝ (thickness)²: thin sheets cut it sharply</>, <>Silicon steel: low hysteresis loss</>]} />, undefined)],
       ask: {
-        q: 'Shell type transformer ma winding kaha rakhincha?',
-        voice: 'सेल टाइप ट्रान्सफर्मरमा वाइन्डिङ कहाँ राखिन्छ?',
-        options: ['Centre limb ma', 'Dubai side limb ma', 'Yoke ma'],
+        q: 'Transformer ko core thin laminations ma kina banaincha?',
+        voice: 'ट्रान्सफर्मरको कोर थिन ल्यामिनेसन्समा किन बनाइन्छ?',
+        options: ['Eddy current loss kam garna', 'Copper loss kam garna', 'Flux zero garna'],
         answer: 0,
-        why: 'Shell type ma core le centre limb ko winding lai gherchha.',
+        why: 'Eddy loss thickness ko square sanga proportional; thin, insulated sheets le eddy current ko path cut garchan.',
       },
+    },
+    {
+      page: true,
+      say: 'Windings insulated copper ka hunchan. LV winding core ko najik, ra HV winding tyasko bahira concentric rakhincha.',
+      voice: 'वाइन्डिङ्स इन्सुलेटेड कपरका हुन्छन्। एल भी वाइन्डिङ कोरको नजिक, र एच भी वाइन्डिङ त्यसको बाहिर कन्सेन्ट्रिक राखिन्छ।',
+      lines: [['step', <><b>Windings:</b> insulated copper; LV next to the core, HV outside it (concentric)</>, undefined, { carry: <>Laminated core · LV inside, HV outside</> }]],
+    },
+    {
+      say: 'LV winding core ko najik kina? Core earth potential ma huncha. LV lai core sanga kam insulation chahincha, ra HV bahira bhaye insulate garna ra tap linu easy huncha.',
+      voice: 'एल भी वाइन्डिङ कोरको नजिक किन? कोर अर्थ पोटेन्सियलमा हुन्छ। एल भीलाई कोरसँग कम इन्सुलेसन चाहिन्छ, र एच भी बाहिर भए इन्सुलेट गर्न र ट्याप लिन इजी हुन्छ।',
+      lines: [br('Why is LV placed next to the core?', <Pts items={[<>The core is at earth potential</>, <>LV needs less insulation from the core</>, <>HV outside: easier to insulate and to tap</>]} />)],
+    },
+    {
+      say: 'Large transformer ko core ra winding oil bhariyeko tank ma huncha. Oil le cooling ra insulation dincha. Conservator le oil expansion ko space dincha, breather le moisture absorb garcha, ra bushings bata leads bahira niklanchan.',
+      voice: 'लार्ज ट्रान्सफर्मरको कोर र वाइन्डिङ आयल भरिएको ट्याङ्कमा हुन्छ। आयलले कुलिङ र इन्सुलेसन दिन्छ। कन्जर्भेटरले आयल एक्सपान्सनको स्पेस दिन्छ, ब्रिदरले मोइस्चर एब्जर्ब गर्छ, र बुसिङ्सबाट लिड्स बाहिर निक्लन्छन्।',
+      lines: [['step', <><H>Accessories</H><Pts items={[<>Tank + transformer oil: cooling and insulation</>, <>Conservator: room for oil expansion</>, <>Breather (silica gel): absorbs moisture</>, <>Bushings: bring the leads out; Buchholz relay: internal-fault alarm</>]} /></>]],
+    },
+    {
+      say: 'Recent trends: CRGO steel ra amorphous metal ko core le core loss dherai kam garcha. Cast-resin dry-type transformer ma oil chaina, tesaile building bhitra safe. Online monitoring le temperature ra oil ko health track garcha.',
+      voice: 'रिसेन्ट ट्रेन्ड्स — सी आर जी ओ स्टिल र एमोर्फस मेटलको कोरले कोर लस धेरै कम गर्छ। कास्ट रेजिन ड्राई टाइप ट्रान्सफर्मरमा आयल छैन, त्यसैले बिल्डिङभित्र सेफ। अनलाइन मनिटरिङले टेम्परेचर र आयलको हेल्थ ट्र्याक गर्छ।',
+      lines: [['step', <><H>Recent trends</H><Pts items={[<>CRGO (cold-rolled grain-oriented) and amorphous cores: very low core loss</>, <>Cast-resin dry type: no oil, safe indoors</>, <>Online monitoring of temperature and oil</>]} /></>]],
+      ask: {
+        q: 'Amorphous metal ko core use garda kun loss kam huncha?',
+        voice: 'एमोर्फस मेटलको कोर युज गर्दा कुन लस कम हुन्छ?',
+        options: ['Core (iron) loss', 'Copper loss', 'Friction loss'],
+        answer: 0,
+        why: 'Amorphous metal ko hysteresis ra eddy loss dherai low huncha, tesaile core loss ghatcha; copper loss winding ko resistance ma bhar parcha.',
+      },
+    },
+    {
+      say: 'Recap: core type ma winding dubai limb ma, shell type ma centre limb ma. Core laminated silicon steel, LV bhitra HV bahira, tank-oil-conservator-breather-bushings, ra trends CRGO, amorphous, dry type.',
+      voice: 'रिक्याप — कोर टाइपमा वाइन्डिङ दुवै लिम्बमा, सेल टाइपमा सेन्टर लिम्बमा। कोर ल्यामिनेटेड सिलिकन स्टिल, एल भी भित्र एच भी बाहिर, ट्याङ्क, आयल, कन्जर्भेटर, ब्रिदर, बुसिङ्स, र ट्रेन्ड्स — सी आर जी ओ, एमोर्फस, ड्राई टाइप।',
+      lines: [['idea', <>Recap: core type (both limbs) · shell type (centre limb) · laminated silicon-steel core · LV inside, HV outside · tank, oil, conservator, breather, bushings · trends: CRGO, amorphous, dry type</>]],
     },
   ],
   lecturer: [
     {
-      say: 'Smaran: transformer mutual induction ma chalne static machine ho.',
-      voice: 'स्मरण — ट्रान्सफर्मर म्युचुअल इन्डक्सनमा चल्ने स्टाटिक मेसिन हो।',
-      lines: [['h', <>Construction of a single-phase transformer (Fig. 2.6)</>], rem(<>Static; mutual induction</>)],
+      say: 'Smaran garau: transformer static machine ho, jasma rotating part hudaina. Yo mutual induction ko principle ma chalcha, ra yasko main parts core ra windings hun.',
+      voice: 'स्मरण गरौं — ट्रान्सफर्मर स्टाटिक मेसिन हो, जसमा रोटेटिङ पार्ट हुँदैन। यो म्युचुअल इन्डक्सनको प्रिन्सिपलमा चल्छ, र यसको मेन पार्ट्स कोर र वाइन्डिङ्स हुन्।',
+      lines: [['h', <>Construction of a single-phase transformer (Fig. 2.6)</>], rem(<>Static machine; works by mutual induction</>, <>Main parts: magnetic core and windings</>)],
     },
     {
-      say: 'Core type: winding le core ko thulo bhag gherchha; dui limb.',
-      voice: 'कोर टाइप — वाइन्डिङले कोरको ठूलो भाग घेर्छ, दुई लिम्ब।',
-      lines: [['step', <>(i) Core type: two limbs, windings on both.</>]],
+      say: 'Core type transformer ma core ko dui limb hunchan ra winding dubai limb ma rakhincha; windings le core ko thulo bhag surround garchan.',
+      voice: 'कोर टाइप ट्रान्सफर्मरमा कोरको दुई लिम्ब हुन्छन्, र वाइन्डिङ दुवै लिम्बमा राखिन्छ। वाइन्डिङ्सले कोरको ठूलो भाग सराउन्ड गर्छन्।',
+      lines: [['step', <>(i) <b>Core type:</b> two limbs; the windings are placed on both limbs and surround the core.</>, undefined, { carry: <>(i) Core type: windings on both limbs</> }]],
     },
     {
-      say: 'Shell type: core le winding lai gherchha; tin limb.',
-      voice: 'सेल टाइप — कोरले वाइन्डिङलाई घेर्छ, तीन लिम्ब।',
-      lines: [['step', <>(ii) Shell type: three limbs, windings on the centre limb.</>]],
+      say: 'Shell type transformer ma tin limb hunchan, dubai winding centre limb ma rakhincha, ra core le windings lai surround garcha; flux dui parallel path ma split huncha.',
+      voice: 'सेल टाइप ट्रान्सफर्मरमा तीन लिम्ब हुन्छन्, दुवै वाइन्डिङ सेन्टर लिम्बमा राखिन्छ, र कोरले वाइन्डिङ्सलाई सराउन्ड गर्छ। फ्लक्स दुई प्यारालल पाथमा स्प्लिट हुन्छ।',
+      lines: [['step', <>(ii) <b>Shell type:</b> three limbs; both windings on the centre limb, surrounded by the core; the flux divides into two parallel paths.</>, undefined, { carry: <>(ii) Shell type: windings on the centre limb</> }]],
     },
     {
-      say: 'Core 0.35 dekhi 0.5 mm ka laminated silicon steel ko huncha, eddy loss ghatauna.',
-      voice: 'कोर जिरो पोइन्ट थ्री फाइभ देखि जिरो पोइन्ट फाइभ मिलिमिटरका ल्यामिनेटेड सिलिकन स्टिलको हुन्छ, एडी लस घटाउन।',
-      lines: [br('Laminations', <Pts items={[<>0.35–0.5 mm silicon-steel sheets, varnished</>, <>Reduce eddy-current loss</>]} />)],
-    },
-    {
-      say: 'Accessories ra recent trends: conservator, breather, bushing; CRGO, amorphous core ra dry-type transformer.',
-      voice: 'एक्सेसरिज र रिसेन्ट ट्रेन्ड्स — कन्जर्भेटर, ब्रिदर, बुसिङ। सी आर जी ओ, एमोर्फस कोर, र ड्राई टाइप ट्रान्सफर्मर।',
-      lines: [['step', <Pts items={[<>Accessories: conservator, breather, bushings, tank and oil</>, <>Trends: CRGO, amorphous cores, dry-type, monitoring</>]} />]],
+      say: 'Core 0.35 dekhi 0.5 mm ka silicon-steel laminations, varnish le insulated, bata banaincha. Lamination le eddy current loss ghataucha, ra silicon steel le hysteresis loss.',
+      voice: 'कोर जिरो पोइन्ट थ्री फाइभ देखि जिरो पोइन्ट फाइभ मिलिमिटरका सिलिकन स्टिल ल्यामिनेसन्स, भार्निसले इन्सुलेटेड, बाट बनाइन्छ। ल्यामिनेसनले एडी करेन्ट लस घटाउँछ, र सिलिकन स्टिलले हिस्टेरेसिस लस।',
+      lines: [br('Laminations', <Pts items={[<>0.35–0.5 mm silicon-steel sheets, varnished</>, <>Eddy-current loss ∝ (thickness)²: reduced</>, <>Silicon content: reduced hysteresis loss</>]} />)],
       ask: {
-        q: 'Transformer core laminated kina garincha?',
-        voice: 'ट्रान्सफर्मर कोर ल्यामिनेटेड किन गरिन्छ?',
-        options: ['Eddy current loss ghatauna', 'Weight badhauna', 'Flux zero garna'],
+        q: 'Transformer core ma lamination ko main purpose k ho?',
+        voice: 'ट्रान्सफर्मर कोरमा ल्यामिनेसनको मेन पर्पोज के हो?',
+        options: ['Eddy current loss reduce garnu', 'Copper loss reduce garnu', 'Leakage flux badhaunu'],
         answer: 0,
-        why: 'Lamination le eddy current ko bato kaatcha.',
+        why: 'Insulated thin sheets le eddy current ko path ko resistance badhauchan; eddy loss thickness ko square sanga ghatcha.',
       },
+    },
+    {
+      page: true,
+      say: 'Windings insulated copper conductors ka hunchan. LV winding core ko najik ra HV winding tyasko bahira concentric rupma rakhincha.',
+      voice: 'वाइन्डिङ्स इन्सुलेटेड कपर कन्डक्टर्सका हुन्छन्। एल भी वाइन्डिङ कोरको नजिक, र एच भी वाइन्डिङ त्यसको बाहिर कन्सेन्ट्रिक रूपमा राखिन्छ।',
+      lines: [['step', <>(iii) <b>Windings:</b> insulated copper; LV next to the core, HV outside it (concentric arrangement).</>, undefined, { carry: <>(iii) LV inside, HV outside; laminated core</> }]],
+    },
+    {
+      say: 'Yesko karan: core earth potential ma huncha, tesaile core ra LV bich kam insulation chahincha, ra bahira ko HV winding insulate garna ra tapping dina sajilo huncha.',
+      voice: 'यसको कारण — कोर अर्थ पोटेन्सियलमा हुन्छ, त्यसैले कोर र एल भी बीच कम इन्सुलेसन चाहिन्छ, र बाहिरको एच भी वाइन्डिङ इन्सुलेट गर्न र ट्यापिङ दिन सजिलो हुन्छ।',
+      lines: [br('Reason for LV next to the core', <Pts items={[<>Core at earth potential</>, <>Less insulation between core and LV</>, <>HV outside: easier insulation and tappings</>]} />)],
+    },
+    {
+      say: 'Accessories: transformer oil sahit ko tank cooling ra insulation ko lagi, conservator oil expansion ko lagi, silica-gel breather moisture absorb garna, bushings leads bahira lyauna, ra Buchholz relay internal fault ko lagi.',
+      voice: 'एक्सेसरिज — ट्रान्सफर्मर आयलसहितको ट्याङ्क कुलिङ र इन्सुलेसनको लागि, कन्जर्भेटर आयल एक्सपान्सनको लागि, सिलिका जेल ब्रिदर मोइस्चर एब्जर्ब गर्न, बुसिङ्स लिड्स बाहिर ल्याउन, र बुकहोल्ज रिले इन्टरनल फल्टको लागि।',
+      lines: [['step', <>(iv) <b>Accessories:</b><Pts items={[<>Tank with transformer oil: cooling, insulation</>, <>Conservator: oil expansion · breather: moisture</>, <>Bushings: leads out · Buchholz relay: fault alarm</>]} /></>]],
+    },
+    {
+      say: 'Recent trends: CRGO ra amorphous core le core loss ghatauchan; cast-resin dry-type transformer oil-free hunchan; ra online condition monitoring prayog huncha.',
+      voice: 'रिसेन्ट ट्रेन्ड्स — सी आर जी ओ र एमोर्फस कोरले कोर लस घटाउँछन्। कास्ट रेजिन ड्राई टाइप ट्रान्सफर्मर आयल फ्री हुन्छन्, र अनलाइन कन्डिसन मनिटरिङ प्रयोग हुन्छ।',
+      lines: [['step', <>(v) <b>Recent trends:</b><Pts items={[<>CRGO (cold-rolled grain-oriented) and amorphous cores: low core loss</>, <>Cast-resin dry-type units: oil-free, indoor use</>, <>Online condition monitoring</>]} /></>]],
+      ask: {
+        q: 'Dry-type (cast-resin) transformer ko main advantage k ho?',
+        voice: 'ड्राई टाइप, कास्ट रेजिन ट्रान्सफर्मरको मेन एडभान्टेज के हो?',
+        options: ['Oil chaina, building bhitra safe', 'Copper loss zero', 'Core chahidaina'],
+        answer: 0,
+        why: 'Cast-resin unit ma oil hudaina, tesaile fire risk kam ra indoor installation sajilo.',
+      },
+    },
+    {
+      say: 'Saransha: core type ra shell type, laminated silicon-steel core, LV bhitra HV bahira, accessories, ra CRGO, amorphous, dry-type jasta recent trends.',
+      voice: 'सारांश — कोर टाइप र सेल टाइप, ल्यामिनेटेड सिलिकन स्टिल कोर, एल भी भित्र एच भी बाहिर, एक्सेसरिज, र सी आर जी ओ, एमोर्फस, ड्राई टाइप जस्ता रिसेन्ट ट्रेन्ड्स।',
+      lines: [['idea', <>Summary: core and shell types · laminated core · LV inside, HV outside · tank, oil, conservator, breather, bushings, Buchholz · trends: CRGO, amorphous, dry type</>]],
     },
   ],
 });
@@ -2953,7 +3142,8 @@ export const consAnswer21 = answer('Model answer: constructional details of a tr
 
 /* ── 2.3 Model answer: ideal transformer (2071 Magh) ───────────────── */
 export const idealAnswer23 = answer('Model answer: ideal transformer on no load and on load', {
-  draw: xfmrFigure,
+  // Both windings on the no-load point, the load on the load point (rule 74).
+  draw: figAt(xfmrFigure, { 0: 0, 1: 1, 2: 1, 3: 1, 4: 2 }),
   viewBox: '0 0 360 230',
   papers: ['2071 Magh'],
   marks: '',
@@ -2987,7 +3177,8 @@ export const idealAnswer23 = answer('Model answer: ideal transformer on no load 
 
 /* ── 2.5 Model answer: on load and no load with phasors (2068 Magh Q2a) */
 export const loadAnswer25 = answer('Model answer: transformer on no load and load, phasor diagrams', {
-  draw: noLoadFigure,
+  // No-load phasors on point (a), the load phasors on point (b) (rule 74).
+  draw: figAt(noLoadFigure, { 0: 0, 1: 1, 2: 1, 3: 1, 4: 2 }),
   viewBox: '0 0 360 230',
   papers: ['2068 Magh'],
   marks: '',
@@ -3021,7 +3212,8 @@ export const loadAnswer25 = answer('Model answer: transformer on no load and loa
 
 /* ── 2.8 Model answer: voltage regulation (2071 Chaitra) ────────────── */
 export const regAnswer28 = answer('Model answer: voltage regulation with an inductive load', {
-  draw: figAt(eqFigure, { 0: 1, 2: 1, 3: 2 }),
+  // The whole circuit (the shunt branch closes the top wire) and the referred values (rule 74).
+  draw: figAt(eqFigure, { 0: 1, 1: 1, 2: 1, 3: 2, 4: 2 }),
   viewBox: '0 0 360 230',
   papers: ['2071 Chaitra'],
   marks: '',
@@ -3055,7 +3247,8 @@ export const regAnswer28 = answer('Model answer: voltage regulation with an indu
 
 /* ── 2.13 Model answer: three-phase connections (2075 Baisakh Q2a) ── */
 export const threeAnswer213 = answer('Model answer: three-phase transformer connections and applications', {
-  draw: threePhaseFigure,
+  // Panels (a), (b) on part (a), (c), (d) on part (b): none left empty (rule 74).
+  draw: figAt(threePhaseFigure, { 0: 1, 1: 1, 2: 2, 3: 2 }),
   viewBox: '0 0 360 236',
   papers: ['2075 Baisakh'],
   marks: '',

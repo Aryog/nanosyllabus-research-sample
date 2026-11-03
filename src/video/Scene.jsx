@@ -712,8 +712,14 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
   // on a wide screen writes the left column first; when it overflows, the
   // right column starts; when the right column overflows, its lines move to
   // the left and the new step is written on the right. The reader always sees
-  // the step before beside the step now. Never for a figure or 3D video.
-  const roll = !!(wide && board && !draw && !three);
+  // the step before beside the step now.
+  // A figure video rolls the same way (user, 2026-11-03: "if things can be
+  // held below in segment two then why reload"): column 1 is the board beside
+  // the figure, column 2 is the room under the figure. Never for 3D (rule 66).
+  // `page: true` is only a hint there: the board wipes only when a column move
+  // still does not fit (skill rule 75); phones keep the planned page turns.
+  const under = !!(split && draw && !three);
+  const roll = !!(wide && board && !three && (!draw || under));
   // Whiteboard pages (user, 2026-10-30: "why things are becoming small and
   // small"): the board keeps a readable size. When the lines so far no longer
   // fit the frame at PAGE_K, the board is wiped as a teacher would: earlier
@@ -727,30 +733,44 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
     // Phones: no measured pages, but the planned page turns still apply.
     if (!wide) return void (page !== (planned[beat] ?? 0) && setPage(planned[beat] ?? 0));
     if (roll) {
+      const overNow = () => {
+        const stage = stageRef.current;
+        const el = camRef.current;
+        if (!stage || !el) return false;
+        const cap = stage.parentElement?.querySelector('.scene-caption')?.getBoundingClientRect();
+        const H = stage.clientHeight - (cap ? Math.max(0, stage.getBoundingClientRect().bottom - cap.top + 8) : 0);
+        return el.offsetHeight * PAGE_K > H;
+      };
       const known = pages.current[beat];
       if (known) {
-        if (known.L !== page) setPage(known.L);
-        if (known.R !== rollR) setRollR(known.R);
+        if (known.L !== page || known.R !== rollR) {
+          if (known.L !== page) setPage(known.L);
+          if (known.R !== rollR) setRollR(known.R);
+          return;
+        }
+        // A column move that still does not fit (one line taller than the
+        // room under the figure) turns the page after all.
+        if (known.check) {
+          known.check = false;
+          if (overNow() && known.R === beat) {
+            pages.current[beat] = { L: beat, R: null };
+            setPage(beat);
+            setRollR(null);
+          }
+        }
         return;
       }
       // The last measured beat before this one (a seek may skip beats).
       const before = Object.keys(pages.current).map(Number).filter((k) => k < beat).sort((x, y) => y - x)[0];
-      let st = before != null ? pages.current[before] : { L: 0, R: null };
+      let st = before != null ? { L: pages.current[before].L, R: pages.current[before].R } : { L: 0, R: null };
       if (st.L > beat || (st.R != null && st.R > beat)) st = { L: Math.min(st.L, beat), R: null };
-      if ((planned[beat] ?? 0) > st.L) st = { L: planned[beat], R: null };
       if (st.L !== page || st.R !== rollR) {
         setPage(st.L);
         setRollR(st.R);
         return;
       }
-      const stage = stageRef.current;
-      const el = camRef.current;
-      if (!stage || !el) return;
-      const cap = stage.parentElement?.querySelector('.scene-caption')?.getBoundingClientRect();
-      const H = stage.clientHeight - (cap ? Math.max(0, stage.getBoundingClientRect().bottom - cap.top + 8) : 0);
-      const over = el.offsetHeight * PAGE_K > H;
       const writes = board.some((b) => b.at === beat);
-      if (over && writes && beat > st.L && (st.R == null || beat > st.R)) st = st.R == null ? { L: st.L, R: beat } : { L: st.R, R: beat };
+      if (overNow() && writes && beat > st.L && (st.R == null || beat > st.R)) st = st.R == null ? { L: st.L, R: beat, check: true } : { L: st.R, R: beat, check: true };
       pages.current[beat] = st;
       if (st.L !== page) setPage(st.L);
       if (st.R !== rollR) setRollR(st.R);
@@ -776,13 +796,30 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
     if (p !== page) setPage(p);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [beat, page, rollR, wide]);
-  const cols = roll && rollR != null;
+  const cols = roll && !under && rollR != null;
+  // Figure video, column 2 started: the lines from rollR on are written under the figure.
+  const below = under && rollR != null;
   const shownAt = (b) => beat >= b.at && (b.until == null || beat <= b.until) && (b.at >= page || KEEP.has(b.kind));
   // A line that has left (its `until`, or an earlier page) but carries a
   // result stays as that short result, so later steps can use it.
   const carriedAt = (b) => b.carry && beat > b.at && !shownAt(b) && !ended;
   const qCard = board?.find((b) => b.kind === 'q');
   const branch = ended ? null : branches.find((b) => beat >= b.at && beat <= (b.until ?? b.at));
+  // One written board line, in whichever column it sits.
+  const boardLine = (b, i) => (
+    <div
+      key={i}
+      className={`board-line kind-${b.kind ?? 'text'} ${(b.kind === 'part' || b.kind === 'chain') && board.find((x) => x.kind === b.kind) === b ? 'first' : ''} ${shownAt(b) || carriedAt(b) ? 'on' : ''} ${carriedAt(b) ? 'carried' : ''} ${beat === b.at ? 'hl' : ''} ${board.indexOf(b) === penAt ? 'pen' : ''}`}
+      style={{ '--wd': `${writeSecs(b.node)}s` }}
+    >
+      <span className="ink" data-n={b.kind === 'part' ? board.filter((x) => x.kind === 'part').indexOf(b) + 1 : undefined}>
+        {carriedAt(b) ? (Array.isArray(b.carry) ? b.carry.map((c, k) => <span key={k} className="carry-row">{c}</span>) : b.carry) : b.node}
+        {/* Highlight only what matters (results, traps, what to find), never every line (rule 39). */}
+        {beat === b.at && MARKED.has(b.kind) && <Marker kind={b.kind} delay={writeSecs(b.node)} />}
+      </span>
+      {termNotes[board.indexOf(b)] && <TermNotes labels={termNotes[board.indexOf(b)]} />}
+    </div>
+  );
 
   // Camera, like an explainer video: zoom onto what this beat explains (the
   // board line being written, and the parts of the drawing it reveals or
@@ -1410,7 +1447,7 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
             toggleRef.current();
           }}
         >
-          <div className={`scene-cam ${split ? 'split' : ''} ${split && notes ? 'notes' : ''} ${branch ? 'branching' : ''} ${qCard ? 'has-q' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
+          <div className={`scene-cam ${split ? 'split' : ''} ${split && notes ? 'notes' : ''} ${branch ? 'branching' : ''} ${qCard ? 'has-q' : ''} ${below ? 'under' : ''}`} ref={camRef} style={{ transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})` }}>
             {three && (
               <Suspense fallback={<div className="stage3d" />}>
                 <Stage3D build={three} beat={beat} clock={within} />
@@ -1446,24 +1483,17 @@ function SceneCore({ beats, draw, board: rawBoard, viewBox = '0 0 360 220', chap
               // the CSS write animation never runs on it first (it did, and
               // the pen then rewrote it from the start: a double write).
               <div className={`board ${draw ? '' : 'board-only'} ${cols ? 'board-cols' : ''}`} data-pen={penAt}>
-                {(cols ? [board.filter((x) => x.kind === 'h'), board.filter((x) => x.kind !== 'h' && x.at < rollR), board.filter((x) => x.kind !== 'h' && x.at >= rollR)] : [board]).map((part, c) => (
+                {(cols ? [board.filter((x) => x.kind === 'h'), board.filter((x) => x.kind !== 'h' && x.at < rollR), board.filter((x) => x.kind !== 'h' && x.at >= rollR)] : [below ? board.filter((x) => x.kind === 'h' || x.at < rollR) : board]).map((part, c) => (
                   <div key={c} className={cols ? (c ? 'board-col' : 'board-head') : 'board-flow'}>
-                    {part.filter((b) => b.kind !== 'q').map((b, i) => (
-                      <div
-                        key={i}
-                        className={`board-line kind-${b.kind ?? 'text'} ${(b.kind === 'part' || b.kind === 'chain') && board.find((x) => x.kind === b.kind) === b ? 'first' : ''} ${shownAt(b) || carriedAt(b) ? 'on' : ''} ${carriedAt(b) ? 'carried' : ''} ${beat === b.at ? 'hl' : ''} ${board.indexOf(b) === penAt ? 'pen' : ''}`}
-                        style={{ '--wd': `${writeSecs(b.node)}s` }}
-                      >
-                        <span className="ink" data-n={b.kind === 'part' ? board.filter((x) => x.kind === 'part').indexOf(b) + 1 : undefined}>
-                          {carriedAt(b) ? (Array.isArray(b.carry) ? b.carry.map((c, k) => <span key={k} className="carry-row">{c}</span>) : b.carry) : b.node}
-                          {/* Highlight only what matters (results, traps, what to find), never every line (rule 39). */}
-                          {beat === b.at && MARKED.has(b.kind) && <Marker kind={b.kind} delay={writeSecs(b.node)} />}
-                        </span>
-                        {termNotes[board.indexOf(b)] && <TermNotes labels={termNotes[board.indexOf(b)]} />}
-                      </div>
-                    ))}
+                    {part.filter((b) => b.kind !== 'q').map(boardLine)}
                   </div>
                 ))}
+              </div>
+            )}
+            {below && (
+              // Column 2 of a figure video: the room under the figure.
+              <div className="board board-under">
+                <div className="board-flow">{board.filter((x) => x.kind !== 'h' && x.kind !== 'q' && x.at >= rollR).map(boardLine)}</div>
               </div>
             )}
             {focus && <div className="focus-ring" style={{ left: focus.x, top: focus.y, width: focus.w, height: focus.h }} />}

@@ -111,6 +111,22 @@ export default function App() {
   // `pos` is the screen last shown; `max` the furthest reached, so going back to
   // an earlier topic never loses the place to continue from.
   const saveSpot = (pos) => setRec((r) => (r.pos === pos ? r : { ...r, pos, max: Math.max(r.max ?? r.pos, pos) }));
+  // First-try answers to the questions inside the videos, per topic: the
+  // weak topics are the ones answered below 70%, so revision goes there first.
+  const recordQuiz = (pos, right) => {
+    const t = plans[slug].topicNodes.find((x) => pos >= x.start && pos <= x.end);
+    if (!t) return;
+    setProgress((p) => {
+      const u = p.quiz?.[slug] ?? {};
+      const q = u[t.num] ?? { r: 0, n: 0 };
+      return { ...p, quiz: { ...p.quiz, [slug]: { ...u, [t.num]: { r: q.r + (right ? 1 : 0), n: q.n + 1 } } } };
+    });
+  };
+  const weakOf = (s) =>
+    plans[s].topicNodes
+      .map((t) => ({ t, q: progress.quiz?.[s]?.[t.num] }))
+      .filter(({ q }) => q?.n && q.r / q.n < 0.7)
+      .sort((a, b) => a.q.r / a.q.n - b.q.r / b.q.n);
   const statusOf = (s) => {
     const r = rec(progress, s);
     const { journey, path } = plans[s];
@@ -134,6 +150,7 @@ export default function App() {
         addXp={addXp}
         onComplete={complete}
         onProgress={saveSpot}
+        onQuiz={recordQuiz}
         onTopicEnd={(at) => {
           saveSpot(at);
           navigate(UNIT, { state: { hop: at } });
@@ -167,13 +184,14 @@ export default function App() {
             {syllabus.units.map((u) => {
               const live = units.find((x) => x.num === u.num && x.topics.length);
               const st = live && statusOf(live.slug);
+              const weak = live ? weakOf(live.slug).length : 0;
               return (
               <li key={u.num}>
                 {live ? (
                   <button className="syl-unit live" onClick={() => setView('unit', live.slug)}>
                     <span className="syl-icon">{u.icon}</span>
                     <span className="syl-body">
-                      <span className="syl-kicker">Unit {u.num} · {live.topics.length} topics</span>
+                      <span className="syl-kicker">Unit {u.num} · {live.topics.length} topics{weak ? <em className="syl-weak"> · {weak} weak</em> : null}</span>
                       <b>{u.title}</b>
                       <span className="syl-bar"><span style={{ width: `${Math.max(st.pct, 3)}%` }} /></span>
                     </span>
@@ -216,6 +234,27 @@ export default function App() {
           </div>
           <span className="unit-pct">{pct}%</span>
         </div>
+        {(() => {
+          const weak = weakOf(slug);
+          if (!weak.length) return null;
+          return (
+            <section className="unit-weak" aria-label="Weak topics">
+              <div className="unit-weak-head">
+                <b>Weak topics</b>
+                <span>Video ko question ma first try mai miss bhako. Exam aghi yini revise gara.</span>
+              </div>
+              <div className="unit-weak-list">
+                {weak.map(({ t, q }) => (
+                  <button key={t.num} onClick={() => open(t.start)}>
+                    <b>{t.num}</b>
+                    <span>{t.title}</span>
+                    <em>{q.r}/{q.n} first try</em>
+                  </button>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
         {topicNodes.map((t, k) => (
           <section key={t.num} className="unit-topic">
             <div className="unit-topic-head">
@@ -226,8 +265,10 @@ export default function App() {
                 const st = nodeState(t.start, t.end);
                 const off = [-1, 0, 1][k % 3] * 70;
                 const seg = t.segs.find((g) => furthest <= g.end) ?? t.segs.at(-1);
+                const q = progress.quiz?.[slug]?.[t.num];
+                const weak = q?.n && q.r / q.n < 0.7;
                 return (
-                  <div className={`unit-node ${st}`} data-start={t.start} data-end={t.end} style={{ transform: `translateX(${off}px)` }}>
+                  <div className={`unit-node ${st}${weak ? ' weak' : ''}`} data-start={t.start} data-end={t.end} style={{ transform: `translateX(${off}px)` }}>
                     {st === 'now' && <span className="unit-tip">{furthest > t.start ? 'Continue' : 'Start'}</span>}
                     <button disabled={st === 'locked'} onClick={() => open(st === 'now' ? furthest : t.start)} aria-label={`${t.num} ${t.title}`}>
                       {st === 'done' ? '✓' : st === 'locked' ? '🔒' : t.num}
@@ -238,7 +279,7 @@ export default function App() {
                         <i key={g.start} className={nodeState(g.start, g.end)} title={g.label} />
                       ))}
                     </span>
-                    <span className="unit-label">{st === 'now' ? seg.label : `${t.segs.length} parts`}</span>
+                    <span className="unit-label">{st === 'now' ? seg.label : weak ? `Weak · ${q.r}/${q.n}` : `${t.segs.length} parts`}</span>
                     {st === 'now' && <Mascot pose="talk" size={78} />}
                   </div>
                 );

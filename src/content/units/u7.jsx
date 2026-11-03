@@ -15,6 +15,22 @@ import { motorTour } from '../unit4/basics3d.js';
     7.7 Special Purpose Machines: Stepper, Schrage and Servo motor
   Segment 1 walks machines/models3d.js smallTour (single-phase and stepper);
   7.6 uses the DC machine of Unit 4 (unit4/basics3d.js) with `ac: true`.
+
+  Content pass 2026-11-03 (4.1 technique, engineer Gen-Z Nepali): every
+  Syllabus Content duo opens with a Remember card, writes "why" lines into
+  the notes (br), names symbols in Let lines, carries results across page
+  turns and ends on a recap line. Source: vault/…/Notes, KBT Insights on EM,
+  Fractional Kilowatt Motors pp. 289–329 (OCR; figures not readable).
+  Recomputed with python (2026-11-03):
+    DFR table: cos 0/30/60/90/120/180° = 1, 0.866, 0.5, 0, −0.5, −1 (× Φm)
+    Slip: Ns = 1000 rpm, s = 0.05 → N = 950 rpm, sb = (1000 + 950)/1000 = 1.95
+    Split phase [2070 data]: Zm = 3 + j3 Ω → φm = 45°; Zs = 7.5 + j3 Ω →
+      φs = 21.80°; α = 23.20°, sin α = 0.394
+    Capacitor for α = 90° [2070]: Is must lead V by 45°;
+      tan 45° = (Xc − 3)/7.5 → Xc = 10.5 Ω; C = 1/(2π·50·10.5) = 303.2 μF
+    Stepper: 360/(4 × 50) = 1.8°; 360/1.8 = 200 steps; 400 pulses/s →
+      400 × 1.8/360 = 2 rev/s = 120 rpm; Fig. 7.4 (m = 2, Nr = 2) → 90°
+    Universal: sin²ωt = (1 − cos 2ωt)/2 → average Im²/2, ripple at 2f (100 Hz)
 */
 
 const tex = (s) => <K>{s}</K>;
@@ -98,6 +114,46 @@ export const splitFigure = (s) => (
     </g>
     <g className={s.on(4) + s.hl(4)}>
       <T x={280} y={34} size={11} i>T ∝ Im Is sin α</T>
+    </g>
+  </>
+);
+
+// Fig. 7.6: 0 main winding · 1 auxiliary (high R) + centrifugal switch ·
+// 2 V and Im lagging by φm · 3 Is lagging by the smaller φs, angle α · 4 T ∝ Im Is sin α
+export const splitPhFigure = (s) => (
+  <>
+    <g className={s.on(0)}>
+      <W d="M20 50 H160 M20 170 H160" />
+      <W d="M60 50 V80 M60 140 V170" />
+      <path d="M60 80 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12" fill="none" stroke={C.chalk} strokeWidth={1.3} />
+      <T x={50} y={114} a="end" i size={10}>main</T>
+      <T x={14} y={114} a="end" i>V</T>
+      <Cap x={180} y={214}>Fig. 7.6  Split-phase motor: circuit and phasors</Cap>
+    </g>
+    <g className={s.on(1) + s.hl(1)}>
+      <W d="M130 50 V66 M130 154 V170" />
+      <W d="M130 66 L140 74" w={1.3} />
+      <circle cx={130} cy={66} r={2} fill={C.chalk} />
+      <T x={146} y={72} a="start" size={9}>S</T>
+      <path d="M130 80 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12 a6 6 0 0 1 0 12" fill="none" stroke={C.chalk} strokeWidth={1.1} />
+      <W d="M130 116 V154" />
+      <T x={140} y={104} a="start" i size={10}>aux</T>
+    </g>
+    <g className={s.on(2) + s.hl(2)}>
+      <W d="M210 110 H340" w={1.4} />
+      {head(340, 110, 'right')}
+      <T x={344} y={114} a="start" i size={10}>V</T>
+      <W d="M210 110 L276 176" w={1.3} />
+      <T x={282} y={188} a="start" i size={10}>Im</T>
+    </g>
+    <g className={s.on(3) + s.hl(3)}>
+      <W d="M210 110 L293 143" w={1.3} />
+      <T x={298} y={150} a="start" i size={10}>Is</T>
+      <path d="M250 126 A40 40 0 0 1 238 138" fill="none" stroke={C.chalk} strokeWidth={0.9} />
+      <T x={256} y={150} a="start" i size={10}>α</T>
+    </g>
+    <g className={s.on(4) + s.hl(4)}>
+      <T x={280} y={44} size={11} i>T ∝ Im Is sin α</T>
     </g>
   </>
 );
