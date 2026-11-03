@@ -46,7 +46,7 @@ Keep about 90% of screens as videos, and put questions inside videos as `ask` be
 
 ## House rules: language and tone
 
-1. Everything is in Gen-Z Nepali: roman Nepali on screen (`say`, board, questions), Devanagari in `voice` for TTS. Technical terms, numbers, formulas and real IOE question text stay in English.
+1. Everything is in **engineer Gen-Z Nepali** (user, 2026-11-03: "don't be pure nepali, be technical engineer genz nepali"): roman Nepali on screen (`say`, board, questions), Devanagari in `voice` for TTS. Nepali carries only the grammar and glue (ma, ko, le, huncha, garcha, bhane); every technical noun and verb stays the English an engineering student uses: iron core (not falam), air gap (not hawa ko gap), turns (not pheri/phera), MMF or push (not dhakka), reluctance or oppose (not rokawat/rok), current/electricity (not bijuli), copper wire, path, flux, circulate, drop. In `voice` those words are transliterated (आइरन कोर, एयर ग्याप, टर्न्स, रिलक्टेन्स). Numbers, formulas and real IOE question text stay in English. Segment 1 keeps its kid-level intuition (rule 7) in this same register. Lint warns on the pure-Nepali words.
 2. Fun but not jokey: one everyday analogy per idea, and at most one emoji per board.
 
 ## House rules: structure

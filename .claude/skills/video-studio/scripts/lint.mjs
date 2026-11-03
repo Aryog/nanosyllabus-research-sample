@@ -120,6 +120,15 @@ for (const v of videos) {
   // Rule 69: a 3D label is at most three words (user: "the texts are like lots").
   for (const l of (v.step.figureProps?.three?.plan ?? [])) for (const [txt] of l.labels ?? []) if (String(txt).split(/\s+/).length > 3) report('error', v, 0, `3D label "${txt}" is longer than three words (rule 69)`);
 
+  // Rule 1: engineer Gen-Z Nepali: technical nouns in English, not pure Nepali.
+  const PURE = /\b(falam|hawa|phera|dhakka|rokawat|bijuli|tama ko tar|tar ko coil|chumbak)\b/i;
+  v.beats.forEach((b, k) => {
+    for (const t of [b.say, b.ask?.q, ...(b.ask?.options ?? [])]) {
+      const m = typeof t === 'string' && t.match(PURE);
+      if (m) report('warn', v, k, `pure-Nepali "${m[1]}" for a technical term; say iron/core, air, turns, MMF/push, reluctance, current, copper wire, magnet (rule 1)`);
+    }
+  });
+
   // Rule 42: no connector more than twice per video.
   const counts = {};
   for (const b of v.beats) for (const m of (b.say ?? '').toLowerCase().matchAll(/\b(tesaile|yasari|yesko matlab|phalswarup|yahi karan)\b/g)) counts[m[1]] = (counts[m[1]] ?? 0) + 1;

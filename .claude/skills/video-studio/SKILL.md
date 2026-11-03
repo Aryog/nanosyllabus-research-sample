@@ -94,7 +94,7 @@ Registry and voice settings: `src/content/pov.js`. Write a Terms or Derivation v
 
 ## Non-negotiables (break none, ever)
 
-1. **Gen-Z Nepali.** Roman Nepali on screen (`say`, board, questions), Devanagari in `voice`. Technical terms, numbers, formulas and real IOE question text stay in English (rule 1).
+1. **Engineer Gen-Z Nepali.** Nepali grammar, English technical terms (iron core, air gap, turns, reluctance; never falam, hawa, pheri, dhakka). Roman Nepali on screen (`say`, board, questions), Devanagari in `voice`. Technical terms, numbers, formulas and real IOE question text stay in English (rule 1).
 2. **Credits are the user's.** Never record without a character estimate and the user's yes. **Only 4.1 is voiced** (user, 2026-11-01: "only 4.1 will have audio, other will not"); every other topic stays caption-only (rule 38). The dev server never records unless `TTS_LIVE=1` is set (rules 25–26).
 3. **One long take per segment and teller** (Terms and Derivation for the Tutor and the Lecturer, Big picture for the Lecturer), never per video or line by line (rule 27).
 4. **One clock.** All motion runs on the scene clock, never on wall time (M1).
@@ -228,3 +228,4 @@ Every time the user corrects, prefers or praises something:
 - 2026-11-02: carried results as a list, one per line (6 carries converted; Scene renders `.carry-row`).
 - 2026-11-02: all open 3D wires are 90° cabling by default (magnet, transformer, lamp leads rerouted terminal → coil end); 65 long 3D labels cut to ≤ 3 words with lint rule 69; 1.3 Basic Understanding moved to 3D on a new three-limb core (`core3`, shot `shell`); 1.3 Model Answer replaced by a fully solved parallel-circuit numerical from the vault notes (MMF = 77.09 AT); rules 69–71.
 - 2026-11-02: decisive current notation (rule 72): 86 caption and voice lines now name I_a, I_L, I_st, I_sh, I_f, I_2, I_0, I_μ; single-phase auxiliary current renamed I_s (40 uses) so I_a always means armature current; sym.jsx knows I_s, I_μ, I₁, I₂. Rolling two-column board for board-only videos (rule 73).
+- 2026-11-03: Rule 1 replaced (user: "don't be pure nepali be technical engineer genz nepali"): Nepali is only the grammar glue, technical nouns and verbs stay English (iron core, air gap, turns, MMF, reluctance, path). 1.1 Basic Understanding Tutor rescripted and its 3D labels renamed; lint warns on falam/hawa/phera/dhakka/rokawat/bijuli/chumbak (135 warnings left course-wide).
